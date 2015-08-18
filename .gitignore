@@ -58,3 +58,6 @@ target/
 
 #deploy
 /static/
+
+#pycharm
+/.idea/
