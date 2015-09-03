@@ -7,6 +7,9 @@ class Person(models.Model):
     user = models.OneToOneField(User, db_column='id', primary_key=True)
     gender = models.PositiveSmallIntegerField(default=0)
 
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
 
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
@@ -15,12 +18,18 @@ class Image(models.Model):
     width = models.PositiveSmallIntegerField()
     height = models.PositiveSmallIntegerField()
 
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
 
 class Music(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
     url = models.URLField(max_length=2047)
     format = models.CharField(max_length=31)
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
 
 
 class Video(models.Model):
@@ -29,12 +38,18 @@ class Video(models.Model):
     url = models.URLField(max_length=2047)
     format = models.CharField(max_length=31)
 
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
 
 class Category(models.Model):
     id = models.AutoField(primary_key=True)
     parent = models.ForeignKey('Category')
     name = models.CharField(max_length=63)
     desc = models.CharField(max_length=127)
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
 
 
 class Poster(models.Model):
@@ -57,6 +72,9 @@ class Poster(models.Model):
 
     objects = InheritanceManager()
 
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
 
 class PosterImage(models.Model):
     id = models.AutoField(primary_key=True)
@@ -65,6 +83,9 @@ class PosterImage(models.Model):
 
     class Meta:
         unique_together = ('poster', 'image')
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
 
 
 class PosterVideo(models.Model):
@@ -75,6 +96,9 @@ class PosterVideo(models.Model):
     class Meta:
         unique_together = ('poster', 'video')
 
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
 
 class PosterLike(models.Model):
     id = models.AutoField(primary_key=True)
@@ -83,6 +107,9 @@ class PosterLike(models.Model):
 
     class Meta:
         unique_together = ('poster', 'person')
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
 
 
 class Comment(models.Model):
@@ -93,6 +120,11 @@ class Comment(models.Model):
     title = models.CharField(max_length=127)
     desc = models.CharField(max_length=255)
 
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
 
 class Invite(Poster):
-    pass
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
