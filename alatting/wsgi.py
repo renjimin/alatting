@@ -1,4 +1,4 @@
-#!/home/ubuntu/web/venv/ python3
+#!/home/ubuntu/web/venv/bin/python
 """
 WSGI config for web project.
 

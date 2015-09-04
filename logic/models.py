@@ -23,7 +23,7 @@ class Person(models.Model):
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
-    file = models.ImageField(upload_to=file.get_image_path)  # TODO: update the upload_to function
+    file = models.FileField(upload_to=file.get_image_path)  # TODO: update the upload_to function
     #width = models.PositiveSmallIntegerField()
     #height = models.PositiveSmallIntegerField()
 
