@@ -58,6 +58,7 @@ target/
 
 #deploy
 /static/
+/media/
 
 #pycharm
 /.idea/
