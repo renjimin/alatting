@@ -77,10 +77,13 @@ WSGI_APPLICATION = 'alatting.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        #'ENGINE': 'django.db.backends.sqlite3',
-        #'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if DEBUG:
+    DEFAULT_DB = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+else:
+    DEFAULT_DB = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'dev',
         'HOST':'alatting.cd5aq1se5ngs.us-west-2.rds.amazonaws.com',
@@ -88,6 +91,9 @@ DATABASES = {
         'USER': 'alatting',
         'PASSWORD': 'Alatting_2015',
     }
+
+DATABASES = {
+    'default': DEFAULT_DB
 }
 
 
