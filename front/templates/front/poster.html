@@ -3,16 +3,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Display a Poster</title>
-    {% if object.css %}
-    <link rel="stylesheet" href="{{ object.css }}">
+    <title>{{ object.title }}</title>
+    {% if object.css.url %}
+    <link rel="stylesheet" href="{{ object.css.url }}">
     {% endif %}
 </head>
 <body>
-<div class="poster-wrapper" style="padding: auto">
-    {{ object.html_content }}
-    {% if object.script %}
-    <script src="{{ object.script }}"></script>
+<div class="poster-wrapper">
+    {{ object.html_content | safe }}
+    {% if object.script.url %}
+    <script src="{{ object.script.url }}"></script>
     {% endif %}
 </div>
 </body>
