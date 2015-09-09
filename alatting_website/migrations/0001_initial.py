@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(serialize=False, primary_key=True)),
                 ('name', models.CharField(max_length=63)),
                 ('desc', models.CharField(max_length=127)),
-                ('parent', models.ForeignKey(to='logic.Category')),
+                ('parent', models.ForeignKey(to='alatting_website.Category')),
             ],
         ),
         migrations.CreateModel(
@@ -78,14 +78,14 @@ class Migration(migrations.Migration):
             name='PosterImage',
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True)),
-                ('image', models.ForeignKey(to='logic.Image')),
+                ('image', models.ForeignKey(to='alatting_website.Image')),
             ],
         ),
         migrations.CreateModel(
             name='PosterLike',
             fields=[
                 ('id', models.AutoField(serialize=False, primary_key=True)),
-                ('person', models.ForeignKey(to='logic.Person')),
+                ('person', models.ForeignKey(to='alatting_website.Person')),
             ],
         ),
         migrations.CreateModel(
@@ -106,54 +106,54 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Invite',
             fields=[
-                ('poster_ptr', models.OneToOneField(to='logic.Poster', parent_link=True, auto_created=True, primary_key=True, serialize=False)),
+                ('poster_ptr', models.OneToOneField(to='alatting_website.Poster', parent_link=True, auto_created=True, primary_key=True, serialize=False)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.AddField(
             model_name='postervideo',
             name='poster',
-            field=models.ForeignKey(to='logic.Poster'),
+            field=models.ForeignKey(to='alatting_website.Poster'),
         ),
         migrations.AddField(
             model_name='postervideo',
             name='video',
-            field=models.ForeignKey(to='logic.Video'),
+            field=models.ForeignKey(to='alatting_website.Video'),
         ),
         migrations.AddField(
             model_name='posterlike',
             name='poster',
-            field=models.ForeignKey(to='logic.Poster'),
+            field=models.ForeignKey(to='alatting_website.Poster'),
         ),
         migrations.AddField(
             model_name='posterimage',
             name='poster',
-            field=models.ForeignKey(to='logic.Poster'),
+            field=models.ForeignKey(to='alatting_website.Poster'),
         ),
         migrations.AddField(
             model_name='poster',
             name='category',
-            field=models.ForeignKey(to='logic.Category'),
+            field=models.ForeignKey(to='alatting_website.Category'),
         ),
         migrations.AddField(
             model_name='poster',
             name='creator',
-            field=models.ForeignKey(to='logic.Person'),
+            field=models.ForeignKey(to='alatting_website.Person'),
         ),
         migrations.AddField(
             model_name='poster',
             name='music',
-            field=models.ForeignKey(to='logic.Music'),
+            field=models.ForeignKey(to='alatting_website.Music'),
         ),
         migrations.AddField(
             model_name='comment',
             name='person',
-            field=models.ForeignKey(to='logic.Person'),
+            field=models.ForeignKey(to='alatting_website.Person'),
         ),
         migrations.AddField(
             model_name='comment',
             name='poster',
-            field=models.ForeignKey(to='logic.Poster'),
+            field=models.ForeignKey(to='alatting_website.Poster'),
         ),
         migrations.AlterUniqueTogether(
             name='postervideo',

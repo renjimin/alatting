@@ -17,12 +17,12 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-import front.urls
+''
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'', include(front.urls, namespace='front')),
+    url(r'', include('alatting_website.urls', namespace='website')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -7,51 +7,51 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logic', '0001_initial'),
+        ('alatting_website', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
             name='Activity',
             fields=[
-                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='logic.Poster', serialize=False, parent_link=True)),
+                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='alatting_website.Poster', serialize=False, parent_link=True)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.CreateModel(
             name='Business',
             fields=[
-                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='logic.Poster', serialize=False, parent_link=True)),
+                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='alatting_website.Poster', serialize=False, parent_link=True)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.CreateModel(
             name='Expert',
             fields=[
-                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='logic.Poster', serialize=False, parent_link=True)),
+                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='alatting_website.Poster', serialize=False, parent_link=True)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='logic.Poster', serialize=False, parent_link=True)),
+                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='alatting_website.Poster', serialize=False, parent_link=True)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.CreateModel(
             name='Resume',
             fields=[
-                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='logic.Poster', serialize=False, parent_link=True)),
+                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='alatting_website.Poster', serialize=False, parent_link=True)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.CreateModel(
             name='Website',
             fields=[
-                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='logic.Poster', serialize=False, parent_link=True)),
+                ('poster_ptr', models.OneToOneField(auto_created=True, primary_key=True, to='alatting_website.Poster', serialize=False, parent_link=True)),
             ],
-            bases=('logic.poster',),
+            bases=('alatting_website.poster',),
         ),
         migrations.RenameField(
             model_name='poster',
@@ -76,7 +76,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='parent',
-            field=models.ForeignKey(to='logic.Category', null=True),
+            field=models.ForeignKey(to='alatting_website.Category', null=True),
         ),
         migrations.AlterField(
             model_name='person',
@@ -91,7 +91,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='poster',
             name='music',
-            field=models.ForeignKey(to='logic.Music', null=True),
+            field=models.ForeignKey(to='alatting_website.Music', null=True),
         ),
         migrations.AlterField(
             model_name='poster',

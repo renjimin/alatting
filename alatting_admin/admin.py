@@ -1,5 +1,5 @@
 from django.contrib import admin
-from logic.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, Comment, Invite
+from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, Comment, Invite
 
 
 @admin.register(Person)

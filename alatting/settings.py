@@ -38,8 +38,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'logic',
-    'front',
+    'alatting_website',
+    'alatting_admin',
 )
 
 MIDDLEWARE_CLASSES = (

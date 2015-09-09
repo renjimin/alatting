@@ -8,7 +8,7 @@ import utils.file
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logic', '0005_auto_20150904_2224'),
+        ('alatting_website', '0005_auto_20150904_2224'),
     ]
 
     operations = [

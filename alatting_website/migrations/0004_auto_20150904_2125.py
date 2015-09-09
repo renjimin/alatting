@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logic', '0003_auto_20150904_2118'),
+        ('alatting_website', '0003_auto_20150904_2118'),
     ]
 
     operations = [
