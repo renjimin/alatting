@@ -2,7 +2,7 @@ import codecs
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from logic.models import Poster
+from alatting_website.models import Poster
 from django.conf import settings
 
 

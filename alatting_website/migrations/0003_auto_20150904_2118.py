@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('logic', '0002_auto_20150904_1719'),
+        ('alatting_website', '0002_auto_20150904_1719'),
     ]
 
     operations = [
@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='parent',
-            field=models.ForeignKey(null=True, blank=True, to='logic.Category'),
+            field=models.ForeignKey(null=True, blank=True, to='alatting_website.Category'),
         ),
         migrations.AlterField(
             model_name='category',
@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='poster',
             name='music',
-            field=models.ForeignKey(null=True, blank=True, to='logic.Music'),
+            field=models.ForeignKey(null=True, blank=True, to='alatting_website.Music'),
         ),
         migrations.AlterField(
             model_name='poster',
