@@ -53,6 +53,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
 )
 
+if DEBUG:
+    MIDDLEWARE_CLASSES += ('utils.db.middleware.DatabaseMiddleware',)
+
 ROOT_URLCONF = 'alatting.urls'
 
 # Media files
