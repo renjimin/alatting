@@ -12,12 +12,19 @@ class PosterView(DetailView):
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_subclasses()
+        queryset = queryset.select_related('music').\
+            prefetch_related('poster_images__image', 'poster_videos__video').select_subclasses()
         return queryset
 
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
-        path = settings.MEDIA_ROOT + obj.html.name
-        with codecs.open(path, 'rb', 'utf-8') as file:
-            obj.html_content = file.read()
+        images = dict()
+        videos = dict()
+        for poster_image in obj.poster_images.all():
+            images[poster_image.image.id] = poster_image.image
+        for poster_video in obj.poster_videos.all():
+            videos[poster_video.video.id] = poster_video.video
+        obj.images = images
+        obj.videos = videos
+        self.template_name = obj.html.name
         return obj
