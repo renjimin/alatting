@@ -110,8 +110,8 @@ class Poster(models.Model):
 
 class PosterImage(models.Model):
     id = models.AutoField(primary_key=True)
-    poster = models.ForeignKey(Poster)
-    image = models.ForeignKey(Image)
+    poster = models.ForeignKey(Poster, related_name='poster_images')
+    image = models.ForeignKey(Image, related_name='poster_images')
 
     class Meta:
         unique_together = ('poster', 'image')
@@ -122,8 +122,8 @@ class PosterImage(models.Model):
 
 class PosterVideo(models.Model):
     id = models.AutoField(primary_key=True)
-    poster = models.ForeignKey(Poster)
-    video = models.ForeignKey(Video)
+    poster = models.ForeignKey(Poster, related_name='poster_videos')
+    video = models.ForeignKey(Video, related_name='poster_videos')
 
     class Meta:
         unique_together = ('poster', 'video')
