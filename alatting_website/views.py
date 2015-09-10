@@ -17,7 +17,5 @@ class PosterView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
-        path = settings.MEDIA_ROOT + obj.html.name
-        with codecs.open(path, 'rb', 'utf-8') as file:
-            obj.html_content = file.read()
+        self.template_name = obj.html.name
         return obj

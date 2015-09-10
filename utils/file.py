@@ -28,14 +28,17 @@ def get_music_path(instance, filename):
     path = 'music/%Y/%m/%d'
     return get_file_path(path, filename)
 
+
 def get_html_path(instance, filename):
-    path = 'htmls/%Y/%m/%d'
+    path = 'html5/%Y/%m/%d'
     return get_file_path(path, filename)
+
 
 def get_css_path(instance, filename):
-    path = 'csses/%Y/%m/%d'
+    path = 'html5/%Y/%m/%d'
     return get_file_path(path, filename)
 
+
 def get_script_path(instance, filename):
-    path = 'scripts/%Y/%m/%d'
+    path = 'html5/%Y/%m/%d'
     return get_file_path(path, filename)

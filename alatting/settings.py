@@ -55,10 +55,17 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'alatting.urls'
 
+# Media files
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR + MEDIA_URL
+
+# Templates
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [MEDIA_ROOT],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,8 +123,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + STATIC_URL
-
-# Media files
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR + MEDIA_URL

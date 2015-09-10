@@ -28,5 +28,20 @@ exec(compile(open(activate_env).read(), activate_env, 'exec'), dict(__file__=act
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "alatting.settings")
 
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+TEST = False
+
+if not TEST:
+    from django.core.wsgi import get_wsgi_application
+    application = get_wsgi_application()
+else:
+    import json
+
+    def application(environ, start_response):
+        status = '200 OK'
+        output = 'sys.prefix = %s\n' % repr(sys.prefix)
+        output += 'sys.path = %s\n' % repr(sys.path)
+        response_headers = [('Content-type', 'text/plain'),
+                            ('Content-Length', str(len(output)))]
+        start_response(status, response_headers)
+
+        return [output]
