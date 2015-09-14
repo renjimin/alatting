@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from model_utils.managers import InheritanceManager
 from utils import file
+from utils.db.fields import OverWriteFileField
+
 
 
 class Person(models.Model):
@@ -23,7 +25,7 @@ class Person(models.Model):
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(upload_to=file.get_image_path)  # TODO: update the upload_to function
+    file = OverWriteFileField(upload_to=file.get_image_path)  # TODO: update the upload_to function
     #width = models.PositiveSmallIntegerField()
     #height = models.PositiveSmallIntegerField()
 
@@ -34,7 +36,7 @@ class Image(models.Model):
 class Music(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(upload_to=file.get_music_path)
+    file = OverWriteFileField(upload_to=file.get_music_path)
     format = models.CharField(max_length=31, default='mp3')
 
     def __str__(self):
@@ -44,7 +46,7 @@ class Music(models.Model):
 class Video(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
-    file = models.FileField(upload_to=file.get_video_path)
+    file = OverWriteFileField(upload_to=file.get_video_path)
     format = models.CharField(max_length=31, default='mp4')
 
     def __str__(self):
@@ -98,9 +100,9 @@ class Poster(models.Model):
     desc = models.CharField(max_length=255)
     likes_count = models.IntegerField(default=0)
     comments_count = models.IntegerField(default=0)
-    html = models.FileField(upload_to=file.get_html_path)
-    css = models.FileField(upload_to=file.get_css_path)
-    script = models.FileField(upload_to=file.get_script_path)
+    html = OverWriteFileField(upload_to=file.get_html_path)
+    css = OverWriteFileField(upload_to=file.get_css_path)
+    script = OverWriteFileField(upload_to=file.get_script_path)
 
     objects = InheritanceManager()
 
@@ -118,6 +120,7 @@ class PosterImage(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
 
 
 class PosterVideo(models.Model):
