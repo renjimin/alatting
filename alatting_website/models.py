@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from model_utils.managers import InheritanceManager
 from utils import file
-from utils.db.fields import OverWriteFileField
+from utils.db.fields import OverWriteFileField, OverWriteImageField
 
 
 
@@ -25,9 +25,9 @@ class Person(models.Model):
 class Image(models.Model):
     id = models.AutoField(primary_key=True)
     created = models.DateTimeField(auto_now_add=True)
-    file = OverWriteFileField(upload_to=file.get_image_path)  # TODO: update the upload_to function
-    #width = models.PositiveSmallIntegerField()
-    #height = models.PositiveSmallIntegerField()
+    file = OverWriteImageField(upload_to=file.get_image_path, width_field='width', height_field='height')  # TODO: update the upload_to function
+    width = models.PositiveSmallIntegerField(blank=True)
+    height = models.PositiveSmallIntegerField(blank=True)
 
     def __str__(self):
         return "{:d}".format(self.pk)

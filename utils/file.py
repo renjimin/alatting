@@ -22,7 +22,7 @@ def get_file_path(instance, field_name, path, filename):
         name_label = '_name_'
         name = getattr(instance, name_label, None)
         if name is None:
-            name = uuid.uuid4()
+            name = uuid.uuid4().hex
             setattr(instance, name_label, name)
         filename = "%s.%s" % (name, ext)
         path = time.strftime(path, time.gmtime())
