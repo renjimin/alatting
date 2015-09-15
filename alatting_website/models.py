@@ -98,6 +98,7 @@ class Poster(models.Model):
     height = models.PositiveSmallIntegerField(default=1024)
     title = models.CharField(max_length=127)
     desc = models.CharField(max_length=255)
+    views_count = models.IntegerField(default=0)
     likes_count = models.IntegerField(default=0)
     comments_count = models.IntegerField(default=0)
     html = OverWriteFileField(upload_to=file.get_html_path)
