@@ -3,11 +3,11 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from alatting_website.models import Poster
-from django.conf import settings
+from utils.db.utils import Utils
 
 
 class PosterView(DetailView):
-    template_name = 'front/poster.html'
+    template_name = 'website/poster.html'
     model = Poster
 
     def get_queryset(self):
@@ -18,6 +18,8 @@ class PosterView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
+        queryset = self.model.objects.filter(pk=obj.pk)
+        Utils.increase_counts(queryset, {'views_count': 1})
         images = dict()
         videos = dict()
         for poster_image in obj.poster_images.all():
@@ -28,3 +30,7 @@ class PosterView(DetailView):
         obj.videos = videos
         self.template_name = obj.html.name
         return obj
+
+
+class IndexView(TemplateView):
+    template_name = 'website/swipe_photo.html'

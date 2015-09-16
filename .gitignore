@@ -49,6 +49,7 @@ coverage.xml
 
 # Django stuff:
 *.log
+*.sqlite3
 
 # Sphinx documentation
 docs/_build/
@@ -59,6 +60,8 @@ target/
 #deploy
 /static/
 /media/
+/alatting/settings.py
+/alatting/wsgi.py
 
 #pycharm
 /.idea/
