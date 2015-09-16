@@ -4,22 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <title>PhotoSwipe</title>
-	<!-- Core CSS file -->
-	<link rel="stylesheet" href="{% static 'lib/photo_swipe/photoswipe.css' %}">
+    <!-- Core CSS file -->
+    <link rel="stylesheet" href="{% static 'lib/photo_swipe/photoswipe.css' %}">
 
-	<!-- Skin CSS file (styling of UI - buttons, caption, etc.)
-	     In the folder of skin CSS file there are also:
-	     - .png and .svg icons sprite, 
-	     - preloader.gif (for browsers that do not support CSS animations) -->
-	<link rel="stylesheet" href="{% static 'lib/photo_swipe/default-skin/default-skin.css' %}">
+    <!-- Skin CSS file (styling of UI - buttons, caption, etc.)
+         In the folder of skin CSS file there are also:
+         - .png and .svg icons sprite,
+         - preloader.gif (for browsers that do not support CSS animations) -->
+    <link rel="stylesheet" href="{% static 'lib/photo_swipe/default-skin/default-skin.css' %}">
 
-	<!-- Core JS file -->
-	<script src="{% static 'lib/photo_swipe/photoswipe.min.js' %}"></script>
+    <!-- Core JS file -->
+    <script src="{% static 'lib/photo_swipe/photoswipe.min.js' %}"></script>
 
-	<!-- UI JS file -->
-	<script src="{% static 'lib/photo_swipe/photoswipe-ui-default.min.js' %}"></script>
+    <!-- UI JS file -->
+    <script src="{% static 'lib/photo_swipe/photoswipe-ui-default.min.js' %}"></script>
 </head>
 <body>
+
+<div class="photo-swipe-widget" style="width: 400px; cursor: pointer">
+    <img style="width: 100%; height: 100%" src="http://i1242.photobucket.com/albums/gg536/Thebabul/shelby_cobra_427_1967-1.jpg"/>
+    <ul hidden>
+        <li data-src="http://i1242.photobucket.com/albums/gg536/Thebabul/shelby_cobra_427_1967-1.jpg" data-w="600"
+            data-h="400"></li>
+        <li data-src="https://upload.wikimedia.org/wikipedia/commons/3/30/Dscn3156-daisy-water_1200x900.jpg"
+            data-w="1200" data-h="900"></li>
+        <li data-src="http://www.alumni.rutgers.edu/s/896/images/editor/ruaawinterdesktopthumbnail.jpg" data-w="800"
+            data-h="600"></li>
+    </ul>
+</div>
+
+
 <!-- Root element of PhotoSwipe. Must have class pswp. -->
 <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
@@ -60,15 +74,15 @@
                 <!-- element will get class pswp__preloader--active when preloader is running -->
                 <div class="pswp__preloader">
                     <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
+                <div class="pswp__share-tooltip"></div>
             </div>
 
             <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
@@ -86,39 +100,49 @@
     </div>
 
 </div>
+
 <script type="text/javascript">
 
-var pswpElement = document.querySelectorAll('.pswp')[0];
+    (function() {
+        var pswpElement = document.querySelectorAll('.pswp')[0];
 
-// build items array
-var items = [
-    {
-        src: 'http://i1242.photobucket.com/albums/gg536/Thebabul/shelby_cobra_427_1967-1.jpg',
-        w: 600,
-        h: 400
-    },
-    {
-        src: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Dscn3156-daisy-water_1200x900.jpg',
-        w: 1200,
-        h: 900
-    },
-    {
-        src: 'http://www.alumni.rutgers.edu/s/896/images/editor/ruaawinterdesktopthumbnail.jpg',
-        w: 800,
-        h: 600
-    }
-];
+        function openPhotoSwipe(element) {
+            // build items array
+            var items = []
+            var lis = element.querySelectorAll('ul li')
+            for(var index = 0; index < lis.length; ++index){
+                var li = lis[index]
+                var src = li.getAttribute('data-src')
+                var w = li.getAttribute('data-w')
+                var h = li.getAttribute('data-h')
+                items.push({src: src, msrc: src, w: w, h: h})
+            }
 
-// define options (if needed)
-var options = {
-    // optionName: 'option value'
-    // for example:
-    index: 0 // start at first slide
-};
+            var getThumbBoundsFn = function (index) {
+                var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+                var rect = element.getBoundingClientRect();
+                return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+            }
 
-// Initializes and opens PhotoSwipe
-var gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-gallery.init();
+            var options = {
+                getThumbBoundsFn: getThumbBoundsFn,
+                index: 0, // start at first slide
+                showHideOpacity:true
+            };
+            // Initializes and opens PhotoSwipe
+            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+            gallery.init();
+        }
+
+        var widgets = document.querySelectorAll('.photo-swipe-widget');
+        for(var index = 0; index < widgets.length; ++index){
+            var widget = widgets[index]
+            widget.onclick = function(e){
+                openPhotoSwipe(this);
+            };
+        }
+
+    })();
 </script>
 </body>
 </html>
