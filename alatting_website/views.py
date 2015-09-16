@@ -7,7 +7,7 @@ from utils.db.utils import Utils
 
 
 class PosterView(DetailView):
-    template_name = 'front/poster.html'
+    template_name = 'website/poster.html'
     model = Poster
 
     def get_queryset(self):
@@ -30,3 +30,7 @@ class PosterView(DetailView):
         obj.videos = videos
         self.template_name = obj.html.name
         return obj
+
+
+class IndexView(TemplateView):
+    template_name = 'website/swipe_photo.html'
