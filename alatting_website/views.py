@@ -42,6 +42,7 @@ class IndexView(TemplateView):
 class PosterCodeView(View):
     def get(self, request, pk):
         response = HttpResponse(content_type='image/png')
-        url = reverse('website:poster', kwargs={'pk': pk})
+        url = request.scheme + '://' + request.get_host()
+        url += reverse('website:poster', kwargs={'pk': pk}) ; print(url)
         QrCode.save_png(url, response)
         return response
