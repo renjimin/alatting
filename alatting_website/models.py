@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from model_utils.managers import InheritanceManager
 from utils import file
-from utils.db.fields import OverWriteFileField, OverWriteImageField, BigAutoField, BigForeignKey
+from utils.db.fields import OverWriteFileField, OverWriteImageField, BigAutoField, BigForeignKey, BigOneToOneField
 from utils.db.utils import generate_uuid
 
 
@@ -85,7 +85,7 @@ class Category(models.Model):
         return "{:s} -> {:s}".format(self.type, self.name)
 
 
-class Address:
+class Address(models.Model):
     id = BigAutoField(primary_key=True)
     address1 = models.CharField(max_length=128)
     address2 = models.CharField(max_length=128, blank=True, default='')
@@ -130,8 +130,8 @@ class Poster(models.Model):
     lifetime_value = models.CharField(max_length=1024)
     music = models.ForeignKey(Music, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    main_category = models.ForeignKey(Category)
-    sub_category = models.ForeignKey(Category)
+    main_category = models.ForeignKey(Category, related_name='main_posters')
+    sub_category = models.ForeignKey(Category, related_name='sub_posters')
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     width = models.PositiveSmallIntegerField(default=800)
     height = models.PositiveSmallIntegerField(default=1024)
@@ -183,7 +183,7 @@ class PosterLike(models.Model):
     user = models.ForeignKey(User)
 
     class Meta:
-        unique_together = ('poster', 'person')
+        unique_together = ('poster', 'user')
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -191,7 +191,7 @@ class PosterLike(models.Model):
 
 class Comment(models.Model):
     id = BigAutoField(primary_key=True)
-    parent = BigForeignKey('Comment', related_name='children')
+    parent = BigForeignKey('Comment', related_name='children', null=True, blank=True)
     poster = BigForeignKey(Poster)
     user = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -212,7 +212,7 @@ class ActivityInvitation(Poster):
         (ACTIVITY_STATUS_FINISHED, ACTIVITY_STATUS_FINISHED),
         (ACTIVITY_STATUS_CANCELLED, ACTIVITY_STATUS_CANCELLED),
     )
-    id = BigAutoField(primary_key=True)
+    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     activity_status = models.CharField(max_length=15, choices=ACTIVITY_STATUS_CHOICES, default=ACTIVITY_STATUS_COMING)
     invitation_message = models.CharField(max_length=512)
     activity_start_time = models.DateTimeField()
@@ -230,7 +230,7 @@ class ActivityInvitation(Poster):
 
 
 class BusinessMarketing(Poster):
-    id = BigAutoField(primary_key=True)
+    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     slogan = models.CharField(max_length=128, blank=True, default='')
     parking_notice_message = models.CharField(max_length=1024, blank=True, default='')
     need_reservation = models.BooleanField(default=True)
@@ -241,7 +241,7 @@ class BusinessMarketing(Poster):
 
 
 class ProductSell(Poster):
-    id = BigAutoField(primary_key=True)
+    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     price = models.FloatField(default=0)
     is_negotiable = models.BooleanField(default=False)
     is_express_delivery = models.BooleanField(default=False)
@@ -273,7 +273,7 @@ class ExpertShow(Poster):
         (DEGREE_MASTER, DEGREE_MASTER),
         (DEGREE_DOCTOR, DEGREE_DOCTOR),
     )
-    id = BigAutoField(primary_key=True)
+    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     first_name = models.CharField(max_length=64)
     last_name = models.CharField(max_length=64)
     sex = models.CharField(max_length=10, choices=SEX_CHOICES)
