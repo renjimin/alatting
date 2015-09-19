@@ -96,6 +96,9 @@ class Address(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return "{:s}".format(self.address1)
+
 
 class Poster(models.Model):
     STATUS_DRAFT = 'Draft'
@@ -144,7 +147,7 @@ class Poster(models.Model):
     html = OverWriteFileField(upload_to=file.get_html_path)
     css = OverWriteFileField(upload_to=file.get_css_path)
     script = OverWriteFileField(upload_to=file.get_script_path)
-    tags = models.CharField(max_length=128)
+    tags = models.CharField(max_length=128, default='', blank=True)
 
     objects = InheritanceManager()
 
