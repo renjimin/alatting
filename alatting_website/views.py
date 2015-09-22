@@ -31,7 +31,6 @@ class PosterView(DetailView):
             videos[poster_video.video.id] = poster_video.video
         obj.images = images
         obj.videos = videos
-        self.template_name = obj.html.name
         return obj
 
 
@@ -43,6 +42,6 @@ class PosterCodeView(View):
     def get(self, request, pk):
         response = HttpResponse(content_type='image/png')
         url = request.scheme + '://' + request.get_host()
-        url += reverse('website:poster', kwargs={'pk': pk}) ; print(url)
+        url += reverse('website:poster', kwargs={'pk': pk})
         QrCode.save_png(url, response)
         return response
