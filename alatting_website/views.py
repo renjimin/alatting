@@ -26,9 +26,9 @@ class PosterView(DetailView):
         images = dict()
         videos = dict()
         for poster_image in obj.poster_images.all():
-            images[poster_image.image.id] = poster_image.image
+            images[poster_image.name] = poster_image.image
         for poster_video in obj.poster_videos.all():
-            videos[poster_video.video.id] = poster_video.video
+            videos[poster_video.name] = poster_video.video
         obj.images = images
         obj.videos = videos
         return obj

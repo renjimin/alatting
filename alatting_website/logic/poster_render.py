@@ -14,6 +14,8 @@ class PosterRender:
                 html += cls.render_background(element, context) + '\n'
             elif typ == 'text':
                 html += cls.render_text(element, context) + '\n'
+            elif typ == 'button':
+                html += cls.render_button(element, context) + '\n'
             elif typ == 'image':
                 html += cls.render_image(element, context) + '\n'
             elif typ == 'slider':
@@ -29,6 +31,10 @@ class PosterRender:
     @classmethod
     def render_background(cls, element, context_instance):
         template_name = 'libs/components/background.html'
+        images = context_instance['object'].images
+        image_name = element['image_name']
+        if image_name in images:
+            element['image_url'] = images[image_name].file.url
         context = dict(element=element)
         return render_to_string(template_name, context, context_instance)
 
@@ -39,12 +45,18 @@ class PosterRender:
         return render_to_string(template_name, context, context_instance)
 
     @classmethod
+    def render_button(cls, element, context_instance):
+        template_name = 'libs/components/button.html'
+        context = dict(element=element)
+        return render_to_string(template_name, context, context_instance)
+
+    @classmethod
     def render_image(cls, element, context_instance):
         template_name = 'libs/components/image.html'
         images = context_instance['object'].images
-        image_id = element['image_id']
-        if image_id in images:
-            element['image_url'] = images[image_id].file.url
+        image_name = element['image_name']
+        if image_name in images:
+            element['image_url'] = images[image_name].file.url
         context = dict(element=element)
         return render_to_string(template_name, context, context_instance)
 
@@ -54,9 +66,9 @@ class PosterRender:
         object_images = context_instance['object'].images
         element_images = element['images']
         for element_image in element_images:
-            image_id = element_image['image_id']
-            if image_id in object_images:
-                image = object_images[image_id]
+            image_name = element_image['image_name']
+            if image_name in object_images:
+                image = object_images[image_name]
                 element_image['image_url'] = image.file.url
                 element_image['width'] = image.width
                 element_image['height'] = image.height
@@ -76,9 +88,9 @@ class PosterRender:
     def render_video(cls, element, context_instance):
         template_name = 'libs/components/video.html'
         videos = context_instance['object'].videos
-        video_id = element['video_id']
-        if video_id in videos:
-            element['video_url'] = videos[video_id].file.url
+        video_name = element['video_name']
+        if video_name in videos:
+            element['video_url'] = videos[video_name].file.url
         context = dict(element=element)
         return render_to_string(template_name, context, context_instance)
 

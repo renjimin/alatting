@@ -138,7 +138,7 @@ class Poster(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     width = models.PositiveSmallIntegerField(default=800)
     height = models.PositiveSmallIntegerField(default=1024)
-    desc = models.CharField(max_length=255)
+    # desc = models.CharField(max_length=255)
     views_count = models.IntegerField(default=0)
     likes_count = models.IntegerField(default=0)
     comments_count = models.IntegerField(default=0)
@@ -159,22 +159,25 @@ class PosterImage(models.Model):
     id = models.AutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_images')
     image = models.ForeignKey(Image, related_name='poster_images')
+    name = models.CharField(max_length=63)
 
     class Meta:
         unique_together = ('poster', 'image')
+        unique_together = ('poster', 'name')
 
     def __str__(self):
         return "{:d}".format(self.pk)
-
 
 
 class PosterVideo(models.Model):
     id = models.AutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_videos')
     video = models.ForeignKey(Video, related_name='poster_videos')
+    name = models.CharField(max_length=63)
 
     class Meta:
         unique_together = ('poster', 'video')
+        unique_together = ('poster', 'name')
 
     def __str__(self):
         return "{:d}".format(self.pk)

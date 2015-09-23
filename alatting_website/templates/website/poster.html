@@ -32,7 +32,8 @@
 {% block content %}
     <div class="poster_container">
     {% embed object.html.name %}
-    <img class="qrcode" src=/code/poster/1 />
+    <img class="poster_qrcode" src={% url 'website:code_poster' object.id %} />
+    <p class="views_count_widget">Views: {{object.views_count}}</p>
     </div>
 {% endblock %}
 </div>
