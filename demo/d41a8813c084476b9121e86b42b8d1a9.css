@@ -1,0 +1,147 @@
+.poster_container{
+    position: relative;
+    border-color: black;
+    border-width: 1px;
+    border-style: dashed;
+    width: 800px;
+    height: 1200px;
+    margin: auto;
+}
+
+.poster_element_background_1 {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    z-index: -1;
+}
+
+.poster_element_text_1{
+    position: absolute;
+    top: 135px;
+    left: 10px;
+    width: 360px;
+    font-size: 20px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.poster_element_text_2{
+    position: absolute;
+    top: 400px;
+    left: 410px;
+    width: 360px;
+    font-size: 18px;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.poster_element_image_1{
+    position: absolute;
+    width: 300px;
+    left: 250px;
+    top: 10px;
+    border-radius: 5px;
+}
+
+.photo_swipe_widget{
+    cursor: pointer;
+}
+
+.photo_swipe_widget img{
+    width: 100%;
+    height: 100%;
+    border: 2px solid;
+    border-radius: 10px;
+}
+
+.poster_element_slider_1{
+    position: absolute;
+    top: 310px;
+    left: 10px;
+    width: 370px;
+}
+
+.poster_element_slider_2{
+    position: absolute;
+    top: 155px;
+    left: 410px;
+    width: 370px;
+}
+
+.poster_element_video_1{
+    position: absolute;
+    width: 600px;
+    height: 300px;
+    left: 100px;
+    bottom: 235px;
+}
+
+.poster_element_map_1{
+    position: absolute;
+    width: 520px;
+    height: 205px;
+    left: 10px;
+    bottom: 10px;
+}
+
+.poster_qrcode{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+}
+
+.views_count_widget{
+	position: absolute;
+	border-radius: 3px;
+	font-size: 16px;
+	color: red;
+	top: 10px;
+	right: 10px;
+	padding: 5px;
+    margin: 0px;
+	background-color: white;
+}
+
+.poster_element_button_1 a{
+    color: rgb(244, 20, 132);
+    height: 44px;
+    overflow-wrap: break-word;
+    text-align: center;
+    width: 112px;
+    word-wrap: break-word;
+    perspective-origin: 56px 22px;
+    transform-origin: 56px 22px;
+    border: 0px none rgb(244, 20, 132);
+    font: normal normal normal normal 22px / 44px 'Microsoft YaHei', Arial, Helvetica, sans-serif, å®‹ä½“;
+    margin: 5px 0px;
+    outline: rgb(244, 20, 132) none 0px;
+}
+
+.poster_element_button_1 {
+    box-shadow: rgb(0, 0, 0) 0px 0px 4px 0px;
+    color: rgb(244, 20, 132);
+    overflow-wrap: break-word;
+    position: absolute;
+    text-align: center;
+    left: 10px;
+    top: 10px;
+    width: 100px;
+    padding: 10px;
+    word-wrap: break-word;
+    perspective-origin: 56px 44px;
+    transform-origin: 56px 44px;
+    animation: none 1s ease 0s 1 normal none running;
+    background: rgb(227, 228, 229) none repeat scroll 0% 0% / auto padding-box border-box;
+    border: 0px none rgb(255, 255, 255);
+    border-radius: 7px 7px 7px 7px;
+    font: normal normal normal normal 22px / 44px 'Microsoft YaHei', Arial, Helvetica, sans-serif, å®‹ä½“;
+    outline: rgb(244, 20, 132) none 0px;
+}

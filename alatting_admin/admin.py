@@ -1,5 +1,6 @@
 from django.contrib import admin
-from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, Comment, Invite
+from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, Comment, Address
+from alatting_website.models import ActivityInvitation, BusinessMarketing, ProductSell, ExpertShow
 
 
 @admin.register(Person)
@@ -52,6 +53,26 @@ class PersonAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Comment._meta.get_concrete_fields_with_model()]
 
 
-@admin.register(Invite)
+@admin.register(Address)
 class PersonAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Invite._meta.get_concrete_fields_with_model()]
+    list_display = [pair[0].name for pair in Address._meta.get_concrete_fields_with_model()]
+
+
+@admin.register(ActivityInvitation)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = [pair[0].name for pair in ActivityInvitation._meta.get_concrete_fields_with_model()]
+
+
+@admin.register(BusinessMarketing)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = [pair[0].name for pair in BusinessMarketing._meta.get_concrete_fields_with_model()]
+
+
+@admin.register(ProductSell)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = [pair[0].name for pair in ProductSell._meta.get_concrete_fields_with_model()]
+
+
+@admin.register(ExpertShow)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = [pair[0].name for pair in ExpertShow._meta.get_concrete_fields_with_model()]
