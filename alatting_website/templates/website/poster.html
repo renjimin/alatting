@@ -1,4 +1,6 @@
 {% extends 'website/base.html' %}
+{% load static %}
+{% load poster %}
 {% block title %}{{ object.unique_name }}{% endblock %}
 
 {% block meta %}
@@ -12,6 +14,7 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
 {% endblock %}
 
@@ -25,9 +28,14 @@
     {% include 'libs/facebook/fb_share_body_start.html' %}
 {% endblock %}
 
+<div class="content">
 {% block content %}
-    {% include object.html.name %}
+    <div class="poster_container">
+    {% embed object.html.name %}
+    <img class="qrcode" src=/code/poster/1 />
+    </div>
 {% endblock %}
+</div>
 
 {% block body_end %}
     {{ block.super }}
