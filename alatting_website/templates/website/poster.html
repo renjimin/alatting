@@ -14,6 +14,7 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
 {% endblock %}
@@ -30,11 +31,26 @@
 
 <div class="content">
 {% block content %}
+    <div class="poster_header">
+        <!-- Twitter -->
+        <a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+         <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+        <!-- Google+ -->
+        <a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>
+        <!-- LinkedIn -->
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <!-- Email -->
+        <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn btn-email"><i class="fa fa-envelope fa-fw"></i> Email</a>
+    </div>
+
     <div class="poster_container">
     {% embed object.html.name %}
     <img class="poster_qrcode" src={% url 'website:code_poster' object.id %} />
     <p class="views_count_widget">Views: {{object.views_count}}</p>
     </div>
+
+    <div class="poster_footer"></div>
 {% endblock %}
 </div>
 
