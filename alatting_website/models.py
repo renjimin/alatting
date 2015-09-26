@@ -300,21 +300,3 @@ class ExpertShow(Poster):
 
     def __str__(self):
         return "{:d}".format(self.pk)
-
-
-class Resume(Poster):
-
-    def __str__(self):
-        return "{:d}".format(self.pk)
-
-
-class Website(Poster):
-
-    def __str__(self):
-        return "{:d}".format(self.pk)
-
-
-class Business(Poster):
-
-    def __str__(self):
-        return "{:d}".format(self.pk)

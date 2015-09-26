@@ -65,6 +65,15 @@
 
 </div>
 
+<script type="text/javascript" charset="utf-8">
+  $(window).load(function() {
+    $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: false
+    });
+  });
+</script>
+
 <script type="text/javascript">
 
     (function() {
@@ -98,11 +107,11 @@
             gallery.init();
         }
 
-        var widgets = document.querySelectorAll('.photo_swipe_widget');
+        var widgets = document.querySelectorAll('.slides');
         for(var index = 0; index < widgets.length; ++index){
             var widget = widgets[index]
             widget.onclick = function(e){
-                openPhotoSwipe(this);
+                openPhotoSwipe(this.parentNode);
             };
         }
 

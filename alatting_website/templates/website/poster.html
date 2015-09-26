@@ -15,6 +15,7 @@
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
 {% endblock %}
@@ -56,6 +57,7 @@
 
 {% block body_end %}
     {{ block.super }}
+    <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{{ object.script.url }}"></script>
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}
