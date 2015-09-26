@@ -101,7 +101,16 @@
                 getThumbBoundsFn: getThumbBoundsFn,
                 index: 0, // start at first slide
                 showHideOpacity:true
+                mainClass: 'pswp--minimal--dark',
+                barsSize: {top:0,bottom:0},
+                captionEl: false,
+                fullscreenEl: false,
+                shareEl:false,
+                bgOpacity: 0.85,
+                tapToClose: true,
+                tapToToggleControls: false
             };
+
             // Initializes and opens PhotoSwipe
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             gallery.init();
