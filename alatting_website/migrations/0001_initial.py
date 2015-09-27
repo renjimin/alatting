@@ -3,9 +3,9 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 import utils.file
-from django.conf import settings
-import utils.db.utils
 import utils.db.fields
+import utils.db.utils
+from django.conf import settings
 
 
 class Migration(migrations.Migration):
@@ -19,9 +19,9 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Address',
             fields=[
-                ('id', utils.db.fields.BigAutoField(primary_key=True, serialize=False)),
+                ('id', utils.db.fields.BigAutoField(serialize=False, primary_key=True)),
                 ('address1', models.CharField(max_length=128)),
-                ('address2', models.CharField(max_length=128, default='', blank=True)),
+                ('address2', models.CharField(blank=True, default='', max_length=128)),
                 ('city', models.CharField(max_length=128)),
                 ('state', models.CharField(max_length=128)),
                 ('country', models.CharField(max_length=16)),
@@ -33,69 +33,68 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=63)),
-                ('description', models.CharField(max_length=127)),
-                ('tags', models.CharField(max_length=2048)),
-                ('parent', models.ForeignKey(blank=True, null=True, to='alatting_website.Category')),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('name', models.CharField(default='', blank=True, max_length=63, unique=True)),
+                ('description', models.CharField(blank=True, default='', max_length=127)),
+                ('tags', models.CharField(blank=True, default='', max_length=2048)),
+                ('parent', models.ForeignKey(to='alatting_website.Category', blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', utils.db.fields.BigAutoField(primary_key=True, serialize=False)),
+                ('id', utils.db.fields.BigAutoField(serialize=False, primary_key=True)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('content', models.CharField(max_length=2048)),
-                ('parent', utils.db.fields.BigForeignKey(blank=True, related_name='children', null=True, to='alatting_website.Comment')),
+                ('parent', utils.db.fields.BigForeignKey(related_name='children', to='alatting_website.Comment', blank=True, null=True)),
             ],
         ),
         migrations.CreateModel(
             name='Image',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('uuid', models.CharField(max_length=64, default=utils.db.utils.generate_uuid)),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('uuid', models.CharField(default=utils.db.utils.generate_uuid, max_length=64)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('file', utils.db.fields.OverWriteImageField(width_field='width', storage=utils.file.OverwriteStorage(), height_field='height', upload_to=utils.file.get_image_path)),
+                ('file', utils.db.fields.OverWriteImageField(storage=utils.file.OverwriteStorage(), width_field='width', height_field='height', upload_to=utils.file.get_image_path)),
                 ('width', models.PositiveSmallIntegerField(blank=True)),
                 ('height', models.PositiveSmallIntegerField(blank=True)),
-                ('format', models.CharField(max_length=10, blank=True)),
+                ('format', models.CharField(blank=True, max_length=10)),
             ],
         ),
         migrations.CreateModel(
             name='Music',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('uuid', models.CharField(max_length=64, default=utils.db.utils.generate_uuid)),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('uuid', models.CharField(default=utils.db.utils.generate_uuid, max_length=64)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('file', utils.db.fields.OverWriteFileField(storage=utils.file.OverwriteStorage(), upload_to=utils.file.get_music_path)),
-                ('format', models.CharField(max_length=10, default='mp3')),
+                ('format', models.CharField(default='mp3', max_length=10)),
             ],
         ),
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('user', models.OneToOneField(primary_key=True, db_column='id', serialize=False, to=settings.AUTH_USER_MODEL)),
-                ('gender', models.CharField(max_length=15, default='unknown', choices=[('Unknown', 'Unknown'), ('Male', 'Male'), ('Female', 'Female')])),
+                ('user', models.OneToOneField(db_column='id', primary_key=True, serialize=False, to=settings.AUTH_USER_MODEL)),
+                ('gender', models.CharField(choices=[('Unknown', 'Unknown'), ('Male', 'Male'), ('Female', 'Female')], default='unknown', max_length=15)),
             ],
         ),
         migrations.CreateModel(
             name='Poster',
             fields=[
-                ('id', utils.db.fields.BigAutoField(primary_key=True, serialize=False)),
+                ('id', utils.db.fields.BigAutoField(serialize=False, primary_key=True)),
                 ('unique_name', models.CharField(max_length=512, unique=True)),
                 ('url', models.CharField(max_length=512)),
                 ('logo_title', models.CharField(max_length=512)),
                 ('short_description', models.CharField(max_length=1024)),
                 ('phone', models.CharField(max_length=16)),
-                ('mobile', models.CharField(max_length=16, default='', blank=True)),
-                ('email', models.EmailField(max_length=254, default='', blank=True)),
-                ('lifetime_type', models.CharField(max_length=15, default='specific', choices=[('weekly', 'weekly'), ('specific', 'specific')])),
+                ('mobile', models.CharField(blank=True, default='', max_length=16)),
+                ('email', models.EmailField(blank=True, default='', max_length=254)),
+                ('lifetime_type', models.CharField(choices=[('weekly', 'weekly'), ('specific', 'specific')], default='specific', max_length=15)),
                 ('lifetime_value', models.CharField(max_length=1024)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('status', models.CharField(max_length=15, choices=[('Draft', 'Draft'), ('Published', 'Published'), ('Active', 'Active'), ('Inactive', 'Inactive')])),
+                ('status', models.CharField(choices=[('Draft', 'Draft'), ('Published', 'Published'), ('Active', 'Active'), ('Inactive', 'Inactive')], max_length=15)),
                 ('width', models.PositiveSmallIntegerField(default=800)),
                 ('height', models.PositiveSmallIntegerField(default=1024)),
-                ('desc', models.CharField(max_length=255)),
                 ('views_count', models.IntegerField(default=0)),
                 ('likes_count', models.IntegerField(default=0)),
                 ('comments_count', models.IntegerField(default=0)),
@@ -104,49 +103,51 @@ class Migration(migrations.Migration):
                 ('html', utils.db.fields.OverWriteFileField(storage=utils.file.OverwriteStorage(), upload_to=utils.file.get_html_path)),
                 ('css', utils.db.fields.OverWriteFileField(storage=utils.file.OverwriteStorage(), upload_to=utils.file.get_css_path)),
                 ('script', utils.db.fields.OverWriteFileField(storage=utils.file.OverwriteStorage(), upload_to=utils.file.get_script_path)),
-                ('tags', models.CharField(max_length=128)),
+                ('tags', models.CharField(blank=True, default='', max_length=128)),
             ],
         ),
         migrations.CreateModel(
             name='PosterImage',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('name', models.CharField(max_length=63)),
                 ('image', models.ForeignKey(related_name='poster_images', to='alatting_website.Image')),
             ],
         ),
         migrations.CreateModel(
             name='PosterLike',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
             ],
         ),
         migrations.CreateModel(
             name='PosterVideo',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('name', models.CharField(max_length=63)),
             ],
         ),
         migrations.CreateModel(
             name='Video',
             fields=[
-                ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('uuid', models.CharField(max_length=64, default=utils.db.utils.generate_uuid)),
+                ('id', models.AutoField(serialize=False, primary_key=True)),
+                ('uuid', models.CharField(default=utils.db.utils.generate_uuid, max_length=64)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('file', utils.db.fields.OverWriteFileField(storage=utils.file.OverwriteStorage(), upload_to=utils.file.get_video_path)),
-                ('format', models.CharField(max_length=31, default='mp4')),
+                ('format', models.CharField(default='mp4', max_length=31)),
             ],
         ),
         migrations.CreateModel(
             name='ActivityInvitation',
             fields=[
                 ('poster', utils.db.fields.BigOneToOneField(primary_key=True, serialize=False, parent_link=True, to='alatting_website.Poster')),
-                ('activity_status', models.CharField(max_length=15, default='coming', choices=[('coming', 'coming'), ('now', 'now'), ('finished', 'finished'), ('cancelled', 'cancelled')])),
+                ('activity_status', models.CharField(choices=[('coming', 'coming'), ('now', 'now'), ('finished', 'finished'), ('cancelled', 'cancelled')], default='coming', max_length=15)),
                 ('invitation_message', models.CharField(max_length=512)),
                 ('activity_start_time', models.DateTimeField()),
                 ('activity_end_time', models.DateTimeField()),
-                ('special_description', models.CharField(max_length=1024, default='', blank=True)),
-                ('activity_reminder_message', models.CharField(max_length=1024, default='', blank=True)),
-                ('parking_notice_message', models.CharField(max_length=1024, default='', blank=True)),
+                ('special_description', models.CharField(blank=True, default='', max_length=1024)),
+                ('activity_reminder_message', models.CharField(blank=True, default='', max_length=1024)),
+                ('parking_notice_message', models.CharField(blank=True, default='', max_length=1024)),
                 ('accepted_count', models.IntegerField(default=0)),
                 ('rejected_count', models.IntegerField(default=0)),
                 ('need_pre_notification', models.BooleanField(default=True)),
@@ -155,20 +156,13 @@ class Migration(migrations.Migration):
             bases=('alatting_website.poster',),
         ),
         migrations.CreateModel(
-            name='Business',
-            fields=[
-                ('poster_ptr', models.OneToOneField(primary_key=True, serialize=False, to='alatting_website.Poster', auto_created=True, parent_link=True)),
-            ],
-            bases=('alatting_website.poster',),
-        ),
-        migrations.CreateModel(
             name='BusinessMarketing',
             fields=[
                 ('poster', utils.db.fields.BigOneToOneField(primary_key=True, serialize=False, parent_link=True, to='alatting_website.Poster')),
-                ('slogan', models.CharField(max_length=128, default='', blank=True)),
-                ('parking_notice_message', models.CharField(max_length=1024, default='', blank=True)),
+                ('slogan', models.CharField(blank=True, default='', max_length=128)),
+                ('parking_notice_message', models.CharField(blank=True, default='', max_length=1024)),
                 ('need_reservation', models.BooleanField(default=True)),
-                ('business_keywords', models.CharField(max_length=512, default='', blank=True)),
+                ('business_keywords', models.CharField(blank=True, default='', max_length=512)),
             ],
             bases=('alatting_website.poster',),
         ),
@@ -178,21 +172,21 @@ class Migration(migrations.Migration):
                 ('poster', utils.db.fields.BigOneToOneField(primary_key=True, serialize=False, parent_link=True, to='alatting_website.Poster')),
                 ('first_name', models.CharField(max_length=64)),
                 ('last_name', models.CharField(max_length=64)),
-                ('sex', models.CharField(max_length=10, choices=[('male', 'male'), ('female', 'female')])),
-                ('birthday', models.DateField(null=True, blank=True)),
+                ('sex', models.CharField(choices=[('male', 'male'), ('female', 'female')], max_length=10)),
+                ('birthday', models.DateField(blank=True, null=True)),
                 ('profession', models.CharField(max_length=128)),
                 ('working_years', models.IntegerField()),
-                ('degree', models.CharField(max_length=64, choices=[('Bachelor', 'Bachelor'), ('Master', 'Master'), ('PHD', 'PHD')])),
-                ('university', models.CharField(max_length=128, default='', blank=True)),
-                ('awards', models.CharField(max_length=2048, default='', blank=True)),
+                ('degree', models.CharField(choices=[('Bachelor', 'Bachelor'), ('Master', 'Master'), ('PHD', 'PHD')], max_length=64)),
+                ('university', models.CharField(blank=True, default='', max_length=128)),
+                ('awards', models.CharField(blank=True, default='', max_length=2048)),
                 ('experince_description', models.CharField(max_length=2048)),
                 ('industry', models.CharField(max_length=128)),
-                ('specials', models.CharField(max_length=1024, default='', blank=True)),
-                ('available_hours', models.CharField(max_length=64, default='', blank=True)),
+                ('specials', models.CharField(blank=True, default='', max_length=1024)),
+                ('available_hours', models.CharField(blank=True, default='', max_length=64)),
                 ('need_reservation', models.BooleanField(default=False)),
-                ('expert_keywords', models.CharField(max_length=512, default='', blank=True)),
-                ('parking_notice_message', models.CharField(max_length=512, default='', blank=True)),
-                ('resume', utils.db.fields.OverWriteFileField(null=True, storage=utils.file.OverwriteStorage(), blank=True, upload_to='')),
+                ('expert_keywords', models.CharField(blank=True, default='', max_length=512)),
+                ('parking_notice_message', models.CharField(blank=True, default='', max_length=512)),
+                ('resume', utils.db.fields.OverWriteFileField(storage=utils.file.OverwriteStorage(), blank=True, null=True, upload_to='')),
             ],
             bases=('alatting_website.poster',),
         ),
@@ -208,23 +202,9 @@ class Migration(migrations.Migration):
                 ('size_height', models.IntegerField(default=0)),
                 ('is_product_available', models.BooleanField(default=False)),
                 ('is_product_on_sale', models.BooleanField(default=False)),
-                ('appearance_description', models.CharField(max_length=1024, default='', blank=True)),
-                ('material_description', models.CharField(max_length=32, default='', blank=True)),
-                ('color', models.CharField(max_length=32, default='', blank=True)),
-            ],
-            bases=('alatting_website.poster',),
-        ),
-        migrations.CreateModel(
-            name='Resume',
-            fields=[
-                ('poster_ptr', models.OneToOneField(primary_key=True, serialize=False, to='alatting_website.Poster', auto_created=True, parent_link=True)),
-            ],
-            bases=('alatting_website.poster',),
-        ),
-        migrations.CreateModel(
-            name='Website',
-            fields=[
-                ('poster_ptr', models.OneToOneField(primary_key=True, serialize=False, to='alatting_website.Poster', auto_created=True, parent_link=True)),
+                ('appearance_description', models.CharField(blank=True, default='', max_length=1024)),
+                ('material_description', models.CharField(blank=True, default='', max_length=32)),
+                ('color', models.CharField(blank=True, default='', max_length=32)),
             ],
             bases=('alatting_website.poster',),
         ),
@@ -276,7 +256,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='poster',
             name='music',
-            field=models.ForeignKey(blank=True, null=True, to='alatting_website.Music'),
+            field=models.ForeignKey(to='alatting_website.Music', blank=True, null=True),
         ),
         migrations.AddField(
             model_name='poster',
@@ -295,7 +275,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='postervideo',
-            unique_together=set([('poster', 'video')]),
+            unique_together=set([('poster', 'name')]),
         ),
         migrations.AlterUniqueTogether(
             name='posterlike',
@@ -303,6 +283,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='posterimage',
-            unique_together=set([('poster', 'image')]),
+            unique_together=set([('poster', 'name')]),
         ),
     ]

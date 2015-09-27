@@ -68,8 +68,8 @@
 <script type="text/javascript" charset="utf-8">
   $(window).load(function() {
     $('.flexslider').flexslider({
-        animation: "slide",
-        controlNav: false
+        animation: "slide"
+        //controlNav: false
     });
   });
 </script>
@@ -100,8 +100,17 @@
             var options = {
                 getThumbBoundsFn: getThumbBoundsFn,
                 index: 0, // start at first slide
-                showHideOpacity:true
+                showHideOpacity:true,
+                mainClass: 'pswp--minimal--dark',
+                barsSize: {top:0,bottom:0},
+                captionEl: false,
+                fullscreenEl: false,
+                shareEl:false,
+                bgOpacity: 0.85,
+                tapToClose: true,
+                tapToToggleControls: false
             };
+
             // Initializes and opens PhotoSwipe
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             gallery.init();

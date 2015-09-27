@@ -31,7 +31,7 @@ def get_file_path(instance, field_name, path, filename):
         filename = old_filename.name
         comps = filename.split('.')
         if len(comps) > 1:
-            filename = comps[0] + ext
+            filename = "%s.%s" % (comps[0], ext)
     setattr(instance, 'format', ext)
     return filename
 

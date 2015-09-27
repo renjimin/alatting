@@ -1,7 +1,12 @@
+.social-btn {
+    font-size: 40px;
+    width: 60px;
+    padding: 0px;
+}
 .btn-twitter {
     background: #00acee;
     border-radius: 0;
-    color: #fff
+    color: #fff;
 }
 .btn-twitter:link, .btn-twitter:visited {
     color: #fff
@@ -13,7 +18,7 @@
 .btn-facebook {
     background: #3b5998;
     border-radius: 0;
-    color: #fff
+    color: #fff;
 }
 .btn-facebook:link, .btn-facebook:visited {
     color: #fff
