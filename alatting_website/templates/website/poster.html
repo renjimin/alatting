@@ -32,7 +32,7 @@
 
 <div class="content">
 {% block content %}
-    <div class="poster_header">
+    <div hidden>
         <!-- Twitter -->
         <a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
          <!-- Facebook -->
@@ -44,6 +44,22 @@
         <!-- Email -->
         <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn btn-email"><i class="fa fa-envelope fa-fw"></i> Email</a>
     </div>
+
+    <aside  class="poster_side_bar">
+        <ul class="list-unstyled">
+             <!-- Twitter -->
+        <li><a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn social-btn btn-twitter"><i class="fa fa-twitter"></i></a></li>
+         <!-- Facebook -->
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn social-btn btn-facebook"><i class="fa fa-facebook"></i></a></li>
+        <!-- Google+ -->
+        <li><a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn social-btn btn-googleplus"><i class="fa fa-google-plus"></i></a></li>
+        <!-- LinkedIn -->
+        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn social-btn btn-linkedin"><i class="fa fa-linkedin"></i></a></li>
+        <!-- Email -->
+        <li><a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn social-btn btn-email"><i class="fa fa-envelope"></i></a></li>
+
+        </ul>
+    </aside>
 
     <div class="poster_container">
     {% embed object.html.name %}

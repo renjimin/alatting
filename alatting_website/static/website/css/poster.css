@@ -2,10 +2,9 @@
 
 }
 
-.poster_header{
-    position: relative;
-    width: 500px;
-    margin: 10px auto 20px auto;
+.poster_side_bar{
+    position: fixed;
+    top: 100px;
 }
 
 .poster_footer{
