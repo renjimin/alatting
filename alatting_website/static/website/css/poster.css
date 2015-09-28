@@ -4,7 +4,8 @@
 
 .poster_side_bar{
     position: fixed;
-    top: 100px;
+    top: 800px;
+    z-index: 1024;
 }
 
 .poster_footer{
