@@ -1,9 +1,10 @@
 <div class="photo_swipe_widget poster_element_{{ element.name }}" id="poster_element_{{ element.name }}">
-    <img src="{{ element.images.0.image_url }}"/>
-    <ul hidden>
-        {% for image in element.images %}
-            <li data-src="{{ image.image_url }}" data-w="{{ image.width }}"
-            data-h="{{ image.height }}"></li>
-        {% endfor %}
-    </ul>
+    <div class="flexslider">
+        <ul class="slides">
+            {% for image in element.images %}
+                <li data-src="{{ image.image_url }}" data-w="{{ image.width }}"
+                data-h="{{ image.height }}"><img src="{{ image.image_url }}"></li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
