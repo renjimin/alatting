@@ -1,0 +1,10 @@
+<meta property="og:url"                content="{{ request.scheme }}://{{ request.get_host }}{{request.path}}" />
+<meta property="og:type"               content="website" />
+<meta property="og:site_name"          content="Alatting" />
+<meta property="og:app_id"             content="" />
+<meta property="og:locale"             content="" />
+<meta property="og:title"              content="{{ object.unique_name }}" />
+<meta property="og:description"        content="{{ object.short_description }}" />
+{% comment %}
+<meta property="og:image"              content="{{ request.scheme }}://{{ request.get_host }}{{ object.images.6.file.url }}" />
+{% endcomment %}

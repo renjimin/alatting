@@ -14,11 +14,11 @@ class OverwriteStorage(FileSystemStorage):
 
 def get_file_path(instance, field_name, path, filename):
     old_filename = getattr(instance, '_%s_' % field_name)
+    ext = ''
+    comps = filename.split('.')
+    if len(comps) > 1:
+        ext = comps[-1]
     if not old_filename:
-        ext = ''
-        comps = filename.split('.')
-        if len(comps) > 1:
-            ext = comps[-1]
         name_label = '_name_'
         name = getattr(instance, name_label, None)
         if name is None:
@@ -29,7 +29,10 @@ def get_file_path(instance, field_name, path, filename):
         filename = os.path.join(path, filename)
     else:
         filename = old_filename.name
-    # sprint('filename: ' + filename)
+        comps = filename.split('.')
+        if len(comps) > 1:
+            filename = "%s.%s" % (comps[0], ext)
+    setattr(instance, 'format', ext)
     return filename
 
 

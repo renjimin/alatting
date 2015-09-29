@@ -65,6 +65,15 @@
 
 </div>
 
+<script type="text/javascript" charset="utf-8">
+  $(window).load(function() {
+    $('.flexslider').flexslider({
+        animation: "slide"
+        //controlNav: false
+    });
+  });
+</script>
+
 <script type="text/javascript">
 
     (function() {
@@ -91,18 +100,27 @@
             var options = {
                 getThumbBoundsFn: getThumbBoundsFn,
                 index: 0, // start at first slide
-                showHideOpacity:true
+                showHideOpacity:true,
+                mainClass: 'pswp--minimal--dark',
+                barsSize: {top:0,bottom:0},
+                captionEl: false,
+                fullscreenEl: false,
+                shareEl:false,
+                bgOpacity: 0.85,
+                tapToClose: true,
+                tapToToggleControls: false
             };
+
             // Initializes and opens PhotoSwipe
             var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
             gallery.init();
         }
 
-        var widgets = document.querySelectorAll('.photo-swipe-widget');
+        var widgets = document.querySelectorAll('.slides');
         for(var index = 0; index < widgets.length; ++index){
             var widget = widgets[index]
             widget.onclick = function(e){
-                openPhotoSwipe(this);
+                openPhotoSwipe(this.parentNode);
             };
         }
 

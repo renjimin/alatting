@@ -1,9 +1,12 @@
 import codecs
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.http.response import HttpResponse
+from django.views.generic import TemplateView, View
 from django.views.generic.detail import DetailView
+from django.core.urlresolvers import reverse
 from alatting_website.models import Poster
 from utils.db.utils import Utils
+from utils.qrcode import QrCode
 
 
 class PosterView(DetailView):
@@ -23,14 +26,22 @@ class PosterView(DetailView):
         images = dict()
         videos = dict()
         for poster_image in obj.poster_images.all():
-            images[poster_image.image.id] = poster_image.image
+            images[poster_image.name] = poster_image.image
         for poster_video in obj.poster_videos.all():
-            videos[poster_video.video.id] = poster_video.video
+            videos[poster_video.name] = poster_video.video
         obj.images = images
         obj.videos = videos
-        self.template_name = obj.html.name
         return obj
 
 
 class IndexView(TemplateView):
     template_name = 'website/swipe_photo.html'
+
+
+class PosterCodeView(View):
+    def get(self, request, pk):
+        response = HttpResponse(content_type='image/png')
+        url = request.scheme + '://' + request.get_host()
+        url += reverse('website:poster', kwargs={'pk': pk})
+        QrCode.save_png(url, response)
+        return response

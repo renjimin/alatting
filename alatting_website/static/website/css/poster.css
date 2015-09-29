@@ -1,0 +1,15 @@
+.content{
+
+}
+
+.poster_side_bar{
+    position: fixed;
+    top: 800px;
+    z-index: 1024;
+}
+
+.poster_footer{
+    position: relative;
+    width: 500px;
+    margin: 10px auto 20px auto;
+}

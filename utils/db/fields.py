@@ -25,6 +25,51 @@ class OverWriteImageField(models.ImageField):
         setattr(instance, '_' + self.name + '_', value)
         super(OverWriteImageField, self).save_form_data(instance, data)
 
-# from PIL import Image
-# im = Image.open('/mnt/hgfs/Alatting/posters/marriage/IMG_3.jpg' )
-# print(im)
+from django.db import models
+from django.db.models import fields
+from django.utils.translation import ugettext_lazy as _
+
+
+class BigAutoField(fields.AutoField):
+    description = _("BigInteger")
+    default_error_messages = {
+        'invalid': _("'%(value)s' value must be a big integer."),
+    }
+
+    def get_internal_type(self):
+        return 'AutoField'
+        #return "BigIntegerField"
+
+    def db_type(self, connection):
+        engine = connection.settings_dict['ENGINE']
+        if engine.endswith('mysql'):
+            return "bigint AUTO_INCREMENT"
+        elif engine.endswith('oracle'):
+            return "NUMBER(19)"
+        elif 'postgres' in engine or 'postgis' in engine:
+            return "bigserial"
+        elif engine.endswith('sqlite3') or engine.endswith('spatialite'):
+            return super(BigAutoField, self).db_type(connection)
+        else:
+            raise NotImplemented
+
+
+class BigForeignKey(models.ForeignKey):
+
+    def db_type(self, connection):
+        rel_field = self.rel.get_related_field()
+        if (isinstance(rel_field, BigAutoField) or
+                (not connection.features.related_fields_match_type and
+                 isinstance(rel_field, fields.BigIntegerField))):
+            return fields.BigIntegerField().db_type(connection)
+        return rel_field.db_type(connection)
+
+
+class BigOneToOneField(models.OneToOneField):
+    def db_type(self, connection):
+        rel_field = self.rel.get_related_field()
+        if (isinstance(rel_field, BigAutoField) or
+                (not connection.features.related_fields_match_type and
+                 isinstance(rel_field, fields.BigIntegerField))):
+            return fields.BigIntegerField().db_type(connection)
+        return rel_field.db_type(connection)

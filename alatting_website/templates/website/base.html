@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block meta %}<meta charset="UTF-8">
+    <meta name="viewport" content="width=1242, minimum-scale=device-width/1242">{% endblock %}
+    <title>{% block title %}Smart Poster{% endblock %}</title>
+    {% block head_script %}{% endblock %}
+    {% block css %}
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+
+        <!-- font-awesome -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {% endblock %}
+    {% block head_more %}{% endblock %}
+</head>
+<body>
+{% block body_start %}{% endblock %}
+{% block content %}{% endblock %}
+{% block body_end %}{% endblock %}
+</body>
+</html>

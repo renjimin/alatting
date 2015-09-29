@@ -1,23 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ object.title }}</title>
-    <link rel="stylesheet" href="{{ object.css.url }}">
+{% extends 'website/base.html' %}
+{% load static %}
+{% load poster %}
+{% block title %}{{ object.unique_name }}{% endblock %}
 
-</head>
-<body>
-<div class="poster-wrapper">
-    <div class="poster-container">
-        <img class="poster-background-image" src="{{ object.images_dict.1.image }}">
-        <p>Welcome to my birthday party!</p>
-        <p>Name: Tianhu Yang's Birthday Party</p>
-        <p>Time: 3:00pm - 11:00pm, 09/09/2015</p>
-        <p>Address: 834 W 24TH ST, Los Angeles,CA, USA, 90007</p>
-        <p>Note: We have enough cakes!</p>
-        <a class="poster-link0" href="https://www.google.com/">Sign up here!</a>
+{% block meta %}
+    {{ block.super }}
+    {% include 'libs/facebook/fb_share_meta.html' %}
+{% endblock %}
+
+{% block head_script %}
+    {{ block.super }}
+{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
+    <link rel="stylesheet" href="{{ object.css.url }}">
+{% endblock %}
+
+{% block head_more %}
+    {{ block.super }}
+    {% include 'libs/photo_swipe/head.html' %}
+{% endblock %}
+
+{% block body_start %}
+    {{ block.super }}
+    {% include 'libs/facebook/fb_share_body_start.html' %}
+{% endblock %}
+
+<div class="content">
+{% block content %}
+    <div hidden>
+        <!-- Twitter -->
+        <a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+         <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+        <!-- Google+ -->
+        <a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>
+        <!-- LinkedIn -->
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <!-- Email -->
+        <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn btn-email"><i class="fa fa-envelope fa-fw"></i> Email</a>
     </div>
+
+    <aside  class="poster_side_bar">
+        <ul class="list-unstyled">
+             <!-- Twitter -->
+        <li><a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn social-btn btn-twitter"><i class="fa fa-twitter"></i></a></li>
+         <!-- Facebook -->
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn social-btn btn-facebook"><i class="fa fa-facebook"></i></a></li>
+        <!-- Google+ -->
+        <li><a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn social-btn btn-googleplus"><i class="fa fa-google-plus"></i></a></li>
+        <!-- LinkedIn -->
+        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn social-btn btn-linkedin"><i class="fa fa-linkedin"></i></a></li>
+        <!-- Email -->
+        <li><a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn social-btn btn-email"><i class="fa fa-envelope"></i></a></li>
+
+        </ul>
+    </aside>
+
+    <div class="poster_container">
+    {% embed object.html.name %}
+    <img class="poster_qrcode" src={% url 'website:code_poster' object.id %} />
+    <p class="views_count_widget">Views: {{object.views_count}}</p>
+    </div>
+
+    <div class="poster_footer"></div>
+{% endblock %}
 </div>
-<script src="{{ object.script.url }}"></script>
-</body>
-</html>
+
+{% block body_end %}
+    {{ block.super }}
+    <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{{ object.script.url }}"></script>
+    {% include 'libs/photo_swipe/body.html' %}
+{% endblock %}
