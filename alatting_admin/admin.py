@@ -9,70 +9,70 @@ class PersonAdmin(admin.ModelAdmin):
 
 
 @admin.register(Image)
-class PersonAdmin(admin.ModelAdmin):
+class ImageAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Image._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(Music)
-class PersonAdmin(admin.ModelAdmin):
+class MusicAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Music._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(Video)
-class PersonAdmin(admin.ModelAdmin):
+class VideoAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Video._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(Category)
-class PersonAdmin(admin.ModelAdmin):
+class CategoryAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Category._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(Poster)
-class PersonAdmin(admin.ModelAdmin):
+class PosterAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Poster._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(PosterImage)
-class PersonAdmin(admin.ModelAdmin):
+class PosterImageAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in PosterImage._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(PosterVideo)
-class PersonAdmin(admin.ModelAdmin):
+class PosterVideoAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in PosterVideo._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(PosterLike)
-class PersonAdmin(admin.ModelAdmin):
+class PosterLikeAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in PosterLike._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(Comment)
-class PersonAdmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Comment._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(Address)
-class PersonAdmin(admin.ModelAdmin):
+class AddressAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in Address._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(ActivityInvitation)
-class PersonAdmin(admin.ModelAdmin):
+class ActivityInvitationAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in ActivityInvitation._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(BusinessMarketing)
-class PersonAdmin(admin.ModelAdmin):
+class BusinessMarketingAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in BusinessMarketing._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(ProductSell)
-class PersonAdmin(admin.ModelAdmin):
+class ProductSellAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in ProductSell._meta.get_concrete_fields_with_model()]
 
 
 @admin.register(ExpertShow)
-class PersonAdmin(admin.ModelAdmin):
+class ExpertShowAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in ExpertShow._meta.get_concrete_fields_with_model()]
