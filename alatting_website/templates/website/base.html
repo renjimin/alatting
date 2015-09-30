@@ -1,29 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     {% block meta %}<meta charset="UTF-8">
-    <meta name="viewport" content="width=1242, minimum-scale=device-width/1242">{% endblock %}
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=1242, minimum-scale=device-width/1242">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    {% endblock %}
     <title>{% block title %}Smart Poster{% endblock %}</title>
     {% block head_script %}{% endblock %}
     {% block css %}
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+        <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
         <!-- font-awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"-->
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
+        <!-- anular-mobile -->
+        <link rel="stylesheet" href="{% static 'libs/mobile/css/mobile-angular-ui-hover.css' %}" />
+        <link rel="stylesheet" href="{% static 'libs/mobile/css/mobile-angular-ui-base.css' %}" />
+        <link rel="stylesheet" href="{% static 'libs/mobile/css/mobile-angular-ui-desktop.css' %}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-touch.min.js"></script>
+        <script src="{% static 'libs/mobile/js/mobile-angular-ui.min.js' %}"></script>
+
+        <script src="{% static 'website/js/app.js' %}"></script>
+
         <!-- Latest compiled and minified JavaScript -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script-->
     {% endblock %}
     {% block head_more %}{% endblock %}
 </head>
-<body>
+<body ng-app="PosterApp">
 {% block body_start %}{% endblock %}
 {% block content %}{% endblock %}
 {% block body_end %}{% endblock %}
