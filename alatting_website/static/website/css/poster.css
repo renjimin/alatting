@@ -2,6 +2,37 @@
 
 }
 
+.poster-top{
+    position: relative;
+    background-color: lightgray;
+}
+
+.poster-header{
+    height: 150px;
+}
+
+.poster-qrcode{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    right: 10px;
+    top: 0px;
+}
+
+.poster-logo {
+    position: absolute;
+    height: 150px;
+    left: 0px;
+    top: 0px;
+}
+
+.poster-title {
+    position: absolute;
+    left: 100px;
+    top: 100px;
+    font-size: 30px;
+}
+
 .poster_side_bar{
     position: fixed;
     top: 400px;
@@ -12,4 +43,8 @@
     position: relative;
     width: 500px;
     margin: 10px auto 20px auto;
+}
+
+.navbar-absolute-top {
+    min-height: 100px;
 }
