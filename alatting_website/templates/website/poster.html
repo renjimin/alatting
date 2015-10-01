@@ -84,31 +84,41 @@
         <div class='app-body'>
             <div class='app-content'>
                 <ng-view></ng-view>
-                <div class="poster-top">
-                    <div class="poster-header">
-                        <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
-                        <img class="poster-qrcode" id="poster-qrcode" src={% url 'website:code_poster' object.id %} />
-                        <p class="poster-title" id="poster-title">
-                            {{ object.logo_title }}
-                        </p>
-                    </div>
-                    <div class="poster-tabs" ui-state="activeTab" default="1">
-                        <ul class="nav nav-tabs">
-                            <li ui-class="{'active': activeTab == 1}">
-                                <a ui-set="{'activeTab': 1}">INTRO</a>
-                            </li>
-                            <li ui-class="{'active': activeTab == 2}">
-                                <a ui-set="{'activeTab': 2}">TEAM</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <div class="scrollable"><div class="scrollable-content"><div class="poster-frame center-block">
+                <div class="poster-ratio-wrapper">
+                    <div>
+                    <div class="poster-container">
+                        <div class="poster-top">
+                            <div class="poster-header">
+                                <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
+                                <img class="poster-qrcode" id="poster-qrcode" src={% url 'website:code_poster' object.id %} />
+                                <p class="views-count-widget">Views: {{object.views_count}}</p>
+                                <p class="poster-title" id="poster-title">
+                                    {{ object.logo_title }}
+                                </p>
+                            </div>
+                            <div class="poster-tabs" ui-state="activeTab" default="1">
+                                <ul class="nav nav-tabs">
+                                    <li ui-class="{'active': activeTab == 1}">
+                                        <a ui-set="{'activeTab': 1}">INTRO</a>
+                                    </li>
+                                    <li ui-class="{'active': activeTab == 2}">
+                                        <a ui-set="{'activeTab': 2}">TEAM</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
 
-                <div class="poster_container">
-                {% embed object.html.name %}
-                <img class="poster_qrcode" src={% url 'website:code_poster' object.id %} />
-                <p class="views_count_widget">Views: {{object.views_count}}</p>
+                        <div class="poster-page">
+                        { embed object.html.name }
+
+                        </div>
+
+                    </div>
+                    </div>
                 </div>
+                </div></div></div>
+
 
             </div>
         </div>
