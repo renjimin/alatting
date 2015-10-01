@@ -2,35 +2,75 @@
 
 }
 
+.poster-frame {
+    max-width: 621px;
+    max-height: 1104px;
+    min-width: 480px;
+    min-height: 854px;
+}
+
+.poster-ratio-wrapper {
+    width: 100%;
+    padding-bottom: 177.78%;
+    position: relative;
+}
+
+.poster-ratio-wrapper > div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.poster-container{
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
 .poster-top{
     position: relative;
+    height: 20%;
     background-color: lightgray;
 }
 
 .poster-header{
-    height: 150px;
+    position: relative;
+    height: 70%;
 }
 
 .poster-qrcode{
     position: absolute;
-    width: 150px;
-    height: 150px;
-    right: 10px;
+    height: 100%;
+    right: 0px;
     top: 0px;
 }
 
 .poster-logo {
     position: absolute;
-    height: 150px;
     left: 0px;
     top: 0px;
+    height: 75%;
+}
+
+.views-count-widget{
+	position: absolute;
+	border-radius: 3px;
+	font-size: 16px;
+	color: red;
+	top: 0px;
+	right: 30%;
+	padding: 5px;
+    margin: 0px;
+	background-color: white;
 }
 
 .poster-title {
     position: absolute;
-    left: 100px;
-    top: 100px;
-    font-size: 30px;
+    left: 15%;
+    top: 75%;
+    font-size: 24px;
 }
 
 .poster_side_bar{
