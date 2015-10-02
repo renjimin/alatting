@@ -1,6 +1,6 @@
 import codecs
 from django.shortcuts import render
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseNotFound
 from django.views.generic import TemplateView, View
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
@@ -49,7 +49,10 @@ class PosterCodeView(View):
 
 
 class SvgClipView(View):
-    def get(self, request):
-        xml = SvgClip.create_svg_clip_xml(request.GET)
-        response = HttpResponse(xml, content_type='image/svg+xml')
+    def get(self, request, layout_id, shape_index):
+        xml = SvgClip.create_svg_clip_xml(int(layout_id), int(shape_index))
+        if xml is None:
+            response = HttpResponseNotFound('not found')
+        else:
+            response = HttpResponse(xml, content_type='image/svg+xml')
         return response
