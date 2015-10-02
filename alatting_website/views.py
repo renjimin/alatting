@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from alatting_website.models import Poster
 from utils.db.utils import Utils
 from utils.qrcode import QrCode
+from utils.clip import SvgClip
 
 
 class PosterView(DetailView):
@@ -35,7 +36,7 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
-    template_name = 'website/swipe_photo.html'
+    template_name = 'website/svg_clip.html'
 
 
 class PosterCodeView(View):
@@ -44,4 +45,11 @@ class PosterCodeView(View):
         url = request.scheme + '://' + request.get_host()
         url += reverse('website:poster', kwargs={'pk': pk})
         QrCode.save_png(url, response)
+        return response
+
+
+class SvgClipView(View):
+    def get(self, request):
+        xml = SvgClip.create_svg_clip_xml(request.GET)
+        response = HttpResponse(xml, content_type='image/svg+xml')
         return response
