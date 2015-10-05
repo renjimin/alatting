@@ -28,12 +28,18 @@
 
         .left-top {
             position: absolute;
-            width: 64%;
+            width: 63.5%;
             height: 49%;
             cursor: pointer;
             background-color: red;
             -webkit-clip-path: polygon(0 0, 100% 0, 0 100%);
             clip-path: url(#left-top-path);
+        }
+
+        .left-top p {
+            font-size: 3.4vw;
+            padding: 3vw 0 0 3vw;
+            margin: 0;
         }
 
         .right-top {
@@ -72,13 +78,13 @@
 
         .right-bottom {
             position: absolute;
-            left: 51%;
+            left: 51.3%;
             top: 60%;
-            width: 49%;
+            width: 48.7%;
             height: 40%;
             cursor: pointer;
             background-color: purple;
-            -webkit-clip-path: polygon(0 93.5%, 100% 0, 100% 100%, 6.8% 100%);
+            -webkit-clip-path: polygon(0 94%, 100% 0, 100% 100%, 6% 100%);
             clip-path: url(#right-bottom-path);
         }
 
@@ -107,7 +113,8 @@
 <div class="wrapper">
     <div class="container">
         <div class="left-top" onclick="alert('left-top')">
-
+            <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
+                a better way to<br>present itself with<br> innovative web<br> technology</p>
         </div>
         <div class="right-top" onclick="alert('right-top')">
 
@@ -139,7 +146,7 @@
                 <polygon points="0 0, 1 1, 0 1"/>
             </clipPath>
             <clipPath id="right-bottom-path" clipPathUnits="objectBoundingBox">
-                <polygon points="0 .935, 1 0, 1 1, .068 1"/>
+                <polygon points="0 .94, 1 0, 1 1, .06 1"/>
             </clipPath>
         </defs>
     </svg>

@@ -1,5 +1,17 @@
-.content{
+.navbar-absolute-top {
+    min-height: 100px;
+}
 
+.poster_side_bar{
+    position: fixed;
+    top: 400px;
+    z-index: 1024;
+}
+
+.poster_footer{
+    position: relative;
+    width: 500px;
+    margin: 10px auto 20px auto;
 }
 
 .poster-frame {
@@ -30,8 +42,9 @@
 }
 
 .poster-top{
-    position: relative;
+    position: absolute;
     height: 20%;
+    width: 100%;
     background-color: lightgray;
 }
 
@@ -70,21 +83,98 @@
     position: absolute;
     left: 15%;
     top: 75%;
-    font-size: 24px;
+    font-size: 50%;
 }
 
-.poster_side_bar{
-    position: fixed;
-    top: 400px;
-    z-index: 1024;
+.nav-tabs {
+    font-size: 60%;
 }
 
-.poster_footer{
-    position: relative;
-    width: 500px;
-    margin: 10px auto 20px auto;
+.poster-page {
+    position: absolute;
+    top: 20%;
+    height: 80%;
+    width: 100%;
+    overflow: hidden;
+
 }
 
-.navbar-absolute-top {
-    min-height: 100px;
+.left-top {
+    position: absolute;
+    width: 63.5%;
+    height: 49%;
+    cursor: pointer;
+    background-color: red;
+    -webkit-clip-path: polygon(0 0, 100% 0, 0 100%);
+    clip-path: url(#left-top-path);
+}
+
+.left-top p {
+    font-size: 50%;
+    padding: 5% 0 0 5%;
+    margin: 0;
+}
+
+.right-top {
+    position: absolute;
+    left: 51%;
+    width: 49%;
+    height: 49%;
+    cursor: pointer;
+    background-color: blue;
+    -webkit-clip-path: polygon(0 23.2%, 30.3% 0, 100% 0, 100% 100%);
+    clip-path: url(#right-top-path);
+}
+
+.middle {
+    position: absolute;
+    top: 12.06%;
+    margin-left: -4.84%;
+    width: 109.68%;
+    height: 84.58%;
+    cursor: pointer;
+    background-color: orange;
+    -webkit-clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
+    clip-path: url(#middle-path);
+}
+
+.left-bottom {
+    position: absolute;
+    top: 60%;
+    width: 52%;
+    height: 40%;
+    cursor: pointer;
+    background-color: yellow;
+    -webkit-clip-path: polygon(0 0, 100% 100%, 0 100%);
+    clip-path: url(#left-bottom-path);
+}
+
+.right-bottom {
+    position: absolute;
+    left: 51.3%;
+    top: 60%;
+    width: 48.7%;
+    height: 40%;
+    cursor: pointer;
+    background-color: purple;
+    -webkit-clip-path: polygon(0 94%, 100% 0, 100% 100%, 6% 100%);
+    clip-path: url(#right-bottom-path);
+}
+
+@media all and (min-width: 800px) {
+    .poster-container{
+        font-size: 56px; /* 200px: 14px */
+    }
+}
+
+@media all and (min-width: 481px) and (max-width: 799px) {
+    .poster-container{
+        font-size: 7vw; /* 200px: 14px */
+    }
+}
+
+@media all and (max-width: 480px) {
+    .poster-container{
+        font-size: 33.6px; /* 200px: 14px */
+    }
 }
