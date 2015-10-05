@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ object.title }}</title>
+    <link rel="stylesheet" href="{{ object.css.url }}">
+    <!-- facebook craw -->
+	<meta property="og:url"                content="{{ request.scheme }}://{{ request.get_host }}{{request.path}}" />
+	<meta property="og:type"               content="website" />
+	<meta property="og:site_name"          content="Alatting" />
+	<meta property="og:app_id"             content="" />
+	<meta property="og:locale"             content="" />
+	<meta property="og:title"              content="{{ object.title }}" />
+	<meta property="og:description"        content="{{ object.desc }}" />
+	<meta property="og:image"              content="{{ request.scheme }}://{{ request.get_host }}{{ object.images.6.file.url }}" />
+    <!-- /facebook craw -->
+	</head>
+<body>
+<!-- facebook body-start -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<!-- /facebook body-start -->
+<audio autoplay>
+  <source src="{{ object.music.file.url }}" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+<div class="poster-wrapper">
+    <div class="poster-container">
+        <img class="poster-background-image" src="{{ object.images.6.file.url }}">
+		<p class="views_count_widget">Views: {{object.views_count}}</p>
+        <p>Welcome to my birthday party!</p>
+        <p>Name: Tianhu Yang's Birthday Party</p>
+        <p>Time: 3:00pm - 11:00pm, 09/09/2015</p>
+        <p>Address: 834 W 24TH ST, Los Angeles,CA, USA, 90007</p>
+        <p>Note: We have enough cakes!</p>
+        <video class="poster-video" width="320" height="240" controls>
+            <source src="{{ object.videos.1.file.url }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <a class="poster-link0" href="https://www.google.com/">Sign up here!</a>
+        <img class="qrcode" src={% url 'website:code_poster' object.id %} />
+		<!-- facebook share button -->
+		<div class="fb-share-button" data-href="{{ request.scheme }}://{{ request.get_host }}{{request.path}}" data-layout="button_count"></div>
+		<!-- /facebook share button -->
+    </div>
+	
+</div>
+<script src="{{ object.script.url }}"></script>
+</body>
+</html>
