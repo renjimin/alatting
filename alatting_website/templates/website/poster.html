@@ -18,6 +18,26 @@
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
+    <style>
+        .left-top {
+            clip-path: url(#left-top-path);
+        }
+        .right-top {
+            clip-path: url(#right-top-path);
+        }
+
+        .middle {
+            clip-path: url(#middle-path);
+        }
+
+        .left-bottom {
+            clip-path: url(#left-bottom-path);
+        }
+
+        .right-bottom {
+            clip-path: url(#right-bottom-path);
+        }
+    </style>
 {% endblock %}
 
 {% block head_more %}
@@ -86,8 +106,7 @@
                 <ng-view></ng-view>
                 <div class="scrollable"><div class="scrollable-content"><div class="poster-frame center-block">
                 <div class="poster-ratio-wrapper">
-                    <div>
-                    <div class="poster-container">
+                    <div><div class="poster-container">
                         <div class="poster-top">
                             <div class="poster-header">
                                 <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
@@ -108,14 +127,49 @@
                                 </ul>
                             </div>
                         </div>
-
+                        <!-- poster-page -->
                         <div class="poster-page">
-                        { embed object.html.name }
+                            <div class="left-top" onclick="alert('left-top')">
+                                <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
+                                        a better way to<br>present itself with<br> innovative web<br> technology</p>
+                            </div>
+                            <div class="right-top" onclick="alert('right-top')">
+
+                            </div>
+
+                            <div class="left-bottom" onclick="alert('left-bottom')">
+
+                            </div>
+                            <div class="right-bottom" onclick="alert('right-bottom')">
+
+                            </div>
+                            <div class="middle" onclick="alert('middle')">
+
+                            </div>
 
                         </div>
+                        <!-- svg -->
+                        <svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
+                            <defs>
+                                <clipPath id="left-top-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 0, 1 0, 0 1"/>
+                                </clipPath>
+                                <clipPath id="right-top-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .232, .303 0, 1 0, 1 1"/>
+                                </clipPath>
+                                <clipPath id="middle-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .5, .5 0, 1 .5, .5 1"/>
+                                </clipPath>
+                                <clipPath id="left-bottom-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 0, 1 1, 0 1"/>
+                                </clipPath>
+                                <clipPath id="right-bottom-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .94, 1 0, 1 1, .06 1"/>
+                                </clipPath>
+                            </defs>
+                        </svg>
 
-                    </div>
-                    </div>
+                    </div></div>
                 </div>
                 </div></div></div>
 
