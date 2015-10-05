@@ -60,8 +60,6 @@ target/
 
 #deploy
 /static/
-/media/music/
-/media/images/
 /media/videos/
 /alatting/settings.py
 /alatting/wsgi.py
