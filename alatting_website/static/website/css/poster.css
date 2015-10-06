@@ -1,5 +1,14 @@
-.navbar-absolute-top {
-    min-height: 100px;
+.navbar-absolute-bottom .btn-group{
+    background-color: #020202;
+    height: 104px;
+}
+
+.navbar-absolute-bottom .btn-navbar{
+    border-right: 1px solid #818181 !important;
+}
+
+.navbar-absolute-bottom .sprite-menu-icons{
+    margin-top: 10px;
 }
 
 .poster_side_bar{

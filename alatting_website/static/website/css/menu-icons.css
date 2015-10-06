@@ -1,0 +1,12 @@
+.sprite-menu-icons { display:inline-block; overflow: hidden; background-repeat: no-repeat; background-image: url('../images/menu-icons.png'); }
+
+.menu-icons-rate { width: 60px; height: 57px; background-position: -2px -2px; }
+.menu-icons-rate_selected { width: 60px; height: 57px; background-position: -64px -2px; }
+.menu-icons-print { width: 65px; height: 56px; background-position: -126px -2px; }
+.menu-icons-print_selected { width: 65px; height: 56px; background-position: -193px -2px; }
+.menu-icons-feedback { width: 63px; height: 56px; background-position: -260px -2px; }
+.menu-icons-feedback_selected { width: 63px; height: 56px; background-position: -325px -2px; }
+.menu-icons-stats { width: 55px; height: 55px; background-position: -390px -2px; }
+.menu-icons-stats_selected { width: 55px; height: 55px; background-position: -447px -2px; }
+.menu-icons-share { width: 61px; height: 47px; background-position: -504px -2px; }
+.menu-icons-share_selected { width: 61px; height: 47px; background-position: -567px -2px; }
