@@ -5,23 +5,32 @@
 .bottom-ratio-frame {
     max-width: 800px;
     max-height: 136px;
+    min-width: 240px;
+    min-height: 40.8px;
 }
 
 .bottom-ratio-wrapper {
     position: relative;
     width: 100%;
     padding-bottom: 17%;
-    margin-left: auto;
-    margin-right: auto;
+}
+
+.bottom-ratio-wrapper > div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.navbar-absolute-bottom{
+    background-color: transparent;
+    border: none;
 }
 
 .navbar-absolute-bottom .btn-group{
     background-color: #020202;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    height: 100%;
 }
 
 .navbar-absolute-bottom .btn-navbar{
@@ -50,16 +59,16 @@
     margin: 10px auto 20px auto;
 }
 
-.poster-frame {
+.poster-ratio-frame {
     max-width: 800px;
-    max-height: 1422px;
-    min-width: 480px;
-    min-height: 854px;
+    max-height: 1424px;
+    min-width: 240px;
+    min-height: 427.2px;
 }
 
 .poster-ratio-wrapper {
     width: 100%;
-    padding-bottom: 177.78%;
+    padding-bottom: 178%;
     position: relative;
 }
 
@@ -255,16 +264,28 @@
     .poster-container{
         font-size: 56px; /* 200px: 14px */
     }
-}
 
-@media all and (min-width: 481px) and (max-width: 799px) {
-    .poster-container{
-        font-size: 7vw; /* 200px: 14px */
+    .has-navbar-bottom .app-body {
+        padding-bottom: 136px;
     }
 }
 
-@media all and (max-width: 480px) {
+@media all and (min-width: 241px) and (max-width: 799px) {
     .poster-container{
-        font-size: 33.6px; /* 200px: 14px */
+        font-size: 7vw; /* 200px: 14px */
+    }
+
+    .has-navbar-bottom .app-body {
+        padding-bottom: 17%;
+    }
+}
+
+@media all and (max-width: 240px) {
+    .poster-container{
+        font-size: 16.8px; /* 200px: 14px */
+    }
+
+    .has-navbar-bottom .app-body {
+        padding-bottom: 40.8px;
     }
 }
