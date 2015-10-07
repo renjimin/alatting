@@ -1,14 +1,41 @@
+.app{
+    background-color: white
+}
+
+.bottom-ratio-frame {
+    max-width: 800px;
+    max-height: 136px;
+}
+
+.bottom-ratio-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 17%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .navbar-absolute-bottom .btn-group{
     background-color: #020202;
-    height: 104px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
 .navbar-absolute-bottom .btn-navbar{
     border-right: 1px solid #818181 !important;
 }
 
-.navbar-absolute-bottom .sprite-menu-icons{
-    margin-top: 10px;
+.bottom-btn img{
+    height: 50%;
+    max-width: none;
+}
+
+.bottom-btn {
+    position: relative;
+    overflow: hidden;
 }
 
 .poster_side_bar{
@@ -54,12 +81,13 @@
     position: absolute;
     height: 20%;
     width: 100%;
-    background-color: lightgray;
+    background-color: white;
 }
 
 .poster-header{
-    position: relative;
+    position: absolute;
     height: 70%;
+    width: 68%;
 }
 
 .poster-qrcode{
@@ -71,9 +99,9 @@
 
 .poster-logo {
     position: absolute;
-    left: 0px;
-    top: 0px;
-    height: 75%;
+    left: 4%;
+    top: 30%;
+    width: 60%;
 }
 
 .views-count-widget{
@@ -95,8 +123,63 @@
     font-size: 50%;
 }
 
-.nav-tabs {
+.poster-contact {
+    position: absolute;
+    left: 68%;
+    width: 32%;
+    height: 100%;
+}
+
+.poster-contact > * {
+    position: absolute;
+    width: 100%;
+    height: 49%;
+}
+
+.poster-contact .second-row{
+    top: 50%;
+}
+
+.poster-contact img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.poster-tabs {
+    position: absolute;
+    top: 75%;
+    width: 68%;
+    height: 25%;
     font-size: 60%;
+}
+
+.tab-btn:not(:first-child) {
+    border-left: 2px solid white;
+}
+
+.tab-btn {
+    color: black;
+    background-color: #ced6de;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 100%;
+}
+
+.tab-btn:focus,
+.tab-btn:active,
+.tab-btn.active
+{
+  color: #ffffff;
+  background-color: #597995;
+}
+
+
+.poster-tabs li{
+    background-color: #ced6de;;
 }
 
 .poster-page {
@@ -105,7 +188,6 @@
     height: 80%;
     width: 100%;
     overflow: hidden;
-
 }
 
 .left-top {
@@ -113,7 +195,6 @@
     width: 63.5%;
     height: 49%;
     cursor: pointer;
-    background-color: red;
     -webkit-clip-path: polygon(0 0, 100% 0, 0 100%);
     clip-path: url(#left-top-path);
 }

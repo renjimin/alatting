@@ -91,13 +91,25 @@
 
         </div-->
         <div class="navbar navbar-app navbar-absolute-bottom">
+            <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper">
             <div class="btn-group justified">
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"><div class="sprite-menu-icons menu-icons-share"></div></a>
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"><div class="sprite-menu-icons menu-icons-rate"></div></a>
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"><div class="sprite-menu-icons menu-icons-feedback"></div></a>
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"><div class="sprite-menu-icons menu-icons-print"></div></a>
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"><div class="sprite-menu-icons menu-icons-stats"></div></a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/print.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/stats.png' %}">
+                </a>
             </div>
+            </div></div>
         </div>
 
         <!-- App body -->
@@ -111,12 +123,12 @@
                             <div class="poster-header">
                                 <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
                                 <img class="poster-qrcode" id="poster-qrcode" src={% url 'website:code_poster' object.id %} />
-                                <p class="views-count-widget">Views: {{object.views_count}}</p>
+                                <!--p class="views-count-widget">Views: {{object.views_count}}</p-->
                                 <p class="poster-title" id="poster-title">
                                     {{ object.logo_title }}
                                 </p>
                             </div>
-                            <div class="poster-tabs" ui-state="activeTab" default="1">
+                            <!--div class="poster-tabs" ui-state="activeTab" default="1">
                                 <ul class="nav nav-tabs">
                                     <li ui-class="{'active': activeTab == 1}">
                                         <a ui-set="{'activeTab': 1}">INTRO</a>
@@ -124,7 +136,38 @@
                                     <li ui-class="{'active': activeTab == 2}">
                                         <a ui-set="{'activeTab': 2}">TEAM</a>
                                     </li>
+                                    <li ui-class="{'active': false}">
+                                    </li>
                                 </ul>
+
+                            </div-->
+
+                            <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
+                                    <a ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn btn">INTRO</a>
+
+                                    <a ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">TEAM</a>
+
+                                    <a ui-class="{'active': false}" class="tab-btn btn"></a>
+                            </div>
+                            <div class="poster-contact">
+                                <div class="first-row btn-group justified">
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/phone_selected.png' %}"></a>
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/mail_selected.png' %}"></a>
+                                </div>
+                                <div class="second-row btn-group justified">
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/hours_selected.png' %}"></a>
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/location_selected.png' %}"></a>
+                                <!--table >
+                                    <tr><td><img src="{% static 'website/images/icons/phone_selected.png' %}"></td>
+                                        <td><img src="{% static 'website/images/icons/mail_selected.png' %}"></td></tr>
+                                    <tr><td><img src="{% static 'website/images/icons/hours_selected.png' %}"></td>
+                                        <td><img src="{% static 'website/images/icons/location_selected.png' %}"></td></tr>
+                                </table-->
+                                </div>
                             </div>
                         </div>
                         <!-- poster-page -->
