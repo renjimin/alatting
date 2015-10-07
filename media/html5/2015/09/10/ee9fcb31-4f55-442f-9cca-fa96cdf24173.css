@@ -1,0 +1,23 @@
+body{
+    color: orange;
+}
+
+.poster-container{
+    position: relative;
+    border-color: black;
+    border-width: 1px;
+    border-style: dashed;
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+}
+
+.poster-background-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    z-index: -1;
+}
