@@ -260,7 +260,6 @@
     width: 109.68%;
     height: 84.58%;
     cursor: pointer;
-    background-color: orange;
     -webkit-clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
     clip-path: url(#middle-path);
 }
@@ -316,4 +315,19 @@
     .has-navbar-bottom .app-body {
         padding-bottom: 40.8px;
     }
+}
+
+
+/* testing */
+.photo_swipe_widget{
+    cursor: pointer;
+}
+
+.photo_swipe_widget1 img{
+    width: 100%;
+    height: 100%;
+}
+
+.poster_element_slider_1{
+    width: 100%;
 }
