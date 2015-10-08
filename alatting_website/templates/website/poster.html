@@ -122,24 +122,30 @@
                             </div-->
 
                             <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
-                                    <a ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn btn">INTRO</a>
+                                    <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn btn">
+                                        <div>INTRO</div>
+                                    </div>
 
-                                    <a ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">TEAM</a>
+                                    <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">
+                                        <div>TEAM</div>
+                                    </div>
 
-                                    <a ui-class="{'active': false}" class="tab-btn btn"></a>
+                                    <div ui-class="{'active': false}" class="tab-btn btn">
+                                        <div> </div>
+                                    </div>
                             </div>
                             <div class="poster-contact">
                                 <div class="first-row btn-group justified">
                                     <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone_selected.png' %}"></a>
+                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
                                     <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail_selected.png' %}"></a>
+                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
                                 </div>
                                 <div class="second-row btn-group justified">
                                     <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours_selected.png' %}"></a>
+                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
                                     <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location_selected.png' %}"></a>
+                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
                                 <!--table >
                                     <tr><td><img src="{% static 'website/images/icons/phone_selected.png' %}"></td>
                                         <td><img src="{% static 'website/images/icons/mail_selected.png' %}"></td></tr>
