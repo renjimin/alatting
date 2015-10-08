@@ -136,7 +136,6 @@ class Poster(models.Model):
     )
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User)
-    template = models.ForeignKey(Template)
     unique_name = models.CharField(max_length=512, unique=True)
     url = models.CharField(max_length=512)
     #qr_image
@@ -171,6 +170,16 @@ class Poster(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+
+class PosterPage(models.Model):
+    poster = models.ForeignKey(Poster, related_name='poster_pages')
+    template = models.ForeignKey(Template)
+    index = models.SmallIntegerField(default=0)
+    name = models.CharField(max_length=64)
+
+    class Meta:
+        unique_together = ('poster', 'index')
 
 
 class PosterImage(models.Model):

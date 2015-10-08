@@ -1,0 +1,14 @@
+<style>
+    {% for region in object.regions %}
+    .{{ region.name }} {
+        position: absolute;
+        top: {{ region.left }}%;
+        top: {{ region.top }}%;
+        width: {{ region.width }}%;
+        height: {{ region.height }}%;
+        cursor: pointer;
+        -webkit-clip-path: polygon({{ region.polygon }});
+        clip-path: url(#{{ region.name }});
+    }
+    {% endfor %}
+</style>
