@@ -100,6 +100,23 @@ class Address(models.Model):
         return "{:s}".format(self.address1)
 
 
+class Template(models.Model):
+    name = models.CharField(max_length=64)
+
+
+class TemplateRegion(models.Model):
+    template = models.ForeignKey(Template)
+    name = models.CharField(max_length=64)
+    left = models.FloatField()
+    top = models.FloatField()
+    width = models.FloatField()
+    height = models.FloatField()
+    points = models.CharField(max_length=256)
+
+    class Meta:
+        unique_together = ('template', 'name')
+
+
 class Poster(models.Model):
     STATUS_DRAFT = 'Draft'
     STATUS_PUBLISHED = 'Published'
@@ -119,6 +136,7 @@ class Poster(models.Model):
     )
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User)
+    template = models.ForeignKey(Template)
     unique_name = models.CharField(max_length=512, unique=True)
     url = models.CharField(max_length=512)
     #qr_image
@@ -162,8 +180,7 @@ class PosterImage(models.Model):
     name = models.CharField(max_length=63)
 
     class Meta:
-        unique_together = ('poster', 'image')
-        unique_together = ('poster', 'name')
+        unique_together = (('poster', 'image'), ('poster', 'name'))
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -176,8 +193,7 @@ class PosterVideo(models.Model):
     name = models.CharField(max_length=63)
 
     class Meta:
-        unique_together = ('poster', 'video')
-        unique_together = ('poster', 'name')
+        unique_together = (('poster', 'video'), ('poster', 'name'))
 
     def __str__(self):
         return "{:d}".format(self.pk)
