@@ -1,7 +1,7 @@
-<div class="photo_swipe_widget poster_element_{{ element.name }}" id="poster_element_{{ element.name }}">
+<div class="photo_swipe_widget {{ widget.class_name }}" id="{{ widget.element_id }}">
     <div class="flexslider">
         <ul class="slides">
-            {% for image in element.images %}
+            {% for image in widget.images %}
                 <li data-src="{{ image.image_url }}" data-w="{{ image.width }}"
                 data-h="{{ image.height }}"><img src="{{ image.image_url }}"></li>
             {% endfor %}

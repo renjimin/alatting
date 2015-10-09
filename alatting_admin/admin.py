@@ -1,5 +1,6 @@
 from django.contrib import admin
-from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, Comment, Address
+from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, \
+Comment, Address, PosterPage
 from alatting_website.models import ActivityInvitation, BusinessMarketing, ProductSell, ExpertShow, Template, TemplateRegion
 
 
@@ -86,3 +87,7 @@ class TemplateAdmin(admin.ModelAdmin):
 @admin.register(TemplateRegion)
 class TemplateRegionAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in TemplateRegion._meta.get_concrete_fields_with_model()]
+
+@admin.register(PosterPage)
+class PosterPageAdmin(admin.ModelAdmin):
+    list_display = [pair[0].name for pair in PosterPage._meta.get_concrete_fields_with_model()]

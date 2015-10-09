@@ -1,0 +1,9 @@
+<svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 100 100">
+    <defs>
+        {% for region in object.regions %}
+        <clipPath id="{{ region.element_id }}" clipPathUnits="objectBoundingBox">
+            <polygon points="{{ region.points }}"/>
+        </clipPath>
+        {% endfor %}
+    </defs>
+</svg>

@@ -1,6 +1,6 @@
 <style>
     {% for region in object.regions %}
-    .{{ region.name }} {
+    .{{ region.class_name }} {
         position: absolute;
         top: {{ region.left }}%;
         top: {{ region.top }}%;
@@ -8,7 +8,7 @@
         height: {{ region.height }}%;
         cursor: pointer;
         -webkit-clip-path: polygon({{ region.polygon }});
-        clip-path: url(#{{ region.name }});
+        clip-path: url(#{{ region.element_id }});
     }
     {% endfor %}
 </style>

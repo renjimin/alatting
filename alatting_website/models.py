@@ -103,18 +103,24 @@ class Address(models.Model):
 class Template(models.Model):
     name = models.CharField(max_length=64)
 
+    def __str__(self):
+        return "{:s}".format(self.name)
+
 
 class TemplateRegion(models.Model):
-    template = models.ForeignKey(Template)
+    template = models.ForeignKey(Template, related_name='template_regions')
     name = models.CharField(max_length=64)
     left = models.FloatField()
     top = models.FloatField()
     width = models.FloatField()
     height = models.FloatField()
-    points = models.CharField(max_length=256)
+    polygon = models.CharField(max_length=256)  # use percentage
 
     class Meta:
         unique_together = ('template', 'name')
+
+    def __str__(self):
+        return "{:s}".format(self.name)
 
 
 class Poster(models.Model):
@@ -180,6 +186,9 @@ class PosterPage(models.Model):
 
     class Meta:
         unique_together = ('poster', 'index')
+
+    def __str__(self):
+        return "{:s}".format(self.name)
 
 
 class PosterImage(models.Model):

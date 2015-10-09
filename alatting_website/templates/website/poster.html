@@ -18,26 +18,7 @@
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
-    <style>
-        .left-top {
-            clip-path: url(#left-top-path);
-        }
-        .right-top {
-            clip-path: url(#right-top-path);
-        }
-
-        .middle {
-            clip-path: url(#middle-path);
-        }
-
-        .left-bottom {
-            clip-path: url(#left-bottom-path);
-        }
-
-        .right-bottom {
-            clip-path: url(#right-bottom-path);
-        }
-    </style>
+    {% include 'libs/widgets/clip_style.html' %}
 {% endblock %}
 
 {% block head_more %}
@@ -157,7 +138,8 @@
                         </div>
                         <!-- poster-page -->
                         <div class="poster-pages">
-                            <div class="poster-page">
+                            {% include 'libs/widgets/poster_pages.html' %}
+                            <!--div class="poster-page">
                                 <div class="left-top" onclick="alert('left-top')">
                                     <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
                                             a better way to<br>present itself with<br> innovative web<br> technology</p>
@@ -173,7 +155,6 @@
 
                                 </div>
                                 <div class="middle" onclick="alert('middle')">
-                                    <!-- test -->
                                     <div class="photo_swipe_widget poster_element_slider_1" id="poster_element_slider_1">
                                         <div class="flexslider">
                                             <ul class="slides">
@@ -193,13 +174,14 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <!-- end of test -->
                                 </div>
-                            </div>
+                            </div-->
 
                         </div>
+
+                        {% include 'libs/widgets/clip_svg.html' %}
                         <!-- svg -->
-                        <svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
+                        <!--svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
                             <defs>
                                 <clipPath id="left-top-path" clipPathUnits="objectBoundingBox">
                                     <polygon points="0 0, 1 0, 0 1"/>
@@ -217,7 +199,7 @@
                                     <polygon points="0 .94, 1 0, 1 1, .06 1"/>
                                 </clipPath>
                             </defs>
-                        </svg>
+                        </svg-->
 
                     </div></div>
                 </div>
