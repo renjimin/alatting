@@ -219,12 +219,18 @@
     background-color: #ced6de;;
 }
 
-.poster-page {
+.poster-pages {
     position: absolute;
     top: 20%;
     height: 80%;
     width: 100%;
     overflow: hidden;
+}
+
+.poster-page {
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
 
 .left-top {

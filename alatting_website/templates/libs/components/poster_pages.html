@@ -1,0 +1,46 @@
+{% for page in object.pages %}
+<div class="poster-page">
+    {% for region in page.regions %}
+        <div class="{{ region.name }}">
+            {{ region.html }}
+        </div>
+    {% endfor %}
+    <div class="left-top" onclick="alert('left-top')">
+        <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
+            a better way to<br>present itself with<br> innovative web<br> technology</p>
+    </div>
+    <div class="right-top" onclick="alert('right-top')">
+
+    </div>
+
+    <div class="left-bottom" onclick="alert('left-bottom')">
+
+    </div>
+    <div class="right-bottom" onclick="alert('right-bottom')">
+
+    </div>
+    <div class="middle" onclick="alert('middle')">
+        <!-- test -->
+        <div class="photo_swipe_widget poster_element_slider_1" id="poster_element_slider_1">
+            <div class="flexslider">
+                <ul class="slides">
+
+                    <li data-src="/media/images/2015/09/23/4d712c75f5cb4e64827939f2b62679a0.PNG" data-w="991"
+                        data-h="909"><img src="/media/images/2015/09/23/4d712c75f5cb4e64827939f2b62679a0.PNG"></li>
+
+                    <li data-src="/media/images/2015/09/23/0dc6eb03c4f94649b28b5977ecb3039b.PNG" data-w="1460"
+                        data-h="775"><img src="/media/images/2015/09/23/0dc6eb03c4f94649b28b5977ecb3039b.PNG"></li>
+
+                    <li data-src="/media/images/2015/09/23/9f0955515312418b9eae8d129cd0ac2b.PNG" data-w="1026"
+                        data-h="906"><img src="/media/images/2015/09/23/9f0955515312418b9eae8d129cd0ac2b.PNG"></li>
+
+                    <li data-src="/media/images/2015/09/23/8fb83b6391f747449490d9f17af75a76.PNG" data-w="1013"
+                        data-h="781"><img src="/media/images/2015/09/23/8fb83b6391f747449490d9f17af75a76.PNG"></li>
+
+                </ul>
+            </div>
+        </div>
+        <!-- end of test -->
+    </div>
+</div>
+{% endfor %}

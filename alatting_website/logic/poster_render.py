@@ -29,6 +29,29 @@ class PosterRender:
         return html
 
     @classmethod
+    def render(cls, element, context):
+        typ = element['type']
+        if typ == 'background':
+            html = cls.render_background(element, context)
+        elif typ == 'text':
+            html = cls.render_text(element, context)
+        elif typ == 'button':
+            html = cls.render_button(element, context)
+        elif typ == 'image':
+            html = cls.render_image(element, context)
+        elif typ == 'slider':
+            html = cls.render_slider(element, context)
+        elif typ == 'music':
+            html = cls.render_music(element, context)
+        elif typ == 'video':
+            html = cls.render_video(element, context)
+        elif typ == 'map':
+            html = cls.render_map(element, context)
+        else:
+            html = ''
+        return html
+
+    @classmethod
     def render_background(cls, element, context_instance):
         template_name = 'libs/components/background.html'
         images = context_instance['object'].images
