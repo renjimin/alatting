@@ -10,21 +10,47 @@
             "content": "We are a startup company<br>aim to offter individuals<br> and small businesses<br>a better way to<br>present itself with<br> innovative web<br> technology"
           }
         },
-        "right-top": {
+        "top-right": {
+          "widget": {
+            "type": "video",
+            "name": "video_1",
+            "video_name": "video_1"
+          }
+        },
+        "middle": {
+          "widget": {
+            "type": "slider",
+            "images": [
+              {
+                "image_name": "image_7"
+              },
+              {
+                "image_name": "image_6"
+              },
+              {
+                "image_name": "image_5"
+              },
+              {
+                "image_name": "image_2"
+              },
+              {
+                "image_name": "image_3"
+              },
+              {
+                "image_name": "image_4"
+              }
+            ],
+            "name": "slider_2"
+          }
+        },
+        "bottom-left": {
           "widget": {
             "type": "image",
             "image_name": "image_12",
             "name": "image_1"
           }
         },
-        "middle": {
-          "widget": {
-            "type": "background",
-            "image_name": "image_1",
-            "name": "background_1"
-          }
-        },
-        "left-bottom": {
+        "bottom-right": {
           "widget": {
             "type": "button",
             "name": "button_1",
@@ -32,17 +58,18 @@
             "link": "http://www.alatting.com/"
           }
         },
-        "right-bottom": {
+        "middle1": {
+          "widget": {
+            "type": "background",
+            "image_name": "image_1",
+            "name": "background_1"
+          }
+        },
+
+        "right-bottom1": {
           "widget": {
             "type": "music",
             "name": "music_1"
-          }
-        },
-        "extra4": {
-          "widget": {
-            "type": "video",
-            "name": "video_1",
-            "video_name": "video_1"
           }
         },
         "extra3": {
@@ -63,32 +90,6 @@
               }
             ],
             "name": "slider_1"
-          }
-        },
-        "extra2": {
-          "widget": {
-            "type": "slider",
-            "images": [
-              {
-                "image_name": "image_9"
-              },
-              {
-                "image_name": "image_10"
-              },
-              {
-                "image_name": "image_11"
-              },
-              {
-                "image_name": "image_2"
-              },
-              {
-                "image_name": "image_3"
-              },
-              {
-                "image_name": "image_4"
-              }
-            ],
-            "name": "slider_2"
           }
         },
         "extra1": {

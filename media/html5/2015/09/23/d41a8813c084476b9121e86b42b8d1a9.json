@@ -10,62 +10,14 @@
             "content": "We are a startup company<br>aim to offter individuals<br> and small businesses<br>a better way to<br>present itself with<br> innovative web<br> technology"
           }
         },
-        "right-top": {
-          "widget": {
-            "type": "image",
-            "image_name": "image_12",
-            "name": "image_1"
-          }
-        },
-        "middle": {
-          "widget": {
-            "type": "background",
-            "image_name": "image_1",
-            "name": "background_1"
-          }
-        },
-        "left-bottom": {
-          "widget": {
-            "type": "button",
-            "name": "button_1",
-            "content": "Visit Us!",
-            "link": "http://www.alatting.com/"
-          }
-        },
-        "right-bottom": {
-          "widget": {
-            "type": "music",
-            "name": "music_1"
-          }
-        },
-        "extra4": {
+        "top-right": {
           "widget": {
             "type": "video",
             "name": "video_1",
             "video_name": "video_1"
           }
         },
-        "extra3": {
-          "widget": {
-            "type": "slider",
-            "images": [
-              {
-                "image_name": "image_6"
-              },
-              {
-                "image_name": "image_5"
-              },
-              {
-                "image_name": "image_7"
-              },
-              {
-                "image_name": "image_8"
-              }
-            ],
-            "name": "slider_1"
-          }
-        },
-        "extra2": {
+        "middle": {
           "widget": {
             "type": "slider",
             "images": [
@@ -89,6 +41,55 @@
               }
             ],
             "name": "slider_2"
+          }
+        },
+        "bottom-left": {
+          "widget": {
+            "type": "image",
+            "image_name": "image_12",
+            "name": "image_1"
+          }
+        },
+        "bottom-right": {
+          "widget": {
+            "type": "button",
+            "name": "button_1",
+            "content": "Visit Us!",
+            "link": "http://www.alatting.com/"
+          }
+        },
+        "middle1": {
+          "widget": {
+            "type": "background",
+            "image_name": "image_1",
+            "name": "background_1"
+          }
+        },
+
+        "right-bottom1": {
+          "widget": {
+            "type": "music",
+            "name": "music_1"
+          }
+        },
+        "extra3": {
+          "widget": {
+            "type": "slider",
+            "images": [
+              {
+                "image_name": "image_6"
+              },
+              {
+                "image_name": "image_5"
+              },
+              {
+                "image_name": "image_7"
+              },
+              {
+                "image_name": "image_8"
+              }
+            ],
+            "name": "slider_1"
           }
         },
         "extra1": {
