@@ -2,13 +2,14 @@
     {% for region in object.regions %}
     .{{ region.class_name }} {
         position: absolute;
-        top: {{ region.left }}%;
+        overflow: hidden;
+        left: {{ region.left }}%;
         top: {{ region.top }}%;
         width: {{ region.width }}%;
         height: {{ region.height }}%;
         cursor: pointer;
         -webkit-clip-path: polygon({{ region.polygon }});
-        clip-path: url(#{{ region.element_id }});
+        clip-path: url(#{{ region.path_id }});
     }
     {% endfor %}
 </style>

@@ -68,8 +68,9 @@
 <script type="text/javascript" charset="utf-8">
   $(window).load(function() {
     $('.flexslider').flexslider({
-        animation: "slide"
-        //controlNav: false
+        animation: "slide",
+        controlNav: false,
+        directionNav: false
     });
   });
 </script>
@@ -116,7 +117,7 @@
             gallery.init();
         }
 
-        var widgets = document.querySelectorAll('.slides');
+        var widgets = document.querySelectorAll('.flexslider');
         for(var index = 0; index < widgets.length; ++index){
             var widget = widgets[index]
             widget.onclick = function(e){

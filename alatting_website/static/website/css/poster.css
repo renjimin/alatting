@@ -242,12 +242,6 @@
     clip-path: url(#left-top-path);
 }
 
-.left-top p {
-    font-size: 50%;
-    padding: 5% 0 0 5%;
-    margin: 0;
-}
-
 .right-top {
     position: absolute;
     left: 51%;
@@ -325,15 +319,6 @@
 
 
 /* testing */
-.photo_swipe_widget{
-    cursor: pointer;
-}
-
-.photo_swipe_widget1 img{
-    width: 100%;
-    height: 100%;
-}
-
-.poster_element_slider_1{
-    width: 100%;
+.poster_slider_widget{
+    overflow: hidden;
 }

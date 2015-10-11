@@ -1,4 +1,6 @@
 __author__ = 'tianhuyang'
+import re
+from decimal import Decimal
 from django.template.loader import render_to_string
 
 
@@ -29,16 +31,31 @@ class PosterRender:
         return html
 
     @classmethod
+    def _polygon_to_points(cls, polygon):
+        polygon = polygon.replace('%', '')
+        pairs = polygon.split(',')
+        for index in range(len(pairs)):
+            pair = pairs[index].strip()
+            items = re.split('\s+', pair)
+            for pos in range(len(items)):
+                items[pos] = Decimal(items[pos]) / 100
+                items[pos] = str(items[pos])
+            pairs[index] = ' '.join(items)
+        points = ', '.join(pairs)
+        return points
+
+    @classmethod
     def render_region(cls, poster_region, region):
         poster_region.class_name = 'p%s-p%s-%s' % (poster_region.poster_page.poster.id, poster_region.poster_page.index,
                                                    poster_region.name)
         poster_region.element_id = poster_region.class_name
-        poster_region.points = poster_region.polygon.replace('%', '')
+        poster_region.path_id = poster_region.element_id + '-path'
+        poster_region.points = cls._polygon_to_points(poster_region.polygon)
         cls.render_widget(poster_region, region['widget'])
 
     @classmethod
     def render_widget(cls, poster_region, widget):
-        widget['class_name'] = '%s-%s' % (poster_region.class_name, widget['name'])
+        widget['class_name'] = '%s-%s' % ('poster-widget', widget['name'])
         widget['element_id'] = widget['class_name']
         typ = widget['type']
         context = dict(object=poster_region.poster_page.poster)

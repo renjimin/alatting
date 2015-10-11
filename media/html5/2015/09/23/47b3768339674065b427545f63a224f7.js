@@ -1,1 +1,0 @@
-//alert('Our first poster!')

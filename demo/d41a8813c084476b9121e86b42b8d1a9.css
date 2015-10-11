@@ -1,4 +1,11 @@
-.poster_container{
+.poster-widget-text1 {
+    font-size: 50%;
+    padding: 5% 0 0 5%;
+    margin: 0;
+}
+
+
+/*.poster_container{
     position: relative;
     border-color: black;
     border-width: 1px;
@@ -144,4 +151,4 @@
     border-radius: 7px 7px 7px 7px;
     font: normal normal normal normal 22px / 44px 'Microsoft YaHei', Arial, Helvetica, sans-serif, å®‹ä½“;
     outline: rgb(244, 20, 132) none 0px;
-}
+}*/
