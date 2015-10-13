@@ -1,14 +1,13 @@
-.poster-widget-text_1 {
+.poster-widget-text_1{
     font-size: 50%;
     padding: 5% 0 0 5%;
     margin: 0;
 }
 
 .poster-widget-video_1{
-    position: relative;
-    width: 100%;
-    height: 100%;
+
 }
+
 
 .poster-widget-video_1 video{
     position: absolute;
@@ -25,15 +24,15 @@
 }
 
 .poster-widget-slider_1 {
-    height: 100%;
+
 }
 
-.poster-widget-image_1 {
+.poster-widget-image_1 img {
     width: 100%;
     height: 100%;
 }
 
-.poster-widget-image_2 {
+.poster-widget-image_2 img{
     width: 100%;
     height: 100%;
 }
