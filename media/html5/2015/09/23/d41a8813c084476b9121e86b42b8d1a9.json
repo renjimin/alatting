@@ -22,13 +22,7 @@
             "type": "slider",
             "images": [
               {
-                "image_name": "image_9"
-              },
-              {
-                "image_name": "image_10"
-              },
-              {
-                "image_name": "image_11"
+                "image_name": "image_1"
               },
               {
                 "image_name": "image_2"
@@ -38,6 +32,12 @@
               },
               {
                 "image_name": "image_4"
+              },
+              {
+                "image_name": "image_5"
+              },
+              {
+                "image_name": "image_6"
               }
             ],
             "name": "slider_1"

@@ -317,3 +317,34 @@
     }
 }
 
+
+/* widgets */
+
+.flexslider {
+    margin-bottom: 0 !important;
+    border: none !important;
+}
+
+.flexslider .flex-viewport{
+    height: 100%;
+}
+
+.flexslider .slides {
+    display: block;
+    height: 100%;
+}
+
+.flexslider .slides li{
+    overflow: hidden;
+    height: 100%;
+}
+
+.flexslider .slides img{
+    max-width: none;
+}
+
+.flexslider .slides:after{
+    clear: left;
+}
+
+
