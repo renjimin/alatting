@@ -103,24 +103,18 @@ class Address(models.Model):
 class Template(models.Model):
     name = models.CharField(max_length=64)
 
-    def __str__(self):
-        return "{:s}".format(self.name)
-
 
 class TemplateRegion(models.Model):
-    template = models.ForeignKey(Template, related_name='template_regions')
+    template = models.ForeignKey(Template)
     name = models.CharField(max_length=64)
     left = models.FloatField()
     top = models.FloatField()
     width = models.FloatField()
     height = models.FloatField()
-    polygon = models.CharField(max_length=256)  # use percentage
+    points = models.CharField(max_length=256)
 
     class Meta:
         unique_together = ('template', 'name')
-
-    def __str__(self):
-        return "{:s}".format(self.name)
 
 
 class Poster(models.Model):
@@ -142,18 +136,19 @@ class Poster(models.Model):
     )
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User)
-    unique_name = models.CharField(max_length=512, unique=True)
-    url = models.CharField(max_length=512)
+    template = models.ForeignKey(Template)
+    unique_name = models.CharField(max_length=255, unique=True)
+    url = models.CharField(max_length=255)
     #qr_image
     logo_image = models.ForeignKey(Image, related_name='poster_logo_images')
-    logo_title = models.CharField(max_length=512)
-    short_description = models.CharField(max_length=1024)
+    logo_title = models.CharField(max_length=255)
+    short_description = models.CharField(max_length=255)
     phone = models.CharField(max_length=16)
     mobile = models.CharField(max_length=16, blank=True, default='')
     email = models.EmailField(blank=True, default='')
     address = BigForeignKey(Address, related_name='posters')
     lifetime_type = models.CharField(max_length=15, choices=LIFETIME_CHOICES, default=LIFETIME_SPECIFIC)
-    lifetime_value = models.CharField(max_length=1024)
+    lifetime_value = models.CharField(max_length=255)
     music = models.ForeignKey(Music, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     main_category = models.ForeignKey(Category, related_name='main_posters')
@@ -176,7 +171,6 @@ class Poster(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
-
 
 class PosterPage(models.Model):
     poster = models.ForeignKey(Poster, related_name='poster_pages')
@@ -254,7 +248,7 @@ class ActivityInvitation(Poster):
     )
     poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     activity_status = models.CharField(max_length=15, choices=ACTIVITY_STATUS_CHOICES, default=ACTIVITY_STATUS_COMING)
-    invitation_message = models.CharField(max_length=512)
+    invitation_message = models.CharField(max_length=255)
     activity_start_time = models.DateTimeField()
     activity_end_time = models.DateTimeField()
     special_description = models.CharField(max_length=1024, blank=True, default='')
