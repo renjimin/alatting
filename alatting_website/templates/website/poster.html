@@ -283,14 +283,8 @@
 {% block body_end %}
     {{ block.super }}
     <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
+    <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{{ object.script.url }}"></script>
     {% include 'libs/photo_swipe/body.html' %}
-    <script>
-        videojs.start = function(id){
-            var player = videojs.getPlayers()[id];
-            player.requestFullscreen()
-            player.play()
-        }
-    </script>
 {% endblock %}

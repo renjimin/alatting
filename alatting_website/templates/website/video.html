@@ -10,18 +10,20 @@
     <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
 </head>
 <body>
-<video id="video" class="video-js" preload="auto">
+<div>
+<video id="video" controls class="video-js" preload="auto">
     <source src="/media/videos/2015/09/23/0fe873324f3745c7b2c30f1d7ad58290.mp4" type='video/mp4'>
     <p class="vjs-no-js">
         To view this video please enable JavaScript, and consider upgrading to a web browser that
         <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
     </p>
 </video>
+</div>
 <button onclick="func()">requestFullscreen</button>
 <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
 <script>
     videojs('video', {}, function(){
-        //this.play();
+        this.play();
     })
 
     function func(){
