@@ -1,7 +1,7 @@
 {% for page in object.pages %}
 <div class="poster-page">
     {% for region in page.regions %}
-        <div class="{{ region.class_name }}" id="{{ region.element_id }}">
+        <div class="poster-region {{ region.class_name }}" id="{{ region.element_id }}">
             {{ region.widget.content }}
         </div>
     {% endfor %}

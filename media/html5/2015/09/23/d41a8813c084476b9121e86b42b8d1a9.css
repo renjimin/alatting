@@ -4,17 +4,6 @@
     margin: 0;
 }
 
-.poster-widget-video_1{
-
-}
-
-
-.poster-widget-video_1 video{
-    position: absolute;
-    min-height: 100%;
-	min-width: 100%;
-}
-
 .poster-widget-video_1 img{
     position: absolute;
     left: 35%;

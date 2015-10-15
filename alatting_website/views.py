@@ -55,7 +55,7 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
-    template_name = 'website/svg_clip.html'
+    template_name = 'website/video.html'
 
 
 class PosterCodeView(View):

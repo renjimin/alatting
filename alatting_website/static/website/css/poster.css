@@ -317,9 +317,14 @@
     }
 }
 
+/* fix webkit clip pointer events bug */
+.poster-region > div *{
+    pointer-events: none;
+}
 
 /* widgets */
 
+/* silder */
 .flexslider {
     margin-bottom: 0 !important;
     border: none !important;
@@ -347,4 +352,7 @@
     clear: left;
 }
 
-
+/* video */
+div.poster-video-widget img{
+    pointer-events: auto !important;
+}

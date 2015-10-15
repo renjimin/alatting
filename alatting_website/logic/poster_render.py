@@ -141,6 +141,7 @@ class PosterRender:
         template_name = 'libs/widgets/video.html'
         videos = context['object'].videos
         video_name = widget['video_name']
+        widget['video_element_id'] = 'video-%s' % video_name
         if video_name in videos:
             widget['video_url'] = videos[video_name].file.url
         context['widget'] = widget
