@@ -51,7 +51,9 @@ class PosterRender:
         poster_region.element_id = poster_region.class_name
         poster_region.path_id = poster_region.element_id + '-path'
         poster_region.points = cls._polygon_to_points(poster_region.polygon)
-        cls.render_widget(poster_region, region['widget'])
+        widget = region.get('widget')
+        if widget:
+            cls.render_widget(poster_region, widget)
 
     @classmethod
     def render_widget(cls, poster_region, widget):
@@ -61,8 +63,8 @@ class PosterRender:
         context = dict(object=poster_region.poster_page.poster)
         if typ == 'background':
             html = cls.render_background(widget, context)
-        elif typ == 'text':
-            html = cls.render_text(widget, context)
+        # elif typ == 'text':
+        #    html = cls.render_text(widget, context)
         elif typ == 'button':
             html = cls.render_button(widget, context)
         elif typ == 'image':
@@ -79,6 +81,13 @@ class PosterRender:
             html = ''
         widget['content'] = html
         poster_region.widget = widget
+
+    @classmethod
+    def render_text_widget(cls, poster, widget):
+        widget['class_name'] = '%s-%s' % ('poster-widget', widget['name'])
+        widget['element_id'] = widget['class_name']
+        context = dict(object=poster)
+        widget['content'] = cls.render_text(widget, context)
 
     @classmethod
     def render_background(cls, widget, context):

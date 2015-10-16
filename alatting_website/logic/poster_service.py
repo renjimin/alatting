@@ -16,6 +16,10 @@ class PosterService:
                 region = page['regions'][poster_region.name]
                 PosterRender.render_region(poster_region, region)
 
+            for text_widget in page['texts']:
+                PosterRender.render_text_widget(poster, text_widget)
+            poster_page.texts = page['texts']
+
         return root
 
     @classmethod

@@ -5,5 +5,9 @@
             {{ region.widget.content }}
         </div>
     {% endfor %}
+
+    {% for text in page.texts %}
+        {{ text.content }}
+    {% endfor %}
 </div>
 {% endfor %}
