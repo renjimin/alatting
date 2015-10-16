@@ -92,12 +92,20 @@ if DEBUG:
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db1.sqlite3'),
     }
+    DEFAULT_DB = {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'tianhu',
+        'HOST':'alatting-mysql.cd5aq1se5ngs.us-west-2.rds.amazonaws.com',
+        'PORT': '3306',
+        'USER': 'alatting',
+        'PASSWORD': 'Alatting_2015',
+    }
 else:
     DEFAULT_DB = {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dev',
-        'HOST':'alatting.cd5aq1se5ngs.us-west-2.rds.amazonaws.com',
-        'PORT': '5432',
+        'HOST':'alatting-mysql.cd5aq1se5ngs.us-west-2.rds.amazonaws.com',
+        'PORT': '3306',
         'USER': 'alatting',
         'PASSWORD': 'Alatting_2015',
     }
@@ -126,3 +134,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + STATIC_URL
+
+
+from utils.qrcode import QrCode

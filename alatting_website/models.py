@@ -179,7 +179,7 @@ class Poster(models.Model):
 
 
 class PosterPage(models.Model):
-    poster = models.ForeignKey(Poster, related_name='poster_pages')
+    poster = BigForeignKey(Poster, related_name='poster_pages')
     template = models.ForeignKey(Template)
     index = models.SmallIntegerField(default=0)
     name = models.CharField(max_length=64)
