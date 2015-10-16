@@ -77,9 +77,9 @@
         <div class='app-body'>
             <div class='app-content'>
                 <ng-view></ng-view>
-                <div class="scrollable"><div class="scrollable-content"><div class="poster-frame center-block">
-                    <!-- top -->
-                    <div class="poster-top-ratio"><div>
+                <div class="scrollable"><div class="scrollable-content"><div class="poster-ratio-frame center-block">
+                <div class="poster-ratio-wrapper">
+                    <div><div class="poster-container">
                         <div class="poster-top">
                             <div class="poster-header">
                                 <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
@@ -137,19 +137,76 @@
                                 </div>
                             </div>
                         </div>
-                    </div></div>
-
-                    <!-- pages -->
-                    <div class="poster-pages-ratio"><div>
+                        <!-- poster-pages -->
                         <div class="poster-pages">
                             {% include 'libs/widgets/poster_pages.html' %}
-                        </div>
-                    </div></div>
-                    
-                    <!-- svg -->
-                    {% include 'libs/widgets/clip_svg.html' %}
+                            <!--div class="poster-page">
+                                <div class="left-top" onclick="alert('left-top')">
+                                    <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
+                                            a better way to<br>present itself with<br> innovative web<br> technology</p>
+                                </div>
+                                <div class="right-top" onclick="alert('right-top')">
 
+                                </div>
+
+                                <div class="left-bottom" onclick="alert('left-bottom')">
+
+                                </div>
+                                <div class="right-bottom" onclick="alert('right-bottom')">
+
+                                </div>
+                                <div class="middle" onclick="alert('middle')">
+                                    <div class="photo_swipe_widget poster_element_slider_1" id="poster_element_slider_1">
+                                        <div class="flexslider">
+                                            <ul class="slides">
+
+                                                    <li data-src="/media/images/2015/09/23/4d712c75f5cb4e64827939f2b62679a0.PNG" data-w="991"
+                                                    data-h="909"><img src="/media/images/2015/09/23/4d712c75f5cb4e64827939f2b62679a0.PNG"></li>
+
+                                                    <li data-src="/media/images/2015/09/23/0dc6eb03c4f94649b28b5977ecb3039b.PNG" data-w="1460"
+                                                    data-h="775"><img src="/media/images/2015/09/23/0dc6eb03c4f94649b28b5977ecb3039b.PNG"></li>
+
+                                                    <li data-src="/media/images/2015/09/23/9f0955515312418b9eae8d129cd0ac2b.PNG" data-w="1026"
+                                                    data-h="906"><img src="/media/images/2015/09/23/9f0955515312418b9eae8d129cd0ac2b.PNG"></li>
+
+                                                    <li data-src="/media/images/2015/09/23/8fb83b6391f747449490d9f17af75a76.PNG" data-w="1013"
+                                                    data-h="781"><img src="/media/images/2015/09/23/8fb83b6391f747449490d9f17af75a76.PNG"></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div-->
+
+                        </div>
+
+                        {% include 'libs/widgets/clip_svg.html' %}
+                        <!-- svg -->
+                        <!--svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
+                            <defs>
+                                <clipPath id="left-top-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 0, 1 0, 0 1"/>
+                                </clipPath>
+                                <clipPath id="right-top-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .232, .303 0, 1 0, 1 1"/>
+                                </clipPath>
+                                <clipPath id="middle-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .5, .5 0, 1 .5, .5 1"/>
+                                </clipPath>
+                                <clipPath id="left-bottom-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 0, 1 1, 0 1"/>
+                                </clipPath>
+                                <clipPath id="right-bottom-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .94, 1 0, 1 1, .06 1"/>
+                                </clipPath>
+                            </defs>
+                        </svg-->
+
+                    </div></div>
+                </div>
                 </div></div></div>
+
+
             </div>
         </div>
         
