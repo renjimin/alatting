@@ -66,24 +66,55 @@
 </div>
 
 <script type="text/javascript" charset="utf-8">
-  $(window).load(function() {
-    $('.flexslider').flexslider({
-        animation: "slide"
-        //controlNav: false
+    $(window).load(function () {
+        var fillCenter = function ($slider) {
+            var $images = $slider.find('img')
+            $images.each(function (index) {
+                var $this = $(this);
+                var width = $this.parent().width();
+                var height = $this.parent().height();
+                var w = $this.width(), h = $this.height();
+                if (w / h > width / height) {
+                    w = w / h * height;
+                    h = height;
+                    var left = (width - w) / 2.0 * 100 / width;
+                    $this.css('margin-left', left + '%');
+                }
+                else {
+                    h = h / w * width;
+                    w = width;
+                    var top = (height - h) / 2.0 * 100 / height;
+                    $this.css('margin-top', top + '%');
+                }
+                w = w / width * 100;
+                h = h / height * 100;
+                $this.css('width', w + '%');
+                $this.css('height', h + '%');
+            });
+
+        };
+
+        $('.flexslider').flexslider({
+            animation: "slide",
+            controlNav: false,
+            directionNav: false,
+            start: function($slider){
+                fillCenter($slider);
+            }
+        });
     });
-  });
 </script>
 
 <script type="text/javascript">
 
-    (function() {
+    (function () {
         var pswpElement = document.querySelectorAll('.pswp')[0];
 
         function openPhotoSwipe(element) {
             // build items array
             var items = []
             var lis = element.querySelectorAll('ul li')
-            for(var index = 0; index < lis.length; ++index){
+            for (var index = 0; index < lis.length; ++index) {
                 var li = lis[index]
                 var src = li.getAttribute('data-src')
                 var w = li.getAttribute('data-w')
@@ -100,12 +131,12 @@
             var options = {
                 getThumbBoundsFn: getThumbBoundsFn,
                 index: 0, // start at first slide
-                showHideOpacity:true,
+                showHideOpacity: true,
                 mainClass: 'pswp--minimal--dark',
-                barsSize: {top:0,bottom:0},
+                barsSize: {top: 0, bottom: 0},
                 captionEl: false,
                 fullscreenEl: false,
-                shareEl:false,
+                shareEl: false,
                 bgOpacity: 0.85,
                 tapToClose: true,
                 tapToToggleControls: false
@@ -116,11 +147,11 @@
             gallery.init();
         }
 
-        var widgets = document.querySelectorAll('.slides');
-        for(var index = 0; index < widgets.length; ++index){
+        var widgets = document.querySelectorAll('.flexslider');
+        for (var index = 0; index < widgets.length; ++index) {
             var widget = widgets[index]
-            widget.onclick = function(e){
-                openPhotoSwipe(this.parentNode);
+            widget.onclick = function (e) {
+                openPhotoSwipe(this);
             };
         }
 

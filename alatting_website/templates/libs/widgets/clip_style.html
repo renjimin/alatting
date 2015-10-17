@@ -1,0 +1,25 @@
+<style>
+    {% for region in object.regions %}
+    .{{ region.class_name }} {
+        position: absolute;
+        overflow: hidden;
+        left: {{ region.left }}%;
+        top: {{ region.top }}%;
+        width: {{ region.width }}%;
+        height: {{ region.height }}%;
+        cursor: pointer;
+        -webkit-clip-path: polygon({{ region.polygon }});
+        clip-path: url(#{{ region.path_id }});
+    }
+    /* fix webkit clip pointer events bug */
+    .{{ region.class_name }} > div{
+        -webkit-clip-path: inherit;
+        clip-path: inherit;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    {% endfor %}
+</style>

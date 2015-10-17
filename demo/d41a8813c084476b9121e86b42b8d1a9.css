@@ -1,4 +1,41 @@
-.poster_container{
+.poster-widget-text_1{
+    font-size: 50%;
+    left: 8%;
+    top: 15%;
+    color: gold;
+}
+
+.poster-widget-text_2{
+    font-size: 100%;
+    left: 25%;
+    top: 50%;
+    color: white;
+}
+
+.poster-widget-video_1 img{
+    position: absolute;
+    left: 35%;
+    top: 20%;
+	width: auto;
+    height: 30%;
+}
+
+.poster-widget-slider_1 {
+
+}
+
+.poster-widget-image_1 img {
+    width: 100%;
+    height: 100%;
+}
+
+.poster-widget-image_2 img{
+    width: 100%;
+    height: 100%;
+}
+
+
+/*.poster_container{
     position: relative;
     border-color: black;
     border-width: 1px;
@@ -51,23 +88,6 @@
     border-radius: 5px;
 }
 
-.photo_swipe_widget{
-    cursor: pointer;
-}
-
-.photo_swipe_widget img{
-    width: 100%;
-    height: 100%;
-    border: 2px solid;
-    border-radius: 10px;
-}
-
-.poster_element_slider_1{
-    position: absolute;
-    top: 310px;
-    left: 10px;
-    width: 370px;
-}
 
 .poster_element_slider_2{
     position: absolute;
@@ -144,4 +164,4 @@
     border-radius: 7px 7px 7px 7px;
     font: normal normal normal normal 22px / 44px 'Microsoft YaHei', Arial, Helvetica, sans-serif, å®‹ä½“;
     outline: rgb(244, 20, 132) none 0px;
-}
+}*/

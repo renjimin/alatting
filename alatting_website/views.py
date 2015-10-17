@@ -8,6 +8,7 @@ from alatting_website.models import Poster
 from utils.db.utils import Utils
 from utils.qrcode import QrCode
 from utils.clip import SvgClip
+from alatting_website.logic.poster_service import PosterService
 
 
 class PosterView(DetailView):
@@ -17,7 +18,8 @@ class PosterView(DetailView):
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
         queryset = queryset.select_related('music').\
-            prefetch_related('poster_images__image', 'poster_videos__video').select_subclasses()
+            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
+            .select_subclasses()
         return queryset
 
     def get_object(self, queryset=None):
@@ -32,11 +34,28 @@ class PosterView(DetailView):
             videos[poster_video.name] = poster_video.video
         obj.images = images
         obj.videos = videos
+        poster_pages = obj.poster_pages.all()
+        pages = [None for poster_page in poster_pages]
+        regions = []
+        for poster_page in poster_pages:
+            pages[poster_page.index] = poster_page
+            poster_regions = []
+            for template_region in poster_page.template.template_regions.all():
+                poster_regions.append(template_region)
+                regions.append(template_region)
+            poster_page.regions = poster_regions
+        obj.pages = pages
+        obj.regions = regions
+        PosterService.parse_meida_file(obj.html.name, obj)
         return obj
+
+    def get_context_data(self, **kwargs):
+        context = super(PosterView, self).get_context_data(**kwargs)
+        return context
 
 
 class IndexView(TemplateView):
-    template_name = 'website/svg_clip.html'
+    template_name = 'website/shape_outside.html'
 
 
 class PosterCodeView(View):

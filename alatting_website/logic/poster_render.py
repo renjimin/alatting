@@ -1,4 +1,6 @@
 __author__ = 'tianhuyang'
+import re
+from decimal import Decimal
 from django.template.loader import render_to_string
 
 
@@ -29,42 +31,101 @@ class PosterRender:
         return html
 
     @classmethod
-    def render_background(cls, element, context_instance):
-        template_name = 'libs/components/background.html'
-        images = context_instance['object'].images
-        image_name = element['image_name']
+    def _polygon_to_points(cls, polygon):
+        polygon = polygon.replace('%', '')
+        pairs = polygon.split(',')
+        for index in range(len(pairs)):
+            pair = pairs[index].strip()
+            items = re.split('\s+', pair)
+            for pos in range(len(items)):
+                items[pos] = Decimal(items[pos]) / 100
+                items[pos] = str(items[pos])
+            pairs[index] = ' '.join(items)
+        points = ', '.join(pairs)
+        return points
+
+    @classmethod
+    def render_region(cls, poster_region, region):
+        poster_region.class_name = 'p%s-p%s-%s' % (poster_region.poster_page.poster.id, poster_region.poster_page.index,
+                                                   poster_region.name)
+        poster_region.element_id = poster_region.class_name
+        poster_region.path_id = poster_region.element_id + '-path'
+        poster_region.points = cls._polygon_to_points(poster_region.polygon)
+        widget = region.get('widget')
+        if widget:
+            cls.render_widget(poster_region, widget)
+
+    @classmethod
+    def render_widget(cls, poster_region, widget):
+        widget['class_name'] = '%s-%s' % ('poster-widget', widget['name'])
+        widget['element_id'] = widget['class_name']
+        typ = widget['type']
+        context = dict(object=poster_region.poster_page.poster)
+        if typ == 'background':
+            html = cls.render_background(widget, context)
+        # elif typ == 'text':
+        #    html = cls.render_text(widget, context)
+        elif typ == 'button':
+            html = cls.render_button(widget, context)
+        elif typ == 'image':
+            html = cls.render_image(widget, context)
+        elif typ == 'slider':
+            html = cls.render_slider(widget, context)
+        elif typ == 'music':
+            html = cls.render_music(widget, context)
+        elif typ == 'video':
+            html = cls.render_video(widget, context)
+        elif typ == 'map':
+            html = cls.render_map(widget, context)
+        else:
+            html = ''
+        widget['content'] = html
+        poster_region.widget = widget
+
+    @classmethod
+    def render_text_widget(cls, poster, widget):
+        widget['class_name'] = '%s-%s' % ('poster-widget', widget['name'])
+        widget['element_id'] = widget['class_name']
+        context = dict(object=poster)
+        widget['content'] = cls.render_text(widget, context)
+
+    @classmethod
+    def render_background(cls, widget, context):
+        template_name = 'libs/widgets/background.html'
+        images = context['object'].images
+        image_name = widget['image_name']
         if image_name in images:
-            element['image_url'] = images[image_name].file.url
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+            widget['image_url'] = images[image_name].file.url
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_text(cls, element, context_instance):
-        template_name = 'libs/components/text.html'
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+    def render_text(cls, widget, context):
+        template_name = 'libs/widgets/text.html'
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_button(cls, element, context_instance):
-        template_name = 'libs/components/button.html'
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+    def render_button(cls, widget, context):
+        template_name = 'libs/widgets/button.html'
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_image(cls, element, context_instance):
-        template_name = 'libs/components/image.html'
-        images = context_instance['object'].images
-        image_name = element['image_name']
+    def render_image(cls, widget, context):
+        template_name = 'libs/widgets/image.html'
+        images = context['object'].images
+        image_name = widget['image_name']
         if image_name in images:
-            element['image_url'] = images[image_name].file.url
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+            widget['image_url'] = images[image_name].file.url
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_slider(cls, element, context_instance):
-        template_name = 'libs/components/slider.html'
-        object_images = context_instance['object'].images
-        element_images = element['images']
+    def render_slider(cls, widget, context):
+        template_name = 'libs/widgets/slider.html'
+        object_images = context['object'].images
+        element_images = widget['images']
         for element_image in element_images:
             image_name = element_image['image_name']
             if image_name in object_images:
@@ -72,31 +133,32 @@ class PosterRender:
                 element_image['image_url'] = image.file.url
                 element_image['width'] = image.width
                 element_image['height'] = image.height
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_music(cls, element, context_instance):
-        template_name = 'libs/components/music.html'
-        music = context_instance['object'].music
+    def render_music(cls, widget, context):
+        template_name = 'libs/widgets/music.html'
+        music = context['object'].music
         if music is not None:
-            element['music_url'] = music.file.url
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+            widget['music_url'] = music.file.url
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_video(cls, element, context_instance):
-        template_name = 'libs/components/video.html'
-        videos = context_instance['object'].videos
-        video_name = element['video_name']
+    def render_video(cls, widget, context):
+        template_name = 'libs/widgets/video.html'
+        videos = context['object'].videos
+        video_name = widget['video_name']
+        widget['video_element_id'] = 'video-%s' % video_name
         if video_name in videos:
-            element['video_url'] = videos[video_name].file.url
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+            widget['video_url'] = videos[video_name].file.url
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 
     @classmethod
-    def render_map(cls, element, context_instance):
-        template_name = 'libs/components/map.html'
-        context = dict(element=element)
-        return render_to_string(template_name, context, context_instance)
+    def render_map(cls, widget, context):
+        template_name = 'libs/widgets/map.html'
+        context['widget'] = widget
+        return render_to_string(template_name, context)
 

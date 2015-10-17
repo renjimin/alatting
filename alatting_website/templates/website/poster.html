@@ -14,30 +14,12 @@
 
 {% block css %}
     {{ block.super }}
+    <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
-    <style>
-        .left-top {
-            clip-path: url(#left-top-path);
-        }
-        .right-top {
-            clip-path: url(#right-top-path);
-        }
-
-        .middle {
-            clip-path: url(#middle-path);
-        }
-
-        .left-bottom {
-            clip-path: url(#left-bottom-path);
-        }
-
-        .right-bottom {
-            clip-path: url(#right-bottom-path);
-        }
-    </style>
+    {% include 'libs/widgets/clip_style.html' %}
 {% endblock %}
 
 {% block head_more %}
@@ -90,33 +72,24 @@
         <!--div class="navbar navbar-app navbar-absolute-top">
 
         </div-->
-        <div class="navbar navbar-app navbar-absolute-bottom">
-            <div class="btn-group justified">
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
-            </div>
-        </div>
 
         <!-- App body -->
         <div class='app-body'>
             <div class='app-content'>
                 <ng-view></ng-view>
                 <div class="scrollable"><div class="scrollable-content"><div class="poster-frame center-block">
-                <div class="poster-ratio-wrapper">
-                    <div><div class="poster-container">
+                    <!-- top -->
+                    <div class="poster-top-ratio"><div>
                         <div class="poster-top">
                             <div class="poster-header">
                                 <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
                                 <img class="poster-qrcode" id="poster-qrcode" src={% url 'website:code_poster' object.id %} />
-                                <p class="views-count-widget">Views: {{object.views_count}}</p>
+                                <!--p class="views-count-widget">Views: {{object.views_count}}</p-->
                                 <p class="poster-title" id="poster-title">
                                     {{ object.logo_title }}
                                 </p>
                             </div>
-                            <div class="poster-tabs" ui-state="activeTab" default="1">
+                            <!--div class="poster-tabs" ui-state="activeTab" default="1">
                                 <ul class="nav nav-tabs">
                                     <li ui-class="{'active': activeTab == 1}">
                                         <a ui-set="{'activeTab': 1}">INTRO</a>
@@ -124,58 +97,85 @@
                                     <li ui-class="{'active': activeTab == 2}">
                                         <a ui-set="{'activeTab': 2}">TEAM</a>
                                     </li>
+                                    <li ui-class="{'active': false}">
+                                    </li>
                                 </ul>
+
+                            </div-->
+
+                            <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
+                                    <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn btn">
+                                        <div>INTRO</div>
+                                    </div>
+
+                                    <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">
+                                        <div>TEAM</div>
+                                    </div>
+
+                                    <div ui-class="{'active': false}" class="tab-btn btn">
+                                        <div> </div>
+                                    </div>
+                            </div>
+                            <div class="poster-contact">
+                                <div class="first-row btn-group justified">
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
+                                </div>
+                                <div class="second-row btn-group justified">
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                <!--table >
+                                    <tr><td><img src="{% static 'website/images/icons/phone_selected.png' %}"></td>
+                                        <td><img src="{% static 'website/images/icons/mail_selected.png' %}"></td></tr>
+                                    <tr><td><img src="{% static 'website/images/icons/hours_selected.png' %}"></td>
+                                        <td><img src="{% static 'website/images/icons/location_selected.png' %}"></td></tr>
+                                </table-->
+                                </div>
                             </div>
                         </div>
-                        <!-- poster-page -->
-                        <div class="poster-page">
-                            <div class="left-top" onclick="alert('left-top')">
-                                <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
-                                        a better way to<br>present itself with<br> innovative web<br> technology</p>
-                            </div>
-                            <div class="right-top" onclick="alert('right-top')">
-
-                            </div>
-
-                            <div class="left-bottom" onclick="alert('left-bottom')">
-
-                            </div>
-                            <div class="right-bottom" onclick="alert('right-bottom')">
-
-                            </div>
-                            <div class="middle" onclick="alert('middle')">
-
-                            </div>
-
-                        </div>
-                        <!-- svg -->
-                        <svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
-                            <defs>
-                                <clipPath id="left-top-path" clipPathUnits="objectBoundingBox">
-                                    <polygon points="0 0, 1 0, 0 1"/>
-                                </clipPath>
-                                <clipPath id="right-top-path" clipPathUnits="objectBoundingBox">
-                                    <polygon points="0 .232, .303 0, 1 0, 1 1"/>
-                                </clipPath>
-                                <clipPath id="middle-path" clipPathUnits="objectBoundingBox">
-                                    <polygon points="0 .5, .5 0, 1 .5, .5 1"/>
-                                </clipPath>
-                                <clipPath id="left-bottom-path" clipPathUnits="objectBoundingBox">
-                                    <polygon points="0 0, 1 1, 0 1"/>
-                                </clipPath>
-                                <clipPath id="right-bottom-path" clipPathUnits="objectBoundingBox">
-                                    <polygon points="0 .94, 1 0, 1 1, .06 1"/>
-                                </clipPath>
-                            </defs>
-                        </svg>
-
                     </div></div>
-                </div>
+
+                    <!-- pages -->
+                    <div class="poster-pages-ratio"><div>
+                        <div class="poster-pages">
+                            {% include 'libs/widgets/poster_pages.html' %}
+                        </div>
+                    </div></div>
+
+                    <!-- svg -->
+                    {% include 'libs/widgets/clip_svg.html' %}
+
                 </div></div></div>
-
-
             </div>
         </div>
+        
+        <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
+        <div class="navbar navbar-app navbar-absolute-bottom">
+            <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div>
+            <div class="btn-group justified">
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/print.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/stats.png' %}">
+                </a>
+            </div>
+            </div></div></div>
+        </div>
+
     </div>
     <!-- ~ .app -->
 
@@ -225,6 +225,8 @@
 
 {% block body_end %}
     {{ block.super }}
+    <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
+    <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{{ object.script.url }}"></script>
     {% include 'libs/photo_swipe/body.html' %}

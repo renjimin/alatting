@@ -100,6 +100,29 @@ class Address(models.Model):
         return "{:s}".format(self.address1)
 
 
+class Template(models.Model):
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return "{:s}".format(self.name)
+
+
+class TemplateRegion(models.Model):
+    template = models.ForeignKey(Template, related_name='template_regions')
+    name = models.CharField(max_length=64)
+    left = models.FloatField()
+    top = models.FloatField()
+    width = models.FloatField()
+    height = models.FloatField()
+    polygon = models.CharField(max_length=256)  # use percentage
+
+    class Meta:
+        unique_together = ('template', 'name')
+
+    def __str__(self):
+        return "{:s}".format(self.name)
+
+
 class Poster(models.Model):
     STATUS_DRAFT = 'Draft'
     STATUS_PUBLISHED = 'Published'
@@ -121,6 +144,7 @@ class Poster(models.Model):
     creator = models.ForeignKey(User)
     unique_name = models.CharField(max_length=255, unique=True)
     url = models.CharField(max_length=255)
+
     #qr_image
     logo_image = models.ForeignKey(Image, related_name='poster_logo_images')
     logo_title = models.CharField(max_length=255)
@@ -155,6 +179,19 @@ class Poster(models.Model):
         return "{:d}".format(self.pk)
 
 
+class PosterPage(models.Model):
+    poster = BigForeignKey(Poster, related_name='poster_pages')
+    template = models.ForeignKey(Template)
+    index = models.SmallIntegerField(default=0)
+    name = models.CharField(max_length=64)
+
+    class Meta:
+        unique_together = ('poster', 'index')
+
+    def __str__(self):
+        return "{:s}".format(self.name)
+
+
 class PosterImage(models.Model):
     id = models.AutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_images')
@@ -162,8 +199,7 @@ class PosterImage(models.Model):
     name = models.CharField(max_length=63)
 
     class Meta:
-        unique_together = ('poster', 'image')
-        unique_together = ('poster', 'name')
+        unique_together = (('poster', 'image'), ('poster', 'name'))
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -176,8 +212,7 @@ class PosterVideo(models.Model):
     name = models.CharField(max_length=63)
 
     class Meta:
-        unique_together = ('poster', 'video')
-        unique_together = ('poster', 'name')
+        unique_together = (('poster', 'video'), ('poster', 'name'))
 
     def __str__(self):
         return "{:d}".format(self.pk)

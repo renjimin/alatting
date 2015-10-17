@@ -1,5 +1,50 @@
-.navbar-absolute-top {
-    min-height: 100px;
+.app{
+    background-color: white
+}
+
+.bottom-ratio-frame {
+    max-width: 800px;
+    max-height: 136px;
+    min-width: 240px;
+    min-height: 40.8px;
+}
+
+.bottom-ratio-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 17%;
+}
+
+.bottom-ratio-wrapper > div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.navbar-absolute-bottom{
+    background-color: transparent;
+    border: none;
+}
+
+.navbar-absolute-bottom .btn-group{
+    background-color: #020202;
+    height: 100%;
+}
+
+.navbar-absolute-bottom .btn-navbar{
+    border-right: 1px solid #818181 !important;
+}
+
+.bottom-btn img{
+    height: 50%;
+    max-width: none;
+}
+
+.bottom-btn {
+    position: relative;
+    overflow: hidden;
 }
 
 .poster_side_bar{
@@ -16,18 +61,18 @@
 
 .poster-frame {
     max-width: 800px;
-    max-height: 1422px;
-    min-width: 480px;
-    min-height: 854px;
+    min-width: 240px;
+    /*max-height: 1424px;
+    min-height: 427.2px;*/
 }
 
-.poster-ratio-wrapper {
-    width: 100%;
-    padding-bottom: 177.78%;
+.poster-top-ratio {
     position: relative;
+    width: 100%;
+    padding-bottom: 30%;
 }
 
-.poster-ratio-wrapper > div {
+.poster-top-ratio > div {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -35,36 +80,34 @@
     right: 0;
 }
 
-.poster-container{
+.poster-top {
     position: relative;
     height: 100%;
     width: 100%;
-}
-
-.poster-top{
-    position: absolute;
-    height: 20%;
-    width: 100%;
-    background-color: lightgray;
+    background-color: white;
 }
 
 .poster-header{
-    position: relative;
-    height: 70%;
+    position: absolute;
+    height: 75%;
+    width: 68%;
+    background-color: #ced6de;
+    background-clip: content-box;
+    padding-bottom: 0.25%;
 }
 
 .poster-qrcode{
     position: absolute;
-    height: 100%;
-    right: 0px;
-    top: 0px;
+    height: 80%;
+    right: 3%;
+    top: 10%;
 }
 
 .poster-logo {
     position: absolute;
-    left: 0px;
-    top: 0px;
-    height: 75%;
+    left: 3%;
+    top: 30%;
+    width: 60%;
 }
 
 .views-count-widget{
@@ -82,21 +125,121 @@
 .poster-title {
     position: absolute;
     left: 15%;
-    top: 75%;
-    font-size: 50%;
+    top: 65%;
+    font-size: 70%;
 }
 
-.nav-tabs {
+.poster-contact {
+    position: absolute;
+    left: 68%;
+    width: 32%;
+    height: 100%;
+}
+
+.poster-contact > * {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+}
+
+.poster-contact .second-row{
+    top: 50%;
+}
+
+.poster-contact .first-row {
+    padding-bottom: 1%;
+}
+
+.contact-btn {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.poster-contact img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top:0 ;
+    left: 0;
+    padding-left: 2%;
+}
+
+.poster-tabs {
+    position: absolute;
+    top: 75%;
+    width: 68%;
+    height: 25%;
     font-size: 60%;
+}
+
+.tab-btn > div:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+}
+
+.tab-btn > div{
+    top: 0;
+    position: absolute;
+    height: 100%;
+    background-color: #ced6de;
+    background-clip: content-box;
+    width: 100%;
+}
+
+.tab-btn:not(:first-child) > div{
+    padding-left: 1.5%;
+}
+
+.tab-btn {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    font-size: 100%;
+}
+
+.tab-btn:focus div,
+.tab-btn:active div,
+.tab-btn.active div
+{
+  color: #ffffff;
+  background-color: #597995;
+}
+
+
+.poster-tabs li{
+    background-color: #ced6de;;
+}
+
+/* pages */
+
+.poster-pages-ratio {
+    position: relative;
+    width: 100%;
+    padding-bottom: 130%;
+}
+
+.poster-pages-ratio > div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.poster-pages {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
 
 .poster-page {
     position: absolute;
-    top: 20%;
-    height: 80%;
+    height: 100%;
     width: 100%;
-    overflow: hidden;
-
 }
 
 .left-top {
@@ -104,15 +247,8 @@
     width: 63.5%;
     height: 49%;
     cursor: pointer;
-    background-color: red;
     -webkit-clip-path: polygon(0 0, 100% 0, 0 100%);
     clip-path: url(#left-top-path);
-}
-
-.left-top p {
-    font-size: 50%;
-    padding: 5% 0 0 5%;
-    margin: 0;
 }
 
 .right-top {
@@ -133,7 +269,6 @@
     width: 109.68%;
     height: 84.58%;
     cursor: pointer;
-    background-color: orange;
     -webkit-clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
     clip-path: url(#middle-path);
 }
@@ -162,19 +297,90 @@
 }
 
 @media all and (min-width: 800px) {
-    .poster-container{
+    .poster-frame{
         font-size: 56px; /* 200px: 14px */
     }
+
+    .has-navbar-bottom .app-body {
+        padding-bottom: 136px;
+    }
 }
 
-@media all and (min-width: 481px) and (max-width: 799px) {
-    .poster-container{
+@media all and (min-width: 241px) and (max-width: 799px) {
+    .poster-frame{
         font-size: 7vw; /* 200px: 14px */
     }
+
+    .has-navbar-bottom .app-body {
+        padding-bottom: 17%;
+    }
 }
 
-@media all and (max-width: 480px) {
-    .poster-container{
-        font-size: 33.6px; /* 200px: 14px */
+@media all and (max-width: 240px) {
+    .poster-frame{
+        font-size: 16.8px; /* 200px: 14px */
     }
+
+    .has-navbar-bottom .app-body {
+        padding-bottom: 40.8px;
+    }
+}
+
+/* fix webkit clip pointer events bug */
+.poster-region > div *{
+    pointer-events: none;
+}
+
+/* widgets */
+.poster-text-widget {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+}
+
+.clip-svg {
+    position: absolute;
+}
+
+/* silder */
+.flexslider {
+    margin-bottom: 0 !important;
+    border: none !important;
+}
+
+.flexslider .flex-viewport{
+    height: 100%;
+}
+
+.flexslider .slides {
+    display: block;
+    height: 100%;
+}
+
+.flexslider .slides li{
+    overflow: hidden;
+    height: 100%;
+}
+
+.flexslider .slides img{
+    max-width: none;
+}
+
+.flexslider .slides:after{
+    clear: left;
+}
+
+/* video */
+div.poster-video-widget > div{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+div.poster-video-widget video{
+    overflow: hidden;
+}
+
+div.poster-video-widget img{
+    pointer-events: auto !important;
 }

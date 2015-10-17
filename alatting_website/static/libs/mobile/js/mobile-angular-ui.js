@@ -1760,7 +1760,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 
 (function () {
   'use strict';
-  angular.module('mobile-angular-ui.components.modals', [])
+  angular.module('mobile-angular-ui.widgets.modals', [])
 
   .directive('modal', [
     '$rootElement',
@@ -1795,7 +1795,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 (function() {
   'use strict';
 
-  var module = angular.module('mobile-angular-ui.components.navbars', []);
+  var module = angular.module('mobile-angular-ui.widgets.navbars', []);
 
   angular.forEach(['top', 'bottom'], function(side) {
     var directiveName = 'navbarAbsolute' + side.charAt(0).toUpperCase() + side.slice(1);
@@ -1818,7 +1818,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 })();
 (function() {
   'use strict';
-  var module = angular.module('mobile-angular-ui.components.scrollable', []);
+  var module = angular.module('mobile-angular-ui.widgets.scrollable', []);
 
   module.directive('scrollableContent', function() {
     return {
@@ -1962,7 +1962,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
   'use strict';
 
   var module = angular.module(
-    'mobile-angular-ui.components.sidebars', [
+    'mobile-angular-ui.widgets.sidebars', [
       'mobile-angular-ui.core.sharedState',
       'mobile-angular-ui.core.outerClick'
     ]
@@ -2072,7 +2072,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 }());
 (function() {
   'use strict';  
-  angular.module('mobile-angular-ui.components.switch', [])
+  angular.module('mobile-angular-ui.widgets.switch', [])
   .directive("uiSwitch", function() {
     return {
       restrict: "EA",
@@ -2104,12 +2104,12 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 (function() {
   'use strict';
 
-  angular.module('mobile-angular-ui.components', [
-    'mobile-angular-ui.components.modals',
-    'mobile-angular-ui.components.navbars',
-    'mobile-angular-ui.components.sidebars',
-    'mobile-angular-ui.components.scrollable',
-    'mobile-angular-ui.components.switch'
+  angular.module('mobile-angular-ui.widgets', [
+    'mobile-angular-ui.widgets.modals',
+    'mobile-angular-ui.widgets.navbars',
+    'mobile-angular-ui.widgets.sidebars',
+    'mobile-angular-ui.widgets.scrollable',
+    'mobile-angular-ui.widgets.switch'
   ]);
 }());
 
@@ -2118,7 +2118,7 @@ if (typeof define == 'function' && typeof define.amd == 'object' && define.amd) 
 
   angular.module('mobile-angular-ui', [
     'mobile-angular-ui.core',
-    'mobile-angular-ui.components'
+    'mobile-angular-ui.widgets'
   ]);
 
 }());

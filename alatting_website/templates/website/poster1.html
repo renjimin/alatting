@@ -1,0 +1,290 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% load poster %}
+{% block title %}{{ object.unique_name }}{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+    {% include 'libs/facebook/fb_share_meta.html' %}
+{% endblock %}
+
+{% block head_script %}
+    {{ block.super }}
+{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
+    <link rel="stylesheet" href="{{ object.css.url }}">
+    {% include 'libs/widgets/clip_style.html' %}
+{% endblock %}
+
+{% block head_more %}
+    {{ block.super }}
+    {% include 'libs/photo_swipe/head.html' %}
+{% endblock %}
+
+{% block body_start %}
+    {{ block.super }}
+    {% include 'libs/facebook/fb_share_body_start.html' %}
+{% endblock %}
+{% block content %}
+    <!--div class="app">
+
+        <div class="navbar navbar-app navbar-absolute-top">
+
+            <div class="navbar-brand navbar-brand-center" yield-to="title">
+                <span>Bucket List App</span>
+            </div>
+
+
+            <div class="btn-group pull-right" yield-to="navbarAction">
+                <div class="btn btn-navbar">
+                    <i class="fa fa-plus"></i> New
+                </div>
+            </div>
+
+        </div>
+
+        <div class="navbar navbar-app navbar-absolute-bottom">
+
+            <div class="btn-group justified">
+                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
+                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
+            </div>
+
+        </div>
+
+        <div class="app-body">
+            <ng-view class="app-content"></ng-view>
+        </div>
+
+    </div-->
+
+    <!-- Sidebars -->
+    <!--div class="sidebar sidebar-left"></div>
+    <div class="sidebar sidebar-right"></div-->
+
+    <div class="app">
+        <!--div class="navbar navbar-app navbar-absolute-top">
+
+        </div-->
+
+        <!-- App body -->
+        <div class='app-body'>
+            <div class='app-content'>
+                <ng-view></ng-view>
+                <div class="scrollable"><div class="scrollable-content"><div class="poster-ratio-frame center-block">
+                <div class="poster-ratio-wrapper">
+                    <div><div class="poster-container">
+                        <div class="poster-top">
+                            <div class="poster-header">
+                                <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
+                                <img class="poster-qrcode" id="poster-qrcode" src={% url 'website:code_poster' object.id %} />
+                                <!--p class="views-count-widget">Views: {{object.views_count}}</p-->
+                                <p class="poster-title" id="poster-title">
+                                    {{ object.logo_title }}
+                                </p>
+                            </div>
+                            <!--div class="poster-tabs" ui-state="activeTab" default="1">
+                                <ul class="nav nav-tabs">
+                                    <li ui-class="{'active': activeTab == 1}">
+                                        <a ui-set="{'activeTab': 1}">INTRO</a>
+                                    </li>
+                                    <li ui-class="{'active': activeTab == 2}">
+                                        <a ui-set="{'activeTab': 2}">TEAM</a>
+                                    </li>
+                                    <li ui-class="{'active': false}">
+                                    </li>
+                                </ul>
+
+                            </div-->
+
+                            <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
+                                    <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn btn">
+                                        <div>INTRO</div>
+                                    </div>
+
+                                    <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">
+                                        <div>TEAM</div>
+                                    </div>
+
+                                    <div ui-class="{'active': false}" class="tab-btn btn">
+                                        <div> </div>
+                                    </div>
+                            </div>
+                            <div class="poster-contact">
+                                <div class="first-row btn-group justified">
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
+                                </div>
+                                <div class="second-row btn-group justified">
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
+                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                <!--table >
+                                    <tr><td><img src="{% static 'website/images/icons/phone_selected.png' %}"></td>
+                                        <td><img src="{% static 'website/images/icons/mail_selected.png' %}"></td></tr>
+                                    <tr><td><img src="{% static 'website/images/icons/hours_selected.png' %}"></td>
+                                        <td><img src="{% static 'website/images/icons/location_selected.png' %}"></td></tr>
+                                </table-->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- poster-pages -->
+                        <div class="poster-pages">
+                            {% include 'libs/widgets/poster_pages.html' %}
+                            <!--div class="poster-page">
+                                <div class="left-top" onclick="alert('left-top')">
+                                    <p>We are a startup company<br>aim to offter individuals<br> and small businesses<br>
+                                            a better way to<br>present itself with<br> innovative web<br> technology</p>
+                                </div>
+                                <div class="right-top" onclick="alert('right-top')">
+
+                                </div>
+
+                                <div class="left-bottom" onclick="alert('left-bottom')">
+
+                                </div>
+                                <div class="right-bottom" onclick="alert('right-bottom')">
+
+                                </div>
+                                <div class="middle" onclick="alert('middle')">
+                                    <div class="photo_swipe_widget poster_element_slider_1" id="poster_element_slider_1">
+                                        <div class="flexslider">
+                                            <ul class="slides">
+
+                                                    <li data-src="/media/images/2015/09/23/4d712c75f5cb4e64827939f2b62679a0.PNG" data-w="991"
+                                                    data-h="909"><img src="/media/images/2015/09/23/4d712c75f5cb4e64827939f2b62679a0.PNG"></li>
+
+                                                    <li data-src="/media/images/2015/09/23/0dc6eb03c4f94649b28b5977ecb3039b.PNG" data-w="1460"
+                                                    data-h="775"><img src="/media/images/2015/09/23/0dc6eb03c4f94649b28b5977ecb3039b.PNG"></li>
+
+                                                    <li data-src="/media/images/2015/09/23/9f0955515312418b9eae8d129cd0ac2b.PNG" data-w="1026"
+                                                    data-h="906"><img src="/media/images/2015/09/23/9f0955515312418b9eae8d129cd0ac2b.PNG"></li>
+
+                                                    <li data-src="/media/images/2015/09/23/8fb83b6391f747449490d9f17af75a76.PNG" data-w="1013"
+                                                    data-h="781"><img src="/media/images/2015/09/23/8fb83b6391f747449490d9f17af75a76.PNG"></li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div-->
+
+                        </div>
+
+                        {% include 'libs/widgets/clip_svg.html' %}
+                        <!-- svg -->
+                        <!--svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
+                            <defs>
+                                <clipPath id="left-top-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 0, 1 0, 0 1"/>
+                                </clipPath>
+                                <clipPath id="right-top-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .232, .303 0, 1 0, 1 1"/>
+                                </clipPath>
+                                <clipPath id="middle-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .5, .5 0, 1 .5, .5 1"/>
+                                </clipPath>
+                                <clipPath id="left-bottom-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 0, 1 1, 0 1"/>
+                                </clipPath>
+                                <clipPath id="right-bottom-path" clipPathUnits="objectBoundingBox">
+                                    <polygon points="0 .94, 1 0, 1 1, .06 1"/>
+                                </clipPath>
+                            </defs>
+                        </svg-->
+
+                    </div></div>
+                </div>
+                </div></div></div>
+
+
+            </div>
+        </div>
+        
+        <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
+        <div class="navbar navbar-app navbar-absolute-bottom">
+            <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div>
+            <div class="btn-group justified">
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/print.png' %}">
+                </a>
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                    <img alt="icon" src="{% static 'website/images/icons/stats.png' %}">
+                </a>
+            </div>
+            </div></div></div>
+        </div>
+
+    </div>
+    <!-- ~ .app -->
+
+    <!-- Modals and Overlays -->
+    <div ui-yield-to="modals"></div>
+{% endblock %}
+{% comment content %}
+    <div class="content">
+    <div hidden>
+        <!-- Twitter -->
+        <a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
+         <!-- Facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
+        <!-- Google+ -->
+        <a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>
+        <!-- LinkedIn -->
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+        <!-- Email -->
+        <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn btn-email"><i class="fa fa-envelope fa-fw"></i> Email</a>
+    </div>
+
+    <aside  class="poster_side_bar">
+        <ul class="list-unstyled">
+             <!-- Twitter -->
+        <li><a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn social-btn btn-twitter"><i class="fa fa-twitter"></i></a></li>
+         <!-- Facebook -->
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn social-btn btn-facebook"><i class="fa fa-facebook"></i></a></li>
+        <!-- Google+ -->
+        <li><a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn social-btn btn-googleplus"><i class="fa fa-google-plus"></i></a></li>
+        <!-- LinkedIn -->
+        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn social-btn btn-linkedin"><i class="fa fa-linkedin"></i></a></li>
+        <!-- Email -->
+        <li><a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn social-btn btn-email"><i class="fa fa-envelope"></i></a></li>
+
+        </ul>
+    </aside>
+
+    <div class="poster_container">
+    {% embed object.html.name %}
+    <img class="poster_qrcode" src={% url 'website:code_poster' object.id %} />
+    <p class="views_count_widget">Views: {{object.views_count}}</p>
+    </div>
+
+    <div class="poster_footer"></div>
+    </div>
+{% endcomment %}
+
+{% block body_end %}
+    {{ block.super }}
+    <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
+    <script src="{% static 'libs/video/video.js' %}"></script>
+    <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{{ object.script.url }}"></script>
+    {% include 'libs/photo_swipe/body.html' %}
+{% endblock %}
