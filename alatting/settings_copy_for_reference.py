@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.gis',
+    #'django.contrib.gis',
     'alatting_website',
     'alatting_admin',
 )
@@ -89,12 +89,16 @@ WSGI_APPLICATION = 'alatting.wsgi.application'
 
 if DEBUG:
     DEFAULT_DB = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'alatting',
+        'HOST': '',
+        'PORT': '',
+        'USER': 'root',
+        'PASSWORD': 'root',
     }
 else:
     DEFAULT_DB = {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'dev',
         'HOST':'alatting.cd5aq1se5ngs.us-west-2.rds.amazonaws.com',
         'PORT': '5432',
