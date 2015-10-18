@@ -1,3 +1,13 @@
+.icon-btn {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.icon-btn img {
+    width: 100%;
+}
+
 .app{
     background-color: white
 }
@@ -21,6 +31,22 @@
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.bottom-container .popover{
+    min-width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: #686b70;
+}
+
+.bottom-container .popover-content{
+    padding: 0;
+}
+
+.bottom-container .popover.top > .arrow:after{
+    border-top-color: #686b70;
 }
 
 .navbar-absolute-bottom{
@@ -148,12 +174,6 @@
 
 .poster-contact .first-row {
     padding-bottom: 1%;
-}
-
-.contact-btn {
-    border: none;
-    border-radius: 0;
-    padding: 0;
 }
 
 .poster-contact img {

@@ -118,22 +118,16 @@
                             </div>
                             <div class="poster-contact">
                                 <div class="first-row btn-group justified">
-                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/mail.png' %}"></a>
                                 </div>
                                 <div class="second-row btn-group justified">
-                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="contact-btn btn btn-navbar btn-icon-only">
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/location.png' %}"></a>
-                                <!--table >
-                                    <tr><td><img src="{% static 'website/images/icons/phone_selected.png' %}"></td>
-                                        <td><img src="{% static 'website/images/icons/mail_selected.png' %}"></td></tr>
-                                    <tr><td><img src="{% static 'website/images/icons/hours_selected.png' %}"></td>
-                                        <td><img src="{% static 'website/images/icons/location_selected.png' %}"></td></tr>
-                                </table-->
                                 </div>
                             </div>
                         </div>
@@ -155,9 +149,21 @@
         
         <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
         <div class="navbar navbar-app navbar-absolute-bottom">
-            <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div>
+            <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div class="bottom-container">
             <div class="btn-group justified">
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"
+                   data-content='<div class="btn-group justified">
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                </div>'
+                   data-viewport='{"selector": ".bottom-container", "padding": 0}' data-trigger="focus"
+                   data-toggle="popover" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
                 </a>
                 <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
@@ -174,6 +180,11 @@
                 </a>
             </div>
             </div></div></div>
+            <script>
+                $(document).ready(function(){
+                    $('[data-toggle="popover"]').popover();
+                });
+            </script>
         </div>
 
     </div>

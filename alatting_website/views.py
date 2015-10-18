@@ -55,7 +55,7 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
-    template_name = 'website/shape_outside.html'
+    template_name = 'website/popover.html'
 
 
 class PosterCodeView(View):
