@@ -166,7 +166,19 @@
                    data-toggle="popover" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
                 </a>
-                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
+                <a href="#" class="bottom-btn btn btn-navbar btn-icon-only"
+                   data-content='<div class="btn-group justified">
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
+                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                </div>'
+                   data-viewport='{"selector": ".bottom-container", "padding": 0}' data-trigger="focus"
+                   data-toggle="popover" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
                 </a>
                 <a href="#" class="bottom-btn btn btn-navbar btn-icon-only">
