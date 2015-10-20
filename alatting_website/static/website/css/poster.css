@@ -38,7 +38,7 @@
     border: none;
     margin: 0;
     padding: 0;
-    background-color: #686b70;
+    background-color: #686c70;
 }
 
 .bottom-container .popover-content{
@@ -71,6 +71,10 @@
 .bottom-btn {
     position: relative;
     overflow: hidden;
+}
+
+.share-sub-btn img{
+    width: 50%;
 }
 
 .poster_side_bar{
