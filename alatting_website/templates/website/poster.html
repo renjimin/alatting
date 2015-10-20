@@ -150,20 +150,26 @@
         <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
         <div class="navbar navbar-app navbar-absolute-bottom">
             <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div class="bottom-container">
-            <div class="btn-group justified" >
+            <div class="bottom-menu btn-group justified" >
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                    data-content='<div class="btn-group justified">
-                                    <a href="#" class="share-sub-btn icon-btnbtn btn-navbar btn-icon-only">
+                                    <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="http://twitter.com/home?status="
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/instagram.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="https://plus.google.com/share?url="
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
+                                        <img src="{% static 'website/images/icons/g+.png' %}"></a>
+                                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary="
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="https://pinterest.com/pin/create/button/?url=www.google.com&media=Alatting.com&description=Alatting.com"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
@@ -180,7 +186,8 @@
                                         <img src="{% static 'website/images/icons/twitter.png' %}"></a>
                                     <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/instagram.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary="
+                                    class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
                                     <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
@@ -206,14 +213,14 @@
                 </div>
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                         data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/pdf.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/camera_roll.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                         </a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
