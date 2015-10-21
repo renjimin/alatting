@@ -17,6 +17,7 @@
     <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
     {% include 'libs/widgets/clip_style.html' %}
@@ -150,20 +151,26 @@
         <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
         <div class="navbar navbar-app navbar-absolute-bottom">
             <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div class="bottom-container">
-            <div class="btn-group justified" >
+            <div class="bottom-menu btn-group justified" >
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                    data-content='<div class="btn-group justified">
-                                    <a href="#" class="share-sub-btn icon-btnbtn btn-navbar btn-icon-only">
+                                    <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="http://twitter.com/home?status="
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/instagram.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="https://plus.google.com/share?url="
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
+                                        <img src="{% static 'website/images/icons/g+.png' %}"></a>
+                                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary="
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="#" class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="https://pinterest.com/pin/create/button/?url=www.google.com&media=Alatting.com&description=Alatting.com"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
@@ -171,19 +178,9 @@
                     <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
                 </div>
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                   data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/instagram.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
+                   data-content='<div class="center-block">
+                                    <input id="star-rating-rate" value="4" type="number" class="rating" data-glyphicon="false" data-show-caption="false"
+                                     min=0 max=5 step=0.2 data-size="lg">
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
@@ -206,14 +203,14 @@
                 </div>
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                         data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/pdf.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/camera_roll.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
+                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                         </a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
@@ -288,6 +285,7 @@
 
 {% block body_end %}
     {{ block.super }}
+    <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
     <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>

@@ -29,6 +29,9 @@ $(document).ready(function () {
         src = setSelectedSrc(true, src);
         $img.attr("src", src);
     });
+    popover.on('inserted.bs.popover', function(evt){
+        $("#star-rating-rate").rating();
+    });
     popover.on('shown.bs.popover', function () {
         // make the top of the popover relative
         var popover = $(this).data('bs.popover');
