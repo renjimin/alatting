@@ -17,6 +17,7 @@
     <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
     {% include 'libs/widgets/clip_style.html' %}
@@ -177,20 +178,9 @@
                     <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
                 </div>
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                   data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/instagram.png' %}"></a>
-                                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary="
-                                    class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
+                   data-content='<div class="center-block">
+                                    <input id="star-rating-rate" value="4" type="number" class="rating" data-glyphicon="false" data-show-caption="false"
+                                     min=0 max=5 step=0.2 data-size="lg">
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
@@ -295,6 +285,7 @@
 
 {% block body_end %}
     {{ block.super }}
+    <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
     <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
