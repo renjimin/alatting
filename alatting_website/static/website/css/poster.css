@@ -1,3 +1,13 @@
+.icon-btn {
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}
+
+.icon-btn img {
+    width: 100%;
+}
+
 .app{
     background-color: white
 }
@@ -23,17 +33,37 @@
     right: 0;
 }
 
+.bottom-container .popover{
+    min-width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background-color: #686c70;
+}
+
+.bottom-container .popover-content{
+    padding: 0;
+}
+
+.bottom-container .popover-content .btn-group{
+    background-color: #686c70;
+}
+
+.bottom-container .popover.top > .arrow:after{
+    border-top-color: #686b70;
+}
+
 .navbar-absolute-bottom{
     background-color: transparent;
     border: none;
 }
 
-.navbar-absolute-bottom .btn-group{
+.bottom-menu {
     background-color: #020202;
     height: 100%;
 }
 
-.navbar-absolute-bottom .btn-navbar{
+.bottom-btn {
     border-right: 1px solid #818181 !important;
 }
 
@@ -45,6 +75,26 @@
 .bottom-btn {
     position: relative;
     overflow: hidden;
+}
+
+.share-sub-btn {
+    padding-top: 5% !important;
+    padding-bottom: 5% !important;
+    border-right: 1px solid #1b1e21 !important;
+}
+
+.share-sub-btn img{
+    width: 50%;
+}
+
+.export-sub-btn {
+    padding-top: 3% !important;
+    padding-bottom: 3% !important;
+    border-right: 2px solid #1b1e21 !important;
+}
+
+.export-sub-btn img{
+    width: 50%;
 }
 
 .poster_side_bar{
@@ -148,12 +198,6 @@
 
 .poster-contact .first-row {
     padding-bottom: 1%;
-}
-
-.contact-btn {
-    border: none;
-    border-radius: 0;
-    padding: 0;
 }
 
 .poster-contact img {

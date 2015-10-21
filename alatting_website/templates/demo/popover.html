@@ -1,0 +1,27 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block title %}Popover{% endblock %}
+{% block content %}
+    <div style="padding-top: 300px; position: relative;" >
+    <a href="#" data-toggle="popover" data-placement="top"
+       data-content='<div class="btn-group justified">
+                                    <a href="#" class="btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
+                                    <a href="#" class="btn btn-navbar btn-icon-only">
+                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
+                                </div>'
+       data-html="true"> Toggle popover</a>
+    </div>
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').on('inserted.bs.popover', function () {
+            var $this   = $(this)
+            var data    = $this.data('bs.popover')
+            var $tip = data.$tip
+            var top = $tip.position().top / $tip.parent().outerHeight() * 100 + '%';
+            $tip.css('top', top);
+        });
+    });
+    </script>
+{% endblock %}
