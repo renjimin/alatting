@@ -1,0 +1,23 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block title %}Donut Chart{% endblock %}
+{% block head_script %}
+    {{ block.super }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
+{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
+{% endblock %}
+{% block content %}
+    <div class="doughnut" style="width: 40%; height: 400px; margin: auto;">
+    <canvas class="doughnut-canvas"></canvas>
+    <div class="doughnut-title"><p>Great</p></div>
+    </div>
+    <script>
+        $(window).load(function () {
+            $('.doughnut').doughnut()
+        });
+    </script>
+{% endblock %}

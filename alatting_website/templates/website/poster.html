@@ -178,12 +178,63 @@
                     <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
                 </div>
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                   data-content='<div class="center-block">
-                                    <input id="star-rating-rate" value="4" type="number" class="rating" data-glyphicon="false" data-show-caption="false"
-                                     min=0 max=5 step=0.2 data-size="lg">
+                     data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                     data-title='<div class="equal-justified rate-info">
+                                     <div class="rate-totals">
+                                         <div class="rate-rating">4.3</div>
+                                         <input class="rating" type="number" readonly value="4.3" data-glyphicon="false" data-show-caption="false"
+                                         min=0 max=5 step=0.1>
+                                         <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;128 total</div>
+                                     </div>
+                                     <div class="rate-levels">
+                                         <div class="rate-level justified">
+                                            <div class="rate-level-label"><span class="rate-star">★</span> 5</div>
+                                            <div class="rate-progress">
+                                                <div class="rate-progress-bar rate-five" style="width:100%;">
+                                                50
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="rate-level justified">
+                                            <div class="rate-level-label"><span class="rate-star">★</span> 4</div>
+                                            <div class="rate-progress">
+                                                <div class="rate-progress-bar rate-four" style="width:80%;">
+                                                40
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="rate-level justified">
+                                            <div class="rate-level-label"><span class="rate-star">★</span> 3</div>
+                                            <div class="rate-progress">
+                                                <div class="rate-progress-bar rate-three" style="width:60%;">
+                                                30
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="rate-level justified">
+                                            <div class="rate-level-label"><span class="rate-star">★</span> 2</div>
+                                            <div class="rate-progress">
+                                                <div class="rate-progress-bar rate-two" style="width:40%;">
+                                                20
+                                                </div>
+                                            </div>
+                                         </div>
+                                         <div class="rate-level justified">
+                                            <div class="rate-level-label"><span class="rate-star">★</span> 1</div>
+                                            <div class="rate-progress">
+                                                <div class="rate-progress-bar rate-one" style="width:30%;">
+                                                15
+                                                </div>
+                                            </div>
+                                         </div>
+                                     </div>
+                                 </div>'
+                     data-content='<div class="rate-action">
+                                    <input class="rating rate-rate" value="4" type="number" data-glyphicon="false" data-show-caption="false"
+                                     min=0 max=5 step=1>
                                 </div>'
-                   data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                   data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
+                     data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                     data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
                 </div>
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
@@ -201,6 +252,7 @@
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
                 </div>
+                <!-- print -->
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                         data-content='<div class="btn-group justified">
                                     <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
@@ -210,12 +262,13 @@
                                     <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
                                     <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                         </a>
+                                         <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/print.png' %}">
                 </div>
+                <!-- stats -->
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                         data-content='<div class="btn-group justified">
                                     <a href="#" class="icon-btn btn btn-navbar btn-icon-only">

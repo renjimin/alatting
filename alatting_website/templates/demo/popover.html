@@ -1,9 +1,27 @@
 {% extends 'website/base.html' %}
 {% load static %}
 {% block title %}Popover{% endblock %}
+{% block css %}
+    {{ block.super }}
+    <style>
+    .popover {
+        position: relative;
+    }
+    </style>
+{% endblock %}
 {% block content %}
     <div style="padding-top: 300px; position: relative;" >
     <a href="#" data-toggle="popover" data-placement="top"
+       data-template='<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+       data-title='<div class="justified">
+       <div><div>1</div>
+            <div>2</div>
+            <div>3</div>
+       </div>
+       <div><div><div style="font-size: 50px">1</div>
+            <div>2</div>
+            <div>3</div></div></div>
+       </div>'
        data-content='<div class="btn-group justified">
                                     <a href="#" class="btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/phone.png' %}"></a>
@@ -11,11 +29,27 @@
                                         <img src="{% static 'website/images/icons/mail.png' %}"></a>
                                 </div>'
        data-html="true"> Toggle popover</a>
+    <div id="popover">This is a test!</div>
+    <div class="justified">
+       <div><div>1</div>
+            <div>2</div>
+            <div>3</div>
+       </div>
+       <div><div><div style="font-size: 50px">1</div>
+            <div>2</div>
+            <div>3</div></div></div>
+       </div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="70"
+        aria-valuemin="0" aria-valuemax="100" style="width:70%; background-color: red">
+        70%
+        </div>
     </div>
     <script>
     $(document).ready(function(){
-        $('[data-toggle="popover"]').popover();
-        $('[data-toggle="popover"]').on('inserted.bs.popover', function () {
+        $('[data-toggle="popover"]').popover({'content': $('#popover').html()});
+        $('[data-toggle="popover"]').on('shown.bs.popover', function () {
             var $this   = $(this)
             var data    = $this.data('bs.popover')
             var $tip = data.$tip

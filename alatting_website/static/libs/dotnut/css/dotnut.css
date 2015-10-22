@@ -1,0 +1,20 @@
+.doughnut {
+    position: relative;
+    display: table;
+}
+
+.doughnut-canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.doughnut-title {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
