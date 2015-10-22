@@ -55,7 +55,7 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
-    template_name = 'demo/star_rating.html'
+    template_name = 'demo/popover.html'
 
 
 class PosterCodeView(View):
