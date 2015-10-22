@@ -30,7 +30,7 @@ $(document).ready(function () {
         $img.attr("src", src);
     });
     popover.on('inserted.bs.popover', function(evt){
-        $("#star-rating-rate").rating();
+        $(".rating").rating();
     });
     popover.on('shown.bs.popover', function () {
         // make the top of the popover relative
