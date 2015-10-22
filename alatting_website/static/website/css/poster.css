@@ -108,6 +108,11 @@
 
 /* rate submenu */
 
+.rating-disabled {
+    cursor: inherit;
+    pointer-events: none;
+}
+
 .rate-submenu.popover {
     background-color: rgba(0,0,0,.8);
 }
