@@ -12,8 +12,11 @@
     Doughnut.VERSION = '1.0'
 
     Doughnut.DEFAULTS = {
-        value: 50,
+        total: 50,
+        percent: 50,
         innerCutout: 75,
+        color: 'red',
+        backgroundColor: 'white'
     }
 
     Doughnut.prototype.init = function (type, element, options) {
@@ -21,21 +24,25 @@
         this.$element = $(element)
         this.options = options = this.getOptions(options)
         this.initUI(element)
+        var that = this
         this.chart = new Chart(this.canvas.getContext('2d')).Doughnut(
             [{
-                value: options.value,
-                label: '1',
-                color: 'red'
+                value: options.percent,
+                color: options.color
             }, {
-                value: 100 - options.value,
-                color: '#F0F0F0'
+                value: 100 - options.percent,
+                color: options.backgroundColor
             }],
             {
                 percentageInnerCutout: options.innerCutout,
                 animationEasing: 'easeOut',
                 showTooltips: false,
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                segmentShowStroke : false,
+                onAnimationProgress: function(progress){
+                    that.titleElement.innerHTML = '+' + Math.round(progress * options.total)
+                }
             });
     }
 
@@ -44,16 +51,20 @@
     }
 
     Doughnut.prototype.getOptions = function (options) {
+        if(typeof options.total == 'string'){
+            options.total = parseInt(options.total)
+        }
         options = $.extend({}, this.getDefaults(), this.$element.data(), options)
         return options
     }
 
     Doughnut.prototype.initUI = function (container) {
         var options = this.options
-        var canvas = $(container).find('canvas').get(0)
+        var canvas = $(container).find('.doughnut-canvas').get(0)
         canvas.width = $(canvas).width()
         canvas.height = $(canvas).height()
         this.canvas = canvas
+        this.titleElement = $(container).find('.doughnut-title > *').get(0)
     }
 
     Doughnut.prototype.update = function () {

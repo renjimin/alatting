@@ -22,6 +22,16 @@
     display: table-cell;
     width: 1%;
     float: none !important;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.bottom-nav {
+    min-height: unset;
+}
+
+.navbar-app .btn {
+    line-height: unset;
 }
 
 .bottom-ratio-frame {
@@ -56,6 +66,7 @@
 .bottom-container .popover-title{
     padding: 0;
     font-size: 100%;
+    border-bottom: none;
 }
 
 .bottom-container .popover-content{
@@ -222,6 +233,9 @@
 }
 
 /* stats */
+.stats-submenu {
+    background-color: transparent;
+}
 
 .stats-submenu .popover-title {
     background-color: #4d5154;
@@ -229,6 +243,8 @@
 
 .stats-submenu .popover-content{
     color: white;
+    background-color: rgba(0,0,0,.8);
+    line-height: 1;
 }
 
 .stats-submenu .stats-title {
@@ -243,20 +259,88 @@
     margin-bottom: 2%;
 }
 
+.stats-submenu .stats-pop {
+    color: #ffe377;
+}
+
+.stats-submenu .stats-credit {
+    color: #6ffee7;
+}
+
 .stats-submenu .doughnut {
     width: 100%;
     padding-top: 20%;
     padding-bottom: 20%;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+.stats-submenu .doughnut-title {
+    font-size: 150%;
 }
 
 .stats-submenu .stats-graph-label {
-    font-size: 50%;
+    font-size: 70%;
     text-align: center;
+    margin-top: 8%;
+    color: white;
 }
 
 .stats-submenu .stats-graph-value {
-    font-size: 70%;
+    font-size: 100%;
     text-align: center;
+    margin-bottom: 8%;
+}
+
+.stats-submenu .stats-type-icon {
+    width: 30%;
+    text-align: center;
+    background-color: #6b6e73;
+    padding: 3% 0 3% 0;
+}
+
+.stats-type-icon img{
+    width: 50%;
+    vertical-align: middle;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stats-type-sep {
+    width: 1%;
+}
+
+.stats-hr {
+    padding-bottom: .5%;
+}
+
+.stats-submenu .stats-type-numbers {
+    width: 68%;
+    background-color: #868a8d;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 70%;
+    line-height: 1;
+}
+
+.stats-type-numbers > div {
+    height: 100%;
+}
+
+.stats-type-increase {
+    color: #ffe377;
+    text-align: left;
+}
+
+.stats-type-increase img{
+    width: 35%;
+    vertical-align: baseline;
+    display: inline;
+}
+
+.stats-type-increase span {
+    vertical-align: baseline;
+    font-size: 130%;
 }
 
 .poster_side_bar{
