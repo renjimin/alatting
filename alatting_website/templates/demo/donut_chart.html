@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
 {% endblock %}
 {% block content %}
-    <div class="doughnut" style="width: 40%; height: 400px; margin: auto;">
-    <canvas class="doughnut-canvas"></canvas>
-    <div class="doughnut-title"><p>Great</p></div>
+    <div class="doughnut" data-value="30" data-inner-cutout="50">
+        <canvas class="doughnut-canvas"></canvas>
+        <div class="doughnut-title"><p>Great</p></div>
     </div>
     <script>
         $(window).load(function () {

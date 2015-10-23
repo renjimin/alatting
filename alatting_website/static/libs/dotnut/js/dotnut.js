@@ -14,7 +14,6 @@
     Doughnut.DEFAULTS = {
         value: 50,
         innerCutout: 75,
-        title: '75'
     }
 
     Doughnut.prototype.init = function (type, element, options) {

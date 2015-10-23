@@ -209,9 +209,6 @@
     color: #ffda44;
 }
 
-
-
-
 /* export */
 
 .export-sub-btn {
@@ -222,6 +219,44 @@
 
 .export-sub-btn img{
     width: 50%;
+}
+
+/* stats */
+
+.stats-submenu .popover-title {
+    background-color: #4d5154;
+}
+
+.stats-submenu .popover-content{
+    color: white;
+}
+
+.stats-submenu .stats-title {
+    text-align: center;
+    color: white;
+    font-size: 80%;
+}
+
+.stats-title img {
+    width: 4%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.stats-submenu .doughnut {
+    width: 100%;
+    padding-top: 20%;
+    padding-bottom: 20%;
+}
+
+.stats-submenu .stats-graph-label {
+    font-size: 50%;
+    text-align: center;
+}
+
+.stats-submenu .stats-graph-value {
+    font-size: 70%;
+    text-align: center;
 }
 
 .poster_side_bar{
