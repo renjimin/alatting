@@ -31,6 +31,7 @@ $(document).ready(function () {
     });
     popover.on('inserted.bs.popover', function(evt){
         $(".rating").rating();
+        $('.doughnut').doughnut();
     });
     popover.on('shown.bs.popover', function () {
         // make the top of the popover relative

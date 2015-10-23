@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
     {% include 'libs/widgets/clip_style.html' %}
@@ -270,23 +271,54 @@
                 </div>
                 <!-- stats -->
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                        data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                     data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                     data-title='<div class="stats-title">
+                                     <img src="{% static 'website/images/icons/stats_small.png' %}">
+                                     <span> STATS</span>
                                 </div>'
+                     data-content='<div class="equal-justified stats-graph">
+                                   <div class="stats-pop">
+                                       <div class="stats-graph-label">Popularity</div>
+                                       <div class="doughnut" data-value="30" data-inner-cutout="60">
+                                            <canvas class="doughnut-canvas"></canvas>
+                                            <div class="doughnut-title"><p>+20</p></div>
+                                        </div>
+                                        <div class="stats-graph-value">2642</div>
+                                    </div>
+                                    <div class="stats-credit">
+                                       <div class="stats-graph-label">Credit</div>
+                                       <div class="doughnut" data-value="30" data-inner-cutout="60">
+                                            <canvas class="doughnut-canvas"></canvas>
+                                            <div class="doughnut-title"><p>+3</p></div>
+                                        </div>
+                                        <div class="stats-graph-value">83%</div>
+                                    </div>
+                                 </div>
+                                 <div>
+                                     <div class="equal-justified">
+                                         <div class="rate-totals">
+                                             first row
+                                          </div>
+                                         <div class="rate-levels">
+                                             first row
+                                         </div>
+                                     </div>
+                                     <div class="equal-justified">
+                                         <div class="rate-totals">
+                                             second row
+                                          </div>
+                                         <div class="rate-levels">
+                                             second row
+                                         </div>
+                                     </div>
+                                 </div>'
+
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/stats.png' %}">
                 </div>
             </div>
             </div></div></div>
-            <script src="{% static 'website/js/menu.js' %}"></script>
         </div>
 
     </div>
@@ -338,10 +370,13 @@
 
 {% block body_end %}
     {{ block.super }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
     <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'website/js/menu.js' %}"></script>
     <script src="{{ object.script.url }}"></script>
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}
