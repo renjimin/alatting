@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
     {% include 'libs/widgets/clip_style.html' %}
@@ -149,7 +150,7 @@
         </div>
         
         <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
-        <div class="navbar navbar-app navbar-absolute-bottom">
+        <div class="bottom-nav navbar navbar-app navbar-absolute-bottom">
             <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div class="bottom-container">
             <div class="bottom-menu btn-group justified" >
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
@@ -262,7 +263,7 @@
                                     <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
                                     <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                         <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
+                                         <img style="display: none"></a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
@@ -270,23 +271,116 @@
                 </div>
                 <!-- stats -->
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                        data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
+                     data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                     data-title='<div class="stats-title">
+                                     <img src="{% static 'website/images/icons/stats_small.png' %}">
+                                     <span> STATS</span>
                                 </div>'
+                     data-content='<div class="equal-justified stats-graph">
+                                   <div class="stats-pop">
+                                       <div class="stats-graph-label">Popularity</div>
+                                       <div class="doughnut" data-percent="30" data-inner-cutout="65" data-color="#ffe377" data-total="20"
+                                            data-background-color="#4d5154">
+                                            <canvas class="doughnut-canvas"></canvas>
+                                            <div class="doughnut-title"><p>+20</p></div>
+                                        </div>
+                                        <div class="stats-graph-value">2642</div>
+                                    </div>
+                                    <div class="stats-credit">
+                                       <div class="stats-graph-label">Credit</div>
+                                       <div class="doughnut" data-percent="83" data-inner-cutout="65" data-color="#6ffee7" data-total="3"
+                                            data-background-color="#4d5154">
+                                            <canvas class="doughnut-canvas"></canvas>
+                                            <div class="doughnut-title"><p>+3</p></div>
+                                        </div>
+                                        <div class="stats-graph-value">83%</div>
+                                    </div>
+                                 </div>
+                                 <div class="stats-types">
+                                     <div class="equal-justified">
+                                         <div>
+                                             <div class="justified">
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/star.png' %}"></div>
+                                                 <div class="stats-type-sep"></div>
+                                                 <div class="stats-type-numbers">
+                                                    <div class="equal-justified">
+                                                        <div>4.3</div>
+                                                        <div class="stats-type-increase">
+                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                                            <span>.2</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div class="stats-type-sep"></div>
+                                             </div>
+                                         </div>
+                                         <div>
+                                             <div class="justified">
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/eye.png' %}"></div>
+                                                 <div class="stats-type-sep"></div>
+                                                 <div class="stats-type-numbers">
+                                                    <div class="equal-justified">
+                                                        <div>2347</div>
+                                                        <div class="stats-type-increase">
+                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                                            <span>13</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div class="stats-type-sep"></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="stats-hr"> </div>
+                                     <div class="equal-justified">
+                                         <div>
+                                             <div class="justified">
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/like.png' %}"></div>
+                                                 <div class="stats-type-sep"></div>
+                                                 <div class="stats-type-numbers">
+                                                    <div class="equal-justified">
+                                                        <div>418</div>
+                                                        <div class="stats-type-increase">
+                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                                            <span>6</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div class="stats-type-sep"></div>
+                                             </div>
+                                         </div>
+                                         <div>
+                                             <div class="justified">
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/stats_share.png' %}"></div>
+                                                 <div class="stats-type-sep"></div>
+                                                 <div class="stats-type-numbers">
+                                                    <div class="equal-justified">
+                                                        <div>126</div>
+                                                        <div class="stats-type-increase">
+                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                                            <span>5</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div class="stats-type-sep"></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>'
+
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/stats.png' %}">
                 </div>
             </div>
             </div></div></div>
-            <script src="{% static 'website/js/menu.js' %}"></script>
+            <!-- preload images -->
+            <div style="display: none;">
+                <img src="{% static 'website/images/icons/star.png' %}">
+                <img src="{% static 'website/images/icons/like.png' %}">
+                <img src="{% static 'website/images/icons/pdf.png' %}">
+
+            </div>
         </div>
 
     </div>
@@ -338,10 +432,13 @@
 
 {% block body_end %}
     {{ block.super }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
     <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'website/js/menu.js' %}"></script>
     <script src="{{ object.script.url }}"></script>
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}
