@@ -55,7 +55,7 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
-    template_name = 'demo/donut_chart.html'
+    template_name = 'demo/bubble.html'
 
 
 class PosterCodeView(View):
