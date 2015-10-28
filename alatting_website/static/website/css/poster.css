@@ -349,8 +349,12 @@
 }
 
 .comments-submenu .poster-frame {
-    padding: 2% 5% 2% 5%;
+    min-height: 100%;
     background-color: rgba(0,0,0,.8);
+}
+
+.comments-submenu .poster-frame > div{
+    padding: 2% 5% 2% 5%;
 }
 
 .comment {
