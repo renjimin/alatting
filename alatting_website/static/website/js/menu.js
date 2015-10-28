@@ -46,6 +46,13 @@ $(document).ready(function () {
         src = setSelectedSrc(false, src);
         $img.attr("src", src);
     });
+    //for comments menu
+    $('.comments-btn').on('show.bs.popover', function(evt){
+        $('#comments-submenu').fadeIn({duration: 300})
+    })
+    $('.comments-btn').on('hide.bs.popover', function(evt){
+        $('#comments-submenu').fadeOut({duration: 300})
+    })
 });
 // dismiss popover
 $('body').on('click', function (e) {

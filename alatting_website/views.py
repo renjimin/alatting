@@ -55,6 +55,10 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
+    template_name = 'website/index.html'
+
+
+class DemoView(TemplateView):
     template_name = 'demo/bubble.html'
 
 
