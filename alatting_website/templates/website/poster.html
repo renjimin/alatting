@@ -146,6 +146,73 @@
                     {% include 'libs/widgets/clip_svg.html' %}
 
                 </div></div></div>
+
+                <div id="comments-submenu" hidden class="scrollable comments-submenu"><div class="scrollable-content"><div class="poster-frame center-block"><div>
+                    <div class="justified comment">
+                        <div class="comment-person">
+                            <img src="{% static 'website/demo/bobby_sml.png' %}" class="img-circle">
+                        </div>
+
+                        <div class="comment-text">
+                            <div class="bubble">
+                                <div class="bubble-wrapper">
+                                    <div class="justified bubble-header">
+                                        <div class="bubble-title"> This is the title</div>
+                                        <div class="bubble-time">1 day ago</div>
+                                    </div>
+
+                                    <div class="bubble-content">This is the content.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="justified comment">
+                        <div class="comment-person">
+                            <img src="{% static 'website/demo/jry_sml.png' %}" class="img-circle">
+                        </div>
+
+                        <div class="comment-text">
+                            <div class="bubble">
+                                <div class="bubble-wrapper">
+                                    <div class="justified bubble-header">
+                                        <div class="bubble-title"> This is the title</div>
+                                        <div class="bubble-time">1 day ago</div>
+                                    </div>
+
+                                    <div class="bubble-content">This is the content.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="justified comment">
+                        <div class="comment-person">
+                            <img src="{% static 'website/demo/tiger_sml.png' %}" class="img-circle">
+                        </div>
+
+                        <div class="comment-text">
+                            <div class="bubble">
+                                <div class="bubble-wrapper">
+                                    <div class="justified bubble-header">
+                                        <div class="bubble-title"> This is the title</div>
+                                        <div class="bubble-time">1 day ago</div>
+                                    </div>
+
+                                    <div class="bubble-content">
+                                        This is the content.<br>
+                                        This is the content.<br>
+                                        This is the content.<br>
+                                        This is the content.<br>
+                                        This is the content.<br>
+                                        This is the content.<br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div></div></div></div>
             </div>
         </div>
         
@@ -238,19 +305,11 @@
                      data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
                 </div>
-                <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                        data-content='<div class="btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
-                                </div>'
-                   data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                   data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
+                <div href="#" class="comments-btn bottom-btn btn btn-navbar btn-icon-only"
+                     data-template='<div class="popover" role="tooltip"><div style="display:none" class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                        data-content='<div></div>'
+                     data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                     data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
                 </div>
                 <!-- print -->
@@ -379,7 +438,7 @@
                 <img src="{% static 'website/images/icons/star.png' %}">
                 <img src="{% static 'website/images/icons/like.png' %}">
                 <img src="{% static 'website/images/icons/pdf.png' %}">
-
+                <img src="{% static 'website/images/icons/email.png' %}">
             </div>
         </div>
 
