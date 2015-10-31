@@ -39,7 +39,7 @@ from PyQt4.QtWebKit import *
 from PyQt4.QtNetwork import *
 
 VERSION="20091224"
-LOG_FILENAME = 'webkit2png.log'
+LOG_FILENAME = '/var/log/webkit2png/webkit2png.log'
 logger = logging.getLogger('webkit2png')
 
 def init_qtgui(display=None, style=None, qtargs=None):
