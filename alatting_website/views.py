@@ -1,5 +1,7 @@
 import codecs
+# codecs is not used in this views.py,suggest to remove this import
 from django.shortcuts import render
+# render is not used in this views.py,suggest to remove
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
