@@ -1,7 +1,9 @@
 import codecs
+# codecs is not used in this views.py,suggest to remove this import
 from django.shortcuts import render
+# render is not used in this views.py,suggest to remove
 from django.http.response import HttpResponse, HttpResponseNotFound
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from alatting_website.models import Poster
@@ -60,6 +62,19 @@ class IndexView(TemplateView):
 
 class DemoView(TemplateView):
     template_name = 'demo/bubble.html'
+
+from utils.capture.screen_shot import ScreenShot
+
+
+class CaptureView(FormView):
+    from alatting_website.forms import CaptureForm
+    form_class = CaptureForm
+    template_name = 'demo/capture.html'
+
+    def form_valid(self, form):
+        path = ScreenShot.test(form.cleaned_data['url'])
+        with open(path, "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpeg")
 
 
 class PosterCodeView(View):
