@@ -1,7 +1,10 @@
 __author__ = 'tianhuyang'
+import os
 import json
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from .poster_render import PosterRender
+from utils.capture.screen_shot import ScreenShot
 
 
 class PosterService:
@@ -23,8 +26,25 @@ class PosterService:
         return root
 
     @classmethod
-    def parse_meida_file(cls, path, poster):
+    def parse_media_file(cls, path, poster):
         path = settings.MEDIA_ROOT + path
         with open(path) as f:
             root = json.load(f)
         cls.parse(root, poster)
+
+    @classmethod
+    def image_paths(cls, poster):
+        file = os.path.splitext(poster.html.name)[0] + '.jpg'
+        url_path = settings.MEDIA_URL + file
+        path = os.path.join(settings.MEDIA_ROOT, file)
+        return path, url_path
+
+    @classmethod
+    def capture(cls, poster, width=800, height=1280, view_height=2048, force=False):
+        path, url_path = cls.image_paths(poster)
+        if not os.path.exists(path) or force:
+            host = "http://127.0.0.1:8000"
+            url = host + reverse('website:poster', kwargs={'pk': poster.id})
+            if not ScreenShot.capture(url, path, width, height, view_height=view_height):
+                url_path = None
+        return url_path

@@ -48,7 +48,8 @@ class PosterView(DetailView):
             poster_page.regions = poster_regions
         obj.pages = pages
         obj.regions = regions
-        PosterService.parse_meida_file(obj.html.name, obj)
+        PosterService.parse_media_file(obj.html.name, obj)
+        obj.image_url = PosterService.capture(obj)
         return obj
 
     def get_context_data(self, **kwargs):
