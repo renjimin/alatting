@@ -10,6 +10,7 @@
 
 {% block head_script %}
     {{ block.super }}
+    <script src="{% static 'website/js/poster.js' %}"></script>
 {% endblock %}
 
 {% block css %}
@@ -315,11 +316,11 @@
                 <!-- print -->
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                         data-content='<div class="btn-group justified">
-                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="{{ object.pdf_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/pdf.png' %}"></a>
-                                    <a href="{{ object.image_url }}" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="{{ object.image_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/camera_roll.png' %}"></a>
-                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                    <a href="{{ object.pdf_url }}" onclick="printPDF(this.href); return false" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
                                     <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                          <img style="display: none"></a>

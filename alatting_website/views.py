@@ -49,7 +49,7 @@ class PosterView(DetailView):
         obj.pages = pages
         obj.regions = regions
         PosterService.parse_media_file(obj.html.name, obj)
-        obj.image_url = PosterService.capture(obj)
+        obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='capture' in self.request.GET)
         return obj
 
     def get_context_data(self, **kwargs):

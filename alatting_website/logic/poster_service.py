@@ -33,18 +33,25 @@ class PosterService:
         cls.parse(root, poster)
 
     @classmethod
-    def image_paths(cls, poster):
-        file = os.path.splitext(poster.html.name)[0] + '.jpg'
+    def poster_paths(cls, poster, ext):
+        file = os.path.splitext(poster.html.name)[0] + ext
         url_path = settings.MEDIA_URL + file
         path = os.path.join(settings.MEDIA_ROOT, file)
         return path, url_path
 
     @classmethod
-    def capture(cls, poster, width=800, height=1280, view_height=2048, force=False):
-        path, url_path = cls.image_paths(poster)
-        if not os.path.exists(path) or force:
-            host = "http://127.0.0.1:8000"
-            url = host + reverse('website:poster', kwargs={'pk': poster.id})
-            if not ScreenShot.capture(url, path, width, height, view_height=view_height):
-                url_path = None
-        return url_path
+    def capture(cls, request, poster, width=800, height=1280, view_height=2048, force=False):
+        image_path, image_url = cls.poster_paths(poster, '.jpg')
+        pdf_path, pdf_url = cls.poster_paths(poster, '.pdf')
+        # make sure it exist
+        if not os.path.exists(image_path):
+            open(image_path, 'wb').close()
+            force = True
+        if force:
+            url = request.scheme + '://' + request.get_host()
+            url = url + reverse('website:poster', kwargs={'pk': poster.id})
+            if ScreenShot.capture(url, image_path, width, height, view_height=view_height):
+                ScreenShot.image_to_pdf(image_path, pdf_path)
+            else:
+                pdf_url = image_url = None
+        return image_url, pdf_url
