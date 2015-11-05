@@ -6,7 +6,7 @@ from django.http.response import HttpResponse, HttpResponseNotFound
 from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
-from django.utils.http import urlquote_plus
+from django.utils.http import urlquote_plus, urlquote
 from alatting_website.models import Poster
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
@@ -61,13 +61,15 @@ class PosterView(DetailView):
         share.description = obj.short_description
         share.url = Utils.get_current_url(self.request)
         encoded_url = urlquote_plus(share.url)
-        encoded_title = urlquote_plus(obj.unique_name)
+        title = obj.unique_name
+        encoded_title = urlquote_plus(title)
         encoded_detail = urlquote_plus(obj.short_description)
-        encoded_url_detail = urlquote_plus(obj.short_description + '\n\n' + share.url)
+        url_detail = obj.short_description + '\n\n' + share.url
+        encoded_url_detail = urlquote_plus(url_detail)
         share.image_url = Utils.get_url(self.request, PosterService.poster_image_url(obj))
         encoded_image_url = urlquote_plus(share.image_url)
-        #
-        share.email = 'subject=%s&body=%s' % (encoded_title, encoded_url_detail)
+        # email shouldn't encode space
+        share.email = 'subject=%s&body=%s' % (urlquote(title, ''), urlquote(url_detail, ''))
         #
         share.fb = 'u=%s' % encoded_url
         #
