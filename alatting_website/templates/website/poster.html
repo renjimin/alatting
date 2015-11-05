@@ -223,22 +223,22 @@
             <div class="bottom-menu btn-group justified" >
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                    data-content='<div class="btn-group justified">
-                                    <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
+                                    <a href="mailto:?{{ object.share.email | safe}}"
+                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}"
+                                    <a href="https://www.facebook.com/sharer/sharer.php?{{ object.share.fb | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="http://twitter.com/home?status="
+                                    <a href="http://twitter.com/home?{{ object.share.twitter | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="https://plus.google.com/share?url="
+                                    <a href="https://plus.google.com/share?{{ object.share.google_plus | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/g+.png' %}"></a>
-                                    <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary="
+                                    <a href="http://www.linkedin.com/shareArticle?mini=true&{{ object.share.linkedin | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="https://pinterest.com/pin/create/button/?url=www.google.com&media=Alatting.com&description=Alatting.com"
+                                    <a href="https://pinterest.com/pin/create/button/?{{ object.share.pinterest | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
                                 </div>'

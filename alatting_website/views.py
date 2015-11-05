@@ -6,8 +6,10 @@ from django.http.response import HttpResponse, HttpResponseNotFound
 from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
+from django.utils.http import urlquote
 from alatting_website.models import Poster
-from utils.db.utils import Utils
+from utils.db.utils import Utils as DBUtils
+from utils.utils import Utils
 from utils.qrcode import QrCode
 from utils.clip import SvgClip
 from alatting_website.logic.poster_service import PosterService
@@ -27,7 +29,7 @@ class PosterView(DetailView):
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
         queryset = self.model.objects.filter(pk=obj.pk)
-        Utils.increase_counts(queryset, {'views_count': 1})
+        DBUtils.increase_counts(queryset, {'views_count': 1})
         images = dict()
         videos = dict()
         for poster_image in obj.poster_images.all():
@@ -50,7 +52,33 @@ class PosterView(DetailView):
         obj.regions = regions
         PosterService.parse_media_file(obj.html.name, obj)
         obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='capture' in self.request.GET)
+        obj.share = self.create_share(obj)
         return obj
+
+    def create_share(self, obj):
+        share = Utils.create_object()
+        share.title = obj.unique_name
+        share.description = obj.short_description
+        share.url = Utils.get_current_url(self.request)
+        encoded_url = urlquote(share.url)
+        encoded_title = urlquote(obj.unique_name)
+        encoded_detail = urlquote(obj.short_description)
+        encoded_url_detail = urlquote(obj.short_description + '\n\n' + share.url)
+        share.image_url = Utils.get_url(self.request, PosterService.poster_image_url(obj))
+        encoded_image_url = urlquote(share.image_url)
+        #
+        share.email = 'subject=%s&body=%s' % (encoded_title, encoded_url_detail)
+        #
+        share.fb = 'u=%s' % encoded_url
+        #
+        share.twitter = 'status=%s' % encoded_url_detail
+        #
+        share.google_plus = 'url=%s' % encoded_url
+        #
+        share.linkedin = 'url=%s&title=%s&summary=%s' % (encoded_url, encoded_title, encoded_detail)
+        #
+        share.pinterest = 'url=%s&media=%s&description=%s' % (encoded_url, encoded_image_url, encoded_detail)
+        return share
 
     def get_context_data(self, **kwargs):
         context = super(PosterView, self).get_context_data(**kwargs)

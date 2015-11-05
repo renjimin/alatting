@@ -40,6 +40,11 @@ class PosterService:
         return path, url_path
 
     @classmethod
+    def poster_image_url(cls, poster):
+        image_path, image_url = cls.poster_paths(poster, '.jpg')
+        return image_url
+
+    @classmethod
     def capture(cls, request, poster, width=800, height=1280, view_height=2048, force=False):
         image_path, image_url = cls.poster_paths(poster, '.jpg')
         pdf_path, pdf_url = cls.poster_paths(poster, '.pdf')

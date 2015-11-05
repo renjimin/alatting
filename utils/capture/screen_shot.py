@@ -32,9 +32,10 @@ class ScreenShot(object):
         return success
 
     @classmethod
-    def test(cls):
+    def test(cls, url):
         path = os.path.dirname(__file__)
         path = os.path.join(path, 'test.jpg')
-        cls.capture("http://alatting.com:8000/poster/1", path, 800, 1280, view_height=2048)
+        cls.capture(url, path, 1000, 1280, view_height=2048)
+        return path
 
 # ScreenShot.test()
