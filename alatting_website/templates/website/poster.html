@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
     <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
     {% include 'libs/widgets/clip_style.html' %}
 {% endblock %}
@@ -84,55 +85,72 @@
                     <!-- top -->
                     <div class="poster-top-ratio"><div>
                         <div class="poster-top">
-                            <div class="poster-header">
-                                <img class="poster-logo" id="'poster-logo" src="{{ object.images.logo.file.url }}" alt='' />
-                                <img class="poster-qrcode" id="poster-qrcode" src={% url 'website:code_poster' object.id %} />
-                                <!--p class="views-count-widget">Views: {{object.views_count}}</p-->
-                                <p class="poster-title" id="poster-title">
-                                    {{ object.logo_title }}
-                                </p>
-                            </div>
-                            <!--div class="poster-tabs" ui-state="activeTab" default="1">
-                                <ul class="nav nav-tabs">
-                                    <li ui-class="{'active': activeTab == 1}">
-                                        <a ui-set="{'activeTab': 1}">INTRO</a>
-                                    </li>
-                                    <li ui-class="{'active': activeTab == 2}">
-                                        <a ui-set="{'activeTab': 2}">TEAM</a>
-                                    </li>
-                                    <li ui-class="{'active': false}">
-                                    </li>
-                                </ul>
-
-                            </div-->
-
-                            <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
-                                    <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn btn">
-                                        <div>INTRO</div>
+                            <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
+                            <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
+                            <div class="poster-top-left">
+                                <div class="poster-header">
+                                    <div class="poster-profile">
+                                        <div class="poster-logo">
+                                            <div class="logo-image">
+                                                <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
+                                            </div>
+                                        </div>
+                                         <div class="poster-title">
+                                             {{ object.logo_title }}
+                                         </div>
                                     </div>
-
-                                    <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">
-                                        <div>TEAM</div>
+                                    <div class="poster-qrcode">
+                                        <div class="qrcode-image">
+                                            <img src={% url 'website:code_poster' object.id %} />
+                                        </div>
                                     </div>
+                                </div><!-- end of poster-header -->
+                                 <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
+                                        <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn-first tab-btn btn">
+                                            <div>INTRO</div>
+                                        </div>
 
-                                    <div ui-class="{'active': false}" class="tab-btn btn">
-                                        <div> </div>
+                                        <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">
+                                            <div>TEAM</div>
+                                        </div>
+
+                                        <div ui-class="{'active': false}" class="tab-btn btn">
+                                            <div> </div>
+                                        </div>
+                                </div><!-- end of poster-tabs -->
+                            </div> <!-- end of poster-top-left -->
+                            <div class="poster-top-right">
+                                <div class="poster-contact">
+                                    <div class="first-row btn-group justified">
+                                        <div class="phone poster-contact-sub">
+                                            <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="{% static 'website/images/icons/phone.png' %}"></a>
+                                            <div class="phone-info contact-info" style="display:none">{{ object.phone }}</div>
+                                        </div>
+                                        <div class="mail poster-contact-sub">
+                                        <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="{% static 'website/images/icons/mail.png' %}"></a>
+                                            <div class="mail-info contact-info" style="display:none">{{ object.email }}</div>
+                                        </div>
                                     </div>
-                            </div>
-                            <div class="poster-contact">
-                                <div class="first-row btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                </div>
-                                <div class="second-row btn-group justified">
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                    <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/location.png' %}"></a>
-                                </div>
-                            </div>
+                                    <div class="second-row btn-group justified">
+                                        <div class="hours poster-contact-sub">
+                                            <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                                <img src="{% static 'website/images/icons/hours.png' %}"></a>
+                                            <div class="hours-info contact-info" style="display:none">
+                                                {{ object.lifetime_type }} : {{ object.lifetime_value }}
+                                            </div>
+                                        </div>
+                                        <div class="location poster-contact-sub">
+                                            <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="{% static 'website/images/icons/location.png' %}"></a>
+                                            <div class="location-info contact-info" style="display:none">
+                                                {{ object.address.address1 }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div><!-- end of poster-contact -->
+                            </div> <!-- end of poster-top-right -->
                         </div>
                     </div></div>
 
