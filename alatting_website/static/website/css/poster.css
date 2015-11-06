@@ -486,7 +486,7 @@
     width: 100%;
     background-color: white;
 }
-
+/**
 .poster-header{
     position: absolute;
     height: 75%;
@@ -566,7 +566,7 @@
     height: 25%;
     font-size: 60%;
 }
-
+*/
 .tab-btn > div:before {
   content: '';
   display: inline-block;
