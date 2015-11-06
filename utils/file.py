@@ -13,12 +13,12 @@ class OverwriteStorage(FileSystemStorage):
 
 
 def get_file_path(instance, field_name, path, filename):
-    old_filename = getattr(instance, '_%s_' % field_name)
+    old_file = getattr(instance, '_%s_' % field_name)
     ext = ''
     comps = filename.split('.')
     if len(comps) > 1:
         ext = comps[-1]
-    if not old_filename:
+    if not old_file:
         name_label = '_name_'
         name = getattr(instance, name_label, None)
         if name is None:
@@ -28,7 +28,7 @@ def get_file_path(instance, field_name, path, filename):
         path = time.strftime(path, time.gmtime())
         filename = os.path.join(path, filename)
     else:
-        filename = old_filename.name
+        filename = old_file.name
         comps = filename.split('.')
         if len(comps) > 1:
             filename = "%s.%s" % (comps[0], ext)
@@ -39,6 +39,12 @@ def get_file_path(instance, field_name, path, filename):
 def get_avatar_path(instance, filename):
     path = 'avatars/%Y/%m/%d'
     field_name = 'avatar'
+    field = instance._meta.get_field(field_name)
+    old_field_name = '_%s_' % field_name
+    old_file = getattr(instance, old_field_name)
+    # avoid overwrite the default avatar
+    if old_file and old_file.name == field.default:
+        setattr(instance, old_field_name, None)
     return get_file_path(instance, field_name, path, filename)
 
 
