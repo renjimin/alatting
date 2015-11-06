@@ -17,6 +17,7 @@ class Person(models.Model):
     )
     user = models.OneToOneField(User, db_column='id', primary_key=True)
     gender = models.CharField(max_length=15, choices=GENDER_CHOICES, default='unknown')
+    # avatar = OverWriteImageField(upload_to=file.get_image_path)
 
     def __str__(self):
         return "{:d}".format(self.pk)

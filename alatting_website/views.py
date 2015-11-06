@@ -21,7 +21,7 @@ class PosterView(DetailView):
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_related('music').\
+        queryset = queryset.select_related('music', 'creator__person').\
             prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
             .select_subclasses()
         return queryset

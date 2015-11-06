@@ -36,6 +36,12 @@ def get_file_path(instance, field_name, path, filename):
     return filename
 
 
+def get_avatar_path(instance, filename):
+    path = 'avatars/%Y/%m/%d'
+    field_name = 'avatar'
+    return get_file_path(instance, field_name, path, filename)
+
+
 def get_image_path(instance, filename):
     path = 'images/%Y/%m/%d'
     field_name = 'file'
