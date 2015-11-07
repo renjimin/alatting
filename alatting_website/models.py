@@ -235,8 +235,9 @@ class Comment(models.Model):
     id = BigAutoField(primary_key=True)
     parent = BigForeignKey('Comment', related_name='children', null=True, blank=True)
     poster = BigForeignKey(Poster)
-    user = models.ForeignKey(User)
+    creator = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=256)
     content = models.CharField(max_length=2048)
 
     def __str__(self):

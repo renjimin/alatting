@@ -1,13 +1,10 @@
-import codecs
-# codecs is not used in this views.py,suggest to remove this import
-from django.shortcuts import render
-# render is not used in this views.py,suggest to remove
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
+from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
-from alatting_website.models import Poster
+from alatting_website.models import Poster, Comment
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -18,6 +15,7 @@ from alatting_website.logic.poster_service import PosterService
 class PosterView(DetailView):
     template_name = 'website/poster.html'
     model = Poster
+    COMMENT_SIZE = 20
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
@@ -28,6 +26,8 @@ class PosterView(DetailView):
 
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
+        # limit 20
+        obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
         queryset = self.model.objects.filter(pk=obj.pk)
         DBUtils.increase_counts(queryset, {'views_count': 1})
         images = dict()

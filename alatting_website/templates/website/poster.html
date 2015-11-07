@@ -1,6 +1,7 @@
 {% extends 'website/base.html' %}
 {% load static %}
 {% load poster %}
+{% load humanize %}
 {% block title %}{{ object.unique_name }}{% endblock %}
 
 {% block meta %}
@@ -167,69 +168,26 @@
                 </div></div></div>
 
                 <div id="comments-submenu" hidden class="scrollable comments-submenu"><div class="scrollable-content"><div class="poster-frame center-block"><div>
+                    {% for comment in  object.comments%}
                     <div class="justified comment">
                         <div class="comment-person">
-                            <img src="{% static 'website/demo/bobby_sml.png' %}" class="img-circle">
+                            <img src="{{ comment.creator.person.avatar.url }}" class="img-circle">
                         </div>
 
                         <div class="comment-text">
                             <div class="bubble">
                                 <div class="bubble-wrapper">
                                     <div class="justified bubble-header">
-                                        <div class="bubble-title"> This is the title</div>
-                                        <div class="bubble-time">1 day ago</div>
+                                        <div class="bubble-title">{{ comment.title }}</div>
+                                        <div class="bubble-time">{{ comment.created_at | naturaltime }}</div>
                                     </div>
 
-                                    <div class="bubble-content">This is the content.</div>
+                                    <div class="bubble-content">{{ comment.content }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="justified comment">
-                        <div class="comment-person">
-                            <img src="{% static 'website/demo/jry_sml.png' %}" class="img-circle">
-                        </div>
-
-                        <div class="comment-text">
-                            <div class="bubble">
-                                <div class="bubble-wrapper">
-                                    <div class="justified bubble-header">
-                                        <div class="bubble-title"> This is the title</div>
-                                        <div class="bubble-time">1 day ago</div>
-                                    </div>
-
-                                    <div class="bubble-content">This is the content.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="justified comment">
-                        <div class="comment-person">
-                            <img src="{% static 'website/demo/tiger_sml.png' %}" class="img-circle">
-                        </div>
-
-                        <div class="comment-text">
-                            <div class="bubble">
-                                <div class="bubble-wrapper">
-                                    <div class="justified bubble-header">
-                                        <div class="bubble-title"> This is the title</div>
-                                        <div class="bubble-time">1 day ago</div>
-                                    </div>
-
-                                    <div class="bubble-content">
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
 
                 </div></div></div></div>
             </div>
