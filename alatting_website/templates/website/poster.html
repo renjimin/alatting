@@ -12,6 +12,7 @@
 {% block head_script %}
     {{ block.super }}
     <script src="{% static 'website/js/poster.js' %}"></script>
+    <script>var isCapturing = {% if object.capture %}true{% else %}false{% endif %}</script>
 {% endblock %}
 
 {% block css %}
@@ -205,7 +206,7 @@
                                     <a href="https://www.facebook.com/sharer/sharer.php?{{ object.share.fb | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="http://twitter.com/home?{{ object.share.twitter | safe}}"
+                                    <a href="http://twitter.com/intent/tweet?{{ object.share.twitter | safe}}"
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
                                         <img src="{% static 'website/images/icons/twitter.png' %}"></a>
                                     <a href="https://plus.google.com/share?{{ object.share.google_plus | safe}}"

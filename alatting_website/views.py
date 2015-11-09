@@ -50,8 +50,9 @@ class PosterView(DetailView):
             poster_page.regions = poster_regions
         obj.pages = pages
         obj.regions = regions
+        obj.capture = 'capture' in self.request.GET
         PosterService.parse_media_file(obj.html.name, obj)
-        obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='capture' in self.request.GET)
+        obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
         obj.share = self.create_share(obj)
         return obj
 
@@ -73,7 +74,7 @@ class PosterView(DetailView):
         #
         share.fb = 'u=%s' % encoded_url
         #
-        share.twitter = 'status=%s' % encoded_url_detail
+        share.twitter = 'text=%s' % encoded_url_detail
         #
         share.google_plus = 'url=%s' % encoded_url
         #

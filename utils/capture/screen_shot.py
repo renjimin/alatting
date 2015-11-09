@@ -35,7 +35,7 @@ class ScreenShot(object):
     def test(cls, url):
         path = os.path.dirname(__file__)
         path = os.path.join(path, 'test.jpg')
-        cls.capture(url, path, 1000, 1280, view_height=2048)
+        cls.capture(url + '?capture=true', path, 1000, 1280, view_height=2048)
         return path
 
 # ScreenShot.test()

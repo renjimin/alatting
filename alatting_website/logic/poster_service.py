@@ -54,7 +54,7 @@ class PosterService:
             force = True
         if force:
             url = request.scheme + '://' + request.get_host()
-            url = url + reverse('website:poster', kwargs={'pk': poster.id})
+            url = url + reverse('website:poster', kwargs={'pk': poster.id}) + '?capture=true'
             if ScreenShot.capture(url, image_path, width, height, view_height=view_height):
                 ScreenShot.image_to_pdf(image_path, pdf_path)
             else:
