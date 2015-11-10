@@ -5,14 +5,15 @@
     text-align:center;
 }
 .poster-top-left {
-    float:left;
+    position: absolute;
     width:69%;
     height:100%;
     border-right: 2px solid;
     border-color:white;
 }
 .poster-top-right {
-    float:right;
+    position: absolute;
+    left:69%;
     width:31%;
     height:100%;
 }
@@ -92,10 +93,13 @@
     border: none;
 }
 .poster-contact .poster-contact-sub {
-    float:left;
-    width:50%;
     height:100%;
 }
+
+.poster-contact-sub .icon-btn{
+    width: 100%;
+}
+
 .poster-contact .first-row .phone, .poster-contact .second-row .hours {
     border-right: 2px solid;
     border-color:white;
