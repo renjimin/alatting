@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
-from alatting_website.models import Poster, Comment
+from alatting_website.models import Poster, Rating
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -19,15 +19,18 @@ class PosterView(DetailView):
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_related('music', 'creator__person').\
-            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
+        queryset = queryset.select_related('music', 'creator__person', 'poster_rating').\
+            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions',)\
             .select_subclasses()
+        user = self.request.user
+        if user.is_authenticated():
+            queryset = queryset.prefetch_related(Prefetch('ratings', queryset=Rating.objects.filter(creator=user)))
         return queryset
 
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
         # limit 20
-        obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
+        # obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
         queryset = self.model.objects.filter(pk=obj.pk)
         DBUtils.increase_counts(queryset, {'views_count': 1})
         images = dict()
@@ -54,6 +57,11 @@ class PosterView(DetailView):
         PosterService.parse_media_file(obj.html.name, obj)
         obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
         obj.share = self.create_share(obj)
+        user = self.request.user
+        if user.is_authenticated():
+            my_rating = obj.ratings.all()
+            if my_rating:
+                obj.my_rating = my_rating[0]
         return obj
 
     def create_share(self, obj):

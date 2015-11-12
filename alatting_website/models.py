@@ -253,6 +253,13 @@ class PosterRating(models.Model):
     def __str__(self):
         return "{:d}".format(self.pk)
 
+    def ratings_average(self):
+        if self.ratings_count:
+            value = self.ratings_total / self.ratings_count
+        else:
+            value = 0
+        return value
+
 
 class Rating(models.Model):
     id = BigAutoField(primary_key=True)
