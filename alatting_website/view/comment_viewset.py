@@ -8,7 +8,7 @@ from alatting_website.serializer.comment_serializer import CommentSerializer
 
 class PageNumberPagination(pagination.PageNumberPagination):
     max_page_size = 100
-    page_size = 3
+    page_size = 5
     page_size_query_param = 'page_size'
 
 

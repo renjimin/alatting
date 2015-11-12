@@ -1,9 +1,10 @@
 from django.db import models
+from django.core import validators
 from django.contrib.auth.models import User
 from model_utils.managers import InheritanceManager
 from utils import file
 from utils.db.fields import OverWriteFileField, OverWriteImageField, BigAutoField, BigForeignKey, BigOneToOneField
-from utils.db.utils import generate_uuid
+from utils.db.utils import generate_uuid, Utils as DBUtils
 
 
 class Person(models.Model):
@@ -167,6 +168,7 @@ class Poster(models.Model):
     views_count = models.IntegerField(default=0)
     likes_count = models.IntegerField(default=0)
     comments_count = models.IntegerField(default=0)
+    ratings_count = models.IntegerField(default=0)
     forwarded_count = models.IntegerField(default=0)
     reviews_score = models.SmallIntegerField(default=0)
     html = OverWriteFileField(upload_to=file.get_html_path)
@@ -229,6 +231,27 @@ class PosterLike(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+
+class Rating(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='ratings')
+    creator = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    rate = models.SmallIntegerField(default=0,
+                                    validators=[validators.MinValueValidator(1), validators.MaxValueValidator(5)])
+
+    def save(self, **kwargs):
+        adding = self._state.adding
+        super(Rating, self).save(**kwargs)
+        if adding:
+            DBUtils.increase_counts(Poster.objects.filter(id=self.poster_id), {'ratings_count': 1})
+
+    class Meta:
+        unique_together = ('poster', 'creator')
+
+    def __str__(self):
+        return "{:d}->{:d}".format(self.pk, self.poster.id)
 
 
 class Comment(models.Model):
