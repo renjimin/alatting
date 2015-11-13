@@ -1,5 +1,8 @@
 {% load static %}
 <div class="poster-video-widget {{ widget.class_name }}" id="{{ widget.element_id }}">
+    {% if object.capture %}
+        <img onload="fillCenter($(this))" src="/media/images/2015/09/23/2e070467cd9b4663b2ab490513785416.PNG">
+    {% else %}
     <video id="{{ widget.video_element_id }}" class="video-js" preload="auto" data-setup="{}">
         <source src="{{ widget.video_url }}" type='video/mp4'>
         <p class="vjs-no-js">
@@ -7,7 +10,8 @@
             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
         </p>
     </video>
-    <img onclick="videojs.start('{{ widget.video_element_id }}')" src="{% static 'website/images/icons/play.png' %}">
+    {% endif %}
+    <img class="video-play" onclick="videojs.start('{{ widget.video_element_id }}')" src="{% static 'website/images/icons/play.png' %}">
 
 </div>
 

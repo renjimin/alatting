@@ -12,7 +12,7 @@
     color: white;
 }
 
-.poster-widget-video_1 img{
+.poster-widget-video_1 .video-play{
     position: absolute;
     left: 35%;
     top: 20%;

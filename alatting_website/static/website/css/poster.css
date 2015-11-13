@@ -793,16 +793,22 @@
 }
 
 /* video */
-div.poster-video-widget > div{
+.poster-video-widget > div{
     width: 100%;
     height: 100%;
     overflow: hidden;
 }
 
-div.poster-video-widget video{
+.poster-video-widget video{
     overflow: hidden;
 }
 
-div.poster-video-widget img{
+.poster-video-widget img {
+    max-width: none;
+}
+
+.poster-video-widget .video-play{
     pointer-events: auto !important;
 }
+
+/* image */

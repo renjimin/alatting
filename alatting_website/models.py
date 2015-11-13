@@ -1,9 +1,11 @@
 from django.db import models
+from django.db import transaction
+from django.core import validators
 from django.contrib.auth.models import User
 from model_utils.managers import InheritanceManager
 from utils import file
 from utils.db.fields import OverWriteFileField, OverWriteImageField, BigAutoField, BigForeignKey, BigOneToOneField
-from utils.db.utils import generate_uuid
+from utils.db.utils import generate_uuid, Utils as DBUtils
 
 
 class Person(models.Model):
@@ -17,6 +19,7 @@ class Person(models.Model):
     )
     user = models.OneToOneField(User, db_column='id', primary_key=True)
     gender = models.CharField(max_length=15, choices=GENDER_CHOICES, default='unknown')
+    avatar = OverWriteImageField(upload_to=file.get_avatar_path, default='avatars/avatar.png')
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -175,6 +178,12 @@ class Poster(models.Model):
 
     objects = InheritanceManager()
 
+    def save(self, **kwargs):
+        adding = self._state.adding
+        super(Poster, self).save(**kwargs)
+        if adding:
+            self.poster_rating = PosterRating.objects.create(poster=self)
+
     def __str__(self):
         return "{:d}".format(self.pk)
 
@@ -230,12 +239,68 @@ class PosterLike(models.Model):
         return "{:d}".format(self.pk)
 
 
+class PosterRating(models.Model):
+    poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_rating')
+    created_at = models.DateTimeField(auto_now_add=True)
+    ratings_count = models.IntegerField(default=0)
+    ratings_total = models.IntegerField(default=0)
+    five_count = models.IntegerField(default=0)
+    four_count = models.IntegerField(default=0)
+    three_count = models.IntegerField(default=0)
+    two_count = models.IntegerField(default=0)
+    one_count = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
+    def ratings_average(self):
+        if self.ratings_count:
+            value = self.ratings_total / self.ratings_count
+        else:
+            value = 0
+        return value
+
+
+class Rating(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='ratings')
+    creator = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+    rate = models.SmallIntegerField(default=0,
+                                    validators=[validators.MinValueValidator(1), validators.MaxValueValidator(5)])
+    RATE_TO_FIELD = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'}
+    RATE_TO_FIELD = {key: value + '_count' for key, value in RATE_TO_FIELD.items()}
+
+    def save(self, **kwargs):
+        adding = self._state.adding
+        with transaction.atomic():
+            if not adding:
+                old_rating = Rating.objects.filter(pk=self.pk).only('rate').select_for_update()
+                old_rating = old_rating[0]
+            super(Rating, self).save(**kwargs)
+            queryset = PosterRating.objects.filter(pk=self.poster_id)
+            if adding:
+                fields = {'ratings_count': 1, self.RATE_TO_FIELD[self.rate]: 1, 'ratings_total': self.rate}
+                DBUtils.increase_counts(queryset, fields)
+            elif old_rating.rate != self.rate:
+                fields = {self.RATE_TO_FIELD[old_rating.rate]: -1, self.RATE_TO_FIELD[self.rate]: 1,
+                          'ratings_total': self.rate - old_rating.rate}
+                DBUtils.increase_counts(queryset, fields)
+
+    class Meta:
+        unique_together = ('poster', 'creator')
+
+    def __str__(self):
+        return "{:d}->{:d}".format(self.pk, self.poster.id)
+
+
 class Comment(models.Model):
     id = BigAutoField(primary_key=True)
     parent = BigForeignKey('Comment', related_name='children', null=True, blank=True)
     poster = BigForeignKey(Poster)
-    user = models.ForeignKey(User)
+    creator = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=256)
     content = models.CharField(max_length=2048)
 
     def __str__(self):

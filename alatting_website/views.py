@@ -1,13 +1,10 @@
-import codecs
-# codecs is not used in this views.py,suggest to remove this import
-from django.shortcuts import render
-# render is not used in this views.py,suggest to remove
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
+from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
-from alatting_website.models import Poster
+from alatting_website.models import Poster, Rating
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -18,16 +15,22 @@ from alatting_website.logic.poster_service import PosterService
 class PosterView(DetailView):
     template_name = 'website/poster.html'
     model = Poster
+    COMMENT_SIZE = 20
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_related('music').\
-            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
+        queryset = queryset.select_related('music', 'creator__person', 'poster_rating').\
+            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions',)\
             .select_subclasses()
+        user = self.request.user
+        if user.is_authenticated():
+            queryset = queryset.prefetch_related(Prefetch('ratings', queryset=Rating.objects.filter(creator=user)))
         return queryset
 
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
+        # limit 20
+        # obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
         queryset = self.model.objects.filter(pk=obj.pk)
         DBUtils.increase_counts(queryset, {'views_count': 1})
         images = dict()
@@ -50,9 +53,15 @@ class PosterView(DetailView):
             poster_page.regions = poster_regions
         obj.pages = pages
         obj.regions = regions
+        obj.capture = 'capture' in self.request.GET
         PosterService.parse_media_file(obj.html.name, obj)
-        obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='capture' in self.request.GET)
+        obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
         obj.share = self.create_share(obj)
+        user = self.request.user
+        if user.is_authenticated():
+            my_rating = obj.ratings.all()
+            if my_rating:
+                obj.my_rating = my_rating[0]
         return obj
 
     def create_share(self, obj):
@@ -73,7 +82,7 @@ class PosterView(DetailView):
         #
         share.fb = 'u=%s' % encoded_url
         #
-        share.twitter = 'status=%s' % encoded_url_detail
+        share.twitter = 'text=%s' % encoded_url_detail
         #
         share.google_plus = 'url=%s' % encoded_url
         #

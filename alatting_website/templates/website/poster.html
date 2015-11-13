@@ -1,6 +1,7 @@
 {% extends 'website/base.html' %}
 {% load static %}
 {% load poster %}
+{% load humanize %}
 {% block title %}{{ object.unique_name }}{% endblock %}
 
 {% block meta %}
@@ -11,6 +12,7 @@
 {% block head_script %}
     {{ block.super }}
     <script src="{% static 'website/js/poster.js' %}"></script>
+    <script>var isCapturing = {% if object.capture %}true{% else %}false{% endif %}</script>
 {% endblock %}
 
 {% block css %}
@@ -36,46 +38,8 @@
     {% include 'libs/facebook/fb_share_body_start.html' %}
 {% endblock %}
 {% block content %}
-    <!--div class="app">
-
-        <div class="navbar navbar-app navbar-absolute-top">
-
-            <div class="navbar-brand navbar-brand-center" yield-to="title">
-                <span>Bucket List App</span>
-            </div>
-
-
-            <div class="btn-group pull-right" yield-to="navbarAction">
-                <div class="btn btn-navbar">
-                    <i class="fa fa-plus"></i> New
-                </div>
-            </div>
-
-        </div>
-
-        <div class="navbar navbar-app navbar-absolute-bottom">
-
-            <div class="btn-group justified">
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-home fa-navbar"></i></a>
-                <a href="#" class="btn btn-navbar btn-icon-only"><i class="fa fa-list fa-navbar"></i></a>
-            </div>
-
-        </div>
-
-        <div class="app-body">
-            <ng-view class="app-content"></ng-view>
-        </div>
-
-    </div-->
-
-    <!-- Sidebars -->
-    <!--div class="sidebar sidebar-left"></div>
-    <div class="sidebar sidebar-right"></div-->
 
     <div class="app">
-        <!--div class="navbar navbar-app navbar-absolute-top">
-
-        </div-->
 
         <!-- App body -->
         <div class='app-body'>
@@ -186,300 +150,34 @@
 
                 </div></div></div>
 
-                <div id="comments-submenu" hidden class="scrollable comments-submenu"><div class="scrollable-content"><div class="poster-frame center-block"><div>
-                    <div class="justified comment">
+                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController" ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
+                    <div class="scrollable-content" ui-scroll-bottom="loadMore()"><div class="poster-frame center-block"><div>
+                    {%verbatim%}
+                    <div class="justified comment" ng-repeat="comment in comments">
                         <div class="comment-person">
-                            <img src="{% static 'website/demo/bobby_sml.png' %}" class="img-circle">
+                            <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
                         </div>
 
                         <div class="comment-text">
                             <div class="bubble">
                                 <div class="bubble-wrapper">
                                     <div class="justified bubble-header">
-                                        <div class="bubble-title"> This is the title</div>
-                                        <div class="bubble-time">1 day ago</div>
+                                        <div class="bubble-title">{{ comment.title }}</div>
+                                        <div class="bubble-time">{{ comment.created_at }}</div>
                                     </div>
 
-                                    <div class="bubble-content">This is the content.</div>
+                                    <div class="bubble-content">{{ comment.content }}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="justified comment">
-                        <div class="comment-person">
-                            <img src="{% static 'website/demo/jry_sml.png' %}" class="img-circle">
-                        </div>
-
-                        <div class="comment-text">
-                            <div class="bubble">
-                                <div class="bubble-wrapper">
-                                    <div class="justified bubble-header">
-                                        <div class="bubble-title"> This is the title</div>
-                                        <div class="bubble-time">1 day ago</div>
-                                    </div>
-
-                                    <div class="bubble-content">This is the content.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="justified comment">
-                        <div class="comment-person">
-                            <img src="{% static 'website/demo/tiger_sml.png' %}" class="img-circle">
-                        </div>
-
-                        <div class="comment-text">
-                            <div class="bubble">
-                                <div class="bubble-wrapper">
-                                    <div class="justified bubble-header">
-                                        <div class="bubble-title"> This is the title</div>
-                                        <div class="bubble-time">1 day ago</div>
-                                    </div>
-
-                                    <div class="bubble-content">
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                        This is the content.<br>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endverbatim %}
 
                 </div></div></div></div>
             </div>
         </div>
         
-        <!-- this section should be extracted out as a seperate poster_system_bottom.html file and be included in this poster.html -->
-        <div class="bottom-nav navbar navbar-app navbar-absolute-bottom">
-            <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div class="bottom-container">
-            <div class="bottom-menu btn-group justified" >
-                <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                   data-content='<div class="btn-group justified">
-                                    <a href="mailto:?{{ object.share.email | safe}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?{{ object.share.fb | safe}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="http://twitter.com/home?{{ object.share.twitter | safe}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="https://plus.google.com/share?{{ object.share.google_plus | safe}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/g+.png' %}"></a>
-                                    <a href="http://www.linkedin.com/shareArticle?mini=true&{{ object.share.linkedin | safe}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="https://pinterest.com/pin/create/link/?{{ object.share.pinterest | safe}}"
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
-                                </div>'
-                   data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                   data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
-                    <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
-                </div>
-                <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                     data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
-                     data-title='<div class="equal-justified rate-info">
-                                     <div class="rate-totals">
-                                         <div class="rate-rating">4.3</div>
-                                         <input class="rating" type="number" readonly value="4.3" data-glyphicon="false" data-show-caption="false"
-                                         min=0 max=5 step=0.1>
-                                         <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;128 total</div>
-                                     </div>
-                                     <div class="rate-levels">
-                                         <div class="rate-level justified">
-                                            <div class="rate-level-label"><span class="rate-star">★</span> 5</div>
-                                            <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-five" style="width:100%;">
-                                                50
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="rate-level justified">
-                                            <div class="rate-level-label"><span class="rate-star">★</span> 4</div>
-                                            <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-four" style="width:80%;">
-                                                40
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="rate-level justified">
-                                            <div class="rate-level-label"><span class="rate-star">★</span> 3</div>
-                                            <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-three" style="width:60%;">
-                                                30
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="rate-level justified">
-                                            <div class="rate-level-label"><span class="rate-star">★</span> 2</div>
-                                            <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-two" style="width:40%;">
-                                                20
-                                                </div>
-                                            </div>
-                                         </div>
-                                         <div class="rate-level justified">
-                                            <div class="rate-level-label"><span class="rate-star">★</span> 1</div>
-                                            <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-one" style="width:30%;">
-                                                15
-                                                </div>
-                                            </div>
-                                         </div>
-                                     </div>
-                                 </div>'
-                     data-content='<div class="rate-action">
-                                    <input class="rating rate-rate" value="4" type="number" data-glyphicon="false" data-show-caption="false"
-                                     min=0 max=5 step=1>
-                                </div>'
-                     data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                     data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
-                    <img alt="icon" src="{% static 'website/images/icons/rate.png' %}">
-                </div>
-                <div href="#" class="comments-btn bottom-btn btn btn-navbar btn-icon-only"
-                     data-template='<div class="popover" role="tooltip"><div style="display:none" class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
-                        data-content='<div></div>'
-                     data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                     data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
-                    <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
-                </div>
-                <!-- print -->
-                <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                        data-content='<div class="btn-group justified">
-                                    <a href="{{ object.pdf_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/pdf.png' %}"></a>
-                                    <a href="{{ object.image_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/camera_roll.png' %}"></a>
-                                    <a href="{{ object.pdf_url }}" onclick="printPDF(this.href); return false" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
-                                    <a href="#" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                         <img style="display: none"></a>
-                                </div>'
-                   data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                   data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
-                    <img alt="icon" src="{% static 'website/images/icons/print.png' %}">
-                </div>
-                <!-- stats -->
-                <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
-                     data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
-                     data-title='<div class="stats-title">
-                                     <img src="{% static 'website/images/icons/stats_small.png' %}">
-                                     <span> STATS</span>
-                                </div>'
-                     data-content='<div class="equal-justified stats-graph">
-                                   <div class="stats-pop">
-                                       <div class="stats-graph-label">Popularity</div>
-                                       <div class="doughnut" data-percent="30" data-inner-cutout="65" data-color="#ffe377" data-total="20"
-                                            data-background-color="#4d5154">
-                                            <canvas class="doughnut-canvas"></canvas>
-                                            <div class="doughnut-title"><p>+20</p></div>
-                                        </div>
-                                        <div class="stats-graph-value">2642</div>
-                                    </div>
-                                    <div class="stats-credit">
-                                       <div class="stats-graph-label">Credit</div>
-                                       <div class="doughnut" data-percent="83" data-inner-cutout="65" data-color="#6ffee7" data-total="3"
-                                            data-background-color="#4d5154">
-                                            <canvas class="doughnut-canvas"></canvas>
-                                            <div class="doughnut-title"><p>+3</p></div>
-                                        </div>
-                                        <div class="stats-graph-value">83%</div>
-                                    </div>
-                                 </div>
-                                 <div class="stats-types">
-                                     <div class="equal-justified">
-                                         <div>
-                                             <div class="justified">
-                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/star.png' %}"></div>
-                                                 <div class="stats-type-sep"></div>
-                                                 <div class="stats-type-numbers">
-                                                    <div class="equal-justified">
-                                                        <div>4.3</div>
-                                                        <div class="stats-type-increase">
-                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>.2</span>
-                                                        </div>
-                                                    </div>
-                                                 </div>
-                                                 <div class="stats-type-sep"></div>
-                                             </div>
-                                         </div>
-                                         <div>
-                                             <div class="justified">
-                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/eye.png' %}"></div>
-                                                 <div class="stats-type-sep"></div>
-                                                 <div class="stats-type-numbers">
-                                                    <div class="equal-justified">
-                                                        <div>2347</div>
-                                                        <div class="stats-type-increase">
-                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>13</span>
-                                                        </div>
-                                                    </div>
-                                                 </div>
-                                                 <div class="stats-type-sep"></div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                     <div class="stats-hr"> </div>
-                                     <div class="equal-justified">
-                                         <div>
-                                             <div class="justified">
-                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/like.png' %}"></div>
-                                                 <div class="stats-type-sep"></div>
-                                                 <div class="stats-type-numbers">
-                                                    <div class="equal-justified">
-                                                        <div>418</div>
-                                                        <div class="stats-type-increase">
-                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>6</span>
-                                                        </div>
-                                                    </div>
-                                                 </div>
-                                                 <div class="stats-type-sep"></div>
-                                             </div>
-                                         </div>
-                                         <div>
-                                             <div class="justified">
-                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/stats_share.png' %}"></div>
-                                                 <div class="stats-type-sep"></div>
-                                                 <div class="stats-type-numbers">
-                                                    <div class="equal-justified">
-                                                        <div>126</div>
-                                                        <div class="stats-type-increase">
-                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>5</span>
-                                                        </div>
-                                                    </div>
-                                                 </div>
-                                                 <div class="stats-type-sep"></div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>'
-
-                   data-viewport='{"selector": ".bottom-container", "padding": 0}'
-                   data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
-                    <img alt="icon" src="{% static 'website/images/icons/stats.png' %}">
-                </div>
-            </div>
-            </div></div></div>
-            <!-- preload images -->
-            <div style="display: none;">
-                <img src="{% static 'website/images/icons/eye.png' %}">
-                <img src="{% static 'website/images/icons/like.png' %}">
-                <img src="{% static 'website/images/icons/pdf.png' %}">
-                <img src="{% static 'website/images/icons/email.png' %}">
-            </div>
-        </div>
+        {% include 'website/poster_bottom.html' %}
 
     </div>
     <!-- ~ .app -->
@@ -487,46 +185,6 @@
     <!-- Modals and Overlays -->
     <div ui-yield-to="modals"></div>
 {% endblock %}
-{% comment content %}
-    <div class="content">
-    <div hidden>
-        <!-- Twitter -->
-        <a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
-         <!-- Facebook -->
-        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
-        <!-- Google+ -->
-        <a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn btn-googleplus"><i class="fa fa-google-plus"></i> Google+</a>
-        <!-- LinkedIn -->
-        <a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn btn-linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
-        <!-- Email -->
-        <a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn btn-email"><i class="fa fa-envelope fa-fw"></i> Email</a>
-    </div>
-
-    <aside  class="poster_side_bar">
-        <ul class="list-unstyled">
-             <!-- Twitter -->
-        <li><a href="http://twitter.com/home?status=" title="Share on Twitter" target="_blank" class="btn social-btn btn-twitter"><i class="fa fa-twitter"></i></a></li>
-         <!-- Facebook -->
-        <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share on Facebook" target="_blank" class="btn social-btn btn-facebook"><i class="fa fa-facebook"></i></a></li>
-        <!-- Google+ -->
-        <li><a href="https://plus.google.com/share?url=" title="Share on Google+" target="_blank" class="btn social-btn btn-googleplus"><i class="fa fa-google-plus"></i></a></li>
-        <!-- LinkedIn -->
-        <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=&title=&summary=" title="Share on LinkedIn" target="_blank" class="btn social-btn btn-linkedin"><i class="fa fa-linkedin"></i></a></li>
-        <!-- Email -->
-        <li><a href="mailto:?subject={{ object.unique_name | urlencode:''}}&body={{ object.short_description | urlencode:'' }}: {{ request.scheme }}://{{ request.get_host }}{{request.path}}" title="Share by Email" target="_blank" class="btn social-btn btn-email"><i class="fa fa-envelope"></i></a></li>
-
-        </ul>
-    </aside>
-
-    <div class="poster_container">
-    {% embed object.html.name %}
-    <img class="poster_qrcode" src={% url 'website:code_poster' object.id %} />
-    <p class="views_count_widget">Views: {{object.views_count}}</p>
-    </div>
-
-    <div class="poster_footer"></div>
-    </div>
-{% endcomment %}
 
 {% block body_end %}
     {{ block.super }}

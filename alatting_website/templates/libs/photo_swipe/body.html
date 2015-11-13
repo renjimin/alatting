@@ -67,42 +67,22 @@
 
 <script type="text/javascript" charset="utf-8">
     $(window).load(function () {
-        var fillCenter = function ($slider) {
-            var $images = $slider.find('img')
-            $images.each(function (index) {
-                var $this = $(this);
-                var width = $this.parent().width();
-                var height = $this.parent().height();
-                var w = $this.width(), h = $this.height();
-                if (w / h > width / height) {
-                    w = w / h * height;
-                    h = height;
-                    var left = (width - w) / 2.0 * 100 / width;
-                    $this.css('margin-left', left + '%');
+
+        var $flexSlider = $('.flexslider')
+        if(isCapturing){
+            fillCenter($flexSlider);
+        }
+        else{
+            $flexSlider.flexslider({
+                animation: "fade",
+                controlNav: false,
+                directionNav: false,
+                start: function($slider){
+                    fillCenter($slider);
                 }
-                else {
-                    h = h / w * width;
-                    w = width;
-                    var top = (height - h) / 2.0 * 100 / height;
-                    $this.css('margin-top', top + '%');
-                }
-                w = w / width * 100;
-                h = h / height * 100;
-                $this.css('width', w + '%');
-                $this.css('height', h + '%');
             });
+        }
 
-        };
-
-        $('.flexslider').flexslider({
-            animation: "slide",
-            controlNav: false,
-            directionNav: false,
-            slideshowSpeed: 50000,
-            start: function($slider){
-                fillCenter($slider);
-            }
-        });
     });
 </script>
 
