@@ -62,6 +62,10 @@ class PosterView(DetailView):
             my_rating = obj.ratings.all()
             if my_rating:
                 obj.my_rating = my_rating[0]
+        if not obj.mobile and obj.phone:
+            obj.mobile = obj.phone
+        if len(obj.mobile)<=10:
+            obj.mobile = obj.mobile[:4]+'-'+obj.mobile[4:7]+'-'+obj.mobile[7:]
         return obj
 
     def create_share(self, obj):
