@@ -87,12 +87,13 @@
                         <div class="poster-top">
                             <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
                             <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
+                            <div class="poster-top-main">
                             <div class="poster-top-left">
                                 <div class="poster-header">
                                     <div class="poster-profile">
                                         <div class="poster-logo">
                                             <div class="logo-image">
-                                                <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
+                                               <a href="#" class="logo"><img src="{{ object.images.logo.file.url }}" alt='poster logo'/></a>
                                             </div>
                                         </div>
                                          <div class="poster-title">
@@ -121,36 +122,55 @@
                             </div> <!-- end of poster-top-left -->
                             <div class="poster-top-right">
                                 <div class="poster-contact">
-                                    <div class="first-row btn-group justified">
+                                    <div class="first-row btn-group equal-justified">
                                         <div class="phone poster-contact-sub">
-                                            <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="{% static 'website/images/icons/phone.png' %}"></a>
-                                            <div class="phone-info contact-info" style="display:none">{{ object.phone }}</div>
+                                            <a href="#" for="phone" class="contact icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="{% static 'website/images/icons/phone.png' %}">
+                                            </a>
                                         </div>
                                         <div class="mail poster-contact-sub">
-                                        <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="{% static 'website/images/icons/mail.png' %}"></a>
-                                            <div class="mail-info contact-info" style="display:none">{{ object.email }}</div>
+                                        <a href="#" for="mail" class="contact icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="{% static 'website/images/icons/mail.png' %}">
+                                        </a>
                                         </div>
                                     </div>
-                                    <div class="second-row btn-group justified">
+                                    <div class="second-row btn-group equal-justified">
                                         <div class="hours poster-contact-sub">
-                                            <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                                <img src="{% static 'website/images/icons/hours.png' %}"></a>
-                                            <div class="hours-info contact-info" style="display:none">
-                                                {{ object.lifetime_type }} : {{ object.lifetime_value }}
-                                            </div>
+                                            <a href="#" for="hours" class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                <img src="{% static 'website/images/icons/hours.png' %}">
+                                            </a>
                                         </div>
                                         <div class="location poster-contact-sub">
-                                            <a href="#" class="icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="{% static 'website/images/icons/location.png' %}"></a>
-                                            <div class="location-info contact-info" style="display:none">
-                                                {{ object.address.address1 }}
-                                            </div>
+                                            <a href="#" for="location" class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                <img src="{% static 'website/images/icons/location.png' %}">
+                                            </a>
                                         </div>
                                     </div>
                                 </div><!-- end of poster-contact -->
                             </div> <!-- end of poster-top-right -->
+                            </div> <!-- end of poster-top-main -->
+                            <div class="poster-top-information">
+                                <div class="description">
+                                    <div>{{ object.short_description }}</div>
+                                </div>
+                                <div class="contact-info phone">
+                                    {{ object.mobile }}
+                                    <a href="#"><img src="{% static 'website/images/icons/call-info.png' %}"></a>
+                                    <a href="#"><img src="{% static 'website/images/icons/message-info.png' %}"></a>
+                                </div>
+                                <div class="contact-info mail">
+                                   {{ object.email }}
+                                   <a href="#"><img src="{% static 'website/images/icons/email-info.png' %}"></a>
+                                </div>
+                                <div class="contact-info hours">
+                                  {{ object.lifetime_value }}
+                                  <!--<div class="poster-lifetime-status"> Open </div>-->
+                                </div>
+                                <div class="contact-info location">
+                                        {{ object.address.address1 }}, {{ object.address.city }}, {{ object.address.state }} {{ object.address.post_code }}
+                                       <a href="#"><img src="{% static 'website/images/icons/location-info.png' %}"></a>
+                                </div>
+                            </div>
                         </div>
                     </div></div>
 
@@ -517,6 +537,7 @@
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>
+    <script src="{% static 'website/js/contact.js' %}"></script>
     <script src="{{ object.script.url }}"></script>
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}
