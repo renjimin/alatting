@@ -128,11 +128,11 @@
                                 </div>
                                 <div class="contact-info mail">
                                    {{ object.email }}
-                                   <a href="#"><img src="{% static 'website/images/icons/email-info.png' %}"></a>
+                                   <a href="mailto:{{ object.email }}?{{ object.email_content | safe}}"><img src="{% static 'website/images/icons/email-info.png' %}"></a>
                                 </div>
                                 <div class="contact-info hours">
-                                  {{ object.lifetime_value }}
-                                  <!--<div class="poster-lifetime-status"> Open </div>-->
+                                  {{ object.hours }}
+                                  <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
                                 </div>
                                 <div class="contact-info location">
                                         {{ object.address.address1 }}, {{ object.address.city }}, {{ object.address.state }} {{ object.address.post_code }}
