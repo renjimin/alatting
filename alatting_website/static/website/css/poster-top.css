@@ -38,6 +38,7 @@
 }
 .poster-top-right {
     /**position: absolute;*/
+    float:right;
     left:69%;
     height:100%;
     width:31%;
