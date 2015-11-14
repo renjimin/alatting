@@ -250,6 +250,40 @@ class PosterRating(models.Model):
     two_count = models.IntegerField(default=0)
     one_count = models.IntegerField(default=0)
 
+    MIN_PERCENT = 30
+
+    def count_max(self):
+        if not hasattr(self, '_count_max'):
+            self._count_max = max(self.five_count, self.four_count, self.three_count, self.two_count, self.one_count)
+        return self._count_max
+
+    def compute_percent(self, name):
+        percent_name = '_' + name + '_percent'
+        if not hasattr(self, percent_name):
+            count_max = self.count_max()
+            if count_max > 0:
+                percent = getattr(self, name + '_count') / count_max
+                percent = percent * (100 - self.MIN_PERCENT) + self.MIN_PERCENT
+            else:
+                percent = self.MIN_PERCENT
+            setattr(self, percent_name, percent)
+        return getattr(self, percent_name)
+
+    def five_percent(self):
+        return self.compute_percent('five')
+
+    def four_percent(self):
+        return self.compute_percent('four')
+
+    def three_percent(self):
+        return self.compute_percent('three')
+
+    def two_percent(self):
+        return self.compute_percent('two')
+
+    def one_percent(self):
+        return self.compute_percent('one')
+
     def __str__(self):
         return "{:d}".format(self.pk)
 
@@ -266,10 +300,16 @@ class Rating(models.Model):
     poster = BigForeignKey(Poster, related_name='ratings')
     creator = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
-    rate = models.SmallIntegerField(default=0,
+    rate = models.SmallIntegerField(default=5,
                                     validators=[validators.MinValueValidator(1), validators.MaxValueValidator(5)])
     RATE_TO_FIELD = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'}
     RATE_TO_FIELD = {key: value + '_count' for key, value in RATE_TO_FIELD.items()}
+
+    def poster_rating(self):
+        name = '_poster_rating'
+        if not hasattr(self, name):
+            setattr(self, name, PosterRating.objects.get(poster_id=self.poster_id))
+        return getattr(self, name)
 
     def save(self, **kwargs):
         adding = self._state.adding

@@ -55,7 +55,8 @@ class PosterView(DetailView):
         obj.regions = regions
         obj.capture = 'capture' in self.request.GET
         PosterService.parse_media_file(obj.html.name, obj)
-        obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
+        if not obj.capture:
+            obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
         obj.share = self.create_share(obj)
         user = self.request.user
         if user.is_authenticated():

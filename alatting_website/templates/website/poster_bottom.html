@@ -31,16 +31,17 @@
                      data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
                      data-title='<div class="equal-justified rate-info">
                                      <div class="rate-totals">
-                                         <div class="rate-rating">{{ object.poster_rating.ratings_average }}</div>
-                                         <input class="rating" type="number" readonly value="{{ object.poster_rating.ratings_average }}" data-glyphicon="false" data-show-caption="false"
+                                         <div class="rate-rating">{{ object.poster_rating.ratings_average | floatformat:1 }}</div>
+                                         <input class="rating rating-average" type="number" readonly value="{{ object.poster_rating.ratings_average }}" data-glyphicon="false" data-show-caption="false"
                                          min=0 max=5 step=0.1>
-                                         <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;{{ object.poster_rating.ratings_count }} total</div>
+                                         <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;
+                                         <span class="rating-count">{{ object.poster_rating.ratings_count }}</span> total</div>
                                      </div>
                                      <div class="rate-levels">
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 5</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-five" style="width:100%;">
+                                                <div class="rate-progress-bar rate-five" style="width:{{ object.poster_rating.five_percent }}%;">
                                                 {{ object.poster_rating.five_count }}
                                                 </div>
                                             </div>
@@ -48,7 +49,7 @@
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 4</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-four" style="width:80%;">
+                                                <div class="rate-progress-bar rate-four" style="width:{{ object.poster_rating.four_percent }}%;">
                                                 {{ object.poster_rating.four_count }}
                                                 </div>
                                             </div>
@@ -56,7 +57,7 @@
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 3</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-three" style="width:60%;">
+                                                <div class="rate-progress-bar rate-three" style="width:{{ object.poster_rating.three_percent }}%;">
                                                 {{ object.poster_rating.three_count }}
                                                 </div>
                                             </div>
@@ -64,7 +65,7 @@
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 2</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-two" style="width:40%;">
+                                                <div class="rate-progress-bar rate-two" style="width:{{ object.poster_rating.two_percent }}%;">
                                                 {{ object.poster_rating.two_count }}
                                                 </div>
                                             </div>
@@ -72,7 +73,7 @@
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 1</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-one" style="width:30%;">
+                                                <div class="rate-progress-bar rate-one" style="width:{{ object.poster_rating.one_percent }}%;">
                                                 {{ object.poster_rating.one_count }}
                                                 </div>
                                             </div>
