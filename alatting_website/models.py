@@ -138,10 +138,12 @@ class Poster(models.Model):
         (STATUS_INACTIVE, STATUS_INACTIVE)
     )
     LIFETIME_WEEKLY = 'weekly'
-    LIFETIME_SPECIFIC= 'specific'
+    LIFETIME_SPECIFIC_DAY = 'specific_day'
+    LIFETIME_SPECIFIC_DAYS = 'specific_days'
     LIFETIME_CHOICES = (
         (LIFETIME_WEEKLY, LIFETIME_WEEKLY),
-        (LIFETIME_SPECIFIC, LIFETIME_SPECIFIC),
+        (LIFETIME_SPECIFIC_DAY, LIFETIME_SPECIFIC_DAY),
+        (LIFETIME_SPECIFIC_DAYS,LIFETIME_SPECIFIC_DAYS)
     )
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User)
@@ -156,8 +158,8 @@ class Poster(models.Model):
     mobile = models.CharField(max_length=16, blank=True, default='')
     email = models.EmailField(blank=True, default='')
     address = BigForeignKey(Address, related_name='posters')
-    lifetime_type = models.CharField(max_length=15, choices=LIFETIME_CHOICES, default=LIFETIME_SPECIFIC)
-    lifetime_value = models.CharField(max_length=255)
+    lifetime_type = models.CharField(max_length=32, choices=LIFETIME_CHOICES, default=LIFETIME_WEEKLY)
+    lifetime_value = models.CharField(max_length=1024)
     music = models.ForeignKey(Music, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     main_category = models.ForeignKey(Category, related_name='main_posters')

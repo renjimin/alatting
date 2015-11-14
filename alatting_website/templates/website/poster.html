@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="contact-info mail">
                                    {{ object.email }}
-                                   <a href="#"><img src="{% static 'website/images/icons/email-info.png' %}"></a>
+                                   <a href="mailto:{{ object.email }}?{{ object.email_content | safe}}"><img src="{% static 'website/images/icons/email-info.png' %}"></a>
                                 </div>
                                 <div class="contact-info hours">
                                   {{ object.lifetime_value }}

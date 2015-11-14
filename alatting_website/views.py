@@ -62,10 +62,21 @@ class PosterView(DetailView):
             my_rating = obj.ratings.all()
             if my_rating:
                 obj.my_rating = my_rating[0]
+        # tailor mobile format, if no mobile then copy phone
         if not obj.mobile and obj.phone:
             obj.mobile = obj.phone
         if len(obj.mobile)<=10:
             obj.mobile = obj.mobile[:4]+'-'+obj.mobile[4:7]+'-'+obj.mobile[7:]
+        # prepare email content to send
+        url_detail = '\nquote:\n"'+obj.short_description+'\n'+Utils.get_current_url(self.request)+'\n"'
+        title = obj.unique_name
+        obj.email_content = 'subject=%s&body=%s' % ('To: '+urlquote(title, ''), urlquote(url_detail, ''))
+        # extract hours details and check whether available currently
+        if obj.lifetime_type == 'weekly':
+            weekly_hours = json.loads(obj.lifetime_value) # the lifetime value of hours must be json format
+            for day,hours in weekly_hours:
+                None
+
         return obj
 
     def create_share(self, obj):
