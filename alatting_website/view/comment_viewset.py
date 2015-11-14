@@ -24,4 +24,9 @@ class CommentViewSet(viewsets.ModelViewSet):
             select_related('creator__person').order_by('-created_at')
         return queryset
 
+    def perform_create(self, serializer):
+        creator_id = self.request.user.id
+        poster_id = self.kwargs['poster_id']
+        serializer.save(creator_id=creator_id, poster_id=poster_id)
+
 

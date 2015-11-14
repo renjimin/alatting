@@ -29,6 +29,8 @@ class HumanDateTimeField(serializers.DateTimeField):
 class CommentSerializer(serializers.ModelSerializer):
     creator = UserSerializer(read_only=True)
     created_at = HumanDateTimeField(read_only=True)
+    poster_id = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Comment
+        exclude = ('parent', 'poster')

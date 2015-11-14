@@ -156,6 +156,24 @@
 
                 <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController" ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
                     <div class="scrollable-content" ui-scroll-bottom="loadMore()"><div class="poster-frame center-block"><div>
+                    <div class="justified comment" onclick="var event = arguments[0] || window.event; event.stopPropagation();">
+                        <div class="comment-person">
+                            <img ng-src="{{ request.user.person.avatar.url }}" class="img-circle">
+                        </div>
+
+                        <div class="comment-text">
+                            <div class="bubble">
+                                <div class="bubble-wrapper">
+                                    <div class="justified bubble-header">
+                                        <div class="bubble-title"><input name="title" value="" placeholder="Please input the title"></div>
+                                        <div class="bubble-time">now</div>
+                                    </div>
+
+                                    <div class="bubble-content"><textarea name="content" placeholder="please input the content"></textarea></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {%verbatim%}
                     <div class="justified comment" ng-repeat="comment in comments">
                         <div class="comment-person">
