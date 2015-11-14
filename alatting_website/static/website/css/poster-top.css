@@ -161,9 +161,7 @@
     margin-left: 5px;
     margin-right: 5px;
 }
-div.poster-lifetime-status {
+span.poster-lifetime-status {
     color: green;
     font-size: 20px;
-    float: right;
-    padding-right: 30px;
 }
