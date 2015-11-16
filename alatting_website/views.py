@@ -68,7 +68,7 @@ class PosterView(DetailView):
         if not obj.mobile and obj.phone:
             obj.mobile = obj.phone
         if len(obj.mobile)<=10:
-            obj.mobile = obj.mobile[:4]+'-'+obj.mobile[4:7]+'-'+obj.mobile[7:]
+            obj.mobile = obj.mobile[:3]+'-'+obj.mobile[3:6]+'-'+obj.mobile[6:]
         # prepare email content to send
         url_detail = '\nquote:\n"'+obj.short_description+'\n'+Utils.get_current_url(self.request)+'\n"'
         title = obj.unique_name
