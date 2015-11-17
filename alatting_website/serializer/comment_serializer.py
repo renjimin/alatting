@@ -26,10 +26,21 @@ class HumanDateTimeField(serializers.DateTimeField):
         return naturaltime(value)
 
 
+class PosterRelatedIdentityField(serializers.HyperlinkedIdentityField):
+
+    def get_url(self, obj, view_name, request, format):
+        url_kwargs = {
+            'poster_id': obj.poster_id,
+            'pk': obj.pk
+        }
+        return self.reverse(view_name, kwargs=url_kwargs, request=request, format=format)
+
+
 class CommentSerializer(serializers.ModelSerializer):
     creator = UserSerializer(read_only=True)
     created_at = HumanDateTimeField(read_only=True)
     poster_id = serializers.IntegerField(read_only=True)
+    url = PosterRelatedIdentityField(view_name='api:comment-detail')
 
     class Meta:
         model = Comment

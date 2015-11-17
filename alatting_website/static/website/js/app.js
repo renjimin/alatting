@@ -22,6 +22,12 @@ var app = angular.module('PosterApp', [
     "mobile-angular-ui"
 ]);
 
+//csrf for angular
+app.config(function ($httpProvider) {
+    $httpProvider.defaults.xsrfHeaderName = "X-CSRFToken";
+    $httpProvider.defaults.xsrfCookieName = "csrftoken";
+});
+
 /*app.config(function($routeProvider, $locationProvider) {
  $routeProvider.when('/', {
  templateUrl: "signIn.html"
@@ -30,17 +36,31 @@ var app = angular.module('PosterApp', [
 
 app.controller('commentsController', ['$scope', '$http', function ($scope, $http) {
     var next = null
+    var baseURL = null
+    $scope.createDisabled = false
     $scope.comments = []
 
     $scope.init = function(url){
-        next = url
+        baseURL = next = url
         $scope.loadMore()
+    }
+
+    $scope.initComment = function(comment){
+        if(comment.creator.id == auth_user_id) {
+            comment._edit = 'editable'
+        }
+        else{
+            comment._edit = 'none'
+        }
     }
 
     $scope.loadMore = function () {
         if (!next) return
         $http.get(next).then(function (response) {
             next = response.data.next
+            $.each(response.data.results, function(i, comment) {
+                $scope.initComment(comment)
+            })
             $.merge($scope.comments, response.data.results)
         }, function (response) {
             if (response.status === 404) {
@@ -49,6 +69,25 @@ app.controller('commentsController', ['$scope', '$http', function ($scope, $http
         });
     }
 
+    $scope.create = function(){
+        $scope.createDisabled = true
+        $http.post(baseURL, data={title: $scope.title, content: $scope.content})
+            .then(function(response){
+                $scope.initComment(response.data)
+                $scope.comments.splice(0, 0, response.data)
+                $scope.title = $scope.content = ''
+                $scope.createDisabled = false
+            }, function(response){
+                if (response.status === 401 || response.status === 403) {
+                    window.location.href = loginURL
+                }
+                $scope.createDisabled = false
+            });
+    }
+
+    $scope.startEdit = function(comment){
+        comment._edit = 'editing'
+    }
 
 }]);
 

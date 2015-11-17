@@ -16,6 +16,7 @@
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
         var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
+        var auth_user_id = {% firstof request.user.id "null"%}
     </script>
 {% endblock %}
 
@@ -165,17 +166,23 @@
                             <div class="bubble">
                                 <div class="bubble-wrapper">
                                     <div class="justified bubble-header">
-                                        <div class="bubble-title"><input name="title" value="" placeholder="Please input the title"></div>
+                                        <div class="bubble-title"><input class="title-edit" name="title" ng-model="title" placeholder="Please input the title"></div>
                                         <div class="bubble-time">now</div>
                                     </div>
 
-                                    <div class="bubble-content"><textarea name="content" placeholder="please input the content"></textarea></div>
+                                    <div class="bubble-content">
+                                        <textarea name="content" ng-model="content" placeholder="please input the content"></textarea>
+                                        <div ng-click="create()" class="icon-btn btn btn-navbar btn-icon-only" ng-disabled="createDisabled">
+                                            <img src="{% static 'website/images/icons/save.png' %}">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- dynamic comments -->
                     {%verbatim%}
-                    <div class="justified comment" ng-repeat="comment in comments">
+                    <div class="justified comment" ng-repeat="comment in comments" ng-click="comment._edit == 'editing' && $event.stopPropagation()">
                         <div class="comment-person">
                             <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
                         </div>
@@ -184,11 +191,25 @@
                             <div class="bubble">
                                 <div class="bubble-wrapper">
                                     <div class="justified bubble-header">
-                                        <div class="bubble-title">{{ comment.title }}</div>
+                                        <div class="bubble-title"><span ng-if="comment._edit != 'editing'">{{ comment.title }}</span>
+                                        <input ng-if="comment._edit == 'editing'" class="title-edit" name="title" ng-model="comment.title" placeholder="Please input the title"></div>
                                         <div class="bubble-time">{{ comment.created_at }}</div>
                                     </div>
 
-                                    <div class="bubble-content">{{ comment.content }}</div>
+                                    <div class="bubble-content"><span ng-if="comment._edit != 'editing'" class="content-display">{{ comment.content }}</span>
+                                    <textarea ng-if="comment._edit == 'editing'" ng-model="comment.content"  name="content" placeholder="please input the content"></textarea>
+                                    <div ng-if="comment._edit == 'editable'" ng-click="startEdit(comment)" onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="/static/website/images/icons/edit.png">
+                                    </div></div>
+                                    <div ng-if="comment._edit == 'editable'" ng-click="delete()" onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="/static/website/images/icons/delete.png">
+                                    </div></div>
+                                    <div ng-if="comment._edit == 'editing'" ng-click="update()" onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._wait" class="icon-btn btn btn-navbar btn-icon-only">
+                                            <img src="/static/website/images/icons/save.png">
+                                    </div></div>
                                 </div>
                             </div>
                         </div>
