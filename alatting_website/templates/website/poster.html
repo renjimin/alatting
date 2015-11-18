@@ -16,7 +16,8 @@
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
         var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var auth_user_id = {% firstof request.user.id "null"%}
+        var auth_user_id =
+        {% firstof request.user.id "null"%}
     </script>
 {% endblock %}
 
@@ -50,176 +51,240 @@
         <div class='app-body'>
             <div class='app-content'>
                 <ng-view></ng-view>
-                <div class="scrollable"><div class="scrollable-content"><div class="poster-frame center-block">
-                    <!-- top -->
-                    <div class="poster-top-ratio"><div>
-                        <div class="poster-top">
-                            <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
-                            <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
-                            <div class="poster-top-main">
-                            <div class="poster-top-left">
-                                <div class="poster-header">
-                                    <div class="poster-profile">
-                                        <div class="poster-logo">
-                                            <div class="logo-image">
-                                               <a href="#" class="logo"><img src="{{ object.images.logo.file.url }}" alt='poster logo'/></a>
+                <div class="scrollable">
+                    <div class="scrollable-content">
+                        <div class="poster-frame center-block">
+                            <!-- top -->
+                            <div class="poster-top-ratio">
+                                <div>
+                                    <div class="poster-top">
+                                        <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
+                                        <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
+                                        <div class="poster-top-main">
+                                            <div class="poster-top-left">
+                                                <div class="poster-header">
+                                                    <div class="poster-profile">
+                                                        <div class="poster-logo">
+                                                            <div class="logo-image">
+                                                                <a href="#" class="logo"><img
+                                                                        src="{{ object.images.logo.file.url }}"
+                                                                        alt='poster logo'/></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="poster-title">
+                                                            {{ object.logo_title }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="poster-qrcode">
+                                                        <div class="qrcode-image">
+                                                            <img src={% url 'website:code_poster' object.id %}/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end of poster-header -->
+                                                <div class="poster-tabs btn-group btn-group-justified"
+                                                     ui-state="activeTab" default="1">
+                                                    <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}"
+                                                         class="tab-btn-first tab-btn btn">
+                                                        <div>INTRO</div>
+                                                    </div>
+
+                                                    <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}"
+                                                         class="tab-btn btn">
+                                                        <div>TEAM</div>
+                                                    </div>
+
+                                                    <div ui-class="{'active': false}" class="tab-btn btn">
+                                                        <div></div>
+                                                    </div>
+                                                </div>
+                                                <!-- end of poster-tabs -->
+                                            </div>
+                                            <!-- end of poster-top-left -->
+                                            <div class="poster-top-right">
+                                                <div class="poster-contact">
+                                                    <div class="first-row btn-group equal-justified">
+                                                        <div class="phone poster-contact-sub">
+                                                            <a href="#" for="phone"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/phone.png' %}">
+                                                            </a>
+                                                        </div>
+                                                        <div class="mail poster-contact-sub">
+                                                            <a href="#" for="mail"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/mail.png' %}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="second-row btn-group equal-justified">
+                                                        <div class="hours poster-contact-sub">
+                                                            <a href="#" for="hours"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/hours.png' %}">
+                                                            </a>
+                                                        </div>
+                                                        <div class="location poster-contact-sub">
+                                                            <a href="#" for="location"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/location.png' %}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end of poster-contact -->
+                                            </div>
+                                            <!-- end of poster-top-right -->
+                                        </div>
+                                        <!-- end of poster-top-main -->
+                                        <div class="poster-top-information">
+                                            <div class="description">
+                                                <div>{{ object.short_description }}</div>
+                                            </div>
+                                            <div class="contact-info phone">
+                                                {{ object.mobile }}
+                                                <a href="#"><img
+                                                        src="{% static 'website/images/icons/call-info.png' %}"></a>
+                                                <a href="#"><img
+                                                        src="{% static 'website/images/icons/message-info.png' %}"></a>
+                                            </div>
+                                            <div class="contact-info mail">
+                                                {{ object.email }}
+                                                <a href="mailto:{{ object.email }}?{{ object.email_content | safe }}"><img
+                                                        src="{% static 'website/images/icons/email-info.png' %}"></a>
+                                            </div>
+                                            <div class="contact-info hours">
+                                                {{ object.hours }}
+                                                <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
+                                            </div>
+                                            <div class="contact-info location">
+                                                {{ object.address.address1 }}, {{ object.address.city }}, {{ object.address.state }} {{ object.address.post_code }}
+                                                <a href="#"><img
+                                                        src="{% static 'website/images/icons/location-info.png' %}"></a>
                                             </div>
                                         </div>
-                                         <div class="poster-title">
-                                             {{ object.logo_title }}
-                                         </div>
                                     </div>
-                                    <div class="poster-qrcode">
-                                        <div class="qrcode-image">
-                                            <img src={% url 'website:code_poster' object.id %} />
-                                        </div>
-                                    </div>
-                                </div><!-- end of poster-header -->
-                                 <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="1">
-                                        <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}" class="tab-btn-first tab-btn btn">
-                                            <div>INTRO</div>
-                                        </div>
-
-                                        <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}" class="tab-btn btn">
-                                            <div>TEAM</div>
-                                        </div>
-
-                                        <div ui-class="{'active': false}" class="tab-btn btn">
-                                            <div> </div>
-                                        </div>
-                                </div><!-- end of poster-tabs -->
-                            </div> <!-- end of poster-top-left -->
-                            <div class="poster-top-right">
-                                <div class="poster-contact">
-                                    <div class="first-row btn-group equal-justified">
-                                        <div class="phone poster-contact-sub">
-                                            <a href="#" for="phone" class="contact icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="{% static 'website/images/icons/phone.png' %}">
-                                            </a>
-                                        </div>
-                                        <div class="mail poster-contact-sub">
-                                        <a href="#" for="mail" class="contact icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="{% static 'website/images/icons/mail.png' %}">
-                                        </a>
-                                        </div>
-                                    </div>
-                                    <div class="second-row btn-group equal-justified">
-                                        <div class="hours poster-contact-sub">
-                                            <a href="#" for="hours" class="contact icon-btn btn btn-navbar btn-icon-only">
-                                                <img src="{% static 'website/images/icons/hours.png' %}">
-                                            </a>
-                                        </div>
-                                        <div class="location poster-contact-sub">
-                                            <a href="#" for="location" class="contact icon-btn btn btn-navbar btn-icon-only">
-                                                <img src="{% static 'website/images/icons/location.png' %}">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div><!-- end of poster-contact -->
-                            </div> <!-- end of poster-top-right -->
-                            </div> <!-- end of poster-top-main -->
-                            <div class="poster-top-information">
-                                <div class="description">
-                                    <div>{{ object.short_description }}</div>
-                                </div>
-                                <div class="contact-info phone">
-                                    {{ object.mobile }}
-                                    <a href="#"><img src="{% static 'website/images/icons/call-info.png' %}"></a>
-                                    <a href="#"><img src="{% static 'website/images/icons/message-info.png' %}"></a>
-                                </div>
-                                <div class="contact-info mail">
-                                   {{ object.email }}
-                                   <a href="mailto:{{ object.email }}?{{ object.email_content | safe}}"><img src="{% static 'website/images/icons/email-info.png' %}"></a>
-                                </div>
-                                <div class="contact-info hours">
-                                  {{ object.hours }}
-                                  <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
-                                </div>
-                                <div class="contact-info location">
-                                        {{ object.address.address1 }}, {{ object.address.city }}, {{ object.address.state }} {{ object.address.post_code }}
-                                       <a href="#"><img src="{% static 'website/images/icons/location-info.png' %}"></a>
                                 </div>
                             </div>
-                        </div>
-                    </div></div>
 
-                    <!-- pages -->
-                    <div class="poster-pages-ratio"><div>
-                        <div class="poster-pages">
-                            {% include 'libs/widgets/poster_pages.html' %}
-                        </div>
-                    </div></div>
-
-                    <!-- svg -->
-                    {% include 'libs/widgets/clip_svg.html' %}
-
-                </div></div></div>
-
-                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController" ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
-                    <div class="scrollable-content" ui-scroll-bottom="loadMore()"><div class="poster-frame center-block"><div>
-                    <div class="justified comment" onclick="var event = arguments[0] || window.event; event.stopPropagation();">
-                        <div class="comment-person">
-                            <img ng-src="{{ request.user.person.avatar.url }}" class="img-circle">
-                        </div>
-
-                        <div class="comment-text">
-                            <div class="bubble">
-                                <div class="bubble-wrapper">
-                                    <div class="justified bubble-header">
-                                        <div class="bubble-title"><input class="title-edit" name="title" ng-model="title" placeholder="Please input the title"></div>
-                                        <div class="bubble-time">now</div>
-                                    </div>
-
-                                    <div class="bubble-content">
-                                        <textarea name="content" ng-model="content" placeholder="please input the content"></textarea>
-                                        <div ng-click="create()" class="icon-btn btn btn-navbar btn-icon-only" ng-disabled="createDisabled">
-                                            <img src="{% static 'website/images/icons/save.png' %}">
-                                        </div>
+                            <!-- pages -->
+                            <div class="poster-pages-ratio">
+                                <div>
+                                    <div class="poster-pages">
+                                        {% include 'libs/widgets/poster_pages.html' %}
                                     </div>
                                 </div>
+                            </div>
+
+                            <!-- svg -->
+                            {% include 'libs/widgets/clip_svg.html' %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController"
+                     ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
+                    <div class="scrollable-content" ui-scroll-bottom="loadMore()">
+                        <div class="poster-frame center-block">
+                            <div>
+                                <form novalidate class="justified comment has-error" name="form"
+                                     onclick="var event = arguments[0] || window.event; event.stopPropagation();">
+                                    <div class="comment-person">
+                                        <img ng-src="{{ request.user.person.avatar.url }}" class="img-circle">
+                                    </div>
+
+                                    <div class="comment-text">
+                                        <div class="bubble">
+                                            <div class="bubble-wrapper">
+                                                <div class="justified bubble-header">
+                                                    <div class="bubble-title editing">
+                                                        <input ng-model="comment.title" ng-maxlength="127" class="title-edit" name="title" required
+                                                               placeholder="Please input the title">
+                                                    </div>
+                                                    <div class="bubble-time" style="display: none;">now</div>
+                                                </div>
+
+                                                <div class="bubble-content editing">
+                                                    <textarea name="content" ng-model="comment.content" ng-maxlength="511" required
+                                                              class="content-edit" placeholder="please input the content"></textarea>
+
+                                                    <div ng-click="create(form)"
+                                                         class="icon-btn btn btn-navbar btn-icon-only"
+                                                         ng-disabled="form._creating">
+                                                        <img src="{% static 'website/images/icons/save.png' %}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- dynamic comments -->
+                                {%verbatim%}
+                                <form novalidate class="justified comment" ng-repeat="comment in comments" name="form"
+                                     ng-click="comment._edit == 'editing' && $event.stopPropagation()" ng-init="comment._form = $scope.$element">
+                                    <div class="comment-person">
+                                        <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
+                                    </div>
+
+                                    <div class="comment-text">
+                                        <div class="bubble">
+                                            <div class="bubble-wrapper">
+                                                <div class="justified bubble-header">
+                                                    <div class="bubble-title" ng-class="{editing: comment._edit == 'editing'}"><span ng-if="comment._edit != 'editing'">{{ comment.title }}</span>
+                                                        <input ng-if="comment._edit == 'editing'" ng-maxlength="127" ng-class=""
+                                                               ng-model="comment.title" class="title-edit" name="title" required
+                                                           placeholder="Please input the title">
+                                                        </div>
+                                                    <div ng-if="comment._edit != 'editing'" class="bubble-time">{{ comment.created_at }}</div>
+                                                </div>
+
+                                                <div class="bubble-content" ng-class="{editing: comment._edit == 'editing'}">
+                                                    <div style="clear: right" ng-if="comment._edit != 'editing'"
+                                                                                  class="content-display">{{ comment.content }}</div>
+                                                    <textarea ng-if="comment._edit == 'editing'"  ng-maxlength="511"
+                                                              ng-model="comment.content" name="content" required class="content-edit"
+                                                              placeholder="please input the content"></textarea>
+
+                                                    <div ng-if="comment._edit == 'editable'"
+                                                         ng-click="startEdit(comment)"
+                                                         ng-disabled="comment._deleting"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/edit.png">
+                                                    </div>
+                                                    <div ng-if="comment._edit == 'editable'" ng-click="delete(comment)"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         ng-disabled="comment._deleting"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/delete.png">
+                                                    </div>
+                                                    <div ng-if="comment._edit == 'editing'" ng-click="cancelEdit(comment)"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         ng-disabled="comment._updating"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/cancel.png">
+                                                    </div>
+                                                    <div ng-if="comment._edit == 'editing'" ng-click="update(this)"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         ng-disabled="comment._updating"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/save.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% endverbatim %}
+
                             </div>
                         </div>
                     </div>
-                    <!-- dynamic comments -->
-                    {%verbatim%}
-                    <div class="justified comment" ng-repeat="comment in comments" ng-click="comment._edit == 'editing' && $event.stopPropagation()">
-                        <div class="comment-person">
-                            <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
-                        </div>
-
-                        <div class="comment-text">
-                            <div class="bubble">
-                                <div class="bubble-wrapper">
-                                    <div class="justified bubble-header">
-                                        <div class="bubble-title"><span ng-if="comment._edit != 'editing'">{{ comment.title }}</span>
-                                        <input ng-if="comment._edit == 'editing'" class="title-edit" name="title" ng-model="comment.title" placeholder="Please input the title"></div>
-                                        <div class="bubble-time">{{ comment.created_at }}</div>
-                                    </div>
-
-                                    <div class="bubble-content"><span ng-if="comment._edit != 'editing'" class="content-display">{{ comment.content }}</span>
-                                    <textarea ng-if="comment._edit == 'editing'" ng-model="comment.content"  name="content" placeholder="please input the content"></textarea>
-                                    <div ng-if="comment._edit == 'editable'" ng-click="startEdit(comment)" onclick="var event = arguments[0] || window.event; event.stopPropagation();"
-                                         class="icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="/static/website/images/icons/edit.png">
-                                    </div></div>
-                                    <div ng-if="comment._edit == 'editable'" ng-click="delete()" onclick="var event = arguments[0] || window.event; event.stopPropagation();"
-                                         class="icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="/static/website/images/icons/delete.png">
-                                    </div></div>
-                                    <div ng-if="comment._edit == 'editing'" ng-click="update()" onclick="var event = arguments[0] || window.event; event.stopPropagation();"
-                                         ng-disabled="comment._wait" class="icon-btn btn btn-navbar btn-icon-only">
-                                            <img src="/static/website/images/icons/save.png">
-                                    </div></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endverbatim %}
-
-                </div></div></div></div>
+                </div>
             </div>
         </div>
-        
+
         {% include 'website/poster_bottom.html' %}
 
     </div>
