@@ -443,7 +443,7 @@
     padding-left: 4%;
     padding-right: 4%;
     font-size: 60%;
-    /*min-height: 18vw;*/
+    min-height: 18vw;
 }
 
 .comment .bubble-title.editing{
@@ -470,6 +470,19 @@
     float: right;
     margin-bottom: 2%;
     margin-right: 4%;
+}
+
+input.ng-invalid,
+textarea.ng-invalid {
+  border-color: #ff3b30;
+}
+
+.ng-dirty input.ng-invalid {
+  border-color: #ff3b30;
+}
+
+.ng-dirty input.ng-invalid ~ span.ko {
+  color: #ffcc00;
 }
 
 /* */
@@ -734,7 +747,7 @@
         border-width: 16px 32px 16px 0px;
     }
 
-    .bubble-content1{
+    .bubble-content{
         min-height: 144px;
     }
     .bubble-wrapper {
@@ -767,7 +780,7 @@
         border-width: 5px 10px 5px 0px;
     }
 
-    .bubble-content1 {
+    .bubble-content {
         min-height: 43px;
     }
     .bubble-wrapper {
