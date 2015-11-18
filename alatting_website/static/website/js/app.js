@@ -2,6 +2,15 @@
  * Created by tianhuyang on 9/29/15.
  */
 
+Array.prototype.remove = function(x) {
+    for(var i in this){
+        if(this[i] === x){
+            this.splice(i, 1)
+            break
+        }
+    }
+}
+
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -14,6 +23,12 @@ $.ajaxSetup({
         }
     }
 });
+
+function needLogin(response){
+    if (response.status === 401 || response.status === 403) {
+        window.location.href = loginURL
+    }
+}
 
 //app
 var app = angular.module('PosterApp', [
@@ -34,11 +49,18 @@ app.config(function ($httpProvider) {
  });
  });*/
 
+
+app.directive('initComment', function ($compile) {
+    return function (scope, element, attrs) {
+        scope.comment._form = element;
+    };
+});
+
 app.controller('commentsController', ['$scope', '$http', function ($scope, $http) {
     var next = null
     var baseURL = null
-    $scope.createDisabled = false
     $scope.comments = []
+    $scope.comment = {_creating: false}
 
     $scope.init = function(url){
         baseURL = next = url
@@ -69,24 +91,65 @@ app.controller('commentsController', ['$scope', '$http', function ($scope, $http
         });
     }
 
-    $scope.create = function(){
-        $scope.createDisabled = true
-        $http.post(baseURL, data={title: $scope.title, content: $scope.content})
+    $scope.create = function(form){
+        if(form.$invalid){
+            return
+        }
+        comment = $scope.comment
+        form._creating = true
+        $http.post(baseURL, data=comment)
             .then(function(response){
                 $scope.initComment(response.data)
                 $scope.comments.splice(0, 0, response.data)
-                $scope.title = $scope.content = ''
-                $scope.createDisabled = false
+                comment.title = comment.content = ''
+                form._creating = false
             }, function(response){
-                if (response.status === 401 || response.status === 403) {
-                    window.location.href = loginURL
-                }
-                $scope.createDisabled = false
+                needLogin(response)
+                form._creating = false
             });
     }
 
     $scope.startEdit = function(comment){
         comment._edit = 'editing'
+        comment._title = comment.title
+        comment._content = comment.content
+    }
+
+    $scope.cancelEdit = function(comment){
+        comment.title = comment._title
+        comment.content = comment._content
+        comment._edit = 'editable'
+    }
+
+    $scope.update = function($scope){
+        if($scope.form.$invalid){
+            return
+        }
+        var comment = $scope.comment
+        comment._updating = true
+        $http.put(comment.url, data={title: comment.title, content: comment.content})
+            .then(function(response){
+                updated_comment = response.data
+                angular.extend(comment, updated_comment)
+                comment._updating = false
+                comment._edit = 'editable'
+            }, function(response){
+                needLogin(response)
+                comment._updating = false
+            });
+    }
+
+    $scope.delete = function(comment){
+        var r = confirm("Are you sure to delete?")
+        if(!r) return
+        comment._deleting = true
+        $http.delete(comment.url)
+            .then(function(response){
+                $scope.comments.remove(comment)
+            }, function(response){
+                needLogin(response)
+                comment._deleting = false
+            });
     }
 
 }]);
