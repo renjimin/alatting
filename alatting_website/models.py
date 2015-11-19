@@ -4,7 +4,8 @@ from django.core import validators
 from django.contrib.auth.models import User
 from model_utils.managers import InheritanceManager
 from utils import file
-from utils.db.fields import OverWriteFileField, OverWriteImageField, BigAutoField, BigForeignKey, BigOneToOneField
+from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \
+    BigAutoField, BigForeignKey, BigOneToOneField
 from utils.db.utils import generate_uuid, Utils as DBUtils
 
 
@@ -53,7 +54,8 @@ class Video(models.Model):
     id = models.AutoField(primary_key=True)
     uuid = models.CharField(max_length=64, default=generate_uuid)
     created_at = models.DateTimeField(auto_now_add=True)
-    file = OverWriteFileField(upload_to=file.get_video_path)
+    preview = models.CharField(max_length=1023)
+    file = OverWriteVideoField(upload_to=file.get_video_path, preview_field='preview')
     format = models.CharField(max_length=31, default='mp4')
 
     def __str__(self):
