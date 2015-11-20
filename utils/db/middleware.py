@@ -2,7 +2,7 @@ __author__ = 'tianhuyang'
 from django import db
 
 is_print = True
-# is_print = False
+is_print = False
 
 
 class DatabaseMiddleware(object):

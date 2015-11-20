@@ -5,27 +5,29 @@ import os
 class Video(object):
 
     @classmethod
-    def extract_frame(cls, src, dst, max_width=800, max_height=None):
-        if max_height is None:
-            max_height = max_width
-        ratio = max_width / max_height
-        cmd = 'ffmpeg -i {src} -y -vf "scale=\'if(gt(a,{max_width}/{max_height}),min({max_width},iw),-1)\':' \
-              '\'if(gt(a,{max_width}/{max_height}),-1,min({max_height}, ih))\'" -vframes 1 -ss 00:00:01 {dst}'
-        args = dict(src=src, dst=dst, max_width=max_width, max_height=max_height, ratio=ratio)
+    def extract_frame(cls, src, dst, max_width=None, max_height=None):
+        ss = '00:00:01'
+        if max_width is None and max_height is None:
+            cmd = 'ffmpeg -i {src} -y -vframes 1 -ss {ss} {dst}'
+        elif max_width is not None and max_height is not None:
+            cmd = 'ffmpeg -i {src} -y -vf "scale=\'if(gt(a,{max_width}/{max_height}),min({max_width},iw),-1)\':' \
+                  '\'if(gt(a,{max_width}/{max_height}),-1,min({max_height}, ih))\'" -vframes 1 -ss {ss} {dst}'
+        elif max_width is not None:
+            cmd = 'ffmpeg -i {src} -y -vf "scale=\'min({max_width},iw)\':-1" -vframes 1 -ss {ss} {dst}'
+        else:
+            cmd = 'ffmpeg -i {src} -y -vf "scale=-1:\'min({max_height},ih)\'" -vframes 1 -ss {ss} {dst}'
+        args = dict(src=src, dst=dst, max_width=max_width, max_height=max_height, ss=ss)
         cmd = cmd.format(**args)
         status = os.system(cmd)
         print(status)
         return status == 0
 
     @classmethod
-    def extract_preview(cls, src, max_width=800, max_height=None):
-        ext = '.jpg'
-        dst = os.path.splitext(src)
-        dst = dst[0] + ext
+    def extract_preview(cls, src, dst, max_width=800, max_height=None):
+        if max_height is None:
+            max_height = max_width
         success = cls.extract_frame(src, dst, max_width, max_height)
-        if not success:
-            dst = None
-        return dst
+        return success
 
     @classmethod
     def test(cls):

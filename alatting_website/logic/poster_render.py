@@ -152,7 +152,8 @@ class PosterRender:
         video_name = widget['video_name']
         widget['video_element_id'] = 'video-%s' % video_name
         if video_name in videos:
-            widget['video_url'] = videos[video_name].file.url
+            widget['video'] = video = videos[video_name]
+            video.url = video.file.url
         context['widget'] = widget
         return render_to_string(template_name, context)
 
