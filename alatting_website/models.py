@@ -159,6 +159,7 @@ class Poster(models.Model):
     email = models.EmailField(blank=True, default='')
     address = BigForeignKey(Address, related_name='posters')
     lifetime_type = models.CharField(max_length=32, choices=LIFETIME_CHOICES, default=LIFETIME_WEEKLY)
+    lifetime_timezone = models.CharField(max_length=32)
     lifetime_value = models.CharField(max_length=1024)
     music = models.ForeignKey(Music, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
