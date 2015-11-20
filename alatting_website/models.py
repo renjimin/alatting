@@ -138,11 +138,9 @@ class Poster(models.Model):
         (STATUS_INACTIVE, STATUS_INACTIVE)
     )
     LIFETIME_WEEKLY = 'weekly'
-    LIFETIME_SPECIFIC_DAY = 'specific_day'
     LIFETIME_SPECIFIC_DAYS = 'specific_days'
     LIFETIME_CHOICES = (
         (LIFETIME_WEEKLY, LIFETIME_WEEKLY),
-        (LIFETIME_SPECIFIC_DAY, LIFETIME_SPECIFIC_DAY),
         (LIFETIME_SPECIFIC_DAYS,LIFETIME_SPECIFIC_DAYS)
     )
     id = BigAutoField(primary_key=True)
