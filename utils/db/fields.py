@@ -1,6 +1,7 @@
 __author__ = 'tianhuyang'
 from django.db import models
 from utils.file import OverwriteStorage
+from utils.capture.video import Video
 
 
 class OverWriteFileField(models.FileField):
@@ -13,6 +14,24 @@ class OverWriteFileField(models.FileField):
         value = getattr(instance, self.name)
         setattr(instance, '_' + self.name + '_', value)
         super(OverWriteFileField, self).save_form_data(instance, data)
+
+
+class OverWriteVideoField(OverWriteFileField):
+
+    def __init__(self, *args, preview_field=None, **kwargs):
+        self.preview_field = preview_field
+        super(OverWriteVideoField, self).__init__(*args, **kwargs)
+
+    def pre_save(self, model_instance, add):
+        file = super(OverWriteVideoField, self).pre_save(model_instance, add)
+        Video.extract_preview()
+        return file
+
+    def deconstruct(self):
+        name, path, args, kwargs = super(OverWriteVideoField, self).deconstruct()
+        if self.preview_field:
+            kwargs['preview_field'] = self.preview_field
+        return name, path, args, kwargs
 
 
 class OverWriteImageField(models.ImageField):
