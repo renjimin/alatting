@@ -112,6 +112,11 @@ class PosterView(DetailView):
         else:
             obj.hours_status = 'Closed'
         obj.hours = hours_info
+        # extract address info
+        addr = obj.address
+        obj.address_info = addr.address1 + ', ' + addr.city + ', ' + addr.state + ' ' + addr.post_code
+        obj.address_mapped = (addr.address1 + ','+addr.city + ' '+addr.state).replace(' ', '+')
+
 
         return obj
 

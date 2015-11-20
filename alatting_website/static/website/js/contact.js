@@ -12,4 +12,12 @@ $(document).ready(function () {
         $(target_container).find('div.description').show();
         $(target_container).find('div.contact-info').hide();
     });
+    $('a.location-info').click(function(){
+        var target_map = $(this).parent().find('iframe.map');
+        if($(target_map).css('display') == 'none') {
+            $(target_map).show('fast');
+        } else {
+             $(target_map).hide('fast');
+        }
+    })
 });
