@@ -80,6 +80,7 @@ class PosterView(DetailView):
         day_now = now.strftime('%Y-%m-%d')
         hours_available = False
         hours_info = 'Hours Today: Disabled'
+        hours_details = ''
         try:
             hours_all = json.loads(obj.lifetime_value)
             hours = None
@@ -93,30 +94,48 @@ class PosterView(DetailView):
                 hours = hours_all[weekday]
             elif obj.lifetime_type == 'specific_days':
                 """e.g. {"2015-11-20": {"time_start": "08:00:00", "enabled": 1,
-                "time_end": "21:00:00", "msg": "Provide food and water"}}
+                "time_end": "21:00:00", "message": "Funding opening day and project demonstration"}}
                 """
                 if day_now in hours_all.keys():
                     hours = hours_all[day_now]
             if hours:
                 if 'enabled' in hours and hours['enabled']:
                     if 'time_start' in hours and hours['time_start']:
-                        time_start = timezone.localize(datetime.datetime.strptime(day_now+' '+hours['time_start'],'%Y-%m-%d %H:%M:%S'))
-                        time_end = timezone.localize(datetime.datetime.strptime(day_now+' '+hours['time_end'],'%Y-%m-%d %H:%M:%S'))
-                        hours_info = 'Hours Today: '+ time_start.strftime('%I %p') + ' - ' + time_end.strftime('%I %p')
+                        time_start = timezone.localize(datetime.datetime.strptime(day_now+' '+hours['time_start'],'%Y-%m-%d %I:%M %p'))
+                        time_end = timezone.localize(datetime.datetime.strptime(day_now+' '+hours['time_end'],'%Y-%m-%d %I:%M %p'))
+                        hours_info = 'Hours Today: '+ time_start.strftime('%I:%M %p') + ' - ' + time_end.strftime('%I:%M %p')
                         if time_start <= now <= time_end:
                             hours_available = True
+
+            # extract details of hours
+            for day,day_hours in hours_all.items():
+                if 'enabled' in day_hours and day_hours['enabled']:
+                    if 'time_start' in day_hours and day_hours['time_start']:
+                        day_details = '<b>'+day+'<b/>: '+ day_hours['time_start'] + ' - '+day_hours['time_end']
+                    else:
+                        day_details = '<b>'+day+'<b/>' + ': 8:00 am - 6:00 pm'
+                    if 'message'in day_hours and day_hours['message']:
+                        day_details = '<br/>' + day_hours['message']
+                else:
+                    if 'time_start' in day_hours and day_hours['time_start']:
+                        day_details = '<b>'+day+'<b/>' + ': '+day_hours['time_start'] + ' - ' +\
+                                         day_hours['time_end'] + ' (closed temporarily)'
+                    else:
+                        day_details = '<b>'+day+'<b/>' + ': closed'
+                hours_details += day_details
+                hours_details += '<br/>'
         except ValueError:
-            None
+                None
         if hours_available:
             obj.hours_status = 'Open'
         else:
             obj.hours_status = 'Closed'
         obj.hours = hours_info
+        obj.hours_details = hours_details
         # extract address info
         addr = obj.address
         obj.address_info = addr.address1 + ', ' + addr.city + ', ' + addr.state + ' ' + addr.post_code
         obj.address_mapped = (addr.address1 + ','+addr.city + ' '+addr.state).replace(' ', '+')
-
 
         return obj
 
