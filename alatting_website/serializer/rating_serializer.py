@@ -1,9 +1,9 @@
 __author__ = 'tianhuyang'
 from rest_framework import serializers
-from alatting_website.models import PosterRating, Rating
+from alatting_website.models import PosterStatistics, Rating
 
 
-class PosterRatingSerializer(serializers.ModelSerializer):
+class PosterStatisticsSerializer(serializers.ModelSerializer):
     poster_id = serializers.IntegerField(read_only=True)
     ratings_average = serializers.DecimalField(2, 1, read_only=True)
     five_percent = serializers.IntegerField(read_only=True)
@@ -13,14 +13,14 @@ class PosterRatingSerializer(serializers.ModelSerializer):
     one_percent = serializers.IntegerField(read_only=True)
 
     class Meta:
-        model = PosterRating
+        model = PosterStatistics
         exclude = ('poster', )
 
 
 class RatingSerializer(serializers.ModelSerializer):
     creator_id = serializers.IntegerField(read_only=True)
     poster_id = serializers.IntegerField(read_only=True)
-    poster_rating = PosterRatingSerializer(read_only=True)
+    poster_statistics = PosterStatisticsSerializer(read_only=True)
 
     class Meta:
         model = Rating
