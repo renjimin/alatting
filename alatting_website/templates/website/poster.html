@@ -158,9 +158,13 @@
                                                 <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
                                             </div>
                                             <div class="contact-info location">
-                                                {{ object.address.address1 }}, {{ object.address.city }}, {{ object.address.state }} {{ object.address.post_code }}
-                                                <a href="#"><img
+                                                {{ object.address_info }}
+                                                <a href="#" class="location-info"><img
                                                         src="{% static 'website/images/icons/location-info.png' %}"></a>
+                                                <iframe class="map"
+                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB5YbUFeSsRWn1G2UsdJmAPT4qyD6RrYao
+                                              &q={{ object.address_mapped }}" allowfullscreen>
+                                               </iframe>
                                             </div>
                                         </div>
                                     </div>
