@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
-from alatting_website.models import Poster, Rating
+from alatting_website.models import Poster, Rating, PosterStatistics
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -20,7 +20,7 @@ class PosterView(DetailView):
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_related('music', 'creator__person', 'poster_rating').\
+        queryset = queryset.select_related('music', 'creator__person', 'poster_statistics').\
             prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions',)\
             .select_subclasses()
         user = self.request.user
@@ -32,7 +32,7 @@ class PosterView(DetailView):
         obj = super(PosterView, self).get_object(queryset)
         # limit 20
         # obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
-        queryset = self.model.objects.filter(pk=obj.pk)
+        queryset = PosterStatistics.objects.filter(pk=obj.pk)
         DBUtils.increase_counts(queryset, {'views_count': 1})
         images = dict()
         videos = dict()

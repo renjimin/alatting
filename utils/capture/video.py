@@ -1,6 +1,14 @@
 __author__ = 'tianhuyang'
 import os
 
+"""
+sudo add-apt-repository ppa:mc3man/trusty-media
+sudo apt-get update
+sudo apt-get install ffmpeg
+sudo add-apt-repository --remove ppa:mc3man/trusty-media
+sudo apt-get update
+"""
+
 
 class Video(object):
 
@@ -19,7 +27,7 @@ class Video(object):
         args = dict(src=src, dst=dst, max_width=max_width, max_height=max_height, ss=ss)
         cmd = cmd.format(**args)
         status = os.system(cmd)
-        print(status)
+        # print(status)
         return status == 0
 
     @classmethod

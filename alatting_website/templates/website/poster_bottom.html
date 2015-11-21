@@ -31,50 +31,50 @@
                      data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
                      data-title='<div class="equal-justified rate-info">
                                      <div class="rate-totals">
-                                         <div class="rate-rating">{{ object.poster_rating.ratings_average | floatformat:1 }}</div>
-                                         <input class="rating rating-average" type="number" readonly value="{{ object.poster_rating.ratings_average }}" data-glyphicon="false" data-show-caption="false"
+                                         <div class="rate-rating">{{ object.poster_statistics.ratings_average | floatformat:1 }}</div>
+                                         <input class="rating rating-average" type="number" readonly value="{{ object.poster_statistics.ratings_average }}" data-glyphicon="false" data-show-caption="false"
                                          min=0 max=5 step=0.1>
                                          <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;
-                                         <span class="rating-count">{{ object.poster_rating.ratings_count }}</span> total</div>
+                                         <span class="rating-count">{{ object.poster_statistics.ratings_count }}</span> total</div>
                                      </div>
                                      <div class="rate-levels">
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 5</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-five" style="width:{{ object.poster_rating.five_percent }}%;">
-                                                {{ object.poster_rating.five_count }}
+                                                <div class="rate-progress-bar rate-five" style="width:{{ object.poster_statistics.five_percent }}%;">
+                                                {{ object.poster_statistics.five_count }}
                                                 </div>
                                             </div>
                                          </div>
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 4</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-four" style="width:{{ object.poster_rating.four_percent }}%;">
-                                                {{ object.poster_rating.four_count }}
+                                                <div class="rate-progress-bar rate-four" style="width:{{ object.poster_statistics.four_percent }}%;">
+                                                {{ object.poster_statistics.four_count }}
                                                 </div>
                                             </div>
                                          </div>
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 3</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-three" style="width:{{ object.poster_rating.three_percent }}%;">
-                                                {{ object.poster_rating.three_count }}
+                                                <div class="rate-progress-bar rate-three" style="width:{{ object.poster_statistics.three_percent }}%;">
+                                                {{ object.poster_statistics.three_count }}
                                                 </div>
                                             </div>
                                          </div>
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 2</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-two" style="width:{{ object.poster_rating.two_percent }}%;">
-                                                {{ object.poster_rating.two_count }}
+                                                <div class="rate-progress-bar rate-two" style="width:{{ object.poster_statistics.two_percent }}%;">
+                                                {{ object.poster_statistics.two_count }}
                                                 </div>
                                             </div>
                                          </div>
                                          <div class="rate-level justified">
                                             <div class="rate-level-label"><span class="rate-star">★</span> 1</div>
                                             <div class="rate-progress">
-                                                <div class="rate-progress-bar rate-one" style="width:{{ object.poster_rating.one_percent }}%;">
-                                                {{ object.poster_rating.one_count }}
+                                                <div class="rate-progress-bar rate-one" style="width:{{ object.poster_statistics.one_percent }}%;">
+                                                {{ object.poster_statistics.one_count }}
                                                 </div>
                                             </div>
                                          </div>
@@ -121,12 +121,13 @@
                      data-content='<div class="equal-justified stats-graph">
                                    <div class="stats-pop">
                                        <div class="stats-graph-label">Popularity</div>
-                                       <div class="doughnut" data-percent="30" data-inner-cutout="65" data-color="#ffe377" data-total="20"
+                                       <div class="doughnut" data-percent="30" data-inner-cutout="65" data-color="#ffe377"
+                                       data-total="20"
                                             data-background-color="#4d5154">
                                             <canvas class="doughnut-canvas"></canvas>
                                             <div class="doughnut-title"><p>+20</p></div>
                                         </div>
-                                        <div class="stats-graph-value">2642</div>
+                                        <div class="stats-graph-value">{{ object.poster_statistics.popular_score }}</div>
                                     </div>
                                     <div class="stats-credit">
                                        <div class="stats-graph-label">Credit</div>
@@ -135,7 +136,7 @@
                                             <canvas class="doughnut-canvas"></canvas>
                                             <div class="doughnut-title"><p>+3</p></div>
                                         </div>
-                                        <div class="stats-graph-value">83%</div>
+                                        <div class="stats-graph-value">{{ object.poster_statistics.credit | floatformat:1 }}%</div>
                                     </div>
                                  </div>
                                  <div class="stats-types">
@@ -146,7 +147,7 @@
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>4.3</div>
+                                                        <div>{{ object.poster_statistics.ratings_average | floatformat:1 }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
                                                             <span>.2</span>
@@ -162,7 +163,7 @@
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>2347</div>
+                                                        <div>{{ object.poster_statistics.views_count }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
                                                             <span>13</span>
@@ -181,7 +182,7 @@
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>418</div>
+                                                        <div>{{ object.poster_statistics.likes_count }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
                                                             <span>6</span>
@@ -197,7 +198,7 @@
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>126</div>
+                                                        <div>{{ object.poster_statistics.shares_count }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
                                                             <span>5</span>

@@ -1,3 +1,4 @@
+import math
 from django.db import models
 from django.db import transaction
 from django.core import validators
@@ -159,7 +160,7 @@ class Poster(models.Model):
     email = models.EmailField(blank=True, default='')
     address = BigForeignKey(Address, related_name='posters')
     lifetime_type = models.CharField(max_length=32, choices=LIFETIME_CHOICES, default=LIFETIME_WEEKLY)
-    lifetime_timezone = models.CharField(max_length=32)
+    lifetime_timezone = models.CharField(max_length=32, default='America/Los_Angeles')
     lifetime_value = models.CharField(max_length=1024)
     music = models.ForeignKey(Music, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -169,11 +170,6 @@ class Poster(models.Model):
     width = models.PositiveSmallIntegerField(default=800)
     height = models.PositiveSmallIntegerField(default=1024)
     # desc = models.CharField(max_length=255)
-    views_count = models.IntegerField(default=0)
-    likes_count = models.IntegerField(default=0)
-    comments_count = models.IntegerField(default=0)
-    forwarded_count = models.IntegerField(default=0)
-    reviews_score = models.SmallIntegerField(default=0)
     html = OverWriteFileField(upload_to=file.get_html_path)
     css = OverWriteFileField(upload_to=file.get_css_path)
     script = OverWriteFileField(upload_to=file.get_script_path)
@@ -185,7 +181,7 @@ class Poster(models.Model):
         adding = self._state.adding
         super(Poster, self).save(**kwargs)
         if adding:
-            self.poster_rating = PosterRating.objects.create(poster=self)
+            self.poster_statistics = PosterStatistics.objects.create(poster=self)
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -242,9 +238,10 @@ class PosterLike(models.Model):
         return "{:d}".format(self.pk)
 
 
-class PosterRating(models.Model):
-    poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_rating')
+class PosterStatistics(models.Model):
+    poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
     created_at = models.DateTimeField(auto_now_add=True)
+    # rating
     ratings_count = models.IntegerField(default=0)
     ratings_total = models.IntegerField(default=0)
     five_count = models.IntegerField(default=0)
@@ -252,6 +249,26 @@ class PosterRating(models.Model):
     three_count = models.IntegerField(default=0)
     two_count = models.IntegerField(default=0)
     one_count = models.IntegerField(default=0)
+    #
+    views_count = models.IntegerField(default=0)
+    likes_count = models.IntegerField(default=0)
+    favorites_count = models.IntegerField(default=0)
+    fun_count = models.IntegerField(default=0)
+    complains_count = models.IntegerField(default=0)
+    # score
+    fun_survey_score = models.FloatField(default=0, validators=[validators.MinValueValidator(0), validators.MaxValueValidator(1)])
+    fun_review_score = models.FloatField(default=0, validators=[validators.MinValueValidator(0), validators.MaxValueValidator(1)])
+    # contacted_count
+    phone_contacted_count = models.IntegerField(default=0)
+    email_contacted_count = models.IntegerField(default=0)
+    map_contacted_count = models.IntegerField(default=0)
+    # shared_count
+    facebook_shared_count = models.IntegerField(default=0)
+    pinterest_shared_count = models.IntegerField(default=0)
+    twitter_shared_count = models.IntegerField(default=0)
+    linkedin_shared_count = models.IntegerField(default=0)
+    google_shared_count = models.IntegerField(default=0)
+    email_shared_count = models.IntegerField(default=0)
 
     MIN_PERCENT = 30
 
@@ -297,6 +314,78 @@ class PosterRating(models.Model):
             value = 0
         return value
 
+    @property
+    def shares_count(self):
+        count = self.facebook_shared_count + self.twitter_shared_count + self.pinterest_shared_count + \
+            self.linkedin_shared_count + self.google_shared_count + self.email_shared_count
+        return count
+
+    VIEWS_WEIGHT, LIKES_WEIGHT, FAVORITES_WEIGHT, RATINGS_WEIGHT, CONTACTS_WEIGHT, SHARES_WEIGHT = 1/6, 1/6, 1/6, 1/6, 1/6, 1/6
+
+    @property
+    def popular_score(self):
+        """
+        :return an integer:
+        """
+        if not hasattr(self, '_popular_score'):
+            contacted_count = self.phone_contacted_count + self.email_contacted_count + self.map_contacted_count
+            shared_count = self.facebook_shared_count + self.pinterest_shared_count + self.twitter_shared_count + \
+                self.linkedin_shared_count + self.google_shared_count + self.email_shared_count
+            score = self.views_count * self.VIEWS_WEIGHT + self.likes_count * self.LIKES_WEIGHT + \
+                    self.favorites_count * self.FAVORITES_WEIGHT + self.ratings_count * self.RATINGS_WEIGHT + \
+                contacted_count * self.CONTACTS_WEIGHT + shared_count * self.SHARES_WEIGHT
+            score = round(score)
+            setattr(self,  '_popular_score', score)
+        return getattr(self, '_popular_score')
+
+    COMPLAIN_WEIGHT, LIKE_WEIGHT, RATING_WEIGHT = -1/3, 1/3, 2/3
+
+    @property
+    def credit_score(self):
+        """
+        :return a float between 0 - 1:
+        """
+        if not hasattr(self, '_credit_score'):
+            score = 0
+            if self.ratings_count:
+                rating_score = self.ratings_total / self.ratings_count / 5
+                score += rating_score * self.RATING_WEIGHT
+            if self.views_count:
+                complain_score = self.complains_count / self.views_count
+                score += complain_score * self.COMPLAIN_WEIGHT
+                like_score = self.likes_count / self.views_count
+                score += like_score * self.LIKE_WEIGHT
+            setattr(self,  '_credit_score', score)
+        return getattr(self, '_credit_score')
+
+    @property
+    def credit(self):
+        return self.credit_score * 100
+
+    SURVEY_WEIGHT, REVIEW_WEIGHT, FUN_WEIGHT, FUN_LIKE_WEIGHT, FAVORITE_WEIGHT = 1/5, 1/5, 1/5, 1/5, 1/5
+
+    @property
+    def fun_score(self):
+        """
+        :return a float between 0 - 1:
+        """
+        if not hasattr(self, '_fun_score'):
+            score = self.fun_survey_score * self.SURVEY_WEIGHT + self.fun_review_score * self.REVIEW_WEIGHT
+            if self.views_count:
+                fun_count_score = self.fun_count / self.views_count
+                score += fun_count_score * self.FUN_WEIGHT
+                like_score = self.likes_count / self.views_count
+                score += like_score * self.FUN_LIKE_WEIGHT
+                favorite_score = self.favorites_count / self.views_count
+                score += favorite_score * self.FAVORITE_WEIGHT
+            setattr(self,  '_fun_score', score)
+
+        return getattr(self, '_fun_score')
+
+    @property
+    def overall_score(self):
+        return
+
 
 class Rating(models.Model):
     id = BigAutoField(primary_key=True)
@@ -308,10 +397,10 @@ class Rating(models.Model):
     RATE_TO_FIELD = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'}
     RATE_TO_FIELD = {key: value + '_count' for key, value in RATE_TO_FIELD.items()}
 
-    def poster_rating(self):
-        name = '_poster_rating'
+    def poster_statistics(self):
+        name = '_poster_statistics'
         if not hasattr(self, name):
-            setattr(self, name, PosterRating.objects.get(poster_id=self.poster_id))
+            setattr(self, name, PosterStatistics.objects.get(poster_id=self.poster_id))
         return getattr(self, name)
 
     def save(self, **kwargs):
@@ -321,7 +410,7 @@ class Rating(models.Model):
                 old_rating = Rating.objects.filter(pk=self.pk).only('rate').select_for_update()
                 old_rating = old_rating[0]
             super(Rating, self).save(**kwargs)
-            queryset = PosterRating.objects.filter(pk=self.poster_id)
+            queryset = PosterStatistics.objects.filter(pk=self.poster_id)
             if adding:
                 fields = {'ratings_count': 1, self.RATE_TO_FIELD[self.rate]: 1, 'ratings_total': self.rate}
                 DBUtils.increase_counts(queryset, fields)
