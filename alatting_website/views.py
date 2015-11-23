@@ -32,8 +32,13 @@ class PosterView(DetailView):
         obj = super(PosterView, self).get_object(queryset)
         # limit 20
         # obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
+        # stats
         queryset = PosterStatistics.objects.filter(pk=obj.pk)
-        DBUtils.increase_counts(queryset, {'views_count': 1})
+        fields = dict(views_count=1)
+        if 'scan' in self.request.GET:
+            fields['scans_count'] = 1
+        DBUtils.increase_counts(queryset, fields)
+        # orgnize elements
         images = dict()
         videos = dict()
         for poster_image in obj.poster_images.all():
@@ -178,6 +183,7 @@ class PosterCodeView(View):
         response = HttpResponse(content_type='image/png')
         url = request.scheme + '://' + request.get_host()
         url += reverse('website:poster', kwargs={'pk': pk})
+        url += '?scan=1'
         QrCode.save_png(url, response)
         return response
 

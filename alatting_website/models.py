@@ -250,6 +250,7 @@ class PosterStatistics(models.Model):
     two_count = models.IntegerField(default=0)
     one_count = models.IntegerField(default=0)
     #
+    scans_count = models.IntegerField(default=0)
     views_count = models.IntegerField(default=0)
     likes_count = models.IntegerField(default=0)
     favorites_count = models.IntegerField(default=0)
