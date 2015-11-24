@@ -11,7 +11,7 @@ from utils.qrcode import QrCode
 from utils.clip import SvgClip
 from alatting_website.logic.poster_service import PosterService
 import datetime, pytz, json
-
+from collections import OrderedDict
 
 class PosterView(DetailView):
     template_name = 'website/poster.html'
@@ -83,11 +83,12 @@ class PosterView(DetailView):
         timezone = pytz.timezone(obj.lifetime_timezone)
         now = now.astimezone(timezone)
         day_now = now.strftime('%Y-%m-%d')
+        obj.day_now = day_now
         hours_available = False
         hours_info = 'Hours Today: Disabled'
-        hours_details = ''
+        hours_details = OrderedDict()
         try:
-            hours_all = json.loads(obj.lifetime_value)
+            hours_all = json.loads(obj.lifetime_value,object_pairs_hook=OrderedDict)
             hours = None
             if obj.lifetime_type == 'weekly':
                 """ e.g. {"Wednesday": {"disabled": 1, "time_start": "", "time_end": ""}, "Monday":
@@ -113,22 +114,22 @@ class PosterView(DetailView):
                             hours_available = True
 
             # extract details of hours
-            for day,day_hours in hours_all.items():
+            hours_detail = ''
+            for day, day_hours in hours_all.items():
                 if 'enabled' in day_hours and day_hours['enabled']:
                     if 'time_start' in day_hours and day_hours['time_start']:
-                        day_details = '<b>'+day+'<b/>: '+ day_hours['time_start'] + ' - '+day_hours['time_end']
+                        hours_detail = day_hours['time_start'] + ' - '+day_hours['time_end']
                     else:
-                        day_details = '<b>'+day+'<b/>' + ': 8:00 am - 6:00 pm'
+                        hours_detail =  '8:00 am - 6:00 pm'
                     if 'message'in day_hours and day_hours['message']:
-                        day_details = '<br/>' + day_hours['message']
+                        hours_detail += '<br/>' + day_hours['message']
                 else:
                     if 'time_start' in day_hours and day_hours['time_start']:
-                        day_details = '<b>'+day+'<b/>' + ': '+day_hours['time_start'] + ' - ' +\
-                                         day_hours['time_end'] + ' (closed temporarily)'
+                        hours_detail = day_hours['time_start'] + ' - ' +\
+                                                    day_hours['time_end'] + ' (closed temporarily)'
                     else:
-                        day_details = '<b>'+day+'<b/>' + ': closed'
-                hours_details += day_details
-                hours_details += '<br/>'
+                        hours_detail = 'closed'
+                hours_details[day] = hours_detail
         except ValueError:
                 None
         if hours_available:

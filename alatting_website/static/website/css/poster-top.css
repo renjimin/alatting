@@ -178,3 +178,16 @@ iframe.map {
     border:0;
     frameborder:0
 }
+table.hours-more-details {
+    margin: 0 auto;
+}
+table.hours-more-details th {
+    padding-right: 15px;
+}
+table.hours-more-details th, td {
+    padding-top: 5px;
+}
+div.poster-top-inform-more {
+    display:none;
+    padding-bottom: 15px;
+}

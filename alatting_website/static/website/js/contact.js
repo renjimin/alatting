@@ -26,4 +26,13 @@ $(document).ready(function () {
              $(target_map).hide('fast');
         }
     })
+    $('a.more-info').click(function(){
+        var more_info_target = $(this).parent().find('div.poster-top-inform-more');
+         if($(more_info_target).css('display') == 'none') {
+             $(more_info_target).show();
+         } else {
+             $(more_info_target).hide();
+         }
+    })
+
 });
