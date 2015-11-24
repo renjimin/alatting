@@ -156,6 +156,17 @@
                                             <div class="contact-info hours">
                                                 {{ object.hours }}
                                                 <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
+                                                <a href="#" class="more-info"><img
+                                                        src="{% static 'website/images/icons/more_icon.png' %}"></a>
+                                                <div class="poster-top-inform-more">
+                                                    <table class="hours-more-details">
+                                                     {% for day,day_hours in object.hours_details.items %}
+                                                        <tr>
+                                                            <th>{{ day }}</th><td>{{ day_hours|safe }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </table>
+                                                </div>
                                             </div>
                                             <div class="contact-info location">
                                                 {{ object.address_info }}
@@ -166,8 +177,8 @@
                                               &q={{ object.address_mapped }}" allowfullscreen>
                                                </iframe>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </div> <!-- end of poster top information -->
+                                    </div> <!-- end of poster top -->
                                 </div>
                             </div>
 
