@@ -59,7 +59,7 @@ class PosterFunSerializer(serializers.ModelSerializer):
 
 
 class SimpleStatisticsSerializer(serializers.Serializer):
-    poster_id = serializers.IntegerField()
+    pass  # poster_id = serializers.IntegerField(read_only=True)
 
 
 class ShareStatisticsSerializer(serializers.Serializer):
@@ -71,6 +71,16 @@ class ShareStatisticsSerializer(serializers.Serializer):
         ('google', 'Google'),
         ('email', 'Email'),
     )
-    poster_id = serializers.IntegerField()
-    name = serializers.ChoiceField(choices=MEDIAS)
+    # poster_id = serializers.IntegerField(read_only=True)
+    type = serializers.ChoiceField(choices=MEDIAS)
+
+
+class ContactStatisticsSerializer(serializers.Serializer):
+    MEDIAS = (
+        ('phone', 'Phone'),
+        ('email', 'Email'),
+        ('map', 'Map'),
+    )
+    # poster_id = serializers.IntegerField(read_only=True)
+    type = serializers.ChoiceField(choices=MEDIAS)
 

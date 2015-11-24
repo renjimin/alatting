@@ -129,7 +129,7 @@ app.controller('commentsController', ['$scope', '$http', function ($scope, $http
         comment._updating = true
         $http.put(comment.url, data={title: comment.title, content: comment.content})
             .then(function(response){
-                updated_comment = response.data
+                var updated_comment = response.data
                 angular.extend(comment, updated_comment)
                 comment._updating = false
                 comment._edit = 'editable'

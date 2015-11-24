@@ -1,7 +1,8 @@
 from django.contrib import admin
 from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, \
 Comment, Address, PosterPage, Rating, PosterStatistics
-from alatting_website.models import ActivityInvitation, BusinessMarketing, ProductSell, ExpertShow, Template, TemplateRegion
+from alatting_website.models import ActivityInvitation, BusinessMarketing, ProductSell, ExpertShow, Template, \
+    TemplateRegion, PosterFun
 
 
 @admin.register(Person)
@@ -102,3 +103,9 @@ class RatingAdmin(admin.ModelAdmin):
 @admin.register(PosterStatistics)
 class PosterRatingAdmin(admin.ModelAdmin):
     list_display = [pair[0].name for pair in PosterStatistics._meta.get_concrete_fields_with_model()]
+
+
+@admin.register(PosterFun)
+class PosterFunAdmin(admin.ModelAdmin):
+    list_display = [pair[0].name for pair in PosterFun._meta.get_concrete_fields_with_model()]
+
