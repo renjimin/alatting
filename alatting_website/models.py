@@ -227,15 +227,53 @@ class PosterVideo(models.Model):
 
 
 class PosterLike(models.Model):
-    id = models.AutoField(primary_key=True)
-    poster = BigForeignKey(Poster)
-    user = models.ForeignKey(User)
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='poster_likes')
+    creator = models.ForeignKey(User)
+    liked = models.BooleanField(default=True)
 
     class Meta:
-        unique_together = ('poster', 'user')
+        unique_together = ('poster', 'creator')
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+    def save(self, **kwargs):
+        adding = self._state.adding
+        with transaction.atomic():
+            if not adding:
+                old_poster_like = PosterLike.objects.filter(pk=self.pk).only('liked').select_for_update()
+                old_poster_like = old_poster_like[0]
+            super(PosterLike, self).save(**kwargs)
+            queryset = PosterStatistics.objects.filter(pk=self.poster_id)
+            if adding:
+                fields = {'likes_count': 1}
+                DBUtils.increase_counts(queryset, fields)
+            elif old_poster_like.liked != self.liked:
+                if self.liked:
+                    likes_count = 1
+                else:
+                    likes_count = -1
+                DBUtils.increase_counts(queryset, {'likes_count': likes_count})
+
+
+class PosterFun(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='poster_funs')
+    ip_address = models.GenericIPAddressField()
+
+    class Meta:
+        unique_together = ('poster', 'ip_address')
+
+    def __str__(self):
+        return "{:d} -> {:s}".format(self.pk, self.ip_address)
+
+    def save(self, **kwargs):
+        if self._state.adding:
+            with transaction.atomic():
+                super(PosterFun, self).save(**kwargs)
+                queryset = PosterStatistics.objects.filter(pk=self.poster_id)
+                DBUtils.increase_counts(queryset, {'fun_count': 1})
 
 
 class PosterStatistics(models.Model):
