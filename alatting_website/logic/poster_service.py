@@ -3,6 +3,7 @@ import os
 import json
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from alatting_website.models import HistoryStatistics
 from .poster_render import PosterRender
 from utils.capture.screen_shot import ScreenShot
 
@@ -60,3 +61,8 @@ class PosterService:
             else:
                 pdf_url = image_url = None
         return image_url, pdf_url
+
+    @classmethod
+    def collect_statistics(cls):
+        count = HistoryStatistics.refresh_statistics()
+        return count

@@ -13,6 +13,7 @@ from alatting_website.logic.poster_service import PosterService
 import datetime, pytz, json
 from collections import OrderedDict
 
+
 class PosterView(DetailView):
     template_name = 'website/poster.html'
     model = Poster
@@ -20,7 +21,7 @@ class PosterView(DetailView):
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_related('music', 'creator__person', 'poster_statistics').\
+        queryset = queryset.select_related('music', 'creator__person', 'poster_statistics', 'history_statistics').\
             prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions',)\
             .select_subclasses()
         user = self.request.user
@@ -179,6 +180,13 @@ class PosterView(DetailView):
 
 class IndexView(TemplateView):
     template_name = 'website/index.html'
+
+
+class TestView(View):
+    def get(self, request):
+        from alatting_website.logic.poster_service import PosterService
+        ret = PosterService.collect_statistics()
+        return HttpResponse('OK: %s' % ret)
 
 
 class DemoView(TemplateView):

@@ -182,6 +182,7 @@ class Poster(models.Model):
         super(Poster, self).save(**kwargs)
         if adding:
             self.poster_statistics = PosterStatistics.objects.create(poster=self)
+            self.history_statistics = HistoryStatistics.objects.create(poster=self)
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -276,8 +277,8 @@ class PosterFun(models.Model):
                 DBUtils.increase_counts(queryset, {'fun_count': 1})
 
 
-class PosterStatistics(models.Model):
-    poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
+class Statistics(models.Model):
+    # poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
     created_at = models.DateTimeField(auto_now_add=True)
     # rating
     ratings_count = models.IntegerField(default=0)
@@ -310,6 +311,9 @@ class PosterStatistics(models.Model):
     email_shared_count = models.IntegerField(default=0)
 
     MIN_PERCENT = 30
+
+    class Meta:
+        abstract = True
 
     def count_max(self):
         if not hasattr(self, '_count_max'):
@@ -346,6 +350,7 @@ class PosterStatistics(models.Model):
     def __str__(self):
         return "{:d}".format(self.pk)
 
+    @property
     def ratings_average(self):
         if self.ratings_count:
             value = self.ratings_total / self.ratings_count
@@ -421,9 +426,101 @@ class PosterStatistics(models.Model):
 
         return getattr(self, '_fun_score')
 
+    POPULAR_WEIGHT, FUN_WEIGHT, CREDIT_WEIGHT = 1/3, 1/3, 1/3
     @property
     def overall_score(self):
+        score = self.popular_score * self.POPULAR_WEIGHT + self.credit_score * self.CREDIT_WEIGHT + self.fun_score * \
+            self.FUN_WEIGHT
         return
+
+
+class PosterStatistics(Statistics):
+    poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
+
+
+class HistoryStatistics(Statistics):
+    poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='history_statistics')
+
+    REFRESH_LIMIT = 100
+
+    def favortes_change(self):
+        other = self.poster.poster_statistics
+        change = other.favorites_count - self.favorites_count
+        return change
+
+    def views_change(self):
+        other = self.poster.poster_statistics
+        change = other.views_count - self.views_count
+        return change
+
+    def likes_change(self):
+        other = self.poster.poster_statistics
+        change = other.likes_count - self.likes_count
+        return change
+
+    def shares_change(self):
+        other = self.poster.poster_statistics
+        change = other.shares_count - self.shares_count
+        return change
+
+    def fun_count_change(self):
+        other = self.poster.poster_statistics
+        change = other.fun_count - self.fun_count
+        return change
+
+    def rating_change(self):
+        other = self.poster.poster_statistics
+        change = other.ratings_average - self.ratings_average
+        return change
+
+    def popular_change(self):
+        other = self.poster.poster_statistics
+        if self.popular_score != 0:
+            change = (other.popular_score - self.popular_score) / self.popular_score
+        else:
+            change = 1
+        return change
+
+    def credit_change(self):
+        other = self.poster.poster_statistics
+        if self.popular_score != 0:
+            change = (other.credit_core - self.credit_score) / self.credit_score
+        else:
+            change = 1
+        return change
+
+    def fun_change(self):
+        other = self.poster.poster_statistics
+        if self.popular_score != 0:
+            change = (other.fun_score - self.fun_score) / self.fun_score
+        else:
+            change = 1
+        return change
+
+    def score_change(self):
+        other = self.poster.poster_statistics
+        change = other.overall_score - self.overall_score
+        return change
+
+    @classmethod
+    def refresh_statistics(cls):
+        queryset = HistoryStatistics.objects.all().select_related('poster__poster_statistics').order_by('poster')
+        offset = 0
+        fields = cls._meta.get_fields()
+        while True:
+            histories = queryset[offset:offset + cls.REFRESH_LIMIT]
+            offset += len(histories)
+            if histories:
+                for history in histories:
+                    poster_statistics = history.poster.poster_statistics
+                    for field in fields:
+                        key = field.name
+                        value = getattr(poster_statistics, key)
+                        setattr(history, key, value)
+                    history.save()
+            else:
+                break
+        return offset
 
 
 class Rating(models.Model):
