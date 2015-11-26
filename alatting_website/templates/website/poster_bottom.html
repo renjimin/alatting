@@ -247,7 +247,7 @@
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>{{ object.poster_statistics.ratings_average }}</div>
+                                                        <div>{{ object.poster_statistics.ratings_average | floatformat:1 }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
                                                             <span>{{ object.history_statistics.ratings_average_change | floatformat:1 }}</span>
