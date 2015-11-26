@@ -12,7 +12,7 @@
     Doughnut.VERSION = '1.0'
 
     Doughnut.DEFAULTS = {
-        total: 50,
+        total: null,
         percent: 50,
         innerCutout: 75,
         color: 'red',
@@ -41,7 +41,9 @@
                 maintainAspectRatio: false,
                 segmentShowStroke : false,
                 onAnimationProgress: function(progress){
-                    that.titleElement.innerHTML = '+' + Math.round(progress * options.total)
+                    if(options.total) {
+                        that.titleElement.innerHTML = '+' + Math.round(progress * options.total)
+                    }
                 }
             });
     }

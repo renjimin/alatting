@@ -96,7 +96,7 @@
                     <img alt="icon" src="{% static 'website/images/icons/feedback.png' %}">
                 </div>
                 <!-- print -->
-                <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
+                <div href="#" class=" comments-btn bottom-btn btn btn-navbar btn-icon-only"
                         data-content='<div class="btn-group justified">
                                     <a href="{{ object.pdf_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                         <img src="{% static 'website/images/icons/pdf.png' %}"></a>
@@ -118,39 +118,51 @@
                                      <img src="{% static 'website/images/icons/stats_small.png' %}">
                                      <span> STATS</span>
                                 </div>'
-                     data-content='<div class="equal-justified stats-graph">
-                                   <div class="stats-pop">
-                                       <div class="stats-graph-label">Popularity</div>
-                                       <div class="doughnut" data-percent="30" data-inner-cutout="65" data-color="#ffe377"
-                                       data-total="20"
+                     data-content='<div class="stats-graph">
+                                     <div class="stats-fun">
+                                       <div class="stats-graph-label">Fun</div>
+                                       <div class="doughnut" data-percent="{{object.history_statistics.fun_change_percent}}" data-inner-cutout="65" data-color="#65cefe" data-total1="3"
                                             data-background-color="#4d5154">
                                             <canvas class="doughnut-canvas"></canvas>
-                                            <div class="doughnut-title"><p>+20</p></div>
+                                            <div class="doughnut-title"><p>{{ object.poster_statistics.fun_score | floatformat:1 }}</p></div>
                                         </div>
-                                        <div class="stats-graph-value">{{ object.poster_statistics.popular_score }}</div>
+                                        <!--div class="stats-graph-value">{{ object.poster_statistics.credit | floatformat:1 }}%</div-->
+                                     </div>
+                                   </div>
+
+                                 <div class="equal-justified">
+                                   <div class="stats-pop">
+                                       <div class="doughnut" data-percent="{{object.history_statistics.popular_change_percent}}" data-inner-cutout="65" data-color="#ffe377"
+                                       data-total1="20" data-background-color="#4d5154">
+                                            <canvas class="doughnut-canvas"></canvas>
+                                            <div class="doughnut-title"><p>{{ object.poster_statistics.popular_score | floatformat:0 }}</p></div>
+                                        </div>
+                                        <div class="stats-graph-label">Popularity</div>
+                                        <!--div class="stats-graph-value">{{ object.poster_statistics.popular_score }}</div-->
                                     </div>
                                     <div class="stats-credit">
-                                       <div class="stats-graph-label">Credit</div>
-                                       <div class="doughnut" data-percent="83" data-inner-cutout="65" data-color="#6ffee7" data-total="3"
-                                            data-background-color="#4d5154">
+                                       <div class="doughnut" data-percent="{{object.history_statistics.credit_change_percent}}" data-inner-cutout="65" data-color="#6ffee7"
+                                       data-total1="3" data-background-color="#4d5154">
                                             <canvas class="doughnut-canvas"></canvas>
-                                            <div class="doughnut-title"><p>+3</p></div>
+                                            <div class="doughnut-title"><p>{{ object.poster_statistics.credit_score | floatformat:1 }}</p></div>
                                         </div>
-                                        <div class="stats-graph-value">{{ object.poster_statistics.credit | floatformat:1 }}%</div>
+                                        <div class="stats-graph-label">Credit</div>
+                                        <!--div class="stats-graph-value">{{ object.poster_statistics.credit | floatformat:1 }}%</div-->
                                     </div>
                                  </div>
+
                                  <div class="stats-types">
                                      <div class="equal-justified">
                                          <div>
                                              <div class="justified">
-                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/star.png' %}"></div>
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/favorite.png' %}"></div>
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>{{ object.poster_statistics.ratings_average | floatformat:1 }}</div>
+                                                        <div>{{ object.poster_statistics.favorites_count}}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>.2</span>
+                                                            <span>{{ object.history_statistics.favortes_change}}</span>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -166,7 +178,7 @@
                                                         <div>{{ object.poster_statistics.views_count }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>13</span>
+                                                            <span>{{ object.history_statistics.views_count_change}}</span>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -175,6 +187,7 @@
                                          </div>
                                      </div>
                                      <div class="stats-hr"> </div>
+
                                      <div class="equal-justified">
                                          <div>
                                              <div class="justified">
@@ -182,10 +195,10 @@
                                                  <div class="stats-type-sep"></div>
                                                  <div class="stats-type-numbers">
                                                     <div class="equal-justified">
-                                                        <div>{{ object.poster_statistics.likes_count }}</div>
+                                                        <div>{{ object.poster_statistics.likes_count}}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>6</span>
+                                                            <span>{{ object.history_statistics.likes_count_change}}</span>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -201,7 +214,43 @@
                                                         <div>{{ object.poster_statistics.shares_count }}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>5</span>
+                                                            <span>{{ object.history_statistics.shares_count_change}}</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div class="stats-type-sep"></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="stats-hr"> </div>
+
+                                     <div class="equal-justified">
+                                         <div>
+                                             <div class="justified">
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/fun.png' %}"></div>
+                                                 <div class="stats-type-sep"></div>
+                                                 <div class="stats-type-numbers">
+                                                    <div class="equal-justified">
+                                                        <div>{{ object.poster_statistics.fun_count }}</div>
+                                                        <div class="stats-type-increase">
+                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                                            <span>{{ object.history_statistics.fun_count_change}}</span>
+                                                        </div>
+                                                    </div>
+                                                 </div>
+                                                 <div class="stats-type-sep"></div>
+                                             </div>
+                                         </div>
+                                         <div>
+                                             <div class="justified">
+                                                 <div class="stats-type-icon"><img src="{% static 'website/images/icons/rate.png' %}"></div>
+                                                 <div class="stats-type-sep"></div>
+                                                 <div class="stats-type-numbers">
+                                                    <div class="equal-justified">
+                                                        <div>{{ object.poster_statistics.ratings_average }}</div>
+                                                        <div class="stats-type-increase">
+                                                            <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                                            <span>{{ object.history_statistics.ratings_average_change | floatformat:1 }}</span>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -219,6 +268,7 @@
             </div></div></div>
             <!-- preload images -->
             <div style="display: none;">
+                <img src="{% static 'website/images/icons/favorite.png' %}">
                 <img src="{% static 'website/images/icons/eye.png' %}">
                 <img src="{% static 'website/images/icons/like.png' %}">
                 <img src="{% static 'website/images/icons/pdf.png' %}">

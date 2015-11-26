@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'alatting_website',
     'alatting_admin',
     'django.contrib.humanize',
+    'djcelery',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -138,5 +139,25 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR + STATIC_URL
 
+# REST_FRAMEWORK
+REST_FRAMEWORK = {
 
-from utils.qrcode import QrCode
+}
+
+# login
+LOGIN_REDIRECT_URL = '/'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
+# CELERY
+from celery.schedules import crontab
+CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERYBEAT_SCHEDULE = {
+    'refresh-poster-everyday': {
+        'task': 'alatting_website.tasks.poster',
+        'schedule': crontab(hour=1, minute=58),
+    },
+}
+# import djcelery
+# djcelery.setup_loader()
+
+from alatting import post_init

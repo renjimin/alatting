@@ -443,22 +443,22 @@ class HistoryStatistics(Statistics):
 
     REFRESH_LIMIT = 100
 
-    def favortes_change(self):
+    def favortes_count_change(self):
         other = self.poster.poster_statistics
         change = other.favorites_count - self.favorites_count
         return change
 
-    def views_change(self):
+    def views_count_change(self):
         other = self.poster.poster_statistics
         change = other.views_count - self.views_count
         return change
 
-    def likes_change(self):
+    def likes_count_change(self):
         other = self.poster.poster_statistics
         change = other.likes_count - self.likes_count
         return change
 
-    def shares_change(self):
+    def shares_count_change(self):
         other = self.poster.poster_statistics
         change = other.shares_count - self.shares_count
         return change
@@ -468,10 +468,15 @@ class HistoryStatistics(Statistics):
         change = other.fun_count - self.fun_count
         return change
 
-    def rating_change(self):
+    def ratings_average_change(self):
         other = self.poster.poster_statistics
         change = other.ratings_average - self.ratings_average
         return change
+
+    @classmethod
+    def compute_change_percent(cls, value):
+        value = math.fabs(value * 100)
+        return min(value, 100)
 
     def popular_change(self):
         other = self.poster.poster_statistics
@@ -481,26 +486,38 @@ class HistoryStatistics(Statistics):
             change = 1
         return change
 
+    def popular_change_percent(self):
+        return self.compute_change_percent(self.popular_change())
+
     def credit_change(self):
         other = self.poster.poster_statistics
-        if self.popular_score != 0:
-            change = (other.credit_core - self.credit_score) / self.credit_score
+        if self.credit_score != 0:
+            change = (other.credit_score - self.credit_score) / self.credit_score
         else:
             change = 1
         return change
 
+    def credit_change_percent(self):
+        return self.compute_change_percent(self.credit_change())
+
     def fun_change(self):
         other = self.poster.poster_statistics
-        if self.popular_score != 0:
+        if self.fun_score != 0:
             change = (other.fun_score - self.fun_score) / self.fun_score
         else:
             change = 1
         return change
 
+    def fun_change_percent(self):
+        return self.compute_change_percent(self.fun_change())
+
     def score_change(self):
         other = self.poster.poster_statistics
         change = other.overall_score - self.overall_score
         return change
+
+    def score_change_percent(self):
+        return self.compute_change_percent(self.score_change())
 
     @classmethod
     def refresh_statistics(cls):

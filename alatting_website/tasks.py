@@ -7,6 +7,9 @@ from alatting_website.logic.poster_service import PosterService
 # celery -A alatting worker -l info (for develop)
 # http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html#daemonizing
 
+# /etc/init.d/celeryd start
+# /etc/init.d/celerybeat start
+
 
 @shared_task
 def poster():

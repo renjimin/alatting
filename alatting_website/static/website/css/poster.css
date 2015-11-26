@@ -259,6 +259,10 @@
     margin-bottom: 2%;
 }
 
+.stats-submenu .stats-fun {
+    color: #65cefe;
+}
+
 .stats-submenu .stats-pop {
     color: #ffe377;
 }
@@ -274,15 +278,24 @@
     margin-top: 10%;
     margin-bottom: 5%;
 }
+.stats-submenu .stats-fun {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
 .stats-submenu .doughnut-title {
-    font-size: 150%;
+    font-size: 100%;
 }
 
 .stats-submenu .stats-graph-label {
     font-size: 70%;
     text-align: center;
-    margin-top: 8%;
+    margin-bottom: 8%;
     color: white;
+}
+
+.stats-fun .stats-graph-label {
+    padding-top: 8%;
 }
 
 .stats-submenu .stats-graph-value {
