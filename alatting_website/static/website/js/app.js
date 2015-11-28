@@ -56,6 +56,10 @@ app.directive('initComment', function ($compile) {
     };
 });
 
+app.controller('MainController', function(){
+
+});
+
 app.controller('commentsController', ['$scope', '$http', function ($scope, $http) {
     var next = null
     var baseURL = null

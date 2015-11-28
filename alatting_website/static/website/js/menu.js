@@ -97,3 +97,36 @@ function ratingRate(rate){
         }
     })
 }
+
+function shared(type){
+    $.post(sharedURL, {type: type}).done(function(object){
+    }).fail(function(jqXHR){
+    })
+}
+
+function contacted(type){
+    $.post(contactedURL, {type: type}).done(function(object){
+    }).fail(function(jqXHR){
+    })
+}
+
+function liked(){
+    $.post(likedURL).done(function(object){
+    }).fail(function(jqXHR){
+        if(jqXHR.status == 401 || jqXHR.status == 403){
+            window.location.href = loginURL
+        }
+    })
+}
+
+function favored(){
+    $.post(favoredURL).done(function(object){
+    }).fail(function(jqXHR){
+    })
+}
+
+function fun(){
+    $.post(funURL).done(function(object){
+    }).fail(function(jqXHR){
+    })
+}

@@ -14,10 +14,14 @@
     <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
-        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var auth_user_id =
-        {% firstof request.user.id "null"%}
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
+        var auth_user_id = {% firstof request.user.id "null"%}
     </script>
 {% endblock %}
 

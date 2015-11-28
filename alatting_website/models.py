@@ -427,11 +427,12 @@ class Statistics(models.Model):
         return getattr(self, '_fun_score')
 
     POPULAR_WEIGHT, FUN_WEIGHT, CREDIT_WEIGHT = 1/3, 1/3, 1/3
+
     @property
     def overall_score(self):
         score = self.popular_score * self.POPULAR_WEIGHT + self.credit_score * self.CREDIT_WEIGHT + self.fun_score * \
             self.FUN_WEIGHT
-        return
+        return score
 
 
 class PosterStatistics(Statistics):
@@ -512,6 +513,14 @@ class HistoryStatistics(Statistics):
         return self.compute_change_percent(self.fun_change())
 
     def score_change(self):
+        other = self.poster.poster_statistics
+        if self.overall_score != 0:
+            change = (other.overall_score - self.overall_score) / self.overall_score
+        else:
+            change = 1
+        return change
+
+    def score_total_change(self):
         other = self.poster.poster_statistics
         change = other.overall_score - self.overall_score
         return change

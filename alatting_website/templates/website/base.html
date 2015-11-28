@@ -1,5 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
 <head>
     <!-- favicons -->
@@ -56,7 +55,7 @@
     {% endblock %}
     {% block head_more %}{% endblock %}
 </head>
-<body ng-app="PosterApp">
+<body ng-app="PosterApp" ng-controller="MainController">
 {% block body_start %}{% endblock %}
 {% block content %}{% endblock %}
 {% block body_end %}{% endblock %}

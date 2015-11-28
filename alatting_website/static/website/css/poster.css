@@ -271,6 +271,44 @@
     color: #6ffee7;
 }
 
+.stats-submenu .stats-graph, .stats-submenu .pop-credit{
+    position: relative;
+}
+
+.stats-submenu .stats-graph{
+    padding-bottom: 6%;
+}
+
+.pop-credit .dots{
+    width: 14%;
+    position: absolute;
+    left: 43%;
+    top: 27%;
+}
+
+.stats-graph .left-dots{
+    width: 14%;
+    position: absolute;
+    left: 30%;
+    bottom: -10%;
+    transform: rotate(-60deg);
+}
+
+.stats-graph .right-dots{
+    width: 14%;
+    position: absolute;
+    right: 30%;
+    bottom: -10%;
+    transform: rotate(60deg);
+}
+
+.stats-graph .right-btn{
+    position: absolute;
+    width: 20%;
+    right: 0%;
+    top: 5%;
+}
+
 .stats-submenu .doughnut {
     width: 100%;
     padding-top: 20%;

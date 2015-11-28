@@ -36,3 +36,5 @@ CELERYD_GROUP="root"
 # If enabled pid and log directories will be created if missing,
 # and owned by the userid/group configured.
 CELERY_CREATE_DIRS=1
+environment=C_FORCE_ROOT="true"
+
