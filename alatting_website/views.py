@@ -115,7 +115,6 @@ class PosterView(DetailView):
                             hours_available = True
 
             # extract details of hours
-            hours_detail = ''
             for day, day_hours in hours_all.items():
                 if 'enabled' in day_hours and day_hours['enabled']:
                     if 'time_start' in day_hours and day_hours['time_start']:
@@ -143,6 +142,8 @@ class PosterView(DetailView):
         addr = obj.address
         obj.address_info = addr.address1 + ', ' + addr.city + ', ' + addr.state + ' ' + addr.post_code
         obj.address_mapped = (addr.address1 + ','+addr.city + ' '+addr.state).replace(' ', '+')
+        obj.description_first_line = obj.short_description[:60]
+        obj.description_others = obj.short_description[60:]
 
         return obj
 

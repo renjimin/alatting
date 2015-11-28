@@ -30,9 +30,20 @@ $(document).ready(function () {
         var more_info_target = $(this).parent().find('div.poster-top-inform-more');
          if($(more_info_target).css('display') == 'none') {
              $(more_info_target).show();
+             $(more_info_target).parent().addClass("expanded");
          } else {
              $(more_info_target).hide();
+             $(more_info_target).parent().removeClass("expanded");
          }
     })
-
+    $(".expander").click(function() {
+        if ($(this).hasClass("expander")) {
+            $(this).removeClass("expander");
+            $(this).addClass("expanded");
+        }
+        else {
+            $(this).removeClass("expanded");
+            $(this).addClass("expander");
+        }
+    });
 });
