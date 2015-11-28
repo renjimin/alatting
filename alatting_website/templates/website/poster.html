@@ -143,7 +143,11 @@
                                         <!-- end of poster-top-main -->
                                         <div class="poster-top-information">
                                             <div class="description">
-                                                <div>{{ object.short_description }}</div>
+                                                <div class="expander">
+                                                    {{ object.description_first_line }}
+                                                    <span class="dot-expander">...</span>
+                                                    <br/>{{ object.description_others }}
+                                                </div>
                                             </div>
                                             <div class="contact-info phone">
                                                 {{ object.mobile }}

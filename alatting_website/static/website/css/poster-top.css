@@ -191,3 +191,15 @@ div.poster-top-inform-more {
     display:none;
     padding-bottom: 15px;
 }
+.expander {
+    height: 1em;
+    overflow: hidden;
+    cursor: pointer;
+}
+.expanded {
+    height: auto;
+    overflow:visible;
+    cursor: pointer;
+    padding-top: 27px;
+    padding-bottom: 27px;
+}
