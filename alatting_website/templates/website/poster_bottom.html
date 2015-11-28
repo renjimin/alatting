@@ -119,7 +119,7 @@
                                      <span class="stats-page-0"> STATS</span>
                                      <span class="stats-page-1"> SCORE</span>
                                 </div>'
-                     data-content='<div class="stats-page-0">
+                     data-content='<div><div class="stats-page-0">
                                  <div class="stats-graph">
                                      <div class="right-btn btn btn-icon-only" onclick="statsSwitchPage(arguments[0] || window.event, 1)">
                                         <img alt="stats_arrow" src="{% static 'website/images/icons/stats_arrow.png' %}">
@@ -172,7 +172,7 @@
                                                         <div>{{ object.poster_statistics.favorites_count}}</div>
                                                         <div class="stats-type-increase">
                                                             <img src="{% static 'website/images/icons/up_arrow.png' %}">
-                                                            <span>{{ object.history_statistics.favortes_change}}</span>
+                                                            <span>{{ object.history_statistics.favortes_count_change}}</span>
                                                         </div>
                                                     </div>
                                                  </div>
@@ -271,34 +271,70 @@
                                  </div>
                              </div>
 
-                             <div class="stats-page-1 stats-overall" style="display:none;">
+                             <div class="stats-page-1 stats-overall">
                                  <div class="left-btn btn btn-icon-only" onclick="statsSwitchPage(arguments[0] || window.event, 0)">
                                     <img alt="stats_arrow" class="stats_arrow_left" src="{% static 'website/images/icons/stats_arrow.png' %}">
                                  </div>
                                  <div class="stats-score">
-                                    <div class="stats-graph-label">Fun</div>
-                                    <div class="doughnut" data-percent="{{object.history_statistics.score_change_percent}}" data-inner-cutout="65" data-color="#65cefe" data-total1="3"
+                                    <div class="doughnut" data-percent="{{object.history_statistics.score_change_percent}}" data-inner-cutout="65" data-color="#ffe377" data-total1="3"
                                         data-background-color="#4d5154">
                                         <canvas class="doughnut-canvas"></canvas>
-                                        <div class="doughnut-title"><p></p></div>
-                                    </div
+                                        <div class="doughnut-title"><p>
+                                         {% if object.poster_statistics.medal_index == 0%}
+                                            <img class="medal" src="{% static 'website/images/icons/medal_bronze.png' %}">
+                                         {% elif object.poster_statistics.medal_index == 1%}
+                                            <img class="medal" src="{% static 'website/images/icons/medal_silver.png' %}">
+                                         {% elif object.poster_statistics.medal_index == 2%}
+                                            <img class="medal" src="{% static 'website/images/icons/medal_gold.png' %}">
+                                         {% elif object.poster_statistics.medal_index == 3%}
+                                            <img class="medal" src="{% static 'website/images/icons/medal_diamond.png' %}">
+                                         {% endif %}
+                                        </p></div>
+                                    </div>
+                                    <div class="stats-graph-label">
+                                    {% if object.poster_statistics.medal_index == 0%}
+                                            <img class="cup"  src="{% static 'website/images/icons/cup_bronze.png' %}">
+                                            <span>Bronze</span>
+                                         {% elif object.poster_statistics.medal_index == 1%}
+                                            <img class="cup"  src="{% static 'website/images/icons/cup_silver.png' %}">
+                                            <span>Silver</span>
+                                         {% elif object.poster_statistics.medal_index == 2%}
+                                            <img class="cup"  src="{% static 'website/images/icons/cup_gold.png' %}">
+                                            <span>Gold</span>
+                                         {% elif object.poster_statistics.medal_index == 3%}
+                                            <img class="cup"  src="{% static 'website/images/icons/cup_diamond.png' %}">
+                                            <span>Diamond</span>
+                                         {% endif %}
+                                    </div>
                                  </div>
 
                                  <div class="equal-justified">
-                                     <div>
+                                     <div class="stats-score-name">
                                          Current Score
                                      </div>
-                                     <div>
+                                     <div class="stats-score-sep"></div>
+                                     <div class="stats-score-numbers">
                                         <div class="equal-justified">
                                             <div>{{ object.poster_statistics.overall_score | floatformat:0 }}</div>
-                                            <div class="stats-type-increase">
+                                            <div class="stats-score-increase">
                                                 <img src="{% static 'website/images/icons/up_arrow.png' %}">
                                                 <span>{{object.history_statistics.score_total_change | floatformat:0 }}</span>
                                             </div>
                                         </div>
                                      </div>
                                  </div>
-                             </div>'
+                                 <div class="stats-hr"> </div>
+
+                                 <div class="equal-justified">
+                                     <div class="stats-score-name"">
+                                         Next Level
+                                     </div>
+                                     <div class="stats-score-sep"></div>
+                                     <div class="stats-score-numbers">
+                                        {{ object.poster_statistics.medal_next_score }}
+                                     </div>
+                                 </div>
+                             </div></div>'
 
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
@@ -308,8 +344,10 @@
             </div></div></div>
             <script>
                 function statsSwitchPage(event, index){
-                    $('.stats-page-' + index).show()
-                    $('.stats-page-' + (1 - index)).hide()
+                    //$('.stats-page-' + index).show()
+                    $('.stats-page-' + index).css('visibility', 'visible')
+                    //$('.stats-page-' + (1 - index)).hide()
+                    $('.stats-page-' + (1 - index)).css('visibility', 'hidden')
                     event.stopPropagation();
                 }
             </script>
@@ -320,5 +358,9 @@
                 <img src="{% static 'website/images/icons/like.png' %}">
                 <img src="{% static 'website/images/icons/pdf.png' %}">
                 <img src="{% static 'website/images/icons/email.png' %}">
+                <img class="medal" src="{% static 'website/images/icons/medal_bronze.png' %}">
+                <img class="medal" src="{% static 'website/images/icons/medal_silver.png' %}">
+                <img class="medal" src="{% static 'website/images/icons/medal_gold.png' %}">
+                <img class="medal" src="{% static 'website/images/icons/medal_diamond.png' %}">
             </div>
         </div>

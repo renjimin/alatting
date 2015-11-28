@@ -99,6 +99,7 @@
 
 .bottom-btn img{
     height: 50%;
+    max-height: 50%;
     max-width: none;
 }
 
@@ -390,6 +391,74 @@
 }
 
 .stats-type-increase span {
+    vertical-align: baseline;
+    /*font-size: 130%;*/
+}
+
+/* second page */
+
+.stats-submenu .stats-score-sep {
+    width: 1%;
+}
+
+.stats-submenu .stats-score-name {
+    width: 49.5%;
+    text-align: center;
+    background-color: #6b6e73;
+    padding: 3% 0 3% 0;
+    color: #b3b4b6;
+}
+
+.stats-submenu .stats-score-numbers {
+    width: 49.5%;
+    background-color: #868a8d;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 70%;
+    line-height: 1;
+}
+
+.stats-submenu .stats-overall {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+}
+
+.stats-overall .left-btn {
+    position: absolute;
+    width: 20%;
+    top: -5%;
+    transform: rotate(180deg);
+}
+
+.stats-score {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stats-score .medal{
+    width: 40%;
+}
+
+.stats-score .cup{
+    width: 10%;
+}
+
+.stats-score-increase {
+    color: #ffe377;
+    text-align: left;
+}
+
+.stats-score-increase img{
+    width: 35%;
+    vertical-align: baseline;
+    display: inline;
+}
+
+.stats-score-increase span {
     vertical-align: baseline;
     font-size: 130%;
 }

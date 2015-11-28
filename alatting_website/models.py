@@ -434,6 +434,27 @@ class Statistics(models.Model):
             self.FUN_WEIGHT
         return score
 
+    Medal_Levels = (1000, 10000, 100000, 1000000)
+
+    @property
+    def medal_info(self):
+        score = self.overall_score
+        last = None
+        for index in range(len(self.Medal_Levels) - 1, -1, -1):
+            item = self.Medal_Levels[index]
+            if score >= item:
+                break
+            last = item
+        return index, last
+
+    @property
+    def medal_index(self):
+        return self.medal_info[0]
+
+    @property
+    def medal_next_score(self):
+        return self.medal_info[1]
+
 
 class PosterStatistics(Statistics):
     poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
@@ -441,6 +462,7 @@ class PosterStatistics(Statistics):
 
 class HistoryStatistics(Statistics):
     poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='history_statistics')
+    updated_at = models.DateTimeField(auto_now=True)
 
     REFRESH_LIMIT = 100
 
