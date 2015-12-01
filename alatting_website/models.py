@@ -498,8 +498,10 @@ class HistoryStatistics(Statistics):
 
     @classmethod
     def compute_change_percent(cls, value):
-        value = math.fabs(value * 100)
-        return min(value, 100)
+        value *= 100
+        value = min(value, 100)
+        value = max(value, 0)
+        return value
 
     def popular_change(self):
         other = self.poster.poster_statistics
