@@ -191,7 +191,7 @@ class TestView(View):
 
 
 class DemoView(TemplateView):
-    template_name = 'demo/bubble.html'
+    template_name = 'demo/call_sms.html'
 
 from utils.capture.screen_shot import ScreenShot
 
