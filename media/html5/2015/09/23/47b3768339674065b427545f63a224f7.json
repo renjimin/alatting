@@ -118,6 +118,70 @@
           "content": "Come to join us!"
         }
       ]
+    },
+
+    {
+      "regions": {
+        "top": {
+          "widget": {
+            "type": "image",
+            "image_name": "image_3",
+            "name": "image_3"
+          }
+        },
+        "left-bottom": {
+          "widget": {
+            "type": "video",
+            "name": "video_1",
+            "video_name": "video_1"
+          }
+        },
+        "middle": {
+          "widget": {
+            "type": "slider",
+            "images": [
+              {
+                "image_name": "image_1"
+              },
+              {
+                "image_name": "image_2"
+              },
+              {
+                "image_name": "image_3"
+              },
+              {
+                "image_name": "image_4"
+              },
+              {
+                "image_name": "image_5"
+              },
+              {
+                "image_name": "image_6"
+              }
+            ],
+            "name": "slider_1"
+          }
+        },
+        "right-bottom": {
+          "widget": {
+            "type": "image",
+            "image_name": "image_1",
+            "name": "image_1"
+          }
+        }
+      },
+      "texts": [
+        {
+          "type": "text",
+          "name": "text_1",
+          "content": "This is our place!"
+        },
+        {
+          "type": "text",
+          "name": "text_2",
+          "content": "Come to join us!"
+        }
+      ]
     }
   ]
 }

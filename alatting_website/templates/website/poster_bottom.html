@@ -1,7 +1,7 @@
 {% load static %}
         <div class="bottom-nav navbar navbar-app navbar-absolute-bottom">
             <div class="bottom-ratio-frame center-block"><div class="bottom-ratio-wrapper"><div class="bottom-container">
-            <div class="bottom-menu btn-group justified" >
+            <div class="bottom-menu btn-group equal-justified" >
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                    data-content='<div class="btn-group justified">
                                     <a href="mailto:?{{ object.share.email | safe}}" onclick=&#39;shared("email")&#39
@@ -27,6 +27,7 @@
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
                     <img alt="icon" src="{% static 'website/images/icons/share.png' %}">
                 </div>
+                <!-- rating -->
                 <div href="#" class="bottom-btn btn btn-navbar btn-icon-only"
                      data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
                      data-title='<div class="equal-justified rate-info">
@@ -116,8 +117,8 @@
                      data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
                      data-title='<div class="stats-title">
                                      <img src="{% static 'website/images/icons/stats_small.png' %}">
-                                     <span class="stats-page-0"> STATS</span>
-                                     <span class="stats-page-1"> SCORE</span>
+                                     <span class="stats-title-0"> STATS</span>
+                                     <span class="stats-title-1" style="display:none"> SCORE</span>
                                 </div>'
                      data-content='<div><div class="stats-page-0">
                                  <div class="stats-graph">
@@ -344,9 +345,9 @@
             </div></div></div>
             <script>
                 function statsSwitchPage(event, index){
-                    //$('.stats-page-' + index).show()
+                    $('.stats-title-' + index).show()
                     $('.stats-page-' + index).css('visibility', 'visible')
-                    //$('.stats-page-' + (1 - index)).hide()
+                    $('.stats-title-' + (1 - index)).hide()
                     $('.stats-page-' + (1 - index)).css('visibility', 'hidden')
                     event.stopPropagation();
                 }

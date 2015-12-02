@@ -35,6 +35,8 @@ $(document).ready(function () {
             ratingRate(value)
         });
         $('.doughnut').doughnut();
+        //rate
+        updateRateUI()
     });
     popover.on('shown.bs.popover', function () {
         // make the top of the popover relative
@@ -73,24 +75,33 @@ $('body').on('click', function (e) {
     });
 });
 
+var poster_statistics = null
+
+function updateRateUI(){
+    if(!poster_statistics) return
+    var menu = $('.rate-submenu')
+    if(!menu.length) return
+    menu.find('.rate-rating').html(poster_statistics.ratings_average)
+    menu.find('.rating-count').html(poster_statistics.ratings_count)
+    menu.find('.rating-average').rating('update', poster_statistics.ratings_average)
+    menu.find('.rate-five').css('width', poster_statistics.five_percent + '%')
+    .html(poster_statistics.five_count)
+    menu.find('.rate-four').css('width', poster_statistics.four_percent + '%')
+    .html(poster_statistics.four_count)
+    menu.find('.rate-three').css('width', poster_statistics.three_percent + '%')
+    .html(poster_statistics.three_count)
+    menu.find('.rate-two').css('width', poster_statistics.two_percent + '%')
+    .html(poster_statistics.two_count)
+    menu.find('.rate-one').css('width', poster_statistics.one_percent + '%')
+    .html(poster_statistics.one_count)
+    menu.find('.rate-rate').rating('update', poster_statistics.rate)
+}
+
 function ratingRate(rate){
     $.post(ratingURL, {"rate": rate}).done(function(object){
-        var menu = $('.rate-submenu')
-        menu.find('.rate-rating').html(object.poster_statistics.ratings_average)
-        menu.find('.rating-count').html(object.poster_statistics.ratings_count)
-        menu.find('.rating-average').rating('update', object.poster_statistics.ratings_average)
-        menu.find('.rate-five').css('width', object.poster_statistics.five_percent + '%')
-        .html(object.poster_statistics.five_count)
-        menu.find('.rate-four').css('width', object.poster_statistics.four_percent + '%')
-        .html(object.poster_statistics.four_count)
-        menu.find('.rate-three').css('width', object.poster_statistics.three_percent + '%')
-        .html(object.poster_statistics.three_count)
-        menu.find('.rate-two').css('width', object.poster_statistics.two_percent + '%')
-        .html(object.poster_statistics.two_count)
-        menu.find('.rate-one').css('width', object.poster_statistics.one_percent + '%')
-        .html(object.poster_statistics.one_count)
-
-        //menu.find('.rate-rate').val(object.rate)
+        poster_statistics = object.poster_statistics
+        poster_statistics.rate = object.rate
+        updateRateUI()
     }).fail(function(jqXHR){
         if(jqXHR.status == 401 || jqXHR.status == 403){
             window.location.href = loginURL

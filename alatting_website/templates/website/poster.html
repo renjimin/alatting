@@ -87,20 +87,16 @@
                                                 </div>
                                                 <!-- end of poster-header -->
                                                 <div class="poster-tabs btn-group btn-group-justified"
-                                                     ui-state="activeTab" default="1">
-                                                    <div ui-set="{'activeTab': 1}" ui-class="{'active': activeTab == 1}"
+                                                     ui-state="activeTab" default="0">
+                                                    {% for page in object.pages %}
+                                                        <div ui-set="{'activeTab': {{ page.index }}}" ui-class="{'active': activeTab == {{ page.index }}}"
                                                          class="tab-btn-first tab-btn btn">
-                                                        <div>INTRO</div>
+                                                        <div>{{ page.name }}</div>
                                                     </div>
-
-                                                    <div ui-set="{'activeTab': 2}" ui-class="{'active': activeTab == 2}"
-                                                         class="tab-btn btn">
-                                                        <div>TEAM</div>
-                                                    </div>
-
-                                                    <div ui-class="{'active': false}" class="tab-btn btn">
+                                                    {% endfor %}
+                                                    <!--div ui-class="{'active': false}" class="tab-btn btn">
                                                         <div></div>
-                                                    </div>
+                                                    </div-->
                                                 </div>
                                                 <!-- end of poster-tabs -->
                                             </div>

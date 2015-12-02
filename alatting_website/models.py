@@ -280,6 +280,7 @@ class PosterFun(models.Model):
 class Statistics(models.Model):
     # poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     # rating
     ratings_count = models.IntegerField(default=0)
     ratings_total = models.IntegerField(default=0)
@@ -462,7 +463,6 @@ class PosterStatistics(Statistics):
 
 class HistoryStatistics(Statistics):
     poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='history_statistics')
-    updated_at = models.DateTimeField(auto_now=True)
 
     REFRESH_LIMIT = 100
 
@@ -498,8 +498,10 @@ class HistoryStatistics(Statistics):
 
     @classmethod
     def compute_change_percent(cls, value):
-        value = math.fabs(value * 100)
-        return min(value, 100)
+        value *= 100
+        value = min(value, 100)
+        value = max(value, 0)
+        return value
 
     def popular_change(self):
         other = self.poster.poster_statistics

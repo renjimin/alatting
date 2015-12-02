@@ -740,7 +740,7 @@ textarea.ng-invalid {
     position: absolute;
     height: 100%;
     background-color: #ced6de;
-    background-clip: content-box;
+    /*background-clip: content-box;*/
     width: 100%;
 }
 
