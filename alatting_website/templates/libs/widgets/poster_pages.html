@@ -1,5 +1,5 @@
 {% for page in object.pages %}
-<div class="poster-page">
+<div ui-show="activeTab == {{ page.index }}" class="poster-page">
     {% for region in page.regions %}
         <div class="poster-region {{ region.class_name }}" id="{{ region.element_id }}">
             {{ region.widget.content }}

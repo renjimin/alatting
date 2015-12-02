@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Call & SMS</title>
+    <style>
+        a {
+            font-size: 30px;
+            width: 300px;
+            margin: 50px auto 50px auto;
+            display: block;
+        }
+    </style>
 </head>
 <body>
-<a href="tel:+12138805270">Call</a>
-<a href="sms:+12138805270">SMS</a>
+<div><a href="tel:+12138805270">Call Phone</a></div>
+<div><a href="sms:+12138805270?body=this is a message">Send SMS for Android</a></div>
+<div><a href="sms:+12138805270;body=this is a message">Send SMS ios 7-</a></div>
+<div><a href="sms:+12138805270&body=this is a message">Send SMS ios 8+</a></div>
 </body>
 </html>
