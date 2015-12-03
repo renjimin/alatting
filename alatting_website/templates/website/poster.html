@@ -141,7 +141,9 @@
                                             <div class="description">
                                                 <div class="expander">
                                                     {{ object.description_first_line }}
-                                                    <span class="dot-expander">...</span>
+                                                    {% if object.description_others %}
+                                                        <span class="dot-expander">...</span>
+                                                    {% endif %}
                                                     <br/>{{ object.description_others }}
                                                 </div>
                                             </div>
