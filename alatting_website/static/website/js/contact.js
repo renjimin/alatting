@@ -58,7 +58,9 @@ $(document).ready(function () {
     })
     $('a.a-button-link').click(function(e){
         e.preventDefault();
+
         var cookie_target = $(this).attr('cookie');
+        alert(cookie_target);
         var enabled = Cookies.get(cookie_target);
         if(enabled === null) {
             Cookies.set(cookie_target,0);
