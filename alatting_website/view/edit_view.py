@@ -1,8 +1,45 @@
 __author__ = 'tianhuyang'
-from django.views.generic.detail import DetailView
+import json
+import pytz
+import datetime
+from django.utils.http import urlquote_plus, urlquote
+from django.core.urlresolvers import reverse
+from collections import OrderedDict
+from django.views.generic import DetailView, CreateView
+from django.db.models.query import Prefetch
 from alatting_website.models import Poster, Rating, PosterStatistics, PosterPage
+from alatting_website.logic.poster_service import PosterService
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
+from utils.views import LoginRequiredMixin
+
+
+class CreatePosterView(LoginRequiredMixin, CreateView):
+    template_name = 'website/create.html'
+    model = Poster
+    fields = ('unique_name', 'main_category', 'sub_category', 'creator')
+
+    def get_success_url(self):
+        url = reverse('website:edit', kwargs=dict(pk=self.object.id))
+        return url
+
+    def get_form_kwargs1(self):
+        kwargs = super(CreatePosterView, self).get_form_kwargs()
+        data = kwargs.get('data')
+        if data is not None:
+            data['creator'] = self.request.user
+        return kwargs
+
+
+    def get_initial(self):
+        initial = super(CreatePosterView, self).get_initial()
+        initial['creator'] = self.request.user
+        return initial
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.creator = self.request.user
+        return super(CreatePosterView, self).form_valid(form)
 
 
 class EditView(DetailView):
@@ -22,7 +59,7 @@ class EditView(DetailView):
         return queryset
 
     def get_object(self, queryset=None):
-        obj = super(PosterView, self).get_object(queryset)
+        obj = super(EditView, self).get_object(queryset)
         # limit 20
         # obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
         # stats
@@ -139,33 +176,6 @@ class EditView(DetailView):
 
         return obj
 
-    def create_share(self, obj):
-        share = Utils.create_object()
-        share.title = obj.unique_name
-        share.description = obj.short_description
-        share.url = Utils.get_current_url(self.request)
-        encoded_url = urlquote_plus(share.url)
-        title = obj.unique_name
-        encoded_title = urlquote_plus(title)
-        encoded_detail = urlquote_plus(obj.short_description)
-        url_detail = obj.short_description + '\n\n' + share.url
-        encoded_url_detail = urlquote_plus(url_detail)
-        share.image_url = Utils.get_url(self.request, PosterService.poster_image_url(obj))
-        encoded_image_url = urlquote_plus(share.image_url)
-        # email shouldn't encode space
-        share.email = 'subject=%s&body=%s' % (urlquote(title, ''), urlquote(url_detail, ''))
-        #
-        share.fb = 'u=%s' % encoded_url
-        #
-        share.twitter = 'text=%s' % encoded_url_detail
-        #
-        share.google_plus = 'url=%s' % encoded_url
-        #
-        share.linkedin = 'url=%s&title=%s&summary=%s' % (encoded_url, encoded_title, encoded_detail)
-        #
-        share.pinterest = 'url=%s&media=%s&description=%s' % (encoded_url, encoded_image_url, encoded_detail)
-        return share
-
     def get_context_data(self, **kwargs):
-        context = super(PosterView, self).get_context_data(**kwargs)
+        context = super(EditView, self).get_context_data(**kwargs)
         return context
