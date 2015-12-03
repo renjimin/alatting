@@ -46,13 +46,26 @@ $(document).ready(function () {
             $(this).addClass("expander");
         }
     });
-    $('a.a-button-trigger').click(function(){
+    $('a.a-button-trigger').click(function(e){
+        e.preventDefault();
         if($(this).attr('extended') == 'false') {
             $(this).parents('div.poster-top').find('div.a-button-child').show();
             $(this).attr('extended','true');
         } else if($(this).attr('extended') == 'true') {
             $(this).parents('div.poster-top').find('div.a-button-child').hide();
             $(this).attr('extended','false');
+        }
+    })
+    $('a.a-button-link').click(function(e){
+        e.preventDefault();
+        var cookie_target = $(this).attr('cookie');
+        var enabled = Cookies.get(cookie_target);
+        if(enabled === null) {
+            Cookies.set(cookie_target,0);
+            var img_enabled = $(this).find('img.enabled');
+            var img_disabled = $(this).find('img.disabled');
+            $(img_disabled).show();
+            $(img_enabled).hide();
         }
     })
 });
