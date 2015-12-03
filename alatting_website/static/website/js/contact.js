@@ -46,4 +46,13 @@ $(document).ready(function () {
             $(this).addClass("expander");
         }
     });
+    $('a.a-button-trigger').click(function(){
+        if($(this).attr('extended') == 'false') {
+            $(this).parents('div.poster-top').find('div.a-button-child').show();
+            $(this).attr('extended','true');
+        } else if($(this).attr('extended') == 'true') {
+            $(this).parents('div.poster-top').find('div.a-button-child').hide();
+            $(this).attr('extended','false');
+        }
+    })
 });
