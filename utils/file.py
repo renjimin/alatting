@@ -66,6 +66,12 @@ def get_music_path(instance, filename):
     return get_file_path(instance, field_name, path, filename)
 
 
+def get_data_path(instance, filename):
+    path = 'html5/%Y/%m/%d'
+    field_name = 'data'
+    return get_file_path(instance, field_name, path, filename)
+
+
 def get_html_path(instance, filename):
     path = 'html5/%Y/%m/%d'
     field_name = 'html'

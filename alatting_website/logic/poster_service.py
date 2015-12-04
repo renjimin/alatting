@@ -17,8 +17,9 @@ class PosterService:
         for poster_page, page in zip(poster.pages, root['pages']):
             for poster_region in poster_page.regions:
                 poster_region.poster_page = poster_page
-                region = page['regions'][poster_region.name]
-                PosterRender.render_region(poster_region, region)
+                region = page['regions'].get(poster_region.name)
+                if region:
+                    PosterRender.render_region(poster_region, region)
 
             for text_widget in page['texts']:
                 PosterRender.render_text_widget(poster, text_widget)

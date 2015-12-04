@@ -1,7 +1,9 @@
-__author__ = 'tianhuyang'
 import json
 import pytz
 import datetime
+import os
+from django.core.files import File
+from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
 from django.utils.http import urlquote_plus, urlquote
 from django.core.urlresolvers import reverse
 from collections import OrderedDict
@@ -12,29 +14,41 @@ from alatting_website.logic.poster_service import PosterService
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.views import LoginRequiredMixin
+from django.conf import settings
 
 
 class CreatePosterView(LoginRequiredMixin, CreateView):
     template_name = 'website/create.html'
     model = Poster
-    fields = ('unique_name', 'main_category', 'sub_category', 'creator')
+    fields = ('unique_name', 'main_category', 'sub_category', 'data', 'html', 'css', 'script')
 
     def get_success_url(self):
         url = reverse('website:edit', kwargs=dict(pk=self.object.id))
         return url
 
-    def get_form_kwargs1(self):
+    def get_file(self, name):
+        file = os.path.join(settings.MEDIA_ROOT, name)
+        file = open(file, 'rb')
+        size = os.fstat(file.fileno()).st_size
+        file = UploadedFile(file=file, size=size, name=name, content_type='application/json', charset='utf-8')
+        return file
+
+    def get_form_kwargs(self):
         kwargs = super(CreatePosterView, self).get_form_kwargs()
-        data = kwargs.get('data')
-        if data is not None:
-            data['creator'] = self.request.user
+        files = kwargs.get('files')
+        if files is not None:
+            if 'data' not in files:
+                files['data'] = self.get_file('html5/poster.json')
+            if 'html' not in files:
+                files['html'] = self.get_file('html5/poster.html')
+            if 'css' not in files:
+                files['css'] = self.get_file('html5/poster.css')
+            if 'script' not in files:
+                files['script'] = self.get_file('html5/poster.js')
         return kwargs
 
-
-    def get_initial(self):
-        initial = super(CreatePosterView, self).get_initial()
-        initial['creator'] = self.request.user
-        return initial
+    def init(self):
+        pass
 
     def form_valid(self, form):
         obj = form.save(commit=False)

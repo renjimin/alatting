@@ -49,7 +49,7 @@ class Poster(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     width = models.PositiveSmallIntegerField(default=800)
     height = models.PositiveSmallIntegerField(default=1024)
-    # desc = models.CharField(max_length=255)
+    data = OverWriteFileField(upload_to=file.get_data_path)
     html = OverWriteFileField(upload_to=file.get_html_path)
     css = OverWriteFileField(upload_to=file.get_css_path)
     script = OverWriteFileField(upload_to=file.get_script_path)
