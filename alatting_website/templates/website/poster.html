@@ -195,24 +195,39 @@
                                          <div class="a-button-child a-button-fun">
                                             <div class="a-button-icon">
                                                 <a href="#" class="a-button-link" cookie="a-button-fun-enabled">
+                                                    {% if object.a_button_fun_enabled == 1 %}
                                                     <img class="enabled" src="{% static 'website/images/icons/a_button_fun.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_fun.png' %}">
                                                     <img class="disabled" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
+                                                    {% endif %}
                                                 </a>
                                             </div>
                                         </div>
                                          <div class="a-button-child a-button-like">
                                             <div class="a-button-icon">
                                                 <a href="#" class="a-button-link" cookie="a-button-like-enabled">
+                                                    {% if object.a_button_like_enabled == 1 %}
                                                     <img class="enabled" src="{% static 'website/images/icons/a_button_like.png' %}">
-                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_like.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_like.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
+                                                    {% endif %}
                                                 </a>
                                             </div>
                                         </div>
                                          <div class="a-button-child a-button-favorite">
                                             <div class="a-button-icon">
                                                 <a href="#" class="a-button-link" cookie="a-button-favorite-enabled">
-                                                    <img  class="enabled" src="{% static 'website/images/icons/a_button_favorite.png' %}">
-                                                    <img  class="disabled" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    {% if object.a_button_favorite_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
+                                                    {% endif %}
                                                 </a>
                                             </div>
                                         </div>

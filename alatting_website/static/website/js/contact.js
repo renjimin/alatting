@@ -58,16 +58,14 @@ $(document).ready(function () {
     })
     $('a.a-button-link').click(function(e){
         e.preventDefault();
-
         var cookie_target = $(this).attr('cookie');
-        alert(cookie_target);
         var enabled = Cookies.get(cookie_target);
-        if(enabled === null) {
+        if(enabled === undefined) {
             Cookies.set(cookie_target,0);
             var img_enabled = $(this).find('img.enabled');
             var img_disabled = $(this).find('img.disabled');
-            $(img_disabled).show();
-            $(img_enabled).hide();
+            $(img_disabled).removeClass('hidden');
+            $(img_enabled).addClass('hidden');
         }
     })
 });

@@ -270,6 +270,8 @@ a.a-button-link img {
     width:70%;
 }
 a.a-button-link img.disabled {
-    display:none;
     cursor:none;
+}
+a.a-button-link img.hidden {
+    display:none;
 }
