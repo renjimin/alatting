@@ -247,7 +247,7 @@ div.a-button-line {
 }
 div.a-button-line-middle {
     top:39.5%;
-    left: 69%;
+    left: 71%;
 }
 div.a-button-line-top {
     top:26%;
@@ -268,4 +268,10 @@ a.a-button-trigger img {
 }
 a.a-button-link img {
     width:70%;
+}
+a.a-button-link img.disabled {
+    cursor:none;
+}
+a.a-button-link img.hidden {
+    display:none;
 }

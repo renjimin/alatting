@@ -145,6 +145,22 @@ class PosterView(DetailView):
         obj.address_mapped = (addr.address1 + ','+addr.city + ' '+addr.state).replace(' ', '+')
         obj.description_first_line = obj.short_description[:60]
         obj.description_others = obj.short_description[60:]
+        cookie_a_button_fun_enabled =  self.request.COOKIES.get('a-button-fun-enabled')
+        if cookie_a_button_fun_enabled:
+            obj.a_button_fun_enabled = cookie_a_button_fun_enabled
+        else:
+            obj.a_button_fun_enabled = 1
+        cookie_a_button_like_enabled =  self.request.COOKIES.get('a-button-like-enabled')
+        if cookie_a_button_like_enabled:
+            obj.a_button_like_enabled = cookie_a_button_like_enabled
+        else:
+            obj.a_button_like_enabled = 1
+        cookie_a_button_favorite_enabled =  self.request.COOKIES.get('a-button-favorite-enabled')
+        if cookie_a_button_favorite_enabled:
+            obj.a_button_favorite_enabled = cookie_a_button_favorite_enabled
+        else:
+            obj.a_button_favorite_enabled = 1
+
 
         return obj
 
