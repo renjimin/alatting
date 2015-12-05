@@ -11,16 +11,11 @@
 
 {% block head_script %}
     {{ block.super }}
-    <script src="{% static 'website/js/poster.js' %}"></script>
+    <script src="{% static 'website/js/edit.js' %}"></script>
     <script>
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
-        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
-        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
-        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
-        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
-        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
+        var templatesURL = "{% url 'api:template-list' %}"
         var auth_user_id = {% firstof request.user.id "null"%}
     </script>
 {% endblock %}
@@ -35,7 +30,7 @@
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
-    {% include 'libs/widgets/clip_style.html' %}
+    <style id="clip-style">{% include 'libs/widgets/clip_style.html' %}</style>
 {% endblock %}
 
 {% block head_more %}
@@ -47,6 +42,7 @@
     {{ block.super }}
     {% include 'libs/facebook/fb_share_body_start.html' %}
 {% endblock %}
+
 {% block content %}
 
     <div class="app">
@@ -182,9 +178,9 @@
                                                </iframe>
                                             </div>
                                         </div> <!-- end of poster top information -->
-                                    </div> <!-- end of poster top -->
+                                    </div>
                                 </div>
-                            </div>
+                            </div><!-- end of poster top -->
 
                             <!-- pages -->
                             <div class="poster-pages-ratio">
@@ -196,7 +192,7 @@
                             </div>
 
                             <!-- svg -->
-                            {% include 'libs/widgets/clip_svg.html' %}
+                            <div id="clip-svg" style="height: 0">{% include 'libs/widgets/clip_svg.html' %}</div>
 
                         </div>
                     </div>

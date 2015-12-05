@@ -2,7 +2,6 @@ import json
 import pytz
 import datetime
 import os
-from django.core.files import File
 from django.core.files.uploadedfile import UploadedFile, TemporaryUploadedFile
 from django.utils.http import urlquote_plus, urlquote
 from django.core.urlresolvers import reverse
@@ -11,7 +10,6 @@ from django.views.generic import DetailView, CreateView
 from django.db.models.query import Prefetch
 from alatting_website.models import Poster, Rating, PosterStatistics, PosterPage
 from alatting_website.logic.poster_service import PosterService
-from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.views import LoginRequiredMixin
 from django.conf import settings
@@ -47,9 +45,6 @@ class CreatePosterView(LoginRequiredMixin, CreateView):
                 files['script'] = self.get_file('html5/poster.js')
         return kwargs
 
-    def init(self):
-        pass
-
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.creator = self.request.user
@@ -64,24 +59,13 @@ class EditView(DetailView):
     def get_queryset(self):
         prefetch = Prefetch('poster_pages', PosterPage.objects.all().order_by('index'))
         queryset = super(EditView, self).get_queryset()
-        queryset = queryset.select_related('music', 'creator__person', 'poster_statistics', 'history_statistics').\
+        queryset = queryset.select_related('music', 'creator__person',).\
             prefetch_related('poster_images__image', 'poster_videos__video', prefetch, 'poster_pages__template__template_regions')\
             .select_subclasses()
-        user = self.request.user
-        if user.is_authenticated():
-            queryset = queryset.prefetch_related(Prefetch('ratings', queryset=Rating.objects.filter(creator=user)))
         return queryset
 
     def get_object(self, queryset=None):
         obj = super(EditView, self).get_object(queryset)
-        # limit 20
-        # obj.comments = obj.comment_set.all().select_related('creator').order_by('-created_at')[:self.COMMENT_SIZE]
-        # stats
-        queryset = PosterStatistics.objects.filter(pk=obj.pk)
-        fields = dict(views_count=1)
-        if 'scan' in self.request.GET:
-            fields['scans_count'] = 1
-        DBUtils.increase_counts(queryset, fields)
         # orgnize elements
         images = dict()
         videos = dict()
@@ -104,15 +88,7 @@ class EditView(DetailView):
         obj.pages = pages
         obj.regions = regions
         obj.capture = 'capture' in self.request.GET
-        PosterService.parse_media_file(obj.html.name, obj)
-        if not obj.capture:
-            obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
-        obj.share = self.create_share(obj)
-        user = self.request.user
-        if user.is_authenticated():
-            my_rating = obj.ratings.all()
-            if my_rating:
-                obj.my_rating = my_rating[0]
+        PosterService.parse_media_file(obj.data.name, obj)
         # tailor mobile format, if no mobile then copy phone
         if not obj.mobile and obj.phone:
             obj.mobile = obj.phone
@@ -182,11 +158,12 @@ class EditView(DetailView):
         obj.hours = hours_info
         obj.hours_details = hours_details
         # extract address info
-        addr = obj.address
-        obj.address_info = addr.address1 + ', ' + addr.city + ', ' + addr.state + ' ' + addr.post_code
-        obj.address_mapped = (addr.address1 + ','+addr.city + ' '+addr.state).replace(' ', '+')
-        obj.description_first_line = obj.short_description[:60]
-        obj.description_others = obj.short_description[60:]
+        if obj.address:
+            addr = obj.address
+            obj.address_info = addr.address1 + ', ' + addr.city + ', ' + addr.state + ' ' + addr.post_code
+            obj.address_mapped = (addr.address1 + ','+addr.city + ' '+addr.state).replace(' ', '+')
+            obj.description_first_line = obj.short_description[:60]
+            obj.description_others = obj.short_description[60:]
 
         return obj
 

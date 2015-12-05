@@ -797,7 +797,7 @@ textarea.ng-invalid {
     width: 100%;
 }
 
-.left-top {
+/*.left-top {
     position: absolute;
     width: 63.5%;
     height: 49%;
@@ -849,7 +849,7 @@ textarea.ng-invalid {
     background-color: purple;
     -webkit-clip-path: polygon(0 94%, 100% 0, 100% 100%, 6% 100%);
     clip-path: url(#right-bottom-path);
-}
+}*/
 
 /* media */
 

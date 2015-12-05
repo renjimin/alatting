@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
-    {% include 'libs/widgets/clip_style.html' %}
+    <style>{% include 'libs/widgets/clip_style.html' %}</style>
 {% endblock %}
 
 {% block head_more %}
