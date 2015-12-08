@@ -1,0 +1,17 @@
+{% load static %}
+<div class="poster-video-widget {{ widget.class_name }}" id="{{ widget.element_id }}">
+    {% if object.capture %}
+        <img onload="fillCenter($(this))" src="{{ widget.video.preview }}">
+    {% else %}
+    <video id="{{ widget.video_element_id }}" class="video-js" preload="auto" data-setup="{}" poster="{{ widget.video.preview }}">
+        <source src="{{ widget.video.url }}" type='video/mp4'>
+        <p class="vjs-no-js">
+            To view this video please enable JavaScript, and consider upgrading to a web browser that
+            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+        </p>
+    </video>
+    {% endif %}
+    <img class="video-play" onclick="videojs.start('{{ widget.video_element_id }}')" src="{% static 'website/images/icons/play.png' %}">
+
+</div>
+

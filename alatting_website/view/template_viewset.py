@@ -14,5 +14,5 @@ class TemplateViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
     @decorators.list_route(methods=('get',), serializer_class=TemplateSerializer)
-    def style(self, request, *args, **kwargs):
+    def html(self, request, *args, **kwargs):
         pass

@@ -20,10 +20,9 @@ class PosterView(DetailView):
     COMMENT_SIZE = 20
 
     def get_queryset(self):
-        prefetch = Prefetch('poster_pages', PosterPage.objects.all().order_by('index'))
         queryset = super(PosterView, self).get_queryset()
         queryset = queryset.select_related('music', 'creator__person', 'poster_statistics', 'history_statistics').\
-            prefetch_related('poster_images__image', 'poster_videos__video', prefetch, 'poster_pages__template__template_regions')\
+            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
             .select_subclasses()
         user = self.request.user
         if user.is_authenticated():
@@ -208,7 +207,7 @@ class TestView(View):
 
 
 class DemoView(TemplateView):
-    template_name = 'demo/bubble.html'
+    template_name = 'demo/ng_repeat.html'
 
 from utils.capture.screen_shot import ScreenShot
 
