@@ -46,8 +46,9 @@ class EditViewSet(viewsets.GenericViewSet):
         obj.regions = regions
         return obj
 
+    @list_route(methods=('get',))
     def poster(self, request, *args, **kwargs):
-        return viewsets.mixins.RetrieveModelMixin.retrieve(self, request, **kwargs, **kwargs)
+        return viewsets.mixins.RetrieveModelMixin.retrieve(self, request, *args, **kwargs)
 
     @list_route(methods=('get',), serializer_class=TemplatesHTMLSerializer)
     def templates_html(self, request, *args, **kwargs):
