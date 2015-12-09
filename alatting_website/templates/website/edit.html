@@ -11,13 +11,13 @@
 
 {% block head_script %}
     {{ block.super }}
-    <script src="{% static 'website/js/edit.js' %}"></script>
     <script>
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var templatesURL = "{% url 'api:template-list' %}"
+        var posterURL = "{% url 'api:edit-poster' poster_id=object.id%}"
         var auth_user_id = {% firstof request.user.id "null"%}
     </script>
+    <script src="{% static 'website/js/edit.js' %}"></script>
 {% endblock %}
 
 {% block css %}
@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
-    <style id="clip-style">{% include 'libs/widgets/clip_style.html' %}</style>
+    {% include 'libs/widgets/clip_style_ng.html' %}
 {% endblock %}
 
 {% block head_more %}
@@ -84,12 +84,12 @@
                                                 <!-- end of poster-header -->
                                                 <div class="poster-tabs btn-group btn-group-justified"
                                                      ui-state="activeTab" default="0">
-                                                    {% for page in object.pages %}
-                                                        <div ui-set="{'activeTab': {{ page.index }}}" ui-class="{'active': activeTab == {{ page.index }}}"
+                                                    {% verbatim %}
+                                                    <div ng-repeat="page in object.pages" ui-set="{'activeTab': page.index}" ui-class="{'active': activeTab == page.index}"
                                                          class="tab-btn-first tab-btn btn">
-                                                        <div>{{ page.name }}</div>
+                                                        <div ng-cloak>{{ page.name }}</div>
                                                     </div>
-                                                    {% endfor %}
+                                                    {% endverbatim %}
                                                     <!--div ui-class="{'active': false}" class="tab-btn btn">
                                                         <div></div>
                                                     </div-->
@@ -198,7 +198,7 @@
                     </div>
                 </div>
 
-                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController"
+                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller1="commentsController"
                      ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
                     <div class="scrollable-content" ui-scroll-bottom="loadMore()">
                         <div class="poster-frame center-block">

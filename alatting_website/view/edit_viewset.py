@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route
 from rest_framework import permissions
 from alatting_website.models import Poster, PosterPage
-from alatting_website.serializer.template_serializer import TemplateSerializer
 from alatting_website.serializer.edit_serializer import EditSerializer, TemplatesHTMLSerializer
+from alatting_website.logic.poster_service import PosterService
 
 
 class EditViewSet(viewsets.GenericViewSet):
@@ -44,6 +44,7 @@ class EditViewSet(viewsets.GenericViewSet):
             poster_page.regions = poster_regions
         obj.pages = pages
         obj.regions = regions
+        PosterService.parse_media_file(obj.data.name, obj)
         return obj
 
     @list_route(methods=('get',))

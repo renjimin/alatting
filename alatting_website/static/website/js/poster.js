@@ -108,7 +108,7 @@ app.controller('commentsController', ['$scope', '$http', function ($scope, $http
         comment._deleting = true
         $http.delete(comment.url)
             .then(function(response){
-                $scope.comments.remove(comment)
+                ArrayUtils.remove($scope.comments, comment)
             }, function(response){
                 needLogin(response)
                 comment._deleting = false

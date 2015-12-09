@@ -1,5 +1,5 @@
 {% load static %}<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="PosterApp" ng-controller="MainController">
 <head>
     <!-- favicons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/static/website/favicons/apple-icon-57x57.png">
@@ -55,7 +55,7 @@
     {% endblock %}
     {% block head_more %}{% endblock %}
 </head>
-<body ng-app="PosterApp" ng-controller="MainController">
+<body>
 {% block body_start %}{% endblock %}
 {% block content %}{% endblock %}
 {% block body_end %}{% endblock %}

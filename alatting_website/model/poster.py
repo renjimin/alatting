@@ -90,6 +90,7 @@ class Poster(models.Model):
 
 
 class PosterPage(models.Model):
+    id = BigAutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_pages')
     template = models.ForeignKey('Template')
     index = models.SmallIntegerField(default=0)
@@ -97,6 +98,19 @@ class PosterPage(models.Model):
 
     class Meta:
         unique_together = ('poster', 'index')
+
+    def __str__(self):
+        return "{:s}".format(self.name)
+
+
+class PosterText(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='poster_texts')
+    content = models.CharField(max_length=255)
+    name = models.CharField(max_length=64)
+
+    class Meta:
+        unique_together = ('poster', 'name')
 
     def __str__(self):
         return "{:s}".format(self.name)

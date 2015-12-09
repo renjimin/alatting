@@ -1,8 +1,8 @@
 {% verbatim %}
-<svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
+<svg ng-cloak class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
     <defs>
-        <clipPath ng-repeat="region in object.regions" id="{{ region.path_id }}" clipPathUnits="objectBoundingBox">
-            <polygon points="{{ region.points }}"/>
+        <clipPath ng-repeat="region in object.regions" ng-attr-id="{{ region.path_id }}" clipPathUnits="objectBoundingBox">
+            <polygon ng-attr-points="{{ region.points }}"/>
         </clipPath>
     </defs>
 </svg>

@@ -1,5 +1,5 @@
 {% verbatim %}
-<div ng-repeat="widget in page.texts" class="poster-text-widget {{ widget.class_name }}" id="{{ widget.element_id }}">
+<div ng-cloak ng-repeat="widget in page.texts" class="poster-text-widget {{ widget.class_name }}" id="{{ widget.element_id }}">
 <p>{{ widget.content}}</p>
 </div>
 {% endverbatim %}

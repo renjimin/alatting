@@ -8,7 +8,13 @@ class TemplateRegionSerializer(serializers.ModelSerializer):
 
 
 class TemplateSerializer(serializers.ModelSerializer):
-    # template_regions = TemplateRegionSerializer(many=True)
+
+    class Meta:
+        model = Template
+
+
+class RetrieveTemplateSerializer(serializers.ModelSerializer):
+    template_regions = TemplateRegionSerializer(many=True)
 
     class Meta:
         model = Template

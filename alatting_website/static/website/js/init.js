@@ -1,13 +1,17 @@
 /**
  * Created by tianhuyang on 9/29/15.
  */
-
-Array.prototype.remove = function(x) {
-    for(var i in this){
-        if(this[i] === x){
-            this.splice(i, 1)
-            break
+var ArrayUtils = {
+    remove: function(array, object){
+        var ret = null
+        for(var i in array){
+            if(array[i] === object){
+                array.splice(i, 1)
+                ret = object
+                break
+            }
         }
+        return ret
     }
 }
 

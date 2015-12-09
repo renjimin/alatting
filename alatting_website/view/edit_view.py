@@ -51,16 +51,16 @@ class CreatePosterView(LoginRequiredMixin, CreateView):
         return super(CreatePosterView, self).form_valid(form)
 
 
-class EditView(DetailView):
+class EditView(LoginRequiredMixin, DetailView):
     template_name = 'website/edit.html'
     model = Poster
     COMMENT_SIZE = 20
 
     def get_queryset(self):
-        prefetch = Prefetch('poster_pages', PosterPage.objects.all().order_by('index'))
         queryset = super(EditView, self).get_queryset()
+        queryset = queryset.filter(creator=self.request.user)
         queryset = queryset.select_related('music', 'creator__person',).\
-            prefetch_related('poster_images__image', 'poster_videos__video', prefetch, 'poster_pages__template__template_regions')\
+            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
             .select_subclasses()
         return queryset
 
