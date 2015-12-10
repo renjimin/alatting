@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django import forms
 
 

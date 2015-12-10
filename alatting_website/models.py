@@ -44,8 +44,8 @@ class Category(models.Model):
     }
     id = models.AutoField(primary_key=True)
     parent = models.ForeignKey('Category', null=True, blank=True)
-    type = models.CharField(max_length=15, choices=TYPE_CHOICES)
-    name = models.CharField(max_length=63, blank=True, default='', unique=True)
+    type = models.CharField(max_length=15, choices=TYPE_CHOICES, default=TYPE_BUSINESS)
+    name = models.CharField(max_length=63, blank=True, unique=True)
     description = models.CharField(max_length=127, blank=True, default='')
     tags = models.CharField(max_length=2048, blank=True, default='')
 

@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -11,7 +10,7 @@ from utils.db.utils import Utils as DBUtils
 class Statistics(models.Model):
     # poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     # rating
     ratings_count = models.IntegerField(default=0)
     ratings_total = models.IntegerField(default=0)
