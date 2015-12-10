@@ -1,8 +1,11 @@
+from decimal import Decimal
+import re
 from django.db import models
 from django.contrib.auth.models import User
 from alatting_website.model.statistics import PosterStatistics, HistoryStatistics, PosterLike, PosterFun, Comment, Rating
 from alatting_website.model.resource import Image, Video, Music, PosterImage, PosterVideo
-from alatting_website.model.poster import Poster, PosterPage, ActivityInvitation, BusinessMarketing, ProductSell, ExpertShow
+from alatting_website.model.poster import Poster, PosterPage, ActivityInvitation, BusinessMarketing, ProductSell, \
+    ExpertShow, PageText
 from utils import file
 from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \
     BigAutoField, BigForeignKey, BigOneToOneField
@@ -92,5 +95,22 @@ class TemplateRegion(models.Model):
 
     def __str__(self):
         return "{:s}".format(self.name)
+
+    @classmethod
+    def polygon_to_points(cls, polygon):
+        polygon = polygon.replace('%', '')
+        pairs = polygon.split(',')
+        for index in range(len(pairs)):
+            pair = pairs[index].strip()
+            items = re.split('\s+', pair)
+            for pos in range(len(items)):
+                items[pos] = Decimal(items[pos]) / 100
+                items[pos] = str(items[pos])
+            pairs[index] = ' '.join(items)
+        points = ', '.join(pairs)
+        return points
+
+    def points(self):
+        return self.polygon_to_points(self.polygon)
 
 

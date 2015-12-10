@@ -145,6 +145,7 @@ REST_FRAMEWORK = {
 }
 
 # login
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 

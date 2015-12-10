@@ -16,7 +16,12 @@
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
         var posterURL = "{% url 'api:edit-poster' poster_id=object.id%}"
         var auth_user_id = {% firstof request.user.id "null"%}
+        var imageWidgetURL = "{% static 'templates/widgets/image.html' %}"
+        var videoWidgetURL = "{% static 'templates/widgets/video.html' %}"
+        var musicWidgetURL = "{% static 'templates/widgets/music.html' %}"
+        var sliderWidgetURL = "{% static 'templates/widgets/slider.html' %}"
     </script>
+    <script src="{% static 'website/js/poster_render.js' %}"></script>
     <script src="{% static 'website/js/edit.js' %}"></script>
 {% endblock %}
 
