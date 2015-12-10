@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from alatting_website.models import Poster, Image, Video, Music, PosterPage, Template, TemplateRegion, PosterImage,\
-    PosterVideo
+    PosterVideo, PageText
+from alatting_website.serializer.template_serializer import TemplateRegionSerializer
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -32,16 +33,6 @@ class MusicSerializer(serializers.ModelSerializer):
         model = Music
 
 
-class TemplateRegionSerializer(serializers.ModelSerializer):
-    class_name = serializers.CharField()
-    element_id = serializers.CharField()
-    path_id = serializers.CharField()
-    points = serializers.CharField()
-
-    class Meta:
-        model = TemplateRegion
-
-
 class TemplateSerializer(serializers.ModelSerializer):
     template_regions = TemplateRegionSerializer(many=True)
 
@@ -49,9 +40,14 @@ class TemplateSerializer(serializers.ModelSerializer):
         model = Template
 
 
+class PageTextSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PageText
+
+
 class PosterPageSerializer(serializers.ModelSerializer):
     template = TemplateSerializer()
-    regions = TemplateRegionSerializer(many=True)
+    page_texts= PageTextSerializer(many=True)
 
     class Meta:
         model = PosterPage
@@ -59,13 +55,13 @@ class PosterPageSerializer(serializers.ModelSerializer):
 
 class EditSerializer(serializers.ModelSerializer):
     music = MusicSerializer()
-    # poster_images = PosterImageSerializer(many=True)
-    # poster_videos = PosterVideoSerializer(many=True)
-    # poster_pages = PosterPageSerializer(many=True)
-    images = serializers.DictField(child=ImageSerializer())
-    videos = serializers.DictField(child=VideoSerializer())
-    pages = PosterPageSerializer(many=True)
-    regions = TemplateRegionSerializer(many=True)
+    poster_images = PosterImageSerializer(many=True)
+    poster_videos = PosterVideoSerializer(many=True)
+    poster_pages = PosterPageSerializer(many=True)
+    # images = serializers.DictField(child=ImageSerializer())
+    # videos = serializers.DictField(child=VideoSerializer())
+    # pages = PosterPageSerializer(many=True)
+    # regions = TemplateRegionSerializer(many=True)
 
     class Meta:
         model = Poster

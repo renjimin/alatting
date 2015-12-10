@@ -3,6 +3,8 @@ from alatting_website.models import Template, TemplateRegion
 
 
 class TemplateRegionSerializer(serializers.ModelSerializer):
+    points = serializers.CharField()
+
     class Meta:
         model = TemplateRegion
 

@@ -24,27 +24,27 @@ class EditViewSet(viewsets.GenericViewSet):
     def get_object(self):
         self.lookup_url_kwarg = 'poster_id'
         obj = super(EditViewSet, self).get_object()
-        images = dict()
-        videos = dict()
-        for poster_image in obj.poster_images.all():
-            images[poster_image.name] = poster_image.image
-        for poster_video in obj.poster_videos.all():
-            videos[poster_video.name] = poster_video.video
-        obj.images = images
-        obj.videos = videos
-        poster_pages = obj.poster_pages.all()
-        pages = [None for poster_page in poster_pages]
-        regions = []
-        for poster_page in poster_pages:
-            pages[poster_page.index] = poster_page
-            poster_regions = []
-            for template_region in poster_page.template.template_regions.all():
-                poster_regions.append(template_region)
-                regions.append(template_region)
-            poster_page.regions = poster_regions
-        obj.pages = pages
-        obj.regions = regions
-        PosterService.parse_media_file(obj.data.name, obj)
+        # images = dict()
+        # videos = dict()
+        # for poster_image in obj.poster_images.all():
+        #     images[poster_image.name] = poster_image.image
+        # for poster_video in obj.poster_videos.all():
+        #     videos[poster_video.name] = poster_video.video
+        # obj.images = images
+        # obj.videos = videos
+        # poster_pages = obj.poster_pages.all()
+        # pages = [None for poster_page in poster_pages]
+        # regions = []
+        # for poster_page in poster_pages:
+        #     pages[poster_page.index] = poster_page
+        #     poster_regions = []
+        #     for template_region in poster_page.template.template_regions.all():
+        #         poster_regions.append(template_region)
+        #         regions.append(template_region)
+        #     poster_page.regions = poster_regions
+        # obj.pages = pages
+        # obj.regions = regions
+        # PosterService.parse_media_file(obj.data.name, obj)
         return obj
 
     @list_route(methods=('get',))

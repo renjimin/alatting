@@ -102,9 +102,10 @@ class PosterPage(models.Model):
         return "{:s}".format(self.name)
 
 
-class PosterText(models.Model):
+class PageText(models.Model):
     id = BigAutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_texts')
+    poster_page = BigForeignKey(PosterPage, related_name='page_texts')
     content = models.CharField(max_length=255)
     name = models.CharField(max_length=64)
 
