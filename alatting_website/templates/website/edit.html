@@ -71,7 +71,7 @@
                                                                         alt='poster logo'/></a>
                                                             </div>
                                                         </div>
-                                                        <div class="poster-title">
+                                                        <div class="poster-title" contenteditable="true">
                                                             {{ object.logo_title }}
                                                         </div>
                                                     </div>
@@ -135,10 +135,12 @@
                                         <!-- end of poster-top-main -->
                                         <div class="poster-top-information">
                                             <div class="description">
-                                                <div class="expander">
+                                                <div class="expander" contenteditable="true">
                                                     {{ object.description_first_line }}
+                                                    {% if object.description_others %}
                                                     <span class="dot-expander">...</span>
                                                     <br/>{{ object.description_others }}
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <div class="contact-info phone">
