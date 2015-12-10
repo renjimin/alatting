@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -49,7 +48,7 @@ class Poster(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     width = models.PositiveSmallIntegerField(default=800)
     height = models.PositiveSmallIntegerField(default=1024)
-    data = OverWriteFileField(upload_to=file.get_data_path)
+    data = OverWriteFileField(upload_to=file.get_data_path, default='')
     html = OverWriteFileField(upload_to=file.get_html_path)
     css = OverWriteFileField(upload_to=file.get_css_path)
     script = OverWriteFileField(upload_to=file.get_script_path)

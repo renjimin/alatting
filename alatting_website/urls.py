@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django.conf.urls import include, url
 from alatting_website.views import PosterView, IndexView, PosterCodeView, SvgClipView, DemoView, CaptureView, TestView
 from alatting_website.view.edit_view import EditView, CreatePosterView

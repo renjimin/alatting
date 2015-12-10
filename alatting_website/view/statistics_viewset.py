@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django.http import Http404
 from rest_framework import viewsets
 from rest_framework import decorators

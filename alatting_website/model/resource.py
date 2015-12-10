@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django.db import models
 from utils.db.utils import generate_uuid
 from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \

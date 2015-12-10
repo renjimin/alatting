@@ -1,5 +1,4 @@
 from __future__ import absolute_import
-__author__ = 'tianhuyang'
 import os
 
 from celery import Celery, platforms

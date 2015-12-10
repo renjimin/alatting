@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from alatting_website.models import Comment, Person, User

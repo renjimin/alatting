@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 import re
 from decimal import Decimal
 from django.template.loader import render_to_string

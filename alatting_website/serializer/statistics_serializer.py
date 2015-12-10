@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from rest_framework import serializers
 from alatting_website.models import PosterStatistics, Rating, PosterLike, PosterFun
 

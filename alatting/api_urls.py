@@ -1,4 +1,3 @@
-__author__ = 'tianhuyang'
 from rest_framework.routers import DefaultRouter
 from alatting_website.view.comment_viewset import CommentViewSet
 from alatting_website.view.statistics_viewset import RatingViewSet, PosterLikeViewSet, StatisticsViewSet, \
