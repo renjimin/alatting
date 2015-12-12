@@ -132,6 +132,9 @@ PosterRender.renderSlider = function(widget, context) {
         }
     }
     widget.include = sliderWidgetURL
+    widget.init = function(){
+        initFlexSlider('#' + widget.element_id)
+    }
 }
 
 PosterRender.renderMusic = function(widget, context) {
@@ -151,4 +154,7 @@ PosterRender.renderVideo = function(widget, context) {
         widget['video'].url = widget['video'].file
     }
     widget.include = videoWidgetURL
+    widget.init = function(){
+        videojs.initialize(widget.video_element_id)
+    }
 }

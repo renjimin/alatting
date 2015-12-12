@@ -65,10 +65,51 @@
 
 </div>
 
-<script type="text/javascript" charset="utf-8">
-    $(window).load(function () {
+<script type="text/javascript">
+    var pswpElement = document.querySelectorAll('.pswp')[0];
 
-        var $flexSlider = $('.flexslider')
+    function openPhotoSwipe(element) {
+        // build items array
+        var items = []
+        var lis = element.querySelectorAll('ul li')
+        for (var index = 0; index < lis.length; ++index) {
+            var li = lis[index]
+            var src = li.getAttribute('data-src')
+            var w = li.getAttribute('data-w')
+            var h = li.getAttribute('data-h')
+            items.push({src: src, msrc: src, w: w, h: h})
+        }
+
+        var getThumbBoundsFn = function (index) {
+            var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
+            var rect = element.getBoundingClientRect();
+            return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
+        }
+
+        var options = {
+            getThumbBoundsFn: getThumbBoundsFn,
+            index: 0, // start at first slide
+            showHideOpacity: true,
+            mainClass: 'pswp--minimal--dark',
+            barsSize: {top: 0, bottom: 0},
+            captionEl: false,
+            fullscreenEl: false,
+            shareEl: false,
+            bgOpacity: 0.85,
+            tapToClose: true,
+            tapToToggleControls: false
+        };
+
+        // Initializes and opens PhotoSwipe
+        var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.init();
+    }
+</script>
+
+<script type="text/javascript" charset="utf-8">
+    function initFlexSlider(selector){
+        selector = selector || '.flexslider'
+        var $flexSlider = $(selector)
         if(isCapturing){
             fillCenter($flexSlider);
         }
@@ -82,59 +123,16 @@
                 }
             });
         }
-
-    });
-</script>
-
-<script type="text/javascript">
-
-    (function () {
-        var pswpElement = document.querySelectorAll('.pswp')[0];
-
-        function openPhotoSwipe(element) {
-            // build items array
-            var items = []
-            var lis = element.querySelectorAll('ul li')
-            for (var index = 0; index < lis.length; ++index) {
-                var li = lis[index]
-                var src = li.getAttribute('data-src')
-                var w = li.getAttribute('data-w')
-                var h = li.getAttribute('data-h')
-                items.push({src: src, msrc: src, w: w, h: h})
-            }
-
-            var getThumbBoundsFn = function (index) {
-                var pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-                var rect = element.getBoundingClientRect();
-                return {x: rect.left, y: rect.top + pageYScroll, w: rect.width};
-            }
-
-            var options = {
-                getThumbBoundsFn: getThumbBoundsFn,
-                index: 0, // start at first slide
-                showHideOpacity: true,
-                mainClass: 'pswp--minimal--dark',
-                barsSize: {top: 0, bottom: 0},
-                captionEl: false,
-                fullscreenEl: false,
-                shareEl: false,
-                bgOpacity: 0.85,
-                tapToClose: true,
-                tapToToggleControls: false
-            };
-
-            // Initializes and opens PhotoSwipe
-            var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
-            gallery.init();
-        }
-
-        var widgets = document.querySelectorAll('.flexslider');
+        //widgets
+        var widgets = document.querySelectorAll(selector);
         for (var index = 0; index < widgets.length; ++index) {
             var widget = widgets[index]
             widget.onclick = function (e) {
                 openPhotoSwipe(this);
             };
         }
-
-    })();
+    }
+    $(window).load(function () {
+        initFlexSlider()
+    });
 </script>

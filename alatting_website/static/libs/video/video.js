@@ -2,6 +2,11 @@
  * Created by tianhuyang on 10/15/15.
  */
 
+videojs.initialize = function(id){
+    videojs(id, {}, function(){
+    });
+}
+
 videojs.start = function (id) {
     var isWebkit = /AppleWebKit/.test(navigator.userAgent);
     var player = videojs.getPlayers()[id];
