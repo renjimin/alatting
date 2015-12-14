@@ -27,7 +27,7 @@ class Poster(models.Model):
     )
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User)
-    unique_name = models.CharField(max_length=255, unique=True)
+    # unique_name = models.CharField(max_length=255, unique=True)
     url = models.CharField(max_length=255, default='')
 
     #qr_image
@@ -75,6 +75,9 @@ class Poster(models.Model):
         if self._state.adding and self.__class__ is Poster:
             with transaction.atomic():
                 super(Poster, self).save(**kwargs)
+                template = getattr(self, 'template', None)
+                if template:
+                    PosterPage.objects.create(template=self.template, poster=self)
                 self.poster_statistics = PosterStatistics.objects.create(poster=self)
                 self.history_statistics = HistoryStatistics.objects.create(poster=self)
                 child_type = self.main_category.get_type_class()
@@ -93,7 +96,7 @@ class PosterPage(models.Model):
     poster = BigForeignKey(Poster, related_name='poster_pages')
     template = models.ForeignKey('Template')
     index = models.SmallIntegerField(default=0)
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, default='')
 
     class Meta:
         unique_together = ('poster', 'index')
