@@ -11,18 +11,18 @@
 
 {% block head_script %}
     {{ block.super }}
+    <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var posterURL = "{% url 'api:edit-poster' poster_id=object.id%}"
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
         var auth_user_id = {% firstof request.user.id "null"%}
-        var imageWidgetURL = "{% static 'templates/widgets/image.html' %}"
-        var videoWidgetURL = "{% static 'templates/widgets/video.html' %}"
-        var musicWidgetURL = "{% static 'templates/widgets/music.html' %}"
-        var sliderWidgetURL = "{% static 'templates/widgets/slider.html' %}"
     </script>
-    <script src="{% static 'website/js/poster_render.js' %}"></script>
-    <script src="{% static 'website/js/edit.js' %}"></script>
 {% endblock %}
 
 {% block css %}
@@ -35,7 +35,7 @@
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
-    {% include 'libs/widgets/clip_style_ng.html' %}
+    <style>{% include 'libs/widgets/clip_style.html' %}</style>
 {% endblock %}
 
 {% block head_more %}
@@ -47,7 +47,6 @@
     {{ block.super }}
     {% include 'libs/facebook/fb_share_body_start.html' %}
 {% endblock %}
-
 {% block content %}
 
     <div class="app">
@@ -76,7 +75,7 @@
                                                                         alt='poster logo'/></a>
                                                             </div>
                                                         </div>
-                                                        <div class="poster-title editable-text" contenteditable="true" target="logo_title">
+                                                        <div class="poster-title">
                                                             {{ object.logo_title }}
                                                         </div>
                                                     </div>
@@ -89,12 +88,12 @@
                                                 <!-- end of poster-header -->
                                                 <div class="poster-tabs btn-group btn-group-justified"
                                                      ui-state="activeTab" default="0">
-                                                    {% verbatim %}
-                                                    <div ng-repeat="page in object.pages" ui-set="{'activeTab': page.index}" ui-class="{'active': activeTab == page.index}"
+                                                    {% for page in object.pages %}
+                                                        <div ui-set="{'activeTab': {{ page.index }}}" ui-class="{'active': activeTab == {{ page.index }}}"
                                                          class="tab-btn-first tab-btn btn">
-                                                        <div ng-cloak>{{ page.name }}</div>
+                                                        <div>{{ page.name }}</div>
                                                     </div>
-                                                    {% endverbatim %}
+                                                    {% endfor %}
                                                     <!--div ui-class="{'active': false}" class="tab-btn btn">
                                                         <div></div>
                                                     </div-->
@@ -140,12 +139,12 @@
                                         <!-- end of poster-top-main -->
                                         <div class="poster-top-information">
                                             <div class="description">
-                                                <div class="expander" contenteditable="true">
+                                                <div class="expander">
                                                     {{ object.description_first_line }}
                                                     {% if object.description_others %}
-                                                    <span class="dot-expander">...</span>
-                                                    <br/>{{ object.description_others }}
+                                                        <span class="dot-expander">...</span>
                                                     {% endif %}
+                                                    <br/>{{ object.description_others }}
                                                 </div>
                                             </div>
                                             <div class="contact-info phone">
@@ -185,27 +184,78 @@
                                                </iframe>
                                             </div>
                                         </div> <!-- end of poster top information -->
-                                    </div>
+                                        <!-- a button and the group buttons of links -->
+                                        <div class="a-button a-button-trigger">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-trigger" extended="false">
+                                                    <img src="{% static 'website/images/icons/a_button.png' %}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                         <div class="a-button-child a-button-fun">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-link" cookie="a-button-fun-enabled">
+                                                    {% if object.a_button_fun_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_fun.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_fun.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                         <div class="a-button-child a-button-like">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-link" cookie="a-button-like-enabled">
+                                                    {% if object.a_button_like_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_like.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_like.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                         <div class="a-button-child a-button-favorite">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-link" cookie="a-button-favorite-enabled">
+                                                    {% if object.a_button_favorite_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="a-button-child a-button-line a-button-line-middle"></div>
+                                        <div class="a-button-child a-button-line a-button-line-top"></div>
+                                        <div class="a-button-child a-button-line a-button-line-bottom"></div>
+                                        <!-- end of a buttons -->
+                                    </div> <!-- end of poster top -->
                                 </div>
-                            </div><!-- end of poster top -->
+                            </div>
 
                             <!-- pages -->
                             <div class="poster-pages-ratio">
                                 <div>
                                     <div class="poster-pages">
-                                        {% include 'libs/widgets/poster_pages_ng.html' %}
+                                        {% include 'libs/widgets/poster_pages.html' %}
                                     </div>
                                 </div>
                             </div>
 
                             <!-- svg -->
-                            {% include 'libs/widgets/clip_svg_ng.html' %}
+                            {% include 'libs/widgets/clip_svg.html' %}
 
                         </div>
                     </div>
                 </div>
 
-                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller1="commentsController"
+                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController"
                      ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
                     <div class="scrollable-content" ui-scroll-bottom="loadMore()">
                         <div class="poster-frame center-block">
