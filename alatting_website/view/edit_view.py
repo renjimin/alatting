@@ -13,12 +13,13 @@ from alatting_website.logic.poster_service import PosterService
 from utils.utils import Utils
 from utils.views import LoginRequiredMixin
 from django.conf import settings
+from alatting_website.form.edit_form import CreateForm
 
 
 class CreatePosterView(LoginRequiredMixin, CreateView):
     template_name = 'website/create.html'
     model = Poster
-    fields = ('unique_name', 'main_category', 'sub_category', 'data', 'html', 'css', 'script')
+    form_class = CreateForm
 
     def get_success_url(self):
         url = reverse('website:edit', kwargs=dict(pk=self.object.id))
@@ -96,7 +97,7 @@ class EditView(LoginRequiredMixin, DetailView):
             obj.mobile = obj.mobile[:3]+'-'+obj.mobile[3:6]+'-'+obj.mobile[6:]
         # prepare email content to send
         url_detail = '\nquote:\n"'+obj.short_description+'\n'+Utils.get_current_url(self.request)+'\n"'
-        title = obj.unique_name
+        title = obj.logo_title
         obj.email_content = 'subject=%s&body=%s' % ('To: '+urlquote(title, ''), urlquote(url_detail, ''))
         # extract hours details and check whether available currently
         now = datetime.datetime.now(tz=pytz.utc)

@@ -90,7 +90,7 @@ class PosterRender:
 
     @classmethod
     def render_background(cls, widget, context):
-        template_name = 'libs/widgets/background.html'
+        template_name = 'libs/widgets/default.html'
         images = context['object'].images
         image_name = widget['image_name']
         if image_name in images:

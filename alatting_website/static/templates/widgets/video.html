@@ -6,7 +6,7 @@
             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
         </p>
     </video>
-    <img class="video-play" onclick="videojs.start('{{ widget.video_element_id }}')" src="/static/website/images/icons/play.png">
+    <img post-init="widget.init()" class="video-play" ng-click="videojs.start('{{ region.widget.video_element_id }}')" src="/static/website/images/icons/play.png">
 
 </div>
 

@@ -1,7 +1,7 @@
 {% verbatim %}
 <div ng-cloak ng-repeat="page in object.pages" ui-show="activeTab == {{ page.index }}" class="poster-page">
-    <div ng-repeat="region in page.regions" class="poster-region {{ region.class_name }}" id="{{ region.element_id }}"
-            ng-include="region.widget.include" onload="widget=region.widget">
+    <div ng-repeat="region in page.regions" class="poster-region {{ region.class_name }}" ng-attr-id="{{ region.element_id }}"
+            ng-include="widget.include" ng-init="widget=region.widget">
     </div>
 {% endverbatim %}
     {% include 'libs/widgets/text_ng.html' %}

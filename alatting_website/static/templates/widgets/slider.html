@@ -1,4 +1,4 @@
-<div class="poster-slider-widget {{ widget.class_name }} flexslider" ng-attr-id="{{ widget.element_id }}">
+<div class="poster-slider-widget {{ widget.class_name }} flexslider" ng-attr-id="{{ widget.element_id }}" post-init="widget.init()">
     <ul class="slides">
         <li ng-repeat="image in widget.images" data-src="{{ image.image_url }}" data-w="{{ image.width }}"
             data-h="{{ image.height }}"><img ng-src="{{ image.image_url }}"></li>
