@@ -6,7 +6,37 @@
 </head>
 <body>
 <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ form.as_p }}
+    {{ form.non_field_errors }}
+
+    {% with form.main_category as field %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </div>
+    {% endwith %}
+
+    {% with form.sub_category as field %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </div>
+    {% endwith %}
+
+    {% with form.template as field %}
+        <div class="fieldWrapper">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+            {% if field.help_text %}
+            <p class="help">{{ field.help_text|safe }}</p>
+            {% endif %}
+        </div>
+    {% endwith %}
     <input type="submit" value="Create" />
 </form>
 </body>

@@ -8,7 +8,7 @@ class CreateForm(forms.ModelForm):
 
     class Meta:
         model = Poster
-        fields = ('logo_title', 'main_category', 'sub_category', 'data', 'html', 'css', 'script')
+        fields = ('main_category', 'sub_category', 'data', 'html', 'css', 'script')
 
     def save(self, commit=True):
         self.instance.template = self.cleaned_data['template']

@@ -57,9 +57,10 @@ PosterRender.render = function(poster, root){
         for(var j = 0; j < poster_page.regions.length; ++j){
             var page_region = poster_page.regions[j]
             var region = page.regions[page_region.name]
-            if(region){
-                this.renderRegion(page_region, region)
+            if(!region){
+                region = {}
             }
+            this.renderRegion(page_region, region)
         }
         for(var j = 0; j < poster_page.texts.length; ++j){
             var page_text = poster_page.texts[j]
@@ -72,15 +73,18 @@ PosterRender.render = function(poster, root){
 }
 
 PosterRender.renderRegion = function(page_region, region){
-    page_region.class_name = 'p' + page_region.poster_page.poster.id + '-p' + page_region.poster_page.index + '-' +
+    var poster = page_region.poster_page.poster
+    page_region.class_name = 'p' + poster.id + '-p' + page_region.poster_page.index + '-' +
         page_region.name
     page_region.element_id = page_region.class_name
     page_region.path_id = page_region.element_id + '-path'
     $.extend(page_region, region)
-    var widget = region.widget
-    if(widget) {
-        this.renderWidget(page_region, widget)
+    if(!page_region.widget) {
+        var widget = {include: defaultWidgetURL, type: 'default'}
+        widget.name = 'd-p-' + page_region.poster_page.index + '-' + page_region.name
+        page_region.widget = widget
     }
+    this.renderWidget(page_region, page_region.widget)
 }
 
 PosterRender.renderWidget = function(page_region, widget){
@@ -96,6 +100,8 @@ PosterRender.renderWidget = function(page_region, widget){
         this.renderMusic(widget, context)
     else if(type == 'video')
         this.renderVideo(widget, context)
+    else if(type == 'default')
+        this.renderDefault(widget, context)
 }
 
 PosterRender.renderTextWidget = function(page_text, text) {
@@ -157,4 +163,8 @@ PosterRender.renderVideo = function(widget, context) {
     widget.init = function(){
         videojs.initialize(widget.video_element_id)
     }
+}
+
+PosterRender.renderDefault = function(widget, context) {
+
 }
