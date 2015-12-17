@@ -60,7 +60,60 @@
                         <div class="poster-frame center-block">
                             <!-- top -->
                             <div class="poster-top-ratio">
-                                <div>
+                                <div><!--
+                                    <div class="poster-header">
+                                        <div class="header-top" style="background-color:blue; text-align:center;">
+                                                <a href="#" style="position:absolute;margin-left:5%;">
+                                                    <img src="{% static 'website/images/icons/pages.png' %}">
+                                                </a>
+
+
+                                                {{ object.logo_title }}
+
+                                                <a href="#" style="position:absolute; margin-right:5%;">
+                                                    <img src="{% static 'website/images/icons/music.png' %}">
+                                                </a>
+
+                                        </div>
+                                        <div class="header-main">
+                                            <div class="header-logo">
+                                                <a href="#" class="logo">
+                                                    <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
+                                                </a>
+                                            </div>
+                                            <div class="header-qrcode">
+                                                <img src="{% url 'website:code_poster' object.id %}"/>
+                                            </div>
+                                            <div class="header-abutton">
+                                                <div class="abutton">
+                                                    <a href="#" class="a-button-trigger" extended="false">
+                                                        <img src="{% static 'website/images/icons/a_button.png' %}">
+                                                    </a>
+                                                </div>
+                                                <div class="contact phone">
+
+                                                </div>
+                                                <div class="contact email">
+
+                                                </div>
+                                                <div class="contact map">
+
+                                                </div>
+                                                <div class="contact hours">
+
+                                                </div>
+                                            </div>
+                                            <div class="header-description">
+                                                <div class="expander">
+                                                    {{ object.description_first_line }}
+                                                    {% if object.description_others %}
+                                                        <span class="dot-expander">...</span>
+                                                    {% endif %}
+                                                    <br/>{{ object.description_others }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>-->
                                     <div class="poster-top">
                                         <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
                                         <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
