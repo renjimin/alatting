@@ -144,7 +144,10 @@
                                                     {% if object.description_others %}
                                                         <span class="dot-expander">...</span>
                                                     {% endif %}
-                                                    <br/>{{ object.description_others }}
+                                                    <br/>
+                                                    <div class="expanded_others">
+                                                         {{ object.description_others }}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="contact-info phone">
