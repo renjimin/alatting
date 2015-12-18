@@ -61,6 +61,92 @@
                             <!-- top -->
                             <div class="poster-top-ratio">
                                 <div>
+                                    <div class="poster-header" style="text-align:center; clear:both;">
+                                        <div class="header-top" style="background:#1a486a; width:100%; color:white; padding-bottom:15px; clear:both;">
+                                            <div class="header-pages" style="float:left; margin-left:25px;">
+                                                <a href="#">
+                                                    <img src="{% static 'website/images/icons/pages.png' %}" style="width:70%;">
+                                                </a>
+                                            </div>
+                                            <div class="header-title" style="display:inline-block;margin:0 auto; font-size: 32px; font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif; letter-spacing: 3px;">
+                                                {{ object.logo_title }}
+                                            </div>
+                                            <div class="header-music" style="float:right; margin-right:25px;">
+                                                <a href="#">
+                                                    <img src="{% static 'website/images/icons/music.png' %}" style="width:70%;">
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        <div class="header-main" style="background-image: url({% static 'website/images/header_bg.png' %}); width:100%; display:table; padding-top:15px; padding-bottom:15px;clear:both;">
+                                            <div class="header-qrcode" style="float:left; width:33%; display:inline-block;margin:0 auto;">
+                                                <div class="qrcode_circled" style="display:inline-block;">
+                                                    <div class="circle" style="width:120px;height:120px;border-radius:50%; background:#1a486a;"></div>
+                                                    <div class="qrcode" style="position:absolute;z-index:2;margin-top:-105px; margin-left:25px;"><img src="{% url 'website:code_poster' object.id %}"/></div>
+                                                </div>
+                                            </div>
+                                            <div class="header-logo" style="display:inline-block;margin:0 auto; width:34%;">
+                                                <a href="#" class="logo">
+                                                    <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
+                                                </a>
+                                            </div>
+                                            <div class="header-abutton" style="float:right; width:33%;">
+                                                <div class="abutton" style="display:inline-block;">
+                                                    <div class="circle-external" style="width:120px;height:120px;border-radius:50%; background:#1a486a;"></div>
+                                                     <div class="circle-internal" style="position:absolute;z-index:3; margin-top:-80px;margin-left:40px;width:40px;height:40px;border-radius:50%; background:white;"></div>
+                                                    <a href="#" class="a-button-trigger" extended="false"style="position:absolute;z-index:4; margin-top:-105px;margin-left:-45px;">
+                                                       <img src="{% static 'website/images/icons/a.png' %}">
+                                                    </a>
+                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-left: -70px; margin-top: -105px;">
+                                                        <img src="{% static 'website/images/icons/contact-phone.png' %}" style="width:40%;">
+                                                    </a>
+                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-top: -145px; margin-left: -34px;">
+                                                        <img src="{% static 'website/images/icons/contact-email.png' %}" style="width:40%;">
+                                                    </a>
+                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-left: 20px; margin-top: -105px;">
+                                                        <img src="{% static 'website/images/icons/contact-location.png' %}" style="width:40%;">
+                                                    </a>
+                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-top: -65px; margin-left: -34px;">
+                                                        <img src="{% static 'website/images/icons/contact-hour.png' %}" style="width:40%;">
+                                                    </a>
+
+                                                    <div  style="z-index:2;position:absolute;
+                                                        background-color:whitesmoke;
+                                                        height:2px;
+                                                        width: 120px;
+                                                        top:170px;
+                                                        transform: rotate(-135deg);
+                                                        -webkit-transform: rotate(-135deg);
+                                                        -ms-transform: rotate(-135deg);">
+                                                    </div>
+                                                    <div  style="z-index:2;position:absolute;
+                                                        background-color:whitesmoke;
+                                                        height:2px;
+                                                        width: 120px;
+                                                        top:170px;
+                                                        transform: rotate(135deg);
+                                                        -webkit-transform: rotate(135deg);
+                                                        -ms-transform: rotate(135deg);">
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="header-description" style="clear:both;font-size: 22px;
+                                            font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif; letter-spacing: 3px; text-align:left; padding-left: 35px; padding-right:25px;">
+                                                <div>
+                                                    {{ object.description_first_line }}
+                                                    {% if object.description_others %}
+                                                        <span class="dot-expander">...</span>
+                                                    {% endif %}
+                                                    <br/>{{ object.description_others }}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div><hr/></div>
+                                    <div><hr/></div>
                                     <div class="poster-top">
                                         <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
                                         <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
@@ -144,7 +230,10 @@
                                                     {% if object.description_others %}
                                                         <span class="dot-expander">...</span>
                                                     {% endif %}
-                                                    <br/>{{ object.description_others }}
+                                                    <br/>
+                                                    <div class="expanded_others">
+                                                         {{ object.description_others }}
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="contact-info phone">

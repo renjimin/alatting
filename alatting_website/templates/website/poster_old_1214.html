@@ -1,0 +1,381 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% load poster %}
+{% load humanize %}
+{% block title %}{{ object.unique_name }}{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+    {% include 'libs/facebook/fb_share_meta.html' %}
+{% endblock %}
+
+{% block head_script %}
+    {{ block.super }}
+    <script src="{% static 'website/js/poster.js' %}"></script>
+    <script>
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
+        var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
+        var auth_user_id = {% firstof request.user.id "null"%}
+    </script>
+{% endblock %}
+
+{% block css %}
+    {{ block.super }}
+    <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
+    <link rel="stylesheet" href="{{ object.css.url }}">
+    <style>{% include 'libs/widgets/clip_style.html' %}</style>
+{% endblock %}
+
+{% block head_more %}
+    {{ block.super }}
+    {% include 'libs/photo_swipe/head.html' %}
+{% endblock %}
+
+{% block body_start %}
+    {{ block.super }}
+    {% include 'libs/facebook/fb_share_body_start.html' %}
+{% endblock %}
+{% block content %}
+
+    <div class="app">
+
+        <!-- App body -->
+        <div class='app-body'>
+            <div class='app-content'>
+                <ng-view></ng-view>
+                <div class="scrollable">
+                    <div class="scrollable-content">
+                        <div class="poster-frame center-block">
+                            <!-- top -->
+                            <div class="poster-top-ratio">
+                                <div>
+                                    <div class="poster-top">
+                                        <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
+                                        <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
+                                        <div class="poster-top-main">
+                                            <div class="poster-top-left">
+                                                <div class="poster-header">
+                                                    <div class="poster-profile">
+                                                        <div class="poster-logo">
+                                                            <div class="logo-image">
+                                                                <a href="#" class="logo"><img
+                                                                        src="{{ object.images.logo.file.url }}"
+                                                                        alt='poster logo'/></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="poster-title">
+                                                            {{ object.logo_title }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="poster-qrcode">
+                                                        <div class="qrcode-image">
+                                                            <img src="{% url 'website:code_poster' object.id %}"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end of poster-header -->
+                                                <div class="poster-tabs btn-group btn-group-justified"
+                                                     ui-state="activeTab" default="0">
+                                                    {% for page in object.pages %}
+                                                        <div ui-set="{'activeTab': {{ page.index }}}" ui-class="{'active': activeTab == {{ page.index }}}"
+                                                         class="tab-btn-first tab-btn btn">
+                                                        <div>{{ page.name }}</div>
+                                                    </div>
+                                                    {% endfor %}
+                                                    <!--div ui-class="{'active': false}" class="tab-btn btn">
+                                                        <div></div>
+                                                    </div-->
+                                                </div>
+                                                <!-- end of poster-tabs -->
+                                            </div>
+                                            <!-- end of poster-top-left -->
+                                            <div class="poster-top-right">
+                                                <div class="poster-contact">
+                                                    <div class="first-row btn-group equal-justified">
+                                                        <div class="phone poster-contact-sub">
+                                                            <a href="#" for="phone"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/phone.png' %}">
+                                                            </a>
+                                                        </div>
+                                                        <div class="mail poster-contact-sub">
+                                                            <a href="#" for="mail"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/mail.png' %}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="second-row btn-group equal-justified">
+                                                        <div class="hours poster-contact-sub">
+                                                            <a href="#" for="hours"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/hours.png' %}">
+                                                            </a>
+                                                        </div>
+                                                        <div class="location poster-contact-sub">
+                                                            <a href="#" for="location"
+                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
+                                                                <img src="{% static 'website/images/icons/location.png' %}">
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- end of poster-contact -->
+                                            </div>
+                                            <!-- end of poster-top-right -->
+                                        </div>
+                                        <!-- end of poster-top-main -->
+                                        <div class="poster-top-information">
+                                            <div class="description">
+                                                <div class="expander">
+                                                    {{ object.description_first_line }}
+                                                    {% if object.description_others %}
+                                                        <span class="dot-expander">...</span>
+                                                    {% endif %}
+                                                    <br/>{{ object.description_others }}
+                                                </div>
+                                            </div>
+                                            <div class="contact-info phone">
+                                                {{ object.mobile }}
+                                                <a href="#"><img
+                                                        src="{% static 'website/images/icons/call-info.png' %}"></a>
+                                                <a href="#"><img
+                                                        src="{% static 'website/images/icons/message-info.png' %}"></a>
+                                            </div>
+                                            <div class="contact-info mail">
+                                                {{ object.email }}
+                                                <a href="mailto:{{ object.email }}?{{ object.email_content | safe }}"><img
+                                                        src="{% static 'website/images/icons/email-info.png' %}"></a>
+                                            </div>
+                                            <div class="contact-info hours">
+                                                {{ object.hours }}
+                                                <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
+                                                <a href="#" class="more-info"><img
+                                                        src="{% static 'website/images/icons/more_icon.png' %}"></a>
+                                                <div class="poster-top-inform-more">
+                                                    <table class="hours-more-details">
+                                                     {% for day,day_hours in object.hours_details.items %}
+                                                        <tr>
+                                                            <th>{{ day }}</th><td>{{ day_hours|safe }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="contact-info location">
+                                                {{ object.address_info }}
+                                                <a href="#" class="location-info"><img
+                                                        src="{% static 'website/images/icons/location-info.png' %}"></a>
+                                                <iframe class="map"
+                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB5YbUFeSsRWn1G2UsdJmAPT4qyD6RrYao
+                                              &q={{ object.address_mapped }}" allowfullscreen>
+                                               </iframe>
+                                            </div>
+                                        </div> <!-- end of poster top information -->
+                                        <!-- a button and the group buttons of links -->
+                                        <div class="a-button a-button-trigger">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-trigger" extended="false">
+                                                    <img src="{% static 'website/images/icons/a_button.png' %}">
+                                                </a>
+                                            </div>
+                                        </div>
+                                         <div class="a-button-child a-button-fun">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-link" cookie="a-button-fun-enabled">
+                                                    {% if object.a_button_fun_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_fun.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_fun.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                         <div class="a-button-child a-button-like">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-link" cookie="a-button-like-enabled">
+                                                    {% if object.a_button_like_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_like.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_like.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                         <div class="a-button-child a-button-favorite">
+                                            <div class="a-button-icon">
+                                                <a href="#" class="a-button-link" cookie="a-button-favorite-enabled">
+                                                    {% if object.a_button_favorite_enabled == 1 %}
+                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
+                                                    {% else %}
+                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_favorite.png' %}">
+                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="a-button-child a-button-line a-button-line-middle"></div>
+                                        <div class="a-button-child a-button-line a-button-line-top"></div>
+                                        <div class="a-button-child a-button-line a-button-line-bottom"></div>
+                                        <!-- end of a buttons -->
+                                    </div> <!-- end of poster top -->
+                                </div>
+                            </div>
+
+                            <!-- pages -->
+                            <div class="poster-pages-ratio">
+                                <div>
+                                    <div class="poster-pages">
+                                        {% include 'libs/widgets/poster_pages.html' %}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- svg -->
+                            {% include 'libs/widgets/clip_svg.html' %}
+
+                        </div>
+                    </div>
+                </div>
+
+                <div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController"
+                     ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
+                    <div class="scrollable-content" ui-scroll-bottom="loadMore()">
+                        <div class="poster-frame center-block">
+                            <div>
+                                <form novalidate class="justified comment has-error" name="form"
+                                     onclick="var event = arguments[0] || window.event; event.stopPropagation();">
+                                    <div class="comment-person">
+                                        <img ng-src="{{ request.user.person.avatar.url }}" class="img-circle">
+                                    </div>
+
+                                    <div class="comment-text">
+                                        <div class="bubble">
+                                            <div class="bubble-wrapper">
+                                                <div class="justified bubble-header">
+                                                    <div class="bubble-title editing">
+                                                        <input ng-model="comment.title" ng-maxlength="127" class="title-edit" name="title" required
+                                                               placeholder="Please input the title">
+                                                    </div>
+                                                    <div class="bubble-time" style="display: none;">now</div>
+                                                </div>
+
+                                                <div class="bubble-content editing">
+                                                    <textarea name="content" ng-model="comment.content" ng-maxlength="511" required
+                                                              class="content-edit" placeholder="please input the content"></textarea>
+
+                                                    <div ng-click="create(form)"
+                                                         class="icon-btn btn btn-navbar btn-icon-only"
+                                                         ng-disabled="form._creating">
+                                                        <img src="{% static 'website/images/icons/save.png' %}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- dynamic comments -->
+                                {%verbatim%}
+                                <form novalidate class="justified comment" ng-repeat="comment in comments" name="form"
+                                     ng-click="comment._edit == 'editing' && $event.stopPropagation()" ng-init="comment._form = $scope.$element">
+                                    <div class="comment-person">
+                                        <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
+                                    </div>
+
+                                    <div class="comment-text">
+                                        <div class="bubble">
+                                            <div class="bubble-wrapper">
+                                                <div class="justified bubble-header">
+                                                    <div class="bubble-title" ng-class="{editing: comment._edit == 'editing'}"><span ng-if="comment._edit != 'editing'">{{ comment.title }}</span>
+                                                        <input ng-if="comment._edit == 'editing'" ng-maxlength="127" ng-class=""
+                                                               ng-model="comment.title" class="title-edit" name="title" required
+                                                           placeholder="Please input the title">
+                                                        </div>
+                                                    <div ng-if="comment._edit != 'editing'" class="bubble-time">{{ comment.created_at }}</div>
+                                                </div>
+
+                                                <div class="bubble-content" ng-class="{editing: comment._edit == 'editing'}">
+                                                    <div style="clear: right" ng-if="comment._edit != 'editing'"
+                                                                                  class="content-display">{{ comment.content }}</div>
+                                                    <textarea ng-if="comment._edit == 'editing'"  ng-maxlength="511"
+                                                              ng-model="comment.content" name="content" required class="content-edit"
+                                                              placeholder="please input the content"></textarea>
+
+                                                    <div ng-if="comment._edit == 'editable'"
+                                                         ng-click="startEdit(comment)"
+                                                         ng-disabled="comment._deleting"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/edit.png">
+                                                    </div>
+                                                    <div ng-if="comment._edit == 'editable'" ng-click="delete(comment)"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         ng-disabled="comment._deleting"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/delete.png">
+                                                    </div>
+                                                    <div ng-if="comment._edit == 'editing'" ng-click="cancelEdit(comment)"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         ng-disabled="comment._updating"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/cancel.png">
+                                                    </div>
+                                                    <div ng-if="comment._edit == 'editing'" ng-click="update(this)"
+                                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                                         ng-disabled="comment._updating"
+                                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                                        <img src="/static/website/images/icons/save.png">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                {% endverbatim %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'website/poster_bottom.html' %}
+
+    </div>
+    <!-- ~ .app -->
+
+    <!-- Modals and Overlays -->
+    <div ui-yield-to="modals"></div>
+{% endblock %}
+
+{% block body_end %}
+    {{ block.super }}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
+    <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
+    <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
+    <script src="{% static 'libs/video/video.js' %}"></script>
+    <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'website/js/menu.js' %}"></script>
+    <script src="{% static 'website/js/contact.js' %}"></script>
+    <script src="{{ object.script.url }}"></script>
+    {% include 'libs/photo_swipe/body.html' %}
+{% endblock %}
