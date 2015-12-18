@@ -27,7 +27,7 @@ class Poster(models.Model):
     )
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User)
-    # unique_name = models.CharField(max_length=255, unique=True)
+    unique_name = models.CharField(max_length=255, unique=True)
     url = models.CharField(max_length=255, default='')
 
     #qr_image
