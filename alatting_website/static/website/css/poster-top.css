@@ -203,6 +203,11 @@ div.poster-top-inform-more {
     padding-top: 27px;
     padding-bottom: 27px;
 }
+.expanded .expanded_others {
+    margin-left: 5.5% !important;
+    margin-right: 5.5% !important;
+    text-align:justify !important;
+}
 div.a-button {
     position:absolute;
     z-index: 999;

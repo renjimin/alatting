@@ -77,7 +77,7 @@ class PosterView(DetailView):
             obj.mobile = obj.mobile[:3]+'-'+obj.mobile[3:6]+'-'+obj.mobile[6:]
         # prepare email content to send
         url_detail = '\nquote:\n"'+obj.short_description+'\n'+Utils.get_current_url(self.request)+'\n"'
-        title = obj.unique_name
+        title = obj.logo_title
         obj.email_content = 'subject=%s&body=%s' % ('To: '+urlquote(title, ''), urlquote(url_detail, ''))
         # extract hours details and check whether available currently
         now = datetime.datetime.now(tz=pytz.utc)
@@ -165,11 +165,11 @@ class PosterView(DetailView):
 
     def create_share(self, obj):
         share = Utils.create_object()
-        share.title = obj.unique_name
+        share.title = obj.logo_title
         share.description = obj.short_description
         share.url = Utils.get_current_url(self.request)
         encoded_url = urlquote_plus(share.url)
-        title = obj.unique_name
+        title = obj.logo_title
         encoded_title = urlquote_plus(title)
         encoded_detail = urlquote_plus(obj.short_description)
         url_detail = obj.short_description + '\n\n' + share.url

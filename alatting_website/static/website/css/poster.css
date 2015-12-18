@@ -797,60 +797,6 @@ textarea.ng-invalid {
     width: 100%;
 }
 
-/*.left-top {
-    position: absolute;
-    width: 63.5%;
-    height: 49%;
-    cursor: pointer;
-    -webkit-clip-path: polygon(0 0, 100% 0, 0 100%);
-    clip-path: url(#left-top-path);
-}
-
-.right-top {
-    position: absolute;
-    left: 51%;
-    width: 49%;
-    height: 49%;
-    cursor: pointer;
-    background-color: blue;
-    -webkit-clip-path: polygon(0 23.2%, 30.3% 0, 100% 0, 100% 100%);
-    clip-path: url(#right-top-path);
-}
-
-.middle {
-    position: absolute;
-    top: 12.06%;
-    margin-left: -4.84%;
-    width: 109.68%;
-    height: 84.58%;
-    cursor: pointer;
-    -webkit-clip-path: polygon(0 50%, 50% 0, 100% 50%, 50% 100%);
-    clip-path: url(#middle-path);
-}
-
-.left-bottom {
-    position: absolute;
-    top: 60%;
-    width: 52%;
-    height: 40%;
-    cursor: pointer;
-    background-color: yellow;
-    -webkit-clip-path: polygon(0 0, 100% 100%, 0 100%);
-    clip-path: url(#left-bottom-path);
-}
-
-.right-bottom {
-    position: absolute;
-    left: 51.3%;
-    top: 60%;
-    width: 48.7%;
-    height: 40%;
-    cursor: pointer;
-    background-color: purple;
-    -webkit-clip-path: polygon(0 94%, 100% 0, 100% 100%, 6% 100%);
-    clip-path: url(#right-bottom-path);
-}*/
-
 /* media */
 
 @media all and (min-width: 800px) {
@@ -915,6 +861,7 @@ textarea.ng-invalid {
 }
 
 /* widgets */
+
 .poster-text-widget {
     position: absolute;
     padding: 0;
@@ -924,6 +871,14 @@ textarea.ng-invalid {
 .clip-svg {
     position: absolute;
 }
+
+
+/* default */
+.poster-default-widget {
+    height: 100%;
+    background-color: #dddddd;
+}
+
 
 /* slider */
 .flexslider {

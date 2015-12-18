@@ -132,8 +132,8 @@
         "left-bottom": {
           "widget": {
             "type": "video",
-            "name": "video_1",
-            "video_name": "video_1"
+            "name": "video_2",
+            "video_name": "video_2"
           }
         },
         "middle": {

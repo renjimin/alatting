@@ -15,7 +15,9 @@
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
         var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
         var posterURL = "{% url 'api:edit-poster' poster_id=object.id%}"
+        var templateListURL = "{% url 'api:template-list' %}"
         var auth_user_id = {% firstof request.user.id "null"%}
+        var defaultWidgetURL = "{% static 'templates/widgets/default.html' %}"
         var imageWidgetURL = "{% static 'templates/widgets/image.html' %}"
         var videoWidgetURL = "{% static 'templates/widgets/video.html' %}"
         var musicWidgetURL = "{% static 'templates/widgets/music.html' %}"
@@ -76,7 +78,7 @@
                                                                         alt='poster logo'/></a>
                                                             </div>
                                                         </div>
-                                                        <div class="poster-title" contenteditable="true">
+                                                        <div class="poster-title editable-text" contenteditable="true" target="logo_title">
                                                             {{ object.logo_title }}
                                                         </div>
                                                     </div>
@@ -90,9 +92,9 @@
                                                 <div class="poster-tabs btn-group btn-group-justified"
                                                      ui-state="activeTab" default="0">
                                                     {% verbatim %}
-                                                    <div ng-repeat="page in object.pages" ui-set="{'activeTab': page.index}" ui-class="{'active': activeTab == page.index}"
+                                                    <div ng-repeat="page in object.pages" ui-set="{'activeTab': page.index, 'modal': true}" ui-class="{'active': activeTab == page.index}"
                                                          class="tab-btn-first tab-btn btn">
-                                                        <div ng-cloak>{{ page.name }}</div>
+                                                        <div ng-cloak>Edit</div>
                                                     </div>
                                                     {% endverbatim %}
                                                     <!--div ui-class="{'active': false}" class="tab-btn btn">
@@ -313,7 +315,36 @@
     <!-- ~ .app -->
 
     <!-- Modals and Overlays -->
-    <div ui-yield-to="modals"></div>
+    <div ui-yield-to1="modals">
+        <div class="scrollable">
+            <div class="scrollable-content modal" ui-if='modal' ui-state='modal'>
+                <div class="modal-backdrop in"></div>
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button class="close"
+                                    ui-turn-off="modal">&times;</button>
+                            <h4 class="modal-title">Choose a template</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% verbatim %}
+                            <form name="myForm">
+                            <select name="templateSelects"  ng-model="selectedTemplate.id">
+                                <option value="">---Please select---</option>
+                                <option ng-repeat="template in templates" value="{{ template.id }}">{{template.name}}</option>
+                            </select>
+                                </form>
+                            {% endverbatim %}
+                        </div>
+                        <div class="modal-footer">
+                            <button  class="btn btn-default" ui-turn-off="modal" ng-click="onSelectedTemplate()">Close</button>
+                            <button  class="btn btn-primary" ng-click="onSelectedTemplate()">Choose</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block body_end %}
