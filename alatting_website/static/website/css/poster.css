@@ -44,7 +44,7 @@
 .bottom-ratio-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 17%;
+    padding-bottom: 7%;
 }
 
 .bottom-ratio-wrapper > div {
@@ -60,7 +60,7 @@
     border: none;
     margin: 0;
     padding: 0;
-    font-size: 100%;
+    font-size: 24px;
 }
 
 .bottom-container .popover-title{
@@ -89,16 +89,24 @@
 }
 
 .bottom-menu {
-    background-color: #020202;
+    background: #4682b4; /* For browsers that do not support gradients */
+  /* For Safari 5.1 to 6.0 */
+    background: -webkit-linear-gradient(left,#1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /* For Opera 11.1 to 12.0 */
+    background: -o-linear-gradient(left,#1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /* For Fx 3.6 to 15 */
+    background: -moz-linear-gradient(left,#1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /* Standard syntax */
+    background: linear-gradient(to right, #1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
     height: 100%;
 }
 
+
 .bottom-btn {
-    border-right: 1px solid #818181 !important;
 }
 
 .bottom-btn img{
-    height: 50%;
+    height: 35px;
     max-height: 50%;
     max-width: none;
 }
@@ -109,13 +117,12 @@
 }
 
 .share-sub-btn {
-    padding-top: 5% !important;
-    padding-bottom: 5% !important;
-    border-right: 1px solid #1b1e21 !important;
+    padding-top: 2% !important;
+    padding-bottom: 2% !important;
 }
 
 .share-sub-btn img{
-    width: 50%;
+    width: 35px;
 }
 
 /* rate submenu */
@@ -132,8 +139,8 @@
 .rate-submenu .popover-title {
     line-height: 1;
     background-color: transparent;
-    padding-top: 5%;
-    padding-bottom: 5%;
+    padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 .rate-info > div{
@@ -144,15 +151,17 @@
 .rate-totals .rating-md {
     font-size: 80%;
     line-height: 1.5;
+    padding-bottom: 10px;
 }
 
 .rate-submenu .rate-rating{
-    font-size: 300%;
+    font-size: 200%;
     color: white;
+    padding-bottom: 10px;
 }
 
 .rate-submenu .rate-total{
-    font-size: 60%;
+    font-size: 80%;
     color: white;
 }
 
@@ -162,14 +171,16 @@
 
 .rate-submenu .rate-action {
     text-align: center;
+    padding-top: 1% !important;
+    padding-bottom: 1% !important;
 }
 
 .rate-action .rating-md {
-    font-size: 140%;
+    font-size: 100%;
 }
 /* rate-levels */
 .rate-submenu .rate-level {
-    font-size: 60%;
+    font-size: 80%;
     color: #97989c;
     line-height: 1.8;
 }
@@ -224,18 +235,18 @@
 /* export */
 
 .export-sub-btn {
-    padding-top: 3% !important;
-    padding-bottom: 3% !important;
-    border-right: 2px solid #1b1e21 !important;
+    padding-top: 2% !important;
+    padding-bottom: 2% !important;
 }
 
 .export-sub-btn img{
-    width: 50%;
+    width: 35px;
 }
 
 /* stats */
 .stats-submenu {
     background-color: transparent;
+    font-size: 24px;
 }
 
 .stats-submenu .popover-title {
@@ -277,7 +288,7 @@
 }
 
 .stats-submenu .stats-graph{
-    padding-bottom: 6%;
+    padding-bottom: 2%;
 }
 
 .pop-credit .dots{
@@ -307,15 +318,15 @@
     position: absolute;
     width: 20%;
     right: 0%;
-    top: 5%;
+    top: 2%;
 }
 
 .stats-submenu .doughnut {
     width: 100%;
-    padding-top: 20%;
-    padding-bottom: 20%;
-    margin-top: 10%;
-    margin-bottom: 5%;
+    padding-top: 13%;
+    padding-bottom: 13%;
+    margin-top: 2%;
+    margin-bottom: 1%;
 }
 .stats-submenu .stats-fun {
     width: 50%;
@@ -351,7 +362,7 @@
 }
 
 .stats-type-icon img{
-    width: 50%;
+    width: 25px;
     vertical-align: middle;
     display: block;
     margin-left: auto;
@@ -479,6 +490,7 @@
 }
 
 .comment {
+    font-size: 24pt;
     padding-top: 4%;
 }
 
@@ -555,7 +567,7 @@
     padding-left: 2%;
     width: 40%;
     background: #686b70;
-    font-size: 35%;
+    font-size: 50%;
     vertical-align: middle;
     color: white;
 }
@@ -587,10 +599,9 @@
 }
 
 .comment .icon-btn{
-    width: 12%;
+    width: 10%;
     float: right;
-    margin-bottom: 2%;
-    margin-right: 4%;
+    padding-top: 2%;
 }
 
 input.ng-invalid,
@@ -805,7 +816,7 @@ textarea.ng-invalid {
     }
 
     .has-navbar-bottom .app-body {
-        padding-bottom: 136px;
+        padding-bottom: 45px;
     }
 
     .bubble:after {
@@ -828,7 +839,7 @@ textarea.ng-invalid {
     }
 
     .has-navbar-bottom .app-body {
-        padding-bottom: 17%;
+        padding-bottom: 40px;
     }
 }
 
@@ -838,7 +849,7 @@ textarea.ng-invalid {
     }
 
     .has-navbar-bottom .app-body {
-        padding-bottom: 40.8px;
+        padding-bottom: 40px;
     }
 
     .bubble:after {
