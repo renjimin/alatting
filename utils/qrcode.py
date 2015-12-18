@@ -16,5 +16,5 @@ class QrCode:
         qr_code = pyqrcode.create(content)
         if buffer is None:
             buffer = io.BytesIO()
-        qr_code.png(buffer, scale=6, quiet_zone=0, background=(0, 0, 0, 0))
+        qr_code.png(buffer, scale=3, quiet_zone=0, background=(0, 0, 0, 0))
         return buffer

@@ -62,13 +62,13 @@
                             <div class="poster-top-ratio">
                                 <div>
                                     <div class="poster-header" style="text-align:center; clear:both;">
-                                        <div class="header-top" style="background-color:#1a486a; width:100%; color:white; padding-bottom:5px; clear:both;">
+                                        <div class="header-top" style="background-color:#1a486a; width:100%; color:white; padding-bottom:15px; clear:both;">
                                             <div class="header-pages" style="float:left; margin-left:25px;">
                                                 <a href="#">
                                                     <img src="{% static 'website/images/icons/pages.png' %}" style="width:70%;">
                                                 </a>
                                             </div>
-                                            <div class="header-title" style="display:inline-block;margin:0 auto; font-size: 0.8em;">
+                                            <div class="header-title" style="display:inline-block;margin:0 auto; font-size: 0.6em; font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif; letter-spacing: 3px;">
                                                 {{ object.logo_title }}
                                             </div>
                                             <div class="header-music" style="float:right; margin-right:25px;">
@@ -78,7 +78,7 @@
                                             </div>
 
                                         </div>
-                                        <div class="header-main" style="width:100%; clear:both;">
+                                        <div class="header-main" style="background-image: url({% static 'website/images/header_bg.png' %}); width:100%; display:table; padding-top:15px; padding-bottom:15px;clear:both;">
                                             <div class="header-logo" style="float:left; width:33%;">
                                                 <img src="{% url 'website:code_poster' object.id %}"/>
                                             </div>
@@ -106,8 +106,9 @@
 
                                                 </div>
                                             </div>
-                                            <div class="header-description">
-                                                <div class="expander">
+                                            <div class="header-description" style="clear:both;font-size: 24px;
+                                            font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif; letter-spacing: 3px; text-align:left; padding-left: 15px; padding-right:15px; padding-top:15px;">
+                                                <div>
                                                     {{ object.description_first_line }}
                                                     {% if object.description_others %}
                                                         <span class="dot-expander">...</span>
@@ -116,6 +117,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div><hr/></div>
                                     <div><hr/></div>
