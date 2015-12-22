@@ -34,13 +34,6 @@
     line-height: unset;
 }
 
-.bottom-ratio-frame {
-    max-width: 800px;
-    max-height: 136px;
-    min-width: 240px;
-    min-height: 40.8px;
-}
-
 .bottom-ratio-wrapper {
     position: relative;
     width: 100%;
@@ -101,11 +94,6 @@
     height: 100%;
 }
 
-
-.bottom-btn {
-    padding-top: 2% !important;
-    padding-bottom: 2% !important;
-}
 
 .bottom-btn img{
     height: 50%;
@@ -635,13 +623,6 @@ textarea.ng-invalid {
     margin: 10px auto 20px auto;
 }
 
-.poster-frame {
-    max-width: 800px;
-    min-width: 240px;
-    /*max-height: 1424px;
-    min-height: 427.2px;*/
-}
-
 .poster-top-ratio {
     position: relative;
     width: 100%;
@@ -849,13 +830,25 @@ textarea.ng-invalid {
     .bubble-wrapper {
         border-radius: 16px;
     }
+    .scrollable-content {
+        margin-left: auto;
+        margin-right: auto;
+        width: 45%;
+        min-width: 600px;
+    }
+
+    .navbar-absolute-bottom {
+        margin-left: auto;
+        margin-right: auto;
+        width: 45%;
+        min-width: 600px;
+    }
 }
 
 @media all and (min-width: 241px) and (max-width: 799px) {
     .app{
         font-size: 7vw; /* 200px: 14px */
     }
-
     .has-navbar-bottom .app-body {
         padding-bottom: 40px;
     }
