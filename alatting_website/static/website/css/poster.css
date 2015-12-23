@@ -835,7 +835,7 @@ textarea.ng-invalid {
 
 @media all and (min-width: 241px) and (max-width: 799px) {
     .app{
-        font-size: 7vw; /* 200px: 14px */
+        /**font-size: 7vw; /* 200px: 14px */
     }
 
     .has-navbar-bottom .app-body {
@@ -845,7 +845,7 @@ textarea.ng-invalid {
 
 @media all and (max-width: 240px) {
     .app{
-        font-size: 16.8px; /* 200px: 14px */
+        /**font-size: 16.8px; /* 200px: 14px */
     }
 
     .has-navbar-bottom .app-body {

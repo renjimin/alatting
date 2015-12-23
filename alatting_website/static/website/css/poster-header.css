@@ -1,0 +1,223 @@
+.poster-top-ratio {
+    position: relative;
+    width: 100%;
+    padding-bottom: 40%;
+    z-index:100;
+}
+.poster-top-ratio > div {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+div.poster-header {
+    font-size:16px;
+    font-size:2vw;
+    font-size:1vmin;
+    font-size:1vmax;
+}
+div.header-top {
+    background:#1a486a;
+    text-align:center;
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:2%;
+    padding-right:2%;
+}
+div.header-pages {
+    float:left;
+    height:100%;
+    width:8%;
+    display:inline-block;
+}
+span.align-helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+div.header-image {
+    vertical-align: middle;
+    margin-top:-25%;
+    margin-bottom:15%;
+}
+div.header-image img {
+    width:50%;
+    max-width:100%;
+    max-height:100%;
+}
+div.header-title {
+    height:100%;
+    font-size:2.5em;
+    color:white;
+    display:inline-block;
+    margin:0 auto;
+    font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif;
+    letter-spacing:1px;
+}
+div.header-music {
+    float:right;
+    height:100%;
+    width:8%;
+    display:inline-block;
+}
+div.header-main {
+    background-image: url('website/images/header_bg.png');
+}
+div.herder-middle {
+    padding-top:15%;
+    padding-bottom:1%;
+}
+div.header-qrcode {
+    position:absolute;
+    width:30%;
+    text-align:center;
+    margin-top:-14%;
+}
+div.qrcode_circled {
+    display:inline-block;
+    width:80%;
+    position:absolute;
+    left:25%;
+}
+div.qrcode_circled div.circle {
+    width:60%;
+    padding-top: 60%;
+    position: absolute;
+    border-radius: 50%;
+    background:#1a486a;
+}
+div.qrcode_circled div.qrcode {
+    position:absolute;
+    z-index:2;
+    width: 40%;
+    margin-top:10.5%;
+    left:10%;
+}
+div.qrcode_circled div.qrcode img {
+    max-width:100%;
+    max-height:100%;
+}
+div.header-logo {
+    position: absolute;
+    left: 30%;
+    width:40%;
+    text-aline:center;
+    display:inline-block;
+    margin:0 auto;
+    margin-top:-14%;
+}
+div.logo {
+    display:inline-block;
+    width:100%;
+}
+a.log img {
+    max-width:100%;
+    max-height:100%;
+}
+div.header-abutton {
+    position:absolute;
+    left:70%;
+    width:30%;
+    text-align:center;
+    margin-top:-14%;
+}
+div.abutton {
+    position:absolute;
+    width:80%;
+    left:25%;
+}
+div.abutton div.circle-double {
+    position: absolute;
+    width:60%;
+    padding-top: 60%;
+}
+div.abutton div.circle-external {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    width:100%;
+    padding-top: 100%;
+    background:#1a486a;
+}
+div.abutton div.circle-internal {
+    position:absolute;
+    z-index:3;
+    left:30%;
+    top: 30%;
+    width:40%;
+    padding-top:40%;
+    border-radius:50%;
+    background:white;
+}
+div.abutton div.circle-sector {
+    position: absolute;
+    z-index: 2;
+    background-color: whitesmoke;
+    height: 1px;
+    width: 100%;
+    top: 50%;
+}
+div.abutton div.circle-sector-left {
+    transform: rotate(-135deg);
+}
+div.abutton div.circle-sector-right {
+    transform: rotate(135deg);
+}
+div.abutton div.abutton-group {
+    position: absolute;
+    width:60%;
+    padding-top: 60%;
+}
+div.abutton div.abutton-group div.abutton-trigger {
+    position: absolute;
+    z-index: 4;
+    left:0;
+    top:40%;
+    width:100%;
+}
+div.abutton div.abutton-group div.abutton-phone {
+    position: absolute;
+    z-index: 4;
+    width: 50%;
+    left:-8%;
+    top:40%;
+}
+a.abutton-trigger img {
+    width:30%;
+}
+a.abutton-contact img {
+    width:40%;
+}
+div.abutton div.abutton-group div.abutton-email {
+    position: absolute;
+    z-index: 4;
+    width: 50%;
+    left:25%;
+    top:7%;
+}
+div.abutton div.abutton-group div.abutton-location {
+    z-index: 4;
+    position: absolute;
+    width: 35%;
+    left:66%;
+    top:40%;
+}
+div.abutton div.abutton-group div.abutton-hours {
+    z-index: 4;
+    position: absolute;
+    width: 50%;
+    left:25%;
+    bottom:7%;
+}
+div.header-description {
+    clear:both;
+    font-size: 2em;
+    font-size-adjust:auto;
+    font-family:SimHei,Tahoma,Helvetica,Arial,Microsoft Yahei,sans-serif;letter-spacing:1%;
+    text-align:left;
+    padding-bottom:1%;
+    padding-left: 2%;
+    padding-right:2%;
+}

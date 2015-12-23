@@ -33,7 +33,7 @@
     <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
     <link rel="stylesheet" href="{% static 'libs/dotnut/css/dotnut.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster.css' %}">
-    <link rel="stylesheet" href="{% static 'website/css/poster-top.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-header.css' %}">
     <link rel="stylesheet" href="{{ object.css.url }}">
     <style>{% include 'libs/widgets/clip_style.html' %}</style>
 {% endblock %}
@@ -50,7 +50,6 @@
 {% block content %}
 
     <div class="app">
-
         <!-- App body -->
         <div class='app-body'>
             <div class='app-content'>
@@ -61,270 +60,101 @@
                             <!-- top -->
                             <div class="poster-top-ratio">
                                 <div>
-                                    <div class="poster-header" style="text-align:center; clear:both;">
-                                        <div class="header-top" style="background:#1a486a; width:100%; color:white; padding-bottom:15px; clear:both;">
-                                            <div class="header-pages" style="float:left; margin-left:25px;">
-                                                <a href="#">
-                                                    <img src="{% static 'website/images/icons/pages.png' %}" style="width:70%;">
-                                                </a>
+                                    <div class="poster-header">
+                                        <div class="header-top">
+                                            <div class="header-pages">
+                                                <span class="align-helper"></span>
+                                               <div class="header-image"><a href="#">
+                                                    <img src="{% static 'website/images/icons/pages.png' %}">
+                                                </a></div>
                                             </div>
-                                            <div class="header-title" style="display:inline-block;margin:0 auto; font-size: 32px; font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif; letter-spacing: 3px;">
-                                                {{ object.logo_title }}
+                                            <div class="header-title">
+                                                <span class="align-helper"></span> {{ object.logo_title }}
                                             </div>
-                                            <div class="header-music" style="float:right; margin-right:25px;">
-                                                <a href="#">
-                                                    <img src="{% static 'website/images/icons/music.png' %}" style="width:70%;">
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                        <div class="header-main" style="background-image: url({% static 'website/images/header_bg.png' %}); width:100%; display:table; padding-top:15px; padding-bottom:15px;clear:both;">
-                                            <div class="header-qrcode" style="float:left; width:28%; display:inline-block;margin:0 auto;">
-                                                <div class="qrcode_circled" style="display:inline-block;">
-                                                    <div class="circle" style="width:120px;height:120px;border-radius:50%; background:#1a486a;"></div>
-                                                    <div class="qrcode" style="position:absolute;z-index:2;margin-top:-105px; margin-left:25px;"><img src="{% url 'website:code_poster' object.id %}"/></div>
-                                                </div>
-                                            </div>
-                                            <div class="header-logo" style="display:inline-block;margin:0 auto; width:44%;">
-                                                <a href="#" class="logo">
-                                                    <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
-                                                </a>
-                                            </div>
-                                            <div class="header-abutton" style="float:right; width:28%;">
-                                                <div class="abutton" style="display:inline-block;">
-                                                    <div class="circle-external" style="width:120px;height:120px;border-radius:50%; background:#1a486a;"></div>
-                                                     <div class="circle-internal" style="position:absolute;z-index:3; margin-top:-80px;margin-left:40px;width:40px;height:40px;border-radius:50%; background:white;"></div>
-                                                    <a href="#" class="a-button-trigger" extended="false"style="position:absolute;z-index:4; margin-top:-105px;margin-left:-45px;">
-                                                       <img src="{% static 'website/images/icons/a.png' %}">
-                                                    </a>
-                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-left: -70px; margin-top: -105px;">
-                                                        <img src="{% static 'website/images/icons/contact-phone.png' %}" style="width:40%;">
-                                                    </a>
-                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-top: -145px; margin-left: -34px;">
-                                                        <img src="{% static 'website/images/icons/contact-email.png' %}" style="width:40%;">
-                                                    </a>
-                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-left: 20px; margin-top: -105px;">
-                                                        <img src="{% static 'website/images/icons/contact-location.png' %}" style="width:40%;">
-                                                    </a>
-                                                    <a href="#" class="a-button-contact" extended="false" style="position: absolute; z-index: 4; margin-top: -65px; margin-left: -34px;">
-                                                        <img src="{% static 'website/images/icons/contact-hour.png' %}" style="width:40%;">
-                                                    </a>
-
-                                                    <div  style="z-index:2;position:absolute;
-                                                        background-color:whitesmoke;
-                                                        height:2px;
-                                                        width: 120px;
-                                                        top:170px;
-                                                        transform: rotate(-135deg);
-                                                        -webkit-transform: rotate(-135deg);
-                                                        -ms-transform: rotate(-135deg);">
-                                                    </div>
-                                                    <div  style="z-index:2;position:absolute;
-                                                        background-color:whitesmoke;
-                                                        height:2px;
-                                                        width: 120px;
-                                                        top:170px;
-                                                        transform: rotate(135deg);
-                                                        -webkit-transform: rotate(135deg);
-                                                        -ms-transform: rotate(135deg);">
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="header-description" style="clear:both;font-size: 22px;
-                                            font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif; letter-spacing: 3px; text-align:left; padding-left: 35px; padding-right:25px;">
+                                            <div class="header-music">
+                                                <span class="align-helper"></span>
                                                 <div>
-                                                    {{ object.description_first_line }}
-                                                    {% if object.description_others %}
-                                                        <span class="dot-expander">...</span>
-                                                    {% endif %}
-                                                    <br/>{{ object.description_others }}
+                                                    <a href="#">
+                                                    <img src="{% static 'website/images/icons/music.png' %}">
+                                                    </a>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </div>
-                                    <div><hr/></div>
-                                    <div><hr/></div>
-                                    <div class="poster-top">
-                                        <!-- poster top is composed of top-left and top-right, left includes header and tabs, right includes contacts. -->
-                                        <!-- header includes profile and qr code, profile includes logo and title, contacts include phone,email,hours,address -->
-                                        <div class="poster-top-main">
-                                            <div class="poster-top-left">
-                                                <div class="poster-header">
-                                                    <div class="poster-profile">
-                                                        <div class="poster-logo">
-                                                            <div class="logo-image">
-                                                                <a href="#" class="logo"><img
-                                                                        src="{{ object.images.logo.file.url }}"
-                                                                        alt='poster logo'/></a>
+                                        </div>
+                                        <div class="header-main">
+                                            <div class="herder-middle">
+                                                <div class="header-qrcode">
+                                                    <div class="qrcode_circled">
+                                                        <div class="circle"></div>
+                                                        <div class="qrcode">
+                                                            <img src="{% url 'website:code_poster' object.id %}" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="header-logo">
+                                                    <div class="logo">
+                                                        <a href="#" class="logo">
+                                                            <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="header-abutton">
+                                                    <!--<span class="align-helper" style="display: inline-block;height: 100%;vertical-align: middle;"></span>-->
+                                                    <div class="abutton">
+                                                        <div class="circle-double">
+                                                            <div class="circle-external"></div>
+                                                             <div class="circle-internal"></div>
+                                                            <div class="circle-sector circle-sector-left">
+                                                            </div>
+                                                            <div class="circle-sector circle-sector-right">
                                                             </div>
                                                         </div>
-                                                        <div class="poster-title">
-                                                            {{ object.logo_title }}
-                                                        </div>
-                                                    </div>
-                                                    <div class="poster-qrcode">
-                                                        <div class="qrcode-image">
-                                                            <img src="{% url 'website:code_poster' object.id %}"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- end of poster-header -->
-                                                <div class="poster-tabs btn-group btn-group-justified"
-                                                     ui-state="activeTab" default="0">
-                                                    {% for page in object.pages %}
-                                                        <div ui-set="{'activeTab': {{ page.index }}}" ui-class="{'active': activeTab == {{ page.index }}}"
-                                                         class="tab-btn-first tab-btn btn">
-                                                        <div>{{ page.name }}</div>
-                                                    </div>
-                                                    {% endfor %}
-                                                    <!--div ui-class="{'active': false}" class="tab-btn btn">
-                                                        <div></div>
-                                                    </div-->
-                                                </div>
-                                                <!-- end of poster-tabs -->
-                                            </div>
-                                            <!-- end of poster-top-left -->
-                                            <div class="poster-top-right">
-                                                <div class="poster-contact">
-                                                    <div class="first-row btn-group equal-justified">
-                                                        <div class="phone poster-contact-sub">
-                                                            <a href="#" for="phone"
-                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
-                                                                <img src="{% static 'website/images/icons/phone.png' %}">
-                                                            </a>
-                                                        </div>
-                                                        <div class="mail poster-contact-sub">
-                                                            <a href="#" for="mail"
-                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
-                                                                <img src="{% static 'website/images/icons/mail.png' %}">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="second-row btn-group equal-justified">
-                                                        <div class="hours poster-contact-sub">
-                                                            <a href="#" for="hours"
-                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
-                                                                <img src="{% static 'website/images/icons/hours.png' %}">
-                                                            </a>
-                                                        </div>
-                                                        <div class="location poster-contact-sub">
-                                                            <a href="#" for="location"
-                                                               class="contact icon-btn btn btn-navbar btn-icon-only">
-                                                                <img src="{% static 'website/images/icons/location.png' %}">
-                                                            </a>
+                                                        <div class="abutton-group">
+                                                            <div class="abutton-trigger">
+                                                                <a href="#" class="abutton-trigger" extended="false">
+                                                                   <img src="{% static 'website/images/icons/a.png' %}">
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-phone">
+                                                                <a href="#" class="abutton-contact" extended="false">
+                                                                    <img src="{% static 'website/images/icons/contact-phone.png' %}">
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-email">
+                                                                <a href="#" class="abutton-contact" extended="false">
+                                                                    <img src="{% static 'website/images/icons/contact-email.png' %}">
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-location">
+                                                                <a href="#" class="abutton-contact" extended="false">
+                                                                    <img src="{% static 'website/images/icons/contact-location.png' %}">
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-hours">
+                                                                <a href="#" class="abutton-contact" extended="false">
+                                                                    <img src="{% static 'website/images/icons/contact-hour.png' %}">
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <!-- end of poster-contact -->
                                             </div>
-                                            <!-- end of poster-top-right -->
-                                        </div>
-                                        <!-- end of poster-top-main -->
-                                        <div class="poster-top-information">
-                                            <div class="description">
-                                                <div class="expander">
-                                                    {{ object.description_first_line }}
-                                                    {% if object.description_others %}
-                                                        <span class="dot-expander">...</span>
-                                                    {% endif %}
-                                                    <br/>
-                                                    <div class="expanded_others">
-                                                         {{ object.description_others }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="contact-info phone">
-                                                {{ object.mobile }}
-                                                <a href="#"><img
-                                                        src="{% static 'website/images/icons/call-info.png' %}"></a>
-                                                <a href="#"><img
-                                                        src="{% static 'website/images/icons/message-info.png' %}"></a>
-                                            </div>
-                                            <div class="contact-info mail">
-                                                {{ object.email }}
-                                                <a href="mailto:{{ object.email }}?{{ object.email_content | safe }}"><img
-                                                        src="{% static 'website/images/icons/email-info.png' %}"></a>
-                                            </div>
-                                            <div class="contact-info hours">
-                                                {{ object.hours }}
-                                                <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
-                                                <a href="#" class="more-info"><img
-                                                        src="{% static 'website/images/icons/more_icon.png' %}"></a>
-                                                <div class="poster-top-inform-more">
-                                                    <table class="hours-more-details">
-                                                     {% for day,day_hours in object.hours_details.items %}
-                                                        <tr>
-                                                            <th>{{ day }}</th><td>{{ day_hours|safe }}</td>
-                                                        </tr>
-                                                    {% endfor %}
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="contact-info location">
-                                                {{ object.address_info }}
-                                                <a href="#" class="location-info"><img
-                                                        src="{% static 'website/images/icons/location-info.png' %}"></a>
-                                                <iframe class="map"
-                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB5YbUFeSsRWn1G2UsdJmAPT4qyD6RrYao
-                                              &q={{ object.address_mapped }}" allowfullscreen>
-                                               </iframe>
-                                            </div>
-                                        </div> <!-- end of poster top information -->
-                                        <!-- a button and the group buttons of links -->
-                                        <div class="a-button a-button-trigger">
-                                            <div class="a-button-icon">
-                                                <a href="#" class="a-button-trigger" extended="false">
-                                                    <img src="{% static 'website/images/icons/a_button.png' %}">
-                                                </a>
+                                            <div class="header-description">
+                                            <div>
+                                                {{ object.description_first_line }}
+                                                {% if object.description_others %}
+                                                    <span class="dot-expander">...</span>
+                                                {% endif %}
+                                                <br/>{{ object.description_others }}
                                             </div>
                                         </div>
-                                         <div class="a-button-child a-button-fun">
-                                            <div class="a-button-icon">
-                                                <a href="#" class="a-button-link" cookie="a-button-fun-enabled">
-                                                    {% if object.a_button_fun_enabled == 1 %}
-                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_fun.png' %}">
-                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
-                                                    {% else %}
-                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_fun.png' %}">
-                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_fun_disabled.png' %}">
-                                                    {% endif %}
-                                                </a>
-                                            </div>
                                         </div>
-                                         <div class="a-button-child a-button-like">
-                                            <div class="a-button-icon">
-                                                <a href="#" class="a-button-link" cookie="a-button-like-enabled">
-                                                    {% if object.a_button_like_enabled == 1 %}
-                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_like.png' %}">
-                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
-                                                    {% else %}
-                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_like.png' %}">
-                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_like_disabled.png' %}">
-                                                    {% endif %}
-                                                </a>
-                                            </div>
-                                        </div>
-                                         <div class="a-button-child a-button-favorite">
-                                            <div class="a-button-icon">
-                                                <a href="#" class="a-button-link" cookie="a-button-favorite-enabled">
-                                                    {% if object.a_button_favorite_enabled == 1 %}
-                                                    <img class="enabled" src="{% static 'website/images/icons/a_button_favorite.png' %}">
-                                                    <img class="disabled hidden" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
-                                                    {% else %}
-                                                    <img class="enabled hidden" src="{% static 'website/images/icons/a_button_favorite.png' %}">
-                                                    <img class="disabled" src="{% static 'website/images/icons/a_button_favorite_disabled.png' %}">
-                                                    {% endif %}
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="a-button-child a-button-line a-button-line-middle"></div>
-                                        <div class="a-button-child a-button-line a-button-line-top"></div>
-                                        <div class="a-button-child a-button-line a-button-line-bottom"></div>
-                                        <!-- end of a buttons -->
-                                    </div> <!-- end of poster top -->
+
+
+                                    </div>
+
+                                    <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="0"></div>
+
                                 </div>
                             </div>
 
@@ -464,7 +294,7 @@
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>
-    <script src="{% static 'website/js/contact.js' %}"></script>
-    <script src="{{ object.script.url }}"></script>
+    <!--<script src="{% static 'website/js/contact.js' %}"></script>-->
+    <!--<script src="{{ object.script.url }}"></script>-->
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}
