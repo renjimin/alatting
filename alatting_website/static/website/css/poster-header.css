@@ -239,17 +239,17 @@ div.header-description {
 }
 @media all and (max-width: 1199px) and (min-width: 1000px)  {
     h1 {
-        font-size: 1.6em;
+        font-size: 1.4em;
     }
 }
 @media all and (max-width: 999px) and (min-width: 800px)  {
     h1 {
-        font-size: 1.8em;
+        font-size: 1.5em;
     }
 }
 @media all and (max-width:799px) and (min-width: 600px)  {
     h1 {
-        font-size: 1.8em;
+        font-size: 1.6em;
     }
 }
 @media all and (max-width: 599px) and (min-width: 400px)  {
