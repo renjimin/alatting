@@ -73,7 +73,7 @@
                                             </div>
                                             <div class="header-music">
                                                 <span class="align-helper"></span>
-                                                <div>
+                                                <div class="header-image">
                                                     <a href="#">
                                                     <img src="{% static 'website/images/icons/music.png' %}">
                                                     </a>
@@ -140,13 +140,13 @@
                                                 </div>
                                             </div>
                                             <div class="header-description">
-                                            <div>
+                                            <h1>
                                                 {{ object.description_first_line }}
                                                 {% if object.description_others %}
                                                     <span class="dot-expander">...</span>
                                                 {% endif %}
                                                 <br/>{{ object.description_others }}
-                                            </div>
+                                            </h1>
                                         </div>
                                         </div>
 
