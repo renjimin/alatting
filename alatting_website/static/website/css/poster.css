@@ -35,16 +35,14 @@
 }
 
 .bottom-ratio-frame {
-    max-width: 800px;
     max-height: 136px;
-    min-width: 240px;
     min-height: 40.8px;
 }
 
 .bottom-ratio-wrapper {
     position: relative;
     width: 100%;
-    padding-bottom: 7%;
+    padding-bottom: 8%;
 }
 
 .bottom-ratio-wrapper > div {
@@ -89,26 +87,27 @@
 }
 
 .bottom-menu {
-    background: #4682b4; /* For browsers that do not support gradients */
+    background: #1a486a; /* For browsers that do not support gradients */
   /* For Safari 5.1 to 6.0 */
-    background: -webkit-linear-gradient(left,#1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /*  background: -webkit-linear-gradient(left,#102c41, #153a56, #1a486a, #1f567e, #2972a7, #1f567e, #1a486a, #153a56, #102c41);*/
   /* For Opera 11.1 to 12.0 */
-    background: -o-linear-gradient(left,#1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /*  background: -o-linear-gradient(left,#102c41, #153a56, #1a486a, #1f567e, #2972a7, #1f567e, #1a486a, #153a56, #102c41);*/
   /* For Fx 3.6 to 15 */
-    background: -moz-linear-gradient(left,#1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /*  background: -moz-linear-gradient(left,#102c41, #153a56, #1a486a, #1f567e, #2972a7, #1f567e, #1a486a, #153a56, #102c41);*/
   /* Standard syntax */
-    background: linear-gradient(to right, #1c3448, #315b7d, #4682b4, #315b7d, #1c3448);
+  /*  background: linear-gradient(to right, #102c41, #153a56, #1a486a, #1f567e, #2972a7, #1f567e, #1a486a, #153a56, #102c41);*/
     height: 100%;
 }
 
-
-.bottom-btn {
+ .bottom-btn {
+    padding-top: 2% !important;
+    padding-bottom: 2% !important;
 }
 
 .bottom-btn img{
-    height: 35px;
-    max-height: 50%;
-    max-width: none;
+    height: 50%;
+    max-height: 36px;
+    max-width: 36px;
 }
 
 .bottom-btn {
@@ -122,7 +121,9 @@
 }
 
 .share-sub-btn img{
-    width: 35px;
+    width: 50%;
+    max-width: 36px;
+    max-height: 36px;
 }
 
 /* rate submenu */
@@ -240,7 +241,9 @@
 }
 
 .export-sub-btn img{
-    width: 35px;
+    width: 50%;
+    max-width: 36px;
+    max-height: 36px;
 }
 
 /* stats */
@@ -267,8 +270,8 @@
 
 .stats-title img {
     width: 4%;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin-top: 1%;
+    margin-bottom: 1%;
 }
 
 .stats-submenu .stats-fun {
@@ -288,29 +291,29 @@
 }
 
 .stats-submenu .stats-graph{
-    padding-bottom: 2%;
+   /* padding-bottom: 2%;*/
 }
 
 .pop-credit .dots{
-    width: 14%;
+    width: 9%;
     position: absolute;
-    left: 43%;
+    left: 47%;
     top: 27%;
 }
 
 .stats-graph .left-dots{
-    width: 14%;
+    width: 9%;
     position: absolute;
     left: 30%;
-    bottom: -10%;
+    bottom: -1%;
     transform: rotate(-60deg);
 }
 
 .stats-graph .right-dots{
-    width: 14%;
+    width: 9%;
     position: absolute;
     right: 30%;
-    bottom: -10%;
+    bottom: -1%;
     transform: rotate(60deg);
 }
 
@@ -323,8 +326,8 @@
 
 .stats-submenu .doughnut {
     width: 100%;
-    padding-top: 13%;
-    padding-bottom: 13%;
+    padding-top: 17%;
+    padding-bottom: 17%;
     margin-top: 2%;
     margin-bottom: 1%;
 }
@@ -340,7 +343,7 @@
 .stats-submenu .stats-graph-label {
     font-size: 70%;
     text-align: center;
-    margin-bottom: 8%;
+    margin-bottom: 4%;
     color: white;
 }
 
@@ -403,7 +406,6 @@
 
 .stats-type-increase span {
     vertical-align: baseline;
-    /*font-size: 130%;*/
 }
 
 /* second page */
@@ -441,7 +443,7 @@
 .stats-overall .left-btn {
     position: absolute;
     width: 20%;
-    top: -5%;
+    top: -4%;
     transform: rotate(180deg);
 }
 
@@ -472,7 +474,6 @@
 
 .stats-score-increase span {
     vertical-align: baseline;
-    font-size: 130%;
 }
 
 /* comments submenu */
@@ -629,13 +630,6 @@ textarea.ng-invalid {
     position: relative;
     width: 500px;
     margin: 10px auto 20px auto;
-}
-
-.poster-frame {
-    max-width: 800px;
-    min-width: 240px;
-    /*max-height: 1424px;
-    min-height: 427.2px;*/
 }
 
 .poster-top-ratio {
@@ -809,6 +803,20 @@ textarea.ng-invalid {
 }
 
 /* media */
+@media all and (min-width: 768px) {
+    .stats-score-increase img{
+        width: 25%;
+    }
+    .stats-submenu .stats-score-name {
+        padding: 2% 0 2% 0;
+    }
+    .stats-score .medal{
+        width: 20%;
+    }
+    .stats-overall .left-btn {
+        top: -6%;
+    }
+}
 
 @media all and (min-width: 800px) {
     .app{
@@ -831,13 +839,25 @@ textarea.ng-invalid {
     .bubble-wrapper {
         border-radius: 16px;
     }
+    .scrollable-content {
+        margin-left: auto;
+        margin-right: auto;
+        width: 45%;
+        min-width: 600px;
+    }
+
+    .navbar-absolute-bottom {
+        margin-left: auto;
+        margin-right: auto;
+        width: 45%;
+        min-width: 600px;
+    }
 }
 
 @media all and (min-width: 241px) and (max-width: 799px) {
     .app{
         /**font-size: 7vw; /* 200px: 14px */
     }
-
     .has-navbar-bottom .app-body {
         padding-bottom: 40px;
     }
