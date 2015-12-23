@@ -213,7 +213,8 @@ div.abutton div.abutton-group div.abutton-hours {
 }
 div.header-description {
     clear:both;
-    font-family:SimHei,Tahoma,Helvetica,Arial,Microsoft Yahei,sans-serif;letter-spacing:1%;
+    font-family:SimHei,Tahoma,Helvetica,Arial,Microsoft Yahei,sans-serif;
+    letter-spacing:2px;
     text-align:center;
     padding-top:1%;
     padding-bottom:1%;
@@ -226,14 +227,19 @@ div.header-description {
         font-size: 1.2em;
     }
 }
-@media all and (max-width: 1599px) and (min-width: 1200px)  {
+@media all and (max-width: 1599px) and (min-width: 1400px)  {
     h1 {
-        font-size: 1.8em;
+        font-size: 1.3em;
+    }
+}
+@media all and (max-width: 1399px) and (min-width: 1200px)  {
+    h1 {
+        font-size: 1.3em;
     }
 }
 @media all and (max-width: 1199px) and (min-width: 1000px)  {
     h1 {
-        font-size: 1.8em;
+        font-size: 1.6em;
     }
 }
 @media all and (max-width: 999px) and (min-width: 800px)  {
