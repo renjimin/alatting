@@ -13,7 +13,7 @@ bottom-menu
 
 .bottom-container .bottom-menu {
     width: 100%;
-    background: #17405f;
+    background: #1a486a;
 }
 
 .justified {
@@ -82,7 +82,7 @@ bottom-menu
 /*set the height of bottom-menu and sub-menu, as well as the width of button images in menus*/
 @media only screen and (min-width: 1350px) {
     .has-navbar-bottom .app-body {
-        padding-bottom: 1.5em;
+        padding-bottom: 0.75em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 3.5em;
@@ -98,7 +98,7 @@ bottom-menu
 
 @media only screen and (min-width: 1024px) and (max-width: 1349px){
     .has-navbar-bottom .app-body {
-        padding-bottom: 2em;
+        padding-bottom: 0.75em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 3.5em;
@@ -114,7 +114,7 @@ bottom-menu
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .has-navbar-bottom .app-body {
-        padding-bottom: 1.5em;
+        padding-bottom: 0.5em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 2.75em;
@@ -130,7 +130,7 @@ bottom-menu
 
 @media only screen and (min-width: 360px) and (max-width: 767px) {
     .has-navbar-bottom .app-body {
-        padding-bottom: 1em;
+        padding-bottom: 0.25em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 2.4em;
@@ -146,7 +146,7 @@ bottom-menu
 
 @media only screen and (max-width: 359px) {
     .has-navbar-bottom .app-body {
-        padding-bottom: 0.5em;
+        padding-bottom: 0em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 1.625em;
