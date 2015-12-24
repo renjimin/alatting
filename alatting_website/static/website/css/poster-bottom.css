@@ -82,17 +82,17 @@ bottom-menu
 /*set the height of bottom-menu and sub-menu, as well as the width of button images in menus*/
 @media only screen and (min-width: 1350px) {
     .has-navbar-bottom .app-body {
-        padding-bottom: 2.5em;
+        padding-bottom: 1.5em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 3.5em;
-        width: 3em;
+        width: 2.7em;
     }
     .bottom-container .bottom-menu {
-        height: 4em;
+        height: 3.75em;
     }
     .bottom-container .popover .btn-group {
-        height: 4em;
+        height: 3.75em;
     }
 }
 
