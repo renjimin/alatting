@@ -86,13 +86,13 @@ bottom-menu
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 3.5em;
-        width: 2.7em;
+        width: 2.5em;
     }
     .bottom-container .bottom-menu {
-        height: 3.75em;
+        height: 3.5em;
     }
     .bottom-container .popover .btn-group {
-        height: 3.75em;
+        height: 3.5em;
     }
 }
 
@@ -105,10 +105,10 @@ bottom-menu
         width: 2.25em;
     }
     .bottom-container .bottom-menu {
-        height: 3.7em;
+        height: 3.25em;
     }
     .bottom-container .popover .btn-group {
-        height: 3.7em;
+        height: 3.25em;
     }
 }
 
@@ -121,10 +121,10 @@ bottom-menu
         width: 1.7em;
     }
     .bottom-container .bottom-menu {
-        height: 3em;
+        height: 2.5em;
     }
     .bottom-container .popover .btn-group {
-        height: 3em;
+        height: 2.5em;
     }
 }
 
@@ -134,13 +134,13 @@ bottom-menu
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 2.4em;
-        width: 1.125em;
+        width: 1.2em;
     }
     .bottom-container .bottom-menu {
-        height: 2.5em;
+        height: 2em;
     }
     .bottom-container .popover .btn-group {
-        height: 2.5em;
+        height: 2em;
     }
 }
 
@@ -153,10 +153,10 @@ bottom-menu
         width: 0.75em;
     }
     .bottom-container .bottom-menu {
-        height: 1.8em;
+        height: 1.6em;
     }
     .bottom-container .popover .btn-group {
-        height: 1.8em;
+        height: 1.6em;
     }
 }
 
