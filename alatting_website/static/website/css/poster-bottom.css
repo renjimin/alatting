@@ -99,28 +99,28 @@ bottom-menu
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {
     .has-navbar-bottom .app-body {
-        padding-bottom: 2.5em;
+        padding-bottom: 3em;
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 2.75em;
-        padding-top: 0.25em;
-        width: 2.5em;
+        padding-top: 0.2em;
+        width: 2em;
     }
     .bottom-container .bottom-menu {
-        height: 3.5em;
+        height: 3em;
     }
     .bottom-container .popover .btn-group {
-        height: 3.5em;
+        height: 3em;
     }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (min-width: 360px) and (max-width: 767px) {
     .has-navbar-bottom .app-body {
         padding-bottom: 2.5em;
     }
     .navbar-absolute-bottom .btn-navbar img {
-        max-height: 1.625em;
-        padding-top: 0.125em;
+        max-height: 2.4em;
+        padding-top: 0.12em;
         width: 1.5em;
     }
     .bottom-container .bottom-menu {
@@ -128,6 +128,23 @@ bottom-menu
     }
     .bottom-container .popover .btn-group {
         height: 2.5em;
+    }
+}
+
+@media only screen and (max-width: 359px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 2em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 1.625em;
+        padding-top: 0.08em;
+        width: 1em;
+    }
+    .bottom-container .bottom-menu {
+        height: 1.8em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 1.8em;
     }
 }
 
@@ -209,8 +226,6 @@ bottom-menu
 .rate-submenu .rate-action {
     background: #708090;
     text-align: center;
-    padding-top: 1% !important;
-    padding-bottom: 1% !important;
 }
 
 
@@ -269,38 +284,38 @@ bottom-menu
 @media only screen and (max-width: 767px){
     /*star in rate-action*/
     .rate-action .rating-md {
-        font-size: 1.2em;
+        font-size: 1em;
     }
 
     /*star above rate-total*/
     .rate-totals .rating-md {
-        font-size: 0.9em;
-        line-height: 0.9;
-        padding-bottom: 6px;
+        font-size: 0.7em;
+        line-height: 0.7;
+        padding-bottom: 4.5px;
     }
 
     /*average rate above rate-total*/
     .rate-submenu .rate-rating {
-        font-size: 2.4em;
+        font-size: 1.5em;
         color: white;
-        padding-bottom: 6px;
+        padding-bottom: 4.5px;
     }
 
     /*rate-total*/
     .rate-submenu .rate-total {
-        font-size: 0.9em;
+        font-size: 0.7em;
         color: white;
     }
 
     .rate-submenu .rate-total img {
-        width: 0.9em;
-        max-width: 0.9em;
-        max-height: 1.2em;
+        width: 0.7em;
+        max-width: 0.7em;
+        max-height: 1em;
     }
 
     /* rate-levels */
     .rate-submenu .rate-level {
-        font-size: 0.9em;
+        font-size: 0.7em;
         color: #97989c;
         line-height: 1;
     }
@@ -668,7 +683,7 @@ textarea.ng-invalid {
 }
 @media only screen and (max-width: 767px){
     .comment {
-        font-size: 1em;
+        font-size: 0.8em;
         padding-top: 4%;
     }
     .comment-person img {
@@ -867,7 +882,6 @@ textarea.ng-invalid {
 .stats-overall .left-btn {
     position: absolute;
     width: 20%;
-    top: -4%;
     transform: rotate(180deg);
 }
 
@@ -924,8 +938,26 @@ textarea.ng-invalid {
         width: 20%;
     }
 }
-@media only screen and (max-width: 767px){
+@media only screen and (min-width: 360px) and (max-width: 767px){
     .stats-score .medal{
-        width: 40%;
+        width: 25%;
+    }
+    .stats-overall .left-btn {
+        top: 0;
+    }
+    .stats-submenu {
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 359px){
+    .stats-score .medal{
+        width: 50%;
+    }
+    .stats-overall .left-btn {
+        top: -4%;
+    }
+    .stats-submenu {
+        font-size: 0.8em;
     }
 }
