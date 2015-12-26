@@ -44,122 +44,6 @@ bottom-menu
     text-align: center;
 }
 
-/*align app-body and bottom menu in the center*/
-@media only screen and (min-width: 768px) {
-    .scrollable-content {
-        width: 45%;
-        min-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 100%;
-        overflow: auto;
-    }
-    .navbar-absolute-bottom {
-        width: 45%;
-        min-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-@media only screen and (max-width: 767px) {
-    .scrollable-content {
-        width: 100%;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        height: 100%;
-        overflow: auto;
-    }
-    .navbar-absolute-bottom {
-        width: 100%;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-}
-
-/*set the height of bottom-menu and sub-menu, as well as the width of button images in menus*/
-@media only screen and (min-width: 1350px) {
-    .has-navbar-bottom .app-body {
-        padding-bottom: 0.75em;
-    }
-    .navbar-absolute-bottom .btn-navbar img {
-        max-height: 3.5em;
-        width: 2.5em;
-    }
-    .bottom-container .bottom-menu {
-        height: 3.5em;
-    }
-    .bottom-container .popover .btn-group {
-        height: 3.5em;
-    }
-}
-
-@media only screen and (min-width: 1024px) and (max-width: 1349px){
-    .has-navbar-bottom .app-body {
-        padding-bottom: 0.75em;
-    }
-    .navbar-absolute-bottom .btn-navbar img {
-        max-height: 3.5em;
-        width: 2.25em;
-    }
-    .bottom-container .bottom-menu {
-        height: 3.25em;
-    }
-    .bottom-container .popover .btn-group {
-        height: 3.25em;
-    }
-}
-
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
-    .has-navbar-bottom .app-body {
-        padding-bottom: 0.5em;
-    }
-    .navbar-absolute-bottom .btn-navbar img {
-        max-height: 2.75em;
-        width: 1.7em;
-    }
-    .bottom-container .bottom-menu {
-        height: 2.5em;
-    }
-    .bottom-container .popover .btn-group {
-        height: 2.5em;
-    }
-}
-
-@media only screen and (min-width: 360px) and (max-width: 767px) {
-    .has-navbar-bottom .app-body {
-        padding-bottom: 0.25em;
-    }
-    .navbar-absolute-bottom .btn-navbar img {
-        max-height: 2.4em;
-        width: 1.2em;
-    }
-    .bottom-container .bottom-menu {
-        height: 2em;
-    }
-    .bottom-container .popover .btn-group {
-        height: 2em;
-    }
-}
-
-@media only screen and (max-width: 359px) {
-    .has-navbar-bottom .app-body {
-        padding-bottom: 0em;
-    }
-    .navbar-absolute-bottom .btn-navbar img {
-        max-height: 1.625em;
-        width: 0.75em;
-    }
-    .bottom-container .bottom-menu {
-        height: 1.6em;
-    }
-    .bottom-container .popover .btn-group {
-        height: 1.6em;
-    }
-}
-
 /*bottom-menu:sub-menu*/
 .bottom-container .popover {
     min-width: 100%;
@@ -195,28 +79,16 @@ bottom-menu
   border-style: solid;
 }
 
-.bottom-container .popover > .arrow {
-  border-width: 11px;
-}
-
-.bottom-container .popover > .arrow:after {
-  border-width: 10px;
-  content: "";
-}
-
 .bottom-container .popover.top > .arrow {
   left: 50%;
-  margin-left: -11px;
   border-bottom-width: 0;
   border-top-color: #999999;
   border-top-color: rgba(0, 0, 0, 0.25);
-  bottom: -11px;
 }
 
 .bottom-container .popover.top > .arrow:after {
   content: " ";
   bottom: 1px;
-  margin-left: -10px;
   border-bottom-width: 0;
   border-top-color: #ffffff;
 }
@@ -251,86 +123,6 @@ bottom-menu
 .rate-info > div{
     vertical-align: middle;
     text-align: center;
-}
-
-/*font size*/
-@media only screen and (min-width: 768px) {
-    /*star in rate-action*/
-    .rate-action .rating-md {
-        font-size: 2em;
-    }
-
-    /*star above rate-total*/
-    .rate-totals .rating-md {
-        font-size: 1.5em;
-        line-height: 1.5;
-        padding-bottom: 10px;
-    }
-
-    /*average rate above rate-total*/
-    .rate-submenu .rate-rating {
-        font-size: 4em;
-        color: white;
-        padding-bottom: 10px;
-    }
-
-    /*rate-total*/
-    .rate-submenu .rate-total {
-        font-size: 1.5em;
-        color: white;
-    }
-
-    .rate-submenu .rate-total img {
-        width: 1.5em;
-        max-width: 1.5em;
-        max-height: 2em;
-    }
-
-    /* rate-levels */
-    .rate-submenu .rate-level {
-        font-size: 1.5em;
-        color: #97989c;
-        line-height: 1.8;
-    }
-}
-@media only screen and (max-width: 767px){
-    /*star in rate-action*/
-    .rate-action .rating-md {
-        font-size: 1em;
-    }
-
-    /*star above rate-total*/
-    .rate-totals .rating-md {
-        font-size: 0.7em;
-        line-height: 0.7;
-        padding-bottom: 4.5px;
-    }
-
-    /*average rate above rate-total*/
-    .rate-submenu .rate-rating {
-        font-size: 1.5em;
-        color: white;
-        padding-bottom: 4.5px;
-    }
-
-    /*rate-total*/
-    .rate-submenu .rate-total {
-        font-size: 0.7em;
-        color: white;
-    }
-
-    .rate-submenu .rate-total img {
-        width: 0.7em;
-        max-width: 0.7em;
-        max-height: 1em;
-    }
-
-    /* rate-levels */
-    .rate-submenu .rate-level {
-        font-size: 0.7em;
-        color: #97989c;
-        line-height: 1;
-    }
 }
 
 .rate-submenu .rate-levels{
@@ -443,10 +235,6 @@ bottom-menu
 
 .rating-active {
     cursor: default
-}
-
-.rating-uni {
-    margin-top: -5px
 }
 
 .rating-container {
@@ -673,37 +461,6 @@ textarea.ng-invalid {
   color: #ffcc00;
 }
 
-@media only screen and (min-width: 1024px) {
-    .comment {
-        font-size: 1.2em;
-        padding-top: 4%;
-    }
-    .comment-person img {
-        margin-top: 120%;
-        width: 50%;
-    }
-}
-@media only screen and (min-width: 768px) and (max-width: 1023px){
-    .comment {
-        font-size: 1.2em;
-        padding-top: 4%;
-    }
-    .comment-person img {
-        margin-top: 60%;
-        width: 60%;
-    }
-}
-@media only screen and (max-width: 767px){
-    .comment {
-        font-size: 0.8em;
-        padding-top: 4%;
-    }
-    .comment-person img {
-        margin-top: 30%;
-        width: 60%;
-    }
-}
-
 
 /*bottom-menu:sub-menu:stats*/
 .stats-submenu {
@@ -818,7 +575,6 @@ textarea.ng-invalid {
 }
 
 .stats-type-icon img{
-    width: 25px;
     vertical-align: middle;
     display: block;
     margin-left: auto;
@@ -851,7 +607,6 @@ textarea.ng-invalid {
 }
 
 .stats-type-increase img{
-    width: 35%;
     vertical-align: baseline;
     display: inline;
 }
@@ -912,7 +667,6 @@ textarea.ng-invalid {
 }
 
 .stats-score-increase img{
-    width: 35%;
     vertical-align: baseline;
     display: inline;
 }
@@ -944,7 +698,134 @@ textarea.ng-invalid {
     text-align: center;
 }
 
-@media only screen and (min-width: 768px){
+
+
+/*align app-body and bottom menu in the center*/
+@media only screen and (min-width: 768px) {
+    .scrollable-content {
+        width: 45%;
+        min-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        overflow: auto;
+    }
+    .navbar-absolute-bottom {
+        width: 45%;
+        min-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .scrollable-content {
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        overflow: auto;
+    }
+    .navbar-absolute-bottom {
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/*set the height of bottom-menu and sub-menu, as well as the width of button images in menus*/
+@media only screen and (min-width: 1350px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.75em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 3.5em;
+        width: 2.5em;
+    }
+    .bottom-container .bottom-menu {
+        height: 3.5em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 3.5em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.5em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.5em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.5em;
+        bottom: -0.5em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.5em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 2em;
+    }
+    .rate-totals .rating-md {
+        font-size: 1.5em;
+        line-height: 1.5;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 4em;
+        color: white;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 1.5em;
+        color: white;
+    }
+
+    .rate-submenu .rate-total img {
+        width: 1.5em;
+        max-width: 1.5em;
+        max-height: 2em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 1.5em;
+        color: #97989c;
+        line-height: 1.8;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 2.5em;
+    }
+    .comment {
+        font-size: 1.2em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 120%;
+        width: 50%;
+    }
+
+    /*stats*/
+    .stats-type-icon img{
+        width: 2em;
+    }
+    .stats-type-increase img{
+        width: 2em;
+    }
+    .stats-score-increase img{
+        width: 2em;
+    }
     .stats-score .medal{
         width: 10em;
     }
@@ -955,21 +836,397 @@ textarea.ng-invalid {
         margin-top: 1.5em;
     }
 }
-@media only screen and (min-width: 360px) and (max-width: 767px){
+
+@media only screen and (min-width: 1024px) and (max-width: 1349px){
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.75em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 3.5em;
+        width: 2.25em;
+    }
+    .bottom-container .bottom-menu {
+        height: 3.25em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 3.25em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.5em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.5em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.5em;
+        bottom: -0.5em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.5em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 2em;
+    }
+    .rate-totals .rating-md {
+        font-size: 1.5em;
+        line-height: 1.5;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 4em;
+        color: white;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 1.5em;
+        color: white;
+    }
+
+    .rate-submenu .rate-total img {
+        width: 1.5em;
+        max-width: 1.5em;
+        max-height: 2em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 1.5em;
+        color: #97989c;
+        line-height: 1.8;
+    }
+     /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 2.25em;
+    }
+    .comment {
+        font-size: 1.2em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 120%;
+        width: 50%;
+    }
+    /*stats*/
+    .stats-type-icon img{
+        width: 2em;
+    }
+    .stats-type-increase img{
+        width: 2em;
+    }
+    .stats-score-increase img{
+        width: 2em;
+    }
     .stats-score .medal{
         width: 10em;
     }
     .stats-overall .left-btn {
-        top: -0.5em;
+        top: 0;
+    }
+    .stats-submenu .doughnut {
+        margin-top: 1.5em;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.5em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 2.75em;
+        width: 1.7em;
+    }
+    .bottom-container .bottom-menu {
+        height: 2.5em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 2.5em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.5em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.5em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.5em;
+        bottom: -0.5em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.5em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 1.5em;
+    }
+    .rate-totals .rating-md {
+        font-size: 1em;
+        line-height: 1;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 3em;
+        color: white;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 1em;
+        color: white;
+    }
+
+    .rate-submenu .rate-total img {
+        width: 1.5em;
+        max-width: 1.5em;
+        max-height: 2em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 1em;
+        color: #97989c;
+        line-height: 1.8;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 1.75em;
+    }
+    .comment {
+        font-size: 1.2em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 60%;
+        width: 60%;
+    }
+
+    /*stats*/
+    .stats-type-icon img{
+        width: 2em;
+    }
+    .stats-type-increase img{
+        width: 2em;
+    }
+    .stats-score-increase img{
+        width: 2em;
+    }
+    .stats-score .medal{
+        width: 10em;
+    }
+    .stats-overall .left-btn {
+        top: 0;
+    }
+    .stats-submenu .doughnut {
+        margin-top: 1.5em;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.25em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 2.4em;
+        width: 1.2em;
+    }
+    .bottom-container .bottom-menu {
+        height: 2em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 2em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.4em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.4em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.4em;
+        bottom: -0.4em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.4em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 1em;
+    }
+    .rate-totals .rating-md {
+        font-size: 0.7em;
+        line-height: 0.7;
+        padding-bottom: 4.5px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 1.5em;
+        color: white;
+        padding-bottom: 4.5px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 0.7em;
+        color: white;
+    }
+    .rate-submenu .rate-total img {
+        width: 0.7em;
+        max-width: 0.7em;
+        max-height: 1em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 0.7em;
+        color: #97989c;
+        line-height: 1;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 1.5em;
+    }
+    .comment {
+        font-size: 0.8em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 30%;
+        width: 60%;
+    }
+    /*stats*/
+    .stats-type-icon img{
+        width: 1.5em;
+    }
+    .stats-type-increase img{
+        width: 1.5em;
+    }
+    .stats-score-increase img{
+        width: 1.5em;
+    }
+    .stats-score .medal{
+        width: 7em;
+    }
+    .stats-overall .left-btn {
+        top: -1.5em;
     }
     .stats-submenu {
         font-size: 0.8em;
     }
 }
 
-@media only screen and (max-width: 359px){
+@media only screen and (max-width: 359px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 1.625em;
+        width: 0.7em;
+    }
+    .bottom-container .bottom-menu {
+        height: 2em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 2em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.3em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.3em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.3em;
+        bottom: -0.4em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.3em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: 0
+    }
+    .rate-action .rating-md {
+        font-size: 0.7em;
+    }
+    .rate-totals .rating-md {
+        font-size: 0.5em;
+        line-height: 0.5;
+        padding-bottom: 3.1px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 1em;
+        color: white;
+        padding-bottom: 3.1px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 0.5em;
+        color: white;
+    }
+    .rate-submenu .rate-total img {
+        width: 0.6em;
+        max-width: 0.7em;
+        max-height: 1em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 0.5em;
+        color: #97989c;
+        line-height: 1;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 2em;
+    }
+    .comment {
+        font-size: 0.8em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 30%;
+        width: 60%;
+    }
+    /*stats*/
+    .stats-type-icon img{
+        width: 1em;
+    }
+    .stats-type-increase img{
+        width: 1em;
+    }
+    .stats-score-increase img{
+        width: 1em;
+    }
     .stats-score .medal{
-        width: 10em;
+        width: 6em;
     }
     .stats-overall .left-btn {
         top: -0.5em;
