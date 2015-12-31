@@ -1,0 +1,1237 @@
+/*
+bottom-menu
+*/
+.navbar-absolute-bottom {
+    border-width: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    bottom: 0;
+    top: auto;
+}
+
+.bottom-container .bottom-menu {
+    width: 100%;
+    background: #1a486a;
+}
+
+.justified {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.justified > * {
+    display: table-cell;
+    width: 1%;
+    float: none !important;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.equal-justified {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.equal-justified > * {
+    display: table-cell;
+    width: 1%;
+    float: none !important;
+    vertical-align: middle;
+    text-align: center;
+}
+
+/*bottom-menu:sub-menu*/
+.bottom-container .popover {
+    min-width: 100%;
+    position: absolute;
+}
+
+.bottom-container .popover.top {
+  margin-top: 0;
+}
+
+.bottom-container .popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1060;
+  display: none;
+  max-width: 276px;
+  text-align: left;
+  background-color: #ffffff;
+  background-clip: padding-box;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  white-space: normal;
+}
+
+.bottom-container .popover > .arrow,
+.bottom-container .popover > .arrow:after {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.bottom-container .popover.top > .arrow {
+  left: 50%;
+  border-bottom-width: 0;
+  border-top-color: #999999;
+  border-top-color: rgba(0, 0, 0, 0.25);
+}
+
+.bottom-container .popover.top > .arrow:after {
+  content: " ";
+  bottom: 1px;
+  border-bottom-width: 0;
+  border-top-color: #ffffff;
+}
+
+.bottom-container .popover .btn-group {
+    background: #708090;
+}
+
+/*bottom-menu:sub-menu:rating*/
+.rating-disabled {
+    cursor: inherit;
+    pointer-events: none;
+}
+
+.rate-submenu.popover {
+    background-color: rgba(0,0,0,.8);
+}
+
+.rate-submenu .rate-action {
+    background: #708090;
+    text-align: center;
+}
+
+
+.rate-submenu .popover-title {
+    line-height: 1;
+    background-color: transparent;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.rate-info > div{
+    vertical-align: middle;
+    text-align: center;
+}
+
+.rate-submenu .rate-levels{
+    padding-left: 4%;
+    padding-right: 4%;
+}
+.rate-submenu .rate-level-label {
+    width: 30%;
+}
+.rate-level .rate-progress {
+    width: 70%;
+    text-align: left;
+}
+.rate-level .rate-progress-bar {
+    padding-left: 4%;
+    color: #302e31;
+}
+.rate-submenu .rate-star {
+    font-weight: bold;
+}
+
+.rate-level .rate-five {
+    background-color: #9cbb57;
+}
+
+.rate-level .rate-four{
+    background-color: #aad133;
+}
+
+.rate-level .rate-three {
+    background-color: #fcd735;
+}
+
+.rate-level .rate-two {
+    background-color: #ffb336;
+}
+
+.rate-level .rate-one {
+    background-color: #f68859;
+}
+
+.rating-container .rating-stars {
+    color: #ffda44;
+}
+
+/*!
+ * @copyright &copy; Kartik Visweswaran, Krajee.com, 2013 - 2015
+ * @version 3.5.4
+ *
+ * A simple yet powerful JQuery star rating plugin that allows rendering
+ * fractional star ratings and supports Right to Left (RTL) input.
+ *
+ * For more JQuery/Bootstrap plugins and demos visit http://plugins.krajee.com
+ * For more Yii related demos visit http://demos.krajee.com
+ */
+.rating-fa,
+.rating-fa .rating-stars:before {
+    padding-left: 1px
+}
+
+.rating-container-rtl .rating-stars:before,
+.rating-container-rtl:before,
+.rating-container:before {
+    content: attr(data-content)
+}
+
+.rating-container,
+.rating-container-rtl {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.star-rating .clear-rating,
+.star-rating-rtl .caption {
+    padding-right: 5px
+}
+
+.rating-loading {
+    width: 25px;
+    height: 25px;
+    font-size: 0;
+    color: #fff;
+    background: url(../img/loading.gif)top left no-repeat;
+    border: none
+}
+
+.rating-fa {
+    font-family: FontAwesome
+}
+
+.rating-gly,
+.rating-gly-star {
+    font-family: 'Glyphicons Halflings'
+}
+
+.rating-gly-star,
+.rating-gly-star .rating-stars:before {
+    padding-left: 2px
+}
+
+.rating-lg .rating-gly-star,
+.rating-lg .rating-gly-star .rating-stars:before {
+    padding-left: 4px
+}
+
+.rating-xl .rating-gly-star,
+.rating-xl .rating-gly-star .rating-stars:before {
+    padding-left: 2px
+}
+
+.rating-active {
+    cursor: default
+}
+
+.rating-container {
+    position: relative;
+    color: #e3e3e3;
+    overflow: hidden
+}
+
+.rating-container .rating-stars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #fde16d;
+    transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    -moz-transition: all .25s ease-out;
+    -webkit-transition: all .25s ease-out
+}
+
+.rating-container .rating-stars:before {
+    content: attr(data-content);
+    text-shadow: 0 0 1px rgba(0, 0, 0, .7)
+}
+
+.rating-container-rtl {
+    position: relative;
+    overflow: hidden;
+    color: #fde16d
+}
+
+.rating-container-rtl:before {
+    text-shadow: 0 0 1px rgba(0, 0, 0, .7)
+}
+
+.rating-container-rtl .rating-stars {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #e3e3e3;
+    transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    -moz-transition: all .25s ease-out;
+    -webkit-transition: all .25s ease-out
+}
+
+.star-rating .clear-rating,
+.star-rating-rtl .clear-rating {
+    color: #aaa;
+    cursor: not-allowed;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.clear-rating-active {
+    cursor: pointer!important
+}
+
+.clear-rating-active:hover {
+    color: #843534
+}
+
+.star-rating .caption,
+.star-rating-rtl .caption {
+    color: #999;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.star-rating .caption {
+    padding-left: 5px
+}
+
+@media print {
+    .rating-container,
+    .rating-container-rtl .rating-stars,
+    .rating-container-rtl .rating-stars:before,
+    .rating-container:before {
+        color: #f3f3f3!important
+    }
+    .star-rating .clear-rating,
+    .star-rating-rtl .clear-rating {
+        display: none
+    }
+}
+
+/*bottom-menu:sub-menu:comments*/
+.bubble-wrapper .justified > * {
+    text-align: left;
+}
+
+.bubble-wrapper {
+    text-align: left;
+}
+
+.comments-submenu {
+    z-index: 1023;
+}
+
+.comments-submenu .poster-frame {
+    min-height: 100%;
+    background-color: rgba(0,0,0,.8);
+}
+
+.comments-submenu .poster-frame > div{
+    padding: 2% 5% 2% 5%;
+}
+
+.comment-person {
+    width: 20%;
+    vertical-align: top;
+    text-align: center;
+}
+
+.comment-text {
+    width: 80%;
+    vertical-align: top;
+}
+
+.bubble {
+    position: relative;
+    margin-left: 6%;
+}
+
+.bubble:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-color: transparent white;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -4vw;
+    left: calc(-4vw + 1px);
+    top: 10vw;
+    border-width: 2vw 4vw 2vw 0px;
+}
+
+.bubble1:before {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-color: transparent #565C7F;
+    display: block;
+    width: 0;
+    z-index: 0;
+    left: -1vw;
+    top: 2vw;
+    border-width: 1vw 1vw 1vw 0;
+}
+
+.bubble-wrapper {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+     background-color: white;
+    -webkit-border-radius: 2vw;
+    -moz-border-radius: 2vw;
+    border-radius: 2vw;
+}
+
+.bubble-header{
+}
+
+.bubble-title {
+    padding-left: 4%;
+    width: 60%;
+    background: #cfd6de;
+}
+
+.bubble-time {
+    padding-left: 2%;
+    width: 40%;
+    background: #686b70;
+    vertical-align: middle;
+    color: white;
+}
+
+.comment .bubble-content{
+    padding-left: 4%;
+    padding-right: 4%;
+    min-height: 18vw;
+}
+
+.comment .bubble-title.editing{
+    width: 100%;
+    padding-right: 4%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.comment .bubble-content.editing{
+    padding-top: 2%;
+}
+
+.comment .title-edit, .comment .content-edit{
+    width: 100%;
+}
+
+.comment .content-edit{
+    resize: none;
+}
+
+.comment .icon-btn{
+    width: 10%;
+    float: right;
+    padding-top: 2%;
+}
+
+input.ng-invalid,
+textarea.ng-invalid {
+  border-color: #ff3b30;
+}
+
+.ng-dirty input.ng-invalid {
+  border-color: #ff3b30;
+}
+
+.ng-dirty input.ng-invalid ~ span.ko {
+  color: #ffcc00;
+}
+
+
+/*bottom-menu:sub-menu:stats*/
+.stats-submenu {
+    background-color: transparent;
+}
+
+.stats-submenu .popover-title {
+    background-color: #4d5154;
+}
+
+.stats-submenu .popover-content{
+    color: white;
+    background-color: rgba(0,0,0,.8);
+    line-height: 1;
+}
+
+.stats-submenu .stats-title {
+    text-align: center;
+    color: white;
+}
+
+.stats-title img {
+    width: 4%;
+    margin-bottom: 1%;
+    margin-top: 1%;
+}
+
+.stats-submenu .stats-fun {
+    color: #65cefe;
+}
+
+.stats-submenu .stats-pop {
+    color: #ffe377;
+}
+
+.stats-submenu .stats-credit {
+    color: #6ffee7;
+}
+
+.stats-submenu .stats-graph, .stats-submenu .pop-credit{
+    position: relative;
+}
+
+.stats-submenu .stats-graph{
+   /* padding-bottom: 2%;*/
+}
+
+.pop-credit .dots{
+    width: 9%;
+    position: absolute;
+    left: 47%;
+    top: 27%;
+}
+
+.stats-graph .left-dots{
+    width: 9%;
+    position: absolute;
+    left: 30%;
+    bottom: -1%;
+    transform: rotate(-60deg);
+}
+
+.stats-graph .right-dots{
+    width: 9%;
+    position: absolute;
+    right: 30%;
+    bottom: -1%;
+    transform: rotate(60deg);
+}
+
+.stats-graph .right-btn{
+    position: absolute;
+    width: 20%;
+    right: 0%;
+    top: 2%;
+}
+
+.stats-submenu .doughnut {
+    width: 100%;
+    padding-top: 17%;
+    padding-bottom: 17%;
+    margin-bottom: 1%;
+}
+.stats-submenu .stats-fun {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.stats-submenu .doughnut-title {
+}
+
+.stats-submenu .stats-graph-label {
+    text-align: center;
+    margin-bottom: 4%;
+    color: white;
+}
+
+.stats-fun .stats-graph-label {
+    padding-top: 8%;
+}
+
+.stats-submenu .stats-graph-value {
+    text-align: center;
+    margin-bottom: 8%;
+}
+
+.stats-submenu .stats-type-icon {
+    width: 30%;
+    text-align: center;
+    background-color: #6b6e73;
+    padding: 3% 0 3% 0;
+}
+
+.stats-type-icon img{
+    vertical-align: middle;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stats-type-sep {
+    width: 1%;
+}
+
+.stats-hr {
+    padding-bottom: .5%;
+}
+
+.stats-submenu .stats-type-numbers {
+    width: 68%;
+    background-color: #868a8d;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.stats-type-numbers > div {
+    height: 100%;
+}
+
+.stats-type-increase {
+    color: #ffe377;
+    text-align: left;
+}
+
+.stats-type-increase img{
+    vertical-align: baseline;
+    display: inline;
+}
+
+.stats-type-increase span {
+    vertical-align: baseline;
+}
+
+/* second page */
+
+.stats-submenu .stats-score-sep {
+    width: 1%;
+}
+
+.stats-submenu .stats-score-name {
+    width: 49.5%;
+    text-align: center;
+    background-color: #6b6e73;
+    padding: 3% 0 3% 0;
+    color: #b3b4b6;
+}
+
+.stats-submenu .stats-score-numbers {
+    width: 49.5%;
+    background-color: #868a8d;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.stats-submenu .stats-overall {
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+}
+
+.stats-overall .left-btn {
+    position: absolute;
+    width: 20%;
+    transform: rotate(180deg);
+}
+
+.stats-score {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.stats-score .cup{
+    width: 10%;
+}
+
+.stats-score-increase {
+    color: #ffe377;
+    text-align: left;
+}
+
+.stats-score-increase img{
+    vertical-align: baseline;
+    display: inline;
+}
+
+.stats-score-increase span {
+    vertical-align: baseline;
+}
+
+.doughnut {
+    position: relative;
+    display: table;
+}
+
+.doughnut-canvas {
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.doughnut-title {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+/*align app-body and bottom menu in the center*/
+@media only screen and (min-width: 768px) {
+    .scrollable-content {
+        width: 45%;
+        min-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        overflow: auto;
+    }
+    .navbar-absolute-bottom {
+        width: 45%;
+        min-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .scrollable-content {
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 100%;
+        overflow: auto;
+    }
+    .navbar-absolute-bottom {
+        width: 100%;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/*set the height of bottom-menu and sub-menu, as well as the width of button images in menus*/
+@media only screen and (min-width: 1350px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.75em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 3.5em;
+        width: 2.5em;
+    }
+    .bottom-container .bottom-menu {
+        height: 3.5em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 3.5em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.5em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.5em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.5em;
+        bottom: -0.5em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.5em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 2em;
+    }
+    .rate-totals .rating-md {
+        font-size: 1.5em;
+        line-height: 1.5;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 4em;
+        color: white;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 1.5em;
+        color: white;
+    }
+
+    .rate-submenu .rate-total img {
+        width: 1.5em;
+        max-width: 1.5em;
+        max-height: 2em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 1.5em;
+        color: #97989c;
+        line-height: 1.8;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 2.5em;
+    }
+    .comment {
+        font-size: 1.2em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 120%;
+        width: 50%;
+    }
+
+    /*stats*/
+    .stats-type-icon img{
+        width: 2em;
+    }
+    .stats-type-increase img{
+        width: 2em;
+    }
+    .stats-score-increase img{
+        width: 2em;
+    }
+    .stats-score .medal{
+        width: 10em;
+    }
+    .stats-overall .left-btn {
+        top: 0;
+    }
+    .stats-submenu .doughnut {
+        margin-top: 1.5em;
+    }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1349px){
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.75em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 3.5em;
+        width: 2.25em;
+    }
+    .bottom-container .bottom-menu {
+        height: 3.25em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 3.25em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.5em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.5em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.5em;
+        bottom: -0.5em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.5em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 2em;
+    }
+    .rate-totals .rating-md {
+        font-size: 1.5em;
+        line-height: 1.5;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 4em;
+        color: white;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 1.5em;
+        color: white;
+    }
+
+    .rate-submenu .rate-total img {
+        width: 1.5em;
+        max-width: 1.5em;
+        max-height: 2em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 1.5em;
+        color: #97989c;
+        line-height: 1.8;
+    }
+     /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 2.25em;
+    }
+    .comment {
+        font-size: 1.2em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 120%;
+        width: 50%;
+    }
+    /*stats*/
+    .stats-type-icon img{
+        width: 2em;
+    }
+    .stats-type-increase img{
+        width: 2em;
+    }
+    .stats-score-increase img{
+        width: 2em;
+    }
+    .stats-score .medal{
+        width: 10em;
+    }
+    .stats-overall .left-btn {
+        top: 0;
+    }
+    .stats-submenu .doughnut {
+        margin-top: 1.5em;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.5em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 2.75em;
+        width: 1.7em;
+    }
+    .bottom-container .bottom-menu {
+        height: 2.5em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 2.5em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.5em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.5em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.5em;
+        bottom: -0.5em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.5em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 1.5em;
+    }
+    .rate-totals .rating-md {
+        font-size: 1em;
+        line-height: 1;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 3em;
+        color: white;
+        padding-bottom: 10px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 1em;
+        color: white;
+    }
+
+    .rate-submenu .rate-total img {
+        width: 1.5em;
+        max-width: 1.5em;
+        max-height: 2em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 1em;
+        color: #97989c;
+        line-height: 1.8;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 1.75em;
+    }
+    .comment {
+        font-size: 1.2em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 60%;
+        width: 60%;
+    }
+
+    /*stats*/
+    .stats-type-icon img{
+        width: 2em;
+    }
+    .stats-type-increase img{
+        width: 2em;
+    }
+    .stats-score-increase img{
+        width: 2em;
+    }
+    .stats-score .medal{
+        width: 10em;
+    }
+    .stats-overall .left-btn {
+        top: 0;
+    }
+    .stats-submenu .doughnut {
+        margin-top: 1.5em;
+    }
+}
+
+@media only screen and (min-width: 360px) and (max-width: 767px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0.25em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 2.4em;
+        width: 1.2em;
+    }
+    .bottom-container .bottom-menu {
+        height: 2em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 2em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.4em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.4em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.4em;
+        bottom: -0.4em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.4em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: -0.05em;
+    }
+    .rate-action .rating-md {
+        font-size: 1em;
+    }
+    .rate-totals .rating-md {
+        font-size: 0.7em;
+        line-height: 0.7;
+        padding-bottom: 4.5px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 1.5em;
+        color: white;
+        padding-bottom: 4.5px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 0.7em;
+        color: white;
+    }
+    .rate-submenu .rate-total img {
+        width: 0.7em;
+        max-width: 0.7em;
+        max-height: 1em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 0.7em;
+        color: #97989c;
+        line-height: 1;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 1.5em;
+    }
+    .comment {
+        font-size: 0.8em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 30%;
+        width: 60%;
+    }
+    /*stats*/
+    .stats-type-icon img{
+        width: 1.5em;
+    }
+    .stats-type-increase img{
+        width: 1.5em;
+    }
+    .stats-score-increase img{
+        width: 1.5em;
+    }
+    .stats-score .medal{
+        width: 7em;
+    }
+    .stats-overall .left-btn {
+        top: -1.5em;
+    }
+    .stats-submenu {
+        font-size: 0.8em;
+    }
+}
+
+@media only screen and (max-width: 359px) {
+    .has-navbar-bottom .app-body {
+        padding-bottom: 0em;
+    }
+    .navbar-absolute-bottom .btn-navbar img {
+        max-height: 1.625em;
+        width: 0.7em;
+    }
+    .bottom-container .bottom-menu {
+        height: 2em;
+    }
+    .bottom-container .popover .btn-group {
+        height: 2em;
+    }
+    /*submenu*/
+    .bottom-container .popover > .arrow {
+        border-width: 0.3em;
+    }
+
+    .bottom-container .popover > .arrow:after {
+        border-width: 0.3em;
+        content: "";
+    }
+
+    .bottom-container .popover.top > .arrow {
+        left: 50%;
+        margin-left: -0.3em;
+        bottom: -0.4em;
+    }
+
+    .bottom-container .popover.top > .arrow:after {
+        content: " ";
+        bottom: 1px;
+        margin-left: -0.3em;
+    }
+    /*rate*/
+    .rating-uni {
+        margin-top: 0
+    }
+    .rate-action .rating-md {
+        font-size: 0.7em;
+    }
+    .rate-totals .rating-md {
+        font-size: 0.5em;
+        line-height: 0.5;
+        padding-bottom: 3.1px;
+    }
+    .rate-submenu .rate-rating {
+        font-size: 1em;
+        color: white;
+        padding-bottom: 3.1px;
+    }
+    .rate-submenu .rate-total {
+        font-size: 0.5em;
+        color: white;
+    }
+    .rate-submenu .rate-total img {
+        width: 0.6em;
+        max-width: 0.7em;
+        max-height: 1em;
+    }
+    .rate-submenu .rate-level {
+        font-size: 0.5em;
+        color: #97989c;
+        line-height: 1;
+    }
+    /*comments*/
+    .app-body .comments-submenu {
+        padding-bottom: 2em;
+    }
+    .comment {
+        font-size: 0.8em;
+        padding-top: 4%;
+    }
+    .comment-person img {
+        margin-top: 30%;
+        width: 60%;
+    }
+    /*stats*/
+    .stats-type-icon img{
+        width: 1em;
+    }
+    .stats-type-increase img{
+        width: 1em;
+    }
+    .stats-score-increase img{
+        width: 1em;
+    }
+    .stats-score .medal{
+        width: 6em;
+    }
+    .stats-overall .left-btn {
+        top: -0.5em;
+    }
+    .stats-submenu {
+        font-size: 0.8em;
+    }
+}
