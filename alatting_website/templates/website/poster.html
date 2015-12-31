@@ -57,107 +57,156 @@
                 <div class="scrollable">
                     <div class="scrollable-content">
                         <div class="poster-frame center-block">
-                            <!-- top -->
                             <div class="poster-top-ratio">
-                                <div>
-                                    <div class="poster-header">
-                                        <div class="header-top">
-                                            <div class="header-pages">
-                                                <span class="align-helper"></span>
-                                               <div class="header-image"><a href="#">
-                                                    <img src="{% static 'website/images/icons/pages.png' %}">
-                                                </a></div>
-                                            </div>
-                                            <div class="header-title">
-                                                <span class="align-helper"></span> {{ object.logo_title }}
-                                            </div>
-                                            <div class="header-music">
-                                                <span class="align-helper"></span>
-                                                <div class="header-image">
-                                                    <a href="#">
-                                                    <img src="{% static 'website/images/icons/music.png' %}">
-                                                    </a>
-                                                </div>
-                                            </div>
-
+                                <div class="poster-header">
+                                    <div class="header-top">
+                                        <div class="header-pages">
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/pages.png' %}"></a></div>
                                         </div>
-                                        <div class="header-main">
-                                            <div class="herder-middle">
-                                                <div class="header-qrcode">
-                                                    <div class="qrcode_circled">
-                                                        <div class="circle"></div>
-                                                        <div class="qrcode">
-                                                            <img src="{% url 'website:code_poster' object.id %}" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="header-logo">
-                                                    <div class="logo">
-                                                        <a href="#" class="logo">
-                                                            <img src="{{ object.images.logo.file.url }}" alt='poster logo'/>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="header-abutton">
-                                                    <!--<span class="align-helper" style="display: inline-block;height: 100%;vertical-align: middle;"></span>-->
-                                                    <div class="abutton">
-                                                        <div class="circle-double">
-                                                            <div class="circle-external"></div>
-                                                             <div class="circle-internal"></div>
-                                                            <div class="circle-sector circle-sector-left">
-                                                            </div>
-                                                            <div class="circle-sector circle-sector-right">
-                                                            </div>
-                                                        </div>
-                                                        <div class="abutton-group">
-                                                            <div class="abutton-trigger">
-                                                                <a href="#" class="abutton-trigger" extended="false">
-                                                                   <img src="{% static 'website/images/icons/a.png' %}">
-                                                                </a>
-                                                            </div>
-                                                            <div class="abutton-phone">
-                                                                <a href="#" class="abutton-contact" extended="false">
-                                                                    <img src="{% static 'website/images/icons/contact-phone.png' %}">
-                                                                </a>
-                                                            </div>
-                                                            <div class="abutton-email">
-                                                                <a href="#" class="abutton-contact" extended="false">
-                                                                    <img src="{% static 'website/images/icons/contact-email.png' %}">
-                                                                </a>
-                                                            </div>
-                                                            <div class="abutton-location">
-                                                                <a href="#" class="abutton-contact" extended="false">
-                                                                    <img src="{% static 'website/images/icons/contact-location.png' %}">
-                                                                </a>
-                                                            </div>
-                                                            <div class="abutton-hours">
-                                                                <a href="#" class="abutton-contact" extended="false">
-                                                                    <img src="{% static 'website/images/icons/contact-hour.png' %}">
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="header-description">
-                                            <h1>
-                                                {{ object.description_first_line }}
-                                                {% if object.description_others %}
-                                                    <span class="dot-expander">...</span>
-                                                {% endif %}
-                                                <br/>{{ object.description_others }}
-                                            </h1>
+                                        <div class="header-title">
+                                            <span class="align-helper"></span> {{ object.logo_title }}
                                         </div>
+                                        <div class="header-music">
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/music.png' %}"></a></div>
                                         </div>
-
-
                                     </div>
+                                    <div class="header-main">
+                                        <div class="herder-middle">
+                                            <div class="header-qrcode">
+                                                <div class="qrcode_circled">
+                                                    <div class="circle"></div>
+                                                    <div class="qrcode"><img src="{% url 'website:code_poster' object.id %}" /></div>
+                                                </div>
+                                            </div>
+                                            <div class="header-logo">
+                                                <div class="logo"><a href="#" class="logo"><img src="{{ object.images.logo.file.url }}" alt='poster logo'/></a></div>
+                                            </div>
+                                            <div class="header-abutton">
+                                                <div class="abutton">
+                                                    <div class="circle-double">
+                                                        <div class="circle-external"></div><div class="circle-internal"></div>
+                                                        <div class="circle-sector circle-sector-left"></div><div class="circle-sector circle-sector-right"></div>
+                                                    </div>
+                                                    <div class="abutton-group">
+                                                        <div class="abutton-trigger">
+                                                            <a href="#" class="abutton-trigger" expressed="false"><img src="{% static 'website/images/icons/a.png' %}"></a>
+                                                        </div>
+                                                        <div class="abutton-contact">
+                                                            <div class="abutton-icons abutton-left">
+                                                                <a href="#" class="abutton-contact" extended="false" for="phone"><img src="{% static 'website/images/icons/contact-phone.png' %}"></a>
+                                                            </div>
+                                                            <div class="abutton-icons abutton-top">
+                                                                <a href="#" class="abutton-contact" extended="false" for="email"><img src="{% static 'website/images/icons/contact-email.png' %}"></a>
+                                                            </div>
+                                                            <div class="abutton-icons abutton-right">
+                                                                <a href="#" class="abutton-contact" extended="false" for="location"><img src="{% static 'website/images/icons/contact-location.png' %}"></a>
+                                                            </div>
+                                                            <div class="abutton-icons abutton-bottom">
+                                                                <a href="#" class="abutton-contact" extended="false" for="hour"><img src="{% static 'website/images/icons/contact-hour.png' %}"></a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="abutton-express" style="display:none;">
+                                                            <div class="abutton-icons abutton-left">
+                                                                <a href="#" class="abutton-express" cookie="abutton-like-enabled">
+                                                                    {% if object.abutton_like_enabled == 1 %}
+                                                                    <img class="enabled" src="{% static 'website/images/icons/express-like.png' %}">
+                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-like-disabled.png' %}">
+                                                                    {% else %}
+                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-like.png' %}">
+                                                                    <img class="disabled" src="{% static 'website/images/icons/express-like-disabled.png' %}">
+                                                                    {% endif %}
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-icons abutton-top">
+                                                                <a href="#" class="abutton-express" cookie="abutton-bookmark-enabled">
+                                                                    {% if object.abutton_bookmark_enabled == 1 %}
+                                                                    <img class="enabled" src="{% static 'website/images/icons/express-bookmark.png' %}">
+                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-bookmark-disabled.png' %}">
+                                                                    {% else %}
+                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-bookmark.png' %}">
+                                                                    <img class="disabled" src="{% static 'website/images/icons/express-bookmark-disabled.png' %}">
+                                                                    {% endif %}
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-icons abutton-right">
+                                                                <a href="#" class="abutton-express" cookie="abutton-subscribe-enabled">
+                                                                    {% if object.abutton_subscribe_enabled == 1 %}
+                                                                    <img class="enabled" src="{% static 'website/images/icons/express-subscribe.png' %}">
+                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-subscribe-disabled.png' %}">
+                                                                    {% else %}
+                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-subscribe.png' %}">
+                                                                    <img class="disabled" src="{% static 'website/images/icons/express-subscribe-disabled.png' %}">
+                                                                    {% endif %}
+                                                                </a>
+                                                            </div>
+                                                            <div class="abutton-icons abutton-bottom">
+                                                                <a href="#" class="abutton-express" cookie="abutton-fun-enabled">
+                                                                    {% if object.abutton_fun_enabled == 1 %}
+                                                                    <img class="enabled" src="{% static 'website/images/icons/express-fun.png' %}">
+                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-fun-disabled.png' %}">
+                                                                    {% else %}
+                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-fun.png' %}">
+                                                                    <img class="disabled" src="{% static 'website/images/icons/express-fun-disabled.png' %}">
+                                                                    {% endif %}
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="header-information">
+                                            <div class="header-description">
+                                                <div class="">
+                                                    <h1>
+                                                        {{ object.description_first_line }}
+                                                        {% if object.description_others %}
+                                                            <span class="dot-expander">...</span>
+                                                        {% endif %}
+                                                        <br/>{{ object.description_others }}
+                                                    </h1>
+                                                </div>
+                                            </div>
+                                            <div class="contact-info phone">
+                                                {{ object.mobile }}
+                                                <a class="abutton-contact-info" href="#"><img
+                                                        src="{% static 'website/images/icons/contact-phone.png' %}"></a>
 
-                                    <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="0"></div>
-
+                                            </div>
+                                            <div class="contact-info email">
+                                                {{ object.email }}
+                                                <a class="abutton-contact-info" href="mailto:{{ object.email }}?{{ object.email_content | safe }}"><img
+                                                        src="{% static 'website/images/icons/contact-email.png' %}"></a>
+                                            </div>
+                                            <div class="contact-info hour">
+                                                {{ object.hours }}
+                                                <span class="poster-lifetime-status"> {{ object.hours_status }} </span>
+                                                <a href="#" class="more-info"><img
+                                                        src="{% static 'website/images/icons/more_icon.png' %}"></a>
+                                                <div class="poster-top-inform-more">
+                                                    <table class="hours-more-details">
+                                                     {% for day,day_hours in object.hours_details.items %}
+                                                        <tr>
+                                                            <th>{{ day }}</th><td>{{ day_hours|safe }}</td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <div class="contact-info location">
+                                                {{ object.address_info }}
+                                                <a href="#" class="abutton-contact-info location-info"><img
+                                                        src="{% static 'website/images/icons/contact-location.png' %}"></a>
+                                                <iframe class="map"
+                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB5YbUFeSsRWn1G2UsdJmAPT4qyD6RrYao
+                                              &q={{ object.address_mapped }}" allowfullscreen>
+                                               </iframe>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+                                <div class="poster-tabs btn-group btn-group-justified" ui-state="activeTab" default="0"></div>
                             </div>
-
                             <!-- pages -->
                             <div class="poster-pages-ratio">
                                 <div>
@@ -294,7 +343,7 @@
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>
-    <!--<script src="{% static 'website/js/contact.js' %}"></script>-->
+    <script src="{% static 'website/js/poster-header.js' %}"></script>
     <!--<script src="{{ object.script.url }}"></script>-->
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}
