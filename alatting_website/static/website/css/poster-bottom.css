@@ -708,7 +708,8 @@ textarea.ng-invalid {
         margin-left: auto;
         margin-right: auto;
         height: 100%;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .navbar-absolute-bottom {
         width: 45%;
@@ -725,7 +726,8 @@ textarea.ng-invalid {
         margin-left: auto;
         margin-right: auto;
         height: 100%;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
     }
     .navbar-absolute-bottom {
         width: 100%;
