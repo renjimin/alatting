@@ -265,9 +265,13 @@ div.header-information {
         font-size: 1.8em;
     }
 }
-
+.header-information .header-description {
+    font-size:1em;
+}
+.contact-info {
+    font-size:2em;
+}
 .header-information .header-description, .contact-info {
-    font-size:1.2em;
     vertical-align: middle;
     line-height:100%;
     text-align:center;
