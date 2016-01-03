@@ -4,6 +4,7 @@ $(document).ready(function () {
         if($(this).attr('expressed') == 'false') {
             $(this).parents('div.abutton-group').find('div.abutton-contact').hide();
             $(this).parents('div.abutton-group').find('div.abutton-express').show();
+            $(this).parents('div.abutton-group').find('div.abutton-express').find('img.hidden').hide();
             $(this).attr('expressed','true');
         } else if($(this).attr('expressed') == 'true') {
             $(this).parents('div.abutton-group').find('div.abutton-express').hide();
