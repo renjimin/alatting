@@ -1,116 +1,126 @@
 from django.contrib import admin
-from alatting_website.models import Person, Image, Music, Video, Category, Poster, PosterImage, PosterVideo, PosterLike, \
-Comment, Address, PosterPage, Rating, PosterStatistics, HistoryStatistics
-from alatting_website.models import ActivityInvitation, BusinessMarketing, ProductSell, ExpertShow, Template, \
-    TemplateRegion, PosterFun
+from alatting_website.models import (Person, Image, Music, Video, Category,
+                                     Poster, PosterImage, PosterVideo,
+                                     PosterLike,
+                                     Comment, Address, PosterPage, Rating,
+                                     PosterStatistics, HistoryStatistics)
+from alatting_website.models import (ActivityInvitation,
+                                     BusinessMarketing, ProductSell,
+                                     ExpertShow, Template,
+                                     TemplateRegion, PosterFun)
+
+
+class AlattingAdminModelMixin(object):
+    def get_list_display(self, request):
+        fields = self.model._meta.get_concrete_fields_with_model()
+        return [pair[0].name for pair in fields]
 
 
 @admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Person._meta.get_concrete_fields_with_model()]
+class PersonAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Image._meta.get_concrete_fields_with_model()]
+class ImageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Music)
-class MusicAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Music._meta.get_concrete_fields_with_model()]
+class MusicAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Video)
-class VideoAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Video._meta.get_concrete_fields_with_model()]
+class VideoAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Category._meta.get_concrete_fields_with_model()]
+class CategoryAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Poster)
-class PosterAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Poster._meta.get_concrete_fields_with_model()]
+class PosterAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(PosterImage)
-class PosterImageAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in PosterImage._meta.get_concrete_fields_with_model()]
+class PosterImageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(PosterVideo)
-class PosterVideoAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in PosterVideo._meta.get_concrete_fields_with_model()]
+class PosterVideoAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(PosterLike)
-class PosterLikeAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in PosterLike._meta.get_concrete_fields_with_model()]
+class PosterLikeAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Comment._meta.get_concrete_fields_with_model()]
+class CommentAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Address)
-class AddressAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Address._meta.get_concrete_fields_with_model()]
+class AddressAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(ActivityInvitation)
-class ActivityInvitationAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in ActivityInvitation._meta.get_concrete_fields_with_model()]
+class ActivityInvitationAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(BusinessMarketing)
-class BusinessMarketingAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in BusinessMarketing._meta.get_concrete_fields_with_model()]
+class BusinessMarketingAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(ProductSell)
-class ProductSellAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in ProductSell._meta.get_concrete_fields_with_model()]
+class ProductSellAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(ExpertShow)
-class ExpertShowAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in ExpertShow._meta.get_concrete_fields_with_model()]
+class ExpertShowAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Template)
-class TemplateAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Template._meta.get_concrete_fields_with_model()]
+class TemplateAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(TemplateRegion)
-class TemplateRegionAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in TemplateRegion._meta.get_concrete_fields_with_model()]
+class TemplateRegionAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(PosterPage)
-class PosterPageAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in PosterPage._meta.get_concrete_fields_with_model()]
+class PosterPageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Rating)
-class RatingAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in Rating._meta.get_concrete_fields_with_model()]
+class RatingAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(PosterStatistics)
-class PosterRatingAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in PosterStatistics._meta.get_concrete_fields_with_model()]
+class PosterRatingAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(HistoryStatistics)
-class PosterRatingAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in HistoryStatistics._meta.get_concrete_fields_with_model()]
+class PosterRatingAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(PosterFun)
-class PosterFunAdmin(admin.ModelAdmin):
-    list_display = [pair[0].name for pair in PosterFun._meta.get_concrete_fields_with_model()]
-
+class PosterFunAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass

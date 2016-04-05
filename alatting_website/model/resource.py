@@ -33,7 +33,7 @@ class Video(models.Model):
     id = models.AutoField(primary_key=True)
     uuid = models.CharField(max_length=64, default=generate_uuid)
     created_at = models.DateTimeField(auto_now_add=True)
-    preview = models.CharField(max_length=1023, blank=True)
+    preview = models.CharField(max_length=1023, blank=True, null=True)
     file = OverWriteVideoField(upload_to=file.get_video_path, preview_field='preview')
     format = models.CharField(max_length=31, default='mp4')
 
