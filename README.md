@@ -1,6 +1,6 @@
 # Alatting Project README
 
-## Required
+## Requirements
 
 * python 3.5.4
 * MySQL
