@@ -8,8 +8,8 @@
 
 ## Virtual Environment
 
-* pip3 install virtualenv
-* virtualenv -p={path_of_python3.5} myproject  // -p parameter not required
+* pip3 install virtualenv                      // make sure pip3 installed 
+* virtualenv -p={path_of_python3.5} myproject  // -p parameter is optional
 * cd myproject
 * source bin/activate
 
