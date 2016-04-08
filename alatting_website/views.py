@@ -204,12 +204,12 @@ class IndexView(TemplateView):
     template_name = 'website/index.html'
 
 
-class TestView(View):
-    def get(self, request):
-        from alatting_website.logic.poster_service import PosterService
-        ret = PosterService.collect_statistics()
-        return HttpResponse('OK: %s' % ret)
-
+class TestView(TemplateView):
+    #def get(self, request):
+     #   from alatting_website.logic.poster_service import PosterService
+      #  ret = PosterService.collect_statistics()
+      #  return HttpResponse('OK: %s' % ret)
+      template_name = 'demo/test1.html'
 
 class DemoView(TemplateView):
     template_name = 'demo/ng_repeat.html'
