@@ -21,12 +21,21 @@ class PosterView(DetailView):
 
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
-        queryset = queryset.select_related('music', 'creator__person', 'poster_statistics', 'history_statistics').\
-            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
-            .select_subclasses()
+        queryset = queryset.select_related(
+            'music', 'creator__person',
+            'poster_statistics', 'history_statistics'
+        ).prefetch_related(
+            'poster_images__image', 'poster_videos__video',
+            'poster_pages__template__template_regions'
+        ).select_subclasses()
         user = self.request.user
         if user.is_authenticated():
-            queryset = queryset.prefetch_related(Prefetch('ratings', queryset=Rating.objects.filter(creator=user)))
+            queryset = queryset.prefetch_related(
+                Prefetch(
+                    'ratings',
+                    queryset=Rating.objects.filter(creator=user)
+                )
+            )
         return queryset
 
     def get_object(self, queryset=None):
@@ -63,7 +72,9 @@ class PosterView(DetailView):
         obj.capture = 'capture' in self.request.GET
         PosterService.parse_media_file(obj.html.name, obj)
         if not obj.capture:
-            obj.image_url, obj.pdf_url = PosterService.capture(self.request, obj, force='force' in self.request.GET)
+            obj.image_url, obj.pdf_url = PosterService.capture(
+                self.request, obj, force='force' in self.request.GET
+            )
         obj.share = self.create_share(obj)
         user = self.request.user
         if user.is_authenticated():
@@ -73,7 +84,7 @@ class PosterView(DetailView):
         # tailor mobile format, if no mobile then copy phone
         if not obj.mobile and obj.phone:
             obj.mobile = obj.phone
-        if len(obj.mobile)<=10:
+        if len(obj.mobile) <= 10:
             obj.mobile = obj.mobile[:3]+'-'+obj.mobile[3:6]+'-'+obj.mobile[6:]
         # prepare email content to send
         url_detail = '\nquote:\n"'+obj.short_description+'\n'+Utils.get_current_url(self.request)+'\n"'

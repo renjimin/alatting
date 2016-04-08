@@ -2,14 +2,14 @@
 
 ## Requirements
 
-* python 3.5.4
+* python 3.4
 * MySQL
 
 
 ## Virtual Environment
 
 * pip3 install virtualenv                      // make sure pip3 installed 
-* virtualenv -p={path_of_python3.5} myproject  // -p parameter is optional
+* virtualenv -p={path_of_python3.4} myproject  // -p parameter is optional
 * cd myproject
 * source bin/activate
 
