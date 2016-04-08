@@ -6,7 +6,7 @@ from alatting_website.view.edit_view import EditView, CreatePosterView
 urlpatterns = [
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^demo$', DemoView.as_view(), name='demo'),
-    url(r'^test$', TestView.as_view(), name='demo'),
+    url(r'^test$', TestView.as_view(), name='test'),
     url(r'^capture$', CaptureView.as_view(), name='capture'),
     url(r'^poster/(?P<pk>\d+)/$', PosterView.as_view(), name='poster'),
     url(r'^poster/(?P<pk>\d+)/edit$', EditView.as_view(), name='edit'),
