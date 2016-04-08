@@ -7,7 +7,7 @@
         <meta name="mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <title>video fullscreen</title>
-    <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
+    <link href="{% static 'libs/common/video-js5.0.0.css' %}" rel="stylesheet">
 </head>
 <body>
 <div>
@@ -20,7 +20,7 @@
 </video>
 </div>
 <button onclick="func()">requestFullscreen</button>
-<script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
+<script src="{% static 'libs/common/video5.0.0.js' %}"></script>
 <script>
     videojs('video', {}, function(){
         this.play();

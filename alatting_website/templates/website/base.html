@@ -1,4 +1,5 @@
-{% load static %}<!DOCTYPE html>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en" ng-app="PosterApp" ng-controller="MainController">
 <head>
     <!-- favicons -->
@@ -40,10 +41,10 @@
 
     {% endblock %}
     {% block head_script %}
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0/angular-route.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular-touch.min.js"></script>
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'libs/common/angular1.3.0.min.js' %}"></script>
+        <script src="{% static 'libs/common/angular-route1.3.0.min.js' %}"></script>
+        <script src="{% static 'libs/common/angular-touch1.2.15.min.js' %}"></script>
         <script src="{% static 'libs/mobile/js/mobile-angular-ui.min.js' %}"></script>
         <script src="{% static 'libs/mobile/js/tooltip.js' %}"></script>
         <script src="{% static 'libs/mobile/js/popover.js' %}"></script>

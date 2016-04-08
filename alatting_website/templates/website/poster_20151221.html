@@ -27,7 +27,7 @@
 
 {% block css %}
     {{ block.super }}
-    <link href="http://vjs.zencdn.net/5.0.0/video-js.css" rel="stylesheet">
+    <link href="{% static 'libs/common/video-js5.0.0.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'libs/social/social_buttons.css' %}">
     <link rel="stylesheet" href="{% static 'libs/flex_slider/flexslider.css' %}">
     <link rel="stylesheet" href="{% static 'libs/star_rating/css/star-rating.min.css' %}">
@@ -457,10 +457,10 @@
 
 {% block body_end %}
     {{ block.super }}
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
-    <script src="http://vjs.zencdn.net/5.0.0/video.js"></script>
+    <script src="{% static 'libs/common/video5.0.0.js' %}"></script>
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>

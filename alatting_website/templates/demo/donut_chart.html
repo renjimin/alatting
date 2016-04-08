@@ -3,7 +3,7 @@
 {% block title %}Donut Chart{% endblock %}
 {% block head_script %}
     {{ block.super }}
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>
+    <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
 {% endblock %}
 {% block css %}
