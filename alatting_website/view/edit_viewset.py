@@ -14,9 +14,12 @@ class EditViewSet(viewsets.GenericViewSet):
 
     def get_queryset(self):
         queryset = self.queryset.filter(creator=self.request.user)
-        queryset = queryset.select_related('music', 'creator__person',).\
-            prefetch_related('poster_images__image', 'poster_videos__video', 'poster_pages__template__template_regions')\
-            .select_subclasses()
+        queryset = queryset.select_related(
+            'music', 'creator__person'
+        ).prefetch_related(
+            'poster_images__image', 'poster_videos__video',
+            'poster_pages__template__template_regions'
+        ).select_subclasses()
         self.queryset = queryset
         queryset = super(EditViewSet, self).get_queryset()
         return queryset
@@ -49,9 +52,13 @@ class EditViewSet(viewsets.GenericViewSet):
 
     @list_route(methods=('get',))
     def poster(self, request, *args, **kwargs):
-        return viewsets.mixins.RetrieveModelMixin.retrieve(self, request, *args, **kwargs)
+        return viewsets.mixins.RetrieveModelMixin.retrieve(
+            self, request, *args, **kwargs
+        )
 
     @list_route(methods=('get',), serializer_class=TemplatesHTMLSerializer)
     def templates_html(self, request, *args, **kwargs):
-        self.queryset = self.queryset.prefetch_related('poster_pages__template__template_regions')
+        self.queryset = self.queryset.prefetch_related(
+            'poster_pages__template__template_regions'
+        )
         obj = self.get_object()

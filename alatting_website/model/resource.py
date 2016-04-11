@@ -1,7 +1,9 @@
+# coding=utf-8
+
 from django.db import models
 from utils.db.utils import generate_uuid
-from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \
-    BigAutoField, BigForeignKey, BigOneToOneField
+from utils.db.fields import (OverWriteFileField, OverWriteImageField,
+                             OverWriteVideoField, BigForeignKey)
 from utils import file
 
 
@@ -9,7 +11,11 @@ class Image(models.Model):
     id = models.AutoField(primary_key=True)
     uuid = models.CharField(max_length=64, default=generate_uuid)
     created_at = models.DateTimeField(auto_now_add=True)
-    file = OverWriteImageField(upload_to=file.get_image_path, width_field='width', height_field='height')  # TODO: update the upload_to function
+    # TODO: update the upload_to function
+    file = OverWriteImageField(
+        upload_to=file.get_image_path,
+        width_field='width', height_field='height'
+    )
     width = models.PositiveSmallIntegerField(blank=True)
     height = models.PositiveSmallIntegerField(blank=True)
     format = models.CharField(max_length=10, blank=True)
@@ -34,7 +40,10 @@ class Video(models.Model):
     uuid = models.CharField(max_length=64, default=generate_uuid)
     created_at = models.DateTimeField(auto_now_add=True)
     preview = models.CharField(max_length=1023, blank=True, null=True)
-    file = OverWriteVideoField(upload_to=file.get_video_path, preview_field='preview')
+    file = OverWriteVideoField(
+        upload_to=file.get_video_path,
+        preview_field='preview'
+    )
     format = models.CharField(max_length=31, default='mp4')
 
     def __str__(self):

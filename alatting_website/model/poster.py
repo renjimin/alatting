@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -12,7 +14,7 @@ class Poster(models.Model):
     STATUS_DRAFT = 'Draft'
     STATUS_PUBLISHED = 'Published'
     STATUS_ACTIVE = 'Active'
-    STATUS_INACTIVE= 'Inactive'
+    STATUS_INACTIVE = 'Inactive'
     STATUS_CHOICES = (
         (STATUS_DRAFT, STATUS_DRAFT),
         (STATUS_PUBLISHED, STATUS_PUBLISHED),
@@ -31,16 +33,24 @@ class Poster(models.Model):
     url = models.CharField(max_length=255, default='')
 
     #qr_image
-    logo_image = models.ForeignKey('Image', related_name='poster_logo_images', null=True)
+    logo_image = models.ForeignKey(
+        'Image', related_name='poster_logo_images', null=True
+    )
     logo_title = models.CharField(max_length=255, default='')
     short_description = models.CharField(max_length=255, default='')
     phone = models.CharField(max_length=16, default='')
     mobile = models.CharField(max_length=16, blank=True, default='')
     email = models.EmailField(blank=True, default='')
     address = BigForeignKey('Address', related_name='posters', null=True)
-    lifetime_type = models.CharField(max_length=32, choices=LIFETIME_CHOICES, default=LIFETIME_WEEKLY)
-    lifetime_timezone = models.CharField(max_length=32, default='America/Los_Angeles')
-    lifetime_value = models.CharField(max_length=1024, default='')
+    lifetime_type = models.CharField(
+        max_length=32, choices=LIFETIME_CHOICES, default=LIFETIME_WEEKLY
+    )
+    lifetime_timezone = models.CharField(
+        max_length=32, default='America/Los_Angeles'
+    )
+    lifetime_value = models.CharField(
+        max_length=1024, default=''
+    )
     music = models.ForeignKey('Music', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     main_category = models.ForeignKey('Category', related_name='main_posters')
@@ -77,9 +87,16 @@ class Poster(models.Model):
                 super(Poster, self).save(**kwargs)
                 template = getattr(self, 'template', None)
                 if template:
-                    PosterPage.objects.create(template=self.template, poster=self)
-                self.poster_statistics = PosterStatistics.objects.create(poster=self)
-                self.history_statistics = HistoryStatistics.objects.create(poster=self)
+                    PosterPage.objects.create(
+                        template=self.template,
+                        poster=self
+                    )
+                self.poster_statistics = PosterStatistics.objects.create(
+                    poster=self
+                )
+                self.history_statistics = HistoryStatistics.objects.create(
+                    poster=self
+                )
                 child_type = self.main_category.get_type_class()
                 child = child_type(poster=self)
                 child._raw = True
@@ -131,13 +148,23 @@ class ActivityInvitation(Poster):
         (ACTIVITY_STATUS_CANCELLED, ACTIVITY_STATUS_CANCELLED),
     )
     poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
-    activity_status = models.CharField(max_length=15, choices=ACTIVITY_STATUS_CHOICES, default=ACTIVITY_STATUS_COMING)
+    activity_status = models.CharField(
+        max_length=15,
+        choices=ACTIVITY_STATUS_CHOICES,
+        default=ACTIVITY_STATUS_COMING
+    )
     invitation_message = models.CharField(max_length=255, default='')
     activity_start_time = models.DateTimeField(auto_now_add=True)
     activity_end_time = models.DateTimeField(auto_now_add=True)
-    special_description = models.CharField(max_length=255, blank=True, default='')
-    activity_reminder_message = models.CharField(max_length=255, blank=True, default='')
-    parking_notice_message = models.CharField(max_length=255, blank=True, default='')
+    special_description = models.CharField(
+        max_length=255, blank=True, default=''
+    )
+    activity_reminder_message = models.CharField(
+        max_length=255, blank=True, default=''
+    )
+    parking_notice_message = models.CharField(
+        max_length=255, blank=True, default=''
+    )
     accepted_count = models.IntegerField(default=0)
     rejected_count = models.IntegerField(default=0)
     need_pre_notification = models.BooleanField(default=True)
@@ -150,9 +177,13 @@ class ActivityInvitation(Poster):
 class BusinessMarketing(Poster):
     poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     slogan = models.CharField(max_length=128, blank=True, default='')
-    parking_notice_message = models.CharField(max_length=255, blank=True, default='')
+    parking_notice_message = models.CharField(
+        max_length=255, blank=True, default=''
+    )
     need_reservation = models.BooleanField(default=True)
-    business_keywords = models.CharField(max_length=255, blank=True, default='')
+    business_keywords = models.CharField(
+        max_length=255, blank=True, default=''
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -168,8 +199,12 @@ class ProductSell(Poster):
     size_height = models.IntegerField(default=0)
     is_product_available = models.BooleanField(default=False)
     is_product_on_sale = models.BooleanField(default=False)
-    appearance_description = models.CharField(max_length=255, blank=True, default='')
-    material_description = models.CharField(max_length=32, blank=True, default='')
+    appearance_description = models.CharField(
+        max_length=255, blank=True, default=''
+    )
+    material_description = models.CharField(
+        max_length=32, blank=True, default=''
+    )
     color = models.CharField(max_length=32, blank=True, default='')
 
     def __str__(self):
@@ -194,11 +229,15 @@ class ExpertShow(Poster):
     poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
     first_name = models.CharField(max_length=64, default='')
     last_name = models.CharField(max_length=64, default='')
-    sex = models.CharField(max_length=10, choices=SEX_CHOICES, default=SEX_MALE)
+    sex = models.CharField(
+        max_length=10, choices=SEX_CHOICES, default=SEX_MALE
+    )
     birthday = models.DateField(null=True, blank=True)
     profession = models.CharField(max_length=128, default='')
     working_years = models.IntegerField(default=0)
-    degree = models.CharField(max_length=64, choices=DEGREE_CHOICES, default=DEGREE_BACHELOR)
+    degree = models.CharField(
+        max_length=64, choices=DEGREE_CHOICES, default=DEGREE_BACHELOR
+    )
     university = models.CharField(max_length=128, blank=True, default='')
     awards = models.CharField(max_length=2048, blank=True, default='')
     experince_description = models.CharField(max_length=2048, default='')
@@ -207,7 +246,9 @@ class ExpertShow(Poster):
     available_hours = models.CharField(max_length=64, blank=True, default='')
     need_reservation = models.BooleanField(default=False)
     expert_keywords = models.CharField(max_length=255, blank=True, default='')
-    parking_notice_message = models.CharField(max_length=255, blank=True, default='')
+    parking_notice_message = models.CharField(
+        max_length=255, blank=True, default=''
+    )
     resume = OverWriteFileField(null=True, blank=True)
 
     def __str__(self):

@@ -1,5 +1,9 @@
+# coding=utf-8
+
 from rest_framework import serializers
-from alatting_website.models import PosterStatistics, Rating, PosterLike, PosterFun
+from alatting_website.models import (
+    PosterStatistics, Rating, PosterLike, PosterFun
+)
 
 
 class PosterStatisticsSerializer(serializers.ModelSerializer):

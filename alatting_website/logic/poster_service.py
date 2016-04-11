@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import os
 import json
 from django.conf import settings
@@ -46,7 +48,8 @@ class PosterService:
         return image_url
 
     @classmethod
-    def capture(cls, request, poster, width=800, height=1280, view_height=2048, force=False):
+    def capture(cls, request, poster, width=800, height=1280,
+                view_height=2048, force=False):
         image_path, image_url = cls.poster_paths(poster, '.jpg')
         pdf_path, pdf_url = cls.poster_paths(poster, '.pdf')
         # make sure it exist
@@ -55,8 +58,12 @@ class PosterService:
             force = True
         if force:
             url = request.scheme + '://' + request.get_host()
-            url = url + reverse('website:poster', kwargs={'pk': poster.id}) + '?capture=true'
-            if ScreenShot.capture(url, image_path, width, height, view_height=view_height):
+            url = url + reverse(
+                'website:poster',
+                kwargs={'pk': poster.id}
+            ) + '?capture=true'
+            if ScreenShot.capture(url, image_path, width,
+                                  height, view_height=view_height):
                 ScreenShot.image_to_pdf(image_path, pdf_path)
             else:
                 pdf_url = image_url = None

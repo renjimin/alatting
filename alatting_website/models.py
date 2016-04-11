@@ -21,8 +21,12 @@ class Person(models.Model):
         (GENDER_FEMALE, GENDER_FEMALE),
     )
     user = models.OneToOneField(User, db_column='id', primary_key=True)
-    gender = models.CharField(max_length=15, choices=GENDER_CHOICES, default='unknown')
-    avatar = OverWriteImageField(upload_to=file.get_avatar_path, default='avatars/avatar.png')
+    gender = models.CharField(
+        max_length=15, choices=GENDER_CHOICES, default='unknown'
+    )
+    avatar = OverWriteImageField(
+        upload_to=file.get_avatar_path, default='avatars/avatar.png'
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -47,7 +51,11 @@ class Category(models.Model):
     }
     id = models.AutoField(primary_key=True)
     parent = models.ForeignKey('Category', null=True, blank=True)
-    type = models.CharField(max_length=15, choices=TYPE_CHOICES, default=TYPE_BUSINESS)
+    type = models.CharField(
+        max_length=15,
+        choices=TYPE_CHOICES,
+        default=TYPE_BUSINESS
+    )
     name = models.CharField(max_length=63, blank=True, unique=True)
     description = models.CharField(max_length=127, blank=True, default='')
     tags = models.CharField(max_length=2048, blank=True, default='')

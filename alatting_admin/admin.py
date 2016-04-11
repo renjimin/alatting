@@ -1,7 +1,7 @@
 from django.contrib import admin
 from alatting_website.models import (Person, Image, Music, Video, Category,
                                      Poster, PosterImage, PosterVideo,
-                                     PosterLike,
+                                     PosterLike, PageText,
                                      Comment, Address, PosterPage, Rating,
                                      PosterStatistics, HistoryStatistics)
 from alatting_website.models import (ActivityInvitation,
@@ -123,4 +123,9 @@ class PosterRatingAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(PosterFun)
 class PosterFunAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(PageText)
+class PageTextAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

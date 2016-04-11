@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
@@ -8,7 +10,12 @@ from utils.db.utils import Utils as DBUtils
 
 
 class Statistics(models.Model):
-    # poster = BigOneToOneField(Poster, primary_key=True, db_column='id', related_name='poster_statistics')
+    # poster = BigOneToOneField(
+    #     Poster,
+    #     primary_key=True,
+    #     db_column='id',
+    #     related_name='poster_statistics'
+    # )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     # rating
@@ -27,8 +34,16 @@ class Statistics(models.Model):
     fun_count = models.IntegerField(default=0)
     complains_count = models.IntegerField(default=0)
     # score
-    fun_survey_score = models.FloatField(default=0, validators=[validators.MinValueValidator(0), validators.MaxValueValidator(1)])
-    fun_review_score = models.FloatField(default=0, validators=[validators.MinValueValidator(0), validators.MaxValueValidator(1)])
+    fun_survey_score = models.FloatField(
+        default=0,
+        validators=[validators.MinValueValidator(0),
+                    validators.MaxValueValidator(1)]
+    )
+    fun_review_score = models.FloatField(
+        default=0,
+        validators=[validators.MinValueValidator(0),
+                    validators.MaxValueValidator(1)]
+    )
     # contacted_count
     phone_contacted_count = models.IntegerField(default=0)
     email_contacted_count = models.IntegerField(default=0)
@@ -48,7 +63,11 @@ class Statistics(models.Model):
 
     def count_max(self):
         if not hasattr(self, '_count_max'):
-            self._count_max = max(self.five_count, self.four_count, self.three_count, self.two_count, self.one_count)
+            self._count_max = max(self.five_count,
+                                  self.four_count,
+                                  self.three_count,
+                                  self.two_count,
+                                  self.one_count)
         return self._count_max
 
     def compute_percent(self, name):
@@ -91,11 +110,13 @@ class Statistics(models.Model):
 
     @property
     def shares_count(self):
-        count = self.facebook_shared_count + self.twitter_shared_count + self.pinterest_shared_count + \
-            self.linkedin_shared_count + self.google_shared_count + self.email_shared_count
+        count = self.facebook_shared_count + self.twitter_shared_count + \
+                self.pinterest_shared_count + self.linkedin_shared_count + \
+                self.google_shared_count + self.email_shared_count
         return count
 
-    VIEWS_WEIGHT, LIKES_WEIGHT, FAVORITES_WEIGHT, RATINGS_WEIGHT, CONTACTS_WEIGHT, SHARES_WEIGHT = 1/6, 1/6, 1/6, 1/6, 1/6, 1/6
+    VIEWS_WEIGHT, LIKES_WEIGHT, FAVORITES_WEIGHT = 1/6, 1/6, 1/6
+    RATINGS_WEIGHT, CONTACTS_WEIGHT, SHARES_WEIGHT = 1/6, 1/6, 1/6
 
     @property
     def popular_score(self):
@@ -103,12 +124,21 @@ class Statistics(models.Model):
         :return an integer:
         """
         if not hasattr(self, '_popular_score'):
-            contacted_count = self.phone_contacted_count + self.email_contacted_count + self.map_contacted_count
-            shared_count = self.facebook_shared_count + self.pinterest_shared_count + self.twitter_shared_count + \
-                self.linkedin_shared_count + self.google_shared_count + self.email_shared_count
-            score = self.views_count * self.VIEWS_WEIGHT + self.likes_count * self.LIKES_WEIGHT + \
-                    self.favorites_count * self.FAVORITES_WEIGHT + self.ratings_count * self.RATINGS_WEIGHT + \
-                contacted_count * self.CONTACTS_WEIGHT + shared_count * self.SHARES_WEIGHT
+            contacted_count = self.phone_contacted_count + \
+                              self.email_contacted_count + \
+                              self.map_contacted_count
+            shared_count = self.facebook_shared_count + \
+                           self.pinterest_shared_count + \
+                           self.twitter_shared_count + \
+                           self.linkedin_shared_count + \
+                           self.google_shared_count + \
+                           self.email_shared_count
+            score = self.views_count * self.VIEWS_WEIGHT + \
+                    self.likes_count * self.LIKES_WEIGHT + \
+                    self.favorites_count * self.FAVORITES_WEIGHT + \
+                    self.ratings_count * self.RATINGS_WEIGHT + \
+                    contacted_count * self.CONTACTS_WEIGHT + \
+                    shared_count * self.SHARES_WEIGHT
             score = round(score)
             setattr(self,  '_popular_score', score)
         return getattr(self, '_popular_score')
@@ -137,7 +167,8 @@ class Statistics(models.Model):
     def credit(self):
         return self.credit_score * 100
 
-    SURVEY_WEIGHT, REVIEW_WEIGHT, FUN_WEIGHT, FUN_LIKE_WEIGHT, FAVORITE_WEIGHT = 1/5, 1/5, 1/5, 1/5, 1/5
+    SURVEY_WEIGHT, REVIEW_WEIGHT, FUN_WEIGHT = 1/5, 1/5, 1/5
+    FUN_LIKE_WEIGHT, FAVORITE_WEIGHT = 1/5, 1/5
 
     @property
     def fun_score(self):
@@ -145,7 +176,8 @@ class Statistics(models.Model):
         :return a float between 0 - 1:
         """
         if not hasattr(self, '_fun_score'):
-            score = self.fun_survey_score * self.SURVEY_WEIGHT + self.fun_review_score * self.REVIEW_WEIGHT
+            score = self.fun_survey_score * self.SURVEY_WEIGHT + \
+                    self.fun_review_score * self.REVIEW_WEIGHT
             if self.views_count:
                 fun_count_score = self.fun_count / self.views_count
                 score += fun_count_score * self.FUN_WEIGHT
@@ -161,8 +193,9 @@ class Statistics(models.Model):
 
     @property
     def overall_score(self):
-        score = self.popular_score * self.POPULAR_WEIGHT + self.credit_score * self.CREDIT_WEIGHT + self.fun_score * \
-            self.FUN_WEIGHT
+        score = self.popular_score * self.POPULAR_WEIGHT + \
+                self.credit_score * self.CREDIT_WEIGHT + \
+                self.fun_score * self.FUN_WEIGHT
         return score
 
     Medal_Levels = (1000, 10000, 100000, 1000000)
@@ -188,11 +221,18 @@ class Statistics(models.Model):
 
 
 class PosterStatistics(Statistics):
-    poster = BigOneToOneField('Poster', primary_key=True, db_column='id', related_name='poster_statistics')
+    poster = BigOneToOneField(
+        'Poster', primary_key=True,
+        db_column='id',
+        related_name='poster_statistics'
+    )
 
 
 class HistoryStatistics(Statistics):
-    poster = BigOneToOneField('Poster', primary_key=True, db_column='id', related_name='history_statistics')
+    poster = BigOneToOneField(
+        'Poster', primary_key=True,
+        db_column='id', related_name='history_statistics'
+    )
 
     REFRESH_LIMIT = 100
 
@@ -236,7 +276,8 @@ class HistoryStatistics(Statistics):
     def popular_change(self):
         other = self.poster.poster_statistics
         if self.popular_score != 0:
-            change = (other.popular_score - self.popular_score) / self.popular_score
+            x = other.popular_score - self.popular_score
+            change = x / self.popular_score
         else:
             change = 1
         return change
@@ -247,7 +288,8 @@ class HistoryStatistics(Statistics):
     def credit_change(self):
         other = self.poster.poster_statistics
         if self.credit_score != 0:
-            change = (other.credit_score - self.credit_score) / self.credit_score
+            x = other.credit_score - self.credit_score
+            change = x / self.credit_score
         else:
             change = 1
         return change
@@ -269,7 +311,8 @@ class HistoryStatistics(Statistics):
     def score_change(self):
         other = self.poster.poster_statistics
         if self.overall_score != 0:
-            change = (other.overall_score - self.overall_score) / self.overall_score
+            x = other.overall_score - self.overall_score
+            change = x / self.overall_score
         else:
             change = 1
         return change
@@ -284,7 +327,9 @@ class HistoryStatistics(Statistics):
 
     @classmethod
     def refresh_statistics(cls):
-        queryset = HistoryStatistics.objects.all().select_related('poster__poster_statistics').order_by('poster')
+        queryset = HistoryStatistics.objects.all().select_related(
+            'poster__poster_statistics'
+        ).order_by('poster')
         offset = 0
         fields = cls._meta.get_fields()
         while True:
@@ -318,15 +363,18 @@ class PosterLike(models.Model):
     def save(self, **kwargs):
         adding = self._state.adding
         with transaction.atomic():
+            old_poster_like = None
             if not adding:
-                old_poster_like = PosterLike.objects.filter(pk=self.pk).only('liked').select_for_update()
+                old_poster_like = PosterLike.objects.filter(
+                    pk=self.pk
+                ).only('liked').select_for_update()
                 old_poster_like = old_poster_like[0]
             super(PosterLike, self).save(**kwargs)
             queryset = PosterStatistics.objects.filter(pk=self.poster_id)
             if adding:
                 fields = {'likes_count': 1}
                 DBUtils.increase_counts(queryset, fields)
-            elif old_poster_like.liked != self.liked:
+            elif old_poster_like and old_poster_like.liked != self.liked:
                 if self.liked:
                     likes_count = 1
                 else:
@@ -358,30 +406,43 @@ class Rating(models.Model):
     poster = BigForeignKey('Poster', related_name='ratings')
     creator = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)
-    rate = models.SmallIntegerField(default=5,
-                                    validators=[validators.MinValueValidator(1), validators.MaxValueValidator(5)])
+    rate = models.SmallIntegerField(
+        default=5,
+        validators=[validators.MinValueValidator(1),
+                    validators.MaxValueValidator(5)]
+    )
     RATE_TO_FIELD = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five'}
-    RATE_TO_FIELD = {key: value + '_count' for key, value in RATE_TO_FIELD.items()}
+    RATE_TO_FIELD = {
+        key: value + '_count' for key, value in RATE_TO_FIELD.items()
+    }
 
     def poster_statistics(self):
         name = '_poster_statistics'
         if not hasattr(self, name):
-            setattr(self, name, PosterStatistics.objects.get(poster_id=self.poster_id))
+            setattr(self, name,
+                    PosterStatistics.objects.get(poster_id=self.poster_id)
+                    )
         return getattr(self, name)
 
     def save(self, **kwargs):
         adding = self._state.adding
         with transaction.atomic():
+            old_rating = None
             if not adding:
-                old_rating = Rating.objects.filter(pk=self.pk).only('rate').select_for_update()
+                old_rating = Rating.objects.filter(
+                    pk=self.pk
+                ).only('rate').select_for_update()
                 old_rating = old_rating[0]
             super(Rating, self).save(**kwargs)
             queryset = PosterStatistics.objects.filter(pk=self.poster_id)
             if adding:
-                fields = {'ratings_count': 1, self.RATE_TO_FIELD[self.rate]: 1, 'ratings_total': self.rate}
+                fields = {'ratings_count': 1,
+                          self.RATE_TO_FIELD[self.rate]: 1,
+                          'ratings_total': self.rate}
                 DBUtils.increase_counts(queryset, fields)
-            elif old_rating.rate != self.rate:
-                fields = {self.RATE_TO_FIELD[old_rating.rate]: -1, self.RATE_TO_FIELD[self.rate]: 1,
+            elif old_rating and old_rating.rate != self.rate:
+                fields = {self.RATE_TO_FIELD[old_rating.rate]: -1,
+                          self.RATE_TO_FIELD[self.rate]: 1,
                           'ratings_total': self.rate - old_rating.rate}
                 DBUtils.increase_counts(queryset, fields)
 
@@ -394,7 +455,9 @@ class Rating(models.Model):
 
 class Comment(models.Model):
     id = BigAutoField(primary_key=True)
-    parent = BigForeignKey('Comment', related_name='children', null=True, blank=True)
+    parent = BigForeignKey(
+        'Comment', related_name='children', null=True, blank=True
+    )
     poster = BigForeignKey('Poster')
     creator = models.ForeignKey(User)
     created_at = models.DateTimeField(auto_now_add=True)

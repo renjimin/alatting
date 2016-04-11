@@ -1,8 +1,12 @@
-__author__ = 'tianbuyang'
+# coding=utf-8
+
 import json
 from django import template
 from django.conf import settings
 from alatting_website.logic.poster_render import PosterRender
+
+__author__ = 'tianbuyang'
+
 
 register = template.Library()
 

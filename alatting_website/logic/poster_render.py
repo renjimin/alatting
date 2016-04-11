@@ -1,3 +1,5 @@
+# coding=utf-8
+
 import re
 from decimal import Decimal
 from django.template.loader import render_to_string
@@ -45,8 +47,11 @@ class PosterRender:
 
     @classmethod
     def render_region(cls, poster_region, region):
-        poster_region.class_name = 'p%s-p%s-%s' % (poster_region.poster_page.poster.id, poster_region.poster_page.index,
-                                                   poster_region.name)
+        poster_region.class_name = 'p%s-p%s-%s' % (
+            poster_region.poster_page.poster.id,
+            poster_region.poster_page.index,
+            poster_region.name
+        )
         poster_region.element_id = poster_region.class_name
         poster_region.path_id = poster_region.element_id + '-path'
         poster_region.points = cls._polygon_to_points(poster_region.polygon)

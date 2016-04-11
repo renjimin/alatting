@@ -1,3 +1,5 @@
+# coding=utf-8
+
 from django.contrib.humanize.templatetags.humanize import naturaltime
 from rest_framework import serializers
 from alatting_website.models import Comment, Person, User
@@ -32,7 +34,8 @@ class PosterRelatedIdentityField(serializers.HyperlinkedIdentityField):
             'poster_id': obj.poster_id,
             'pk': obj.pk
         }
-        return self.reverse(view_name, kwargs=url_kwargs, request=request, format=format)
+        return self.reverse(view_name, kwargs=url_kwargs,
+                            request=request, format=format)
 
 
 class CommentSerializer(serializers.ModelSerializer):

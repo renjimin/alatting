@@ -1,7 +1,12 @@
+# coding=utf-8
+
 from rest_framework import serializers
-from alatting_website.models import Poster, Image, Video, Music, PosterPage, Template, TemplateRegion, PosterImage,\
-    PosterVideo, PageText
-from alatting_website.serializer.template_serializer import TemplateRegionSerializer
+from alatting_website.models import (Poster, Image, Video, Music,
+                                     PosterPage, Template,
+                                     PosterImage, PosterVideo, PageText)
+from alatting_website.serializer.template_serializer import (
+    TemplateRegionSerializer
+)
 
 
 class ImageSerializer(serializers.ModelSerializer):
