@@ -72,6 +72,27 @@ $(document).ready(function () {
             alert("Your IP already clicked it!");
         }
     });
+    ////bookmark
+    $(".abutton-bookmark").click(function(){
+        if($(".abutton-bookmark").find('img:visible').attr('src').split("/").pop()=="express-bookmark.png")
+        {   
+             if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+                window.sidebar.addPanel(document.title,window.location.href,'');
+            } else if(window.external && ('AddFavorite' in window.external)) { // IE Favorite
+                window.external.AddFavorite(location.href,document.title); 
+            } else if(window.opera && window.print) { // Opera Hotlist
+                this.title=document.title;
+                return true;
+            } else { // webkit - safari/chrome
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+            $(".abutton-bookmark").find('img:visible').attr('src', $(".abutton-bookmark").find('img:visible').attr('src').split(".")[0]+"-disabled.png");
+        } else{
+            alert("Your already bookmarked it!");
+        }
+    });
+    
+    
     //click logo to show header description
      $('a.logo').click(function(){
          var target_container = $(this).parents().find('div.poster-header').find('div.header-information');

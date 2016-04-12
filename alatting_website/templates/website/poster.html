@@ -114,12 +114,10 @@
                                                                 </a>
                                                             </div>
                                                             <div class="abutton-icons abutton-top">
-                                                                <a href="#" class="abutton-express" cookie="abutton-bookmark-enabled">
+                                                                <a href="#" class="abutton-express abutton-bookmark" cookie="abutton-bookmark-enabled">
                                                                     {% if object.abutton_bookmark_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-bookmark.png' %}">
-                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-bookmark-disabled.png' %}">
                                                                     {% else %}
-                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-bookmark.png' %}">
                                                                     <img class="disabled" src="{% static 'website/images/icons/express-bookmark-disabled.png' %}">
                                                                     {% endif %}
                                                                 </a>
@@ -128,9 +126,7 @@
                                                                 <a href="#" class="abutton-express" cookie="abutton-subscribe-enabled">
                                                                     {% if object.abutton_subscribe_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-subscribe.png' %}">
-                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-subscribe-disabled.png' %}">
                                                                     {% else %}
-                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-subscribe.png' %}">
                                                                     <img class="disabled" src="{% static 'website/images/icons/express-subscribe-disabled.png' %}">
                                                                     {% endif %}
                                                                 </a>
