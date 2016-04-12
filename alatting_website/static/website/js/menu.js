@@ -22,6 +22,25 @@ $(document).ready(function () {
         return src;
     }
 
+    $(".abutton-like").click(function(){
+        if($(".abutton-like").find('img:visible').attr('src').split("/").pop()=="express-like.png")
+        {   
+            liked();
+        } else{
+            alert("You already liked it!");
+        }
+     
+    });
+
+    $(".abutton-fun").click(function(){
+        if($(".abutton-fun").find('img:visible').attr('src').split("/").pop()=="express-fun.png")
+        {   
+            fun();
+        } else{
+            alert("Your IP already clicked it!");
+        }
+    });
+
     var popover = $('[data-toggle="sub-menu"]').popover({animation: true})
     popover.on('show.bs.popover', function (evt) {
         var $img = $(this).find('img');
@@ -123,6 +142,9 @@ function contacted(type){
 
 function liked(){
     $.post(likedURL).done(function(object){
+        $(".abutton-like .enabled").hide();
+        $(".abutton-like .disabled").show();
+        alert("Thanks for your like!");
     }).fail(function(jqXHR){
         if(jqXHR.status == 401 || jqXHR.status == 403){
             window.location.href = loginURL
@@ -138,6 +160,9 @@ function favored(){
 
 function fun(){
     $.post(funURL).done(function(object){
+        $(".abutton-fun .enabled").hide();
+        $(".abutton-fun .disabled").show();
+        alert("Glad you have fun!");
     }).fail(function(jqXHR){
     })
 }
