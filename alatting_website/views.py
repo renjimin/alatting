@@ -7,6 +7,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
 from alatting_website.models import Poster, Rating, PosterStatistics
+from alatting_website.model.statistics import PosterLike
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -14,7 +15,6 @@ from utils.clip import SvgClip
 from alatting_website.logic.poster_service import PosterService
 import datetime, pytz, json
 from collections import OrderedDict
-
 
 class PosterView(DetailView):
     template_name = 'website/poster.html'
@@ -38,6 +38,13 @@ class PosterView(DetailView):
                     queryset=Rating.objects.filter(creator=user)
                 )
             )
+            queryset = queryset.prefetch_related(
+                Prefetch(
+                    'poster_likes',
+                    queryset=PosterLike.objects.filter(creator=user)
+                )
+            )
+
         return queryset
 
     def get_object(self, queryset=None):
@@ -47,7 +54,7 @@ class PosterView(DetailView):
         # 'creator'
         # ).order_by('-created_at')[:self.COMMENT_SIZE]
         # stats
-        queryset = PosterStatistics.objects.filter(pk=obj.pk)
+        queryset = PosterStatistics.objects.filter(pk=obj.pk)        
         fields = dict(views_count=1)
         if 'scan' in self.request.GET:
             fields['scans_count'] = 1
@@ -202,16 +209,18 @@ class PosterView(DetailView):
         obj.description_others = obj.short_description[60:]
         req_cookie = self.request.COOKIES
 
-        cookie_abutton_fun_enabled = req_cookie.get('abutton-fun-enabled')
+        cookie_abutton_fun_enabled = req_cookie.get(
+            'abutton-fun-enabled'
+        )
         if cookie_abutton_fun_enabled:
             obj.abutton_fun_enabled = cookie_abutton_fun_enabled
         else:
             obj.abutton_fun_enabled = 1
-        cookie_abutton_like_enabled = req_cookie.get('abutton-like-enabled')
-        if cookie_abutton_like_enabled:
-            obj.abutton_like_enabled = cookie_abutton_like_enabled
-        else:
+
+        if not obj.poster_likes.all():
             obj.abutton_like_enabled = 1
+        else:
+            obj.abutton_like_enabled = 0
         cookie_abutton_bookmark_enabled = req_cookie.get(
             'abutton-bookmark-enabled'
         )
