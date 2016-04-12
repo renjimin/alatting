@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //click the logo image in the center to toogle different abuttons
+    //click the logo image in the center to toogle abuttons in two layers
     $('a.abutton-trigger').click(function(e){
         e.preventDefault();
         if($(this).attr('expressed') == 'false') {
@@ -25,34 +25,29 @@ $(document).ready(function () {
             $(target).show();
         }
     });
-    ////location
-    /*
-    //////display google map
-    $('a.location-info').click(function(){
-        var target_map = $(this).parent().find('iframe.map');
-        if($(target_map).css('display') == 'none') {
-            $(target_map).show('fast');
-        } else {
-             $(target_map).hide('fast');
-        }
+    ////hours expand
+    $('a.more-info').click(function(){
+        var more_info_target = $(this).parent().find('div.poster-top-inform-more');
+         if($(more_info_target).css('display') == 'none') {
+             $(more_info_target).show();
+             $(more_info_target).parent().addClass("expanded");
+         } else {
+             $(more_info_target).hide();
+             $(more_info_target).parent().removeClass("expanded");
+         }
     })
-    */
+    $(".expander").click(function() {
+        if ($(this).hasClass("expander")) {
+            $(this).removeClass("expander");
+            $(this).addClass("expanded");
+        }
+        else {
+            $(this).removeClass("expanded");
+            $(this).addClass("expander");
+        }
+    });
 
     //4 buttons in the second layer
-    /*
-    $('a.abutton-express').click(function(e){
-        e.preventDefault();
-        var cookie_target = $(this).attr('cookie');
-        var enabled = Cookies.get(cookie_target);
-        if(enabled === undefined) {
-            Cookies.set(cookie_target,0);
-            var img_enabled = $(this).find('img.enabled');
-            var img_disabled = $(this).find('img.disabled');
-            $(img_disabled).removeClass('hidden');
-            $(img_enabled).addClass('hidden');
-        }
-    })
-    */
     ////like
     $(".abutton-like").click(function(){
         if($(".abutton-like").find('img:visible').attr('src').split("/").pop()=="express-like.png")
@@ -102,29 +97,6 @@ $(document).ready(function () {
              $(target_container).find('div.contact-info').hide();
          }
     });
-    //header description
-    $('a.more-info').click(function(){
-        var more_info_target = $(this).parent().find('div.poster-top-inform-more');
-         if($(more_info_target).css('display') == 'none') {
-             $(more_info_target).show();
-             $(more_info_target).parent().addClass("expanded");
-         } else {
-             $(more_info_target).hide();
-             $(more_info_target).parent().removeClass("expanded");
-         }
-    })
-    $(".expander").click(function() {
-        if ($(this).hasClass("expander")) {
-            $(this).removeClass("expander");
-            $(this).addClass("expanded");
-        }
-        else {
-            $(this).removeClass("expanded");
-            $(this).addClass("expander");
-        }
-    });
-
-
 });
 
 function liked(){
