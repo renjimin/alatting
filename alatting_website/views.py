@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
 from alatting_website.models import Poster, Rating, PosterStatistics
-from alatting_website.model.statistics import PosterLike
+from alatting_website.model.statistics import PosterLike, PosterFun
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -44,6 +44,13 @@ class PosterView(DetailView):
                     queryset=PosterLike.objects.filter(creator=user)
                 )
             )
+        ip=Utils.get_client_ip(self.request)
+        queryset = queryset.prefetch_related(
+            Prefetch(
+                'poster_funs',
+                queryset=PosterFun.objects.filter(ip_address=ip)
+            )
+        )
 
         return queryset
 
@@ -208,18 +215,16 @@ class PosterView(DetailView):
         obj.description_others = obj.short_description[60:]
         req_cookie = self.request.COOKIES
 
-        cookie_abutton_fun_enabled = req_cookie.get(
-            'abutton-fun-enabled'
-        )
-        if cookie_abutton_fun_enabled:
-            obj.abutton_fun_enabled = cookie_abutton_fun_enabled
-        else:
+        if not obj.poster_funs.all():
             obj.abutton_fun_enabled = 1
+        else:
+            obj.abutton_fun_enabled = 0
 
         if not obj.poster_likes.all():
             obj.abutton_like_enabled = 1
         else:
             obj.abutton_like_enabled = 0
+            
         cookie_abutton_bookmark_enabled = req_cookie.get(
             'abutton-bookmark-enabled'
         )
