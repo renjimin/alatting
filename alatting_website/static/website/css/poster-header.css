@@ -16,6 +16,7 @@ div.poster-header {
     font-size:2vw;
     font-size:1vmin;
     font-size:1vmax;
+    z-index: 1000;
 }
 div.header-top {
     background:#1a486a;
@@ -269,7 +270,7 @@ div.header-information {
     font-size:0.9em;
 }
 .contact-info {
-    font-size:2em;
+    font-size:1.3em;
 }
 .header-information .header-description, .contact-info {
     vertical-align: middle;

@@ -167,7 +167,7 @@
                                             </div>
                                             <div class="contact-info phone">
                                                 {{ object.mobile }}
-                                                <a class="abutton-contact-info" href="#"><img
+                                                <a class="abutton-contact-info" href="tel: {{object.phone}}"><img
                                                         src="{% static 'website/images/icons/contact-phone.png' %}"></a>
 
                                             </div>
@@ -193,12 +193,6 @@
                                             </div>
                                             <div class="contact-info location">
                                                 {{ object.address_info }}
-                                                <a href="#" class="abutton-contact-info location-info"><img
-                                                        src="{% static 'website/images/icons/contact-location.png' %}"></a>
-                                                <iframe class="map"
-                                                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyB5YbUFeSsRWn1G2UsdJmAPT4qyD6RrYao
-                                              &q={{ object.address_mapped }}" allowfullscreen>
-                                               </iframe>
                                             </div>
                                         </div>
                                     </div>
