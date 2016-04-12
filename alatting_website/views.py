@@ -74,7 +74,8 @@ class PosterView(DetailView):
         obj.pages = pages
         obj.regions = regions
         obj.capture = 'capture' in self.request.GET
-        PosterService.parse_media_file(obj.html.name, obj)
+        if obj.html:
+            PosterService.parse_media_file(obj.html.name, obj)
         if not obj.capture:
             obj.image_url, obj.pdf_url = PosterService.capture(
                 self.request, obj, force='force' in self.request.GET
