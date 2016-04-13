@@ -2,7 +2,7 @@ from decimal import Decimal
 import re
 from django.db import models
 from django.contrib.auth.models import User
-from alatting_website.model.statistics import PosterStatistics, HistoryStatistics, PosterLike, PosterFun, Comment, Rating
+from alatting_website.model.statistics import PosterStatistics, HistoryStatistics, PosterLike, PosterFun, PosterFavorites, Comment, Rating
 from alatting_website.model.resource import Image, Video, Music, PosterImage, PosterVideo
 from alatting_website.model.poster import Poster, PosterPage, ActivityInvitation, BusinessMarketing, ProductSell, \
     ExpertShow, PageText

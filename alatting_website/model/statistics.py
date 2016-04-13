@@ -400,6 +400,38 @@ class PosterFun(models.Model):
                 queryset = PosterStatistics.objects.filter(pk=self.poster_id)
                 DBUtils.increase_counts(queryset, {'fun_count': 1})
 
+class PosterFavorites(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey('Poster', related_name='poster_favorites')
+    creator = models.ForeignKey(User)
+    bookmarked = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ('poster', 'creator')
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
+    def save(self, **kwargs):
+        adding = self._state.adding
+        with transaction.atomic():
+            old_poster_bookmark = None
+            if not adding:
+                old_poster_bookmark = PosterFavorites.objects.filter(
+                    pk=self.pk
+                ).only('bookmarked').select_for_update()
+                old_poster_bookmark = old_poster_bookmark[0]
+            super(PosterFavorites, self).save(**kwargs)
+            queryset = PosterStatistics.objects.filter(pk=self.poster_id)
+            if adding:
+                fields = {'favorites_count': 1}
+                DBUtils.increase_counts(queryset, fields)
+            elif old_poster_bookmark and old_poster_bookmark.bookmarked != self.bookmarked:
+                if self.bookmarked:
+                    favorites_count = 1
+                else:
+                    favorites_count = -1
+                DBUtils.increase_counts(queryset, {'favorites_count': favorites_count})
 
 class Rating(models.Model):
     id = BigAutoField(primary_key=True)

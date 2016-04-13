@@ -16,15 +16,16 @@
     {{ block.super }}
     <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
-        var isCapturing = {% if object.capture %}true{% else %}false{% endif %};
-        var loginURL = "{% url 'auth:login' %}?next={{request.path}}";
-        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}";
-        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}";
-        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}";
-        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}";
-        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}";
-        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
-        var auth_user_id = {% firstof request.user.id "null"%};
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
+        var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
+        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}"
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
+        var auth_user_id = {% firstof request.user.id "null"%}
     </script>
 {% endblock %}
 
@@ -110,23 +111,19 @@
                                                         </div>
                                                         <div class="abutton-express" style="display:none;">
                                                             <div class="abutton-icons abutton-left">
-                                                                <a href="#" class="abutton-express abutton-like" cookie="abutton-like-enabled">
+                                                                <a href="#" class="abutton-express abutton-like">
                                                                     {% if object.abutton_like_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-like.png' %}">
-                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-like-disabled.png' %}">
                                                                     {% else %}
-                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-like.png' %}">
                                                                     <img class="disabled" src="{% static 'website/images/icons/express-like-disabled.png' %}">
                                                                     {% endif %}
                                                                 </a>
                                                             </div>
                                                             <div class="abutton-icons abutton-top">
-                                                                <a href="#" class="abutton-express" cookie="abutton-bookmark-enabled">
+                                                                <a href="#" class="abutton-express abutton-bookmark">
                                                                     {% if object.abutton_bookmark_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-bookmark.png' %}">
-                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-bookmark-disabled.png' %}">
                                                                     {% else %}
-                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-bookmark.png' %}">
                                                                     <img class="disabled" src="{% static 'website/images/icons/express-bookmark-disabled.png' %}">
                                                                     {% endif %}
                                                                 </a>
@@ -135,20 +132,16 @@
                                                                 <a href="#" class="abutton-express" cookie="abutton-subscribe-enabled">
                                                                     {% if object.abutton_subscribe_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-subscribe.png' %}">
-                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-subscribe-disabled.png' %}">
                                                                     {% else %}
-                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-subscribe.png' %}">
                                                                     <img class="disabled" src="{% static 'website/images/icons/express-subscribe-disabled.png' %}">
                                                                     {% endif %}
                                                                 </a>
                                                             </div>
                                                             <div class="abutton-icons abutton-bottom">
-                                                                <a href="#" class="abutton-express abutton-fun" cookie="abutton-fun-enabled">
+                                                                <a href="#" class="abutton-express abutton-fun">
                                                                     {% if object.abutton_fun_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-fun.png' %}">
-                                                                    <img class="disabled hidden" src="{% static 'website/images/icons/express-fun-disabled.png' %}">
                                                                     {% else %}
-                                                                    <img class="enabled hidden" src="{% static 'website/images/icons/express-fun.png' %}">
                                                                     <img class="disabled" src="{% static 'website/images/icons/express-fun-disabled.png' %}">
                                                                     {% endif %}
                                                                 </a>
