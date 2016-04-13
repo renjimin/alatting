@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
 from alatting_website.models import Poster, Rating, PosterStatistics
-from alatting_website.model.statistics import PosterLike, PosterFun
+from alatting_website.model.statistics import PosterLike, PosterFun, PosterFavorites
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
 from utils.qrcode import QrCode
@@ -42,6 +42,12 @@ class PosterView(DetailView):
                 Prefetch(
                     'poster_likes',
                     queryset=PosterLike.objects.filter(creator=user)
+                )
+            )
+            queryset = queryset.prefetch_related(
+                Prefetch(
+                    'poster_favorites',
+                    queryset=PosterFavorites.objects.filter(creator=user)
                 )
             )
         ip=Utils.get_client_ip(self.request)
@@ -224,16 +230,14 @@ class PosterView(DetailView):
             obj.abutton_like_enabled = 1
         else:
             obj.abutton_like_enabled = 0
-            
-        cookie_abutton_bookmark_enabled = req_cookie.get(
-            'abutton-bookmark-enabled'
-        )
-        if cookie_abutton_bookmark_enabled:
-            obj.abutton_bookmark_enabled = cookie_abutton_bookmark_enabled
-        else:
+
+        if not obj.poster_favorites.all():
             obj.abutton_bookmark_enabled = 1
+        else:
+            obj.abutton_bookmark_enabled = 0
+
         cookie_abutton_subscribe_enabled = req_cookie.get(
-            'abutton-bookmark-enabled'
+            'abutton-subscribe-enabled'
         )
         if cookie_abutton_subscribe_enabled:
             obj.abutton_subscribe_enabled = cookie_abutton_subscribe_enabled

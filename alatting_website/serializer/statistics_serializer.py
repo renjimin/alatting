@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 from alatting_website.models import (
-    PosterStatistics, Rating, PosterLike, PosterFun
+    PosterStatistics, Rating, PosterLike, PosterFun, PosterFavorites
 )
 
 
@@ -56,6 +56,22 @@ class PosterFunSerializer(serializers.ModelSerializer):
     class Meta:
         model = PosterFun
         exclude = ('poster', 'ip_address')
+
+    def get_unique_together_validators(self):
+        return []
+
+class PosterFavoritesSerializer(serializers.ModelSerializer):
+    creator_id = serializers.IntegerField(read_only=True)
+    poster_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = PosterFavorites
+        exclude = ('creator', 'poster')
+        extra_kwargs = {
+            'bookmarked': {
+                'default': True
+            }
+        }
 
     def get_unique_together_validators(self):
         return []

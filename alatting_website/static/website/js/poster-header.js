@@ -71,17 +71,7 @@ $(document).ready(function () {
     $(".abutton-bookmark").click(function(){
         if($(".abutton-bookmark").find('img:visible').attr('src').split("/").pop()=="express-bookmark.png")
         {   
-             if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
-                window.sidebar.addPanel(document.title,window.location.href,'');
-            } else if(window.external && ('AddFavorite' in window.external)) { // IE Favorite
-                window.external.AddFavorite(location.href,document.title); 
-            } else if(window.opera && window.print) { // Opera Hotlist
-                this.title=document.title;
-                return true;
-            } else { // webkit - safari/chrome
-                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
-            }
-            $(".abutton-bookmark").find('img:visible').attr('src', $(".abutton-bookmark").find('img:visible').attr('src').split(".")[0]+"-disabled.png");
+            bookmarked();
         } else{
             alert("Your already bookmarked it!");
         }
@@ -115,5 +105,26 @@ function fun(){
         $(".abutton-fun").find('img:visible').attr('src', $(".abutton-fun").find('img:visible').attr('src').split(".")[0]+"-disabled.png");
         alert("Glad you have fun!");
     }).fail(function(jqXHR){
+    })
+}
+
+function bookmarked(){
+    $.post(bookmarkURL).done(function(object){
+        if (window.sidebar && window.sidebar.addPanel) { // Mozilla Firefox Bookmark
+            window.sidebar.addPanel(document.title,window.location.href,'');
+        } else if(window.external && ('AddFavorite' in window.external)) { // IE Favorite
+            window.external.AddFavorite(location.href,document.title); 
+        } else if(window.opera && window.print) { // Opera Hotlist
+            this.title=document.title;
+            return true;
+        } else { // webkit - safari/chrome
+            alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+        }    
+        $(".abutton-bookmark").find('img:visible').attr('src', $(".abutton-bookmark").find('img:visible').attr('src').split(".")[0]+"-disabled.png");
+        alert("Thanks for your favorites!");
+    }).fail(function(jqXHR){
+        if(jqXHR.status == 401 || jqXHR.status == 403){
+            window.location.href = loginURL
+        }
     })
 }

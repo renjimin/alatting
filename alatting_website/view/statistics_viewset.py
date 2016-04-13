@@ -8,14 +8,14 @@ from rest_framework.response import Response
 from utils.utils import Utils
 from utils.db.utils import Utils as DBUtils
 from alatting_website.models import (
-    Rating, PosterStatistics, PosterLike, PosterFun
+    Rating, PosterStatistics, PosterLike, PosterFun, PosterFavorites
 )
 from alatting_website.serializer.statistics_serializer import (
     RatingSerializer, SimpleStatisticsSerializer
 )
 from alatting_website.serializer.statistics_serializer import (
     PosterLikeSerializer, PosterFunSerializer, ShareStatisticsSerializer,
-    ContactStatisticsSerializer
+    ContactStatisticsSerializer, PosterFavoritesSerializer
 )
 
 
@@ -104,6 +104,35 @@ class PosterFunViewSet(viewsets.GenericViewSet):
                 ip_address=Utils.get_client_ip(request._request)
             )
             serializer.save(**kwargs)
+        return Response(serializer.data)
+
+class PosterFavoritesViewSet(viewsets.GenericViewSet):
+    queryset = PosterFavorites.objects.all()
+    serializer_class = PosterFavoritesSerializer
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get_queryset(self):
+        queryset = super(PosterFavoritesViewSet, self).get_queryset()
+        queryset = queryset.filter(
+            poster=self.kwargs['poster_id'],
+            creator=self.request.user
+        )
+        return queryset
+
+    @decorators.list_route(methods=('post',))
+    def bookmark(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        queryset = self.get_queryset()
+        if len(queryset) == 1:
+            serializer.instance = queryset[0]
+            kwargs = dict()
+        else:
+            kwargs = dict(
+                poster_id=kwargs['poster_id'],
+                creator_id=request.user.id
+            )
+        serializer.save(**kwargs)
         return Response(serializer.data)
 
 
