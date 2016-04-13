@@ -6,22 +6,25 @@
 
 {% block meta %}
     {{ block.super }}
+    {% comment %}
+    Can't use facebook in China
     {% include 'libs/facebook/fb_share_meta.html' %}
+    {% endcomment %}
 {% endblock %}
 
 {% block head_script %}
     {{ block.super }}
     <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
-        var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
-        var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
-        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
-        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
-        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
-        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
-        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
-        var auth_user_id = {% firstof request.user.id "null"%}
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %};
+        var loginURL = "{% url 'auth:login' %}?next={{request.path}}";
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}";
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}";
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}";
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}";
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}";
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
+        var auth_user_id = {% firstof request.user.id "null"%};
     </script>
 {% endblock %}
 
@@ -35,7 +38,7 @@
     {% if object.css %}
     <link rel="stylesheet" href="{{ object.css.url }}">
     {% endif %}
-    <style>{% include 'libs/widgets/clip_style.html' %}</style>
+    {% include 'libs/widgets/clip_style.html' %}
 {% endblock %}
 
 {% block head_more %}
@@ -45,15 +48,15 @@
 
 {% block body_start %}
     {{ block.super }}
+    {% comment %}
+    Can't use facebook in China
     {% include 'libs/facebook/fb_share_body_start.html' %}
+    {% endcomment %}
 {% endblock %}
 {% block content %}
-
     <div class="app">
-        <!-- App body -->
         <div class='app-body'>
             <div class='app-content'>
-                <ng-view></ng-view>
                 <div class="scrollable">
                     <div class="scrollable-content">
                         <div class="poster-frame center-block">
@@ -318,13 +321,8 @@
                 </div>
             </div>
         </div>
-
         {% include 'website/poster_bottom.html' %}
-
     </div>
-    <!-- ~ .app -->
-
-    <!-- Modals and Overlays -->
     <div ui-yield-to="modals"></div>
 {% endblock %}
 

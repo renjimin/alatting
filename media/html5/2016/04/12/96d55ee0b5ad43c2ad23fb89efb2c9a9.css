@@ -12,3 +12,7 @@ div.header-main {
     background: url('/static/3551/images/header_bg.png') no-repeat;
     background-size: cover;
 }
+
+.header-information{
+	color: #001b56;
+}
