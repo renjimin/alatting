@@ -5,12 +5,12 @@
                 {% if forloop.first %}
                     <div class="item active">
                         <!-- Set the first background image using inline CSS below. -->
-                        <div class="fill" style="background-image:url({{ image.image_url }});"></div>
+                        <div class="fill {{ widget.element_id }}-item" href="{{ image.image_url }}" style="background-image:url({{ image.image_url }});"></div>
                     </div>
                 {% else %}
                     <div class="item">
                         <!-- Set the second background image using inline CSS below. -->
-                        <div class="fill" style="background-image:url({{ image.image_url }});"></div>
+                        <div class="fill {{ widget.element_id }}-item" href="{{ image.image_url }}" style="background-image:url({{ image.image_url }});"></div>
                     </div>
                 {% endif %}
             {% endfor %}
