@@ -76,11 +76,6 @@ app.config(function ($httpProvider) {
     $httpProvider.defaults.xsrfCookieName = "csrftoken";
 });
 
-app.config(function($routeProvider, $locationProvider) {
-    // use the HTML5 History API
-    $locationProvider.html5Mode(true);
- });
-
 /*app.config(function($routeProvider, $locationProvider) {
  $routeProvider.when('/', {
  templateUrl: "signIn.html"
