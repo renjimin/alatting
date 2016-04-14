@@ -76,6 +76,12 @@ $(document).ready(function () {
             alert("Your already bookmarked it!");
         }
     });
+    //subscribe
+    $(".abutton-subscribe").click(function(){
+        var baseURL = location.protocol + "//" + location.hostname + (location.port && ":" + location.port);
+        var rssURL = baseURL + "/poster/rss";
+        window.open(rssURL); 
+    });
     
     
     //click logo to show header description
