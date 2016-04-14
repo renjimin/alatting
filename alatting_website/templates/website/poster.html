@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="{% static 'website/css/poster-app.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-header.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-bottom.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/full-slider.css' %}">
 
     {% if object.css %}
     <link rel="stylesheet" href="{{ object.css.url }}">
@@ -329,6 +330,12 @@
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>
     <script src="{% static 'website/js/poster-header.js' %}"></script>
+    <script src="{% static 'website/js/full-slider.js' %}"></script>
+     <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
     <!--<script src="{% if object.script %}{{ object.script.url }}{% endif %}"></script>-->
     {% include 'libs/photo_swipe/body.html' %}
 {% endblock %}

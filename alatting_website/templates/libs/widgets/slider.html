@@ -1,13 +1,26 @@
-<div class="poster-slider-widget {{ widget.class_name }} flexslider" id="{{ widget.element_id }}">
-    <ul class="slides">
-    {% if object.capture %}
-        <li data-src="{{ widget.images.0.image_url }}" data-w="{{ widget.images.0.width }}"
-                data-h="{{ widget.images.0.height }}" style="display: block;"><img src="{{ widget.images.0.image_url }}"></li>
-    {% else %}
-        {% for image in widget.images %}
-            <li data-src="{{ image.image_url }}" data-w="{{ image.width }}"
-                data-h="{{ image.height }}"><img src="{{ image.image_url }}"></li>
-        {% endfor %}
-    {% endif %}
-    </ul>
+<div id="{{ widget.element_id }}" class="carousel slide poster-slider-widget {{ widget.class_name }}">
+        <!-- Wrapper for Slides -->
+        <div class="carousel-inner">
+            {% for image in widget.images %}
+                {% if forloop.first %}
+                    <div class="item active">
+                        <!-- Set the first background image using inline CSS below. -->
+                        <div class="fill" style="background-image:url({{ image.image_url }});"></div>
+                    </div>
+                {% else %}
+                    <div class="item">
+                        <!-- Set the second background image using inline CSS below. -->
+                        <div class="fill" style="background-image:url({{ image.image_url }});"></div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#{{ widget.element_id }}" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#{{ widget.element_id }}" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
 </div>
