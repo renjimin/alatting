@@ -54,7 +54,10 @@ class PosterRender:
         )
         poster_region.element_id = poster_region.class_name
         poster_region.path_id = poster_region.element_id + '-path'
-        poster_region.points = cls._polygon_to_points(poster_region.polygon)
+        if poster_region.polygon:
+            poster_region.points = cls._polygon_to_points(
+                poster_region.polygon
+            )
         widget = region.get('widget')
         if widget:
             cls.render_widget(poster_region, widget)

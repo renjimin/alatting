@@ -6,8 +6,8 @@
         </div>
     {% endfor %}
 
-    {% for text in page.page_texts.all %}
+    {% comment %}{% for text in page.page_texts.all %}
         {{ text.content }}
-    {% endfor %}
+    {% endfor %}{% endcomment %}
 </div>
 {% endfor %}

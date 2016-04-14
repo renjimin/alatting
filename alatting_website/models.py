@@ -2,13 +2,22 @@ from decimal import Decimal
 import re
 from django.db import models
 from django.contrib.auth.models import User
-from alatting_website.model.statistics import PosterStatistics, HistoryStatistics, PosterLike, PosterFun, PosterFavorites, Comment, Rating
-from alatting_website.model.resource import Image, Video, Music, PosterImage, PosterVideo
-from alatting_website.model.poster import Poster, PosterPage, ActivityInvitation, BusinessMarketing, ProductSell, \
-    ExpertShow, PageText
+from alatting_website.model.statistics import (
+    PosterStatistics, HistoryStatistics, PosterLike,
+    PosterFun, PosterFavorites, Comment, Rating
+)
+from alatting_website.model.resource import (
+    Image, Video, Music, PosterImage, PosterVideo
+)
+from alatting_website.model.poster import (
+    Poster, PosterPage, ActivityInvitation, BusinessMarketing,
+    ProductSell, ExpertShow, PageText, BusinessCard
+)
 from utils import file
-from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \
+from utils.db.fields import (
+    OverWriteFileField, OverWriteImageField, OverWriteVideoField,
     BigAutoField, BigForeignKey, BigOneToOneField
+)
 
 
 class Person(models.Model):
@@ -96,7 +105,11 @@ class TemplateRegion(models.Model):
     top = models.FloatField()
     width = models.FloatField()
     height = models.FloatField()
-    polygon = models.CharField(max_length=256)  # use percentage
+    polygon = models.CharField(
+        max_length=256,
+        blank=True,
+        default=''
+    )  # use percentage
 
     class Meta:
         unique_together = ('template', 'name')

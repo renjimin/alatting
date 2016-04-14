@@ -273,3 +273,10 @@ class ExpertShow(Poster):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+
+class BusinessCard(Poster):
+    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
+
+    def __str__(self):
+        return self.unique_name

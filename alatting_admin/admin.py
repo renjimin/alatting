@@ -1,13 +1,12 @@
 from django.contrib import admin
-from alatting_website.models import (Person, Image, Music, Video, Category,
-                                     Poster, PosterImage, PosterVideo,
-                                     PosterLike, PageText,
-                                     Comment, Address, PosterPage, Rating,
-                                     PosterStatistics, HistoryStatistics)
-from alatting_website.models import (ActivityInvitation,
-                                     BusinessMarketing, ProductSell,
-                                     ExpertShow, Template,
-                                     TemplateRegion, PosterFun)
+from alatting_website.models import (
+    Person, Image, Music, Video, Category,
+    Poster, PosterImage, PosterVideo, PosterLike, PageText,
+    Comment, Address, PosterPage, Rating, PosterStatistics, HistoryStatistics,
+    ActivityInvitation, BusinessMarketing, ProductSell,
+    ExpertShow, Template, TemplateRegion, PosterFun,
+    BusinessCard
+)
 
 
 class AlattingAdminModelMixin(object):
@@ -128,4 +127,9 @@ class PosterFunAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(PageText)
 class PageTextAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(BusinessCard)
+class BusinessCardAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

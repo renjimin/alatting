@@ -1,0 +1,45 @@
+{
+    "version": 1,
+    "pages": [
+        {
+          "regions": {
+              "videos": {
+                  "widget": {
+                      "type": "video",
+                      "name": "plan3551",
+                      "video_name": "plan3551"
+                  }
+              },
+              "banner": {
+                "widget": {
+                  "type": "image",
+                  "image_name": "banner3551",
+                  "name": "banner3551"
+                }
+              },
+              "slider": {
+                "widget": {
+                    "type": "slider",
+                    "name": "slider3551",
+                    "images": [
+                        {
+                          "image_name": "slider3551_image_2"
+                        },
+                        {
+                          "image_name": "slider3551_image_1"
+                        }
+                    ]
+                }
+              },
+              "bottom": {
+                "widget": {
+                    "type": "image",
+                    "name": "bottom3551",
+                    "image_name": "bottom3551"
+                }
+              }
+          },
+          "texts": []
+        }
+    ]
+}

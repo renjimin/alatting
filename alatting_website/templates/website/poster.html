@@ -6,10 +6,6 @@
 
 {% block meta %}
     {{ block.super }}
-    {% comment %}
-    Can't use facebook in China
-    {% include 'libs/facebook/fb_share_meta.html' %}
-    {% endcomment %}
 {% endblock %}
 
 {% block head_script %}
@@ -49,10 +45,6 @@
 
 {% block body_start %}
     {{ block.super }}
-    {% comment %}
-    Can't use facebook in China
-    {% include 'libs/facebook/fb_share_body_start.html' %}
-    {% endcomment %}
 {% endblock %}
 {% block content %}
     <div class="app">

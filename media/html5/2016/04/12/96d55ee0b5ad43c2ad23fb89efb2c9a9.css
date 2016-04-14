@@ -13,6 +13,49 @@ div.header-main {
     background-size: cover;
 }
 
-.header-information{
-	color: #001b56;
+.poster-top-ratio{
+    padding-bottom: 0;
+    padding-bottom: 29%;
 }
+
+.header-information{
+    color: #001b56;
+}
+
+.poster-widget-plan3551 .video-play{
+    position: absolute;
+    top: 30%;
+    width: auto;
+    height: 30%;
+    left: 43%;
+}
+
+.poster-widget-slider3551 .slides{
+    padding:0;
+    margin:0;
+}
+
+.contact{
+    background: url(/static/3551/images/gallery_sample.jpg) center;
+    background-size: cover;
+    height: 150px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.contact a{
+    display: inline-block;
+    color: #FFFFFF;
+    padding: 3px 6px;
+    font-family: "microsoft yahei";
+    vertical-align: middle;
+    border: 1px solid #fff;
+    margin-right: 30px;
+    margin-top: 5%;
+    font-size: 18px;
+}
+
+.contact a:hover{
+    color: #FFFFFF;
+}
+
