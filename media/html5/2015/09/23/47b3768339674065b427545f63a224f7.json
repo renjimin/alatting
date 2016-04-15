@@ -3,7 +3,7 @@
   "pages": [
     {
       "regions": {
-        "top-left": {
+        "middle": {
           "widget": {
             "type": "image",
             "image_name": "image_3",
@@ -17,7 +17,7 @@
             "video_name": "video_1"
           }
         },
-        "middle": {
+        "top-left": {
           "widget": {
             "type": "slider",
             "images": [
@@ -29,15 +29,6 @@
               },
               {
                 "image_name": "image_3"
-              },
-              {
-                "image_name": "image_4"
-              },
-              {
-                "image_name": "image_5"
-              },
-              {
-                "image_name": "image_6"
               }
             ],
             "name": "slider_1"
@@ -52,9 +43,19 @@
         },
         "bottom-right": {
           "widget": {
-            "type": "image",
-            "image_name": "image_2",
-            "name": "image_2"
+            "type": "slider",
+            "images": [
+              {
+                "image_name": "image_4"
+              },
+              {
+                "image_name": "image_5"
+              },
+              {
+                "image_name": "image_6"
+              }
+            ],
+            "name": "slider_2"
           }
         },
         "bottom-right1": {
