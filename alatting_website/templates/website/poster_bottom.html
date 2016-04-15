@@ -110,7 +110,7 @@
                      data-title='<div class="stats-title">
                                      <img src="{% static 'website/images/icons/stats_small.png' %}">
                                      <span class="stats-title-0"> 数据分析</span>
-                                     <span class="stats-title-1" style="display:none"> SCORE</span>
+                                     <span class="stats-title-1" style="display:none"> 分数</span>
                                 </div>'
                      data-content='<div><div class="stats-page-0">
                                  <div class="stats-graph">
@@ -287,23 +287,23 @@
                                     <div class="stats-graph-label">
                                     {% if object.poster_statistics.medal_index == 0%}
                                             <img class="cup"  src="{% static 'website/images/icons/cup_bronze.png' %}">
-                                            <span>Bronze</span>
+                                            <span>铜牌</span>
                                          {% elif object.poster_statistics.medal_index == 1%}
                                             <img class="cup"  src="{% static 'website/images/icons/cup_silver.png' %}">
-                                            <span>Silver</span>
+                                            <span>银牌</span>
                                          {% elif object.poster_statistics.medal_index == 2%}
                                             <img class="cup"  src="{% static 'website/images/icons/cup_gold.png' %}">
-                                            <span>Gold</span>
+                                            <span>金牌</span>
                                          {% elif object.poster_statistics.medal_index == 3%}
                                             <img class="cup"  src="{% static 'website/images/icons/cup_diamond.png' %}">
-                                            <span>Diamond</span>
+                                            <span>钻石</span>
                                          {% endif %}
                                     </div>
                                  </div>
 
                                  <div class="equal-justified">
                                      <div class="stats-score-name">
-                                         Current Score
+                                         当前分数
                                      </div>
                                      <div class="stats-score-sep"></div>
                                      <div class="stats-score-numbers">
@@ -320,7 +320,7 @@
 
                                  <div class="equal-justified">
                                      <div class="stats-score-name"">
-                                         Next Level
+                                         下个等级
                                      </div>
                                      <div class="stats-score-sep"></div>
                                      <div class="stats-score-numbers">
