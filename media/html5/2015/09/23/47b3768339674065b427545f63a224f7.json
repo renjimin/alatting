@@ -3,185 +3,58 @@
   "pages": [
     {
       "regions": {
-        "middle": {
-          "widget": {
-            "type": "image",
-            "image_name": "image_3",
-            "name": "image_3"
-          }
-        },
-        "top-right": {
-          "widget": {
-            "type": "video",
-            "name": "video_1",
-            "video_name": "video_1"
-          }
-        },
         "top-left": {
           "widget": {
             "type": "slider",
             "images": [
               {
-                "image_name": "image_1"
+                "image_name": "stats"
               },
               {
-                "image_name": "image_2"
-              },
-              {
-                "image_name": "image_3"
+                "image_name": "posters"
               }
             ],
             "name": "slider_1"
           }
         },
-        "bottom-left": {
-          "widget": {
-            "type": "image",
-            "image_name": "image_1",
-            "name": "image_1"
-          }
-        },
-        "bottom-right": {
+        "top-right": {
           "widget": {
             "type": "slider",
             "images": [
               {
-                "image_name": "image_4"
-              },
-              {
-                "image_name": "image_5"
-              },
-              {
-                "image_name": "image_6"
+                "image_name": "contact"
               }
             ],
             "name": "slider_2"
-          }
-        },
-        "bottom-right1": {
-          "widget": {
-            "type": "button",
-            "name": "button_1",
-            "content": "Visit Us!",
-            "link": "http://www.alatting.com/"
-          }
-        },
-        "middle1": {
-          "widget": {
-            "type": "background",
-            "image_name": "image_1",
-            "name": "background_1"
-          }
-        },
-        "right-bottom1": {
-          "widget": {
-            "type": "music",
-            "name": "music_1"
-          }
-        },
-        "extra3": {
-          "widget": {
-            "type": "slider",
-            "images": [
-              {
-                "image_name": "image_6"
-              },
-              {
-                "image_name": "image_5"
-              },
-              {
-                "image_name": "image_7"
-              },
-              {
-                "image_name": "image_8"
-              }
-            ],
-            "name": "slider_2"
-          }
-        },
-        "extra1": {
-          "widget": {
-            "type": "map",
-            "name": "map_1",
-            "query": "2181 Foothill Blvd, Pasadena, CA, USA"
-          }
-        }
-      },
-      "texts": [
-        {
-          "type": "text",
-          "name": "text_1",
-          "content": "This is our place!"
-        },
-        {
-          "type": "text",
-          "name": "text_2",
-          "content": "Come to join us!"
-        }
-      ]
-    },
-
-    {
-      "regions": {
-        "top": {
-          "widget": {
-            "type": "image",
-            "image_name": "image_3",
-            "name": "image_3"
-          }
-        },
-        "left-bottom": {
-          "widget": {
-            "type": "video",
-            "name": "video_2",
-            "video_name": "video_2"
           }
         },
         "middle": {
           "widget": {
+            "type": "image",
+            "image_name": "body_text",
+            "name": "image_1"
+          }
+        },
+        "bottom-left": {
+          "widget": {
             "type": "slider",
             "images": [
               {
-                "image_name": "image_1"
-              },
-              {
-                "image_name": "image_2"
-              },
-              {
-                "image_name": "image_3"
-              },
-              {
-                "image_name": "image_4"
-              },
-              {
-                "image_name": "image_5"
-              },
-              {
-                "image_name": "image_6"
+                "image_name": "people"
               }
             ],
-            "name": "slider_1"
+            "name": "slider_3"
           }
         },
-        "right-bottom": {
+        "bottom-right": {
           "widget": {
-            "type": "image",
-            "image_name": "image_1",
-            "name": "image_1"
+            "type": "video",
+            "name": "video_1",
+            "video_name": "video_1"
           }
         }
       },
       "texts": [
-        {
-          "type": "text",
-          "name": "text_1",
-          "content": "This is our place!"
-        },
-        {
-          "type": "text",
-          "name": "text_2",
-          "content": "Come to join us!"
-        }
       ]
     }
   ]
