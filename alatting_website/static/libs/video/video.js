@@ -25,6 +25,9 @@ videojs.start = function (id) {
             }
         }
     });
+    player.on('pause', function(evt){
+         $('.vjs-controls-disabled .vjs-poster').css({'display': 'inline-block'});
+    });
     player.requestFullscreen();
     player.play();
     $('.vjs-controls-disabled .vjs-poster').css({'display': 'none'});
