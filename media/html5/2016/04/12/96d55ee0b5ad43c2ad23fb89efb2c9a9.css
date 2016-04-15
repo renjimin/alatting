@@ -14,7 +14,6 @@ div.header-main {
 }
 
 .poster-top-ratio{
-    padding-bottom: 0;
     padding-bottom: 29%;
 }
 
@@ -28,6 +27,17 @@ div.header-main {
     width: auto;
     height: 30%;
     left: 43%;
+}
+
+.poster-widget-banner3551,
+.p6-p0-banner{
+    border: none;
+    padding:0;
+    margin:0;
+}
+.p6-p0-banner{
+    margin-left: -1px;
+    width: 101% !important;
 }
 
 .poster-widget-slider3551 .slides{
@@ -57,5 +67,19 @@ div.header-main {
 
 .contact a:hover{
     color: #FFFFFF;
+}
+
+.video-js {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+.vjs-controls-disabled .vjs-poster {
+    display: inline-block;
+}
+
+.vjs-poster {
+    background-size: cover;
 }
 
