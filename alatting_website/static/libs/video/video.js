@@ -27,4 +27,5 @@ videojs.start = function (id) {
     });
     player.requestFullscreen();
     player.play();
+    $('.vjs-controls-disabled .vjs-poster').css({'display': 'none'});
 }
