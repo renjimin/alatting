@@ -1,0 +1,5 @@
+<div class="poster-more-widget {{ widget.class_name }}" id="{{ widget.element_id }}">
+    {% for more_link in widget.more_links %}
+        <a href="{{ more_link.link }}">{{ more_link.content }}</a>
+    {% endfor %}
+</div>

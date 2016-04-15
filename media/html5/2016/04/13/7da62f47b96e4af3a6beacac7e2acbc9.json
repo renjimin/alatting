@@ -33,9 +33,9 @@
               },
               "bottom": {
                 "widget": {
-                    "type": "image",
-                    "name": "bottom3551",
-                    "image_name": "bottom3551"
+                    "type": "more",
+                    "name": "bottom_more",
+                    "link_names": ["more", "contact"]
                 }
               }
           },

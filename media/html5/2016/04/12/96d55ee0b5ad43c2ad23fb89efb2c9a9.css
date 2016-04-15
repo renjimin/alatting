@@ -45,24 +45,20 @@ div.header-main {
     margin:0;
 }
 
-.contact{
+.poster-widget-bottom_more{
     background: url(/static/3551/images/gallery_sample.jpg) center;
-    background-size: cover;
-    height: 150px;
     text-align: center;
     vertical-align: middle;
 }
 
-.contact a{
+.poster-widget-bottom_more a{
     display: inline-block;
     color: #FFFFFF;
     padding: 3px 6px;
-    font-family: "microsoft yahei";
-    vertical-align: middle;
     border: 1px solid #fff;
-    margin-right: 30px;
-    margin-top: 5%;
     font-size: 18px;
+    text-decoration: none;
+    margin: 30px 10px 0 10px;
 }
 
 .contact a:hover{
@@ -82,4 +78,3 @@ div.header-main {
 .vjs-poster {
     background-size: cover;
 }
-

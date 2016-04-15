@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
+from alatting_website.model.poster import PosterMoreLink
 from alatting_website.models import Poster, Rating, PosterStatistics
 from alatting_website.model.statistics import PosterLike, PosterFun, PosterFavorites
 from utils.db.utils import Utils as DBUtils
@@ -28,7 +29,8 @@ class PosterView(DetailView):
             'poster_statistics', 'history_statistics'
         ).prefetch_related(
             'poster_images__image', 'poster_videos__video',
-            'poster_pages__template__template_regions'
+            'poster_pages__template__template_regions',
+            'poster_more_links'
         ).select_subclasses()
         user = self.request.user
         if user.is_authenticated():
@@ -94,6 +96,10 @@ class PosterView(DetailView):
         obj.pages = pages
         obj.regions = regions
         obj.capture = 'capture' in self.request.GET
+
+        poster_links = obj.poster_more_links.all().order_by('index', 'name')
+        obj.more_links = poster_links
+
         if obj.html:
             PosterService.parse_media_file(obj.html.name, obj)
         if not obj.capture:

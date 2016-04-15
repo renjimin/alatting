@@ -11,7 +11,7 @@ from alatting_website.model.resource import (
 )
 from alatting_website.model.poster import (
     Poster, PosterPage, ActivityInvitation, BusinessMarketing,
-    ProductSell, ExpertShow, PageText, BusinessCard
+    ProductSell, ExpertShow, PageText, BusinessCard, PosterMoreLink
 )
 from utils import file
 from utils.db.fields import (

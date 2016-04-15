@@ -280,3 +280,19 @@ class BusinessCard(Poster):
 
     def __str__(self):
         return self.unique_name
+
+
+class PosterMoreLink(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='poster_more_links')
+    template = models.ForeignKey('Template')
+    index = models.SmallIntegerField(default=0)
+    name = models.CharField(max_length=200, default='')
+    content = models.CharField(max_length=200, default='')
+    link = models.CharField(max_length=1024, default='')
+
+    class Meta:
+        unique_together = ('poster', 'index')
+
+    def __str__(self):
+        return "{:s}".format(self.name)

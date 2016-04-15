@@ -84,6 +84,8 @@ class PosterRender:
             html = cls.render_video(widget, context)
         elif typ == 'map':
             html = cls.render_map(widget, context)
+        elif typ == 'more':
+            html = cls.render_more(widget, context)
         else:
             html = ''
         widget['content'] = html
@@ -170,3 +172,15 @@ class PosterRender:
         context['widget'] = widget
         return render_to_string(template_name, context)
 
+    @classmethod
+    def render_more(cls, widget, context):
+        template_name = 'libs/widgets/more.html'
+        obj_links = context['object'].more_links
+        link_names = widget.get('link_names', [])
+        more_links = []
+        for link in obj_links:
+            if link.name in link_names:
+                more_links.append(link)
+        widget['more_links'] = more_links
+        context['widget'] = widget
+        return render_to_string(template_name, context)

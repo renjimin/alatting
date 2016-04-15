@@ -5,7 +5,7 @@ from alatting_website.models import (
     Comment, Address, PosterPage, Rating, PosterStatistics, HistoryStatistics,
     ActivityInvitation, BusinessMarketing, ProductSell,
     ExpertShow, Template, TemplateRegion, PosterFun,
-    BusinessCard
+    BusinessCard, PosterMoreLink
 )
 
 
@@ -132,4 +132,9 @@ class PageTextAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(BusinessCard)
 class BusinessCardAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(PosterMoreLink)
+class PosterMoreLinkAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
