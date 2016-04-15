@@ -6,22 +6,16 @@
                    data-content='<div class="btn-group justified">
                                     <a href="mailto:?{{ object.share.email | safe}}" onclick=&#39;shared("email")&#39
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
-                                        <img src="{% static 'website/images/icons/email.png' %}"></a>
-                                    <a href="https://www.facebook.com/sharer/sharer.php?{{ object.share.fb | safe}}" onclick=&#39;shared("facebook")&#39
+                                        <img src="{% static 'website/images/icons/mail.jpg' %}"></a>
+                                    <a href="#" onclick=&#39;shared("facebook")&#39
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/fb.png' %}"></a>
-                                    <a href="http://twitter.com/intent/tweet?{{ object.share.twitter | safe}}" onclick=&#39;shared("twitter")&#39
+                                        <img src="{% static 'website/images/icons/wechat.jpg' %}"></a>
+                                    <a href="#" onclick=&#39;shared("twitter")&#39
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/twitter.png' %}"></a>
-                                    <a href="https://plus.google.com/share?{{ object.share.google_plus | safe}}" onclick=&#39;shared("google")&#39
+                                        <img src="{% static 'website/images/icons/qq.jpg' %}"></a>
+                                    <a href="#" onclick=&#39;shared("google")&#39
                                     class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/g+.png' %}"></a>
-                                    <a href="http://www.linkedin.com/shareArticle?mini=true&{{ object.share.linkedin | safe}}" onclick=&#39;shared("linkedin")&#39
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/linkedin.png' %}"></a>
-                                    <a href="https://pinterest.com/pin/create/link/?{{ object.share.pinterest | safe}}" onclick=&#39;shared("pinterest")&#39
-                                    class="share-sub-btn icon-btn btn btn-navbar btn-icon-only" target="_blank">
-                                        <img src="{% static 'website/images/icons/pintrest.png' %}"></a>
+                                        <img src="{% static 'website/images/icons/weibo.jpg' %}"></a>
                                 </div>'
                    data-viewport='{"selector": ".bottom-container", "padding": 0}'
                    data-toggle="sub-menu" data-placement="top" data-html="true" data-container=".bottom-container">
@@ -36,7 +30,7 @@
                                          <input class="rating rating-average" type="number" readonly value="{{ object.poster_statistics.ratings_average }}" data-glyphicon="false" data-show-caption="false"
                                          min=0 max=5 step=0.1>
                                          <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;
-                                         <span class="rating-count">{{ object.poster_statistics.ratings_count }}</span> total</div>
+                                         <span class="rating-count">{{ object.poster_statistics.ratings_count }}</span></div>
                                      </div>
                                      <div class="rate-levels">
                                          <div class="rate-level justified">
@@ -115,7 +109,7 @@
                      data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
                      data-title='<div class="stats-title">
                                      <img src="{% static 'website/images/icons/stats_small.png' %}">
-                                     <span class="stats-title-0"> STATS</span>
+                                     <span class="stats-title-0"> 数据分析</span>
                                      <span class="stats-title-1" style="display:none"> SCORE</span>
                                 </div>'
                      data-content='<div><div class="stats-page-0">
@@ -126,7 +120,7 @@
                                      <img class="left-dots" src="{% static 'website/images/icons/3_dots.png' %}">
                                      <img class="right-dots" src="{% static 'website/images/icons/3_dots.png' %}">
                                      <div class="stats-fun">
-                                       <div class="stats-graph-label">Fun</div>
+                                       <div class="stats-graph-label">趣评</div>
                                        <div class="doughnut" data-percent="{{object.history_statistics.fun_change_percent}}" data-inner-cutout="65" data-color="#65cefe" data-total1="3"
                                             data-background-color="#4d5154">
                                             <canvas class="doughnut-canvas"></canvas>
@@ -145,7 +139,7 @@
                                                 <canvas class="doughnut-canvas"></canvas>
                                                 <div class="doughnut-title"><p>{{ object.poster_statistics.popular_score | floatformat:0 }}</p></div>
                                             </div>
-                                            <div class="stats-graph-label">Popularity</div>
+                                            <div class="stats-graph-label">人气</div>
                                             <!--div class="stats-graph-value">{{ object.poster_statistics.popular_score }}</div-->
                                         </div>
                                         <div class="stats-credit">
@@ -154,7 +148,7 @@
                                                 <canvas class="doughnut-canvas"></canvas>
                                                 <div class="doughnut-title"><p>{{ object.poster_statistics.credit_score | floatformat:1 }}</p></div>
                                             </div>
-                                            <div class="stats-graph-label">Credit</div>
+                                            <div class="stats-graph-label">信用</div>
                                             <!--div class="stats-graph-value">{{ object.poster_statistics.credit | floatformat:1 }}%</div-->
                                         </div>
                                      </div>

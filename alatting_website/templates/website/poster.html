@@ -27,7 +27,8 @@
 
 {% block css %}
     {{ block.super }}
-    <link href="{% static 'libs/common/video-js5.0.0.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'libs/common/video-js5.0.0.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-app.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-header.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-bottom.css' %}">
@@ -215,7 +216,11 @@
                                 <form novalidate class="justified comment has-error" name="form"
                                      onclick="var event = arguments[0] || window.event; event.stopPropagation();">
                                     <div class="comment-person">
-                                        <img ng-src="{{ request.user.person.avatar.url }}" class="img-circle">
+                                        {% if request.user.person.avatar.url %}
+                                            <img ng-src="{{ request.user.person.avatar.url|default_if_none:'/static/website/images/icons/user.png' }}" class="img-circle">
+                                        {% else %}
+                                            <img src="{% static 'website/images/icons/user.png' %}" class="img-circle">
+                                        {% endif %}
                                     </div>
 
                                     <div class="comment-text">
@@ -224,14 +229,14 @@
                                                 <div class="justified bubble-header">
                                                     <div class="bubble-title editing">
                                                         <input ng-model="comment.title" ng-maxlength="127" class="title-edit" name="title" required
-                                                               placeholder="Please input the title">
+                                                               placeholder="请输入标题">
                                                     </div>
                                                     <div class="bubble-time" style="display: none;">now</div>
                                                 </div>
 
                                                 <div class="bubble-content editing">
                                                     <textarea name="content" ng-model="comment.content" ng-maxlength="511" required
-                                                              class="content-edit" placeholder="please input the content"></textarea>
+                                                              class="content-edit" placeholder="请输入评论内容"></textarea>
 
                                                     <div ng-click="create(form)"
                                                          class="icon-btn btn btn-navbar btn-icon-only"

@@ -24,7 +24,11 @@ class UserSerializer(serializers.ModelSerializer):
 class HumanDateTimeField(serializers.DateTimeField):
 
     def to_representation(self, value):
-        return naturaltime(value)
+        return naturaltime(value)\
+            .replace('weeks', u'周')\
+            .replace('week', u'周')\
+            .replace('months', u'月')\
+            .replace('month', u'月')
 
 
 class PosterRelatedIdentityField(serializers.HyperlinkedIdentityField):

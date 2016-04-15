@@ -93,3 +93,7 @@ app-body
     position: relative;
     width: 100%;
 }
+
+i.fa{
+    color: #fff;
+}
