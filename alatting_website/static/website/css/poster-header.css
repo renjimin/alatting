@@ -15,7 +15,7 @@ div.poster-header {
     font-size:16px;
     font-size:2vw;
     font-size:1vmin;
-    font-size:1vmax;
+    font-size:0.6vmax;
     z-index: 1000;
 }
 div.header-top {
@@ -25,45 +25,92 @@ div.header-top {
     padding-bottom:5px;
     padding-left:2%;
     padding-right:2%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    position: relative;
+    right: 0;
+    left: 0;
+    z-index: 9;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 5px;
+    width: 100%;
+    height: 36px;
+    background-size: 0;
 }
 div.header-pages {
-    float:left;
+    position: absolute;
+    left: 0;
+    top: 0;
     height:100%;
-    width:8%;
+    min-width:36px;
     display:inline-block;
+    vertical-align: middle;;
 }
 span.align-helper {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
+    display:none;
 }
 div.header-image {
-    vertical-align: middle;
-    margin-top:-25%;
-    margin-bottom:15%;
+    width: 100%;
+    height: 100%;
 }
+div.header-image a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+}
+
 div.header-image img {
-    width:40%;
+    height:50%;
     max-width:100%;
     max-height:100%;
+    margin-top: 25%;
 }
 div.header-title {
     height:100%;
-    font-size:2.5em;
+    font-size:16px;
     color:white;
-    display:inline-block;
+    display:block;
     margin:0 auto;
     font-family:SimHei, Tahoma, Helvetica, Arial, Microsoft Yahei, sans-serif;
     letter-spacing:1px;
+    line-height: 36px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
 }
 div.header-music {
-    float:right;
+    position: absolute;
+    right: 0;
+    top: 0;
     height:100%;
-    width:8%;
+    min-width:36px;
     display:inline-block;
+    z-index: 5;
 }
 div.header-main {
     background-image: url('../images/header_bg.png');
+    background-size: cover;
 }
 div.herder-middle {
     padding-top:15%;
