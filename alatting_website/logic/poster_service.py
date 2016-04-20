@@ -62,8 +62,9 @@ class PosterService:
                 'website:poster',
                 kwargs={'pk': poster.id}
             ) + '?capture=true'
-            if ScreenShot.capture(url, image_path, width,
-                                  height, view_height=view_height):
+            res = ScreenShot.capture(url, image_path, width,
+                                  height, view_height=view_height)
+            if res:
                 ScreenShot.image_to_pdf(image_path, pdf_path)
             else:
                 pdf_url = image_url = None
