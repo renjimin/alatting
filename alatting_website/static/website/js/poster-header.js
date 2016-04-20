@@ -36,6 +36,13 @@ $(document).ready(function () {
              $(more_info_target).parent().removeClass("expanded");
          }
     })
+    $('a.location-info').click(function(){
+         if($('div#map').css('display') == 'none') {
+             $('div#map').show();
+         } else {
+             $('div#map').hide();
+         }
+    })
     $(".expander").click(function() {
         if ($(this).hasClass("expander")) {
             $(this).removeClass("expander");
