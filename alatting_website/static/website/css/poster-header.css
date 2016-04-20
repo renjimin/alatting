@@ -57,7 +57,8 @@ div.header-pages {
     height:100%;
     min-width:36px;
     display:inline-block;
-    vertical-align: middle;;
+    vertical-align: middle;
+    z-index: 5;
 }
 span.align-helper {
     display: inline-block;
