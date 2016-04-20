@@ -1,62 +1,113 @@
 {% extends 'website/base.html' %}
 {% load static %}
 {% load poster %}
+{% load humanize %}
 {% block title %}{{ object.unique_name }}{% endblock %}
+
+{% block meta %}
+    {{ block.super }}
+{% endblock %}
+
 {% block head_script %}
-<script src="{% static 'website/js/card.js' %}"></script>
+    {{ block.super }}
+    <script src="{% static 'website/js/poster.js' %}"></script>
+    <script>
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
+        var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
+        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}"
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
+        var auth_user_id = {% firstof request.user.id "null"%}
+    </script>
 {% endblock %}
 
 {% block css %}
- <link rel="stylesheet" href="{% static 'website/css/poster-card.css' %}">
-{% endblock%}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'libs/common/video-js5.0.0.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-app.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-header.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-bottom.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/full-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-card.css' %}">
 
+
+    {% if object.css %}
+    <link rel="stylesheet" href="{{ object.css.url }}">
+    {% endif %}
+    {% include 'libs/widgets/clip_style.html' %}
+{% endblock %}
+
+{% block head_more %}
+    {{ block.super }}
+    {% include 'libs/photo_swipe/head.html' %}
+{% endblock %}
+
+{% block body_start %}
+    {{ block.super }}
+{% endblock %}
 {% block content %}
+    <div class="app">
+        <div class='app-body'>
+            <div class='app-content'>
+                <div class="scrollable">
+                    <div class="scrollable-content">
+                        <div class="poster-frame center-block">
+                            <div class="poster-top-ratio">
+                                <div class="poster-header"><!--头部-->
+                                    <div class="header-top">
+                                        <div class="header-pages">
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/erwei.png' %}"></a></div>
+                                        </div>
+                                        <div class="header-title">
+                                            <span class="align-helper"></span><img id = "header-click" src="{% static 'website/images/icons/xiala.png'">
+                                            <span class="align-helper"></span><img id = "shanglaID" style="display: none;" src="{% static 'website/images/icons/shangla.png' %}">
+                                        </div>
+                                        <div style ="display: none;" class="header-music"><!--下拉菜单按钮-->
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/a_button_like.png' %}"></a></div>
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/express-subscribe-disabled.png' %}"></a></div>
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/star.png' %}"></a></div>
+                                            <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/contact-phone.png' %}"></a></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="" ui-state="activeTab" default="0"></div>
+                            </div>
+                            <!-- pages -->
+                            <div class="poster-pages-ratio">
+                                <div>
+                                    <div class="poster-pages">
+                                        {% include 'libs/widgets/poster_pages.html' %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-<div class="top">
-	<div class="top-body">
-		<div class="top-centent">
-			<div class="top-scrollable">
-				<div class="top-scrollable-centent">
-					<div class="poster-body">
-						<div class="poster-test">
-							<div class="header-div">
-								<img src="images/erwei.png">
-								<img  class="header-xiala" id="header-click" src="images/xiala.png">
-								<img  class="header-xiala" id="shanglaID"  style= "display: none;" src="images/shangla.png">
-							</div>
-							<div class="poster-up" id="poster-up">
-								<a href=""><img src="images/a_button_like.png"></a>
-								<a href=""><img src="images/express-subscribe-disabled.png"></a>
-								<a href=""><img src="images/star.png"></a>
-								<a href=""><img src="images/contact-phone.png"></a>
-							</div>
-							<div class="section-center">
-								<img src="images/sectionbg.png">
-							</div>
-							<div class="foot-display" id="poster-display">
-								<img src="images/ladong.png">
-							</div>
-							<div class="footer-div" id="footer-div">
-								<div class="footer-left" >
-									<img  id = "leftarrow" class="leftarrow"  src="images/leftarrow.png">
-								</div>
-								<div class="footer-center">
-									<ul class="footer-ul">
-										<li><a href="tel:4000273551"><img src="images/phonebg.png">400.027.3551</a></li>
-										<li><a href="mailto:donghu3551@vip.126.com"><img src="images/emailbg.png">donghu3551@vip.126.com</a></li>
-										<li><a href="wwww.3551.org.cn"><img src="images/webbg.png">wwww.3551.org.cn</a></li>
-										<li><a href="http://map.baidu.com" target="_blank"><img src="images/adressbg.png">武汉东湖珞喻路546号东湖高新区管委会大楼1502室</a></li>
-									</ul>
-								</div>
-								<div class="footer-right">
-									<img id="rightarrow" class="rightarrow" src="images/rightarrow.png">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock%}
+{% block body_end %}
+    {{ block.super }}
+    <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
+    <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
+    <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
+    <script src="{% static 'libs/common/video5.0.0.js' %}"></script>
+    <script src="{% static 'libs/video/video.js' %}"></script>
+    <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'website/js/menu.js' %}"></script>
+    <script src="{% static 'website/js/poster-header.js' %}"></script>
+    <script src="{% static 'website/js/full-slider.js' %}"></script>
+    <script src="{% static 'website/js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'website/js/image_slider_init.js' %}"></script>
+	<script src="{% static 'website/js/card.js' %}"></script>
+    <!--<script src="{% if object.script %}{{ object.script.url }}{% endif %}"></script>-->
+    {% include 'libs/photo_swipe/body.html' %}
+{% endblock %}
