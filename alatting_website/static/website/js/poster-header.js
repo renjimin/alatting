@@ -37,11 +37,14 @@ $(document).ready(function () {
          }
     })
     $('a.location-info').click(function(){
-         if($('div#map').css('display') == 'none') {
-             $('div#map').show();
-         } else {
-             $('div#map').hide();
-         }
+        var map_target = $(this).parent().find('div.mapcon');
+        if($(map_target).css('display') == 'none') {
+            $(map_target).show();
+            $(map_target).parent().addClass("expanded");
+        } else {
+            $(map_target).hide();
+            $(map_target).parent().removeClass("expanded");
+        }
     })
     $(".expander").click(function() {
         if ($(this).hasClass("expander")) {
