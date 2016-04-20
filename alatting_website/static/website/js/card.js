@@ -1,0 +1,26 @@
+$(function(){
+	$('#header-click').click(function(event){
+			$('#poster-up').show(1000);
+			$('#shanglaID').show();
+			$('#header-click').hide();
+	});
+	$('#shanglaID').click(function(event){
+			$('#poster-up').hide(1000);
+			$('#shanglaID').hide();
+			$('#header-click').show();
+	});
+	$('#leftarrow').click(function(event){
+		event.stopPropagation();
+		$('#poster-display').css("display","block");
+		$('#footer-div').css("display","none");
+	});
+	$('#rightarrow').click(function(event){
+		event.stopPropagation();
+		$('#poster-display').css("display","block");
+		$('#footer-div').css("display","none");
+	})
+	$(document).bind("click",function(){
+		$('#poster-display').hide();
+		$('#footer-div').show();
+	});
+})
