@@ -9,6 +9,17 @@ $(document).ready(function () {
         }
     });
 
+    $('.header-pages').click(function() {
+        var post_pages = document.getElementById("poster_pages");
+        if($(post_pages).css('display') == 'none') {
+            $(post_pages).show();
+            $(more_info_target).parent().addClass("expanded");
+        } else {
+            $(post_pages).hide();
+            $(more_info_target).parent().addClass("expanded");
+        }
+    });
+
     //click the logo image in the center to toogle abuttons in two layers
     $('a.abutton-trigger').click(function(e){
         e.preventDefault();
