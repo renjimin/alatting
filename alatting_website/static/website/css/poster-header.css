@@ -349,20 +349,17 @@ span.poster-lifetime-status {
 div.location {
     padding-top: 5px;
 }
-iframe.map {
-    width:100%;
-    height:350px;
-    padding-top: 5px;
-    display:none;
-    border:0;
-    frameborder:0
-}
 div.mapcon {
     width:100%;
     height:350px;
     padding-top: 5px;
     display:none;
     border:0;
+}
+div.poster-pages {
+    padding-left:4%;
+    display:none;
+    z-index: 10;
 }
 table.hours-more-details {
     margin: 0 auto;
