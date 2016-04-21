@@ -5,14 +5,16 @@ from rest_framework import viewsets
 from rest_framework import decorators
 from rest_framework import permissions
 from rest_framework.response import Response
+from alatting_website.model.poster import Poster
+from alatting_website.serializer.poster_serializer import PosterSerializer
 from utils.utils import Utils
 from utils.db.utils import Utils as DBUtils
 from alatting_website.models import (
     Rating, PosterStatistics, PosterLike, PosterFun, PosterFavorites
 )
 from alatting_website.serializer.statistics_serializer import (
-    RatingSerializer, SimpleStatisticsSerializer
-)
+    RatingSerializer, SimpleStatisticsSerializer,
+    PosterStatisticsSerializer)
 from alatting_website.serializer.statistics_serializer import (
     PosterLikeSerializer, PosterFunSerializer, ShareStatisticsSerializer,
     ContactStatisticsSerializer, PosterFavoritesSerializer
@@ -176,4 +178,9 @@ class StatisticsViewSet(viewsets.GenericViewSet):
             raise Http404
         return Response(serializer.data)
 
-
+    @decorators.list_route(methods=('get',),
+                           serializer_class=PosterSerializer)
+    def poster(self, request, *args, **kwargs):
+        obj = Poster.objects.get(id=self.kwargs['poster_id'])
+        serializer = self.get_serializer(obj)
+        return Response(serializer.data)

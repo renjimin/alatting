@@ -13,16 +13,17 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=gi4LphlBZSQTOHIGmjuBRDzMAdMk8GFq"></script>
     <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
-        var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
-        var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
-        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
-        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
-        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
-        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}"
-        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
-        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
-        var auth_user_id = {% firstof request.user.id "null"%}
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %};
+        var loginURL = "{% url 'auth:login' %}?next={{request.path}}";
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}";
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}";
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}";
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}";
+        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}";
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}";
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
+        var auth_user_id = {% firstof request.user.id "null"%};
+        var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
     </script>
 {% endblock %}
 
@@ -51,6 +52,7 @@
     {{ block.super }}
 {% endblock %}
 {% block content %}
+
     <div class="app">
         <div class='app-body'>
             <div class='app-content'>
@@ -59,9 +61,20 @@
                         <div class="poster-frame center-block">
                             <div class="poster-top-ratio">
                                 <div class="poster-header">
+                                    <audio id="background_music" hidden autoplay="true" loop="true">
+                                      <source src="{{ object.music.file.url }}" type="audio/mpeg">
+                                      Your browser does not support the audio element.
+                                    </audio>
                                     <div class="header-top">
                                         <div class="header-pages">
                                             <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/pages.png' %}"></a></div>
+                                        </div>
+                                        <div class="poster-pages" id="poster_pages">
+                                            <table class="pages-details" style="color:white;">
+                                                {% for page in object.pages %}
+                                                    <tr><td><a href="/poster/{{ page.poster_id }}">{{ page.name }}</a></td></tr>
+                                                {% endfor %}
+                                            </table>
                                         </div>
                                         <div class="header-title">
                                             <span class="align-helper"></span> {{ object.logo_title }}
@@ -262,7 +275,7 @@
                                 <form novalidate class="justified comment" ng-repeat="comment in comments" name="form"
                                      ng-click="comment._edit == 'editing' && $event.stopPropagation()" ng-init="comment._form = $scope.$element">
                                     <div class="comment-person">
-                                        <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
+                                        <img ng-src="{{ comment.creator.person.avatar || '/static/website/images/icons/user.png' }}" class="img-circle">
                                     </div>
 
                                     <div class="comment-text">

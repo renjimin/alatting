@@ -114,6 +114,7 @@ div.header-main {
     background-size: cover;
 }
 div.herder-middle {
+    position: relative;
     padding-top:15%;
     padding-bottom:1%;
 }
@@ -121,7 +122,7 @@ div.header-qrcode {
     position:absolute;
     width:30%;
     text-align:center;
-    margin-top:-14%;
+    top:14%;
 }
 div.qrcode_circled {
     display:inline-block;
@@ -140,7 +141,7 @@ div.qrcode_circled div.qrcode {
     position:absolute;
     z-index:2;
     width: 40%;
-    margin-top:10.5%;
+    padding-top:10.5%;
     left:10%;
 }
 div.qrcode_circled div.qrcode img {
@@ -154,7 +155,7 @@ div.header-logo {
     text-align: center;
     display:inline-block;
     margin:0 auto;
-    margin-top:-14%;
+    top:14%;
 }
 div.logo {
     display:inline-block;
@@ -169,7 +170,7 @@ div.header-abutton {
     left:70%;
     width:30%;
     text-align:center;
-    margin-top:-14%;
+    top:14%;
 }
 div.abutton {
     position:absolute;
@@ -209,9 +210,15 @@ div.abutton div.circle-sector {
     top: 50%;
 }
 div.abutton div.circle-sector-left {
+    -ms-transform: rotate(-135deg); 
+    -webkit-transform: rotate(-135deg); 
+    -moz-transform: rotate(-135deg);
     transform: rotate(-135deg);
 }
 div.abutton div.circle-sector-right {
+    -ms-transform: rotate(135deg); 
+    -webkit-transform: rotate(135deg); 
+    -moz-transform: rotate(135deg);
     transform: rotate(135deg);
 }
 div.abutton div.abutton-group {
@@ -342,20 +349,17 @@ span.poster-lifetime-status {
 div.location {
     padding-top: 5px;
 }
-iframe.map {
-    width:100%;
-    height:350px;
-    padding-top: 5px;
-    display:none;
-    border:0;
-    frameborder:0
-}
 div.mapcon {
     width:100%;
     height:350px;
     padding-top: 5px;
     display:none;
     border:0;
+}
+div.poster-pages {
+    padding-left:4%;
+    display:none;
+    z-index: 10;
 }
 table.hours-more-details {
     margin: 0 auto;

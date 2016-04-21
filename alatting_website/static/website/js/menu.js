@@ -22,7 +22,7 @@ $(document).ready(function () {
         return src;
     }
 
-    var popover = $('[data-toggle="sub-menu"]').popover({animation: true})
+    var popover = $('[data-toggle="sub-menu"]').popover({animation: true});
     popover.on('show.bs.popover', function (evt) {
         var $img = $(this).find('img');
         var src = $img.attr('src');
@@ -52,12 +52,41 @@ $(document).ready(function () {
         $img.attr("src", src);
     });
     //for comments menu
-    $('.comments-btn').on('show.bs.popover', function(evt){
+    var $commentsBtn = $('.comments-btn');
+    $commentsBtn.on('show.bs.popover', function(evt){
         $('#comments-submenu').fadeIn({duration: 300})
-    })
-    $('.comments-btn').on('hide.bs.popover', function(evt){
+    });
+    $commentsBtn.on('hide.bs.popover', function(evt){
         $('#comments-submenu').fadeOut({duration: 300})
-    })
+    });
+
+    var statsBtn = $(".stats-btn"),
+        statsPosterAttrs = [
+            "fun_score", "popular_score", "credit_score",
+            "favorites_count", "views_count", "likes_count",
+            "shares_count", "fun_count", "ratings_average",
+            "overall_score", "medal_next_score"
+        ],
+        statsHistoryAttrs = [
+            "favortes_count_change", "views_count_change",
+            "likes_count_change", "shares_count_change",
+            "fun_count_change", "ratings_average_change",
+            "score_total_change"
+        ],
+        statsPercentAttrs = [
+            "fun_change_percent", "popular_change_percent",
+            "credit_change_percent", "score_change_percent"
+        ];
+    statsBtn.on('show.bs.popover', function(event){
+        $.get(posterStatsDataURL).done(function(resp){
+            $.each(statsPosterAttrs, function(i, x){
+                $("#" + x).text(resp["poster_statistics"][x]);
+            });
+            $.each(statsHistoryAttrs, function(i, y){
+                $("#" + y).text(resp["history_statistics"][y]);
+            });
+        });
+    });
 });
 // dismiss popover
 $('body').on('click', function (e) {
@@ -75,44 +104,60 @@ $('body').on('click', function (e) {
     });
 });
 
-var poster_statistics = null
+var poster_statistics = null;
+
+var updatePosterStatsPercent = function(menu, arrPercents){
+    $.each(arrPercents, function(i, per){
+        menu.find('.rate-' + per).css(
+            'width', poster_statistics[per + "_percent"] + '%'
+        ).html(poster_statistics[per + "_count"]);
+    });
+};
 
 function updateRateUI(){
-    if(!poster_statistics) return
-    var menu = $('.rate-submenu')
-    if(!menu.length) return
-    menu.find('.rate-rating').html(poster_statistics.ratings_average)
-    menu.find('.rating-count').html(poster_statistics.ratings_count)
-    menu.find('.rating-average').rating('update', poster_statistics.ratings_average)
-    menu.find('.rate-five').css('width', poster_statistics.five_percent + '%')
-    .html(poster_statistics.five_count)
-    menu.find('.rate-four').css('width', poster_statistics.four_percent + '%')
-    .html(poster_statistics.four_count)
-    menu.find('.rate-three').css('width', poster_statistics.three_percent + '%')
-    .html(poster_statistics.three_count)
-    menu.find('.rate-two').css('width', poster_statistics.two_percent + '%')
-    .html(poster_statistics.two_count)
-    menu.find('.rate-one').css('width', poster_statistics.one_percent + '%')
-    .html(poster_statistics.one_count)
-    menu.find('.rate-rate').rating('update', poster_statistics.rate)
+    if(!poster_statistics) return;
+    var menu = $('.rate-submenu');
+    if(!menu.length) return;
+    menu.find('.rate-rating').html(poster_statistics.ratings_average);
+    menu.find('.rating-count').html(poster_statistics.ratings_count);
+    menu.find('.rating-average').rating('update', poster_statistics.ratings_average);
+    updatePosterStatsPercent(menu, ['five', 'four', 'three', 'two', 'one']);
+    menu.find('.rate-rate').rating('update', poster_statistics.rate);
 }
 
 function ratingRate(rate){
     $.post(ratingURL, {"rate": rate}).done(function(object){
-        poster_statistics = object.poster_statistics
-        poster_statistics.rate = object.rate
-        updateRateUI()
+        poster_statistics = object.poster_statistics;
+        poster_statistics.rate = object.rate;
+        updateRateUI();
     }).fail(function(jqXHR){
         if(jqXHR.status == 401 || jqXHR.status == 403){
-            window.location.href = loginURL
+            window.location.href = loginURL;
         }
-    })
+    });
 }
 
-function shared(type){
+var sharedCallback = function(type, title, desc){
+    var t = encodeURIComponent(title),
+        d = encodeURIComponent(desc),
+        site = encodeURIComponent("武汉云页移动"),
+        link = encodeURIComponent(window.location.href);
+    if (type == "wechat") {
+        //window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + link + "&title=" + title  + "&pics=" + image);
+    }
+    if (type == "weibo") {
+        window.open("http://v.t.sina.com.cn/share/share.php?url=" + link + "&title=" + t + "&content=utf8");
+    }
+    if (type == "qq") {
+        window.open("http://connect.qq.com/widget/shareqq/index.html?title=" + t + "&url=" + link + "&desc=" + d + "&site=" + site);
+    }
+};
+
+
+function shared(type, title, desc){
     $.post(sharedURL, {type: type}).done(function(object){
     }).fail(function(jqXHR){
-    })
+    });
 }
 
 function contacted(type){
@@ -127,3 +172,6 @@ function favored(){
     }).fail(function(jqXHR){
     })
 }
+
+
+
