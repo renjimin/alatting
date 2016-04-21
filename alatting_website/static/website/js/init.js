@@ -27,7 +27,7 @@ var fillCenter = function ($slider) {
                 w = w / h * height;
                 h = height;
                 var left = (width - w) / 2.0 * 100 / width;
-                $this.css('margin-left', left + '%');
+                /*$this.css('margin-left', left + '%');*/
             }
             else {
                 h = h / w * width;

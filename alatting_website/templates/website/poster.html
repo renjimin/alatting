@@ -10,6 +10,7 @@
 
 {% block head_script %}
     {{ block.super }}
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=gi4LphlBZSQTOHIGmjuBRDzMAdMk8GFq"></script>
     <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
         var isCapturing = {% if object.capture %}true{% else %}false{% endif %};
@@ -51,6 +52,7 @@
     {{ block.super }}
 {% endblock %}
 {% block content %}
+
     <div class="app">
         <div class='app-body'>
             <div class='app-content'>
@@ -59,6 +61,10 @@
                         <div class="poster-frame center-block">
                             <div class="poster-top-ratio">
                                 <div class="poster-header">
+                                    <audio id="background_music" hidden autoplay="true" loop="true">
+                                      <source src="{{ object.music.file.url }}" type="audio/mpeg">
+                                      Your browser does not support the audio element.
+                                    </audio>
                                     <div class="header-top">
                                         <div class="header-pages">
                                             <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/pages.png' %}"></a></div>
@@ -187,6 +193,14 @@
                                             </div>
                                             <div class="contact-info location">
                                                 {{ object.address_info }}
+                                                <a href="#" class="location-info"><img
+                                                        src="{% static 'website/images/icons/location-info.png' %}"></a>
+                                                <div class="mapcon" id="map" style="width:100%;height:350px;">
+                                                </div>
+                                                <script type="text/javascript">
+                                                    var map = new BMap.Map("map");
+                                                    map.centerAndZoom("{{ object.address }}",15);
+                                                </script>
                                             </div>
                                         </div>
                                     </div>

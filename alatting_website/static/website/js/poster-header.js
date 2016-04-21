@@ -1,4 +1,14 @@
 $(document).ready(function () {
+    //
+    $('.header-music').click(function() {
+        var bg_music = document.getElementById("background_music"); 
+        if (bg_music.paused == false) {
+            bg_music.pause();
+        } else {
+            bg_music.play();
+        }
+    });
+
     //click the logo image in the center to toogle abuttons in two layers
     $('a.abutton-trigger').click(function(e){
         e.preventDefault();
@@ -35,6 +45,16 @@ $(document).ready(function () {
              $(more_info_target).hide();
              $(more_info_target).parent().removeClass("expanded");
          }
+    })
+    $('a.location-info').click(function(){
+        var map_target = $(this).parent().find('div.mapcon');
+        if($(map_target).css('display') == 'none') {
+            $(map_target).show();
+            $(map_target).parent().addClass("expanded");
+        } else {
+            $(map_target).hide();
+            $(map_target).parent().removeClass("expanded");
+        }
     })
     $(".expander").click(function() {
         if ($(this).hasClass("expander")) {
