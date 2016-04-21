@@ -55,6 +55,10 @@ class Statistics(models.Model):
     linkedin_shared_count = models.IntegerField(default=0)
     google_shared_count = models.IntegerField(default=0)
     email_shared_count = models.IntegerField(default=0)
+    wechat_shared_count = models.IntegerField(default=0)
+    qq_shared_count = models.IntegerField(default=0)
+    qzone_shared_count = models.IntegerField(default=0)
+    weibo_shared_count = models.IntegerField(default=0)
 
     MIN_PERCENT = 30
 
@@ -110,10 +114,19 @@ class Statistics(models.Model):
 
     @property
     def shares_count(self):
-        count = self.facebook_shared_count + self.twitter_shared_count + \
-                self.pinterest_shared_count + self.linkedin_shared_count + \
-                self.google_shared_count + self.email_shared_count
-        return count
+        return sum([
+            self.facebook_shared_count,
+            self.twitter_shared_count,
+            self.pinterest_shared_count,
+            self.linkedin_shared_count,
+            self.google_shared_count,
+
+            self.email_shared_count,
+            self.wechat_shared_count,
+            self.qq_shared_count,
+            self.qzone_shared_count,
+            self.weibo_shared_count
+        ])
 
     VIEWS_WEIGHT, LIKES_WEIGHT, FAVORITES_WEIGHT = 1/6, 1/6, 1/6
     RATINGS_WEIGHT, CONTACTS_WEIGHT, SHARES_WEIGHT = 1/6, 1/6, 1/6
@@ -124,21 +137,20 @@ class Statistics(models.Model):
         :return an integer:
         """
         if not hasattr(self, '_popular_score'):
-            contacted_count = self.phone_contacted_count + \
-                              self.email_contacted_count + \
-                              self.map_contacted_count
-            shared_count = self.facebook_shared_count + \
-                           self.pinterest_shared_count + \
-                           self.twitter_shared_count + \
-                           self.linkedin_shared_count + \
-                           self.google_shared_count + \
-                           self.email_shared_count
-            score = self.views_count * self.VIEWS_WEIGHT + \
-                    self.likes_count * self.LIKES_WEIGHT + \
-                    self.favorites_count * self.FAVORITES_WEIGHT + \
-                    self.ratings_count * self.RATINGS_WEIGHT + \
-                    contacted_count * self.CONTACTS_WEIGHT + \
-                    shared_count * self.SHARES_WEIGHT
+            contacted_count = sum([
+                self.phone_contacted_count,
+                self.email_contacted_count,
+                self.map_contacted_count
+            ])
+            shared_count = self.shares_count
+            score = sum([
+                self.views_count * self.VIEWS_WEIGHT,
+                self.likes_count * self.LIKES_WEIGHT,
+                self.favorites_count * self.FAVORITES_WEIGHT,
+                self.ratings_count * self.RATINGS_WEIGHT,
+                contacted_count * self.CONTACTS_WEIGHT,
+                shared_count * self.SHARES_WEIGHT
+            ])
             score = round(score)
             setattr(self,  '_popular_score', score)
         return getattr(self, '_popular_score')
@@ -176,8 +188,11 @@ class Statistics(models.Model):
         :return a float between 0 - 1:
         """
         if not hasattr(self, '_fun_score'):
-            score = self.fun_survey_score * self.SURVEY_WEIGHT + \
-                    self.fun_review_score * self.REVIEW_WEIGHT
+            score = sum([
+                self.fun_survey_score * self.SURVEY_WEIGHT,
+                self.fun_review_score * self.REVIEW_WEIGHT
+            ])
+
             if self.views_count:
                 fun_count_score = self.fun_count / self.views_count
                 score += fun_count_score * self.FUN_WEIGHT

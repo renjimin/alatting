@@ -13,16 +13,17 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=gi4LphlBZSQTOHIGmjuBRDzMAdMk8GFq"></script>
     <script src="{% static 'website/js/poster.js' %}"></script>
     <script>
-        var isCapturing = {% if object.capture %}true{% else %}false{% endif %}
-        var loginURL = "{% url 'auth:login' %}?next={{request.path}}"
-        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}"
-        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}"
-        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}"
-        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}"
-        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}"
-        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}"
-        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}"
-        var auth_user_id = {% firstof request.user.id "null"%}
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %};
+        var loginURL = "{% url 'auth:login' %}?next={{request.path}}";
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}";
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}";
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}";
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}";
+        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}";
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}";
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
+        var auth_user_id = {% firstof request.user.id "null"%};
+        var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
     </script>
 {% endblock %}
 
@@ -274,7 +275,7 @@
                                 <form novalidate class="justified comment" ng-repeat="comment in comments" name="form"
                                      ng-click="comment._edit == 'editing' && $event.stopPropagation()" ng-init="comment._form = $scope.$element">
                                     <div class="comment-person">
-                                        <img ng-src="{{ comment.creator.person.avatar }}" class="img-circle">
+                                        <img ng-src="{{ comment.creator.person.avatar || '/static/website/images/icons/user.png' }}" class="img-circle">
                                     </div>
 
                                     <div class="comment-text">

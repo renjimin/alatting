@@ -1,0 +1,268 @@
+{% load static %}
+{% comment %}此代码不能出现单引号(django模板标签内的除外)，否则会出现错误{% endcomment %}
+<div>
+    <div class="stats-page-0">
+        <div class="stats-graph">
+            <div class="right-btn btn btn-icon-only"
+                 onclick="statsSwitchPage(arguments[0] || window.event, 1)">
+                <img alt="stats_arrow"
+                     src="{% static 'website/images/icons/stats_arrow.png' %}">
+            </div>
+            <img class="left-dots"
+                 src="{% static 'website/images/icons/3_dots.png' %}">
+            <img class="right-dots"
+                 src="{% static 'website/images/icons/3_dots.png' %}">
+
+            <div class="stats-fun">
+                <div class="stats-graph-label">趣评</div>
+                <div class="doughnut" id="fun_change_percent"
+                     data-percent="{{ object.history_statistics.fun_change_percent }}"
+                     data-inner-cutout="65" data-color="#65cefe"
+                     data-total1="3"
+                     data-background-color="#4d5154">
+                    <canvas class="doughnut-canvas"></canvas>
+                    <div class="doughnut-title">
+                        <p id="fun_score">
+                            {{ object.poster_statistics.fun_score | floatformat:1 }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pop-credit">
+            <img class="dots"
+                 src="{% static 'website/images/icons/3_dots.png' %}">
+
+            <div class="equal-justified">
+                <div class="stats-pop">
+                    <div class="doughnut" id="popular_change_percent"
+                         data-percent="{{ object.history_statistics.popular_change_percent }}"
+                         data-inner-cutout="65" data-color="#ffe377"
+                         data-total1="20" data-background-color="#4d5154">
+                        <canvas class="doughnut-canvas"></canvas>
+                        <div class="doughnut-title">
+                            <p id="popular_score">
+                                {{ object.poster_statistics.popular_score | floatformat:0 }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stats-graph-label">人气</div>
+                </div>
+                <div class="stats-credit">
+                    <div class="doughnut" id="credit_change_percent"
+                         data-percent="{{ object.history_statistics.credit_change_percent }}"
+                         data-inner-cutout="65" data-color="#6ffee7"
+                         data-total1="3" data-background-color="#4d5154">
+                        <canvas class="doughnut-canvas"></canvas>
+                        <div class="doughnut-title">
+                            <p id="credit_score">
+                                {{ object.poster_statistics.credit_score | floatformat:1 }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stats-graph-label">信用</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-types">
+            <div class="equal-justified">
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="{% static 'website/images/icons/favorite.png' %}">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="favorites_count">{{ object.poster_statistics.favorites_count }}</div>
+                                <div class="stats-type-increase">
+                                    <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                    <span id="favortes_count_change">{{ object.history_statistics.favortes_count_change }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="{% static 'website/images/icons/eye.png' %}">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="views_count">{{ object.poster_statistics.views_count }}</div>
+                                <div class="stats-type-increase">
+                                    <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                    <span id="views_count_change">{{ object.history_statistics.views_count_change }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-hr"></div>
+
+            <div class="equal-justified">
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon">
+                            <img src="{% static 'website/images/icons/like.png' %}">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="likes_count">{{ object.poster_statistics.likes_count }}</div>
+                                <div class="stats-type-increase">
+                                    <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                    <span id="likes_count_change">{{ object.history_statistics.likes_count_change }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="{% static 'website/images/icons/stats_share.png' %}">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="shares_count">{{ object.poster_statistics.shares_count }}</div>
+                                <div class="stats-type-increase">
+                                    <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                    <span id="shares_count_change">{{ object.history_statistics.shares_count_change }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-hr"></div>
+
+            <div class="equal-justified">
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="{% static 'website/images/icons/fun.png' %}">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="fun_count">{{ object.poster_statistics.fun_count }}</div>
+                                <div class="stats-type-increase">
+                                    <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                    <span id="fun_count_change">{{ object.history_statistics.fun_count_change }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon">
+                            <img src="{% static 'website/images/icons/rate_selected.png' %}">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="ratings_average">{{ object.poster_statistics.ratings_average | floatformat:1 }}</div>
+                                <div class="stats-type-increase">
+                                    <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                                    <span id="ratings_average_change">{{ object.history_statistics.ratings_average_change | floatformat:1 }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-page-1 stats-overall">
+        <div class="left-btn btn btn-icon-only"
+             onclick="statsSwitchPage(arguments[0] || window.event, 0)">
+            <img alt="stats_arrow" class="stats_arrow_left"
+                 src="{% static 'website/images/icons/stats_arrow.png' %}">
+        </div>
+        <div class="stats-score">
+            <div class="doughnut" id="score_change_percent"
+                 data-percent="{{ object.history_statistics.score_change_percent }}"
+                 data-inner-cutout="65" data-color="#ffe377" data-total1="3"
+                 data-background-color="#4d5154">
+                <canvas class="doughnut-canvas"></canvas>
+                <div class="doughnut-title">
+                    <p>
+                        {% if object.poster_statistics.medal_index == 0 %}
+                            <img class="medal"
+                                 src="{% static 'website/images/icons/medal_bronze.png' %}">
+                        {% elif object.poster_statistics.medal_index == 1 %}
+                            <img class="medal"
+                                 src="{% static 'website/images/icons/medal_silver.png' %}">
+                        {% elif object.poster_statistics.medal_index == 2 %}
+                            <img class="medal"
+                                 src="{% static 'website/images/icons/medal_gold.png' %}">
+                        {% elif object.poster_statistics.medal_index == 3 %}
+                            <img class="medal"
+                                 src="{% static 'website/images/icons/medal_diamond.png' %}">
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            <div class="stats-graph-label">
+                {% if object.poster_statistics.medal_index == 0 %}
+                    <img class="cup"
+                         src="{% static 'website/images/icons/cup_bronze.png' %}">
+                    <span>铜牌</span>
+                {% elif object.poster_statistics.medal_index == 1 %}
+                    <img class="cup"
+                         src="{% static 'website/images/icons/cup_silver.png' %}">
+                    <span>银牌</span>
+                {% elif object.poster_statistics.medal_index == 2 %}
+                    <img class="cup"
+                         src="{% static 'website/images/icons/cup_gold.png' %}">
+                    <span>金牌</span>
+                {% elif object.poster_statistics.medal_index == 3 %}
+                    <img class="cup"
+                         src="{% static 'website/images/icons/cup_diamond.png' %}">
+                    <span>钻石</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="equal-justified">
+            <div class="stats-score-name">
+                当前分数
+            </div>
+            <div class="stats-score-sep"></div>
+            <div class="stats-score-numbers">
+                <div class="equal-justified">
+                    <div id="overall_score">{{ object.poster_statistics.overall_score | floatformat:0 }}</div>
+                    <div class="stats-score-increase">
+                        <img src="{% static 'website/images/icons/up_arrow.png' %}">
+                        <span id="score_total_change">{{ object.history_statistics.score_total_change | floatformat:0 }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stats-hr"></div>
+        <div class="equal-justified">
+            <div class="stats-score-name">
+                下个等级
+            </div>
+            <div class="stats-score-sep"></div>
+            <div class="stats-score-numbers" id="medal_next_score">
+                {{ object.poster_statistics.medal_next_score }}
+            </div>
+        </div>
+    </div>
+</div>
