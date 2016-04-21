@@ -51,6 +51,7 @@
     {{ block.super }}
 {% endblock %}
 {% block content %}
+
     <div class="app">
         <div class='app-body'>
             <div class='app-content'>
@@ -59,6 +60,10 @@
                         <div class="poster-frame center-block">
                             <div class="poster-top-ratio">
                                 <div class="poster-header">
+                                    <audio id="background_music" hidden autoplay="true" loop="true">
+                                      <source src="{{ object.music.file.url }}" type="audio/mpeg">
+                                      Your browser does not support the audio element.
+                                    </audio>
                                     <div class="header-top">
                                         <div class="header-pages">
                                             <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/pages.png' %}"></a></div>

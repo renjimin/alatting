@@ -1,4 +1,14 @@
 $(document).ready(function () {
+    //
+    $('.header-music').click(function() {
+        var bg_music = document.getElementById("background_music"); 
+        if (bg_music.paused == false) {
+            bg_music.pause();
+        } else {
+            bg_music.play();
+        }
+    });
+
     //click the logo image in the center to toogle abuttons in two layers
     $('a.abutton-trigger').click(function(e){
         e.preventDefault();
