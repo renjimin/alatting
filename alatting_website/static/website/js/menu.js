@@ -85,10 +85,6 @@ $(document).ready(function () {
             $.each(statsHistoryAttrs, function(i, y){
                 $("#" + y).text(resp["history_statistics"][y]);
             });
-            $.each(statsPercentAttrs, function(i, z){
-                $("#" + z).attr('data-percent', resp["history_statistics"][z])
-            });
-            $('.doughnut').doughnut();
         });
     });
 });
@@ -110,10 +106,12 @@ $('body').on('click', function (e) {
 
 var poster_statistics = null;
 
-var updatePosterStatsPercent = function(menu, strPercent){
-    menu.find('.rate-' + strPercent).css(
-        'width', poster_statistics[strPercent + "_percent"] + '%'
-    ).html(poster_statistics[strPercent + "_count"]);
+var updatePosterStatsPercent = function(menu, arrPercents){
+    $.each(arrPercents, function(i, per){
+        menu.find('.rate-' + per).css(
+            'width', poster_statistics[per + "_percent"] + '%'
+        ).html(poster_statistics[per + "_count"]);
+    });
 };
 
 function updateRateUI(){
@@ -123,11 +121,7 @@ function updateRateUI(){
     menu.find('.rate-rating').html(poster_statistics.ratings_average);
     menu.find('.rating-count').html(poster_statistics.ratings_count);
     menu.find('.rating-average').rating('update', poster_statistics.ratings_average);
-    updatePosterStatsPercent(menu, 'five');
-    updatePosterStatsPercent(menu, 'four');
-    updatePosterStatsPercent(menu, 'three');
-    updatePosterStatsPercent(menu, 'two');
-    updatePosterStatsPercent(menu, 'one');
+    updatePosterStatsPercent(menu, ['five', 'four', 'three', 'two', 'one']);
     menu.find('.rate-rate').rating('update', poster_statistics.rate);
 }
 
