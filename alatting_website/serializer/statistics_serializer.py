@@ -99,6 +99,7 @@ class ShareStatisticsSerializer(serializers.Serializer):
         ('qq', 'QQ'),
         ('weibo', 'Weibo'),
         ('wechat', 'Wechat'),
+        ('qzone', 'Qzone'),
     )
     # poster_id = serializers.IntegerField(read_only=True)
     type = serializers.ChoiceField(choices=MEDIAS)
