@@ -25,9 +25,14 @@ urlpatterns = static(
 )
 
 urlpatterns += [
+    url(r'^api/v1/account/', include('account.urls', namespace='account')),
+
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('alatting_website.urls', namespace='website')),
     url(r'', include('alatting.api_urls', namespace='api')),
+
+    url(r'^api/.*', 'account.views.not_found'),
+
     url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 

@@ -1,0 +1,11 @@
+site_name: Alatting API Docs
+dev_addr: 0.0.0.0:8001
+# theme: simplex
+
+pages:
+- 首页: 'index.md'
+- 开发环境: 'develop.md'
+- 基础 API:
+    - '用户认证': 'base/auth.md'
+    # - '分页': 'base/pagination.md'
+    # - '上传': 'base/upload.md'
