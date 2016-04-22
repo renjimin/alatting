@@ -109,11 +109,14 @@
                     <!-- print -->
                     <div class="bottom-btn btn btn-navbar btn-icon-only"
                          data-content='<div class="btn-group justified">
-                            <a href="{{ object.pdf_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                            <a onclick=&#39;createScreenShotPDF()&#39
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                 <img src="{% static 'website/images/icons/pdf.png' %}"></a>
-                            <a href="{{ object.image_url }}" target="_blank" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                            <a onclick=&#39;createScreenShot()&#39
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                 <img src="{% static 'website/images/icons/camera_roll.png' %}"></a>
-                            <a href="{{ object.pdf_url }}" onclick="printPDF(this.href); return false" class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                            <a onclick=&#39;printScreenShot()&#39 
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
                                 <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
                         </div>'
                          data-viewport='{"selector": ".bottom-container", "padding": 0}'
