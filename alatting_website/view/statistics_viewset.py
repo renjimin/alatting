@@ -13,8 +13,7 @@ from alatting_website.models import (
     Rating, PosterStatistics, PosterLike, PosterFun, PosterFavorites
 )
 from alatting_website.serializer.statistics_serializer import (
-    RatingSerializer, SimpleStatisticsSerializer,
-    PosterStatisticsSerializer)
+    RatingSerializer, SimpleStatisticsSerializer)
 from alatting_website.serializer.statistics_serializer import (
     PosterLikeSerializer, PosterFunSerializer, ShareStatisticsSerializer,
     ContactStatisticsSerializer, PosterFavoritesSerializer
@@ -84,6 +83,7 @@ class PosterLikeViewSet(viewsets.GenericViewSet):
 class PosterFunViewSet(viewsets.GenericViewSet):
     queryset = PosterFun.objects.all()
     serializer_class = PosterFunSerializer
+    permission_classes = ()
 
     def get_queryset(self):
         queryset = super(PosterFunViewSet, self).get_queryset()
@@ -141,6 +141,7 @@ class PosterFavoritesViewSet(viewsets.GenericViewSet):
 class StatisticsViewSet(viewsets.GenericViewSet):
     queryset = PosterStatistics.objects.all()
     serializer_class = SimpleStatisticsSerializer
+    permission_classes = ()
 
     def get_queryset(self):
         queryset = super(StatisticsViewSet, self).get_queryset()
