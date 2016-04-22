@@ -94,6 +94,12 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
+AUTHENTICATION_BACKENDS = (
+    'account.auth.WebsiteBackend',
+    'account.auth.JSONWebTokenAuthentication',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # CELERY
@@ -121,7 +127,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'account.auth.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'alatting.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 100,
@@ -142,6 +147,8 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3),
     'JWT_ALLOW_REFRESH': True
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # import djcelery
 # djcelery.setup_loader()

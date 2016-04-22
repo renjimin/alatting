@@ -1,9 +1,22 @@
 # coding=utf-8
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 
 from rest_framework_jwt.authentication import (
     JSONWebTokenAuthentication as _JSONWebTokenAuthentication
 )
+
+
+class WebsiteBackend(ModelBackend):
+    def authenticate(self, username=None, password=None, **kwargs):
+        if username is None:
+            return None
+        user = get_user_model().objects.filter(**kwargs).first()
+        if user and user.check_password(password):
+            return user
+        else:
+            return None
 
 
 class JSONWebTokenAuthentication(_JSONWebTokenAuthentication):
