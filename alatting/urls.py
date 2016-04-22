@@ -25,7 +25,7 @@ urlpatterns = static(
 )
 
 urlpatterns += [
-    url(r'^api/v1/accounts', include('account.urls', namespace='accounts')),
+    url(r'^api/v1/account/', include('account.urls', namespace='account')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('alatting_website.urls', namespace='website')),

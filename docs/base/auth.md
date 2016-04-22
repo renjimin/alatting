@@ -7,7 +7,7 @@
 **Request**
 ```json
 {
-    "cellphone": "13800138000",      // 手机 or 邮箱
+    "username": "charlie",      // 手机 or 邮箱
     "password": "123456",     // 密码
 }
 ```
@@ -15,8 +15,7 @@
 **Response**
 ```json
 {
-    "detail": "login successful.",
-    "token": "xx.yy.zz"
+    "token": "xx.yy.zz"  // 返回token说明验证成功
 }
 ```
 
