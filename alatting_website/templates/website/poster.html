@@ -69,7 +69,7 @@
                                         <div class="header-pages">
                                             <span class="align-helper"></span><div class="header-image"><a href="#"><img src="{% static 'website/images/icons/pages.png' %}"></a></div>
                                         </div>
-                                        <div class="poster-pages" id="poster_pages">
+                                        <div class="header-poster-pages" id="poster_pages">
                                             <table class="pages-details" style="color:white;">
                                                 {% for page in object.pages %}
                                                     <tr><td><a href="/poster/{{ page.poster_id }}">{{ page.name }}</a></td></tr>

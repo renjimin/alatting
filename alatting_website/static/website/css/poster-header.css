@@ -356,7 +356,7 @@ div.mapcon {
     display:none;
     border:0;
 }
-div.poster-pages {
+div.header-poster-pages {
     padding-left:4%;
     display:none;
     z-index: 10;
