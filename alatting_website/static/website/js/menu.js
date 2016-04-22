@@ -137,25 +137,33 @@ function ratingRate(rate){
     });
 }
 
+var YUNYE_COMPANY_NAME = "武汉云页移动科技有限公司";
+var socialShareUrls = {
+    "qq": "http://connect.qq.com/widget/shareqq/index.html?",
+    "qzone": "http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?",
+    "weibo": "http://v.t.sina.com.cn/share/share.php?&content=utf8&"
+};
+
 var sharedCallback = function(type, title, desc){
-    var t = encodeURIComponent(title),
-        d = encodeURIComponent(desc),
-        site = encodeURIComponent("武汉云页移动"),
-        link = encodeURIComponent(window.location.href);
+    var url = window.location.href;
+    var params = $.param({
+        "title": encodeURIComponent(title),
+        "site": encodeURIComponent(YUNYE_COMPANY_NAME),
+        "url": url
+    });
+    // 不能将desc放到params里，否则共享到QQ和QQ空间时，内容会被编码
+    params += "&desc=" + encodeURIComponent(desc);
     if (type == "wechat") {
-        //window.open("http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=" + link + "&title=" + title  + "&pics=" + image);
-    }
-    if (type == "weibo") {
-        window.open("http://v.t.sina.com.cn/share/share.php?url=" + link + "&title=" + t + "&content=utf8");
-    }
-    if (type == "qq") {
-        window.open("http://connect.qq.com/widget/shareqq/index.html?title=" + t + "&url=" + link + "&desc=" + d + "&site=" + site);
+        alert('开发中...!');
+    } else {
+        window.location.href = socialShareUrls[type] + params;
     }
 };
 
 
 function shared(type, title, desc){
     $.post(sharedURL, {type: type}).done(function(object){
+        sharedCallback(type, title, desc);
     }).fail(function(jqXHR){
     });
 }

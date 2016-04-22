@@ -9,7 +9,7 @@ import os
 __author__ = 'lyhapple'
 
 env.hosts = ['root@120.24.41.202']
-env.password = ''
+env.key_filename = "~/.ssh/id_rsa_alatting"
 
 GIT_URL = 'https://github.com/alatting/alatting.git'
 APACHE_CONF = 'alatting.conf'
