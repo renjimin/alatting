@@ -55,19 +55,27 @@ class PosterService:
         # make sure it exist
         if not os.path.exists(image_path):
             open(image_path, 'wb').close()
-            force = True
-        if force:
-            url = request.scheme + '://' + request.get_host()
-            url = url + reverse(
-                'website:poster',
-                kwargs={'pk': poster.id}
-            ) + '?capture=true'
-            res = ScreenShot.capture(url, image_path, width,
-                                  height, view_height=view_height)
-            if res:
-                ScreenShot.image_to_pdf(image_path, pdf_path)
-            else:
-                pdf_url = image_url = None
+
+        try:
+            os.remove(image_path)
+        except OSError:
+            pass
+        try:
+            os.remove(pdf_path)
+        except OSError:
+            pass
+
+        url = request.scheme + '://' + request.get_host()
+        url = url + reverse(
+            'website:poster',
+            kwargs={'pk': poster.id}
+        ) + '?capture=true'
+        res = ScreenShot.capture(url, image_path, width,
+                                height, view_height=view_height)
+        if res:
+            ScreenShot.image_to_pdf(image_path, pdf_path)
+        else:
+            pdf_url = image_url = None
         return image_url, pdf_url
 
     @classmethod

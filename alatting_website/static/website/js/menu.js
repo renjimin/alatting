@@ -181,5 +181,49 @@ function favored(){
     })
 }
 
+function createScreenShot(){
+    alert( "click OK to start transforming" );
+    $.get(createScreenShotURL).done(function(object){
+        alert("Transform completed");
+        var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+        var screenshot_url = full_url_header + object.image_url;
+        window.open(
+            screenshot_url,
+            '_blank'
+        );
+    }).fail(function(jqXHR){
+        
+    })
+}
 
-
+function createScreenShotPDF(){
+    alert( "click OK to start transforming" );
+    $.get(createScreenShotURL).done(function(object){
+        alert("Transform completed");
+        var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+        var screenshotPDF_url = full_url_header + object.pdf_url;
+        window.open(
+            screenshotPDF_url,
+            '_blank'
+        );
+    }).fail(function(jqXHR){
+    
+    })
+}
+function printScreenShot(){
+    alert( "click OK to start transforming" );
+    $.get(createScreenShotURL).done(function(object){
+        alert("Transform completed");
+        var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+        var screenshotPDF_url = full_url_header + object.pdf_url;
+        printPDF(screenshotPDF_url);
+    }).fail(function(jqXHR){
+    
+    })
+}
+function printPDF(url){
+    var popup = window.open(url)
+    popup.onload = function(evt){
+        this.print()
+    }
+}

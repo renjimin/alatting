@@ -1,10 +1,69 @@
 <!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
+<html ng-app="ionicApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>登录</title>
+    <link href="../static/libs/ionic.min.css" rel="stylesheet">
+    <link href="../static/css/login.css" rel="stylesheet" type="text/css">
+    <script src="../static/libs/ionic.bundle.min.js"></script>
+    <script src="../static/js/app.js" type="text/javascript"></script>
 </head>
 <body>
-login
+
+    <ion-nav-view animation="slide-left-right" class="viewport"></ion-nav-view>
+
+    <script id="templates/sign-in.html" type="text/ng-template">
+    <ion-view title="登录">
+        <ion-content ng-controller="SignInCtrl">
+            <div class="" >
+      <div class="centerdiv">
+        <img src="../static/img/icons/yunye.png">
+      </div>
+      <ul class="list">
+        <label class="item item-input">
+          <img src="../static/img/icons/name.png">
+          <input type="text" placeholder = "邮箱号/手机号" ng-model="user.username">
+        </label>
+        <label class="item item-input">
+          <img src="../static/img/icons/password.png">
+          <input type="text" placeholder ="密码" ng-model="user.password">
+        </label>
+      </ul>
+      <div class="button-bar bar-positive">
+          <a class="button"  ng-click="signIn(user)">登入</a>
+      </div>
+      <div class="button-bar bar-balanced">
+          <a class="button">注册</a>
+      </div>
+    <div class="list">
+       <div class="item-checkbox">
+           <label class="checkbox">
+             <input type="checkbox">
+           </label>
+           记住密码
+           <label>
+           <a href="">忘记密码?</a>
+           </label>
+       </div>
+
+    </div>
+    </div>
+		</ion-content>
+	</ion-view>
+    </script>
+
+    <script id="templates/forgot-password.html" type="text/ng-template">
+		<ion-view title="Forgot Password">
+			<ion-content padding="true">
+				<p>放弃是经线，坚持是纬线</p>
+				<p>没有一个谷底不可逾越</p>
+				<p>
+					返回 <a href="#/sign-in">登录</a>.
+				</p>
+			</ion-content>
+		</ion-view>
+    </script>
+
 </body>
 </html>

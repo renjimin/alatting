@@ -1,0 +1,80 @@
+/*html,body{	height: 100%;	width: 100%;}
+body{	font-family: "Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;max-width:600px;margin:0 auto;}
+.viewport{background: url("../img/demo/platform_mobile_yunye.png") center center no-repeat #000;background-size: cover;}
+.viewport .pane,.viewport  .view{ background:none;}
+
+.reg-form .item{background:none;border:0;border-bottom:1px solid rgba(255,255,255,0.6);padding-top:20px;}
+.login-logo{ text-align:center;padding:30px 0;}
+.login-logo img{max-width:30%;}
+
+.checkbox input:before, .checkbox-icon:before{border-radius:0;}
+
+.ico-username,.ico-pwd{width:2em;height:2em;display:inline-block;background:url(../img/icons/name.png) no-repeat; background-size:auto 100%;}
+.ico-pwd{background-image:url(../img/icons/password.png)}
+
+*/
+
+html{
+	height: 100%;
+	width: 100%;
+}
+body{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background: url("../img/demo/platform_mobile_yunye.png");
+	background-size: cover;
+	height: 100%;
+}
+img{
+	width: 50%;
+}
+.item{
+	background: rgba(255,255,255,0);
+	width: 90%;
+	margin-left: 5%;
+	border-style:none none solid none;
+
+
+}
+.pane, .view{background:none;}
+.item input{
+	font-size: 1.5em;
+	padding-left: 30%;
+	background: rgba(255,255,255,0);
+}
+
+.list img{
+	max-width: 10%;
+	max-height:50px;
+}
+.centerdiv{
+	margin:0 10%;
+	padding:4% 10%;
+}
+.centerdiv img{
+	margin-left:25%;
+}
+.button-bar{
+	width: 90%;
+	margin-left: 5%;
+	padding-top: 3%;
+}
+.button{
+	width: 90%;
+}
+.item-checkbox{
+	padding-top: 3%;
+	border-style:none;
+	color: white;
+}
+.item-checkbox a{
+	float: right;
+	margin-right: 6%;
+	text-decoration: none;
+	color: white;
+}
+
+
+.checkbox input:before, .checkbox-icon:before
+  {border-radius:0;}
+
+input[type="text"],input[type="password"]{color:#fff;}

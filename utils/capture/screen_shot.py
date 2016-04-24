@@ -2,6 +2,21 @@ __author__ = 'tianhuyang'
 # sudo apt-get install python3-pyqt4 libqt4-webkit xvfb
 # use webkit2png to capture web pages
 # webkit2png for python2 must be installed globally via "setup.py install" to import PyQt4 library
+########################################################################################################################
+################################################### updated 04-22-2016 #################################################
+######################################################## Github ########################################################
+#https://github.com/adamn/python-webkit2png
+################################################### Manual installation ################################################
+# Notes: system wide install, not in virtual environment
+# apt-get install python-qt4 libqt4-webkit xvfb python-setuptools
+# cd ~/
+# git clone https://github.com/adamn/python-webkit2png.git python-webkit2png
+# cd python-webkit2png
+# python setup.py install
+# sudo chmod -R 777 /var/www
+#################################################### Installation Check ################################################
+# type command "webkit2png -h"  to check if it is installed
+
 import os
 from PIL import Image
 

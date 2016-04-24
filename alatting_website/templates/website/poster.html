@@ -24,6 +24,7 @@
         var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
         var auth_user_id = {% firstof request.user.id "null"%};
         var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
+        var createScreenShotURL =  "{% url 'website:posterCapture' object.id%}";
     </script>
 {% endblock %}
 

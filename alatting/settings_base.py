@@ -148,6 +148,8 @@ JWT_AUTH = {
     'JWT_ALLOW_REFRESH': True
 }
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 # import djcelery
 # djcelery.setup_loader()
 
