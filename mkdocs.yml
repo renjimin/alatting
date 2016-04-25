@@ -9,3 +9,5 @@ pages:
     - '用户认证': 'base/auth.md'
     # - '分页': 'base/pagination.md'
     # - '上传': 'base/upload.md'
+- 海报 API:
+    - '主页': 'poster/index.md'

@@ -24,3 +24,10 @@
 7. python manage.py runserver
 
 Now, http://127.0.0.1:8000/admin can be used, default user/pwd is admin/admin
+
+
+## API Document
+
+    $ make doc
+
+Now, you can visit http://127.0.0.1:8001 , and read REST API document

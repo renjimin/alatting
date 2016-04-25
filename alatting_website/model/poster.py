@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.core.urlresolvers import reverse
 
 from django.db import models
 from django.db import transaction
@@ -53,8 +54,16 @@ class Poster(models.Model):
     )
     music = models.ForeignKey('Music', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    main_category = models.ForeignKey('Category', related_name='main_posters')
-    sub_category = models.ForeignKey('Category', related_name='sub_posters')
+    main_category = models.ForeignKey(
+        'Category',
+        related_name='main_posters',
+        limit_choices_to={'parent__isnull': True}
+    )
+    sub_category = models.ForeignKey(
+        'Category',
+        related_name='sub_posters',
+        limit_choices_to={'parent__isnull': False}
+    )
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     width = models.PositiveSmallIntegerField(default=800)
     height = models.PositiveSmallIntegerField(default=1024)
@@ -126,6 +135,9 @@ class Poster(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+    def get_absolute_url(self):
+        return reverse('website:poster', kwargs={'pk': self.id})
 
 
 class PosterPage(models.Model):
