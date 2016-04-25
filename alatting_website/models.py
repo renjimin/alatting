@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from alatting_website.model.statistics import (
     PosterStatistics, HistoryStatistics, PosterLike,
-    PosterFun, PosterFavorites, Comment, Rating
+    PosterFun, PosterFavorites, PosterSubscribe, Comment, Rating
 )
 from alatting_website.model.resource import (
     Image, Video, Music, PosterImage, PosterVideo

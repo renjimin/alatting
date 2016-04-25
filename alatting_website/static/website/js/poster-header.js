@@ -109,9 +109,12 @@ $(document).ready(function () {
     });
     //subscribe
     $(".abutton-subscribe").click(function(){
-        var baseURL = location.protocol + "//" + location.hostname + (location.port && ":" + location.port);
-        var rssURL = baseURL + "/poster/rss";
-        window.open(rssURL); 
+        if($(".abutton-subscribe").find('img:visible').attr('src').split("/").pop()=="express-subscribe.png")
+        {   
+            subscribed();
+        } else{
+            alert("You already subscribed it!");
+        }
     });
     
     
@@ -159,6 +162,17 @@ function bookmarked(){
         }    
         $(".abutton-bookmark").find('img:visible').attr('src', $(".abutton-bookmark").find('img:visible').attr('src').split(".")[0]+"-disabled.png");
         alert("Thanks for your favorites!");
+    }).fail(function(jqXHR){
+        if(jqXHR.status == 401 || jqXHR.status == 403){
+            window.location.href = loginURL
+        }
+    })
+}
+
+function subscribed(){
+    $.post(subscribedURL).done(function(object){
+        $(".abutton-subscribe").find('img:visible').attr('src', $(".abutton-subscribe").find('img:visible').attr('src').split(".")[0]+"-disabled.png");
+        alert("Thanks for your subsription!");
     }).fail(function(jqXHR){
         if(jqXHR.status == 401 || jqXHR.status == 403){
             window.location.href = loginURL

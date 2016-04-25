@@ -4,7 +4,7 @@ from django.template.defaultfilters import floatformat
 from rest_framework import serializers
 from alatting_website.model.statistics import HistoryStatistics
 from alatting_website.models import (
-    PosterStatistics, Rating, PosterLike, PosterFun, PosterFavorites
+    PosterStatistics, Rating, PosterLike, PosterFun, PosterFavorites, PosterSubscribe
 )
 
 
@@ -83,6 +83,22 @@ class PosterFavoritesSerializer(serializers.ModelSerializer):
     def get_unique_together_validators(self):
         return []
 
+class PosterSubscribeSerializer(serializers.ModelSerializer):
+    creator_id = serializers.IntegerField(read_only=True)
+    follower_id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = PosterSubscribe
+        exclude = ('follower', 'poster')
+        extra_kwargs = {
+            'subscribed': {
+                'default': True
+            }
+        }
+
+    def get_unique_together_validators(self):
+        return []
+        
 
 class SimpleStatisticsSerializer(serializers.Serializer):
     pass  # poster_id = serializers.IntegerField(read_only=True)

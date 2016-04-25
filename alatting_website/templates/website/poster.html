@@ -21,6 +21,7 @@
         var likedURL = "{% url 'api:like-like' poster_id=object.id  %}";
         var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}";
         var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}";
+        var subscribedURL = "{% url 'api:subscribe-subscribe' poster_id=object.id  %}";
         var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
         var auth_user_id = {% firstof request.user.id "null"%};
         var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
@@ -139,7 +140,7 @@
                                                                 </a>
                                                             </div>
                                                             <div class="abutton-icons abutton-right">
-                                                                <a href="#" class="abutton-express abutton-subscribe" cookie="abutton-subscribe-enabled">
+                                                                <a href="#" class="abutton-express abutton-subscribe">
                                                                     {% if object.abutton_subscribe_enabled == 1 %}
                                                                     <img class="enabled" src="{% static 'website/images/icons/express-subscribe.png' %}">
                                                                     {% else %}

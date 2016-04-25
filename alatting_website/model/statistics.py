@@ -448,6 +448,30 @@ class PosterFavorites(models.Model):
                     favorites_count = -1
                 DBUtils.increase_counts(queryset, {'favorites_count': favorites_count})
 
+class PosterSubscribe(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey('Poster', related_name='poster_subscriptions')
+    follower = models.ForeignKey(User)
+    subscribed = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ('poster', 'follower')
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
+    def save(self, **kwargs):
+        adding = self._state.adding
+        with transaction.atomic():
+            old_poster_subscribe = None
+            if not adding:
+                old_poster_subscribe = PosterSubscribe.objects.filter(
+                    pk=self.pk
+                ).only('subscribed').select_for_update()
+                old_poster_subscribe = old_poster_subscribe[0]
+            super(PosterSubscribe, self).save(**kwargs)
+            
+
 class Rating(models.Model):
     id = BigAutoField(primary_key=True)
     poster = BigForeignKey('Poster', related_name='ratings')
