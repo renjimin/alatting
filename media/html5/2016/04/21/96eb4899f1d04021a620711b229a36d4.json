@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "pages": [
+        {
+          "regions": {
+              "head": {
+                  "widget": {
+                      "type": "card_head",
+                      "name": "card",
+                      "head_name": "card"
+                  }
+              }
+          "texts": []
+        }
+    ]
+}

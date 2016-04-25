@@ -1,0 +1,16 @@
+{
+    "version": 1,
+    "pages": [
+        {
+          "regions": {
+              "videos": {
+                  "widget": {
+                      "type": "card_head",
+                      "name": "card3551",
+                      "video_name": "card3551"
+                  }
+              },
+          "texts": []
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+    <div class="{{ widget.class_name }}">
+        <div>
+            <div class="card-pages"><!--pages¹ã¸æÌõ·ù-->
+                <img src="{% static 'white/images/icons/sectionbg.png' %}">
+            </div>
+            <div class="">
+                {% include 'libs/widgets/slider.html' %}<!--»¬¿é-->
+                <ul>
+                    <li><a href="tel:{{object.phone}}"><img src="{% static 'white/images/icons/phonebg.png' %}">{{object.phone}}</a></li>
+                    <li><a href="mailto:{{object.email}}"><img src="{% static 'white/images/icons/emailbg.png' %}">{{object.email}}</a></li>
+                    <li><a href="{{object.url}}"><img src="{% static 'white/images/icons/webbg.png' %}">{{object.url}}</a></li>
+                    <li><a href="{{object.address_info}}"><img src="{% static 'white/images/icons/adressbg.png' %}">{{object.address_info}}</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
