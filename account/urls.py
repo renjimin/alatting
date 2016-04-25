@@ -1,12 +1,11 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from account.views import LoginView
-from rest_framework_jwt.views import obtain_jwt_token
-from rest_framework_jwt.views import verify_jwt_token
+from account.views import LoginView, MessageView, CheckMessageView
 
 
 urlpatterns = [
-    url(r'^login$', obtain_jwt_token),
-    url(r'^token-verify$', verify_jwt_token)
+    url(r'^login$', LoginView.as_view(), name='login'),
+    url(r'^send_message$', MessageView.as_view(), name='send_message'),
+    url(r'^auth_message$', CheckMessageView.as_view(), name='auth_message'),
 ]

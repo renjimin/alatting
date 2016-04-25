@@ -33,6 +33,7 @@ class Person(models.Model):
     gender = models.CharField(
         max_length=15, choices=GENDER_CHOICES, default='unknown'
     )
+    phonenumber = models.CharField(max_length=12, null=True, default='')  # 手机号
     avatar = OverWriteImageField(
         upload_to=file.get_avatar_path, default='avatars/avatar.png'
     )

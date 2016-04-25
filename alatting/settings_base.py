@@ -27,7 +27,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'djcelery',
     'corsheaders',
-
+    'account',
     'alatting_website',
     'alatting_admin',
 )
@@ -94,6 +94,12 @@ USE_TZ = True
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 
+AUTHENTICATION_BACKENDS = (
+    'account.auth.WebsiteBackend',
+    'account.auth.JSONWebTokenAuthentication',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # CELERY
@@ -104,6 +110,11 @@ CELERYBEAT_SCHEDULE = {
         'task': 'alatting_website.tasks.poster',
         'schedule': crontab(hour=1, minute=58),
     },
+}
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
 }
 
 # rest framework config
@@ -121,7 +132,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-        'account.auth.JSONWebTokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'alatting.pagination.LinkHeaderPagination',
     'PAGE_SIZE': 100,
@@ -142,6 +152,11 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3),
     'JWT_ALLOW_REFRESH': True
 }
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+# 验证码过期时间
+EXPIRE_TIME = 60
 
 # import djcelery
 # djcelery.setup_loader()

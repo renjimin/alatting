@@ -102,10 +102,7 @@ class PosterView(DetailView):
 
         if obj.html:
             PosterService.parse_media_file(obj.html.name, obj)
-        if not obj.capture:
-            obj.image_url, obj.pdf_url = PosterService.capture(
-                self.request, obj, force='force' in self.request.GET
-            )
+        
         obj.share = self.create_share(obj)
         user = self.request.user
         if user.is_authenticated():
@@ -322,6 +319,17 @@ class CaptureView(FormView):
         with open(path, "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")
 
+class PosterCaptureView(View):
+    def get(self, request, pk):
+        current_poster = Poster.objects.get(pk=pk)
+        image_url, pdf_url = PosterService.capture(
+                self.request, current_poster, force='force' in self.request.GET
+        )
+        data = {}
+        data['image_url'] = image_url
+        data['pdf_url'] = pdf_url
+        response = HttpResponse(json.dumps(data), content_type = "application/json")
+        return response
 
 class PosterCodeView(View):
     def get(self, request, pk):
