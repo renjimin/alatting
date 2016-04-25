@@ -1,6 +1,5 @@
 import re
 __author__ = 'charlie'
-__all__ = ["what"]
 
 
 def what(inputvalue):

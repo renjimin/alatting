@@ -27,7 +27,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'djcelery',
     'corsheaders',
-
+    'account',
     'alatting_website',
     'alatting_admin',
 )
@@ -154,6 +154,9 @@ JWT_AUTH = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# 验证码过期时间
+EXPIRE_TIME = 60
 
 # import djcelery
 # djcelery.setup_loader()

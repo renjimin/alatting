@@ -1,4 +1,4 @@
-from django.core.cache import cache
+# from django.core.cache import cache
 from random import randint
 __author__ = 'charlie'
 
@@ -11,9 +11,9 @@ def message_genarator(num):
     return ''.join(code_list)
 
 
-def cache_message(phonenumber):
-    """生成验证码并缓存到cache系统（目前使用django自带的cache）"""
+def get_message(phonenumber):
+    """生成四位验证码"""
     message = message_genarator(4)
-    msg_key = 'msg_{}'.format(phonenumber)
-    cache.set(msg_key, message, 60)
+    # msg_key = 'message'.format(phonenumber)
+    # cache.set(msg_key, message, 60)
     return message
