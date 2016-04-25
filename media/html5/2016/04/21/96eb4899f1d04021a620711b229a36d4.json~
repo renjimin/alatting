@@ -1,0 +1,24 @@
+{
+    "version": 1,
+    "pages": [
+        {
+          "regions": {
+              "head": {
+                  "widget": {
+                      "type": "card_head",
+                      "name": "card",
+                      "head_name": "card"
+                  }
+              },
+              "content": {
+                "widget": {
+                    "type": "card_footer	",
+                    "name": "bottom_more",
+                    "link_names": ["more", "contact"]
+                }
+              }
+          },
+          "texts": []
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "version": 1,
+    "pages": [
+        {
+          "regions": {
+              "content": {
+                "widget": {
+                  "type": "card_footer",
+                  "image_name": "card3551",
+                  "name": "card3551"
+                }
+              },
+              "banner": {
+                "widget": {
+                  "type": "image",
+                  "image_name": "banner3551",
+                  "name": "banner3551"
+                }
+              },
+              "banner": {
+                "widget": {
+                  "type": "image",
+                  "image_name": "banner3551",
+                  "name": "banner3551"
+                }
+              },
+              "bottom": {
+                "widget": {
+                    "type": "more",
+                    "name": "bottom_more",
+                    "link_names": ["more", "contact"]
+                }
+              }
+          },
+          "texts": [
+
+          ]
+        }
+    ]
+}
