@@ -61,3 +61,22 @@
 }
 ```
 
+## 注册
+
+    POST  /api/v1/account/register
+
+**Request**
+```json
+{
+    "username": "13652430859",      // 用户名，手机号，邮箱任意一种
+    "password": "1234",      // 用户的密码
+}
+```
+
+**Response**
+```json
+{
+    "detail": "register successful"  // 如参数错误会报400, 403的错误
+}
+```
+
