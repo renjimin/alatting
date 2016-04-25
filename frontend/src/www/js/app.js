@@ -5,35 +5,37 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
 .config(function($stateProvider,$urlRouterProvider){
-	$stateProvider.state('tabs', {
-          url: "/tab",
-          templateUrl: "templates/tabs.html",
+	$stateProvider
+	.state('login', {
+          url: "/login",
+          templateUrl: "templates/account/login.html"
+    })	
+	.state('regist', {
+          url: "/regist",
+          templateUrl: "templates/account/regist.html"
     })
-	.state('tabs.home',{
+	.state('forget', {
+          url: "/forget",
+          templateUrl: "templates/account/forget.html"
+    })	
+	.state('home',{
 		url:"/home",
-		views:{
-			'home-tab':{
-				templateUrl:"templates/home.html"
-			}
-		}
+		templateUrl:"templates/account/home.html"
 	})
-	.state('tabs.facts',{
-		url:"/facts",
-		views:{
-			'home-tab':{
-				templateUrl:"templates/facts.html"
-			}
-		}
+	.state('basicinfo',{
+		url:"/basicinfo",
+		templateUrl:"templates/account/basic-info.html"
 	})
-	.state('tabs.about',{
-		url:"/about",
-		views:{
-			'about-tab':{
-				templateUrl:"templates/about.html"
-			}
-		}
+	.state('templateselect',{
+		url:"/templateselect",
+		templateUrl:"templates/account/template-select.html"
 	})
-	$urlRouterProvider.otherwise("/tab/home");
+	.state('api',{
+		url:"/api",		
+		templateUrl:"templates/api.html"
+			
+	})
+	$urlRouterProvider.otherwise("/api");
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
