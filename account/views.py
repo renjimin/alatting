@@ -58,7 +58,7 @@ class CheckMessageView(APIView):
             # 校验时间是否已过期
             if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
                 return Response(dict(detail="Time has expired"),
-                         status=status.HTTP_401_UNAUTHORIZED)
+                                status=status.HTTP_401_UNAUTHORIZED)
             if msg.message == message:  # 校验验证码是否正确
                 return Response(dict(detail="Authentication successful"))
             return Response(dict(detail="Authentication failure"),
@@ -121,14 +121,16 @@ class RegisterView(APIView):
 
         randstr = lambda: str(uuid.uuid1()).split('-')[0]
         username = '{}_{}'.format(request.data['username'], randstr())
+        resdata = {'detail': 'Register successful'}
         user = User.objects.create(username=username)
         user.set_password(request.data['password'])
         if input_type == 'email':
             user.email = request.data['username']
+            resdata['active_url'] = ""  # TODO 增加邮箱的激活地址
         if input_type == 'phonenumber':
             Person.objects.create(phonenumber=request.data['username'], user=user)
         user.save()
-        return Response({'detail': 'Register successful'})
+        return Response(resdata)
 
 
 class LoginView(APIView):
