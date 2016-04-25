@@ -1,6 +1,6 @@
+import re
 __author__ = 'charlie'
 __all__ = ["what"]
-import re
 
 
 def what(inputvalue):
@@ -11,6 +11,7 @@ def what(inputvalue):
 
 tests = []
 
+
 def test_email(inputvalue):
     """判断输入是一个邮箱"""
     if len(inputvalue) > 7:
@@ -18,6 +19,7 @@ def test_email(inputvalue):
             return 'email'
 
 tests.append(test_email)
+
 
 def test_phonenumer(inputvalue):
     """判断输入是一个手机号"""

@@ -111,6 +111,11 @@ CELERYBEAT_SCHEDULE = {
         'schedule': crontab(hour=1, minute=58),
     },
 }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
 
 # rest framework config
 REST_FRAMEWORK = {
