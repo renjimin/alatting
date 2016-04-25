@@ -76,7 +76,8 @@
 **Response**
 ```json
 {
-    "detail": "register successful"  // 如参数错误会报400, 403的错误
+    "detail": "register successful",  // 如参数错误会报400, 403的错误
+    "active_url": ""                  // 只有邮箱注册有这个激活地址（手机注册之前已经验证验证码，不需要激活地址）
 }
 ```
 
