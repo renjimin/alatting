@@ -225,20 +225,23 @@ class PosterView(DetailView):
         obj.description_others = obj.short_description[60:]
         req_cookie = self.request.COOKIES
 
+
         if not obj.poster_funs.all():
             obj.abutton_fun_enabled = 1
         else:
             obj.abutton_fun_enabled = 0
 
-        if not obj.poster_likes.all():
-            obj.abutton_like_enabled = 1
-        else:
+        user = self.request.user
+        if user.is_authenticated() and obj.poster_likes.all():
             obj.abutton_like_enabled = 0
-
-        if not obj.poster_favorites.all():
-            obj.abutton_bookmark_enabled = 1
         else:
+            obj.abutton_like_enabled = 1
+
+        if user.is_authenticated() and obj.poster_favorites.all():
             obj.abutton_bookmark_enabled = 0
+        else:
+            obj.abutton_bookmark_enabled = 1
+
 
         cookie_abutton_subscribe_enabled = req_cookie.get(
             'abutton-subscribe-enabled'
