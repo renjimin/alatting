@@ -8,4 +8,4 @@
 
 body,.view-container,.bar-header{max-width:600px;margin:0 auto;font-family:"Microsoft YaHei","-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;}
 .view-container{box-shadow:0 0 10px #ddd; overflow:hidden;}
-input, button, select, textarea{font-family:"Microsoft YaHei","-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;}
+input, button, select, textarea,.tab-item{font-family:"Microsoft YaHei","-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;}
