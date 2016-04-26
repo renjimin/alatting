@@ -1,0 +1,22 @@
+<ion-view view-title="验证码">
+	<ion-nav-bar class="bar-balanced">
+		<ion-nav-back-button>返回</ion-nav-back-button>
+	</ion-nav-bar
+    <ion-content class="padding" >
+    <div ng-controller ="forget">
+	    <ul class="list list-forget">
+		    <li class="item" ng-model = "phonenumber">
+		          您的手机{{phonenumber}}会收到一条含有4位数字验证码的短信
+		    </li>
+	    </ul>
+	    <div class="list list-div">
+		    <label class="item item-input">
+			    <input type="text" ng-model = "phonenumber" placeholder="请输入验证码">
+			</label>
+	    </div>
+	    <div class="button-bar bar-balanced">
+	        <a class="button" ng-click = "btnfsure()">确定</a>
+	    </div>    
+    </div>
+    </ion-content>
+</ion-view>

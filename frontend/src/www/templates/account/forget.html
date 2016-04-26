@@ -1,7 +1,22 @@
-<ion-view view-title="注册">
-    <ion-content class="padding">
-      <p>
-        这里是忘记密码页面
-      </p>
+<ion-view view-title="输入帐号">
+	<ion-nav-bar class="bar-balanced">
+		<ion-nav-back-button>输入帐号</ion-nav-back-button>
+	</ion-nav-bar
+    <ion-content class="padding" >
+    <div ng-controller ="forget">
+	    <ul class="list list-forget">
+		    <li class="item">
+		          请输入您的注册的手机号/邮箱号
+		    </li>
+	    </ul>
+	    <div class="list list-div">
+		    <label class="item item-input">
+			    	<input type="text" ng-model = "phonenumber" placeholder="请输入手机号/邮箱">
+			</label>
+	    </div>
+	    <div class="button-bar bar-balanced">
+	        <a class="button" ng-click = "btnfsure()">确定</a>
+	    </div>
+    </div>
     </ion-content>
 </ion-view>
