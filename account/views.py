@@ -65,7 +65,7 @@ class CheckMessageView(APIView):
                 return Response(dict(detail="Authentication failure"),
                                 status=status.HTTP_401_UNAUTHORIZED)
             except LoginMessage.DoesNotExist:
-                return Response(dict(detail="no message"),
+                return Response(dict(detail="no this message"),
                                 status=status.HTTP_404_NOT_FOUND)
 
 
@@ -161,13 +161,13 @@ class LoginView(APIView):
                 person = Person.objects.get(phonenumber=inputvalue)
                 username = person.user.username
             except Person.DoesNotExist:
-                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
         elif input_type == "email":
             try:
                 user = User.objects.get(email=inputvalue)
                 username = user.username
             except User.DoesNotExist:
-                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -196,7 +196,7 @@ class ResetPasswordView(APIView):
                 person = Person.objects.get(phonenumber=inputvalue)
                 user = person.user
             except Person.DoesNotExist:
-                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
         else:  # 邮箱重置密码
             try:
                 if input_type == "email":
@@ -204,7 +204,7 @@ class ResetPasswordView(APIView):
                 else:
                     user = User.objects.get(username=inputvalue)
             except User.DoesNotExist:
-                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
         user.set_password(password)
         user.save()
         return Response({'detail': 'Reset successful'})
