@@ -3,6 +3,7 @@ import uuid
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -25,7 +26,10 @@ class MessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        phonenumber = request.data['phonenumber']
+        try:  # TODO 要加装饰器判断入参合法性
+            phonenumber = request.data['phonenumber']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = test_phonenumer(phonenumber)
         if input_type != "phonenumber":
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -47,26 +51,25 @@ class CheckMessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        phonenumber = request.data['phonenumber']
-        message = request.data['message']
+        try:
+            phonenumber = request.data['phonenumber']
+            message = request.data['message']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = test_phonenumer(phonenumber)
         if input_type != "phonenumber":
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
-            try:
-                msg = LoginMessage.objects.get(phonenumber=phonenumber)
-                offset_naive_dt = msg.created_at.replace(tzinfo=None)
-                # 校验时间是否已过期
-                if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
-                    return Response(dict(detail="Time has expired"),
-                                    status=status.HTTP_401_UNAUTHORIZED)
-                if msg.message == message:  # 校验验证码是否正确
-                    return Response(dict(detail="Authentication successful"))
-                return Response(dict(detail="Authentication failure"),
+            msg = get_object_or_404(LoginMessage, phonenumber=phonenumber)
+            offset_naive_dt = msg.created_at.replace(tzinfo=None)
+            # 校验时间是否已过期
+            if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
+                return Response(dict(detail="Time has expired"),
                                 status=status.HTTP_401_UNAUTHORIZED)
-            except LoginMessage.DoesNotExist:
-                return Response(dict(detail="no this message"),
-                                status=status.HTTP_404_NOT_FOUND)
+            if msg.message == message:  # 校验验证码是否正确
+                return Response(dict(detail="Authentication successful"))
+            return Response(dict(detail="Authentication failure"),
+                            status=status.HTTP_401_UNAUTHORIZED)
 
 
 class RegisterView(APIView):
@@ -152,22 +155,19 @@ class LoginView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        inputvalue = request.data['username']
-        password = request.data['password']
+        try:
+            inputvalue = request.data['username']
+            password = request.data['password']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
         username = inputvalue
         if input_type == "phonenumber":
-            try:
-                person = Person.objects.get(phonenumber=inputvalue)
-                username = person.user.username
-            except Person.DoesNotExist:
-                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
+            person = get_object_or_404(Person, phonenumber=inputvalue)
+            username = person.user.username
         elif input_type == "email":
-            try:
-                user = User.objects.get(email=inputvalue)
-                username = user.username
-            except User.DoesNotExist:
-                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
+            user = get_object_or_404(User, email=inputvalue)
+            username = user.username
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -184,27 +184,24 @@ class LoginView(APIView):
 
 
 class ResetPasswordView(APIView):
-    """重设密码"""
+    """重置密码"""
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        inputvalue = request.data['username']
-        password = request.data['password']
+        try:
+            inputvalue = request.data['username']
+            password = request.data['password']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
         if input_type == "phonenumber":  # 手机号重置密码
-            try:
-                person = Person.objects.get(phonenumber=inputvalue)
-                user = person.user
-            except Person.DoesNotExist:
-                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
+            person = get_object_or_404(Person, phonenumber=inputvalue)
+            user = person.user
         else:  # 邮箱重置密码
-            try:
-                if input_type == "email":
-                    user = User.objects.get(email=inputvalue)
-                else:
-                    user = User.objects.get(username=inputvalue)
-            except User.DoesNotExist:
-                return Response({'detail': 'no this user'}, status=status.HTTP_404_NOT_FOUND)
+            if input_type == "email":
+                user = get_object_or_404(User, email=inputvalue)
+            else:
+                user = get_object_or_404(User, username=inputvalue)
         user.set_password(password)
         user.save()
         return Response({'detail': 'Reset successful'})
