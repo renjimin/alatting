@@ -99,11 +99,17 @@ class RegisterView(APIView):
     def check_user_exist(self, input_type, aquery):
         """判断用户是否重复注册"""
         if input_type == "phonenumber":
-            user = Person.objects.filter(**aquery)
+            try:
+                user = Person.objects.get(**aquery)
+            except Person.DoesNotExist:
+                return 0
         else:
-            user = User.objects.filter(**aquery)
-        if len(user) != 0:  # 注册信息有重复的
-            return -1
+            try:
+                user = User.objects.get(**aquery)
+            except User.DoesNotExist:
+                return 0
+        return -1
+
 
     def post(self, request, format=None):
         """注册接口"""
@@ -120,7 +126,10 @@ class RegisterView(APIView):
             return Response({'detail': '重复注册'}, status=status.HTTP_403_FORBIDDEN)
 
         randstr = lambda: str(uuid.uuid1()).split('-')[0]
-        username = '{}_{}'.format(request.data['username'], randstr())
+        if input_type == "username":  # 用用户名注册的直接使用用户名加用户
+            username = request.data['username']
+        else:  # 用邮箱或者手机注册的生成一个用户名
+            username = '{}_{}'.format(request.data['username'], randstr())
         resdata = {'detail': 'Register successful'}
         user = User.objects.create(username=username)
         user.set_password(request.data['password'])
@@ -162,3 +171,30 @@ class LoginView(APIView):
     def delete(self, request):
         logout(request)
         return Response({'detail': 'Logout successful'})
+
+
+class ResetPasswordView(APIView):
+    """重设密码"""
+    permission_classes = ()
+
+    def post(self, request, **kwargs):
+        inputvalue = request.data['username']
+        password = request.data['password']
+        input_type = what(inputvalue)
+        if input_type == "phonenumber":  # 手机号重置密码
+            try:
+                person = Person.objects.get(phonenumber=inputvalue)
+                user = person.user
+            except Person.DoesNotExist:
+                return Response({'detail': '没有找到该用户'}, status=status.HTTP_404_NOT_FOUND)
+        else:  # 邮箱重置密码
+            try:
+                if input_type == "email":
+                    user = User.objects.get(email=inputvalue)
+                else:
+                    user = User.objects.get(username=inputvalue)
+            except User.DoesNotExist:
+                return Response({'detail': '没有找到该用户'}, status=status.HTTP_404_NOT_FOUND)
+        user.set_password(password)
+        user.save()
+        return Response({'detail': 'Reset successful'})
