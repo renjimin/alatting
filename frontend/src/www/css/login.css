@@ -5,4 +5,83 @@
 * @author
 * @time
 */
+img{
+	width: 50%;
+}
+.login-content .scroll{
+	height:100%;
+}
+.regist-content{
+	padding-top: 60%;
+	padding-bottom: 29%;
+}
+.rgister-bg{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background: url("../img/platform_mobile_yunye.png");
+	background-size: cover;
+	height: 100%;
+}
+.item{
+	background: rgba(255,255,255,0);
+	width: 90%;
+	margin-left: 5%;
+	border-style:none none solid none; 
+
+
+}
+.item input{
+	font-size: 1.5em;
+	padding-left: 15%;
+	background: rgba(255,255,255,0);
+}
+
+.list img{
+	max-width: 10%;
+}
+.centerdiv{
+
+	padding: 10%;
+}
+.centerdiv img{
+	margin-left:25%;
+}
+.button-bar{
+	width: 90%;
+	margin-left: 5%;
+	padding-top: 3%;
+}
+.list button{
+	width: 80%;
+	font-size: 1em;
+	height: 0%;
+	padding-right: 30%;
+
+}
+.item-checkbox{
+	padding-top: 3%;
+	border-style:none; 
+	color: white;
+}
+.item-checkbox a{
+	float: right;
+	margin-right: 6%;
+	text-decoration: none;
+	color: white;
+}
+.centerdiv{
+	padding-top: 20%;
+}
+.item{
+	background: rgba(255,255,255,0);
+	width: 100%;
+	margin-left: 5%;
+	margin-top: 5%;
+	border-style:none none solid none; 
+}
+.list-forget{
+	padding-top: 10%;
+}
+..list-forget.li.item{
+	font-size: 2.5em;
+}
 
