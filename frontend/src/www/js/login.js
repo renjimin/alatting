@@ -4,6 +4,7 @@
  * @param  {[type]} $http) {	$scope.loading [description]
  * @return {[type]}        [description]
  */
+var username = "111";
 app.controller('loadCtrl', function($scope,$http) {
 	$scope.login = function(){
 		var username = $scope.name;
@@ -34,10 +35,10 @@ app.controller('loadCtrl', function($scope,$http) {
  */
 app.controller('regist', function($scope,$http) {
 	$scope.btncode = function(){
-		alert(123)
+		alert('123');
 		var username = $scope.username;
 		alert(username);
-		$http.post("http://192.168.14.128:8080/api/v1/account/send_message",{
+		$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
 			"username":username}
 		).success(function(data){
 			console.log(data);
@@ -54,13 +55,21 @@ app.controller('regist', function($scope,$http) {
 		if (password != againpassword) {
 			alert("两次输入的密码不一致");
 		}
-		$http.post("http://192.168.14.128:8080/api/v1/account/register",{
+		$http.post(API_CONFIG.root + "/api/v1/account/send_message",{
+			"username":username}
+		).success(function(data){
+			//console.log(data);
+			alert(data.message);
+		}).error(function(data){
+			//console.log(data);
+		})		
+		$http.post(API_CONFIG.root +"/api/v1/account/register",{
 			"username": username,
 			"password": password}
 		).success(function(data){
 			console.log(data);
 			/**成功处理*/
-			window.location.href="#/login";
+			//window.location.href="#/login";
 		}).error(function(data){
 			console.log(data);
 			/**失败处理*/
@@ -74,17 +83,39 @@ app.controller('regist', function($scope,$http) {
  * @return {[type]}        [description]
  */
 app.controller('forget', function($scope,$http) {
-	$scope.btnfsure = function(){
-		var phonenumber = $scope.phonenumber;
-		$http.post('http://192.168.14.128:8080/api/v1/account/send_message', {
-			"phonenumber": phonenumber}
+	$scope.btnsendsure = function(){
+		var username ="13215641456";
+		$http.post(API_CONFIG.root + "/api/v1/account/send_message",{
+			"username":username}
 		).success(function(data){
 			console.log(data);
-			alert("发送成功");
-			window.location.href="#/forget";
-			/*$window.location.href = 'regist.html'	*/
 		}).error(function(data){
-			alert("发送失败");	
-		});
+			console.log(data);
+		})			
+		window.location.href="#/forget-password"
+	}
+});
+/**
+ * [description]
+ * @param  {[type]} $scope [description]
+ * @param  {[type]} $http) {	$scope.btnsendsure [description]
+ * @return {[type]}        [description]
+ */
+app.controller('forgetpassword', function($scope,$http) {
+	$scope.btnsendsure = function(){
+		window.location.href="#/sendcode"
+	}
+});
+app.controller('testcode', function($scope,$http) {
+	$scope.btnsendsure = function(){
+		var code = $scope.sendcode-code;
+		$http.post(API_CONFIG.root + "/api/v1/account/send_message",{
+			"username":username}
+		).success(function(data){
+			
+		}).error(function(data){
+			console.log(data);
+		})			
+		window.location.href="#/sendcode"
 	}
 });

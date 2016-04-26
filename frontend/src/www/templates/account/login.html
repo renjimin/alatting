@@ -4,20 +4,16 @@
       <div class="centerdiv">
         <img src="img/yunye.png">
       </div>
-      <form name="myForm" novalidate>
-      <ul class="list">
-        <label class="item item-input">
+      <ul class="list ">
+        <label class="item item-input list-login">
           <img src="img/name.png">
-          <input type="text" ng-model="name" name="name" id ="username" placeholder = "邮箱号/手机号" required>
-          <span style="color:red" ng-show="myForm.name.$dirty && myForm.name.$invalid">
-          <span ng-show="myForm.name.$error.required">邮箱号/手机号不能为空</span>
+          <input type="text" ng-model="name" name="name" id ="username" placeholder = "邮&nbsp;箱/手机号" required>
         </label>
-        <label class="item item-input">
+        <label class="item item-input list-login">
           <img src="img/password.png">
           <input type="text" ng-model="password" id="password" placeholder ="密码">
         </label>
       </ul>
-      </form>
       <div class="button-bar bar-positive">
           <a class="button" ng-click = "login()">登入</a>
       </div>
@@ -28,8 +24,7 @@
        <div class="item-checkbox">
            <label class="checkbox">
              <input type="checkbox">
-           </label>
-           记住密码
+           </label>记住密码
            <label>
            <a href="" ng-click= "forget()">忘记密码?</a>           
            </label>

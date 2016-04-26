@@ -111,6 +111,7 @@ GET请求带以下参数可以进行数据过滤,
     GET /api/v1/poster/category/{:id}/keywords　　　　// {:id} 表示二级分类ID
     
 **Response**
+```json
 [
     {
         "id": 34,                           //关键词ID
@@ -129,6 +130,7 @@ GET请求带以下参数可以进行数据过滤,
     },
     ...
 ]
+```
 
 
 ## 保存自定义关键词

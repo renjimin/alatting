@@ -71,3 +71,4 @@ target/
 frontend/build/
 frontend/bower_components/
 frontend/node_modules/
+api-config.js
