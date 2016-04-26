@@ -53,16 +53,20 @@ class CheckMessageView(APIView):
         if input_type != "phonenumber":
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
-            msg = LoginMessage.objects.get(phonenumber=phonenumber)
-            offset_naive_dt = msg.created_at.replace(tzinfo=None)
-            # 校验时间是否已过期
-            if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
-                return Response(dict(detail="Time has expired"),
+            try:
+                msg = LoginMessage.objects.get(phonenumber=phonenumber)
+                offset_naive_dt = msg.created_at.replace(tzinfo=None)
+                # 校验时间是否已过期
+                if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
+                    return Response(dict(detail="Time has expired"),
+                                    status=status.HTTP_401_UNAUTHORIZED)
+                if msg.message == message:  # 校验验证码是否正确
+                    return Response(dict(detail="Authentication successful"))
+                return Response(dict(detail="Authentication failure"),
                                 status=status.HTTP_401_UNAUTHORIZED)
-            if msg.message == message:  # 校验验证码是否正确
-                return Response(dict(detail="Authentication successful"))
-            return Response(dict(detail="Authentication failure"),
-                            status=status.HTTP_401_UNAUTHORIZED)
+            except LoginMessage.DoesNotExist:
+                return Response(dict(detail="no message"),
+                                status=status.HTTP_404_NOT_FOUND)
 
 
 class RegisterView(APIView):
@@ -153,11 +157,17 @@ class LoginView(APIView):
         input_type = what(inputvalue)
         username = inputvalue
         if input_type == "phonenumber":
-            person = Person.objects.get(phonenumber=inputvalue)
-            username = person.user.username
+            try:
+                person = Person.objects.get(phonenumber=inputvalue)
+                username = person.user.username
+            except Person.DoesNotExist:
+                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
         elif input_type == "email":
-            user = User.objects.get(email=inputvalue)
-            username = user.username
+            try:
+                user = User.objects.get(email=inputvalue)
+                username = user.username
+            except User.DoesNotExist:
+                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -186,7 +196,7 @@ class ResetPasswordView(APIView):
                 person = Person.objects.get(phonenumber=inputvalue)
                 user = person.user
             except Person.DoesNotExist:
-                return Response({'detail': '没有找到该用户'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
         else:  # 邮箱重置密码
             try:
                 if input_type == "email":
@@ -194,7 +204,7 @@ class ResetPasswordView(APIView):
                 else:
                     user = User.objects.get(username=inputvalue)
             except User.DoesNotExist:
-                return Response({'detail': '没有找到该用户'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'detail': 'no users'}, status=status.HTTP_404_NOT_FOUND)
         user.set_password(password)
         user.save()
         return Response({'detail': 'Reset successful'})
