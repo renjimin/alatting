@@ -1,0 +1,38 @@
+{
+    "version": 1,
+    "pages": [
+        {
+          "regions": {
+              "banner": {
+                "widget": {
+                  "type": "image",
+                  "image_name": "invitation3551",
+                  "name": "invitation3551"
+                }
+              },
+              "slider": {
+                "widget": {
+                    "type": "slider",
+                    "name": "slider3551",
+                    "images": [
+                        {
+                          "image_name": "slider3551_image_2"
+                        },
+                        {
+                          "image_name": "slider3551_image_1"
+                        }
+                    ]
+                }
+              },
+              "bottom": {
+                "widget": {
+                    "type": "more",
+                    "name": "bottom_more",
+                    "link_names": ["more", "contact"]
+                }
+              }
+          },
+          "texts": []
+        }
+    ]
+}
