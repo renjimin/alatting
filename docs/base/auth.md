@@ -81,3 +81,22 @@
 }
 ```
 
+## 重设密码
+
+    POST  /api/v1/account/reset_password
+
+**Request**
+```json
+{
+    "username": "13652430859",      // 用户名，手机号，邮箱任意一种
+    "password": "1234",      // 用户的密码
+}
+```
+
+**Response**
+```json
+{
+    "detail": "Reset successful",  // 如参数错误会报400, 403的错误
+}
+```
+
