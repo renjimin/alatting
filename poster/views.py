@@ -3,10 +3,10 @@
 from rest_framework.generics import ListAPIView
 from alatting_website.model.poster import Poster
 from alatting_website.model.statistics import PosterStatistics
-from alatting_website.models import Category
+from alatting_website.models import Category, CategoryKeyword
 from poster.serializer.index import (
-    CategorySerializer, PosterSimpleInfoSerializer
-)
+    CategorySerializer, PosterSimpleInfoSerializer,
+    CategoryKeywordSerializer)
 
 
 class CategoryListView(ListAPIView):
@@ -57,4 +57,16 @@ class PosterSimpleInfoListView(ListAPIView):
         sort_key = self.get_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)
+        return qs
+
+
+class CategoryKeywordListView(ListAPIView):
+    model = CategoryKeyword
+    queryset = CategoryKeyword.objects.all()
+    serializer_class = CategoryKeywordSerializer
+
+    def get_queryset(self):
+        qs = super(CategoryKeywordListView, self).get_queryset()
+        category = self.kwargs.get('pk', None)
+        qs = qs.filter(category=category).order_by('verb', 'noun')
         return qs

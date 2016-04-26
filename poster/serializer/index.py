@@ -1,12 +1,20 @@
 # coding=utf-8
 from rest_framework import serializers
 from alatting_website.model.poster import Poster
-from alatting_website.models import Category
+from alatting_website.models import Category, CategoryKeyword
 
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+
+
+class CategoryKeywordSerializer(serializers.ModelSerializer):
+    category = CategorySerializer()
+    category_id = serializers.IntegerField(source='category', write_only=True)
+
+    class Meta:
+        model = CategoryKeyword
 
 
 class PosterSimpleInfoSerializer(serializers.ModelSerializer):

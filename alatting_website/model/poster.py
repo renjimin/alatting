@@ -92,6 +92,11 @@ class Poster(models.Model):
         default='',
         blank=True
     )
+    category_keyword = models.ForeignKey(
+        'CategoryKeyword',
+        null=True,
+        blank=True
+    )
 
     objects = InheritanceManager()
 

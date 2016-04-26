@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from django.http.response import HttpResponse, HttpResponseNotFound
+from django.shortcuts import redirect
 from django.views.generic import TemplateView, View, FormView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
@@ -296,6 +297,9 @@ class PosterView(DetailView):
 
 class IndexView(TemplateView):
     template_name = 'website/index.html'
+
+    def get(self, request, *args, **kwargs):
+        return redirect('/web/src/www/index.html')
 
 
 class TestView(TemplateView):

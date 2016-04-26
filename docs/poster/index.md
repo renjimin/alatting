@@ -104,3 +104,28 @@ GET请求带以下参数可以进行数据过滤,
     ...
 ]
 ```
+
+
+## 获取二级分类下的关键词列表
+
+    GET /api/v1/poster/category/{:id}/keywords　　　　// {:id} 表示二级分类ID
+    
+**Response**
+[
+    {
+        "id": 34,                           //关键词ID
+        "category": {                               //二级分类主体信息
+            "id": 7,
+            "type": "Business",
+            "name": "Education Marketing",
+            "description": "Education Marketing",
+            "tags": "",
+            "parent": 2
+        },          
+        "verb": "招募",                            //动词
+        "noun": "创业精英",                          //名词
+        "created_at": "2016-04-26 03:49:10",        //创建时间
+        "updated_at": "2016-04-26 03:51:14"         //更新时间
+    },
+    ...
+]

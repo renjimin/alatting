@@ -5,8 +5,8 @@ from alatting_website.models import (
     Comment, Address, PosterPage, Rating, PosterStatistics, HistoryStatistics,
     ActivityInvitation, BusinessMarketing, ProductSell,
     ExpertShow, Template, TemplateRegion, PosterFun,
-    BusinessCard, PosterMoreLink
-)
+    BusinessCard, PosterMoreLink,
+    CategoryKeyword)
 
 
 class AlattingAdminModelMixin(object):
@@ -137,4 +137,9 @@ class BusinessCardAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(PosterMoreLink)
 class PosterMoreLinkAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(CategoryKeyword)
+class CategoryKeywordAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
