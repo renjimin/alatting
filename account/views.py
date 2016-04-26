@@ -25,7 +25,10 @@ class MessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        phonenumber = request.data['phonenumber']
+        try:  # TODO 要加装饰器判断入参合法性
+            phonenumber = request.data['phonenumber']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = test_phonenumer(phonenumber)
         if input_type != "phonenumber":
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -47,8 +50,11 @@ class CheckMessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        phonenumber = request.data['phonenumber']
-        message = request.data['message']
+        try:
+            phonenumber = request.data['phonenumber']
+            message = request.data['message']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = test_phonenumer(phonenumber)
         if input_type != "phonenumber":
             return Response(status=status.HTTP_400_BAD_REQUEST)
@@ -152,8 +158,11 @@ class LoginView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        inputvalue = request.data['username']
-        password = request.data['password']
+        try:
+            inputvalue = request.data['username']
+            password = request.data['password']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
         username = inputvalue
         if input_type == "phonenumber":
@@ -184,12 +193,15 @@ class LoginView(APIView):
 
 
 class ResetPasswordView(APIView):
-    """重设密码"""
+    """重置密码"""
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        inputvalue = request.data['username']
-        password = request.data['password']
+        try:
+            inputvalue = request.data['username']
+            password = request.data['password']
+        except KeyError:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
         if input_type == "phonenumber":  # 手机号重置密码
             try:
