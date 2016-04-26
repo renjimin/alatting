@@ -129,3 +129,40 @@ GET请求带以下参数可以进行数据过滤,
     },
     ...
 ]
+
+
+## 保存自定义关键词
+
+    POST /api/v1/poster/category/{:id}/keywords　　　　// {:id} 表示二级分类ID
+    
+**Request**
+```json
+{
+    "verb": "测试",             //动词
+    "noun": "创业合伙人"        //名词
+}
+```
+
+**Response**
+
+返回状态码400时，说明保存失败
+
+返回状态码201时，说明保存成功，并返回如下格式的数据：
+
+```json
+{
+    "id": 5,                        //关键词ID
+    "category":{                        //二级分类主体信息
+        "id": 14,
+        "type": "Business",
+        "name": "Enterprise Marketing",
+        "description": "Enterprise Marketing",
+        "tags": "",
+        "parent": 2
+    },
+    "verb": "测试",                       //动词
+    "noun": "创业合伙人",                    //名词
+    "created_at": "2016-04-26 07:11:17",
+    "updated_at": "2016-04-26 07:11:17"
+}
+```

@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView
 from alatting_website.model.poster import Poster
 from alatting_website.model.statistics import PosterStatistics
 from alatting_website.models import Category, CategoryKeyword
@@ -60,7 +60,7 @@ class PosterSimpleInfoListView(ListAPIView):
         return qs
 
 
-class CategoryKeywordListView(ListAPIView):
+class CategoryKeywordListView(ListCreateAPIView):
     model = CategoryKeyword
     queryset = CategoryKeyword.objects.all()
     serializer_class = CategoryKeywordSerializer
@@ -70,3 +70,8 @@ class CategoryKeywordListView(ListAPIView):
         category = self.kwargs.get('pk', None)
         qs = qs.filter(category=category).order_by('verb', 'noun')
         return qs
+
+    def perform_create(self, serializer):
+        serializer.save(
+            category_id=self.kwargs.get('pk')
+        )

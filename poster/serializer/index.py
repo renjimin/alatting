@@ -10,8 +10,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class CategoryKeywordSerializer(serializers.ModelSerializer):
-    category = CategorySerializer()
-    category_id = serializers.IntegerField(source='category', write_only=True)
+    category = CategorySerializer(read_only=True)
 
     class Meta:
         model = CategoryKeyword
