@@ -31,11 +31,11 @@ class MessageView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             message = get_message(phonenumber)
-            msg = LoginMessage.objects.get(phonenumber=phonenumber)
-            if msg:
+            try:
+                msg = LoginMessage.objects.get(phonenumber=phonenumber)
                 msg.message = message
                 msg.save()
-            else:
+            except LoginMessage.DoesNotExist:
                 LoginMessage.objects.create(message=message,
                                             phonenumber=phonenumber)
             data = dict(message=message, phonenumber=phonenumber)
