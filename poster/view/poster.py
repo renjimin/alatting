@@ -6,6 +6,7 @@ from alatting_website.model.poster import Poster
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer
 )
+from poster.serializer.resource import AddressSerializer
 
 
 class PosterSimpleInfoListView(ListAPIView):
@@ -50,6 +51,14 @@ class PosterListView(ListCreateAPIView):
     ).order_by('-created_at')
 
     def perform_create(self, serializer):
+        address = self.request.data.get('address', None)
+        if not address:
+            pass
+
+        address_serializer = AddressSerializer(data={'address1': address})
+        address_serializer.is_valid(True)
+        address_serializer.save()
+
         serializer.save(
             creator=self.request.user,
             status=Poster.STATUS_DRAFT
