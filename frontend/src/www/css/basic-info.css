@@ -2,7 +2,131 @@
 * Empty. Add your own CSS if you like 
 * @constructor
 * @title
-* @author
+* @author tuduanfeng
 * @time
 */
+.clearfix:after{content: " "; display: block; height: 0; clear: both; visibility: hidden;}
+.basic-left{float: left;}
+.basic-right{ float: right;}
+
+.basic-info-list>li{
+	color: #787878;
+	font-size: 1.2em;
+}
+.basic-info-list>li>span{
+	vertical-align: middle;
+	cursor: pointer;
+}
+.basic-info-textarea{
+	box-shadow: 0px 6px 10px #a9a9a9 inset;
+	background-color:#d0d0d0;
+}
+.basic-info-textarea textarea{
+	width: 100%;
+	background-color:#d0d0d0 ;
+}
+
+.basic-font{
+	font-size: 1.5em;
+	padding-right: 5px;
+	vertical-align: middle;
+}
+
+.basic-text{padding: 0;margin: 0;border-bottom: 8px solid #afafaf;}
+
+.basic-text>label{
+    border: 0 none;
+    vertical-align: middle;
+    height: 7em;
+    line-height: 7em;
+    padding: 0;
+}
+
+.basic-text>label>span{
+	padding: 0;
+	padding-left: 27px;
+}
+
+.basic-file{
+	height: 100%;
+	width: 70%;
+	background: #ebebeb;
+}
+
+.basic-file>input{
+	height: 100%;
+	padding-left: 12px;
+}
+.basic-btn-blue{
+	background-color: #0085c4!important;
+	color: #deeaf8!important;
+	padding: 0 33px;
+	float: right;
+	margin-top: 2em;
+	margin-right: 32px;
+}
+
+.basic-btn-blue>span{
+	padding-left: 7px;
+}
+
+.basic-foot{
+	background: #130f0e;
+	text-align: center;
+}
+
+.basic-foot>span{
+	font-size: 4.5em;
+}
+
+.infopadding{
+	padding: 0px 15px;
+}
+
+.basic-logo{
+	border: 1px solid #7f7f7f;
+	padding: 0px 3px;
+	margin-right: 3px;
+}
+
+.border-bottom-none{
+	border-bottom: 0 none;
+}
+
+.info-con-height textarea{
+	height: 180px;
+}
+
+/*webuploader*/
+.webuploader-container {
+	position: relative;
+}
+.webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	background: #0084C0;
+	padding: 10px 15px;
+	color: #DFEBF7;
+	text-align: center;
+	border-radius: 3px;
+	overflow: hidden;
+	line-height: 42px;
+	margin-top: 1em;
+	float: right;
+	margin-right: 12px;
+}
+.webuploader-pick-hover {
+	background: #00a2d4;
+}
+
+.webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}
 
