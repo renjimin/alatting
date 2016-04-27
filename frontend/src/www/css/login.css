@@ -1,5 +1,5 @@
 /**
-* Empty. Add your own CSS if you like 
+* Empty. Add your own CSS if you like
 * @constructor
 * @title
 * @author
@@ -22,7 +22,7 @@
 	background: rgba(255,255,255,0);
 	width: 90%;
 	margin-left: 5%;
-	border-style:none none solid none; 
+	border-style:none none solid none;
 	border-color: #aaa;
 }
 
@@ -31,7 +31,7 @@
 	line-height: 23px;
 	float: right;
 	display: inline-block;
-	margin-top:1%;	
+	margin-top:1%;
 	font-size: 14px;
 }
 .item input{
@@ -54,7 +54,7 @@
 	padding-left: 5%;
 	display: inline-block;
 	background: none;
-	color:#fff; 
+	color:#fff;
 	font-size: 1em;
 
 
@@ -81,7 +81,6 @@
 	margin-left:25%;
 	width: 50%;
 }
-.login-con{min-height:100%!important;}
 .button-bar{
 	width: 90%;
 	margin-left: 5%;
@@ -95,7 +94,7 @@
 
 }
 .item-checkbox{
-	border-style:none; 
+	border-style:none;
 	color: white;
 	padding-left: 25px;
 }
@@ -113,7 +112,7 @@
 	width: 90%;
 	margin-left: 5%;
 	margin-top: 5%;
-	border-style:none none solid none; 
+	border-style:none none solid none;
 }
 .list-forget{
 	padding-top: 10%;
