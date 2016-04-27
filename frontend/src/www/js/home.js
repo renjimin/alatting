@@ -69,12 +69,12 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
             }else{
                 $scope.keywordsls = true;
             }
-
-
-            //document.querySelector('.empty-info').style.display="none";
-            /*$window.location.href = 'regist.html'	*/
         }).error(function(data){
-            //document.querySelector('.empty-info').style.display="block";
+            $ionicPopup.alert({
+               title: '',
+               template: '关键词获取失败，请稍后重试',
+               okType:'button-light'
+           });
         });
     }
     $scope.showKeySel = function(event){
@@ -89,7 +89,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
 
     }
     /**创建海报关键词保存*/
-    $scope.saveKeywords = function(pkeyword,subCatId){
+    $scope.saveKeywords = function(pkeyword,catId,subCatId){
         $scope.pkeyword = pkeyword;
         $http.post(API_CONFIG.root + '/api/v1/poster/category/'+subCatId+'/keywords',pkeyword).success(function(data){
             console.log(data);
@@ -97,9 +97,11 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
                title: '',
                template: '关键词保存成功',
                okType:'button-light'
-           });
-           $scope.keywords.push(pkeyword);
-           $scope.pkeyword={}
+           }).then(function(res) {
+               $state.go('basicinfo',{data:{'keywordId':data.id,'catId':catId,'subCatId':subCatId}});
+           });;
+
+
         }).error(function(data){
             console.log(data);
             $ionicPopup.alert({
@@ -110,12 +112,38 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
         });
     }
     /**创建海报关键词提交*/
-    $scope.confirmKeywords = function(event,keywordId,subCatId){
+    $scope.confirmKeywords = function(event,keywordId,catId,subCatId){
 
-        $state.go('basicinfo',{data:{'keywordId':keywordId,'subCatId':subCatId}});
+        $state.go('basicinfo',{data:{'keywordId':keywordId,'catId':catId,'subCatId':subCatId}});
 
     }
 
+    $scope.selectHot = function(){
+        $scope.posters = {};
+        $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple',{'sort':'hot'}).success(function(data){
+            console.log(data);
+            $scope.posters = data;
+            document.querySelector('#main-empty').style.display="none";
+            /*$window.location.href = 'regist.html'	*/
+        }).error(function(data){
+            console.log(data);
+            document.querySelector('#main-empty').style.display="block";
+        });
+
+    }
+    $scope.selectNew = function(){
+        $scope.posters = {};
+        $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple',{'sort':'new'}).success(function(data){
+            console.log(data);
+            $scope.posters = data;
+            document.querySelector('#main-empty').style.display="none";
+            /*$window.location.href = 'regist.html'	*/
+        }).error(function(data){
+            console.log(data);
+            document.querySelector('#main-empty').style.display="block";
+        });
+
+    }
 
 
 

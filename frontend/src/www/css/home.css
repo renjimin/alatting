@@ -63,5 +63,5 @@
 .type-model-containar .list .open .item-link i,.type-model-containar .list .open .subitem-link i{display: block;}
 .type-model-containar .list .open .sublist .open{z-index:11;position: relative;}
 .type-model-containar .list .open .sublist .open .subitem-link{background: #fff;box-shadow:0 3px 3px #ddd;}
-.type-model-containar .list .open .sublist .open .keywords,.keywords .open .keywords-det{display:block;}
+.type-model-containar .list .open .sublist .open .keywords,.keywords .open .keywords-det{display:block;box-shadow:0 3px 3px #ccc inset;}
 .keywords .open .btn-sub-key{display:block;}
