@@ -16,6 +16,7 @@
 .image-list{padding:5px; overflow:hidden;}
 .image-list li{width:50%;float:left;padding:5px;}
 .image-list li img{max-width:100%; vertical-align: top;}
+.empty-info{padding:20px;color:#999; text-align: center;display:none;}
 /*创建前 类型选择*/
 .type-model{position: fixed;width:100%;height:100%;z-index:8;top:0;left:0;padding-top:36px;padding-bottom:49px;    visibility: hidden;opacity:0;-webkit-transition:opacity 0.15s ease;transition: opacity 0.15s ease;}
 .type-model.open{visibility: visible;  opacity: 1;}
