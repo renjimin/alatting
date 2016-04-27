@@ -27,22 +27,22 @@ class MessageView(APIView):
 
     def post(self, request, **kwargs):
         try:  # TODO 要加装饰器判断入参合法性
-            phonenumber = request.data['phonenumber']
+            inputvalue = request.data['username']
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        input_type = test_phonenumer(phonenumber)
-        if input_type != "phonenumber":
+        input_type = what(inputvalue)
+        message = get_message(inputvalue)
+        if input_type == None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
-            message = get_message(phonenumber)
             try:
-                msg = LoginMessage.objects.get(phonenumber=phonenumber)
+                msg = LoginMessage.objects.get(username=inputvalue)
                 msg.message = message
                 msg.save()
             except LoginMessage.DoesNotExist:
                 LoginMessage.objects.create(message=message,
-                                            phonenumber=phonenumber)
-            data = dict(message=message, phonenumber=phonenumber)
+                                            username=inputvalue)
+            data = dict(message=message, username=inputvalue)
             return Response(data)
 
 
@@ -52,15 +52,15 @@ class CheckMessageView(APIView):
 
     def post(self, request, **kwargs):
         try:
-            phonenumber = request.data['phonenumber']
+            inputvalue = request.data['username']
             message = request.data['message']
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-        input_type = test_phonenumer(phonenumber)
-        if input_type != "phonenumber":
+        input_type = what(inputvalue)
+        if input_type == None:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
-            msg = get_object_or_404(LoginMessage, phonenumber=phonenumber)
+            msg = get_object_or_404(LoginMessage, username=inputvalue)
             offset_naive_dt = msg.created_at.replace(tzinfo=None)
             # 校验时间是否已过期
             if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
@@ -68,9 +68,9 @@ class CheckMessageView(APIView):
                                 status=status.HTTP_401_UNAUTHORIZED)
             if msg.message == message:  # 校验验证码是否正确
                 return Response(dict(detail="Authentication successful"))
-            return Response(dict(detail="Authentication failure"),
-                            status=status.HTTP_401_UNAUTHORIZED)
-
+            else:
+                return Response(dict(detail="Authentication failure"),
+                                status=status.HTTP_401_UNAUTHORIZED)
 
 class RegisterView(APIView):
     """
