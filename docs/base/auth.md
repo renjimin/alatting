@@ -37,7 +37,7 @@
 **Response**
 ```json
 {
-    "phonenumber": "13652430859",      // 手机
+    "username": "13652430859",      // 手机 or email
     "message": "1234",      // 四位验证码
 }
 ```
