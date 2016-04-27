@@ -4,12 +4,26 @@
  * @param  {[type]} $http) {	$scope.loading [description]
  * @return {[type]}        [description]
  */
-var username = "111";
 app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state', 
-	function($scope,$http,$ionicPopup, $state) {
+	function($scope,$http,$ionicPopup, $state,$cookieStore) {
+
 		$scope.login = function(){
 			var username = $scope.name;
 			var password = $scope.password;
+			if (username==undefined) {
+				 var alertPopup = $ionicPopup.alert({
+				       title: '用户名为空',
+				       template: ''
+				   });
+				 return false;
+			}
+			if (password==undefined) {
+				 var alertPopup = $ionicPopup.alert({
+				       title: '密码为空',
+				       template: ''
+				   });
+				 return false;				
+			}			
 			$http.post(API_CONFIG.root + '/api/v1/account/login', {
 				"username": username,
 				"password": password}
@@ -19,7 +33,7 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				       title: '登陆成功',
 				       template: ''
 				   });
-				$state.go("home");
+				$state.go("homepages");
 			}).error(function(data){
 				 var alertPopup = $ionicPopup.alert({
 				       title: '登陆失败',
@@ -27,11 +41,19 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				   });
 			});
 		};
+		$scope.btnrember = function(){
+			var username = $scope.name;
+			var password = $scope.password;			
+		    $cookieStore.put("username", "password");
+		    var xx = $cookieStore.get("username");
+		    console.info(xx);
+		    alert(xx);			
+		}
 		$scope.register = function(){
-			window.location.href="#/regist";
+			$state.go("regist");
 		}
 		$scope.forget = function(){
-			window.location.href="#/forget-password";
+			$state.go("forget-password");
 		}
 	}
 ]);
@@ -44,16 +66,26 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 app.controller('regist', function($scope,$http,$ionicPopup) {
 	$scope.btncode = function(){
 		var username = $scope.username;
+		if (username==undefined) {
+			var alertPopup = $ionicPopup.alert({
+				title: '用户名为空',
+				template: ''
+			});
+				return false;
+		}		
 		$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
-			"phonenumber":username}
+			"username":username}
 		).success(function(data){
 			 var alertPopup = $ionicPopup.alert({
 			       title: data.message,
 			       template: ''
 			   });
+			 $savecode = data.message;
 		}).error(function(data){
 			console.log(data);
 		})	
+		alert(data.message);
+		alert(12)
 	};	
 	$scope.regist = function(){
 		//window.location.href="login.html";
@@ -61,25 +93,26 @@ app.controller('regist', function($scope,$http,$ionicPopup) {
 		var password = $scope.firstpassword;
 		var againpassword = $scope.secondpassword;
 		var code = $scope.writecode;
+		if (username==undefined) {
+			var alertPopup = $ionicPopup.alert({
+				title: '用户名为空',
+				template: ''
+			});
+				return false;
+		}		
+		if (password==undefined) {
+			var alertPopup = $ionicPopup.alert({
+				title: '密码为空',
+				template: ''
+				});
+				return false;				
+			}			
 		if (password != againpassword) {
 			 var alertPopup = $ionicPopup.alert({
 			       title: '两次输入的密码不一致',
 			       template: ''
 			   });
-		}
-		/*$http.post(API_CONFIG.root + "/api/v1/account/send_message",{
-			"phonenumber":username}
-		).success(function(data){
-			if (code != data.message) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '验证码输入错误',
-			       template: ''
-			   });
-			 return false;
-			}
-		}).error(function(data){
-			//console.log(data);
-		})*/		
+		}		
 		$http.post(API_CONFIG.root +"/api/v1/account/register",{
 			"username": username,
 			"password": password}
@@ -112,7 +145,7 @@ app.controller('forget', function($scope,$http) {
 		}).error(function(data){
 			console.log(data);
 		})			
-		window.location.href="#/forget-password"
+		$state.go("forget-password");
 	}
 });
 /**
@@ -136,6 +169,6 @@ app.controller('testcode', function($scope,$http) {
 		}).error(function(data){
 			console.log(data);
 		})			
-		window.location.href="#/sendcode"
+		$state.go("sendcode");
 	}
 });

@@ -18,6 +18,14 @@ app.config(function($stateProvider,$urlRouterProvider){
           url: "/forget",
           templateUrl: "templates/account/forget.html"
     })
+	.state('forgetpwd', {
+          url: "/forgetpwd",
+          templateUrl: "templates/account/forget-password.html"
+    })
+	.state('sendcode', {
+          url: "/sendcode",
+          templateUrl: "templates/account/sendcode.html"
+    })
 	.state('homepages',{
 		url:"/homepage",
 		templateUrl:"templates/account/home-page.html"
