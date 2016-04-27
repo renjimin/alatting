@@ -3,7 +3,7 @@
 from django.conf.urls import url
 from poster.views import (
     CategoryListView, PosterSimpleInfoListView,
-    CategoryKeywordListView
+    CategoryKeywordListView, TemplateListView,
 )
 
 
@@ -18,5 +18,7 @@ urlpatterns = [
         PosterSimpleInfoListView.as_view(),
         name='posters_simple'),
 
-
+    url(r'^templates$',
+        TemplateListView.as_view(),
+        name='templates'),
 ]

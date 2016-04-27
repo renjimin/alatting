@@ -2,11 +2,12 @@
 
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from alatting_website.model.poster import Poster
+from rest_framework.views import APIView
 from alatting_website.model.statistics import PosterStatistics
-from alatting_website.models import Category, CategoryKeyword
+from alatting_website.models import Category, CategoryKeyword, Template
 from poster.serializer.index import (
     CategorySerializer, PosterSimpleInfoSerializer,
-    CategoryKeywordSerializer)
+    CategoryKeywordSerializer, TemplateSerializer)
 
 
 class CategoryListView(ListAPIView):
@@ -75,3 +76,9 @@ class CategoryKeywordListView(ListCreateAPIView):
         serializer.save(
             category_id=self.kwargs.get('pk')
         )
+
+
+class TemplateListView(ListAPIView):
+    model = Template
+    queryset = Template.objects.all().order_by('name')
+    serializer_class = TemplateSerializer
