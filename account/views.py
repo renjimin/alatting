@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from utils.userinput import what
 from utils.message import get_message
 from alatting_website.models import Person
@@ -16,7 +17,7 @@ from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import AllowAny
 from .email import send_verify_email
 from .models import LoginMessage
-
+from .serializers import AccountProfileSerializer
 
 def not_found(request):
     return JsonResponse({'detail': u'Page Not Found'}, status=404)
@@ -197,7 +198,6 @@ class LoginView(APIView):
         logout(request)
         return Response({'detail': 'Logout successful'})
 
-
 class ResetPasswordView(APIView):
     """重置密码"""
     permission_classes = ()
@@ -225,3 +225,15 @@ class ResetPasswordView(APIView):
         user.set_password(password)
         user.save()
         return Response({'detail': 'Reset successful'})
+
+class ProfileView(ListAPIView):
+    model = User
+    queryset = User.objects.all()
+    serializer_class = AccountProfileSerializer
+
+    def get_queryset(self):
+        queryset = super(ProfileView, self).get_queryset()
+        user = self.request.user
+        if user.is_authenticated():
+            queryset = queryset.filter(pk=user.pk)
+        return queryset
