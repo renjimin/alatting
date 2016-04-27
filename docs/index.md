@@ -8,7 +8,8 @@
 * 基础 API
     * [用户认证](base/auth.md)
 * 海报 API
-    * [主页](poster/index.md)
+    * [基础资源API](poster/resource.md)
+    * [海报接口API](poster/poster.md)
 
 
 

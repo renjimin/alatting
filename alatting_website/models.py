@@ -81,10 +81,10 @@ class Address(models.Model):
     id = BigAutoField(primary_key=True)
     address1 = models.CharField(max_length=128)
     address2 = models.CharField(max_length=128, blank=True, default='')
-    city = models.CharField(max_length=128)
-    state = models.CharField(max_length=128)
-    country = models.CharField(max_length=16)
-    post_code = models.CharField(max_length=16)
+    city = models.CharField(max_length=128, blank=True, default='')
+    state = models.CharField(max_length=128, blank=True, default='')
+    country = models.CharField(max_length=16, blank=True, default='')
+    post_code = models.CharField(max_length=16, blank=True, default='')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -94,6 +94,7 @@ class Address(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=64)
+    image = models.ForeignKey(Image, null=True)
 
     def __str__(self):
         return "{:s}".format(self.name)
