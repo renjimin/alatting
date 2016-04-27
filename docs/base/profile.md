@@ -6,11 +6,10 @@
 
 **Response**
 
-用户登录后返回此登录用户信息，否则返回所有用户信息。
+用户登录后返回此登录用户信息，否则返回空。
 
 ```json
 [
-    ...
     {
         "id": 5,
         "username": "admin",
@@ -65,6 +64,5 @@
         ],
         "poster_subscriptions_follower": []
     }
-    ...
 ]
 ```
