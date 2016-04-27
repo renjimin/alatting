@@ -1,10 +1,9 @@
-<ion-view view-title="注册">
+<ion-view view-title="注册" class="rgister-bg">
 	<ion-nav-bar class="bar-dark">
-		<img src="img/arrow.png">
 		<ion-nav-back-button>返回</ion-nav-back-button>
 	</ion-nav-bar>
     <ion-content class="">
-    <div class="rgister-bg"  ng-controller="regist">
+    <div ng-controller="regist">
 	    <div class="regist-content" >
 		      <ul class="list">
 		        <li class = "list-li">
@@ -20,32 +19,14 @@
 		        </li>
 		        <li class = "list-li">
 		        	<img src="img/password.png">
-					<input class="list-input" type="text" ng-model="firstpassword" placeholder = "请输入密码"
+					<input class="list-input" type="password" ng-model="firstpassword" placeholder = "请输入密码"
 			          style="">
 		        </li>
 		        <li class = "list-li">
 		        	<img src="img/password.png">
-					<input class="list-input" type="text" ng-model="secondpassword" placeholder = "请再次输入密码"
+					<input class="list-input" type="password" ng-model="secondpassword" placeholder = "请再次输入密码"
 			          style="">
-		        </li>		        		        				
-				<!-- <li style="border-bottom: 1px solid #aaa;height:40px;">
-		        <label class="item item-input">
-		          <img src="img/password.png">
-		          <input class = "list-input" type="text" ng-model= "writecode" placeholder ="验证码">
-		        </label>
-		        </li>
-				<li style="border-bottom: 1px solid #aaa;height:40px;">
-		        <label class="item item-input">
-		          <img src="img/password.png">
-		          <input class = "list-input" type="text" ng-model="firstpassword" placeholder ="密码输入">
-		        </label>
-		        </li>
-		        <li style="border-bottom: 1px solid #aaa;height:40px;">
-		        <label class="item item-input">
-		          <img src="img/password.png">
-		          <input  class = "list-input" type="text" ng-model="secondpassword" placeholder ="再次输入密码">
-		        </label>
-		        </li>    -->             
+		        </li>		        		        				            
 		      </ul>  
 	    	<div class="button-bar bar-balanced">
 		          <a class="button" ng-click = "regist()" >注 册</a>

@@ -5,7 +5,7 @@
 * @author
 * @time
 */
-.scroll{
+.rgister-bg .scroll{
 	height:100%;
 }
 .regist-content{
@@ -18,15 +18,21 @@
 	background-size: cover;
 	height: 100%;
 }
-.item{
+.regist-content,.login-con .item{
 	background: rgba(255,255,255,0);
 	width: 90%;
 	margin-left: 5%;
 	border-style:none none solid none;
 	border-color: #aaa;
 }
-
-.button-balanced{
+.login-con .item{
+	background: rgba(255,255,255,0);
+	width: 90%;
+	margin-left: 5%;
+	border-style:none none solid none; 
+	border-color: #aaa;
+}
+.login-con,.regist-content .button-balanced{
 	min-height: 10px;
 	line-height: 23px;
 	float: right;
@@ -34,32 +40,36 @@
 	margin-top:1%;
 	font-size: 14px;
 }
-.item input{
+.regist-content .item input{
 	font-size: 1.3em;
 	padding-left: 5%;
 	background: rgba(255,255,255,0);
 	color: white;
 }
-.list{
+.login-con,.regist-content .list{
 	padding:5%;
 }
-.list-input{
+.regist-content .list-input{
 	width: 40%;
 }
-.list-li{
+.regist-content .list-li{
 	border-bottom: 1px solid #aaa;
 	padding-top: 7%;
 }
-.textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"]{
+
+.regist-content input[type="text"],.regist-content input[type="password"]{
 	padding-left: 5%;
 	display: inline-block;
 	background: none;
 	color:#fff;
 	font-size: 1em;
-
-
 }
-.list img{
+.list-login input[type="text"],.list-login input[type="password"]{
+
+	color:#fff; 
+	font-size: 1em;
+}
+ .regist-content .list img{
 	max-width: 7%;
 	margin-left: 6%;
 	margin-bottom: -5px;
@@ -74,40 +84,47 @@
 .list-login input{
 	padding-left: 20%;
 }
-.centerdiv{
-	padding: 20%;
+.login-con .centerdiv{
+	padding: 15%;
 }
-.centerdiv img{
+.login-con .centerdiv img{
 	margin-left:25%;
 	width: 50%;
 }
+<<<<<<< HEAD
+
+.login-con .button-bar{
+=======
 .button-bar{
+>>>>>>> aa109f4ddd05ceca51c4907036a270525af4c404
 	width: 90%;
 	margin-left: 5%;
 	margin-top:10px;
 }
-.list button{
+.regist-content .list button{
 	width: 20%;
 	font-size: 1em;
 	height: 0%;
 	padding-right: 30%;
 
 }
+<<<<<<< HEAD
+.login-con .item-checkbox{
+	border-style:none; 
+=======
 .item-checkbox{
 	border-style:none;
+>>>>>>> aa109f4ddd05ceca51c4907036a270525af4c404
 	color: white;
 	padding-left: 25px;
 }
-.item-checkbox a{
+.login-con .item-checkbox a{
 	float: right;
 	margin-right: 6%;
 	text-decoration: none;
 	color: white;
 }
-.centerdiv{
-	padding-top: 20%;
-}
-.item{
+.login-con .item{
 	background: rgba(255,255,255,0);
 	width: 90%;
 	margin-left: 5%;
