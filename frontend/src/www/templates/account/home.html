@@ -1,8 +1,9 @@
 <ion-view view-title="主页" ng-controller="homeCtl">
     <ion-header-bar class="home-header">
         <a href="javascript:void(0)" ng-click="openModal()" class="button button-clear btn-menu"><i class="ion-social-buffer"></i></a>
-        <div class="title"><a href="#" class="btn-select">热门</a>
-        <a href="#" class="btn-select">最新</a></div>
+        <div class="title">
+            <a href="javascript:void(0)" ng-click="selectHot()" class="btn-select">热门</a><a href="javascript:void(0)" ng-click="selectNew()" class="btn-select">最新</a>
+        </div>
         <a href="javascript:void(0)" ng-click="showTypeSel()" class="button button-clear btn-create"><i class="ion-plus"></i><span>创建</span></a>
     </ion-header-bar>
     <ion-content class="has-tabs ion-home-content">
@@ -12,77 +13,15 @@
             </div>
             <ul class="image-list">
                 <li ng-repeat="poster in posters">
-                    <a href="{{poster.home_page}}" title="{{poster.id}}"><img src="{{poster.thumb}}" /></a>
+                    <a href="{{poster.home_page}}" title="{{poster.id}}" data-create="{{poster.created_at}}" data-count="{{poster.views_count}}"><img src="{{poster.thumb}}" /></a>
                 </li>
-
             </ul>
         </div>
-
     </ion-content>
-    <ion-tabs class="tabs-icon-top">
-        <ion-tab title="主页" icon="ion-home"></ion-tab>
-        <ion-tab title="搜索" icon="ion-search"></ion-tab>
-        <ion-tab title="类别" icon="ion-document-text"></ion-tab>
-        <ion-tab title="我的" icon="ion-person" href="#/home/account"></ion-tab>
-    </ion-tabs>
     <div class="type-model" id="type-model">
         <div class="type-model-inner">
             <div class="type-model-containar">
                 <ul class="list">
-                    <!--<li class="item">
-                        <a class="item-link" href="javascript:void(0);" ng-click="selType()"><i class="ion-chevron-down"></i>政府服务</a>
-                        <dl class="sublist">
-                            <dd class="subitem">
-                                <a class="subitem-link" href="javascript:void(0);" class="item-link"><i class="ion-chevron-down"></i>对公服务</a>
-                                <ul class="keywords">
-                                    <li class="k-item ">
-                                        <a href="javascript:void(0);" class="keywords-link"><span class="keywords-tag">行业关键词</span>关键词选择</a>
-                                        <ul class="keywords-det keywords-list">
-                                            <li class="key-item"><a href="#" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>招募 + 创业精英</a></li>
-                                            <li class="key-item"><a href="#" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>吸引 + 投资人</a></li>
-                                            <li class="key-item"><a href="#" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>提供 + 创业扶持</a></li>
-                                            <li class="key-item"><a href="#" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>孵化 + 创业公司</a></li>
-                                            <li class="key-item"><a href="#" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>孵化 + 创业公司</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="k-item">
-                                        <a href="javascript:void(0);" class="keywords-link"><i class="ion-ios-checkmark-outline btn-sub-key"></i>关键词输入</a>
-                                        <div class="keywords-det ">
-                                            <div class="keyword-in">
-                                                <div class="keyword-import keyword-import-act">
-                                                    <label>动词</label>
-                                                    <input type="text" placeholder="例:招募" />
-                                                </div>
-                                                <div class="keyword-import keyword-import-icon">
-                                                    <label></label>
-                                                    <i class="ion-plus"></i>
-                                                </div>
-                                                <div class="keyword-import">
-                                                    <label>名词</label>
-                                                    <input type="text" placeholder="例:创业精英" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </dd>
-                            <dd class="subitem">
-                                <a class="subitem-link" href="javascript:void(0);" class="item-link">对公服务</a>
-                            </dd>
-                        </dl>
-                    </li>
-                    <li class="item">
-                        <a class="item-link" href="javascript:void(0);"><i class="ion-chevron-down"></i>高校社团</a>
-                        <dl class="sublist">
-                            <dd class="subitem">
-                                <a class="subitem-link" href="javascript:void(0);" class="item-link">对公服务</a>
-                            </dd>
-                            <dd class="subitem">
-                                <a class="subitem-link" href="javascript:void(0);" class="item-link">对公服务</a>
-                            </dd>
-                        </dl>
-                    </li>-->
                     <li class="item" ng-repeat="type in types">
                         <a class="item-link" ng-click="showSubType($event,{{type.id}})" href="javascript:void(0);"><i class="ion-chevron-down"></i>{{type.name}}</a>
                         <dl class="sublist">
@@ -96,12 +35,12 @@
                                                 <a href="javascript:void(0);" class="key-link key-link-empty">没有可供选择的关键词</a>
                                             </li>
                                             <li class="key-item" ng-if="!keywordsls" ng-repeat="keyword in keywords">
-                                                <a href="javascript:void(0);" ng-click="confirmKeywords($event,{{keyword.id}},{{subtype.id}})" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>{{keyword.verb}} + {{keyword.noun}}</a>
+                                                <a href="javascript:void(0);" ng-click="confirmKeywords($event,{{keyword.id}},{{type.id}},{{subtype.id}})" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>{{keyword.verb}} + {{keyword.noun}}</a>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="k-item">
-                                        <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><i class="ion-ios-checkmark-outline btn-sub-key" ng-click="saveKeywords(pkeyword,{{subtype.id}})"></i>关键词输入</a>
+                                        <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><i class="ion-ios-checkmark-outline btn-sub-key" ng-click="saveKeywords(pkeyword,{{subtype.id}},{{type.id}})"></i>关键词输入</a>
                                         <div class="keywords-det ">
                                             <div class="keyword-in">
                                                 <div class="keyword-import keyword-import-act">
