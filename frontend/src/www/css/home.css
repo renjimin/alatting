@@ -11,7 +11,7 @@
 .home-header .button.btn-create{color:#696969; text-decoration: none;height:25px;line-height:25px;display: block;min-height:20px;font-size:16px;}
 .btn-create i{margin-right:5px;}
 .home-header .title{height:35px;line-height:35px;}
-.home-header .title .btn-select{width:50%; text-decoration: none; display: block;float:left;color:#696969;font-size:16px;}
+.home-header .title .btn-select{width:50%; text-decoration: none; display: block;float:left;color:#696969;font-size:16px;height: 35px;line-height: 35px;}
 .home-containar{}
 .image-list{padding:5px; overflow:hidden;}
 .image-list li{width:50%;float:left;padding:5px;}

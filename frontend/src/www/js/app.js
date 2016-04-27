@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 
 var app = angular.module('starter', ['ionic']);
-app.config(function($stateProvider,$urlRouterProvider){
+app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 	$stateProvider
 	.state('login', {
           url: "/login",
@@ -78,6 +78,10 @@ app.config(function($stateProvider,$urlRouterProvider){
 
 	})
 	$urlRouterProvider.otherwise("/api");
+	
+	$ionicConfigProvider.platform.ios.tabs.position('bottom');
+	$ionicConfigProvider.platform.android.tabs.style('standard');
+	$ionicConfigProvider.platform.android.tabs.position('bottom');
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

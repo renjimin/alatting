@@ -1,4 +1,4 @@
-app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
+app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams){
     /**调用图片列表*/
     $scope.posters = {};
 
@@ -32,6 +32,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
     /**创建海报二级类型选择*/
     $scope.showSubType = function(event,parentId){
         $scope.subtypes = {};
+
         var lists = event.currentTarget.parentNode.parentNode.children;
         //alert(lists.length+'    ' +event.currentTarget.parentNode.className+'    ' +event.currentTarget.parentNode.parentNode.className)
         for(i=0;i<lists.length;i++){
@@ -43,11 +44,8 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
         $http.get(API_CONFIG.root + '/api/v1/poster/categorys?parent='+parentId).success(function(data){
             console.log(data);
             $scope.subtypes = data;
-
-            //document.querySelector('.empty-info').style.display="none";
-            /*$window.location.href = 'regist.html'	*/
         }).error(function(data){
-            //document.querySelector('.empty-info').style.display="block";
+            console.log(data);
         });
     }
 
@@ -115,7 +113,6 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state){
     $scope.confirmKeywords = function(event,keywordId,catId,subCatId){
 
         $state.go('basicinfo',{data:{'keywordId':keywordId,'catId':catId,'subCatId':subCatId}});
-
     }
 
     $scope.selectHot = function(){
