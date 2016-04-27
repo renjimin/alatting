@@ -1,9 +1,9 @@
 # coding=utf-8
 
 from django.conf.urls import url
+from poster.view.poster import PosterListView, PosterSimpleInfoListView
 from poster.views import (
-    CategoryListView, PosterSimpleInfoListView,
-    CategoryKeywordListView
+    CategoryListView, CategoryKeywordListView
 )
 
 
@@ -17,6 +17,8 @@ urlpatterns = [
     url(r'^posters/simple$',
         PosterSimpleInfoListView.as_view(),
         name='posters_simple'),
+
+    url(r'^posters$', PosterListView.as_view(), name='posters'),
 
 
 ]
