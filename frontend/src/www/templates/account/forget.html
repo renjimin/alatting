@@ -1,7 +1,20 @@
-<ion-view view-title="注册">
-    <ion-content class="padding">
-      <p>
-        这里是忘记密码页面
-      </p>
+<ion-view view-title="忘记密码">
+	<ion-nav-bar class="bar-light">
+		<ion-nav-back-button>返回</ion-nav-back-button>
+	</ion-nav-bar
+    <ion-content class="padding" >
+    <div ng-controller ="forget">
+	    <ul class="list list-forget">
+		    <li class="item" ng-model = "phonenumber">
+		          您的帐号已绑定手机{{username}},你可以通过手机验证码找回
+		    </li>
+	    </ul>
+	    <div class="button-bar bar-balanced">
+	        <a class="button" ng-click = "btnsendsure()">确定</a>
+	    </div>
+	    <div class="button-bar bar-light">
+	        <a class="button" ng-click = "">手机不能验证</a>
+	    </div>	    
+    </div>
     </ion-content>
 </ion-view>

@@ -30,14 +30,14 @@
 **Request**
 ```json
 {
-    "phonenumber": "13652430859",      // 手机
+    "username": "13652430859",      // 手机 or email
 }
 ```
 
 **Response**
 ```json
 {
-    "phonenumber": "13652430859",      // 手机
+    "username": "13652430859",      // 手机 or email
     "message": "1234",      // 四位验证码
 }
 ```
@@ -49,7 +49,7 @@
 **Request**
 ```json
 {
-    "phonenumber": "13652430859",      // 手机
+    "username": "13652430859",      // 手机 or email
     "message": "1234",      // 四位验证码
 }
 ```
@@ -69,7 +69,9 @@
 ```json
 {
     "username": "13652430859",      // 用户名，手机号，邮箱任意一种
-    "password": "1234",      // 用户的密码
+    "password1": "1234",      // 用户的密码1
+    "password2": "1234",      // 用户的密码2
+    "message": "1234",      // 用户收到的验证码
 }
 ```
 
@@ -78,6 +80,26 @@
 {
     "detail": "register successful",  // 如参数错误会报400, 403的错误
     "active_url": ""                  // 只有邮箱注册有这个激活地址（手机注册之前已经验证验证码，不需要激活地址）
+}
+```
+
+## 重设密码
+
+    POST  /api/v1/account/reset_password
+
+**Request**
+```json
+{
+    "username": "13652430859",      // 用户名，手机号，邮箱任意一种
+    "password1": "1234",      // 用户的密码1
+    "password2": "1234",      // 用户的密码2
+}
+```
+
+**Response**
+```json
+{
+    "detail": "Reset successful",  // 如参数错误会报400, 403的错误
 }
 ```
 

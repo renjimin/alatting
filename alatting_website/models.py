@@ -136,3 +136,14 @@ class TemplateRegion(models.Model):
         return self.polygon_to_points(self.polygon)
 
 
+class CategoryKeyword(models.Model):
+    category = models.ForeignKey(Category,
+                                 limit_choices_to={'parent__isnull': False},
+                                 help_text=u'选用二级分类')
+    verb = models.CharField(max_length=20, help_text=u'动词')
+    noun = models.CharField(max_length=100, help_text=u'名词')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return u'%s + %s' % (self.verb, self.noun)

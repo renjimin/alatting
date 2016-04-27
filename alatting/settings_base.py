@@ -127,7 +127,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.DjangoFilterBackend',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
@@ -155,8 +155,17 @@ JWT_AUTH = {
 
 CORS_ORIGIN_ALLOW_ALL = True
 
-# 验证码过期时间
-EXPIRE_TIME = 60
+# 验证码过期时间,单位：秒
+EXPIRE_TIME = 60 * 10
+
+
+# 发送验证码的邮箱配置
+EMAIL_HOST = 'smtp.mxhichina.com'
+EMAIL_HOST_USER = 'service@yunye123.com'
+EMAIL_HOST_PASSWORD = 'Yunye0128'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+REGISTRATION_EMAIL_HTML = False
+
 
 # import djcelery
 # djcelery.setup_loader()
