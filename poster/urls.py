@@ -2,7 +2,7 @@
 
 from django.conf.urls import url
 from poster.view.poster import PosterListView, PosterSimpleInfoListView
-from poster.views import (
+from poster.view.resource import (
     CategoryListView, CategoryKeywordListView, TemplateListView
 )
 

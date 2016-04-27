@@ -1,9 +1,11 @@
 # coding=utf-8
-from rest_framework.generics import CreateAPIView, ListCreateAPIView, \
-    ListAPIView
+from rest_framework.generics import (
+    ListCreateAPIView, ListAPIView
+)
 from alatting_website.model.poster import Poster
-from poster.serializer.poster import PosterSerializer, \
-    PosterSimpleInfoSerializer
+from poster.serializer.poster import (
+    PosterSerializer, PosterSimpleInfoSerializer
+)
 
 
 class PosterSimpleInfoListView(ListAPIView):

@@ -2,7 +2,7 @@
 
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from alatting_website.models import Category, CategoryKeyword, Template
-from poster.serializer.index import (
+from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer
 )
 
