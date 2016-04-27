@@ -14,6 +14,7 @@ from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import AllowAny
+from .email import send_verify_email
 from .models import LoginMessage
 
 
@@ -42,7 +43,11 @@ class MessageView(APIView):
             except LoginMessage.DoesNotExist:
                 LoginMessage.objects.create(message=message,
                                             username=inputvalue)
-            data = dict(message=message, username=inputvalue)
+            data = {'username': inputvalue}
+            if input_type == 'email':  # 邮箱
+                send_verify_email(inputvalue, message)
+            else:  # 手机号
+                data['message'] = message
             return Response(data)
 
 
@@ -200,9 +205,14 @@ class ResetPasswordView(APIView):
     def post(self, request, **kwargs):
         try:
             inputvalue = request.data['username']
-            password = request.data['password']
+            password1 = request.data['password1']
+            password2 = request.data['password2']
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        if password1 != password2:
+            return Response({'detail': '两次密码输入不一致'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            password = password1
         input_type = what(inputvalue)
         if input_type == "phonenumber":  # 手机号重置密码
             person = get_object_or_404(Person, phonenumber=inputvalue)
