@@ -64,7 +64,8 @@ app.config(function($stateProvider,$urlRouterProvider){
 	})
 	.state('basicinfo',{
 		url:"/basicinfo",
-		templateUrl:"templates/account/basic-info.html"
+		templateUrl:"templates/account/basic-info.html",
+		params:{'data':null}
 	})
 	.state('templateselect',{
 		url:"/templateselect",
