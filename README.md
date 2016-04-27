@@ -1,7 +1,5 @@
 # Alatting Project README
 
-
-
 ## Requirements
 
 * python 3.4
