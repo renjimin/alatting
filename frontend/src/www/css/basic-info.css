@@ -15,6 +15,7 @@
 }
 .basic-info-list>li>span{
 	vertical-align: middle;
+	cursor: pointer;
 }
 .basic-info-textarea{
 	box-shadow: 0px 6px 10px #a9a9a9 inset;
@@ -95,3 +96,37 @@
 .info-con-height textarea{
 	height: 180px;
 }
+
+/*webuploader*/
+.webuploader-container {
+	position: relative;
+}
+.webuploader-element-invisible {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+    clip: rect(1px,1px,1px,1px);
+}
+.webuploader-pick {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
+	background: #0084C0;
+	padding: 10px 15px;
+	color: #DFEBF7;
+	text-align: center;
+	border-radius: 3px;
+	overflow: hidden;
+	line-height: 42px;
+	margin-top: 1em;
+	float: right;
+	margin-right: 12px;
+}
+.webuploader-pick-hover {
+	background: #00a2d4;
+}
+
+.webuploader-pick-disable {
+	opacity: 0.6;
+	pointer-events:none;
+}
+
