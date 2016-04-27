@@ -68,7 +68,7 @@
         "tags": "3551",
         "creator": 5,
         "music": null,                       // 背景音乐链接，没有值是为null
-        "category_keyword": 2                // 分类关键词ID
+        "category_keyword_id": 2                // 分类关键词ID
     },
     ...
 ]

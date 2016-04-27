@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from alatting_website.model.poster import Poster
 from poster.serializer.resource import CategorySerializer, ImageSerializer, \
-    AddressSerializer
+    AddressSerializer, CategoryKeywordSerializer
 
 
 class PosterSimpleInfoSerializer(serializers.ModelSerializer):
@@ -36,6 +36,9 @@ class PosterSerializer(serializers.ModelSerializer):
     logo_image_id = serializers.IntegerField(write_only=True)
 
     address = AddressSerializer(read_only=True)
+
+    category_keyword = CategoryKeywordSerializer(read_only=True)
+    category_keyword_id = serializers.IntegerField(write_only=True)
 
     def get_logo_image_url(self, obj):
         return obj.logo_image.file.url if obj.logo_image else ''
