@@ -236,4 +236,6 @@ class ProfileView(ListAPIView):
         user = self.request.user
         if user.is_authenticated():
             queryset = queryset.filter(pk=user.pk)
+        else:
+            queryset = queryset.none()
         return queryset
