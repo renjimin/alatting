@@ -1,7 +1,8 @@
 # coding=utf-8
 from rest_framework import serializers
 from alatting_website.model.poster import Poster
-from poster.serializer.resource import CategorySerializer, ImageSerializer
+from poster.serializer.resource import CategorySerializer, ImageSerializer, \
+    AddressSerializer, CategoryKeywordSerializer
 
 
 class PosterSimpleInfoSerializer(serializers.ModelSerializer):
@@ -25,10 +26,19 @@ class PosterSimpleInfoSerializer(serializers.ModelSerializer):
 
 
 class PosterSerializer(serializers.ModelSerializer):
-    main_category = CategorySerializer()
-    sub_category = CategorySerializer()
-    logo_image = ImageSerializer()
+    main_category = CategorySerializer(read_only=True)
+    main_category_id = serializers.IntegerField(write_only=True)
+
+    sub_category = CategorySerializer(read_only=True)
+    sub_category_id = serializers.IntegerField(write_only=True)
+
+    logo_image = ImageSerializer(read_only=True)
     logo_image_id = serializers.IntegerField(write_only=True)
+
+    address = AddressSerializer(read_only=True)
+
+    category_keyword = CategoryKeywordSerializer(read_only=True)
+    category_keyword_id = serializers.IntegerField(write_only=True)
 
     def get_logo_image_url(self, obj):
         return obj.logo_image.file.url if obj.logo_image else ''
@@ -36,4 +46,6 @@ class PosterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poster
         exclude = ('data', 'html', 'css', 'script')
-        read_only_fields = ('created_at', 'creator')
+        read_only_fields = ('main_category', 'sub_category',
+                            'logo_image', 'status',
+                            'address', 'created_at', 'creator')

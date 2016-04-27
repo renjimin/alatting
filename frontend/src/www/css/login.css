@@ -18,6 +18,10 @@
 	background-size: cover;
 	height: 100%;
 }
+.bar .title.title-left {
+    text-align: center;
+}
+
 .regist-content,.login-con .item{
 	background: rgba(255,255,255,0);
 	width: 90%;
@@ -56,7 +60,6 @@
 	border-bottom: 1px solid #aaa;
 	padding-top: 7%;
 }
-
 .regist-content input[type="text"],.regist-content input[type="password"]{
 	padding-left: 5%;
 	display: inline-block;
@@ -108,6 +111,7 @@
 	border-style:none;
 	color: white;
 	padding-left: 25px;
+	padding-top: 10px;
 }
 .login-con .item-checkbox a{
 	float: right;
@@ -122,8 +126,71 @@
 	margin-top: 5%;
 	border-style:none none solid none;
 }
-.list-forget{
+.forgetpassword{
+	background: #eee;
+}
+.forgetpassword input[type="text"]{
+	background: #fff;
+	width: 90%;
+	padding: 7%;
+	margin-top: 2.5%;
+	margin-left: 5%;
+}
+.forgetpassword .list-input{
+	width: 50%;
+}
+.forgetpassword .button{
+	float: right;
+	margin-top:-11%;
+    min-height: 23px;
+    line-height: 29px;
+    margin-right: 6%;
+}
+.forgetpassword .item{
+	padding-top: 14%;
+	border-style: none;
+	background: #eee;
+}
+.forgetpassword .item-input{
+	margin-top: -6%;
+	padding-top: 10px;
+}
+.forgetpassword .button-bar{
+	width: 95%;
+	margin-left: 5%;
+	margin-top:21%;
+}
+.forgetpassword .btnsure{
+    margin-left: 5%;
+    margin-top: 21%;   	
+}
+.btnsure .button{
+	min-height: 42px;
+	line-height: 42px;
+}
+.sendcode{
+	background: #eee;
+}
+.forget .list-forget{
+	padding-top: 10%;	
+}
+.sendcode .list-forget{
 	padding-top: 10%;
+}
+.sendcode .item{
+	border-style: none;	
+}
+.sendcode li{
+	background: #eee;
+}
+.sendcode .item-input{
+
+}
+.sendcode .button-bar{
+	padding-top: 5%;
+	border-radius: 16px;
+	width:90%;	
+	margin-left: 5%;
 }
 .list-forget.li.item{
 	font-size: 2.5em;
