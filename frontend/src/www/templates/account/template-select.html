@@ -1,8 +1,27 @@
-<ion-view view-title="模版选择页" class="templates-view">
+<ion-view view-title="模版选择页" class="templates-view" ng-controller="templateCtl">
 	<ion-nav-bar class="templates-top">
 		<ion-nav-back-button>返回</ion-nav-back-button>
 	</ion-nav-bar>
     <ion-content>
-
+        <ul class="templates-list">
+            <li class="template-item">
+                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-1.jpg" /></a>
+            </li>
+            <li class="template-item">
+                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-2.jpg" /></a>
+            </li>
+            <li class="template-item">
+                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-3.jpg" /></a>
+            </li>
+            <li class="template-item">
+                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-4.jpg" /></a>
+            </li>
+            <li class="template-item">
+                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-5.jpg" /></a>
+            </li>
+            <li class="template-item">
+                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-6.jpg" /></a>
+            </li>
+        </ul>
 	</ion-content>
 </ion-view>

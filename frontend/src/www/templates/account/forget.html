@@ -1,20 +1,24 @@
-<ion-view view-title="忘记密码">
-	<ion-nav-bar class="bar-light">
+<ion-view view-title="输入帐号" class="forgetpassword">
+	<ion-nav-bar class="bar-bark">
 		<ion-nav-back-button>返回</ion-nav-back-button>
 	</ion-nav-bar
     <ion-content class="padding" >
-    <div ng-controller ="forget">
+    <div ng-controller ="forgetpassword">
 	    <ul class="list list-forget">
-		    <li class="item" ng-model = "phonenumber">
-		          您的帐号已绑定手机{{username}},你可以通过手机验证码找回
+		    <li class="item">
+		          请输入您的注册的手机号/邮箱号
 		    </li>
+		    <li>
+				<input type="text" ng-model = "usernameforget" placeholder="请输入手机号/邮箱">		    
+		    </li>
+		    <li class = "list-li">
+				<input class="list-input" type="text" ng-model="code" placeholder = "请输入验证码">
+			    <a ng-click="btncode()" class="button button-balanced">获取验证码</a>
+		    </li>		    
 	    </ul>
-	    <div class="button-bar bar-balanced">
-	        <a class="button" ng-click = "btnsendsure()">确定</a>
+	    <div class="button-bar bar-balanced btnsure">
+	        <a class="button" ng-click = "btnpsure()">确定</a>
 	    </div>
-	    <div class="button-bar bar-light">
-	        <a class="button" ng-click = "">手机不能验证</a>
-	    </div>	    
     </div>
     </ion-content>
 </ion-view>
