@@ -1,5 +1,5 @@
 /**
-* Empty. Add your own CSS if you like 
+* Empty. Add your own CSS if you like
 * @constructor
 * @title
 * @author
@@ -22,7 +22,7 @@
 	background: rgba(255,255,255,0);
 	width: 90%;
 	margin-left: 5%;
-	border-style:none none solid none; 
+	border-style:none none solid none;
 	border-color: #aaa;
 }
 .login-con .item{
@@ -37,7 +37,7 @@
 	line-height: 23px;
 	float: right;
 	display: inline-block;
-	margin-top:1%;	
+	margin-top:1%;
 	font-size: 14px;
 }
 .regist-content .item input{
@@ -61,7 +61,7 @@
 	padding-left: 5%;
 	display: inline-block;
 	background: none;
-	color:#fff; 
+	color:#fff;
 	font-size: 1em;
 }
 .list-login input[type="text"],.list-login input[type="password"]{
@@ -91,8 +91,12 @@
 	margin-left:25%;
 	width: 50%;
 }
+<<<<<<< HEAD
 
 .login-con .button-bar{
+=======
+.button-bar{
+>>>>>>> aa109f4ddd05ceca51c4907036a270525af4c404
 	width: 90%;
 	margin-left: 5%;
 	margin-top:10px;
@@ -104,8 +108,13 @@
 	padding-right: 30%;
 
 }
+<<<<<<< HEAD
 .login-con .item-checkbox{
 	border-style:none; 
+=======
+.item-checkbox{
+	border-style:none;
+>>>>>>> aa109f4ddd05ceca51c4907036a270525af4c404
 	color: white;
 	padding-left: 25px;
 }
@@ -120,7 +129,7 @@
 	width: 90%;
 	margin-left: 5%;
 	margin-top: 5%;
-	border-style:none none solid none; 
+	border-style:none none solid none;
 }
 .list-forget{
 	padding-top: 10%;

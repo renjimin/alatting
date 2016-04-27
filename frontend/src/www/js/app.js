@@ -3,13 +3,13 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic'])
+var app = angular.module('starter', ['ionic']);
 app.config(function($stateProvider,$urlRouterProvider){
 	$stateProvider
 	.state('login', {
           url: "/login",
           templateUrl: "templates/account/login.html"
-    })	
+    })
 	.state('regist', {
           url: "/regist",
           templateUrl: "templates/account/regist.html"
@@ -17,10 +17,42 @@ app.config(function($stateProvider,$urlRouterProvider){
 	.state('forget', {
           url: "/forget",
           templateUrl: "templates/account/forget.html"
-    })	
-	.state('home',{
+    })
+	.state('homepages',{
+		url:"/homepage",
+		templateUrl:"templates/account/home-page.html"
+	})
+	.state('homepages.home',{
 		url:"/home",
-		templateUrl:"templates/account/home.html"
+		views:{
+			'home-page':{
+				templateUrl:"templates/account/home.html"
+			}
+		}
+	})
+	.state('homepages.search',{
+		url:"/search",
+		views:{
+			'search-page':{
+				templateUrl:"templates/account/search.html"
+			}
+		}
+	})
+	.state('homepages.type',{
+		url:"/type",
+		views:{
+			'type-page':{
+				templateUrl:"templates/account/type-list.html"
+			}
+		}
+	})
+	.state('homepages.account',{
+		url:"/account",
+		views:{
+			'account-page':{
+				templateUrl:"templates/account/account.html"
+			}
+		}
 	})
 	.state('basicinfo',{
 		url:"/basicinfo",
@@ -31,9 +63,9 @@ app.config(function($stateProvider,$urlRouterProvider){
 		templateUrl:"templates/account/template-select.html"
 	})
 	.state('api',{
-		url:"/api",		
+		url:"/api",
 		templateUrl:"templates/api.html"
-			
+
 	})
 	$urlRouterProvider.otherwise("/api");
 })
@@ -53,5 +85,5 @@ app.config(function($stateProvider,$urlRouterProvider){
       StatusBar.styleDefault();
     }
   });
-	
+
 })

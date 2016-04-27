@@ -65,7 +65,7 @@ app.controller('regist', function($scope,$http,$ionicPopup) {
 				return false;
 		}		
 		$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
-			"phonenumber":username}
+			"username":username}
 		).success(function(data){
 			 var alertPopup = $ionicPopup.alert({
 			       title: data.message,
