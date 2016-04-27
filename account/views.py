@@ -7,7 +7,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from utils.userinput import what, test_phonenumer
+from utils.userinput import what
 from utils.message import get_message
 from alatting_website.models import Person
 from django.contrib.auth.models import User
@@ -114,14 +114,30 @@ class RegisterView(APIView):
         """注册接口"""
         try:
             inputvalue = request.data['username']
-            password = request.data['password']
+            password1 = request.data['password1']
+            password2 = request.data['password2']
+            message = request.data['message']
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        if password1 != password2:
+            return Response({'detail': '两次密码输入不一致'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            password = password1
 
         ret = self.check_input_value(inputvalue)
         if ret == -1:
             return Response({'detail': '用户名不能超过30字节'}, status=status.HTTP_400_BAD_REQUEST)
         input_type, aquery = ret
+
+        msg = get_object_or_404(LoginMessage, username=inputvalue)
+        offset_naive_dt = msg.created_at.replace(tzinfo=None)
+        # 校验时间是否已过期
+        if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
+            return Response(dict(detail="Time has expired"), status=status.HTTP_401_UNAUTHORIZED)
+        if msg.message != message:  # 校验验证码是否正确
+            return Response(dict(detail="验证码不正确"), status=status.HTTP_403_FORBIDDEN)
+
         ret = self.check_user_exist(input_type, aquery)
         if ret == -1:
             return Response({'detail': '重复注册'}, status=status.HTTP_403_FORBIDDEN)

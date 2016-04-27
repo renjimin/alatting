@@ -1,4 +1,4 @@
-/**
+	/**
 * Empty. Add your own CSS if you like
 * @constructor
 * @title
@@ -91,12 +91,7 @@
 	margin-left:25%;
 	width: 50%;
 }
-<<<<<<< HEAD
-
 .login-con .button-bar{
-=======
-.button-bar{
->>>>>>> aa109f4ddd05ceca51c4907036a270525af4c404
 	width: 90%;
 	margin-left: 5%;
 	margin-top:10px;
@@ -108,13 +103,9 @@
 	padding-right: 30%;
 
 }
-<<<<<<< HEAD
 .login-con .item-checkbox{
-	border-style:none; 
-=======
-.item-checkbox{
+	border-style:none; 	
 	border-style:none;
->>>>>>> aa109f4ddd05ceca51c4907036a270525af4c404
 	color: white;
 	padding-left: 25px;
 }

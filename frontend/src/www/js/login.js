@@ -5,7 +5,8 @@
  * @return {[type]}        [description]
  */
 app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state', 
-	function($scope,$http,$ionicPopup, $state) {
+	function($scope,$http,$ionicPopup, $state,$cookieStore) {
+
 		$scope.login = function(){
 			var username = $scope.name;
 			var password = $scope.password;
@@ -32,7 +33,7 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				       title: '登陆成功',
 				       template: ''
 				   });
-				$state.go("home");
+				$state.go("homepages");
 			}).error(function(data){
 				 var alertPopup = $ionicPopup.alert({
 				       title: '登陆失败',
@@ -40,6 +41,14 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				   });
 			});
 		};
+		$scope.btnrember = function(){
+			var username = $scope.name;
+			var password = $scope.password;			
+		    $cookieStore.put("username", "password");
+		    var xx = $cookieStore.get("username");
+		    console.info(xx);
+		    alert(xx);			
+		}
 		$scope.register = function(){
 			$state.go("regist");
 		}
@@ -71,6 +80,7 @@ app.controller('regist', function($scope,$http,$ionicPopup) {
 			       title: data.message,
 			       template: ''
 			   });
+			 $savecode = data.message;
 		}).error(function(data){
 			console.log(data);
 		})	
