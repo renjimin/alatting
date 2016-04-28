@@ -21,7 +21,12 @@
 .bar .title.title-left {
     text-align: center;
 }
-
+.paraclass{
+	background: #ddd;
+}
+.Sparaevent{
+	background: rgb(33,138,57);
+}
 .regist-content,.login-con .item{
 	background: rgba(255,255,255,0);
 	width: 90%;
@@ -36,13 +41,35 @@
 	border-style:none none solid none; 
 	border-color: #aaa;
 }
-.login-con,.regist-content .button-balanced{
+.login-con .button-balanced{
 	min-height: 10px;
 	line-height: 23px;
 	float: right;
 	display: inline-block;
 	margin-top:1%;
 	font-size: 14px;
+	background: rgb(34,140,58);
+}
+.rgister-bg .button-balanced{
+	min-height: 10px;
+	line-height: 23px;
+	float: right;
+	display: inline-block;
+	margin-top:1%;
+	font-size: 14px;
+	background: rgb(34,140,58);
+}
+.regist-content .button-bar{
+	background: rgb(34,140,58);	
+}
+.regist-content .button-dark{
+	min-height: 10px;
+	line-height: 23px;
+	float: right;
+	display: inline-block;
+	margin-top:1%;
+	font-size: 14px;
+	background: rgb(171,171,171);	
 }
 .regist-content .item input{
 	font-size: 1.3em;
@@ -150,6 +177,12 @@
 	padding-top: 4%;
 	border-style: none;
 	background: #eee;
+}
+.forgetpassword .button-dark{
+	background: rgb(171,171,171);
+}
+.forgetpassword  .button-balanced{
+	background: rgb(34,140,58);
 }
 .forgetpassword .item-input{
 	margin-top: -6%;

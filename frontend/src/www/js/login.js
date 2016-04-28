@@ -80,6 +80,7 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 	   var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
 	   var passCode = true;
 	   var registCode = '';
+	   $scope.isShow  = true;
 	$scope.btncode = function(){
 		var username = $scope.username;
 		var passUser = '';
@@ -102,6 +103,8 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 			   return false;			
 		}
 		if (passCode==true) {
+			$scope.isShow = false;
+			$scope.ishide = true;
 	       	second = 59,
 		    timePromise = undefined;
 			timePromise = $interval(function(){
@@ -113,11 +116,13 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 			    $scope.paraclass = "but_null";
 			    $scope.paraevent = true;
 		  	}else{
-			    $scope.paracont = second + "秒后可重发";
+			    $scope.paracont = "获取验证码"+"("+second+")";
 			    $scope.paraclass = "not but_null";
 			    second--;
 			    if (second==0) {
 			    	passCode = true;
+			    	$scope.isShow = true;
+					$scope.ishide = false;
 			    }else{
 			    	passCode = false;
 			    };
@@ -225,10 +230,12 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$interval) {
 	var code = '';
 	var username = '';
+	$scope.isshow= true;
 	$scope.paracont = "获取验证码";
     $scope.paraclass = "but_null";
     $scope.paraevent = true;	
     var passCode = true;
+    $scope.isShow = true;
 	$scope.btncode = function(){
 		username = $scope.usernameforget;
 		if (username == undefined) {
@@ -249,11 +256,14 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			    $scope.paraclass = "but_null";
 			    $scope.paraevent = true;
 		  	}else{
-			    $scope.paracont = second + "秒后可重发";
+
+			    $scope.paracont = "获取验证码"+"("+second+")";
 			    $scope.paraclass = "not but_null";
 			    second--;
 			    if (second==0) {
 			    	passCode = true;
+					$scope.isShow = true;
+					$scope.ishide = false;			    	
 			    }else{
 			    	passCode = false;
 			    };
@@ -262,6 +272,8 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			},1000,100);			
 		};
 		if (passCode == true) {
+			$scope.isShow = false;
+			$scope.ishide = true;			
 			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
 				"username":username}
 			).success(function(data){
@@ -307,7 +319,7 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			}).error(function(){
 				/*验证失败*/
 			 var alertPopup = $ionicPopup.alert({
-			       title: '验证码填写错误.请重新填写验证码',
+			       title: '账号与验证码不匹配',
 			       template: ''
 			   });	
 			})
