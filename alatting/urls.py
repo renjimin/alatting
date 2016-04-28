@@ -34,7 +34,7 @@ if settings.DEBUG:
 # 以下是API路由配置
 urlpatterns += [
     url(r'^api/v1/account/', include('account.urls', namespace='account')),
-    url(r'^api/v1/poster/', include('poster.urls', namespace='poster'))
+    url(r'^api/v1/poster/', include('poster.urls', namespace='poster')),
 
 ]
 
