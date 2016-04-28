@@ -65,8 +65,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 	})
 	.state('basicinfo',{
 		url:"/basicinfo",
-		templateUrl:"templates/account/basic-info.html",
-		params:{'data':null}
+		templateUrl:"templates/account/basic-info.html"
 	})
 	.state('templateselect',{
 		url:"/templateselect",
@@ -78,7 +77,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 
 	})
 	$urlRouterProvider.otherwise("/api");
-	
+
 	$ionicConfigProvider.platform.ios.tabs.position('bottom');
 	$ionicConfigProvider.platform.android.tabs.style('standard');
 	$ionicConfigProvider.platform.android.tabs.position('bottom');

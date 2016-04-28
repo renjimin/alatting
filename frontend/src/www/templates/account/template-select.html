@@ -3,25 +3,16 @@
 		<ion-nav-back-button>返回</ion-nav-back-button>
 	</ion-nav-bar>
     <ion-content>
+		<div class="empty-info" ng-if="isTemplatesEmpty">
+			获取数据失败，请稍后重试！
+		</div>
         <ul class="templates-list">
-            <li class="template-item">
-                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-1.jpg" /></a>
+            <li class="template-item" ng-repeat="template in templates">
+                <a href="javascript:void(0);" ng-click="saveTemplate({{template.id}})"><img src="{{template.image_url}}" /></a>
             </li>
-            <li class="template-item">
+            <!--<li class="template-item">
                 <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-2.jpg" /></a>
-            </li>
-            <li class="template-item">
-                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-3.jpg" /></a>
-            </li>
-            <li class="template-item">
-                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-4.jpg" /></a>
-            </li>
-            <li class="template-item">
-                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-5.jpg" /></a>
-            </li>
-            <li class="template-item">
-                <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-6.jpg" /></a>
-            </li>
+            </li>-->
         </ul>
 	</ion-content>
 </ion-view>
