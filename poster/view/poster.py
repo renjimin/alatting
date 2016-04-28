@@ -12,7 +12,7 @@ from poster.serializer.resource import AddressSerializer
 
 
 def set_dev_request_user(request):
-    if settings.IS_FRONTEND_DEV:
+    if settings.IS_FRONTEND_DEV and isinstance(request.user, AnonymousUser):
         setattr(request, 'user', User.objects.filter(username='admin').first())
         pass
 
@@ -72,9 +72,9 @@ class PosterListView(ListCreateAPIView):
         address_instance = address_serializer.save()
 
         serializer.save(
-            creator=self.request.user,
+            creator_id=self.request.user.id,
             status=Poster.STATUS_DRAFT,
-            address=address_instance
+            address_id=address_instance.id
         )
 
 
@@ -93,6 +93,9 @@ class PosterPageListView(ListCreateAPIView):
     queryset = PosterPage.objects.all()
     serializer_class = PosterPageSerializer
 
+    def post(self, request, *args, **kwargs):
+        return super(PosterPageListView, self).post(request, *args , **kwargs)
+
     def perform_create(self, serializer):
         poster_id = self.request.data.get('poster_id')
         template_id = self.request.data.get('template_id')
@@ -105,5 +108,5 @@ class PosterPageListView(ListCreateAPIView):
             index = 0
         serializer.save(
             index=index,
-            name="%s_%s" % (template_id, index)
+            name="p%s_t%s_i%s" % (poster_id, template_id, index)
         )
