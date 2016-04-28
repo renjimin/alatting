@@ -8,9 +8,9 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 	$scope.submitform = function(){
 		
 		
-			var postname = $.trim($('.post-name').val());
 				var flag = true;
 //	    		var basiclogo = $.trim($('#logoval').val());
+//				var postname = $scope.postname;
 				var postname = $.trim($('.post-name').val());
 				var postdesc = $.trim($('.post-desc').val());
 	    		var postemail = $.trim($('.post-email').val());
@@ -89,7 +89,6 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 						if(postemail.length != 0){
 							var reg=/^\w{3,}@\w+(\.\w+)+$/;   
         					if(!reg.test(postemail)){
-        						/*alert("email格式不正确！")*/
         						
 							var alertPopup = $ionicPopup.alert({
 							title: '提示',
@@ -170,9 +169,28 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 						}
 				}
 	    		if(flag){
-	    			$(".btnform").attr("action","后台地址");
+	    			/*$(".btnform").attr("action","后台地址");
 	    			$(".btnform").attr("method",'post');
-	    			$(".btnform").submit();
+	    			$(".btnform").submit();*/
+	    			$ionicPopup.alert({
+		               title: '',
+		               template: '提交成功',
+		               okType:'button-light'
+		           }).then(function(){
+		           		var params = {};
+		           		//params.category_keyword_id=$sateParams.data.keywordId;
+				        //params.main_category_id=$sateParams.data.catId;
+				        //params.sub_category_id=$sateParams.data.subCatId;
+		           		params.logo_image_id='';
+				        params.unique_name= postname;
+				        params.logo_title= postname;
+				        params.short_description= postdesc;
+				        params.phone= posttelephone;
+				        params.mobile= postphone;
+				        params.email= postemail;
+				        params.address= postaddress;
+						//$state.go('templateselect',{data:params});		           	
+		           });
 	    		}
 		
 		

@@ -8,24 +8,19 @@
 				<span>海报名称</span>
 	        </li>
 	        <li class="item basic-info-textarea">
-	         <textarea class="post-name"></textarea>
+	         <textarea class="post-name" ng-model="basicinfo.postname"></textarea>
 	        </li>
 	        <li class="item">
 	          	<i class="ion-document-text basic-font"></i><span>海报简述</span>
 	          	<span class="basic-right">50字内</span>
 	        </li>
 	        <li class="item basic-info-textarea info-con-height">
-	           <textarea class="post-desc"></textarea>
+	           <textarea class="post-desc" ng-model="basicinfo.postdesc"></textarea>
 	        </li>
 	        <li class="item basic-text">
 			<label class="item item-input">
 			  <span class="input-label"><i class="basic-logo">L</i>海报LOGO</span>
 			  <div class="basic-file clearfix">
-			  	
-			  	<!--<button class="button button-light basic-btn-blue">
-			  		<i class="ion-plus-circled"></i><span>上传</span>
-			  	</button>-->
-			  
 			  
 			<div id="uploader-demo clearfix">
 			<!--用来存放item-->
@@ -45,7 +40,7 @@
 			<label class="item item-input">
 			  <span class="input-label"><i class="ion-ios-email-outline basic-font"></i>电子邮件</span>
 			  <div class="basic-file">
-			  	<input type="email" class="post-email"/>
+			  	<input type="email" class="post-email" ng-model="basicinfo.postemail" required/>
 			  </div>
 			</label>
 	        </li>
@@ -54,7 +49,7 @@
 			<label class="item item-input">
 			  <span class="input-label"><i class="ion-ios-telephone-outline basic-font"></i>电话</span>
 			  <div class="basic-file">
-			  	<input type="text" class="post-telephone"/>
+			  	<input type="text" class="post-telephone" ng-model="basicinfo.posttelephone"/>
 			  </div>
 			</label>
 	        </li>
@@ -63,7 +58,7 @@
 			<label class="item item-input">
 			  <span class="input-label"><i class="ion-android-phone-portrait basic-font"></i>手机</span>
 			  <div class="basic-file">
-			  	<input type="text" class="post-phone"/>
+			  	<input type="text" class="post-phone" ng-model="basicinfo.postphone"/>
 			  </div>
 			</label>
 	        </li>
@@ -72,7 +67,7 @@
 			<label class="item item-input">
 			  <span class="input-label"><i class="ion-android-home basic-font"></i>地址</span>
 			  <div class="basic-file">
-			  	<input type="text" class="post-address"/>
+			  	<input type="text" class="post-address" ng-model="basicinfo.postaddress"/>
 			  </div>
 			</label>
 	        </li>
