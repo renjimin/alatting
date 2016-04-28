@@ -167,7 +167,7 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
-    """用户登陆，支持用户名登陆、邮箱登陆、手机号登陆"""
+    """用户登陆，支持邮箱登陆、手机号登陆"""
     permission_classes = ()
 
     def post(self, request, **kwargs):
