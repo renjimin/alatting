@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
     RetrieveUpdateAPIView)
@@ -7,6 +8,11 @@ from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer)
 from poster.serializer.resource import AddressSerializer
+
+
+def set_dev_request_user(request):
+    if isinstance(request.user, AnonymousUser):
+        setattr(request, 'user', User.objects.filter(username='admin').first())
 
 
 class PosterSimpleInfoListView(ListAPIView):
@@ -49,6 +55,10 @@ class PosterListView(ListCreateAPIView):
     queryset = Poster.objects.filter(
         status=Poster.STATUS_PUBLISHED
     ).order_by('-created_at')
+
+    def post(self, request, *args, **kwargs):
+        set_dev_request_user(request)
+        return super(PosterListView, self).post(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         address = self.request.data.get('address', None)
