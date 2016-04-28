@@ -7,6 +7,8 @@ import datetime
 
 DEBUG = True
 
+IS_FRONTEND_DEV = False
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '!0wb8m-o^pew*o)hyho^zzy7f8m-94v%)4cxn4sa%e!gmp3+vw'
@@ -165,6 +167,18 @@ EMAIL_HOST_USER = 'service@yunye123.com'
 EMAIL_HOST_PASSWORD = 'Yunye0128'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 REGISTRATION_EMAIL_HTML = False
+
+
+# 上传文件接口配置项
+UPLOAD_SUPPORT_PAGE_KEY = [
+    'logo', 'avatar'
+]
+
+UPLOAD_ACCEPT_FILE_TYPES = {
+    'image': ['jpg', 'jpeg', 'png'],
+    'video': ['mp4', 'ogv', 'webm'],
+    'audio': ['mp3']
+}
 
 
 # import djcelery
