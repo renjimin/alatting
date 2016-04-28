@@ -158,7 +158,6 @@ class RegisterView(APIView):
         user.set_password(password)
         if input_type == 'email':
             user.email = inputvalue
-            user.is_active = False
             resdata['active_url'] = ""  # TODO 增加邮箱的激活地址
         if input_type == 'phonenumber':
             Person.objects.create(phonenumber=inputvalue, user=user)
