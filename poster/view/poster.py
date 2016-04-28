@@ -1,12 +1,20 @@
 # coding=utf-8
+from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
     RetrieveUpdateAPIView)
+from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer)
 from poster.serializer.resource import AddressSerializer
+
+
+def set_dev_request_user(request):
+    if settings.IS_FRONTEND_DEV and isinstance(request.user, AnonymousUser):
+        setattr(request, 'user', User.objects.filter(username='admin').first())
+        pass
 
 
 class PosterSimpleInfoListView(ListAPIView):
@@ -50,6 +58,10 @@ class PosterListView(ListCreateAPIView):
         status=Poster.STATUS_PUBLISHED
     ).order_by('-created_at')
 
+    def post(self, request, *args, **kwargs):
+        set_dev_request_user(request)
+        return super(PosterListView, self).post(request, *args, **kwargs)
+
     def perform_create(self, serializer):
         address = self.request.data.get('address', None)
         if not address:
@@ -57,11 +69,12 @@ class PosterListView(ListCreateAPIView):
 
         address_serializer = AddressSerializer(data={'address1': address})
         address_serializer.is_valid(True)
-        address_serializer.save()
+        address_instance = address_serializer.save()
 
         serializer.save(
-            creator=self.request.user,
-            status=Poster.STATUS_DRAFT
+            creator_id=self.request.user.id,
+            status=Poster.STATUS_DRAFT,
+            address_id=address_instance.id
         )
 
 
@@ -80,6 +93,9 @@ class PosterPageListView(ListCreateAPIView):
     queryset = PosterPage.objects.all()
     serializer_class = PosterPageSerializer
 
+    def post(self, request, *args, **kwargs):
+        return super(PosterPageListView, self).post(request, *args , **kwargs)
+
     def perform_create(self, serializer):
         poster_id = self.request.data.get('poster_id')
         template_id = self.request.data.get('template_id')
@@ -92,5 +108,5 @@ class PosterPageListView(ListCreateAPIView):
             index = 0
         serializer.save(
             index=index,
-            name="%s_%s" % (template_id, index)
+            name="p%s_t%s_i%s" % (poster_id, template_id, index)
         )

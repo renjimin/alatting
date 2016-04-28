@@ -152,8 +152,8 @@ class PosterPage(models.Model):
     index = models.SmallIntegerField(default=0)
     name = models.CharField(max_length=64, default='')
 
-    class Meta:
-        unique_together = ('poster', 'index')
+    # class Meta:
+    # unique_together = ('poster', 'index')
 
     def __str__(self):
         return "{:s}".format(self.name)

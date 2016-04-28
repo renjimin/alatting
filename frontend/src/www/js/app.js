@@ -71,7 +71,8 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 	})
 	.state('templateselect',{
 		url:"/templateselect",
-		templateUrl:"templates/account/template-select.html"
+		templateUrl:"templates/account/template-select.html",
+		params:{'data':null}
 	})
 	.state('api',{
 		url:"/api",
