@@ -1,15 +1,14 @@
-app.controller('basicinfo',function($scope,$ionicPopup){
-	$scope.basicinfo.postname="sasdasdads";
+app.controller('basicinfoCtl',function($scope,$ionicPopup,$stateParams){
 	
 	$scope.submitform = function(){
 
-		var postname = $scope.basicinfo.postname;
-		var postdesc = $scope.basicinfo.postdesc;
-	    var postemail = $scope.basicinfo.postemail;
-	    var posttelephone = $scope.basicinfo.posttelephone;
-	    var postphone = $scope.basicinfo.postphone;
-	    var postaddress = $scope.basicinfo.postaddress;
-	    alert($scope.basicinfo.postname);
+		var postname = $scope.postname;
+		var postdesc = $scope.postdesc;
+	    var postemail = $scope.postemail;
+	    var posttelephone = $scope.posttelephone;
+	    var postphone = $scope.postphone;
+	    var postaddress = $scope.postaddress;
+	    alert($scope.postname);
 		if (postname==undefined) {
 				 	var alertPopup = $ionicPopup.alert({
 						title: '提示',
