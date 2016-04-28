@@ -18,8 +18,14 @@ class CategoryKeywordSerializer(serializers.ModelSerializer):
 
 
 class TemplateSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    def get_image_url(self, obj):
+        return obj.image.file.name
+
     class Meta:
         model = Template
+        fields = ('id', 'name', 'image_url')
 
 
 class ImageSerializer(serializers.ModelSerializer):
