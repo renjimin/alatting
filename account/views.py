@@ -177,13 +177,14 @@ class LoginView(APIView):
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
-        username = inputvalue
         if input_type == "phonenumber":
             person = get_object_or_404(Person, phonenumber=inputvalue)
             username = person.user.username
         elif input_type == "email":
             user = get_object_or_404(User, email=inputvalue)
             username = user.username
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
