@@ -167,6 +167,18 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 REGISTRATION_EMAIL_HTML = False
 
 
+# 上传文件接口配置项
+UPLOAD_SUPPORT_PAGE_KEY = [
+    'logo', 'avatar'
+]
+
+UPLOAD_ACCEPT_FILE_TYPES = {
+    'image': ['jpg', 'jpeg', 'png'],
+    'video': ['mp4', 'ogv', 'webm'],
+    'audio': ['mp3']
+}
+
+
 # import djcelery
 # djcelery.setup_loader()
 

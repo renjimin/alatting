@@ -19,6 +19,7 @@ from .email import send_verify_email
 from .models import LoginMessage
 from .serializers import AccountProfileSerializer
 
+
 def not_found(request):
     return JsonResponse({'detail': u'Page Not Found'}, status=404)
 
@@ -78,6 +79,7 @@ class CheckMessageView(APIView):
                 return Response(dict(detail="Authentication failure"),
                                 status=status.HTTP_401_UNAUTHORIZED)
 
+
 class RegisterView(APIView):
     """
     注册接口,支持手机注册和邮箱注册，手机注册之前已校验验证码，邮箱注册成功返回激活邮件地址
@@ -99,7 +101,7 @@ class RegisterView(APIView):
                 aquery = {'email': username}
             elif input_type == "phonenumber":  # 如果用户是用手机号注册的
                 aquery = {'phonenumber': username}
-        return [ input_type, aquery ]
+        return [input_type, aquery]
 
     def check_user_exist(self, input_type, aquery):
         """判断用户是否重复注册"""
@@ -148,11 +150,10 @@ class RegisterView(APIView):
         if ret == -1:
             return Response({'detail': '重复注册'}, status=status.HTTP_403_FORBIDDEN)
 
-        randstr = lambda: str(uuid.uuid1()).split('-')[0]
         if input_type == "username":  # 用用户名注册的直接使用用户名加用户
             username = inputvalue
         else:  # 用邮箱或者手机注册的生成一个用户名
-            username = '{}_{}'.format(inputvalue, randstr())
+            username = '{}_{}'.format(inputvalue, str(uuid.uuid1()).split('-')[0])
         resdata = {'detail': 'Register successful'}
         user = User.objects.create(username=username)
         user.set_password(password)
@@ -197,6 +198,7 @@ class LoginView(APIView):
         logout(request)
         return Response({'detail': 'Logout successful'})
 
+
 class ResetPasswordView(APIView):
     """重置密码"""
     permission_classes = ()
@@ -224,6 +226,7 @@ class ResetPasswordView(APIView):
         user.set_password(password)
         user.save()
         return Response({'detail': 'Reset successful'})
+
 
 class ProfileView(ListAPIView):
     model = User
