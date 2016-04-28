@@ -366,7 +366,7 @@ class HistoryStatistics(Statistics):
 class PosterLike(models.Model):
     id = BigAutoField(primary_key=True)
     poster = BigForeignKey('Poster', related_name='poster_likes')
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, related_name='poster_likes_creator')
     liked = models.BooleanField(default=True)
 
     class Meta:
@@ -451,7 +451,7 @@ class PosterFavorites(models.Model):
 class PosterSubscribe(models.Model):
     id = BigAutoField(primary_key=True)
     poster = BigForeignKey('Poster', related_name='poster_subscriptions')
-    follower = models.ForeignKey(User)
+    follower = models.ForeignKey(User, related_name='poster_subscriptions_follower')
     subscribed = models.BooleanField(default=True)
 
     class Meta:

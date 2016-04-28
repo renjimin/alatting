@@ -21,7 +21,8 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     })
 	.state('forgetpwd', {
           url: "/forgetpwd",
-          templateUrl: "templates/account/forget-password.html"
+          templateUrl: "templates/account/forget-password.html",
+          params:{'data':null}
     })
 	.state('sendcode', {
           url: "/sendcode",
