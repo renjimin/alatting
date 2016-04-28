@@ -1,8 +1,8 @@
 # coding=utf-8
 from rest_framework import serializers
-from alatting_website.model.poster import Poster
+from alatting_website.model.poster import Poster, PosterPage
 from poster.serializer.resource import CategorySerializer, ImageSerializer, \
-    AddressSerializer, CategoryKeywordSerializer
+    AddressSerializer, CategoryKeywordSerializer, TemplateSerializer
 
 
 class PosterSimpleInfoSerializer(serializers.ModelSerializer):
@@ -49,3 +49,15 @@ class PosterSerializer(serializers.ModelSerializer):
         read_only_fields = ('main_category', 'sub_category',
                             'logo_image', 'status',
                             'address', 'created_at', 'creator')
+
+
+class PosterPageSerializer(serializers.ModelSerializer):
+    poster = PosterSerializer(read_only=True)
+    poster_id = serializers.IntegerField(write_only=True)
+
+    template = TemplateSerializer(read_only=True)
+    template_id = serializers.IntegerField(write_only=True)
+
+    class Meta:
+        model = PosterPage
+        read_only_fields = ('id', 'poster', 'template', 'index', 'name')

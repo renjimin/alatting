@@ -19,6 +19,7 @@ from .email import send_verify_email
 from .models import LoginMessage
 from .serializers import AccountProfileSerializer
 
+
 def not_found(request):
     return JsonResponse({'detail': u'Page Not Found'}, status=404)
 
@@ -78,6 +79,7 @@ class CheckMessageView(APIView):
                 return Response(dict(detail="Authentication failure"),
                                 status=status.HTTP_401_UNAUTHORIZED)
 
+
 class RegisterView(APIView):
     """
     注册接口,支持手机注册和邮箱注册，手机注册之前已校验验证码，邮箱注册成功返回激活邮件地址
@@ -99,7 +101,7 @@ class RegisterView(APIView):
                 aquery = {'email': username}
             elif input_type == "phonenumber":  # 如果用户是用手机号注册的
                 aquery = {'phonenumber': username}
-        return [ input_type, aquery ]
+        return [input_type, aquery]
 
     def check_user_exist(self, input_type, aquery):
         """判断用户是否重复注册"""
@@ -148,17 +150,15 @@ class RegisterView(APIView):
         if ret == -1:
             return Response({'detail': '重复注册'}, status=status.HTTP_403_FORBIDDEN)
 
-        randstr = lambda: str(uuid.uuid1()).split('-')[0]
         if input_type == "username":  # 用用户名注册的直接使用用户名加用户
             username = inputvalue
         else:  # 用邮箱或者手机注册的生成一个用户名
-            username = '{}_{}'.format(inputvalue, randstr())
+            username = '{}_{}'.format(inputvalue, str(uuid.uuid1()).split('-')[0])
         resdata = {'detail': 'Register successful'}
         user = User.objects.create(username=username)
         user.set_password(password)
         if input_type == 'email':
             user.email = inputvalue
-            user.is_active = False
             resdata['active_url'] = ""  # TODO 增加邮箱的激活地址
         if input_type == 'phonenumber':
             Person.objects.create(phonenumber=inputvalue, user=user)
@@ -167,7 +167,7 @@ class RegisterView(APIView):
 
 
 class LoginView(APIView):
-    """用户登陆，支持用户名登陆、邮箱登陆、手机号登陆"""
+    """用户登陆，支持邮箱登陆、手机号登陆"""
     permission_classes = ()
 
     def post(self, request, **kwargs):
@@ -177,13 +177,14 @@ class LoginView(APIView):
         except KeyError:
             return Response(status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
-        username = inputvalue
         if input_type == "phonenumber":
             person = get_object_or_404(Person, phonenumber=inputvalue)
             username = person.user.username
         elif input_type == "email":
             user = get_object_or_404(User, email=inputvalue)
             username = user.username
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
@@ -197,6 +198,7 @@ class LoginView(APIView):
     def delete(self, request):
         logout(request)
         return Response({'detail': 'Logout successful'})
+
 
 class ResetPasswordView(APIView):
     """重置密码"""
@@ -225,6 +227,7 @@ class ResetPasswordView(APIView):
         user.set_password(password)
         user.save()
         return Response({'detail': 'Reset successful'})
+
 
 class ProfileView(ListAPIView):
     model = User

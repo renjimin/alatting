@@ -126,7 +126,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
     }
     /**创建海报关键词提交*/
     $scope.confirmKeywords = function(event,keywordId,catId,subCatId){
-
+        document.querySelector('#type-model').classList.remove("open");
         $state.go('basicinfo',{data:{'keywordId':keywordId,'catId':catId,'subCatId':subCatId}});
     }
 

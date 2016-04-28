@@ -13,7 +13,9 @@ class OverwriteStorage(FileSystemStorage):
 
 
 def get_file_path(instance, field_name, path, filename):
-    old_file = getattr(instance, '_%s_' % field_name)
+    old_file = getattr(instance,
+                       '_%s_' % field_name,
+                       getattr(instance, field_name))
     ext = ''
     comps = filename.split('.')
     if len(comps) > 1:
@@ -88,3 +90,7 @@ def get_script_path(instance, filename):
     path = 'html5/%Y/%m/%d'
     field_name = 'script'
     return get_file_path(instance, field_name, path, filename)
+
+
+def get_file_ext_name(file_name):
+    return file_name.split('.')[-1] if '.' in file_name else ''

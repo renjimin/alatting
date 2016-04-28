@@ -21,7 +21,8 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     })
 	.state('forgetpwd', {
           url: "/forgetpwd",
-          templateUrl: "templates/account/forget-password.html"
+          templateUrl: "templates/account/forget-password.html",
+          params:{'data':null}
     })
 	.state('sendcode', {
           url: "/sendcode",
@@ -65,15 +66,18 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 	})
 	.state('basicinfo',{
 		url:"/basicinfo",
-		templateUrl:"templates/account/basic-info.html"
+		templateUrl:"templates/account/basic-info.html",
+		params:{'data':null}
 	})
 	.state('templateselect',{
 		url:"/templateselect",
-		templateUrl:"templates/account/template-select.html"
+		templateUrl:"templates/account/template-select.html",
+		params:{'data':null}
 	})
 	.state('poster',{
 		url:"/poster",
-		templateUrl:"templates/poster/poster.html"
+		templateUrl:"templates/poster/poster.html",
+		params:{'data':null}
 
 	})
 	.state('api',{

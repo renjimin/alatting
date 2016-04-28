@@ -1,14 +1,20 @@
 /**
- * [description]
+ * 登陆 localstorage 暂时有问题
  * @param  {[type]} $scope [description]
  * @param  {[type]} $http) {	$scope.loading [description]
  * @return {[type]}        [description]
  */
 app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state', 
-	function($scope,$http,$ionicPopup, $state,$cookieStore) {
-		var username ="1232";
+	function($scope,$http,$ionicPopup, $state,$cookies) {
+		$scope.username = localStorage.getItem("username");	
+		$scope.password = localStorage.getItem("password");
+		if ($scope.username==null) {
+			$scope.isSelected = false;
+		}else{
+			$scope.isSelected = true;
+		}
 		$scope.login = function(){
-			var username = $scope.name;
+			var username = $scope.username;
 			var password = $scope.password;
 			if (username==undefined) {
 				 var alertPopup = $ionicPopup.alert({
@@ -42,32 +48,42 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 			});
 		};
 		$scope.btnrember = function(){
-			var username = $scope.name;
-			var password = $scope.password;			
-		    /*$cookieStore.put("username", "password");
-		    var xx = $cookieStore.get("username");
-		    console.info(xx);
-		    alert(xx);*/
-		    showStorage(username,password);			
+			if ($scope.isSelected == true) {
+				localStorage.clear();
+				var username = $scope.username;
+				var password = $scope.password;
+				localStorage.setItem("username",username);
+				localStorage.setItem("password",password);
+			}else{
+				localStorage.clear();
+			};
 		}
 		$scope.register = function(){
 			$state.go("regist");
 		}
-		$scope.forget = function(){
+		$scope.forgetpsd = function(){
 			$state.go("forget");
 		}
 	}
-
 ]);
 /**
- * [description]
+ * 注册
  * @param  {[type]} $scope [description]
  * @param  {[type]} $http) {	$scope.btncode [description]
  * @return {[type]}        [description]
  */
-app.controller('regist', function($scope,$http,$ionicPopup,$state) {
+app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
+	   $scope.paracont = "获取验证码";
+	   $scope.paraclass = "but_null";
+	   $scope.paraevent = true;
+	   var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	   var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+	   var passCode = true;
+	   var registCode = '';
+	   $scope.isShow  = true;
 	$scope.btncode = function(){
 		var username = $scope.username;
+		var passUser = '';
 		if (username==undefined) {
 			var alertPopup = $ionicPopup.alert({
 				title: '用户名为空',
@@ -75,7 +91,46 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state) {
 			});
 				return false;
 		}
-		//checkEmail(username);		
+		if (PHONE_REGEXP.test(username) || EMAIL_REGEXP.test(username)) {
+
+			 //return false;
+		}
+		else{
+			 var alertPopup = $ionicPopup.alert({
+			       title: '手机号码或邮箱号格式不对',
+			       template: ''
+			   });
+			   return false;			
+		}
+		if (passCode==true) {
+			$scope.isShow = false;
+			$scope.ishide = true;
+	       	second = 59,
+		    timePromise = undefined;
+			timePromise = $interval(function(){
+		  	if(second<=0){
+			    $interval.cancel(timePromise);
+			    timePromise = undefined;
+			    second = 60;
+			    $scope.paracont = "重发验证码";
+			    $scope.paraclass = "but_null";
+			    $scope.paraevent = true;
+		  	}else{
+			    $scope.paracont = "获取验证码"+"("+second+")";
+			    $scope.paraclass = "not but_null";
+			    second--;
+			    if (second==0) {
+			    	passCode = true;
+			    	$scope.isShow = true;
+					$scope.ishide = false;
+			    }else{
+			    	passCode = false;
+			    };
+			    
+		  	}
+			},1000,100);			
+		};				
+		if (passCode ==true) {
 		$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
 			"username":username}
 		).success(function(data){
@@ -83,19 +138,22 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state) {
 			       title: data.message,
 			       template: ''
 			   });
-			 $savecode = data.message;
+			 registCode = data.message;
 		}).error(function(data){
 			console.log(data);
-		})	
-		alert(data.message);
+		})
+	}else{
+			 var alertPopup = $ionicPopup.alert({
+			       title: '您获取验证码太频繁了,请稍后再试	',
+			       template: ''
+			   });
+	};	
 	};	
 	$scope.regist = function(){
-		//window.location.href="login.html";
 		var username = $scope.username;
 		var password = $scope.firstpassword;
 		var againpassword = $scope.secondpassword;
-		var savecode = $scope.savecode;
-		var code = $scope.writecode;
+		var code = $scope.savecode;
 		if (username==undefined) {
 			var alertPopup = $ionicPopup.alert({
 				title: '用户名为空',
@@ -103,7 +161,7 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state) {
 			});
 				return false;
 		}		
-				if(savecode == undefined){
+		if(code == undefined){
 			var alertPopup = $ionicPopup.alert({
 				title: '验证码为空',
 				template: ''
@@ -116,7 +174,14 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state) {
 				template: ''
 				});
 				return false;				
-			}			
+			}
+		if (registCode !=code) {
+			 var alertPopup = $ionicPopup.alert({
+			       title: '验证码填写错误',
+			       template: ''
+			   });
+			 return false;			
+		};				
 		if (password != againpassword) {
 			 var alertPopup = $ionicPopup.alert({
 			       title: '两次输入的密码不一致',
@@ -126,7 +191,9 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state) {
 		}		
 		$http.post(API_CONFIG.root +"/api/v1/account/register",{
 			"username": username,
-			"password": password}
+			"password1": password,
+			"password2":againpassword,
+			"message":code}
 		).success(function(data){
 			console.log(data);
 			 var alertPopup = $ionicPopup.alert({
@@ -155,70 +222,151 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state) {
 		}	
 });
 /**
- * [description]
- * @param  {[type]} $scope [description]
- * @param  {[type]} $http) {	$scope.btnfsure [description]
- * @return {[type]}        [description]
- */
-app.controller('forget', function($scope,$http) {
-	$scope.btnsendsure = function(){
-		var username ="13215641456";
-		$http.post(API_CONFIG.root + "/api/v1/account/send_message",{
-			"phonenumber":username}
-		).success(function(data){
-			console.log(data);
-		}).error(function(data){
-			console.log(data);
-		})			
-		$state.go("forget-password");
-	}
-});
-/**
- * [description]
+ * 忘记密码填写验证码
  * @param  {[type]} $scope [description]
  * @param  {[type]} $http) {	$scope.btnsendsure [description]
  * @return {[type]}        [description]
  */
-app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state) {
+app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$interval) {
+	var code = '';
+	var username = '';
+	$scope.isshow= true;
+	$scope.paracont = "获取验证码";
+    $scope.paraclass = "but_null";
+    $scope.paraevent = true;	
+    var passCode = true;
+    $scope.isShow = true;
+	$scope.btncode = function(){
+		username = $scope.usernameforget;
+		if (username == undefined) {
+			 var alertPopup = $ionicPopup.alert({
+			       title: '用户名为空',
+			   });
+			   return false;	
+		};
+		if (passCode==true) {
+	       	second = 59,
+		    timePromise = undefined;
+			timePromise = $interval(function(){
+		  	if(second<=0){
+			    $interval.cancel(timePromise);
+			    timePromise = undefined;
+			    second = 60;
+			    $scope.paracont = "重发验证码";
+			    $scope.paraclass = "but_null";
+			    $scope.paraevent = true;
+		  	}else{
 
+			    $scope.paracont = "获取验证码"+"("+second+")";
+			    $scope.paraclass = "not but_null";
+			    second--;
+			    if (second==0) {
+			    	passCode = true;
+					$scope.isShow = true;
+					$scope.ishide = false;			    	
+			    }else{
+			    	passCode = false;
+			    };
+			    
+		  	}
+			},1000,100);			
+		};
+		if (passCode == true) {
+			$scope.isShow = false;
+			$scope.ishide = true;			
+			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
+				"username":username}
+			).success(function(data){
+				 var alertPopup = $ionicPopup.alert({
+				       title: data.message,
+				       template: ''
+				   });
+				 code = data.message;
+				 console.log(data);
+			}).error(function(data){
+				console.log(data);
+			})	
+		}else{
+			 var alertPopup = $ionicPopup.alert({
+			       title: '您获取验证码太频繁了,请稍后再试	',
+			       template: ''
+			   });			
+		};				
+	}
 	$scope.btnpsure = function(){
-		/*验证验证码是否填写正确*/
-		$http.post("",data).success(function(data){
-			/*验证通过处理*/
-			$state.go("forgetpwd");			
-		}).error(function(data){
-			/*验证失败处理*/
+		username = $scope.usernameforget;
+		var writecode = $scope.code;
+		if (username == undefined) {
+			 var alertPopup = $ionicPopup.alert({
+			       title: '用户名为空',
+			       template: ''
+			   });
+			   return false;				
+		};
+		if (writecode!=code) {
 			 var alertPopup = $ionicPopup.alert({
 			       title: '验证码填写错误.请重新填写验证码',
 			       template: ''
-			   });			
-		})
-	};
-	$scope.btncode = function(){
-		var username = $scope.usernameforget;
-		$http.post(API_CONFIG.root +"/api/v1/account/send_message",{
-			"username":username}
-		).success(function(data){
-			 var alertPopup = $ionicPopup.alert({
-			       title: data.message,
-			       template: ''
 			   });
-			 $savecode = data.message;
-		}).error(function(data){
-			console.log(data);
-		})		
+			   return false;				
+		}
+		$http.post(API_CONFIG.root + "/api/v1/account/auth_message",{
+			"username":username,
+			"message":code}
+			).success(function(){
+				/*验证成功跳转*/
+				$state.go("forgetpwd",{data: username});
+			}).error(function(){
+				/*验证失败*/
+			 var alertPopup = $ionicPopup.alert({
+			       title: '账号与验证码不匹配',
+			       template: ''
+			   });	
+			})
 	} 
 });
-app.controller('testcode', function($scope,$http) {
-	$scope.btnsendsure = function(){
-		//var code = $scope.sendcode-code;
-		$http.post(API_CONFIG.root + "/api/v1/account/send_message",{
-			"username":username}
+/**
+ * 重置密码
+ * @param  {[type]} $scope       [description]
+ * @param  {[type]} $http        [description]
+ * @param  {[type]} $ionicPopup) {	$scope.btnresetpwd [description]
+ * @return {[type]}              [description]
+ */
+app.controller('sendcode', function($scope,$http,$ionicPopup,$state,$stateParams) {
+	$scope.btnresetpwd = function(){
+		var username = $stateParams.data;
+		var password = $scope.newpsw;
+		var secondpassword = $scope.secondpsw;
+		//var username  =$scope.username;
+		if (password ==undefined&&secondpassword == undefined) {
+			 var alertPopup = $ionicPopup.alert({
+			       title: '输入密码为空',
+			       template: ''
+			   });
+			 return false;			
+		};
+		if (password !=secondpassword) {
+			 var alertPopup = $ionicPopup.alert({
+			       title: '两次输入的密码不一致',
+			       template: ''
+			   });
+			 return false;
+		}
+		$http.post(API_CONFIG.root + "/api/v1/account/reset_password",{
+			"username":username,
+			"password1":password,
+			"password2":secondpassword}
 		).success(function(data){
-			
+			 var alertPopup = $ionicPopup.alert({
+			       title: '重置密码成功',
+			       template: ''
+			   });
+			$state.go("login");			
 		}).error(function(data){
-			console.log(data);
+			 var alertPopup = $ionicPopup.alert({
+			       title: '重置密码失败',
+			       template: ''
+			   });	
 		})			
-		$state.go("sendcode");
 	}
 });
