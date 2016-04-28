@@ -21,7 +21,10 @@ class TemplateSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
 
     def get_image_url(self, obj):
-        return '/media/{}'.format(obj.image.file.name)
+        try:
+            return '/media/{}'.format(obj.image.file.name)
+        except Exception:
+            return ''
 
     class Meta:
         model = Template
