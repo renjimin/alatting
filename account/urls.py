@@ -2,7 +2,8 @@
 
 from django.conf.urls import url
 from account.views import (LoginView, MessageView, CheckMessageView,
-                           RegisterView, ResetPasswordView, ProfileView)
+                           RegisterView, ResetPasswordView, ProfileView,
+                           FriendsView)
 
 
 urlpatterns = [
@@ -12,4 +13,5 @@ urlpatterns = [
     url(r'^auth_message$', CheckMessageView.as_view(), name='auth_message'),
     url(r'^reset_password', ResetPasswordView.as_view(), name='reset_password'),
     url(r'^profile', ProfileView.as_view(), name='profile'),
+    url(r'^friends', FriendsView.as_view(), name='friends'),
 ]

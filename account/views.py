@@ -16,8 +16,8 @@ from datetime import datetime, timedelta
 from rest_framework.authentication import BasicAuthentication
 from rest_framework.permissions import AllowAny
 from .email import send_verify_email
-from .models import LoginMessage
-from .serializers import AccountProfileSerializer
+from .models import LoginMessage, UserFriends
+from .serializers import AccountProfileSerializer, AccountFriendsListSerializer
 
 
 def not_found(request):
@@ -239,6 +239,20 @@ class ProfileView(ListAPIView):
         user = self.request.user
         if user.is_authenticated():
             queryset = queryset.filter(pk=user.pk)
+        else:
+            queryset = queryset.none()
+        return queryset
+
+class FriendsView(ListAPIView):
+    model = UserFriends
+    queryset = UserFriends.objects.all()
+    serializer_class = AccountFriendsListSerializer
+
+    def get_queryset(self):
+        queryset = super(FriendsView, self).get_queryset()
+        user = self.request.user
+        if user.is_authenticated():
+            queryset = queryset.filter(user1=user)
         else:
             queryset = queryset.none()
         return queryset
