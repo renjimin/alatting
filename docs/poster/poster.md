@@ -149,3 +149,90 @@
     "category_keyword": 3               //关键词ID
 }
 ```
+
+
+## 为海报选择模板（创建海报与模板的关联关系）
+
+    POST /api/v1/poster/posterpages
+    
+**Request**
+```json
+{
+    "poster_id": 12,
+    "template_id: 33
+}
+```
+
+**Response**
+
+提交成功后，返回完整的 海报模板对象 信息
+
+```json
+{
+    "id": 1,
+    "poster": {
+        "id": 12,
+        "main_category": {
+            "id": 2,
+            "type": "Business",
+            "name": "Business Marketing",
+            "description": "Business Marketing",
+            "tags": "",
+            "parent": null
+        },
+        "sub_category": {
+            "id": 14,
+            "type": "Business",
+            "name": "Enterprise Marketing",
+            "description": "Enterprise Marketing",
+            "tags": "",
+            "parent": 2
+        },
+        "logo_image": {
+            "id": 1,
+            "uuid": "a14f859435c34577acd1abaa609698a0",
+            "created_at": "2015-09-23 21:56:48",
+            "file": "http://127.0.0.1:8020/media/images/2015/09/23/92180490f431414e9b160002d91f15db.png",
+            "width": 594,
+            "height": 128,
+            "format": "png"
+        },
+        "address": {
+            "id": 2,
+            "address1": "2181 E Foothill Blvd",
+            "address2": "",
+            "city": "Pasadena",
+            "state": "CA",
+            "country": "USA",
+            "post_code": "91007",
+            "created_at": "2015-09-23 21:58:43",
+            "updated_at": "2015-09-23 21:58:43"
+        },
+        "category_keyword": null,
+        "unique_name": "alatting",
+        "url": "www.alatting.com",
+        "logo_title": "阿拉鼎高科国际股份有限公司",
+        "short_description": "阿拉鼎总部位于美国洛杉矶,专注智能海报营销",
+        "phone": "3234444444",
+        "mobile": "2134006368",
+        "email": "info@alatting.com",
+        "lifetime_type": "specific_days",
+        "lifetime_timezone": "America/Los_Angeles",
+        "lifetime_value": "{\"2015-11-23\": {\"time_start\": \"08:00 am\", \"enabled\": 1,\"time_end\": \"09:00 pm\", \"message\": \"Funding opening day and project demonstration\"}}",
+        "created_at": "2015-09-23 22:01:33",
+        "status": "Published",
+        "width": 800,
+        "height": 1024,
+        "tags": "",
+        "creator": 4,
+        "music": 1
+    },
+    "template": {
+        "id": 33,
+        "name": "alatting",
+        "image_url": ""
+    },
+    "index": 0,
+    "name": "COMPANY"
+}
+```

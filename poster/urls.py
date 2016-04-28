@@ -1,7 +1,8 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from poster.view.poster import PosterListView, PosterSimpleInfoListView
+from poster.view.poster import PosterListView, PosterSimpleInfoListView, \
+    PosterDetailView, PosterPageListView
 from poster.view.resource import (
     CategoryListView, CategoryKeywordListView, TemplateListView,
     UploadFileView)
@@ -16,12 +17,18 @@ urlpatterns = [
 
     url(r'^templates$', TemplateListView.as_view(), name='templates'),
 
-    url(r'^posters/simple$', PosterSimpleInfoListView.as_view(),
+    url(r'^posters/simple$',
+        PosterSimpleInfoListView.as_view(),
         name='posters_simple'),
 
     url(r'^posters$', PosterListView.as_view(), name='posters'),
-]
 
+    url(r'^posters/(?P<pk>[\d]+)$',
+        PosterDetailView.as_view(), name='poster_detail'),
+
+    url(r'^posterpages$', PosterPageListView.as_view(), name='posterpages'),
+
+]
 
 urlpatterns += [
     url(r'^upload/(?P<page_key>\w+)$',

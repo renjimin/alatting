@@ -7,6 +7,8 @@ import datetime
 
 DEBUG = True
 
+IS_FRONTEND_DEV = False
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '!0wb8m-o^pew*o)hyho^zzy7f8m-94v%)4cxn4sa%e!gmp3+vw'
