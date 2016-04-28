@@ -3,6 +3,7 @@ from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
     RetrieveUpdateAPIView)
+from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
@@ -11,8 +12,9 @@ from poster.serializer.resource import AddressSerializer
 
 
 def set_dev_request_user(request):
-    if isinstance(request.user, AnonymousUser):
+    if settings.IS_FRONTEND_DEV:
         setattr(request, 'user', User.objects.filter(username='admin').first())
+        pass
 
 
 class PosterSimpleInfoListView(ListAPIView):
@@ -67,11 +69,12 @@ class PosterListView(ListCreateAPIView):
 
         address_serializer = AddressSerializer(data={'address1': address})
         address_serializer.is_valid(True)
-        address_serializer.save()
+        address_instance = address_serializer.save()
 
         serializer.save(
             creator=self.request.user,
-            status=Poster.STATUS_DRAFT
+            status=Poster.STATUS_DRAFT,
+            address=address_instance
         )
 
 
