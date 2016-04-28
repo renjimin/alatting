@@ -183,12 +183,12 @@ GET请求带以下参数可以进行数据过滤,
   {
     "id": 1,
     "name": "first",
-    "image": 3
+    "image_url": "/media/images/2015/09/23/c1ef0a0998b24b42bfbead5151e1148b.PNG"
   },
   {
     "id": 2,
     "name": "yunye",
-    "image": 5
+    "image_url": "/media/images/2015/09/23/4c795e20ec2f489d862a79a5a428826b.PNG"
   }
 ]
 ```

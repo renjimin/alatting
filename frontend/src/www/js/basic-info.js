@@ -1,4 +1,9 @@
 app.controller('basicinfo',function($scope, $ionicPopup) {
+	/*var keywordId = $sateParams.data.keywordId;
+	var catId = $sateParams.data.catId;
+	var subCatId = $sateParams.data.subCatId;
+	*/
+//	alert(keywordId+" +"+catId+" "+subCatId)
 	
 	$scope.submitform = function(){
 		
@@ -42,7 +47,7 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 				}
 				
 				if(flag){
-						if(postname.length != 0){
+						if(postdesc.length != 0){
 							flag = true;
 						}else{
 							
@@ -59,7 +64,7 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 							return false;
 						}
 						
-						if(postname.length>50){
+						if(postdesc.length <= 50){
 							flag = true;
 						}else{
 							
