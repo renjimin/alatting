@@ -29,7 +29,7 @@ class Poster(models.Model):
         (LIFETIME_SPECIFIC_DAYS,LIFETIME_SPECIFIC_DAYS)
     )
     id = BigAutoField(primary_key=True)
-    creator = models.ForeignKey(User)
+    creator = models.ForeignKey(User, related_name="poster_creator")
     unique_name = models.CharField(max_length=255, unique=True)
     url = models.CharField(max_length=255, default='')
 

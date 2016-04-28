@@ -7,6 +7,7 @@
 
 * 基础 API
     * [用户认证](base/auth.md)
+    * [用户信息](base/profile.md)
 * 海报 API
     * [基础资源API](poster/resource.md)
     * [海报接口API](poster/poster.md)
