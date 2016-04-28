@@ -7,7 +7,7 @@
 **Request**
 ```json
 {
-    "username": "charlie",      // 手机 or 邮箱 or 用户名
+    "username": "charlie",      // 手机 or 邮箱
     "password": "123456",     // 密码
 }
 ```
