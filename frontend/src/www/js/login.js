@@ -6,9 +6,15 @@
  */
 app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state', 
 	function($scope,$http,$ionicPopup, $state,$cookies) {
-		//sessionStorage.setItem('msg', str);
+		$scope.username = localStorage.getItem("username");
+		$scope.password = localStorage.getItem("password");
+		if ($scope.username ==undefined) {
+			$scope.isSelected = false;
+		}else{
+			$scope.isSelected = true;
+		}
 		$scope.login = function(){
-			var username = $scope.name;
+			var username = $scope.username;
 			var password = $scope.password;
 			if (username==undefined) {
 				 var alertPopup = $ionicPopup.alert({
@@ -42,7 +48,15 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 			});
 		};
 		$scope.btnrember = function(){
-			//clearStorage();	
+			if ($scope.isSelected == true) {
+				localStorage.clear();
+				var username = $scope.username;
+				var password = $scope.password;
+				localStorage.setItem("username",username);
+				localStorage.setItem("password",password);
+			}else{
+				localStorage.clear();
+			};
 		}
 		$scope.register = function(){
 			$state.go("regist");
@@ -215,12 +229,10 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state) {
  */
 app.controller('sendcode', function($scope,$http,$ionicPopup,$state,$stateParams) {
 	$scope.btnresetpwd = function(){
-			var username = $stateParams.data;
-		//var code = $scope.sendcode-code;
+		var username = $stateParams.data;
 		var password = $scope.newpsw;
-			alert(username +password);
 		var secondpassword = $scope.secondpsw;
-		var username  =$scope.username;
+		//var username  =$scope.username;
 		if (password !=secondpassword) {
 			 var alertPopup = $ionicPopup.alert({
 			       title: '两次输入的密码不一致',
@@ -230,7 +242,8 @@ app.controller('sendcode', function($scope,$http,$ionicPopup,$state,$stateParams
 		}
 		$http.post(API_CONFIG.root + "/api/v1/account/reset_password",{
 			"username":username,
-			"password":password}
+			"password1":password,
+			"password2":secondpassword}
 		).success(function(data){
 			 var alertPopup = $ionicPopup.alert({
 			       title: '重置密码成功',

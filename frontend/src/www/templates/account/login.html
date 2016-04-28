@@ -6,7 +6,7 @@
 	<ul class="list list-login">
 		<label class="item item-input">
 			<img src="img/name.png">
-			<input type="text" ng-model="name" name="name" id ="username" placeholder = "邮&nbsp;箱/手机号" required>
+			<input type="text" ng-model="username" name="name" id ="username" placeholder = "邮&nbsp;箱/手机号" required>
 		</label>
 		<label class="item item-input list-login">
 			<img src="img/password.png">
@@ -20,7 +20,7 @@
           <a  class="button" ng-click = "register()">注册</a>
       </div>
        <div class="item-checkbox">
-           <input type="checkbox" checked="checked"  ng-click = "btnrember()">记住密码
+           <input type="checkbox" ng-checked = "isSelected" ng-model = "isSelected" ng-click = "btnrember()">记住密码
            <a href="#/forget">忘记密码?</a>           
        </div>
     </ion-content>
