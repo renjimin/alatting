@@ -1,8 +1,8 @@
-<ion-view view-title="模版选择页" class="templates-view" ng-controller="templateCtl">
+<ion-view view-title="模版选择页" class="templates-view">
 	<ion-nav-bar class="templates-top">
 		<ion-nav-back-button>返回</ion-nav-back-button>
 	</ion-nav-bar>
-    <ion-content>
+    <ion-content ng-controller="templateCtl">
 		<div class="empty-info" ng-if="isTemplatesEmpty">
 			获取数据失败，请稍后重试！
 		</div>

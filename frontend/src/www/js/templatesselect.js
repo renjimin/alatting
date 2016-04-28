@@ -1,5 +1,4 @@
-app.controller( 'templateCtl',function($scope,$ionicPopup,$http,$timeout,$stateParams){
-    console.log($stateParams)
+app.controller( 'templateCtl',function($scope,$ionicPopup,$http,$timeout,$state,$stateParams){
     /**获取模版列表*/
     $scope.templates = {};
     $scope.isTemplatesEmpty = false;
@@ -12,22 +11,10 @@ app.controller( 'templateCtl',function($scope,$ionicPopup,$http,$timeout,$stateP
     });
 
 
-
+    $scope.poster={};
     $scope.saveTemplate=function(templateId){
         var poster = $stateParams.data;
-        /*
-        poster.category_keyword_id='';
-        poster.main_category_id='';
-        poster.sub_category_id='';
-        poster.logo_image_id='';
-        poster.unique_name='';
-        poster.logo_title='';
-        poster.short_description='';
-        poster.phone='';
-        poster.mobile='';
-        poster.email='';
-        poster.address='';
-        */
+        
         //  confirm 对话框
         $ionicPopup.confirm({
             'title': '',
@@ -42,7 +29,10 @@ app.controller( 'templateCtl',function($scope,$ionicPopup,$http,$timeout,$stateP
                         'title':'',
                         'template':'信息提交成功',
                         'okType':'button-light'
+                    }).then(function(){
+                        $state.go('poster',{'data':$scope.poster});
                     });
+
 
                 }).error(function(data){
                     console.log(data);

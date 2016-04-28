@@ -1,0 +1,265 @@
+<ion-view view-title="海报主页" ng-controller="posterCtl" class="poster-view">
+    <!--header start-->
+	<ion-header-bar>
+		<button class="button button-clear"><i class="ico-pages"></i></button>
+		<div class="title">阿拉鼎高科国际股份有限公司</div>
+		<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop src="" id="media" autoplay="" preload=""></audio></button>
+	</ion-header-bar>
+	<!--header end-->
+	<!--content start-->
+	<ion-content class="content has-header">
+		<header class="header">
+			<div class="header-bar">
+				<div class="header-qrcode">
+					<div class="qrcode-inner">
+						<div class="circle"></div>
+						<div class="qrcode"><a href="javascript:void(0);" class="btn"><img src="img/demo/qcode.png" /></a></div>
+					</div>
+				</div>
+				<div class="header-logo"><img src="img/demo/header-logo.png" /></div>
+				<div class="header-abutton">
+					<div class="abutton-inner" id="abutton">
+						<div class="abutton-internal">
+							<a class="btn" href="javascript:void(0);" onClick="showHeaderTools()"><i class="icon ico-alogo"></i></a>
+						</div>
+						<ul class="abutton-group abutton-contact">
+							<li><a href="#"><i class="icon ico-phone"></i></a></li>
+							<li><a href="#"><i class="icon ico-email"></i></a></li>
+							<li><a href="#"><i class="icon ico-address"></i></a></li>
+							<li><a href="#"><i class="icon ico-clock"></i></a></li>
+						</ul>
+						<ul class="abutton-group abutton-express">
+							<li><a href="#"><i class="icon ico-like"></i></a></li>
+							<li><a href="#"><i class="icon ico-bookmark"></i></a></li>
+							<li><a href="#"><i class="icon ico-subscribe"></i></a></li>
+							<li><a href="#"><i class="icon ico-fun"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="header-info">
+				<div class="desc">
+					阿拉鼎总部位于美国洛杉矶，专注智能海报营销
+				</div>
+			</div>
+		</header>
+		<div class="containar">
+			<div class="poster-page">
+
+			</div>
+		</div>
+
+	</ion-content>
+	<!--content end-->
+	<!--footer start-->
+
+	<ion-footer-bar class="bar-footer">
+		<a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
+			<i class="icon ico-share"></i>
+		</a>
+		<a class="tab-item dropdown-toggle" id="rate-toggle" href="javascript:void(0);" data-dropdown="rate-panel">
+			<i class="icon ico-star"></i>
+		</a>
+		<a class="tab-item dropdown-toggle" id="feedback-toggle" href="javascript:void(0);" data-dropdown="feedback-panel">
+			<i class="icon ico-feedback"></i>
+		</a>
+		<a class="tab-item dropdown-toggle" id="export-toggle" href="javascript:void(0);" data-dropdown="export-panel">
+			<i class="icon ico-export"></i>
+		</a>
+		<a class="tab-item dropdown-toggle" id="stats-toggle" href="javascript:void(0);" data-dropdown="stats-panel">
+			<i class="icon ico-stats"></i>
+		</a>
+
+		<section class="dropdown-panel" id="share-panel">
+			<div class="share-group">
+				<a href="#" class="tab-item"><i class="icon ico-share-email"></i></a>
+				<a href="#" class="tab-item"><i class="icon ico-share-wechat"></i></a>
+				<a href="#" class="tab-item"><i class="icon ico-share-qq"></i></a>
+				<a href="#" class="tab-item"><i class="icon ico-share-sina"></i></a>
+			</div>
+		</section>
+		<section class="dropdown-panel" id="rate-panel">
+			<div class="rate-group">
+				<div class="rate-info clearfix">
+					<div class="rate-totals">
+						<div class="score">3.0</div>
+						<div class="rate-action" data-score="3.6">
+							<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+							<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+							<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+							<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+							<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+						</div>
+						<div class="num">
+							<i class="icon ion-person"></i><em>128</em><span>total</span>
+						</div>
+					</div>
+					<div class="rate-levels">
+						<div class="rate-level">
+							<div class="label">
+								<i class="icon ion-star"></i><em>5</em>
+							</div>
+							<div class="progress">
+								<div class="rate-progress-bar">2</div>
+							</div>
+						</div>
+						<div class="rate-level">
+							<div class="label">
+								<i class="icon ion-star"></i><em>4</em>
+							</div>
+							<div class="progress">
+								<div class="rate-progress-bar">2</div>
+							</div>
+						</div>
+						<div class="rate-level">
+							<div class="label">
+								<i class="icon ion-star"></i><em>3</em>
+							</div>
+							<div class="progress">
+								<div class="rate-progress-bar">2</div>
+							</div>
+						</div>
+						<div class="rate-level">
+							<div class="label">
+								<i class="icon ion-star"></i><em>2</em>
+							</div>
+							<div class="progress">
+								<div class="rate-progress-bar">2</div>
+							</div>
+						</div>
+						<div class="rate-level">
+							<div class="label">
+								<i class="icon ion-star"></i><em>1</em>
+							</div>
+							<div class="progress">
+								<div class="rate-progress-bar">2</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="rate-action">
+					<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+					<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+					<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+					<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+					<a href="javascript:void(0);" class="rate-star"><i class="icon ion-star"></i></a>
+				</div>
+			</div>
+		</section>
+		<section class="dropdown-panel" id="feedback-panel">
+			<div class="feedback-contrainar">
+				<div class="list card">
+
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+					<div class="item item-avatar">
+						<img src="img/demo/avatar1.png" />
+						<div class="tit">
+							<span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+							<span class="name">Topic</span>
+						</div>
+						<div class="det">
+							这里是内容
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+		<section class="dropdown-panel" id="export-panel">
+			<div class="share-group">
+				<a href="#" class="tab-item"><i class="icon ion-ios-paper"></i></a>
+				<a href="#" class="tab-item"><i class="icon ion-image"></i></a>
+				<a href="#" class="tab-item"><i class="icon ion-printer"></i></a>
+			</div>
+		</section>
+		<section class="dropdown-panel" id="stats-panel">
+			<div class="data-contrainar">
+				<div class="stats-title"><i class="icon ion-stats-bars"></i>数据分析</div>
+				<div class="stats-graph">
+
+				</div>
+				<div class="stats-types">
+					<div class="row">
+						<div class="col col-15"><i class="icon ico-fun"></i></div>
+						<div class="col col-35"><span class="num">0</span><span class="status"><i class="icon ion-arrow-up-a"></i>0</span></div>
+						<div class="col col-15"><i class="icon ion-eye"></i></div>
+						<div class="col col-35"><span class="num">0</span><span class="status"><i class="icon ion-arrow-up-a"></i>0</span></div>
+					</div>
+					<div class="row">
+						<div class="col col-15"><i class="icon ico-bookmark"></i></div>
+						<div class="col col-35"><span class="num">0</span><span class="status"><i class="icon ion-arrow-up-a"></i>0</span></div>
+						<div class="col col-15"><i class="icon ion-share"></i></div>
+						<div class="col col-35"><span class="num">0</span><span class="status"><i class="icon ion-arrow-up-a"></i>0</span></div>
+					</div>
+					<div class="row">
+						<div class="col col-15"><i class="icon ico-like"></i></div>
+						<div class="col col-35"><span class="num">0</span><span class="status"><i class="icon ion-arrow-up-a"></i>0</span></div>
+						<div class="col col-15"><i class="icon ion-star"></i></div>
+						<div class="col col-35"><span class="num">0</span><span class="status"><i class="icon ion-arrow-up-a"></i>0</span></div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</ion-footer-bar>
+	<!--footer end-->
+
+</ion-view>

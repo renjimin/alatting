@@ -22,7 +22,7 @@
 .type-model{position: fixed;width:100%;height:100%;z-index:8;top:0;left:0;padding-top:36px;padding-bottom:49px; visibility: hidden;opacity:0;-webkit-transition:opacity 0.15s ease;transition: opacity 0.15s ease;}
 .type-model.open{visibility: visible;  opacity: 1;}
 .type-model-inner{ background: rgba(0,0,0,0.4);height:100%;}
-.type-model-containar{ background: rgba(230,230,230,0.96);box-shadow:0 6px 6px rgba(0,0,0,.1) inset;-webkit-transform: scale(0.95);-ms-transform: scale(0.95);transform: scale(0.95);-webkit-transform-origin: center center;-ms-transform-origin: center center;transform-origin: center center;-webkit-transition: -webkit-transform 0.15s ease;transition: transform 0.15s ease; transition-delay: 0.1s; -webkit-transition-delay: 0.1s;}
+.type-model-containar{position: relative;z-index:20;background: rgba(230,230,230,0.96);box-shadow:0 6px 6px rgba(0,0,0,.1) inset;-webkit-transform: scale(0.95);-ms-transform: scale(0.95);transform: scale(0.95);-webkit-transform-origin: center center;-ms-transform-origin: center center;transform-origin: center center;-webkit-transition: -webkit-transform 0.15s ease;transition: transform 0.15s ease; transition-delay: 0.1s; -webkit-transition-delay: 0.1s;}
 .type-model.open .type-model-containar{ -webkit-transform: scale(1); -ms-transform: scale(1);   transform: scale(1);}
 .sublist{margin:0;}
 .type-model-containar a{color:#444; text-decoration: none;}
@@ -30,6 +30,7 @@
 .type-model-containar .list .item{padding:0 ;background: none;border-color:rgba(210,210,210,1);}
 .type-model-containar .list .item-link{display: block;padding: 10px 20px;z-index:10; position: relative;}
 .type-model-containar .list .item-link i,.type-model-containar .list .subitem-link i{float:right;display:none;}
+.type-model-click{position:absolute;top:0;height:100%;left:0;width:100%;z-index:10;}
 /*二级*/
 .type-model-containar .list .sublist{visibility: hidden;opacity:0;z-index:9; position: relative;border-top:1px solid rgba(210,210,210,1);-webkit-transition:all .5s ease;transition:all .5s ease;height:0;}
 .type-model-containar .list .sublist .subitem-link{display:block;padding:10px 20px 10px 40px;}

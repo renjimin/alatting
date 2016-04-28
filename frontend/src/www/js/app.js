@@ -71,16 +71,22 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 		url:"/templateselect",
 		templateUrl:"templates/account/template-select.html"
 	})
+	.state('poster',{
+		url:"/poster",
+		templateUrl:"templates/poster/poster.html"
+
+	})
 	.state('api',{
 		url:"/api",
 		templateUrl:"templates/api.html"
 
 	})
 	$urlRouterProvider.otherwise("/api");
-
-	$ionicConfigProvider.platform.ios.tabs.position('bottom');
 	$ionicConfigProvider.platform.android.tabs.style('standard');
 	$ionicConfigProvider.platform.android.tabs.position('bottom');
+  	$ionicConfigProvider.platform.android.navBar.alignTitle('center');
+	$ionicConfigProvider.platform.android.backButton.previousTitleText('').icon('ion-ios-arrow-back');
+	$ionicConfigProvider.platform.android.views.transition('ios');
 })
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

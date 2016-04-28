@@ -1,8 +1,8 @@
 app.controller('basicinfo',function($scope, $ionicPopup) {
-	
+
 	$scope.submitform = function(){
-		
-		
+
+
 			var postname = $.trim($('.post-name').val());
 				var flag = true;
 //	    		var basiclogo = $.trim($('#logoval').val());
@@ -26,76 +26,76 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 						if(postname.length != 0){
 							flag = true;
 						}else{
-							
+
 						var alertPopup = $ionicPopup.alert({
 						title: '提示',
 						template: '海报名称不能为空',
-						buttons: [{ 
+						buttons: [{
 						text: '确定',
    						type: 'button-positive'
-							}]    
-							    
+							}]
+
 							});
 							flag = false;
 							return false;
 						}
 				}
-				
+
 				if(flag){
 						if(postname.length != 0){
 							flag = true;
 						}else{
-							
+
 						var alertPopup = $ionicPopup.alert({
 						title: '提示',
 						template: '海报简述不能为空',
-						buttons: [{ 
+						buttons: [{
 						text: '确定',
    						type: 'button-positive'
-							}]    
-							    
+							}]
+
 							});
 							flag = false;
 							return false;
 						}
-						
+
 						if(postname.length>50){
 							flag = true;
 						}else{
-							
+
 						var alertPopup = $ionicPopup.alert({
 						title: '提示',
 						template: '海报简述在50字以内',
-						buttons: [{ 
+						buttons: [{
 						text: '确定',
    						type: 'button-positive'
-							}]    
-							    
+							}]
+
 							});
 							flag = false;
 							return false;
-							
+
 						}
-						
+
 				}
 
 
 	    		if(flag){
 						if(postemail.length != 0){
-							var reg=/^\w{3,}@\w+(\.\w+)+$/;   
+							var reg=/^\w{3,}@\w+(\.\w+)+$/;
         					if(!reg.test(postemail)){
         						/*alert("email格式不正确！")*/
-        						
+
 							var alertPopup = $ionicPopup.alert({
 							title: '提示',
 							template: 'email格式不正确!',
-							buttons: [{ 
+							buttons: [{
 							text: '确定',
 							type: 'button-positive'
-							}]    
-							    
+							}]
+
 							});
-        						
+
 								flag = false;
 								return false;
         					}else{
@@ -116,16 +116,16 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 						if(posttelephone.length != 0){
 							flag = true;
 						}else{
-							
+
 							var alertPopup = $ionicPopup.alert({
 							title: '提示',
 							template: '电话不能为空!',
-							buttons: [{ 
+							buttons: [{
 							text: '确定',
 							type: 'button-positive'
-							}]    
+							}]
 							});
-							
+
 							flag = false;
 							return false;
 						}
@@ -134,14 +134,14 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 						if(postphone.length != 0){
 							flag = true;
 						}else{
-							
+
 							var alertPopup = $ionicPopup.alert({
 							title: '提示',
 							template: 'phone不能为空!',
-							buttons: [{ 
+							buttons: [{
 							text: '确定',
 							type: 'button-positive'
-							}]    
+							}]
 							});
 							flag = false;
 							return false;
@@ -154,12 +154,12 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 							var alertPopup = $ionicPopup.alert({
 							title: '提示',
 							template: '地址不能为空!',
-							buttons: [{ 
+							buttons: [{
 							text: '确定',
 							type: 'button-positive'
-							}]    
+							}]
 							});
-							
+
 							flag = false;
 							return false;
 						}
@@ -169,26 +169,26 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 	    			$(".btnform").attr("method",'post');
 	    			$(".btnform").submit();
 	    		}
-		
-		
+
+
 	}
-	
-	
+
+
 	var uploader = WebUploader.create({
 
 	    // 选完文件后，是否自动上传。
 	    auto: true,
-	
+
 	    // swf文件路径
 	    swf:  'http://fex.baidu.com/webuploader/js/Uploader.swf',
-	
+
 	    // 文件接收服务端。
 	    server: 'http://webuploader.duapp.com/server/fileupload.php',
-	
+
 	    // 选择文件的按钮。可选。
 	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
 	    pick: '#filePicker',
-	
+
 	    // 只允许选择图片文件。
 	    accept: {
 	        title: 'Images',
@@ -205,11 +205,11 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 	            '</div>'
 	            ),
 	        $img = $li.find('img');
-	
-	
+
+
 	    // $list为容器jQuery实例
 	    $('#fileList').append( $li );
-	
+
 	    // 创建缩略图
 	    // 如果为非图片文件，可以不用调用此方法。
 	    // thumbnailWidth x thumbnailHeight 为 100 x 100
@@ -218,13 +218,11 @@ app.controller('basicinfo',function($scope, $ionicPopup) {
 	            $img.replaceWith('<span>不能预览</span>');
 	            return;
 	        }
-	
+
 	        $img.attr( 'src', src );
 	    }, 80, 80 );
 	});
-	
-	
-	
-})
 
-		
+
+
+})
