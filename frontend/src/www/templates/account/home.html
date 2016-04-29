@@ -18,58 +18,70 @@
                 </li>
             </ul>
         </div>
-    </ion-content>
-    <div class="type-model" id="type-model">
-        <div class="type-model-inner">
-            <div class="type-model-containar">
-                <div class="empty-info" ng-if="cateIsEmpty" id="cateEmpty">
-                    获取数据失败，请稍后重试！
-                </div>
-                <ul class="list">
-                    <li class="item" ng-repeat="type in types">
-                        <a class="item-link" ng-click="showSubType($event,{{type.id}})" href="javascript:void(0);"><i class="ion-chevron-down"></i>{{type.name}}</a>
-                        <dl class="sublist">
-                            <dd class="subitem" ng-repeat="subtype in subtypes">
-                                <a class="subitem-link" ng-click="showKeywords($event,{{subtype.id}})" href="javascript:void(0);" class="item-link"><i class="ion-chevron-down"></i>{{subtype.name}}</a>
-                                <ul class="keywords">
-                                    <li class="k-item open">
-                                        <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><span class="keywords-tag">行业关键词</span>关键词选择</a>
-                                        <ul class="keywords-det keywords-list">
-                                            <li class="key-item" ng-if="keywordsls">
-                                                <a href="javascript:void(0);" class="key-link key-link-empty">没有可供选择的关键词</a>
-                                            </li>
-                                            <li class="key-item" ng-if="!keywordsls" ng-repeat="keyword in keywords">
-                                                <a href="javascript:void(0);" ng-click="confirmKeywords($event,{{keyword.id}},{{type.id}},{{subtype.id}})" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>{{keyword.verb}} + {{keyword.noun}}</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="k-item">
-                                        <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><i class="ion-ios-checkmark-outline btn-sub-key" ng-click="saveKeywords(pkeyword,{{subtype.id}},{{type.id}})"></i>关键词输入</a>
-                                        <div class="keywords-det ">
-                                            <div class="keyword-in">
-                                                <div class="keyword-import keyword-import-act">
-                                                    <label>动词</label>
-                                                    <input type="text" placeholder="例:招募" ng-model="pkeyword.verb" />
-                                                </div>
-                                                <div class="keyword-import keyword-import-icon">
-                                                    <label></label>
-                                                    <i class="ion-plus"></i>
-                                                </div>
-                                                <div class="keyword-import">
-                                                    <label>名词</label>
-                                                    <input type="text" placeholder="例:创业精英" ng-model="pkeyword.noun" />
-                                                </div>
+        <div class="type-model" id="type-model">
+            <div class="type-model-inner">
+                <div class="type-model-containar">
+                    <div class="empty-info" ng-if="cateIsEmpty" id="cateEmpty">
+                        获取数据失败，请稍后重试！
+                    </div>
+                    <ul class="list">
+                        <li class="item" ng-repeat="type in types">
+                            <a class="item-link" ng-click="showSubType($event,{{type.id}})" href="javascript:void(0);"><i class="ion-chevron-down"></i>{{type.name}}</a>
+                            <dl class="sublist">
+                                <dd class="subitem" ng-repeat="subtype in subtypes">
+                                    <a class="subitem-link" ng-click="showKeywords($event,{{subtype.id}})" href="javascript:void(0);" class="item-link"><i class="ion-chevron-down"></i>{{subtype.name}}</a>
+                                    <ul class="keywords">
+                                        <li class="k-item open">
+                                            <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><span class="keywords-tag">行业关键词</span><i class="ion-ios-checkmark-outline btn-sub-key" ng-click="saveKeywords({{type.id}},{{subtype.id}})"></i>关键词选择</a>
+                                            <div class="keywords-det">
+                                                <ul class="keywords-list">
+                                                    <li class="key-item" ng-if="keywordsls">
+                                                        <a href="javascript:void(0);" class="key-link key-link-empty">没有可供选择的关键词</a>
+                                                    </li>
+                                                    <li class="key-item" ng-if="!keywordsls" ng-repeat="keywordold in keywordolds">
+                                                        <a href="javascript:void(0);" ng-click="selKeywords($event,{{keywordold.id}})" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>{{keywordold.verb}} + {{keywordold.noun}}</a>
+                                                    </li>
+                                                </ul>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                        <li class="k-item">
+                                            <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><i class="ion-ios-checkmark-outline btn-sub-key" ng-click="saveKeywords({{type.id}},{{subtype.id}})"></i>关键词输入</a>
+                                            <div class="keywords-det ">
+                                                <div class="keyword-in">
+                                                    <div class="keyword-import keyword-import-act">
+                                                        <label>动词</label>
+                                                        <input type="text" placeholder="例:招募" ng-model="pkeyword.verb" />
+                                                    </div>
+                                                    <div class="keyword-import keyword-import-icon">
+                                                        <label></label>
+                                                        <i class="ion-plus"></i>
+                                                    </div>
+                                                    <div class="keyword-import">
+                                                        <label>名词</label>
+                                                        <input type="text" placeholder="例:创业精英" ng-model="pkeyword.noun" />
+                                                    </div>
+                                                    <div class="keyword-import">
+                                                        <label></label>
+                                                        <button class="button button-clear" ng-click="addKeywords(pkeyword,{{subtype.id}})"><i class="ion-plus-circled"></i></button>
+                                                    </div>
+                                                </div>
+                                                <ul class="keywords-det keywords-list">
+                                                    <li class="key-item" ng-repeat="keywordadd in keywordadds">
+                                                        <a href="javascript:void(0);" ng-click="selKeywords($event,{{keywordadd.id}})" class="key-link"><i class="ion-android-checkbox-outline-blank"></i>{{keywordadd.verb}} + {{keywordadd.noun}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
 
-                                </ul>
-                            </dd>
-                        </dl>
-                    </li>
-                </ul>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </li>
+                    </ul>
+                </div>
+                <div class="type-model-click" ng-click="hideTypeModel()"></div>
             </div>
-            <div class="type-model-click" ng-click="hideTypeModel()"></div>
         </div>
-    </div>
+    </ion-content>
+
 </ion-view>
