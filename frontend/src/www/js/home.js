@@ -1,4 +1,4 @@
-app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams){
+app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,$ionicLoading,$timeout){
     /**调用图片列表*/
     $scope.posters = {};
     $scope.isPostersEmpty = false;
@@ -28,20 +28,34 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
 
         var typemodel = document.querySelector('#type-model');
         typemodel.classList.toggle("open");
-
+        if(!typemodel.classList.contains('open')){
+            return;
+        }
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
         $scope.types = {};
         $scope.cateIsEmpty = false;
 
         $http.get(API_CONFIG.root + '/api/v1/poster/categorys?parent=0').success(function(data){
+            $ionicLoading.hide();
             $scope.types = data;
             $scope.cateIsEmpty = false;
         }).error(function(data){
             console.log(data);
+            $ionicLoading.hide();
             $scope.cateIsEmpty = true;
         });
         if($scope.types.legnth > 0){
+            $ionicLoading.hide();
             $scope.cateIsEmpty = false;
         }
+
+
 
 
     }
