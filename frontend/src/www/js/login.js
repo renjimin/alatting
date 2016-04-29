@@ -122,7 +122,33 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
                 console.log(data);
             });
 
+            var second = 60;
+            var timePromise = $interval(function () {
+                if (second <= 0) {
+                    $interval.cancel(timePromise);
+                    timePromise = null;
+                    $scope.paracont = "重发验证码";
+                    $scope.paraclass = "but_null";
+                    $scope.paraevent = true;
 
+                    passCode = true;
+                    $scope.isShow = true;
+                    $scope.ishide = false;
+                    $interval.cancel(timePromise);
+                } else {
+                    second--;
+                    $scope.paracont = "获取验证码" + "(" + second + ")";
+                    $scope.paraclass = "not but_null";
+
+                }
+            }, 1000, 100);
+        }
+    };
+    $scope.regist = function () {
+        var username = $scope.username;
+        var password = $scope.firstpassword;
+        var againpassword = $scope.secondpassword;
+        var code = $scope.savecode;
         if (!username) {
             $ionicPopup.alert({
                 title: '请输入用户名',
@@ -190,8 +216,6 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 	var registCode = '';
 	var username = '';
 	$scope.isshow= true;
-	var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;	
 	$scope.paracont = "获取验证码";
     $scope.paraclass = "but_null";
     $scope.paraevent = true;	
@@ -205,27 +229,15 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			   });
 			   return false;	
 		};
-		if (!PHONE_REGEXP.test(username) || !EMAIL_REGEXP.test(username)) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '手机号码或邮箱号格式不对',
-			       template: ''
-			   });
-			   return false;
-		}
-	
 		if (passCode==true) {
 			passCode = false;
 			$scope.isShow = false;
 			$scope.ishide = true;
 			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{"username":username}).success(function(data){
-				if (PHONE_REGEXP.test(username)) {
-					 var alertPopup = $ionicPopup.alert({
-					       title: data.message,
-					       template: ''
-					   });
-				}else{
-					//return false;
-				}
+				 var alertPopup = $ionicPopup.alert({
+				       title: data.message,
+				       template: ''
+				   });
 				 registCode = data.message;
 			}).error(function(data){
 				console.log(data);
