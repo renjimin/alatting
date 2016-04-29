@@ -14,7 +14,7 @@
 		        	<img src="img/password.png">
 					<input class="list-input" type="text" ng-model="savecode" placeholder = "验证码">
 			        <a ng-click="btncode()" ng-show="isShow" ng-model = "registcode" class="button button-balanced" ng-class="paraclass" ng-bind="paracont">获取验证码</a>
-			        <a ng-click="btncode()" ng-show ="ishide" ng-model = "registcode" class="button button-dark" ng-class="paraclass" ng-bind="paracont">获取验证码</a>					
+			        <a ng-click="btncode()" ng-show ="ishide" ng-disabled = "isclick" ng-model = "registcode" class="button button-dark" ng-class="paraclass" ng-bind="paracont">获取验证码</a>					
 		        </li>
 		        <li class = "list-li">
 		        	<img src="img/password.png">
