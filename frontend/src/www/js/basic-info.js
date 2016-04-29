@@ -204,7 +204,16 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
 
 	}
 
-
+	$scope.basicstep = function(){
+		 $ionicPopup.alert({
+		   title: '',
+		   template: '取消返回上一页',
+		   okType:'button-light'
+		   }).then(function(){
+		   		$state.go('homepages.home');
+		   })
+		
+	}
 var uploader = WebUploader.create({
 	    // 选完文件后，是否自动上传。
 	    auto: true,
