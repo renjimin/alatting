@@ -27,7 +27,7 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				 return false;				
 			}
 			if ($scope.isSelected) {
-				if (!username && !password) {
+				if (username!=null && password !=null) {
 					localStorage.setItem("username",username);
 					localStorage.setItem("password",password);
 				}				
@@ -52,7 +52,7 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				localStorage.clear();
 				var username = $scope.username;
 				var password = $scope.password;
-				if (!username && !password) {
+				if (username!=null && password !=null) {
 					localStorage.setItem("username",username);
 					localStorage.setItem("password",password);
 				}

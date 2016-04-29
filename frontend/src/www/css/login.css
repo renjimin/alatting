@@ -83,6 +83,9 @@
 .regist-content .list-input{
 	width: 40%;
 }
+.regist-content .list-input-on{
+	width: 70%;
+}
 .regist-content .list-li{
 	border-bottom: 1px solid #aaa;
 	padding-top: 7%;
