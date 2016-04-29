@@ -91,7 +91,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 		templateUrl:"templates/api.html"
 
 	})
-	$urlRouterProvider.otherwise("/api");
+	$urlRouterProvider.otherwise("/login");
 	$ionicConfigProvider.platform.android.tabs.style('standard');
 	$ionicConfigProvider.platform.android.tabs.position('bottom');
   	$ionicConfigProvider.platform.android.navBar.alignTitle('center');
