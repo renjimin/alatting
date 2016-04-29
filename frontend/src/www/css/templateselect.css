@@ -1,14 +1,14 @@
 /**
-* Empty. Add your own CSS if you like
+*
 * @constructor
-* @title
-* @author
-* @time
+* @title   模版选择页面
+* @author  chongyang.tu
+* @time    2016.4.28
 */
 
 .templates-view{ background: #4e4e4e;}
-.templates-top{background:none;}
-.templates-view .bar-header .title{color:#fff;font-size:14px;}
+.templates-top{background:none;border:none;}
+.templates-view .bar-header .title{color:#fff;font-size:16px;}
 .templates-list{ overflow: hidden;padding:10px;padding-top:30%;}
 .templates-list .template-item{width:33.3333333%;float:left;padding:10px;transition: all .6s ease;transform: translate3d(0,-40px,0);opacity:0;}
 .templates-list .template-item img{max-width:100%;}

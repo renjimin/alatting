@@ -2,13 +2,13 @@
     <ion-header-bar class="home-header">
         <a href="javascript:void(0)" ng-click="openModal()" class="button button-clear btn-menu"><i class="ion-social-buffer"></i></a>
         <div class="title">
-            <a href="javascript:void(0)" ng-click="selectHot()" class="btn-select">热门</a><a href="javascript:void(0)" ng-click="selectNew()" class="btn-select">最新</a>
+            <a href="javascript:void(0)" ng-click="selectHot()" class="button button-clear btn-select">热门</a><a href="javascript:void(0)" ng-click="selectNew()" class="button button-clear btn-select">最新</a>
         </div>
         <a href="javascript:void(0)" ng-click="showTypeSel()" class="button button-clear btn-create"><i class="ion-plus"></i><span>创建</span></a>
     </ion-header-bar>
     <ion-content class="has-tabs ion-home-content">
         <div class="home-containar">
-            <div class="empty-info" id="main-empty">
+            <div class="empty-info" ng-if="isPostersEmpty">
                 获取数据失败，请稍后重试！
             </div>
             <ul class="image-list">
@@ -21,12 +21,15 @@
     <div class="type-model" id="type-model">
         <div class="type-model-inner">
             <div class="type-model-containar">
+                <div class="empty-info" ng-if="cateIsEmpty">
+                    获取数据失败，请稍后重试！
+                </div>
                 <ul class="list">
                     <li class="item" ng-repeat="type in types">
                         <a class="item-link" ng-click="showSubType($event,{{type.id}})" href="javascript:void(0);"><i class="ion-chevron-down"></i>{{type.name}}</a>
                         <dl class="sublist">
                             <dd class="subitem" ng-repeat="subtype in subtypes">
-                                <a class="subitem-link" ng-click="showKeywords($event,{{subtype.id}})" href="javascript:void(0);" class="item-link">{{subtype.name}}</a>
+                                <a class="subitem-link" ng-click="showKeywords($event,{{subtype.id}})" href="javascript:void(0);" class="item-link"><i class="ion-chevron-down"></i>{{subtype.name}}</a>
                                 <ul class="keywords">
                                     <li class="k-item open">
                                         <a href="javascript:void(0);" ng-click="showKeySel($event)" class="keywords-link"><span class="keywords-tag">行业关键词</span>关键词选择</a>
@@ -65,6 +68,7 @@
                     </li>
                 </ul>
             </div>
+            <div class="type-model-click" ng-click="hideTypeModel()"></div>
         </div>
     </div>
 </ion-view>
