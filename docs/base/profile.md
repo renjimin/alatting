@@ -11,16 +11,40 @@
 ```json
 [
     {
-        "id": 5,
-        "username": "admin",
+        "id": 9,
+        "username": "422613961@qq.com_ab4271c2",
         "first_name": "",
         "last_name": "",
-        "email": "admin@admin.com",
+        "email": "422613961@qq.com",
         "person": {
             "gender": "Male",
             "phonenumber": "",
-            "avatar": "http://127.0.0.1:8000/media/avatars/2015/11/09/86ecc17e58f4461fbcaee510e44cbc9f.png"
-        }
+            "avatar": "http://192.168.5.131/media/avatars/2015/11/09/86ecc17e58f4461fbcaee510e44cbc9f.png"
+        },
+        "poster_count": 1,
+        "poster_creator": [
+            {
+                "id": 1,
+                "home_page": "/poster/1/",
+                "thumb": "/media/images/2016/04/15/15588b5bb19f4518abb21269eccc9ba7.png",
+                "views_count": 947,
+                "created_at": "2015-09-23 22:01:33"
+            }
+        ],
+        "poster_likes_count": 1,
+        "poster_likes_creator": [
+            {
+                "liked": true,
+                "poster": 1
+            }
+        ],
+        "poster_subscriptions_count": 1,
+        "poster_subscriptions_follower": [
+            {
+                "subscribed": true,
+                "poster": 1
+            }
+        ]
     }
 ]
 ```
