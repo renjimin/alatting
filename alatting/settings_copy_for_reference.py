@@ -1,5 +1,6 @@
 # coding=utf-8
 
+import sys
 from .settings_base import *
 
 DEBUG = True
@@ -10,14 +11,19 @@ IS_FRONTEND_DEV = False
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 if DEBUG:
-    DEFAULT_DB = {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'alatting',
-        'HOST': 'localhost',
-        'PORT': '3306',
-        'USER': 'root',
-        'PASSWORD': 'root',
-    }
+    if 'test' in sys.argv:
+        DEFAULT_DB = {
+            'ENGINE': 'django.db.backends.sqlite3',
+        }
+    else:
+        DEFAULT_DB = {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'alatting',
+            'HOST': 'localhost',
+            'PORT': '3306',
+            'USER': 'root',
+            'PASSWORD': 'root',
+        }
 else:
     DEFAULT_DB = {
         'ENGINE': 'django.db.backends.mysql',

@@ -51,3 +51,20 @@ class AccountViewsTests(APITestCase):
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # 重置密码
+        password1 = password2 = '654321'
+        data = {'username': self.username, 'password1': password1, 'password2': password2}
+        response = self.client.post(
+            '/api/v1/account/reset_password',
+            json.dumps(data),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = {'username': self.username, 'password': password1}
+        response = self.client.post(
+            '/api/v1/account/login',
+            json.dumps(data),
+            content_type='application/json'
+        )
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
