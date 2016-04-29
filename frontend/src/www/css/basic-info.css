@@ -111,15 +111,15 @@
 	display: inline-block;
 	cursor: pointer;
 	background: #0084C0;
-	padding: 10px 15px;
+	padding: 7px 3px;
 	color: #DFEBF7;
 	text-align: center;
 	border-radius: 3px;
 	overflow: hidden;
-	line-height: 42px;
-	margin-top: 1em;
+	line-height: 39px;
+	margin-top: 1.2em;
 	float: right;
-	margin-right: 12px;
+	margin-right: 6px;
 }
 .webuploader-pick-hover {
 	background: #00a2d4;

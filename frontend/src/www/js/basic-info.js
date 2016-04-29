@@ -1,8 +1,15 @@
 app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$state) {
-	/*var keywordId = $sateParams.data.keywordId;
-	var catId = $sateParams.data.catId;
-	var subCatId = $sateParams.data.subCatId;
-	*/
+	if($stateParams.data==null){
+		$ionicPopup.alert({
+			'title':'',
+			'template':'请先选择模版关键词',
+			'okType':'button-light'
+		}).then(function(){
+			$state.go('homepages.home');
+		});
+		return;
+	}
+
 	console.log($stateParams.data);
 
 	function trimStr(str){return str.replace(/(^\s*)|(\s*$)/g,"");}
@@ -204,7 +211,16 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
 
 	}
 
-
+	$scope.basicstep = function(){
+		 $ionicPopup.alert({
+		   title: '',
+		   template: '取消返回上一页',
+		   okType:'button-light'
+		   }).then(function(){
+		   		$state.go('homepages.home');
+		   })
+		
+	}
 var uploader = WebUploader.create({
 	    // 选完文件后，是否自动上传。
 	    auto: true,

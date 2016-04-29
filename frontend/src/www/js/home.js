@@ -1,4 +1,4 @@
-app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams){
+app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,$ionicLoading,$timeout){
     /**调用图片列表*/
     $scope.posters = {};
     $scope.isPostersEmpty = false;
@@ -8,28 +8,54 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
         console.log(data);
         $scope.isPostersEmpty = true;
     });
-
+    /**下拉刷新*/
+    $scope.doRefresh = function(){
+        $scope.isPostersEmpty = false;
+        $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple').success(function(data){
+            $scope.posters = data;
+        }).error(function(data){
+            console.log(data);
+            $scope.isPostersEmpty = true;
+        }).finally(function() {
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+    }
 
 
 
     /**创建海报类型选择*/
     $scope.showTypeSel = function(){
+
         var typemodel = document.querySelector('#type-model');
         typemodel.classList.toggle("open");
-
+        if(!typemodel.classList.contains('open')){
+            return;
+        }
+        $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+        });
         $scope.types = {};
-        $scope.cateIsEmpty = true;
+        $scope.cateIsEmpty = false;
 
         $http.get(API_CONFIG.root + '/api/v1/poster/categorys?parent=0').success(function(data){
+            $ionicLoading.hide();
             $scope.types = data;
             $scope.cateIsEmpty = false;
         }).error(function(data){
             console.log(data);
+            $ionicLoading.hide();
             $scope.cateIsEmpty = true;
         });
         if($scope.types.legnth > 0){
+            $ionicLoading.hide();
             $scope.cateIsEmpty = false;
         }
+
+
 
 
     }
@@ -97,8 +123,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
     /**创建海报关键词保存*/
     $scope.saveKeywords = function(pkeyword,catId,subCatId){
         $scope.pkeyword = pkeyword;
-        alert($scope.pkeyword.verb + '========'+$scope.pkeyword.noun);return;
-        if(pkeyword.length==undefined || pkeyword.length <= 0 || pkeyword.verb==''|| pkeyword.noun==''){
+        if(pkeyword==undefined || pkeyword.length <= 0 || pkeyword.verb==''|| pkeyword.noun==''){
             $ionicPopup.alert({
                title: '',
                template: '请输入关键词',
