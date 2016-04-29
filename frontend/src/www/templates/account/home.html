@@ -14,7 +14,7 @@
             </div>
             <ul class="image-list">
                 <li ng-repeat="poster in posters">
-                    <a href="{{poster.home_page}}" title="{{poster.id}}" data-create="{{poster.created_at}}" data-count="{{poster.views_count}}"><img src="{{poster.thumb}}" /></a>
+                    <a href="{{poster.home_page}}" title="{{poster.id}}" data-create="{{poster.created_at}}" data-count="{{poster.views_count}}"><img ng-src="{{poster.thumb}}" /></a>
                 </li>
             </ul>
         </div>

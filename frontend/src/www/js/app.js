@@ -80,6 +80,12 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 		params:{'data':null}
 
 	})
+	.state('posteredit',{
+		url:"/posteredit",
+		templateUrl:"templates/poster/poster-edit.html",
+		params:{'data':null}
+
+	})
 	.state('api',{
 		url:"/api",
 		templateUrl:"templates/api.html"

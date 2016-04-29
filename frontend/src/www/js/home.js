@@ -108,7 +108,6 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
     /**创建海报关键词保存*/
     $scope.saveKeywords = function(pkeyword,catId,subCatId){
         $scope.pkeyword = pkeyword;
-        alert($scope.pkeyword.verb + '========'+$scope.pkeyword.noun);return;
         if(pkeyword.length==undefined || pkeyword.length <= 0 || pkeyword.verb==''|| pkeyword.noun==''){
             $ionicPopup.alert({
                title: '',
