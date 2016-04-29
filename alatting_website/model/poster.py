@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
+from django.db.models import SET_NULL
 from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \
     BigAutoField, BigForeignKey, BigOneToOneField
 from model_utils.managers import InheritanceManager
@@ -35,7 +36,8 @@ class Poster(models.Model):
 
     #qr_image
     logo_image = models.ForeignKey(
-        'Image', related_name='poster_logo_images', null=True
+        'Image', related_name='poster_logo_images', null=True,
+        on_delete=SET_NULL
     )
     logo_title = models.CharField(max_length=255, default='')
     short_description = models.CharField(max_length=255, default='')
@@ -95,7 +97,8 @@ class Poster(models.Model):
     category_keyword = models.ForeignKey(
         'CategoryKeyword',
         null=True,
-        blank=True
+        blank=True,
+        on_delete=SET_NULL
     )
 
     objects = InheritanceManager()

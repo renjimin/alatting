@@ -1,7 +1,90 @@
-<ion-view view-title="个人主页">    
-    <ion-content class="padding">
-		<p>
-			个人主页
-		</p>
+<ion-view view-title="个人主页" class="account">
+	<ion-header-bar class="">
+		<div class="ac-header">
+			<div class="tabs tabs-light tabs-icon-only">
+				<a class="tab-item tab-item-active" href="#">
+					<i class="icon ion-person"></i>
+				</a>
+				<a class="tab-item" href="#">
+					<i class="icon ion-person-add"></i>
+				</a>
+				<a class="tab-item" href="#">
+					<i class="icon ion-person-stalker"></i>
+				</a>
+			</div>
+		</div>
+	</ion-header-bar>
+
+    <ion-content ng-controller="accountCtrl">
+		<div class="ac-uinfo">
+			<div class="row">
+				<div class="col col-67">
+					<div class="ac-uinfo-name">
+					  <img src="{{userinfo.userhead}}">
+					  <span>{{userinfo.name}}</span>
+					</div>
+				</div>
+				<div class="col">
+					<div class="ac-uinfo-item">
+						<i class="icon ion-ios-paper"></i>
+						<span class="ac-uinfo-det">{{userinfo.tnum}}</span>
+					</div>
+					<div class="ac-uinfo-item">
+						<i class="icon ion-thumbsup"></i>
+						<span class="ac-uinfo-det">{{userinfo.dnum}}</span>
+					</div>
+					<div class="ac-uinfo-item">
+						<i class="icon ion-share"></i>
+						<span class="ac-uinfo-det">{{userinfo.shnum}}</span>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col col-67">
+					<div class="ac-uinfo-money">
+						<span class="fb-icon">
+							<span class="fb-icon-money">$</span>
+						</span>
+						<span>回馈金</span>
+					</div>
+				</div>
+				<div class="col">
+					<div class="ac-uinfo-mnum">${{userinfo.money}}</div>
+				</div>
+			</div>
+		</div>
+		<div class="ac-temp">
+
+			<div class="ac-temp-li" ng-repeat="t in tarr">
+				<div class="ac-temp-box" on-hold="onHold({{t.id}})">
+					<div class="ac-list-img">
+						<img src="{{t.imgurl}}" alt="hb">
+					</div>
+					<div class="ac-list-item-ctrl" ng-show="itemshow{{t.id}}">
+						<span class="ac-item-back" on-tap="onHold({{t.id}})">
+							<span class="ac-item-delet icon ion-ios-trash" on-tap="deletTemp({{t.id}})"></span>
+						</span>
+						<span class="ac-item-edit" on-tap="editTemp({{t.id}})">
+							<i class="icon ion-android-create"></i><br>
+							<span>编辑</span>
+						</span>
+					</div>
+				</div>
+			</div>
+			<!--<ion-infinite-scroll on-infinite="addmoreTemp()"></ion-infinite-scroll>-->
+			<div class="ac-temp-li ac-add" on-tap="addTemp()">
+				<div class="ac-temp-box">
+					<div class="ac-list-img">
+						<!--这张图是所有模板的缩微图的尺寸，内容可以随意-->
+						<img src="../../img/hb001.png" alt="hb">
+					</div>
+					<div class="ac-list-item-ctrl">
+						<div class="ac-add-icon-box">
+							<span class="icon ion-plus"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
     </ion-content>
 </ion-view>

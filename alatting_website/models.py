@@ -138,9 +138,11 @@ class TemplateRegion(models.Model):
 
 
 class CategoryKeyword(models.Model):
-    category = models.ForeignKey(Category,
-                                 limit_choices_to={'parent__isnull': False},
-                                 help_text=u'选用二级分类')
+    category = models.ForeignKey(
+        Category,
+        limit_choices_to={'parent__isnull': False},
+        help_text=u'选用二级分类'
+    )
     verb = models.CharField(max_length=20, help_text=u'动词')
     noun = models.CharField(max_length=100, help_text=u'名词')
     created_at = models.DateTimeField(auto_now_add=True)
