@@ -229,7 +229,7 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
  * @return {[type]}        [description]
  */
 app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$interval) {
-	var code = '';
+	var registCode = '';
 	var username = '';
 	$scope.isshow= true;
 	$scope.paracont = "获取验证码";
@@ -293,7 +293,8 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			   });
 			   return false;				
 		};
-		if (writecode!=code) {
+		//alert(code)
+		if (writecode!=registCode) {
 			 var alertPopup = $ionicPopup.alert({
 			       title: '验证码填写错误.请重新填写验证码',
 			       template: ''
@@ -302,7 +303,7 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 		}
 		$http.post(API_CONFIG.root + "/api/v1/account/auth_message",{
 			"username":username,
-			"message":code}
+			"message":writecode}
 			).success(function(){
 				/*验证成功跳转*/
 				$state.go("forgetpwd",{data: username});
