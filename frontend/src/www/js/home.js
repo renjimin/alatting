@@ -4,6 +4,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
     $scope.isPostersEmpty = false;
     var typemodel = document.querySelector('#type-model');
     typemodel.classList.remove("open");
+    
     $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple').success(function(data){
         $scope.posters = data;
     }).error(function(data){
