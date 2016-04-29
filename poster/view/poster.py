@@ -3,6 +3,7 @@ from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
     RetrieveUpdateAPIView)
+from rest_framework.permissions import IsAuthenticated
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
 from poster.serializer.poster import (
@@ -57,6 +58,7 @@ class PosterListView(ListCreateAPIView):
     queryset = Poster.objects.filter(
         status=Poster.STATUS_PUBLISHED
     ).order_by('-created_at')
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request, *args, **kwargs):
         set_dev_request_user(request)
