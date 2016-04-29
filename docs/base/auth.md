@@ -22,7 +22,7 @@
 
 ```json
 {
-    "detail": "Login successful"
+    "detail": "登陆成功"
 }
 ```
 
@@ -74,7 +74,7 @@
 
 ```json
 {
-    "detail": "Authentication successful"
+    "detail": "验证成功"
 }
 ```
 
@@ -104,7 +104,7 @@
 
 ```json
 {
-    "detail": "register successful",  // 如参数错误会报400, 403的错误
+    "detail": "注册成功",  // 如参数错误会报400, 403的错误
     "active_url": ""                  // 只有邮箱注册有这个激活地址（手机注册之前已经验证验证码，不需要激活地址）
 }
 ```
@@ -132,7 +132,7 @@
 
 ```json
 {
-    "detail": "Reset successful",  // 如参数错误会报400, 403的错误
+    "detail": "重置成功",  // 如参数错误会报400, 403的错误
 }
 ```
 
