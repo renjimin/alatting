@@ -33,7 +33,7 @@
 .poster-view .scroll-content{padding-top:0;}
 .poster-view .bar-header,.poster-view .tabs{ background-image:none;border:none;max-width:600px;margin:0 auto;    z-index: 100;}
 .poster-view .bar-header,.poster-view .bar-footer{background:#000;}
-.poster-view .bar .title{color:#fff;font-family:"Microsoft YaHei";}
+.poster-view .bar .title{color:#cdcdcd;font-family:"Microsoft YaHei";}
 .poster-view .bar-footer{padding:0;}
 .poster-view .bar-footer .tab-item{opacity:1;padding:10px 5px;    max-width: none;}
 .poster-view .bar-footer .tab-item.activated,.poster-view .bar-footer .tab-item.open{background:rgba(0,0,0,0.1);}
@@ -193,3 +193,9 @@ to {
 .bar-footer  .dropdown-panel{ background:rgba(0,0,0,.8);}
 .bar-footer  .dropdown-panel .dropdown-arrow-down{border-top-color:rgba(0,0,0,.8);}
 */
+
+/**
+* 海报编辑css
+*/
+.poster-edit .bar .btn-save,.poster-edit .bar .btn-post{border:1px solid #7f7f7f;color:#7f7f7f;border-radius:5px;padding-left:10px;padding-right:10px;top:8px;height:25px;line-height:25px;}
+.poster-edit .btn-save{position:absolute;right: 60px;}

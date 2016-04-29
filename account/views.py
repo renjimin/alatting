@@ -32,11 +32,12 @@ class MessageView(APIView):
         try:  # TODO 要加装饰器判断入参合法性
             inputvalue = request.data['username']
         except KeyError:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
         message = get_message(inputvalue)
         if input_type == None:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': '参数错误,请用邮箱或者手机号注册'},
+                            status=status.HTTP_400_BAD_REQUEST)
         else:
             try:
                 msg = LoginMessage.objects.get(username=inputvalue)
@@ -62,21 +63,21 @@ class CheckMessageView(APIView):
             inputvalue = request.data['username']
             message = request.data['message']
         except KeyError:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
         input_type = what(inputvalue)
         if input_type == None:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
         else:
             msg = get_object_or_404(LoginMessage, username=inputvalue)
             offset_naive_dt = msg.created_at.replace(tzinfo=None)
             # 校验时间是否已过期
             if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
-                return Response(dict(detail="Time has expired"),
+                return Response(dict(detail="验证码已过期"),
                                 status=status.HTTP_401_UNAUTHORIZED)
             if msg.message == message:  # 校验验证码是否正确
-                return Response(dict(detail="Authentication successful"))
+                return Response(dict(detail="验证成功"))
             else:
-                return Response(dict(detail="Authentication failure"),
+                return Response(dict(detail="验证码不正确"),
                                 status=status.HTTP_401_UNAUTHORIZED)
 
 
@@ -142,19 +143,19 @@ class RegisterView(APIView):
         offset_naive_dt = msg.created_at.replace(tzinfo=None)
         # 校验时间是否已过期
         if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
-            return Response(dict(detail="Time has expired"), status=status.HTTP_401_UNAUTHORIZED)
+            return Response(dict(detail="验证码已过期"), status=status.HTTP_401_UNAUTHORIZED)
         if msg.message != message:  # 校验验证码是否正确
             return Response(dict(detail="验证码不正确"), status=status.HTTP_403_FORBIDDEN)
 
         ret = self.check_user_exist(input_type, aquery)
         if ret == -1:
-            return Response({'detail': '重复注册'}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'detail': '账户已存在'}, status=status.HTTP_403_FORBIDDEN)
 
         if input_type == "username":  # 用用户名注册的直接使用用户名加用户
             username = inputvalue
         else:  # 用邮箱或者手机注册的生成一个用户名
             username = '{}_{}'.format(inputvalue, str(uuid.uuid1()).split('-')[0])
-        resdata = {'detail': 'Register successful'}
+        resdata = {'detail': '注册成功'}
         user = User.objects.create(username=username)
         user.set_password(password)
         if input_type == 'email':
@@ -188,16 +189,16 @@ class LoginView(APIView):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
-            return Response({'detail': 'Login successful'})
+            return Response({'detail': '登陆已成功'})
         else:
             return Response(
-                {'detail': 'Authentication failure'},
+                {'detail': '登陆失败'},
                 status=status.HTTP_401_UNAUTHORIZED
             )
 
     def delete(self, request):
         logout(request)
-        return Response({'detail': 'Logout successful'})
+        return Response({'detail': '成功登出'})
 
 
 class ResetPasswordView(APIView):
@@ -226,7 +227,7 @@ class ResetPasswordView(APIView):
                 user = get_object_or_404(User, username=inputvalue)
         user.set_password(password)
         user.save()
-        return Response({'detail': 'Reset successful'})
+        return Response({'detail': '重置成功'})
 
 
 class ProfileView(ListAPIView):

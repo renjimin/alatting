@@ -57,7 +57,6 @@
 	display: inline-block;
 	margin-top:1%;
 	font-size: 14px;
-	background: rgb(34,140,58);
 }
 .rgister-bg input[type="checkbox"]{
 	height: 16px;
@@ -167,9 +166,9 @@
 .forgetpassword .list-input{
 	width: 50%;
 }
-.forgetpassword .button{
+.forgetpassword  .list-li .button{
 	float: right;
-	margin-top:-11%;
+	margin-top:-11.5%;
     min-height: 23px;
     line-height: 29px;
     margin-right: 6%;
@@ -182,21 +181,13 @@
 .forgetpassword .button-dark{
 	background: rgb(171,171,171);
 }
-.forgetpassword  .button-balanced{
-	background: rgb(34,140,58);
-}
 .forgetpassword .item-input{
 	margin-top: -6%;
 	padding-top: 10px;
 }
 .forgetpassword .button-bar{
-	width: 105%;
+
 	margin-left: 0%;
-	margin-top:21%;
-}
-.forgetpassword .btnsure{
-    margin-left: 1%;
-    margin-top: 21%;   	
 }
 .btnsure .button{
 	min-height: 42px;

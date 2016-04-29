@@ -1,4 +1,14 @@
 app.controller( 'templateCtl',function($scope,$ionicPopup,$http,$timeout,$state,$stateParams){
+    if($stateParams.data==null){
+		$ionicPopup.alert({
+			'title':'',
+			'template':'请先编辑海报基本信息',
+			'okType':'button-light'
+		}).then(function(){
+			$state.go('basicinfo');
+		});
+		return;
+	}
     /**获取模版列表*/
     $scope.templates = {};
     $scope.isTemplatesEmpty = false;

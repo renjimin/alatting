@@ -7,13 +7,14 @@
         <a href="javascript:void(0)" ng-click="showTypeSel()" class="button button-clear btn-create"><i class="ion-plus"></i><span>创建</span></a>
     </ion-header-bar>
     <ion-content class="has-tabs ion-home-content">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <div class="home-containar">
             <div class="empty-info" ng-if="isPostersEmpty">
                 获取数据失败，请稍后重试！
             </div>
             <ul class="image-list">
                 <li ng-repeat="poster in posters">
-                    <a href="{{poster.home_page}}" title="{{poster.id}}" data-create="{{poster.created_at}}" data-count="{{poster.views_count}}"><img src="{{poster.thumb}}" /></a>
+                    <a href="{{poster.home_page}}" title="{{poster.id}}" data-create="{{poster.created_at}}" data-count="{{poster.views_count}}"><img ng-src="{{poster.thumb}}" /></a>
                 </li>
             </ul>
         </div>
@@ -21,7 +22,7 @@
     <div class="type-model" id="type-model">
         <div class="type-model-inner">
             <div class="type-model-containar">
-                <div class="empty-info" ng-if="cateIsEmpty">
+                <div class="empty-info" ng-if="cateIsEmpty" id="cateEmpty">
                     获取数据失败，请稍后重试！
                 </div>
                 <ul class="list">
