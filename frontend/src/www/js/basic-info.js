@@ -212,13 +212,20 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
 	}
 
 	$scope.basicstep = function(){
-		 $ionicPopup.alert({
-		   title: '',
-		   template: '取消返回上一页',
-		   okType:'button-light'
-		   }).then(function(){
-		   		$state.go('homepages.home');
-		   })
+		 $ionicPopup.confirm({
+            'title': '',
+            'template': '确认返回上一页?',
+            'okType':'button-light',
+            'cancelText':'取消',
+            'okText':'确认'
+        }).then(function(res){
+        	if(res){
+        		$state.go('homepages.home');
+        	}else{
+        		
+        	}
+		   		
+		})
 		
 	}
 var uploader = WebUploader.create({
