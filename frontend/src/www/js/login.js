@@ -115,10 +115,14 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 			$scope.isShow = false;
 			$scope.ishide = true;
 			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{"username":username}).success(function(data){
-				 var alertPopup = $ionicPopup.alert({
-				       title: data.message,
-				       template: ''
-				   });
+				if (PHONE_REGEXP.test(username)) {
+					 var alertPopup = $ionicPopup.alert({
+					       title: data.message,
+					       template: ''
+					   });
+				}else{
+					//return false;
+				}
 				 registCode = data.message;
 			}).error(function(data){
 				console.log(data);
@@ -155,7 +159,7 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 		var password = $scope.firstpassword;
 		var againpassword = $scope.secondpassword;
 		var code = $scope.savecode;
-		if (username==undefined) {
+		if (username==null) {
 			var alertPopup = $ionicPopup.alert({
 				title: '用户名为空',
 				template: ''
@@ -169,20 +173,22 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 			});
 				return false;
 		}				
-		if (password==undefined) {
+		if (password==null) {
 			var alertPopup = $ionicPopup.alert({
 				title: '密码为空',
 				template: ''
 				});
 				return false;				
 			}
-		if (registCode !=code) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '验证码填写错误',
-			       template: ''
-			   });
-			 return false;			
-		};				
+		if(PHONE_REGEXP.test(username)){
+			if (registCode !=code) {
+				 var alertPopup = $ionicPopup.alert({
+				       title: '验证码填写错误',
+				       template: ''
+				   });
+				 return false;			
+			}	
+		}			
 		if (password != againpassword) {
 			 var alertPopup = $ionicPopup.alert({
 			       title: '两次输入的密码不一致',
@@ -210,17 +216,6 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 			   });
 		})
 	}
-		function checkEmail(str){
-		    var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-		    var pre = /^1\d{10}$/;
-		    if(!re.test(str) && pre.test(str)){
-			var alertPopup = $ionicPopup.alert({
-				title: '用户名格式错误,必须是手机号或邮箱号',
-				template: ''
-			});
-				return false;
-		    }
-		}	
 });
 /**
  * 忘记密码填写验证码
@@ -232,6 +227,8 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 	var registCode = '';
 	var username = '';
 	$scope.isshow= true;
+	var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;	
 	$scope.paracont = "获取验证码";
     $scope.paraclass = "but_null";
     $scope.paraevent = true;	
@@ -245,15 +242,30 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			   });
 			   return false;	
 		};
+		if (PHONE_REGEXP.test(username) || EMAIL_REGEXP.test(username)) {
+
+			 //return false;
+		}
+		else{
+			 var alertPopup = $ionicPopup.alert({
+			       title: '手机号码或邮箱号格式不对',
+			       template: ''
+			   });
+			   return false;			
+		}		
 		if (passCode==true) {
 			passCode = false;
 			$scope.isShow = false;
 			$scope.ishide = true;
 			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{"username":username}).success(function(data){
-				 var alertPopup = $ionicPopup.alert({
-				       title: data.message,
-				       template: ''
-				   });
+				if (PHONE_REGEXP.test(username)) {
+					 var alertPopup = $ionicPopup.alert({
+					       title: data.message,
+					       template: ''
+					   });
+				}else{
+					//return false;
+				}
 				 registCode = data.message;
 			}).error(function(data){
 				console.log(data);
