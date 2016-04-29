@@ -25,11 +25,12 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
 
     /**创建海报类型选择*/
     $scope.showTypeSel = function(){
+
         var typemodel = document.querySelector('#type-model');
         typemodel.classList.toggle("open");
 
         $scope.types = {};
-        $scope.cateIsEmpty = true;
+        $scope.cateIsEmpty = false;
 
         $http.get(API_CONFIG.root + '/api/v1/poster/categorys?parent=0').success(function(data){
             $scope.types = data;
@@ -108,7 +109,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
     /**创建海报关键词保存*/
     $scope.saveKeywords = function(pkeyword,catId,subCatId){
         $scope.pkeyword = pkeyword;
-        if(pkeyword.length==undefined || pkeyword.length <= 0 || pkeyword.verb==''|| pkeyword.noun==''){
+        if(pkeyword==undefined || pkeyword.length <= 0 || pkeyword.verb==''|| pkeyword.noun==''){
             $ionicPopup.alert({
                title: '',
                template: '请输入关键词',
