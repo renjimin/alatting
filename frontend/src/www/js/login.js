@@ -13,7 +13,7 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 			var username = $scope.username;
 			var password = $scope.password;
 			if (!username) {
-				 var alertPopup = $ionicPopup.alert({
+				 $ionicPopup.alert({
 				       title: '用户名为空',
 				       template: ''
 				   });
@@ -26,8 +26,8 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				   });
 				 return false;				
 			}
-			if ($scope.isSelected ==true ) {
-				if (username !=null && password != null) {
+			if ($scope.isSelected) {
+				if (!username && !password) {
 					localStorage.setItem("username",username);
 					localStorage.setItem("password",password);
 				}				
@@ -41,18 +41,18 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 				$state.go("homepages");
 				
 			}).error(function(data){
-				 var alertPopup = $ionicPopup.alert({
+				 $ionicPopup.alert({
 				       title: '用户名或密码错误',
 				       template: ''
 				   });
 			});
 		};
 		$scope.btnrember = function(){
-			if ($scope.isSelected == true) {
+			if ($scope.isSelected) {
 				localStorage.clear();
 				var username = $scope.username;
 				var password = $scope.password;
-				if (username !=null && password != null) {
+				if (!username && !password) {
 					localStorage.setItem("username",username);
 					localStorage.setItem("password",password);
 				}
@@ -100,7 +100,7 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
             });
             return false;
         }
-        if (passCode == true) {
+        if (passCode) {
             passCode = false;
             $scope.isShow = false;
             $scope.ishide = true;
@@ -187,7 +187,7 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
         ).success(function (data) {
                 console.log(data);
                 $ionicPopup.alert({
-                    title: '恭喜您,注册成功',
+                    title: data.detail,
                     template: ''
                 });
                 $state.go("login");
@@ -232,7 +232,7 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
             });
             return false;
         }		
-		if (passCode==true) {
+		if (passCode) {
 			passCode = false;
 			$scope.isShow = false;
 			$scope.ishide = true;
@@ -337,7 +337,7 @@ app.controller('sendcode', function($scope,$http,$ionicPopup,$state,$stateParams
 		
 		}).error(function(data){
 			 $ionicPopup.alert({
-			       title: '重置密码失败',
+			       title: data.detail,
 			       template: ''
 			   });	
 		})			
