@@ -36,7 +36,8 @@ class MessageView(APIView):
         input_type = what(inputvalue)
         message = get_message(inputvalue)
         if input_type == None:
-            return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': '参数错误,请用邮箱或者手机号注册'},
+                            status=status.HTTP_400_BAD_REQUEST)
         else:
             try:
                 msg = LoginMessage.objects.get(username=inputvalue)
