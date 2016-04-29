@@ -2,6 +2,8 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
     /**调用图片列表*/
     $scope.posters = {};
     $scope.isPostersEmpty = false;
+    var typemodel = document.querySelector('#type-model');
+    typemodel.classList.remove("open");
     $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple').success(function(data){
         $scope.posters = data;
     }).error(function(data){
@@ -83,9 +85,9 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
             console.log(data);
         });
     }
-
+    $scope.keywords='';
     $scope.showKeywords = function(event,parentId){
-        $scope.keywords = {};
+        $scope.keywordolds = {};
         var lists = event.currentTarget.parentNode.parentNode.children;
         //alert(lists.length+'    ' +event.currentTarget.parentNode.className+'    ' +event.currentTarget.parentNode.parentNode.className)
         for(i=0;i<lists.length;i++){
@@ -97,7 +99,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
         $scope.keywordsls = false;
         $http.get(API_CONFIG.root + '/api/v1/poster/category/'+parentId+'/keywords').success(function(data){
             if(data != null && data.length != 0){
-                $scope.keywords = data;
+                $scope.keywordolds = data;
             }else{
                 $scope.keywordsls = true;
             }
@@ -119,10 +121,13 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
         event.currentTarget.parentNode.classList.add('open');
 
     }
+    /**
+    * 添加关键词
+    * keywordadds为添加的关键词列表
+    */
     $scope.pkeyword = {'verb':'','noun':''}
-    /**创建海报关键词保存*/
-    $scope.saveKeywords = function(pkeyword,catId,subCatId){
-        $scope.pkeyword = pkeyword;
+    $scope.keywordadds = [];
+    $scope.addKeywords = function(pkeyword,subCatId){
         if(pkeyword==undefined || pkeyword.length <= 0 || pkeyword.verb==''|| pkeyword.noun==''){
             $ionicPopup.alert({
                title: '',
@@ -132,14 +137,10 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
             console.log(pkeyword);
             return;
         }
+
         $http.post(API_CONFIG.root + '/api/v1/poster/category/'+subCatId+'/keywords',pkeyword).success(function(data){
-            $ionicPopup.alert({
-               title: '',
-               template: '关键词保存成功',
-               okType:'button-light'
-            }).then(function(res) {
-               $state.go('basicinfo',{data:{'keywordId':data.id,'catId':catId,'subCatId':subCatId}});
-            });
+            $scope.keywordadds.push(data);
+            $scope.pkeyword = {'verb':'','noun':''};
         }).error(function(data){
             console.log(data);
             $ionicPopup.alert({
@@ -149,11 +150,38 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
            });
         });
     }
-    /**创建海报关键词提交*/
-    $scope.confirmKeywords = function(event,keywordId,catId,subCatId){
-        document.querySelector('#type-model').classList.remove("open");
-        $state.go('basicinfo',{data:{'keywordId':keywordId,'catId':catId,'subCatId':subCatId}});
+    /**
+    * 选择关键词
+    *
+    */
+    $scope.selKeywords = function(event,keywordId){
+        var kys = document.querySelectorAll('.key-item');
+        for(i=0;i<kys.length;i++){
+            angular.element(kys[i]).find('i').removeClass('ion-android-checkbox-outline').addClass('ion-android-checkbox-outline-blank');
+        }
+        angular.element(event.currentTarget).find('i').removeClass('ion-android-checkbox-outline-blank').addClass('ion-android-checkbox-outline');
+        $scope.keywords=keywordId;
+
+
     }
+    /**创建海报关键词保存*/
+    $scope.saveKeywords = function(catId,subCatId){
+
+        if($scope.keywords == undefined || $scope.keywords == null || $scope.keywords == ''){
+            $ionicPopup.alert({
+               title: '',
+               template: '请选择关键词',
+               okType:'button-light'
+            })
+            console.log(pkeyword);
+            return;
+        }
+        document.querySelector('#type-model').classList.remove("open");
+        $state.go('basicinfo',{data:{'keywordId':$scope.keywords,'catId':catId,'subCatId':subCatId}});
+        console.log({'keywordId':$scope.keywords,'catId':catId,'subCatId':subCatId});
+
+    }
+
 
     $scope.selectHot = function(){
         $scope.posters = {};
