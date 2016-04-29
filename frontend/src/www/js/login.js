@@ -80,77 +80,75 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
  * @param  {[type]} $http) {	$scope.btncode [description]
  * @return {[type]}        [description]
  */
-app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
-	   $scope.paracont = "获取验证码";
-	   $scope.paraclass = "but_null";
-	   $scope.paraevent = true;
-	   var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	   var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
-	   var passCode = true;
-	   var registCode = '';
-	   $scope.isShow  = true;
-	$scope.btncode = function(){
-		var username = $scope.username;
-		var passUser = '';
-		if (username==null) {
-			var alertPopup = $ionicPopup.alert({
-				title: '用户名为空',
-				template: ''
-			});
-			return false;
-		}
-		if (PHONE_REGEXP.test(username) || EMAIL_REGEXP.test(username)) {
+app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval) {
+    $scope.paracont = "获取验证码";
+    $scope.paraclass = "but_null";
+    $scope.paraevent = true;
+    var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+    var passCode = true;
+    var registCode = '';
+    $scope.isShow = true;
+    $scope.btncode = function () {
+        var username = $scope.username;
+        var passUser = '';
+        if (username == null) {
+            $ionicPopup.alert({
+                title: '用户名为空',
+                template: ''
+            });
+            return false;
+        }
+        if (!PHONE_REGEXP.test(username) || !EMAIL_REGEXP.test(username)) {
+            $ionicPopup.alert({
+                title: '手机号码或邮箱号格式不对',
+                template: ''
+            });
+            return false;
+        }
+        if (passCode == true) {
+            passCode = false;
+            $scope.isShow = false;
+            $scope.ishide = true;
+            $http.post(API_CONFIG.root + "/api/v1/account/send_message", {"username": username}).success(function (data) {
+                if (PHONE_REGEXP.test(username)) {
+                    $ionicPopup.alert({
+                        title: data.message,
+                        template: ''
+                    });
+                }
+                registCode = data.message;
+            }).error(function (data) {
+                console.log(data);
+            });
 
-			 //return false;
-		}
-		else{
-			 var alertPopup = $ionicPopup.alert({
-			       title: '手机号码或邮箱号格式不对',
-			       template: ''
-			   });
-			   return false;			
-		}
-		if (passCode==true) {
-			passCode = false;
-			$scope.isShow = false;
-			$scope.ishide = true;
-			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{"username":username}).success(function(data){
-				 var alertPopup = $ionicPopup.alert({
-				       title: data.message,
-				       template: ''
-				   });
-				 registCode = data.message;
-			}).error(function(data){
-				console.log(data);
-			});
+            var second = 60;
+            var timePromise = $interval(function () {
+                if (second <= 0) {
+                    $interval.cancel(timePromise);
+                    timePromise = null;
+                    $scope.paracont = "重发验证码";
+                    $scope.paraclass = "but_null";
+                    $scope.paraevent = true;
 
-	       	var second = 60;
-			var timePromise = $interval(function(){
-			  	if(second<=0){
-				    $interval.cancel(timePromise);
-				    timePromise = null;
-				    $scope.paracont = "重发验证码";
-				    $scope.paraclass = "but_null";
-				    $scope.paraevent = true;
+                    passCode = true;
+                    $scope.isShow = true;
+                    $scope.ishide = false;
+                    $interval.cancel(timePromise);
+                } else {
+                    second--;
+                    $scope.paracont = "获取验证码" + "(" + second + ")";
+                    $scope.paraclass = "not but_null";
 
-				    passCode = true;
-				    $scope.isShow = true;
-					$scope.ishide = false;
-					$interval.cancel(timePromise);
-			  	}else{
-			  		second--;
-				    $scope.paracont = "获取验证码"+"("+second+")";
-				    $scope.paraclass = "not but_null";
-				    
-			  	}
-			},1000,100);	
-		}
-	};
-	$scope.regist = function(){
-		var username = $scope.username;
-		var password = $scope.firstpassword;
-		var againpassword = $scope.secondpassword;
-		var code = $scope.savecode;
+                }
+            }, 1000, 100);
+        }
+    };
+    $scope.regist = function () {
+        var username = $scope.username;
+        var password = $scope.firstpassword;
+        var againpassword = $scope.secondpassword;
+        var code = $scope.savecode;
         if (!username) {
             $ionicPopup.alert({
                 title: '请输入用户名',
