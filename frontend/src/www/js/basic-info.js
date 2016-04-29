@@ -213,7 +213,7 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
 	    // 选完文件后，是否自动上传。
 	    auto: true,
 	    // swf文件路径
-	    swf:  'http://fex.baidu.com/webuploader/js/Uploader.swf',
+	    //swf:  'http://fex.baidu.com/webuploader/js/Uploader.swf',
 	    // 文件接收服务端。
 	    server: API_CONFIG.root + '/api/v1/poster/upload/logo',
 	    // 选择文件的按钮。可选。
