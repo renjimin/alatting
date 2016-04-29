@@ -8,7 +8,18 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams)
         console.log(data);
         $scope.isPostersEmpty = true;
     });
-
+    /**下拉刷新*/
+    $scope.doRefresh = function(){
+        $scope.isPostersEmpty = false;
+        $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple').success(function(data){
+            $scope.posters = data;
+        }).error(function(data){
+            console.log(data);
+            $scope.isPostersEmpty = true;
+        }).finally(function() {
+            $scope.$broadcast('scroll.refreshComplete');
+        });
+    }
 
 
 

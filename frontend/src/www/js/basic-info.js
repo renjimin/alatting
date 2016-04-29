@@ -1,8 +1,15 @@
 app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$state) {
-	/*var keywordId = $sateParams.data.keywordId;
-	var catId = $sateParams.data.catId;
-	var subCatId = $sateParams.data.subCatId;
-	*/
+	if($stateParams.data==null){
+		$ionicPopup.alert({
+			'title':'',
+			'template':'请先选择模版关键词',
+			'okType':'button-light'
+		}).then(function(){
+			$state.go('homepages.home');
+		});
+		return;
+	}
+
 	console.log($stateParams.data);
 
 	function trimStr(str){return str.replace(/(^\s*)|(\s*$)/g,"");}

@@ -7,6 +7,7 @@
         <a href="javascript:void(0)" ng-click="showTypeSel()" class="button button-clear btn-create"><i class="ion-plus"></i><span>创建</span></a>
     </ion-header-bar>
     <ion-content class="has-tabs ion-home-content">
+        <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
         <div class="home-containar">
             <div class="empty-info" ng-if="isPostersEmpty">
                 获取数据失败，请稍后重试！
