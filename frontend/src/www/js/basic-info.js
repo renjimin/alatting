@@ -219,12 +219,6 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
 	    // 选择文件的按钮。可选。
 	    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
 	    pick: '#filePicker',
-	    // 只允许选择图片文件。
-	    accept: {
-	        title: 'Images',
-	        extensions: 'jpg,jpeg,png,JPG,JPEG,PNG',
-	        mimeTypes: 'image/*'
-	    },
         // resize: false,
         // 解决android 4+ bug
         // sendAsBinary: true,
