@@ -122,7 +122,7 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 				 registCode = data.message;
 			}).error(function(data){
 				console.log(data);
-			})
+			});
 
 	       	var second = 60;
 			var timePromise = $interval(function(){
@@ -144,83 +144,69 @@ app.controller('regist', function($scope,$http,$ionicPopup,$state,$interval) {
 				    
 			  	}
 			},1000,100);	
-
-
-		};
-
-		
-	};	
+		}
+	};
 	$scope.regist = function(){
 		var username = $scope.username;
 		var password = $scope.firstpassword;
 		var againpassword = $scope.secondpassword;
 		var code = $scope.savecode;
-		if (username==undefined) {
-			var alertPopup = $ionicPopup.alert({
-				title: '用户名为空',
-				template: ''
-			});
-				return false;
-		}		
-		if(code == null){
-			var alertPopup = $ionicPopup.alert({
-				title: '验证码为空',
-				template: ''
-			});
-				return false;
-		}				
-		if (password==undefined) {
-			var alertPopup = $ionicPopup.alert({
-				title: '密码为空',
-				template: ''
-				});
-				return false;				
-			}
-		if (registCode !=code) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '验证码填写错误',
-			       template: ''
-			   });
-			 return false;			
-		};				
-		if (password != againpassword) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '两次输入的密码不一致',
-			       template: ''
-			   });
-			 return false;
-		}		
-		$http.post(API_CONFIG.root +"/api/v1/account/register",{
-			"username": username,
-			"password1": password,
-			"password2":againpassword,
-			"message":code}
-		).success(function(data){
-			console.log(data);
-			 var alertPopup = $ionicPopup.alert({
-			       title: '恭喜您,注册成功',
-			       template: ''
-			   });
-			$state.go("login");
-		}).error(function(data){
-			console.log(data);
-			 var alertPopup = $ionicPopup.alert({
-			       title: '注册失败,请重新注册',
-			       template: ''
-			   });
-		})
-	}
-		function checkEmail(str){
-		    var re = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
-		    var pre = /^1\d{10}$/;
-		    if(!re.test(str) && pre.test(str)){
-			var alertPopup = $ionicPopup.alert({
-				title: '用户名格式错误,必须是手机号或邮箱号',
-				template: ''
-			});
-				return false;
-		    }
-		}	
+        if (!username) {
+            $ionicPopup.alert({
+                title: '请输入用户名',
+                template: ''
+            });
+            return false;
+        }
+        if (!code) {
+            $ionicPopup.alert({
+                title: '请输入验证码',
+                template: ''
+            });
+            return false;
+        }
+        if (!password) {
+            $ionicPopup.alert({
+                title: '请输入密码',
+                template: ''
+            });
+            return false;
+        }
+        if (!againpassword) {
+            $ionicPopup.alert({
+                title: '请再次输入密码',
+                template: ''
+            });
+            return false;
+        }
+        if (password != againpassword) {
+            $ionicPopup.alert({
+                title: '两次输入的密码不一致',
+                template: ''
+            });
+            return false;
+        }
+        $http.post(API_CONFIG.root + "/api/v1/account/register", {
+                "username": username,
+                "password1": password,
+                "password2": againpassword,
+                "message": code
+            }
+        ).success(function (data) {
+                console.log(data);
+                var alertPopup = $ionicPopup.alert({
+                    title: '恭喜您,注册成功',
+                    template: ''
+                });
+                $state.go("login");
+            }).error(function (data) {
+                console.log(data);
+                var alertPopup = $ionicPopup.alert({
+                    title: '注册失败,请重新注册',
+                    template: ''
+                });
+            });
+    };
 });
 /**
  * 忘记密码填写验证码
