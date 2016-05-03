@@ -1,0 +1,47 @@
+body{
+    background-color: #efefef;
+    height: 100%;
+}
+.container-fluid{
+    padding-bottom: 80px;
+}
+.footer{
+    display: block;
+    width:100%;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    background-color: #fff;
+    z-index: 999;
+}
+.footer-tab{
+    margin:0;
+    padding:0;
+    height: 70px;
+}
+.footer-tab li{
+    list-style: none;
+    float:left;
+    width:25%;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+}
+
+.footer-tab li a{
+    display: block;
+    padding-top: 15px;
+    height: 70px;
+    font-size: 14px;
+    color: #aaa;
+    text-decoration: none;
+}
+.footer-tab li span{
+    font-size: 26px;
+    display:block;
+}
+
+.footer-tab li a:hover,
+.footer-tab li.active a{
+    color: #666;
+}
