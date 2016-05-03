@@ -15,6 +15,7 @@
 	function trimStr(str){return str.replace(/(^\s*)|(\s*$)/g,"");}
 	
 	$scope.submitform = function(){
+
 	
 	var flag = true;
 	var postname = trimStr(document.querySelector('.post-name').value);
@@ -231,6 +232,7 @@
 			})
 			
 		}
+	
 	var uploader = WebUploader.create({
 		    // 选完文件后，是否自动上传。
 	auto: true,
@@ -281,4 +283,5 @@
 			$scope.uploadimg = data.id;
 		})
 	
-	})
+});
+

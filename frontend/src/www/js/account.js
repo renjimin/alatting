@@ -5,10 +5,26 @@ app.controller('accountCtrl',['$scope','$http','$ionicPopup','$state',
     function($scope,$http,$ionicPopup,$state){
         /*---------页面数据初始化-----------*/
         /*获取用户信息*/
-        /*
+        $scope.userinfo = {}
+        $scope.tarr = []
+
         $http.get(API_CONFIG.root+'/api/v1/account/profile')
             .success(function(reps){
-                console.log(reps);
+                if(reps.length>0) {
+                    /*userinfo*/
+                    $scope.userinfo = reps[0];
+                    if(reps[0].person==null) {
+                        $scope.userinfo.avatar = '../www/img/headicon.jpeg';
+                    } else {
+                        $scope.userinfo.avatar = reps[0].person.avatar;
+                    }
+                    $scope.userinfo.money = 340;
+                    /*poster*/
+                    if(reps[0].poster_creator.length>0) {
+                        $scope.tarr = reps[0].poster_creator;
+                    }
+                    
+                }
             })
             .error(function(){
                 $ionicPopup.alert({
@@ -17,8 +33,8 @@ app.controller('accountCtrl',['$scope','$http','$ionicPopup','$state',
                 });
 
             });
-        */
-        /*初始化用户信息*/
+        
+        /*初始化用户信息
         $scope.userinfo = {
             name:"小白",
             tnum:3,
@@ -30,17 +46,17 @@ app.controller('accountCtrl',['$scope','$http','$ionicPopup','$state',
         $scope.tarr= [
             {
                 id:1,
-                imgurl:'../../img/hb001.png'
+                imgurl:'../www/img/hb001.png'
             },
             {
                 id:2,
-                imgurl:'../../img/hb001.png'
+                imgurl:'../www/img/hb001.png'
             },
             {
                 id:3,
-                imgurl:'../../img/hb001.png'
+                imgurl:'../www/img/hb001.png'
             }
-        ];
+        ];*/
 //        var currentStart = $scope.tarr.length;
         /*初始化所有模板隐藏菜单*/
         for(var i=0;i<$scope.tarr.length;i++){
