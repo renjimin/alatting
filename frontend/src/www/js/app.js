@@ -64,6 +64,31 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
 			}
 		}
 	})
+	.state('homepages.account.profile',{
+		url:"/profile",
+		views:{
+			'account-page-profile':{
+				templateUrl:"templates/account/account-profile.html"
+			}
+		}
+	})
+	.state('homepages.account.addfriends',{
+		url:"/addfriends",
+		views:{
+			'account-page-addfriends':{
+				templateUrl:"templates/account/account-addfriends.html"
+			}
+		}
+	})
+	.state('homepages.account.friendslist',{
+		url:"/friendslist",
+		views:{
+			'account-page-friendslist':{
+				templateUrl:"templates/account/account-friendslist.html"
+			}
+		}
+	})
+
 	.state('basicinfo',{
 		url:"/basicinfo",
 		templateUrl:"templates/account/basic-info.html",

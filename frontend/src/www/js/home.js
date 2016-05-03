@@ -4,7 +4,7 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
     $scope.isPostersEmpty = false;
     var typemodel = document.querySelector('#type-model');
     typemodel.classList.remove("open");
-    
+
     $http.get(API_CONFIG.root + '/api/v1/poster/posters/simple').success(function(data){
         $scope.posters = data;
     }).error(function(data){
@@ -28,7 +28,6 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
 
     /**创建海报类型选择*/
     $scope.showTypeSel = function(){
-
         var typemodel = document.querySelector('#type-model');
         typemodel.classList.toggle("open");
         if(!typemodel.classList.contains('open')){
@@ -58,9 +57,6 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
             $scope.cateIsEmpty = false;
         }
 
-
-
-
     }
     /**隐藏海报类型选择*/
     $scope.hideTypeModel = function(){
@@ -68,24 +64,34 @@ app.controller( 'homeCtl',function($scope,$http,$ionicPopup,$state,$stateParams,
         typemodel.classList.remove("open");
 
     }
-    /**创建海报二级类型选择*/
+    /**二级菜单选择*/
     $scope.showSubType = function(event,parentId){
         $scope.subtypes = {};
-
+        var showBox  = angular.element(event.currentTarget.parentNode);
+        showBox.find('dl').css('height','0px');
         var lists = event.currentTarget.parentNode.parentNode.children;
-        //alert(lists.length+'    ' +event.currentTarget.parentNode.className+'    ' +event.currentTarget.parentNode.parentNode.className)
         for(i=0;i<lists.length;i++){
             if(lists[i]!=event.currentTarget.parentNode){
                 lists[i].classList.remove('open');
             }
         }
+
+
         event.currentTarget.parentNode.classList.toggle('open');
+        if(!event.currentTarget.parentNode.classList.contains('open')){
+            return;
+        }
+
         $http.get(API_CONFIG.root + '/api/v1/poster/categorys?parent='+parentId).success(function(data){
             $scope.subtypes = data;
+
+            showBox.find('dl').css('height',data.length * 43+'px');
+            $timeout(function(){showBox.find('dl').css('height','auto');},300);
         }).error(function(data){
             console.log(data);
         });
     }
+
     $scope.keywords='';
     $scope.showKeywords = function(event,parentId){
         $scope.keywordolds = {};
