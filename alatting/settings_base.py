@@ -3,7 +3,6 @@
 
 
 import os
-import datetime
 
 DEBUG = True
 
@@ -30,6 +29,7 @@ INSTALLED_APPS = (
     'djcelery',
     'corsheaders',
     'account',
+    'poster',
     'alatting_website',
     'alatting_admin',
 )
@@ -65,7 +65,9 @@ STATIC_ROOT = BASE_DIR + STATIC_URL
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [MEDIA_ROOT],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,14 +95,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = '/login/'
+LOGOUT_URL = '/account/logout/'
+LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
-AUTHENTICATION_BACKENDS = (
-    'account.auth.WebsiteBackend',
-    'account.auth.JSONWebTokenAuthentication',
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
@@ -150,10 +148,6 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'detail',
 }
 
-JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=3),
-    'JWT_ALLOW_REFRESH': True
-}
 
 CORS_ORIGIN_ALLOW_ALL = True
 
