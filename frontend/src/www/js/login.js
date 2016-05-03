@@ -14,17 +14,17 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 			var password = $scope.password;
 			if (!username) {
 				 $ionicPopup.alert({
-				       title: '用户名为空',
-				       template: ''
+			       title: '用户名为空',
+			       template: ''
 				   });
 				 return false;
 			}
 			if (!password) {
-				 var alertPopup = $ionicPopup.alert({
-				       title: '密码为空',
-				       template: ''
-				   });
-				 return false;				
+				$ionicPopup.alert({
+			    	title: '密码为空',
+			       	template: ''
+				});
+					return false;				
 			}
 			if ($scope.isSelected) {
 				if (username!=null && password !=null) {
@@ -36,15 +36,16 @@ app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
 			}		
 			$http.post(API_CONFIG.root + '/api/v1/account/login', {
 				"username": username,
-				"password": password}
+				"password": password
+			}
 			).success(function(data){
 				$state.go("homepages");
 				
 			}).error(function(data){
-				 $ionicPopup.alert({
-				       title: '用户名或密码错误',
-				       template: ''
-				   });
+				$ionicPopup.alert({
+				    title: '用户名或密码错误',
+				    template: ''
+				});
 			});
 		};
 		$scope.btnrember = function(){
@@ -101,6 +102,7 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
             return false;
         }
         if (passCode) {
+        	$scope.isclick = true;	
             passCode = false;
             $scope.isShow = false;
             $scope.ishide = true;
@@ -111,7 +113,6 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
                         template: ''
                     });
                 }
-                registCode = data.message;
             }).error(function (data) {
                 console.log(data);
             });
@@ -179,25 +180,25 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
             return false;
         }
         $http.post(API_CONFIG.root + "/api/v1/account/register", {
-                "username": username,
-                "password1": password,
-                "password2": againpassword,
-                "message": code
+            "username": username,
+            "password1": password,
+            "password2": againpassword,
+            "message": code
             }
         ).success(function (data) {
-                console.log(data);
-                $ionicPopup.alert({
-                    title: data.detail,
-                    template: ''
-                });
-                $state.go("login");
-            }).error(function (data) {
-                console.log(data);
-                var alertPopup = $ionicPopup.alert({
-                    title: data.detail,
-                    template: ''
-                });
+            console.log(data);
+            $ionicPopup.alert({
+                title: data.detail,
+                template: ''
             });
+        $state.go("login");
+        }).error(function (data) {
+            console.log(data);
+            var alertPopup = $ionicPopup.alert({
+                title: data.detail,
+                template: ''
+            });
+        });
     };
 });
 /**
@@ -207,7 +208,6 @@ app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval
  * @return {[type]}        [description]
  */
 app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$interval) {
-	var registCode = '';
 	var username = '';
 	$scope.isshow= true;
     var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -220,9 +220,9 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 	$scope.btncode = function(){
 		username = $scope.usernameforget;
 		if (!username) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '用户名为空',
-			   });
+			$ionicPopup.alert({
+			    title: '用户名为空',
+			});
 			   return false;	
 		};
         if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
@@ -234,6 +234,7 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
         }		
 		if (passCode) {
 			passCode = false;
+			$scope.isclick = true;	
 			$scope.isShow = false;
 			$scope.ishide = true;
 			$http.post(API_CONFIG.root +"/api/v1/account/send_message",{"username":username}).success(function(data){
@@ -278,8 +279,15 @@ app.controller('forgetpassword', function($scope,$http,$ionicPopup,$state,$inter
 			$ionicPopup.alert({
 			       title: '用户名为空',
 			       template: ''
-			   });
+			});
 			   return false;				
+		}
+		if (!writecode) {
+			$ionicPopup.alert({
+			       title: '请输入验证码',
+			       template: ''
+			});
+			   return false;	
 		};
 		$http.post(API_CONFIG.root + "/api/v1/account/auth_message",{
 			"username":username,
@@ -310,16 +318,16 @@ app.controller('sendcode', function($scope,$http,$ionicPopup,$state,$stateParams
 		var secondpassword = $scope.secondpsw;
 		//var username  =$scope.username;
 		if (!password&&!secondpassword ) {
-			 var alertPopup = $ionicPopup.alert({
-			       title: '输入密码为空',
-			       template: ''
+			$ionicPopup.alert({
+		       title: '输入密码为空',
+		       template: ''
 			   });
 			 return false;			
 		};
 		if (password !=secondpassword) {
 			 $ionicPopup.alert({
-			       title: '两次输入的密码不一致',
-			       template: ''
+		       title: '两次输入的密码不一致',
+		       template: ''
 			   });
 			 return false;
 		}
@@ -329,17 +337,17 @@ app.controller('sendcode', function($scope,$http,$ionicPopup,$state,$stateParams
 			"password2":secondpassword}
 		).success(function(data){
 			 $ionicPopup.alert({
-			       title: '重置密码成功',
-			       template: ''
-			   }).then(function(){
-					$state.go("login");	
-			   });
+		       title: '重置密码成功',
+		       template: ''
+		   }).then(function(){
+				$state.go("login");	
+		   });
 		
 		}).error(function(data){
 			 $ionicPopup.alert({
-			       title: data.detail,
-			       template: ''
-			   });	
+		       title: data.detail,
+		       template: ''
+		   });	
 		})			
 	}
 });
