@@ -5,7 +5,7 @@ app.controller( 'templateCtl',function($scope,$ionicPopup,$http,$timeout,$state,
 			'template':'请先编辑海报基本信息',
 			'okType':'button-light'
 		}).then(function(){
-			$state.go('basicinfo');
+			$state.go('homepages.home');
 		});
 		return;
 	}

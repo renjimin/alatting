@@ -222,11 +222,11 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
         	if(res){
         		$state.go('homepages.home');
         	}else{
-        		
+
         	}
-		   		
+
 		})
-		
+
 	}
 var uploader = WebUploader.create({
 	    // 选完文件后，是否自动上传。
