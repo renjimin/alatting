@@ -1,8 +1,77 @@
 {% extends 'alatting_website/base.html' %}
+{%load static %}
 
-{% block base_body_inner %}
-    关键字
+{% block base_header_css %}
+    <link rel="stylesheet" href="{% static 'account/css/keywords.css' %}"/>
+{% endblock %}
+{% block base_header_js %}
 {% endblock %}
 
+{% block base_body %}
+<div class="kw">
+    <div class="kw-list container">
+        <div class="row">
+            <div class="col-xs-6"><a href="">政府服务</a></div>
+            <div class="col-xs-6 hli-act"><a href="" class="">对公服务</a></div>
+        </div>
+    </div>
+    <div class="ed-title">请选择行业关键词</div>
+    <div class="kw-main container">
+        <div class="kw-edit">
+            <div class="ed-content" id="ed-content"></div>
+            <div class="ed-choose" id="ed-choose">
+                <div class="row">
+                    <div class="ed-choose-li col-xs-6" data-cont="招募创业精英" data-view="0" data-id="1">
+                        <div class="cbox-line">
+                            <input type="checkbox">招募+创业精英
+                        </div>
+                    </div>
+                    <div class="ed-choose-li col-xs-6" data-cont="提供创业扶持" data-view="0" data-id="2">
+                        <div class="cbox-line">
+                            <input type="checkbox">提供+创业扶持
+                        </div>
+                    </div>
+                    <div class="ed-choose-li col-xs-6" data-cont="吸引投资人" data-view="0" data-id="3">
+                        <div class="cbox-line">
+                            <input type="checkbox">吸引+投资人
+                        </div>
+                    </div>
+                    <div class="ed-choose-li col-xs-6" data-cont="孵化创业公司" data-view="0" data-id="4">
+                        <div class="cbox-line">
+                            <input type="checkbox">孵化+创业公司
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ed-add row">
+                <div class="ed-add-li col-xs-3 col-xs-offset-1">
+                    <span>动词</span><br>
+                    <input type="text" class="form-control" id="newKwn" placeholder="例:招募">
+                </div>
+                <div class="ed-add-li col-xs-1"><span>+</span></div>
+                <div class="ed-add-li col-xs-4">
+                    <span>名词</span><br>
+                    <input type="text" class="form-control" id="newKwv" placeholder="例:创业精英">
+                </div>
+                <div class="ed-add-li col-xs-2">
+                    <span>&nbsp;</span><br>
+                    <input type="button" class="btn btn-default form-control" id="addItem" value="新增">
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="ed-footer navbar-fixed-bottom">
+        <span class="btn btn-default">返&nbsp;回</span>
+        <span class="btn btn-default" id="submit">确&nbsp;认</span>
+    </div>
+</div>
+{% endblock %}
+
+
 {% block base_body_footer %}
+{% endblock %}
+{% block base_footer_js %}
+{{ block.super }}
+<script src="{% static 'account/js/keywords.js' %}"></script>
 {% endblock %}
