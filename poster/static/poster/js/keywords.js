@@ -3,9 +3,10 @@
  * Created by zhangjie on 2016/5/3.
  */
 $(function(){
-    var requeststr = GetRequest();console.log(requeststr);
-    $('#cat').html(requeststr.cate+"--");
-    $('#subcat').html(requeststr.subcate);
+    var requeststr = GetRequest();
+    console.log(requeststr);
+    //$('#cat').html(requeststr.cate+"--");
+    //$('#subcat').html(requeststr.subcate);
 
     /*选择关键词*/
     $('#ed-choose').on('click','.ed-choose-li',function(e){
