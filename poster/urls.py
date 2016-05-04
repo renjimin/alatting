@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from poster.view.create import (KeywordsView, CreateFormView,
+from poster.view.create import (CategoryKeywordsView, CreateFormView,
                                 SelectTemplateView)
 from poster.view.edit import PosterEditView
 
@@ -10,7 +10,7 @@ from poster.view.edit import PosterEditView
 from poster.view.show import PosterView
 
 urlpatterns = [
-    url(r'^keywords/$', KeywordsView.as_view(), name='keywords'),
+    url(r'^keywords/$', CategoryKeywordsView.as_view(), name='keywords'),
 
     url(r'^create-form/$', CreateFormView.as_view(), name='create_form'),
 
