@@ -1,16 +1,48 @@
 {% extends 'alatting_website/base.html' %}
-
+{% load static %}
 {% block base_body %}
-注册
+
+{% block base_header_css %}
+<link rel="stylesheet" href="{% static 'account/css/login.css' %}">
+{% endblock %}
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="注册" />
-    <input type="hidden" name="next" value="{{ next }}" />
+    <div ng-controller="regist">
+        <div class="regist-content">
+            <ul class="list">
+                <li class="list-li">
+                    <img src="{% static 'account/img/name.png' %}">
+                    <input class="list-input-on" type="text" ng-model="username" placeholder="邮箱号/手机号">
+                </li>
+                <li class="list-li">
+                    <img src="{% stataic 'account/img/password.png' %}">
+                    <input class="list-input" type="text" ng-model="savecode" placeholder="验证码">
+                    <a ng-click="btncode()" ng-show="isShow" ng-model="registcode" class="button button-balanced"
+                       ng-class="paraclass" ng-bind="paracont">获取验证码</a>
+                    <a ng-click="btncode()" ng-show="ishide" ng-disabled="isclick" ng-model="registcode"
+                       class="button button-dark" ng-class="paraclass" ng-bind="paracont">获取验证码</a>
+                </li>
+                <li class="list-li">
+                    <img src="{% static 'account/img/password.png' %}">
+                    <input class="list-input" type="password" ng-model="firstpassword" placeholder="请输入密码"
+                           style="">
+                </li>
+                <li class="list-li">
+                    <img src="{% static 'account/img/password.png' %}">
+                    <input class="list-input" type="password" ng-model="secondpassword" placeholder="请再次输入密码"
+                           style="">
+                </li>
+            </ul>
+            <div class="button-bar bar-balanced">
+                <a class="button" ng-click="regist()">注 册</a>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 
 {% endblock %}
 {% block base_footer_js %}
-    {{ block.super }}
-    <!-- 这里引入自定义的js文件 -->
+{{ block.super }}
+<script src="{% static 'account/js/login.js' %}"></script>
 {% endblock %}

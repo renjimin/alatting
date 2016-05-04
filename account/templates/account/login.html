@@ -1,17 +1,41 @@
 {% extends 'alatting_website/base.html' %}
-
+{%load static %}
+{% block base_header_css %}
+<link rel="stylesheet" href="{% static 'website/css/login.css' %}">
+{% endblock %}
 {% block base_body %}
-登录
-<form method="post">
+
+<form method="post" action="." class="login">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="login" />
-    <input type="hidden" name="next" value="{{ next }}" />
+    <div class="centerdiv ">
+        <img src="{% static 'website/images/yunye.png' %}">
+    </div>
+    <div class="list list-login">
+        <div class="input-group input-group-lg">
+            <img  src="{% static 'website/images/name.png' %}">
+            <input type="text"  placeholder="邮箱/手机号">
+        </div>
+        <div class="input-group input-group-lg">
+            <img  src="{% static 'website/images/password.png' %}">
+            <input type="password"  placeholder="密码">
+        </div>
+    </div>
+    <div class="btn btn-primary btn-lg btn-block">
+        <a class="button" ng-click="login()">登入</a>
+    </div>
+    <div class="btn btn-success btn-lg btn-block">
+        <a class="button" ng-click="register()">注册</a>
+    </div>
+    <div class="item-checkbox">
+        <input type="checkbox" ng-checked="isSelected" ng-model="isSelected" ng-click="btnrember()">记住密码
+        <a href="" ng-click="forgetpsd()">忘记密码?</a>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 
 {% endblock %}
 
 {% block base_footer_js %}
-    {{ block.super }}
-    <!-- 这里引入自定义的js文件 -->
+{{ block.super }}
+<script src="{% static 'website/js/login.js' %}"></script>
 {% endblock %}
