@@ -1,1 +1,0 @@
-# Alatting Project Frontend
