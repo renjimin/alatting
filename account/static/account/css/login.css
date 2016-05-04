@@ -1,0 +1,108 @@
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+.login {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: url("../img/platform_mobile_yunye.png");
+    background-size: cover;
+    height: 100%;
+}
+
+.login a {
+    color: white;
+    text-decoration: none;
+}
+
+.login .centerdiv img {
+    max-width: 30%;
+    margin-left: 35%;
+    margin-top: 25%;
+}
+
+.login .list-login {
+    margin-top: 25%;
+}
+
+.login .list-login img {
+    max-width: 8%;
+    margin-bottom: 3%;
+}
+
+.login .list-login label {
+    border-style: none none solid none;
+    border-bottom-width: thin;
+    border-color: #fff;
+    width: 95%;
+    margin-left: -3%;
+
+}
+
+.login .list-login input {
+    border-style: none;
+    background: rgba(255, 255, 255, 0);
+    text-align: center;
+    font-size: 1em;
+    color: white;
+    width: 80%;
+}
+
+.login .btn-block {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+}
+
+.login .item-checkbox {
+    margin-left: 5%;
+    margin-top: 3%;
+    color: white;
+}
+
+.regist {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-image: url("../img/platform_mobile_yunye.png");
+    background-size: cover;
+    height: 100%;
+}
+
+.regist .list {
+    padding-top: 40%;
+}
+
+.regist .list-li {
+    width: 95%;
+    list-style-type: none;
+    border-style: none none solid none;
+    border-bottom-width: thin;
+    border-color: #fff;
+    margin-top: 7%;
+    margin-left: -3%;
+}
+.regist a{
+    text-decoration: none;
+    color: white;
+}
+.regist img {
+    max-width: 6%;
+    margin-bottom: 3%;
+    margin-left: 4%;
+}
+
+.regist .btn-block {
+    width: 90%;
+    margin-left: 5%;
+}
+
+.regist .list-li input {
+    border-style: none;
+    background: rgba(255, 255, 255, 0);
+    margin-left: 3%;
+    font-size: 1.2em;
+    color: white;
+    width: 60%;
+}

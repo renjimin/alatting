@@ -1,25 +1,25 @@
 {% extends 'alatting_website/base.html' %}
 {%load static %}
 {% block base_header_css %}
-<link rel="stylesheet" href="{% static 'website/css/login.css' %}">
+<link rel="stylesheet" href="{% static 'account/css/login.css' %}">
 {% endblock %}
 {% block base_body %}
 
 <form method="post" action="." class="login">
     {% csrf_token %}
     <div class="centerdiv ">
-        <img src="{% static 'website/images/yunye.png' %}">
+        <img src="{% static 'account/img/yunye.png' %}">
     </div>
-    <div class="list list-login">
-        <div class="input-group input-group-lg">
-            <img  src="{% static 'website/images/name.png' %}">
-            <input type="text"  placeholder="邮箱/手机号">
-        </div>
-        <div class="input-group input-group-lg">
-            <img  src="{% static 'website/images/password.png' %}">
-            <input type="password"  placeholder="密码">
-        </div>
-    </div>
+	<ul class="list-login">
+		<label class="item-input">
+			<img src="{% static 'account/img/name.png'%}">
+			<input type="text" ng-model="username" name="name" id ="username" placeholder = "邮&nbsp;箱/手机号" >
+		</label>
+		<label class="item-input">
+			<img src="{% static 'account/img/password.png' %}">
+			<input type="password" ng-model="password"  id="password" placeholder ="密码">
+		</label>
+	</ul>
     <div class="btn btn-primary btn-lg btn-block">
         <a class="button" ng-click="login()">登入</a>
     </div>
@@ -34,7 +34,8 @@
 </form>
 
 {% endblock %}
-
+{% block base_body_footer %}
+{% endblock %}
 {% block base_footer_js %}
 {{ block.super }}
 <script src="{% static 'website/js/login.js' %}"></script>

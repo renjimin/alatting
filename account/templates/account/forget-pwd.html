@@ -1,20 +1,40 @@
 {% extends 'alatting_website/base.html' %}
-
+{% load static%}
+{% block base_header_css %}
+<link rel="stylesheet" href="{% static 'account/css/login.css' %}">
+{% endblock %}
 {% block base_body %}
 
-    这里是忘记密码页面
 {% if error %}
-    <p style="color: red;">{{error}}</p>
+<p style="color: red;">{{error}}</p>
 {% endif %}
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="重置密码" />
-    <input type="hidden" name="next" value="{{ next }}" />
+    <div class="forget-pwd">
+        <ul class="list list-forget">
+            <li class="item">
+                请输入您的注册的手机号/邮箱号
+            </li>
+            <li>
+                <input type="text" ng-model="usernameforget" placeholder="请输入手机号/邮箱">
+            </li>
+            <li class="list-li">
+                <input class="list-input" type="text" ng-model="code" placeholder="请输入验证码">
+                <a ng-click="btncode()" ng-show="isShow" ng-model="registcode"
+                   class="button button-balanced button-sure" ng-class="paraclass" ng-bind="paracont">获取验证码</a>
+                <a ng-click="btncode()" ng-show="ishide" ng-model="registcode" ng-disabled="isclick"
+                   class="button button-dark button-sure" ng-class="paraclass" ng-bind="paracont">获取验证码</a>
+            </li>
+        </ul>
+        <div class="button-bar bar-balanced btnsure">
+            <a class="button" ng-click="btnpsure()">确定</a>
+        </div>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 {% endblock %}
 
 {% block base_footer_js %}
-    {{ block.super }}
-    <!-- 这里引入自定义的js文件 -->
+{{ block.super }}
+<!-- 这里引入自定义的js文件 -->
 {% endblock %}
