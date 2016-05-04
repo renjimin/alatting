@@ -16,3 +16,9 @@ class ResetPasswordForm(forms.Form):
     username = forms.CharField(label='用户名')
     password1 = forms.CharField(label='密码', widget=forms.PasswordInput)
     password2 = forms.CharField(label='密码确认', widget=forms.PasswordInput)
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label='用户名')
+    password = forms.CharField(label='密码', widget=forms.PasswordInput)
+

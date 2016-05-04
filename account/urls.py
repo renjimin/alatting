@@ -8,8 +8,7 @@ from account.views import (LoginView, MessageView, CheckMessageView,
 
 
 urlpatterns = [
-    url(r'^login$', auth_views.login,
-        kwargs={'template_name': 'account/login.html'}, name='login'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
 
     url(r'^register$', RegisterView.as_view(), name='register'),

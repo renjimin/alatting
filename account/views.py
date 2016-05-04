@@ -8,11 +8,11 @@ from django.views.generic import FormView
 from django.views.generic.detail import DetailView
 from rest_framework import status
 from rest_framework.response import Response
-from django.core.urlresolvers import reverse
+from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 
-from account.form.forms import RegisterForm, pwd_validate, ResetPasswordForm
+from account.form.forms import RegisterForm, pwd_validate, ResetPasswordForm, LoginForm
 from utils.userinput import what
 from utils.message import get_message
 from alatting_website.models import (
@@ -86,40 +86,6 @@ class CheckMessageView(APIView):
             else:
                 return Response(dict(detail="验证码不正确"),
                                 status=status.HTTP_401_UNAUTHORIZED)
-
-
-class LoginView(APIView):
-    """用户登陆，支持邮箱登陆、手机号登陆"""
-    permission_classes = ()
-
-    def post(self, request, **kwargs):
-        try:
-            inputvalue = request.data['username']
-            password = request.data['password']
-        except KeyError:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        input_type = what(inputvalue)
-        if input_type == "phonenumber":
-            person = get_object_or_404(Person, phonenumber=inputvalue)
-            username = person.user.username
-        elif input_type == "email":
-            user = get_object_or_404(User, email=inputvalue)
-            username = user.username
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return Response({'detail': '登陆已成功'})
-        else:
-            return Response(
-                {'detail': '登陆失败'},
-                status=status.HTTP_401_UNAUTHORIZED
-            )
-
-    def delete(self, request):
-        logout(request)
-        return Response({'detail': '成功登出'})
 
 
 class ProfileView(DetailView):
@@ -235,3 +201,33 @@ class ResetPasswordView(FormView):
             user.set_password(password)
             user.save()
             return super(ResetPasswordView, self).form_valid(form)
+
+
+class LoginView(FormView):
+    """用户登陆，支持邮箱登陆、手机号登陆"""
+    template_name = "account/login.html"
+    form_class = LoginForm
+    success_url = settings.LOGIN_REDIRECT_URL
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        username = data['username']
+        password = data['password']
+
+        input_type = what(username)
+        if input_type == "phonenumber":
+            person = get_object_or_404(Person, phonenumber=username)
+            username = person.user.username
+        elif input_type == "email":
+            user = get_object_or_404(User, email=username)
+            username = user.username
+        else:
+            return render_to_response('account/forget-pwd.html', {'error': "请使用邮箱或者手机号登陆"})
+
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            request = super(LoginView, self).get_context_data().get('view').request
+            login(request, user)
+            return super(LoginView, self).form_valid(form)
+        else:
+            return render_to_response('account/forget-pwd.html', {'error': "请输入正确的用户名和密码"})
