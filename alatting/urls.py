@@ -22,17 +22,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-urlpatterns = []
-
-# 以下是API路由配置
-urlpatterns += [
-    # url(r'^api/v1/account/', include('account.urls', namespace='account')),
-    # url(r'^api/v1/poster/', include('poster.urls', namespace='poster')),
-]
-
-
-# 以下是全局配置
-urlpatterns += [
+urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('alatting_website.urls', namespace='website')),
     url(r'', include('alatting.api_urls', namespace='api')),
@@ -44,5 +34,13 @@ urlpatterns += [
 
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
+
+# 以下是AJAX API路由配置
+urlpatterns += [
+    # url(r'^api/v1/account/', include('account.urls', namespace='account')),
+    url(r'^api/v1/poster/', include('poster.api_urls',
+                                    namespace='poster_api')),
+]
+
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
