@@ -2,6 +2,9 @@
 
 {% block base_body %}
 注册
+{% if error %}
+    <p style="color: red;">{{error}}</p>
+{% endif %}
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}

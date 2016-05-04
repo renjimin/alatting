@@ -4,13 +4,16 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.views.generic.detail import DetailView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from utils.userinput import what
 from utils.message import get_message
-from alatting_website.models import Person
+from alatting_website.models import (
+    Person, Poster, PosterLike, PosterSubscribe
+    )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from rest_framework.authentication import BasicAuthentication
@@ -230,19 +233,26 @@ class ResetPasswordView(APIView):
         return Response({'detail': '重置成功'})
 
 
-class ProfileView(ListAPIView):
+class ProfileView(DetailView):
+    template_name = 'account/profile.html'
     model = User
-    queryset = User.objects.all()
-    serializer_class = AccountProfileSerializer
 
-    def get_queryset(self):
-        queryset = super(ProfileView, self).get_queryset()
+    def get_object(self):
         user = self.request.user
         if user.is_authenticated():
-            queryset = queryset.filter(pk=user.pk)
+            obj = self.request.user
+            obj.poster_count = Poster.objects.filter(creator=self.request.user).count()
+            obj.poster_likes_count = PosterLike.objects.filter(creator=self.request.user).count()
+            obj.poster_subscriptions_count = PosterSubscribe.objects.filter(follower=self.request.user).count()
+            obj.money = 340
+            return obj
         else:
-            queryset = queryset.none()
-        return queryset
+            return None
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        return context
+
 
 class FriendsView(ListAPIView):
     model = UserFriends
@@ -257,3 +267,54 @@ class FriendsView(ListAPIView):
         else:
             queryset = queryset.none()
         return queryset
+
+# class RegisterView(FormView):
+#     """
+#     注册接口(未测试完，先提交保存)
+#     """
+#     template_name = "account/register.html"
+#     form_class = RegisterForm
+#     # success_url = '/thanks/'
+#
+#     def form_valid(self, form):
+#         data = form.cleaned_data
+#         username = data['username']
+#         message = data['message']
+#         password = data['password1']
+#         password2 = data['password2']
+#         if not form.pwd_validate(password, password2):
+#             return Response({'detail': '两次密码输入不一致'},
+#                             status=status.HTTP_400_BAD_REQUEST)
+#         else:
+#             input_type = what(username)
+#             if not input_type:
+#                 return Response(status=status.HTTP_400_BAD_REQUEST)
+#             else:
+#                 try:
+#                     msg = LoginMessage.objects.get(username=username)
+#                 except LoginMessage.DoesNotExist:
+#                     return render_to_response('account/register.html', {'error': "未发送过此验证码"})
+#
+#                 offset_naive_dt = msg.created_at.replace(tzinfo=None)
+#                 # 校验时间是否已过期
+#                 if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
+#                     return render_to_response('account/register.html', {'error': "验证码已过期"})
+#                 if msg.message != message:  # 校验验证码是否正确
+#                     return render_to_response('account/register.html', {'error': "验证码不正确"})
+#
+#                 username_temp = '{}_{}'.format(username, str(uuid.uuid1()).split('-')[0])
+#                 if input_type == 'email':
+#                     user = User.objects.all().filter(email=username)
+#                     if len(user) != 0:
+#                         return render_to_response('account/register.html', {'error': "账户已存在"})
+#                     user = User.objects.create_user(username_temp, username, password)
+#                 else:
+#                     user = Person.objects.all().filter(phonenumber=username)
+#                     if len(user) != 0:
+#                         return render_to_response('account/register.html', {'error': "账户已存在"})
+#                     user = User.objects.create_user(username_temp, password=password)
+#                     person = Person.objects.create(phonenumber=username, user=user)
+#                     person.save()
+#                 user.save()
+#                 # login_validate(request, username, password)
+#                 return render_to_response('account/login.html', {'user': username})
