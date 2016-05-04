@@ -12,7 +12,7 @@ from django.core.urlresolvers import reverse
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 
-from account.form.forms import RegisterForm
+from account.form.forms import RegisterForm, pwd_validate, ResetPasswordForm
 from utils.userinput import what
 from utils.message import get_message
 from alatting_website.models import (
@@ -122,35 +122,6 @@ class LoginView(APIView):
         return Response({'detail': '成功登出'})
 
 
-class ResetPasswordView(APIView):
-    """重置密码"""
-    permission_classes = ()
-
-    def post(self, request, **kwargs):
-        try:
-            inputvalue = request.data['username']
-            password1 = request.data['password1']
-            password2 = request.data['password2']
-        except KeyError:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-        if password1 != password2:
-            return Response({'detail': '两次密码输入不一致'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            password = password1
-        input_type = what(inputvalue)
-        if input_type == "phonenumber":  # 手机号重置密码
-            person = get_object_or_404(Person, phonenumber=inputvalue)
-            user = person.user
-        else:  # 邮箱重置密码
-            if input_type == "email":
-                user = get_object_or_404(User, email=inputvalue)
-            else:
-                user = get_object_or_404(User, username=inputvalue)
-        user.set_password(password)
-        user.save()
-        return Response({'detail': '重置成功'})
-
-
 class ProfileView(DetailView):
     template_name = 'account/profile.html'
     model = User
@@ -201,7 +172,7 @@ class RegisterView(FormView):
         message = data['message']
         password = data['password1']
         password2 = data['password2']
-        if not form.pwd_validate(password, password2):
+        if not pwd_validate(password, password2):
             return render_to_response('account/register.html', {'error': "两次密码输入不一致"})
         else:
             input_type = what(username)
@@ -236,3 +207,31 @@ class RegisterView(FormView):
                 user.save()
                 # login_validate(request, username, password)
                 return super(RegisterView, self).form_valid(form)
+
+
+class ResetPasswordView(FormView):
+    """重置密码"""
+    template_name = "account/forget-pwd.html"
+    form_class = ResetPasswordForm
+    success_url = settings.LOGIN_REDIRECT_URL
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        username = data['username']
+        password = data['password1']
+        password2 = data['password2']
+        if not pwd_validate(password, password2):
+            return render_to_response('account/register.html', {'error': "两次密码输入不一致"})
+        else:
+            input_type = what(username)
+            if input_type == "phonenumber":  # 手机号重置密码
+                person = get_object_or_404(Person, phonenumber=username)
+                user = person.user
+            else:  # 邮箱重置密码
+                if input_type == "email":
+                    user = get_object_or_404(User, email=username)
+                else:
+                    user = get_object_or_404(User, username=username)
+            user.set_password(password)
+            user.save()
+            return super(ResetPasswordView, self).form_valid(form)
