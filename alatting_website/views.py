@@ -298,9 +298,6 @@ class PosterView(DetailView):
 class IndexView(TemplateView):
     template_name = 'website/index.html'
 
-    def get(self, request, *args, **kwargs):
-        return redirect('/web/src/www/index.html')
-
 
 class TestView(TemplateView):
     # def get(self, request):

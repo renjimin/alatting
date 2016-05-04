@@ -1,0 +1,17 @@
+{% extends 'alatting_website/base.html' %}
+
+{% block base_body %}
+登录
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+
+{% endblock %}
+
+{% block base_footer_js %}
+    {{ block.super }}
+    <!-- 这里引入自定义的js文件 -->
+{% endblock %}
