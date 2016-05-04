@@ -1,0 +1,46 @@
+body{
+    background-color: #efefef;
+    height: 100%;
+}
+.container-fluid{
+    padding-bottom: 80px;
+}
+.footer{
+    display: block;
+    width:100%;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    background-color: #fff;
+    z-index: 999;
+}
+.footer-tab{
+    margin:0;
+    padding:0;
+}
+.footer-tab li{
+    list-style: none;
+    float:left;
+    width:25%;
+    text-align: center;
+    cursor: pointer;
+    display: block;
+}
+
+.footer-tab li a{
+    display: block;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #aaa;
+    text-decoration: none;
+}
+.footer-tab li span{
+    font-size: 24px;
+    display:block;
+    margin-bottom: 5px;
+}
+
+.footer-tab li a:hover,
+.footer-tab li.active a{
+    color: #666;
+}

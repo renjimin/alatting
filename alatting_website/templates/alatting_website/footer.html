@@ -1,0 +1,32 @@
+<div class="footer">
+    <ul class="footer-tab">
+        <li class="active">
+            <a href="{% url 'website:index' %}">
+                <span class="glyphicon glyphicon-home"
+                      aria-hidden="true"></span>
+                主页
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'website:search' %}">
+                <span class="glyphicon glyphicon-search"
+                      aria-hidden="true"></span>
+                搜索
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'website:category' %}">
+                <span class="glyphicon glyphicon-paperclip"
+                      aria-hidden="true"></span>
+                类别
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'account:profile' %}">
+                <span class="glyphicon glyphicon-user"
+                      aria-hidden="true"></span>
+                我的
+            </a>
+        </li>
+    </ul>
+</div>

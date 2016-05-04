@@ -296,7 +296,7 @@ class PosterView(DetailView):
 
 
 class IndexView(TemplateView):
-    template_name = 'website/index.html'
+    template_name = 'alatting_website/index.html'
 
 
 class TestView(TemplateView):

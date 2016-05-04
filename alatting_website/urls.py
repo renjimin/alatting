@@ -19,4 +19,8 @@ urlpatterns = [
         name='code_poster'),
     url(r'^api/svg_clip/(?P<layout_id>\d+)/(?P<shape_index>\d+).svg$',
         SvgClipView.as_view(), name='svg_clip'),
+
+    url(r'^search$', DemoView.as_view(), name='search'),
+    url(r'^category$', DemoView.as_view(), name='category'),
+
 ]
