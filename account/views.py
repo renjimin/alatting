@@ -36,7 +36,7 @@ class MessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        try:  # TODO 要加装饰器判断入参合法性
+        try:
             inputvalue = request.data['username']
         except KeyError:
             return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
