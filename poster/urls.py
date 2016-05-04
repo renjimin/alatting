@@ -1,7 +1,8 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from poster.views import KeywordsView, CreateFormView, SelectTemplateView
+from poster.view.create import (KeywordsView, CreateFormView,
+                                SelectTemplateView)
 from poster.view.edit import PosterEditView
 
 
