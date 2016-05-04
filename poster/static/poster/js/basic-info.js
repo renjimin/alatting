@@ -13,8 +13,6 @@ function submitinfo(){
 		return false;
 	}
 
-
-
 	if(postdesc == ''){
 		yyAlert('海报简述不能为空!');
 		return false;
@@ -58,49 +56,23 @@ function submitinfo(){
 
 
 
-	if(flag){
 
-	   		var params = {};
-	   		params.category_keyword_id=$stateParams.data.keywordId;
-	        params.main_category_id=$stateParams.data.catId;
-	        params.sub_category_id=$stateParams.data.subCatId;
-	   		params.logo_image_id= uploadimg;
-	        params.unique_name= postname;
-	        params.logo_title= postname;
-	        params.short_description= postdesc;
-	        params.phone= posttelephone;
-	        params.mobile= postphone;
-	        params.email= postemail;
-	        params.address= postaddress;
-	        console.log(params);
-	        $http.post(API_CONFIG.root + '/api/v1/poster/posters',params).success(function(data){
-			console.log(data);
-			$ionicPopup.alert({
-		    title: '',
-		    template: '提交成功',
-		    okType:'button-light'
-		   }).then(function(){
-		   		$state.go('templateselect',{'data':data});
-		   })
+		var uploadimg="";
+		var params = {};
+		//params.category_keyword_id = $stateParams.data.keywordId;
+		//params.main_category_id = $stateParams.data.catId;
+		//params.sub_category_id = $stateParams.data.subCatId;
+		params.logo_image_id = uploadimg;
+		params.unique_name = postname;
+		params.logo_title = postname;
+		params.short_description = postdesc;
+		params.phone = posttelephone;
+		params.mobile = postphone;
+		params.email = postemail;
+		params.address = postaddress;
+		console.log(params);
 
-	}).error(function(data){
-	    console.log(data);
-	       $ionicPopup.alert({
-	           title: '',
-	   template: '保存失败，请稍后重试',
-	   okType:'button-light'
-					           })
-				        });
-
-	    		}
-
-
-
-
-
-
-
-
+		location.href = "/poster/select-template/?unique_name=" + postname + "&short_description=" + postdesc + "&phone=" + posttelephone + "&mobile" + postphone + "&email" + postemail + "&address"+postaddress;
 
 
 }
