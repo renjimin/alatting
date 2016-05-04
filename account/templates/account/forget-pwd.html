@@ -5,9 +5,6 @@
 {% endblock %}
 {% block base_body %}
 
-{% if error %}
-<p style="color: red;">{{error}}</p>
-{% endif %}
 <form method="post">
     {% csrf_token %}
     <div class="forget-pwd">
@@ -29,13 +26,13 @@
     <div class="forget-reset">
         <ul class="list">
             <li class="list-li">
-                <input class="list-input-on" type="password" id="id_username" name="username" placeholder="请输入新密码">
+                <input class="list-input-on" type="password" id="password1" name="username" placeholder="请输入新密码">
             </li>
             <li class="list-li">
-                <input class="codeinput" type="password" id="id_message" name="message" placeholder="请再次输入新密码">
+                <input class="codeinput" type="password" id="password2" name="message" placeholder="请再次输入新密码">
             </li>
         </ul>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">确 定</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="btnpwd">确 定</button>
     </div>
     <input type="hidden" name="next" value="{{ next }}"/>
 </form>

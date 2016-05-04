@@ -64,7 +64,7 @@ $(document).ready(function () {
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#id_message").val();
-        if(!writecode){
+        if (!writecode) {
             yyAlert("请填写验证码");
             return false;
         }
@@ -74,6 +74,28 @@ $(document).ready(function () {
         }
         $(".forget-reset").show();
         $(".forget-pwd").hide();
+    })
+    $("#btnpwd").click(function () {
+        var username = $("#id_username").val();
+        var password1 = $("#password1").val();
+        var password2 = $("#password2").val();
+        $.ajax({
+            type: 'POST',
+            url: '/account/reset_password',
+            data: {
+                "username": username,
+                "password1": password1,
+                "password2": password2
+            },
+            success: function (data) {
+                //yyAlert("",function(){
+                    window.location.href = "/account/login"
+                //});
+            },
+            error: function (data) {
+                yyAlert(data.message);
+            }
+        })
     })
     var countdown = 60;
 
