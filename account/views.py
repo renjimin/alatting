@@ -4,13 +4,16 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
+from django.views.generic.detail import DetailView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from utils.userinput import what
 from utils.message import get_message
-from alatting_website.models import Person
+from alatting_website.models import (
+    Person, Poster, PosterLike, PosterSubscribe
+    )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from rest_framework.authentication import BasicAuthentication
@@ -230,19 +233,26 @@ class ResetPasswordView(APIView):
         return Response({'detail': '重置成功'})
 
 
-class ProfileView(ListAPIView):
+class ProfileView(DetailView):
+    template_name = 'account/profile.html'
     model = User
-    queryset = User.objects.all()
-    serializer_class = AccountProfileSerializer
 
-    def get_queryset(self):
-        queryset = super(ProfileView, self).get_queryset()
+    def get_object(self):
         user = self.request.user
         if user.is_authenticated():
-            queryset = queryset.filter(pk=user.pk)
+            obj = self.request.user
+            obj.poster_count = Poster.objects.filter(creator=self.request.user).count()
+            obj.poster_likes_count = PosterLike.objects.filter(creator=self.request.user).count()
+            obj.poster_subscriptions_count = PosterSubscribe.objects.filter(follower=self.request.user).count()
+            obj.money = 340
+            return obj
         else:
-            queryset = queryset.none()
-        return queryset
+            return None
+
+    def get_context_data(self, **kwargs):
+        context = super(ProfileView, self).get_context_data(**kwargs)
+        return context
+
 
 class FriendsView(ListAPIView):
     model = UserFriends
