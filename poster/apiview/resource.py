@@ -4,7 +4,8 @@ from django.conf import settings
 from django.core.files import File
 from rest_framework import status
 
-from rest_framework.generics import ListAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, \
+    RetrieveUpdateDestroyAPIView
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -123,3 +124,9 @@ class TemplateListView(ListAPIView):
     model = Template
     queryset = Template.objects.all().order_by('name')
     serializer_class = TemplateSerializer
+
+
+class CategoryKeywordDetailView(RetrieveUpdateDestroyAPIView):
+    model = CategoryKeyword
+    serializer_class = CategoryKeywordSerializer
+    queryset = CategoryKeyword.objects.all()

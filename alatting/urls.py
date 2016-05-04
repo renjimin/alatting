@@ -30,8 +30,6 @@ urlpatterns = [
     url(r'^account/', include('account.urls', namespace='account')),
     url(r'^poster/', include('poster.urls', namespace='poster')),
 
-    url(r'^api/.*', 'account.views.not_found'),
-
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 
@@ -40,6 +38,8 @@ urlpatterns += [
     # url(r'^api/v1/account/', include('account.urls', namespace='account')),
     url(r'^api/v1/poster/', include('poster.api_urls',
                                     namespace='poster_api')),
+
+    url(r'^api/.*', 'account.views.not_found'),
 ]
 
 
