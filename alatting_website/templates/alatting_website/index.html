@@ -9,8 +9,8 @@
     <header class="home-header">
         <a href="javascript:void(0)" ng-click="openModal()" class="button button-clear btn-menu"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
         <div class="home-header-sort">
-            <a href="javascript:void(0)" ng-click="selectHot()" class="button button-clear btn-select">热门</a>
-            <a href="javascript:void(0)" ng-click="selectNew()" class="button button-clear btn-select">最新</a>
+            <a href="/?sort=hot" class="button button-clear btn-select">热门</a>
+            <a href="/?sort=new" class="button button-clear btn-select">最新</a>
         </div>
         <a href="javascript:void(0);" id="btn-create" class="button button-clear btn-create"><i class="glyphicon glyphicon-plus"></i><span>创建</span></a>
     </header>
@@ -20,12 +20,12 @@
             <li>
                 <div class="wraper">
                     <div class="img">
-                        <a href="#" title="{{ poster.logo_title }}"><img src="{{ poster.snapshot }}" /></a>
+                        <a href="{% url 'poster:poster' poster.id %}" title="{{ poster.logo_title }}"><img src="{{ poster.snapshot }}" /></a>
                     </div>
                     <div class="det">
-                        <a href="#">
+                        <a href="{% url 'poster:poster' poster.id %}">
                             <span class="title">{{ poster.logo_title }} </span>
-                            <span class="view-num"><i class="glyphicon glyphicon-eye-open"></i><span>556</span></span>
+                            <span class="view-num"><i class="glyphicon glyphicon-eye-open"></i><span>{{ poster.poster_statistics.views_count }}</span></span>
                         </a>
                     </div>
                 </div>
@@ -50,9 +50,6 @@
     <div class="type-model" id="type-model">
         <div class="type-model-inner">
             <div class="type-model-containar">
-                <div class="empty-info" ng-if="cateIsEmpty" id="cateEmpty" style="display: none;">
-                    获取数据失败，请稍后重试！
-                </div>
                 <ul class="list" id="catelist">
                     {% for category in categorys %}
                     <li class="item">
@@ -61,11 +58,15 @@
                             {% with category.children.all as category_children %}
                             {% for category2 in category_children %}
                             <dd class="subitem">
-                                <a class="subitem-link" href="javascript:void(0);" class="item-link">{{ category2.name }}</a>
+                                <a class="subitem-link" href="{% url 'poster:keywords' %}?category_id={{category2.id}}" class="item-link">{{ category2.name }}</a>
                             </dd>
                             {% endfor %}
                             {% endwith %}
                         </dl>
+                    </li>
+                    {% empty %}
+                    <li class="item empty-info">
+                        获取数据失败，请稍后重试！
                     </li>
                     {% endfor %}
                 </ul>
