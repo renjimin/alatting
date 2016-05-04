@@ -13,6 +13,7 @@
         coverbox = document.getElementById('yyalert-cover');
         popbox = document.getElementById('yyalert');
         yyBtnConfirm = document.getElementById('yyBtnAlert');
+        popbox.children[0].innerHTML = text+'000';
         popbox.style.marginTop = -popbox.offsetHeight/2+'px';
         setTimeout(function(){
             alertEle.classList.add('open');

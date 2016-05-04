@@ -1,5 +1,4 @@
 function submitinfo(){
-	var flag = true;
     var postname = $.trim($('.post-name').val());
 	var postdesc = $.trim($('.post-desc').val());
     var posteimg = $.trim($('.post-img').val());
@@ -10,52 +9,50 @@ function submitinfo(){
 
 
 	if(postname == ''){
-		alert('海报名称不能为空!');
+		yyAlert('海报名称不能为空!');
 		return false;
 	}
 
 
 
 	if(postdesc == ''){
-		alert('海报简述不能为空!');
-		flag = false;
+		yyAlert('海报简述不能为空!');
 		return false;
 	}
 
 
 	var reg=/^\w{1,}@\w+(\.\w+)+$/;
 	if(postemail == '') {
-		alert('email不能为空!');
+		yyAlert('email不能为空!');
 		return false;
 	}else if(!reg.test(postemail)) {
-		alert('email格式不正确!');
+		yyAlert('email格式不正确!');
 		return false;
 	}
 
 
 	var reg2=/^0\d{2,3}-?\d{7,8}$/;
 	if(posttelephone == '') {
-		alert('电话不能为空!');
+		yyAlert('电话不能为空!');
 		return false;
 	}else if(!reg2.test(posttelephone)) {
-		alert('电话格式不正确!');
+		yyAlert('电话格式不正确!');
 		return false;
 	}
 
 
 	var reg3=/^1[3|4|5|8][0-9]\d{4,8}$/;
 	if(postphone == '') {
-		alert('手机不能为空!');
+		yyAlert('手机不能为空!');
 		return false;
 	}else if(!reg3.test(postphone)) {
-		alert('手机格式不正确!');
+		yyAlert('手机格式不正确!');
 		return false;
 	}
 
 
 	if(postaddress == ''){
-		alert('地址不能为空!');
-		flag = false;
+		yyAlert('地址不能为空!');
 		return false;
 	}
 
