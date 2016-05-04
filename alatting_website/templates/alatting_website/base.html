@@ -16,11 +16,17 @@
     {% endblock %}
 </head>
 <body>
-<div class="container-fluid">
-    {% block base_body %}
-    {% endblock %}
-</div>
-{% include 'alatting_website/footer.html' %}
+{% block base_body_header %}
+{% endblock %}
+{% block base_body %}
+    <div class="container-fluid">
+        {% block base_body_inner %}
+        {% endblock %}
+    </div>
+{% endblock %}
+{% block base_body_footer %}
+    {% include 'alatting_website/footer.html' %}
+{% endblock %}
 {% block base_footer_js %}
     <script src="{% static 'libs/common/angular1.3.0.min.js' %}"></script>
 {% endblock %}

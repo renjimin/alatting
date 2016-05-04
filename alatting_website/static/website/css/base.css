@@ -17,7 +17,6 @@ body{
 .footer-tab{
     margin:0;
     padding:0;
-    height: 70px;
 }
 .footer-tab li{
     list-style: none;
@@ -30,15 +29,15 @@ body{
 
 .footer-tab li a{
     display: block;
-    padding-top: 15px;
-    height: 70px;
+    padding-top: 10px;
     font-size: 14px;
     color: #aaa;
     text-decoration: none;
 }
 .footer-tab li span{
-    font-size: 26px;
+    font-size: 24px;
     display:block;
+    margin-bottom: 5px;
 }
 
 .footer-tab li a:hover,
