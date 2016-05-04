@@ -60,7 +60,7 @@ class Category(models.Model):
         TYPE_BUSINESS: BusinessMarketing,
     }
     id = models.AutoField(primary_key=True)
-    parent = models.ForeignKey('Category', null=True, blank=True)
+    parent = models.ForeignKey('Category', null=True, blank=True, related_name='children')
     type = models.CharField(
         max_length=15,
         choices=TYPE_CHOICES,
@@ -94,7 +94,7 @@ class Address(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=64)
-    image = models.ForeignKey(Image, null=True)
+    image = models.ForeignKey(Image)
 
     def __str__(self):
         return "{:s}".format(self.name)
