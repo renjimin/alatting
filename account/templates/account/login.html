@@ -5,7 +5,7 @@
 {% endblock %}
 {% block base_body %}
 
-<form method="post" action="." class="login">
+<form method="post"  class="login">
     {% csrf_token %}
 
     <div class="centerdiv ">
@@ -37,5 +37,6 @@
 {% endblock %}
 {% block base_footer_js %}
 {{ block.super }}
+<script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
 <script src="{% static 'account/js/login.js' %}"></script>
 {% endblock %}

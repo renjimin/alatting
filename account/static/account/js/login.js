@@ -9,11 +9,12 @@ $(document).ready(function () {
     })
     /*点击获取验证码*/
     $("#btncode").click(function () {
+        //alert("11")
         $("#btncodeoff").show();
         $("#btncode").hide();
-        var btncodeoff = document.getElementById("btncodeoff");
-        settime(btncodeoff);
-        var username = $("#username").val();
+       /* var btncodeoff = document.getElementById("btncodeoff");
+        settime(btncodeoff);*/
+        var username = $("#id_username").val();
         if (!username) {
             return false;
         }
@@ -30,7 +31,7 @@ $(document).ready(function () {
             }
         })
     })
-    var countdown = 6;
+    /*var countdown = 6;
 
     function settime(val) {
         if (countdown < 0) {
@@ -46,6 +47,6 @@ $(document).ready(function () {
         setTimeout(function () {
             settime(val)
         }, 1000)
-    }
+    }*/
 });
 

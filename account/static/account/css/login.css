@@ -96,6 +96,14 @@ body {
     margin-top: 1%;
     padding: 0px 6px;
 }
+.regist .list-li .btn-success {
+    display: block;
+    float: right;
+    margin-top: 1%;
+    padding: 0px 6px;
+    background-color:#5cb85c;
+    width: 30%;
+}
 .regist .list-li .btn-default {
     display: none;
     float: right;
