@@ -141,3 +141,14 @@ body {
     color: white;
     width: 80%;
 }
+.forget-pwd {
+   margin-top: 15%;
+}
+.forget-pwd .list-li{
+    border-style: none none solid none;
+}
+.forget-pwd .list input{
+    width: 100%;
+    margin-left: -20%;
+    padding-top: 5%;
+}
