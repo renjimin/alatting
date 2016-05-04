@@ -1,7 +1,7 @@
 {% extends 'alatting_website/base.html' %}
-
+{%load static %}
 {% block base_header_css %}
-
+<link rel="stylesheet" href="{% static 'website/css/poster-bass.css' %}">
 {% endblock %}
 
 
@@ -10,8 +10,28 @@
 {% endblock %}
 
 
-{% block base_body_footer %}
+{% block base_body_header %}
 
+{% endblock %}
+
+{% block base_body_footer %}
+<div class="bar-footer bar">
+	<a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
+		<i class="icon ico-share"></i>
+	</a>
+	<a class="tab-item dropdown-toggle" id="rate-toggle" href="javascript:void(0);" data-dropdown="rate-panel">
+		<i class="icon ico-star"></i>
+	</a>
+	<a class="tab-item dropdown-toggle" id="feedback-toggle" href="javascript:void(0);" data-dropdown="feedback-panel">
+		<i class="icon ico-feedback"></i>
+	</a>
+	<a class="tab-item dropdown-toggle" id="export-toggle" href="javascript:void(0);" data-dropdown="export-panel">
+		<i class="icon ico-export"></i>
+	</a>
+	<a class="tab-item dropdown-toggle" id="stats-toggle" href="javascript:void(0);" data-dropdown="stats-panel">
+		<i class="icon ico-stats"></i>
+	</a>
+</div>
 {% endblock %}
 
 {% block base_footer_js %}
