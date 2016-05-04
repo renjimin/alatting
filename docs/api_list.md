@@ -37,6 +37,18 @@
 }
 ```
 
+
+## 删除自定义关键词
+    
+    DELETE /api/v1/poster/keywords/{:id}/
+    
+
+**Response**
+
+返回状态码204时，说明操作成功
+
+
+
 ## 获取模板信息
 
     POST /api/v1/poster/templates　　　　// 获取模板信息列表
