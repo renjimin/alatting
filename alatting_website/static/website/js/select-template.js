@@ -6,3 +6,6 @@ $(function(){
         $(this).addClass('active').siblings().removeClass('active');
     });
 })
+window.onload=function(){
+    $('#templates-list').addClass('active')
+}
