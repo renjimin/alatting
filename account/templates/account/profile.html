@@ -1,0 +1,87 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <title>个人主页</title>
+
+    <link rel="stylesheet" href="{% static "libs/bootstrap/css/bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
+    <link rel="stylesheet" href="{% static "account/css/profile.css" %}">
+  </head>
+
+  <body class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
+  	<header>
+      <div class="header-tabs">
+        <ul class="tabs-navigation">
+          <li class="tabs-navigation-item">
+            <a class="tabs-navigation-icon" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+          </li>
+          <li class="tabs-navigation-item">
+            <a class="tabs-navigation-icon" href="#"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+          </li>
+          <li class="tabs-navigation-item">
+            <a class="tabs-navigation-icon" href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <div class="container-fluid body-content">
+      {% if object %}
+        {{ object.id  }}
+        {{ object.person.avatar }}
+        {{ object.money}}
+        {{ object.poster_count }}
+        {{ object.poster_likes_count }}
+        {{ object.poster_subscriptions_count }} 
+      {% else %}
+        0
+      {% endif %}
+     
+
+
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+    </div>
+    <footer>
+      <div class="footer-tabs">
+      <ul class="tabs-navigation">
+        <li class="tabs-navigation-item">
+          <a class="tabs-navigation-icon" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+          <span class="tabs-navigation-title">主页</span>
+        </li>
+        <li class="tabs-navigation-item">
+          <a class="tabs-navigation-icon" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+          <span class="tabs-navigation-title">搜索</span>
+        </li>
+        <li class="tabs-navigation-item">
+          <a class="tabs-navigation-icon" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
+          <span class="tabs-navigation-title">类别</span>
+        </li>
+        <li class="tabs-navigation-item">
+          <a class="tabs-navigation-icon" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+          <span class="tabs-navigation-title">我的</span>
+        </li>
+      </ul>
+      </div>
+    </footer>
+  </body>
+</html>

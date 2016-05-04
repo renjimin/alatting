@@ -1,95 +1,111 @@
 	app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$state) {
 	if($stateParams.data==null){
 		$ionicPopup.alert({
-			'title':'',
-	'template':'请先选择模版关键词',
-	'okType':'button-light'
-	}).then(function(){
-		$state.go('homepages.home');
-		});
-		return;
-	}
+		'title':'',
+		'template':'请先选择模版关键词',
+		'okType':'button-light'
+		}).then(function(){
+			$state.go('homepages.home');
+			});
+			return;
+		}
 	
 	console.log($stateParams.data);
 	
-	function trimStr(str){return str.replace(/(^\s*)|(\s*$)/g,"");}
 	
 	$scope.submitform = function(){
-
-	
-	var flag = true;
-	var postname = trimStr(document.querySelector('.post-name').value);
-	var postname = trimStr(document.querySelector('.post-name').value);
-	var postdesc = trimStr(document.querySelector('.post-desc').value);
-	var postemail = trimStr(document.querySelector('.post-email').value);
-	var posttelephone = trimStr(document.querySelector('.post-telephone').value);
-	var postphone = trimStr(document.querySelector('.post-phone').value);
-	var postaddress = trimStr(document.querySelector('.post-address').value);
+	var reg=/^\w{1,}@\w+(\.\w+)+$/;
+	$scope.flag = true;	
+	var postname = $scope.postname;
+	var postdesc = $scope.postdesc;
+	var postemail = $scope.postemail;
+	var posttelephone = $scope.posttelephone;
+	var postphone = $scope.postphone;
+	var postaddress = $scope.postaddress;
 	var uploadimg = $scope.uploadimg;
-	/*var postdesc = $.trim($('.post-desc').val());
-	var postemail = $.trim($('.post-email').val());
-	var posttelephone = $.trim($('.post-telephone').val());
-	var postphone = $.trim($('.post-phone').val());
-	var postaddress = $.trim($('.post-address').val());*/
 	
-	if(flag){
-		if(postname.length != 0){
-			flag = true;
-		}else{
-		var alertPopup = $ionicPopup.alert({
+	if (!postname) {
+		$ionicPopup.alert({
 		title: '提示',
-		template: '海报名称不能为空',
+	    template: '海报名称不能为空！'
+		   });
+		 return false;
+	}
+	
+	if (!postdesc) {
+		$ionicPopup.alert({
+		title: '提示',
+		template: '海报简述不能为空',
+			buttons: [{
+			text: '确定',
+			type: 'button-positive'
+			}]
+		});
+		 return false;
+	}
+	
+
+	if(postdesc.length <= 50){
+			$scope.flag = true;
+		}else{
+		
+		$ionicPopup.alert({
+		title: '提示',
+		template: '海报简述在50字以内',
 		buttons: [{
 		text: '确定',
 		type: 'button-positive'
 			}]
 	
-			});
-			flag = false;
-			return false;
-		}
+		});
+		$scope.flag = false;
+		return false;
+	
 	}
-	
-	if(flag){
-		if(postdesc.length != 0){
-			flag = true;
-		}else{
-	
-		var alertPopup = $ionicPopup.alert({
-		title: '提示',
-		template: '海报简述不能为空',
+
+	if (!uploadimg) {
+	$ionicPopup.alert({
+	title: '提示',
+	template: '海报logo不能为空!',
 		buttons: [{
 		text: '确定',
 		type: 'button-positive'
-		}]
-	
+			}]
 		});
-		flag = false;
-		return false;
-	}
+		 return false;
+	}	
 	
-	if(postdesc.length <= 50){
-		flag = true;
-	}else{
-	
-	var alertPopup = $ionicPopup.alert({
-	title: '提示',
-	template: '海报简述在50字以内',
-	buttons: [{
-	text: '确定',
-	type: 'button-positive'
-				}]
-	
-				});
-				flag = false;
-				return false;
-	
-			}
-	
-	}
-	
-	
-	if(flag){
+//	if(!postemail){
+//		
+//	$ionicPopup.alert({
+//	title: '提示',
+//	template: 'email不能为空',
+//	buttons: [{
+//	text: '确定',
+//	type: 'button-positive'
+//	}]
+//			});
+//	return false;
+//	}
+//	
+//	
+//	if(!reg.test(postemail)){
+//	 $ionicPopup.alert({
+//	title: '提示',
+//	template: 'email格式不正确!',
+//	buttons: [{
+//	text: '确定',
+//	type: 'button-positive'
+//	}]
+//	
+//	});
+//	
+//	return false;
+//	 
+//	}
+
+
+if(flag){
 			if(postemail.length != 0){
 				var reg=/^\w{1,}@\w+(\.\w+)+$/;
 	if(!reg.test(postemail)){
@@ -120,64 +136,54 @@
 				return false;
 			}
 	}
+
+
+
+
+
+
+
 	
-	
-	if(flag){
-			if(posttelephone.length != 0){
-				flag = true;
-			}else{
-	
-			var alertPopup = $ionicPopup.alert({
-			title: '提示',
-			template: '电话不能为空!',
+	if (!posttelephone) {
+		$ionicPopup.alert({
+		title: '提示',
+		template: '电话不能为空!',
 			buttons: [{
 			text: '确定',
 			type: 'button-positive'
-				}]
-				});
-	
-				flag = false;
-				return false;
-			}
+			}]
+		});
+		 return false;
 	}
 	
 	
-	if(flag){
-			if(postphone.length != 0){
-				flag = true;
-			}else{
-	
-			var alertPopup = $ionicPopup.alert({
-			title: '提示',
-			template: 'phone不能为空!',
+	if (!postphone) {
+		$ionicPopup.alert({
+		title: '提示',
+		template: 'phone不能为空!!',
 			buttons: [{
 			text: '确定',
 			type: 'button-positive'
-				}]
-				});
-				flag = false;
-				return false;
-			}
+			}]
+		});
+		 return false;
 	}
-	if(flag){
-			if(postaddress.length != 0){
-				flag = true;
-			}else{
-			var alertPopup = $ionicPopup.alert({
-			title: '提示',
-			template: '地址不能为空!',
+	
+	
+	if (!postaddress) {
+		$ionicPopup.alert({
+		title: '提示',
+		template: '地址不能为空!',
 			buttons: [{
 			text: '确定',
 			type: 'button-positive'
-				}]
-				});
+			}]
+		});
+		 return false;
+	}	
 	
-				flag = false;
-				return false;
-			}
-	}
+
 	if(flag){
-	
 	   		var params = {};
 	   		params.category_keyword_id=$stateParams.data.keywordId;
 	        params.main_category_id=$stateParams.data.catId;
@@ -212,12 +218,11 @@
 	
 	    		}
 	
-	
 	}
 	
 	$scope.basicstep = function(){
-		 $ionicPopup.confirm({
-	        'title': '',
+	$ionicPopup.confirm({
+	'title': '',
 	'template': '确认返回上一页?',
 	'okType':'button-light',
 	'cancelText':'取消',
@@ -228,10 +233,10 @@
 	        	}else{
 	        		
 	        	}
-			   		
 			})
 			
 		}
+	
 	
 	var uploader = WebUploader.create({
 		    // 选完文件后，是否自动上传。
@@ -283,5 +288,4 @@
 			$scope.uploadimg = data.id;
 		})
 	
-});
-
+	})
