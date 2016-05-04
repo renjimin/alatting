@@ -1,12 +1,12 @@
 import json
 from django.utils.encoding import smart_text
 from rest_framework import status
-from rest_framework.test import APITestCase
 from django.test.client import Client
+from django.test import TestCase
 __author__ = 'charlie'
 
 
-class AccountViewsTests(APITestCase):
+class AccountViewsTests(TestCase):
 
     def setUp(self):
         self.username = '13652430859'
@@ -26,7 +26,7 @@ class AccountViewsTests(APITestCase):
 
         # 发送验证码
         response = self.client.post(
-            '/api/v1/account/send_message',
+            '/account/send_message',
             json.dumps(data),
             content_type='application/json'
         )
@@ -38,7 +38,7 @@ class AccountViewsTests(APITestCase):
         data = {'username': self.username, 'password2': self.password,
                 'password1': self.password, 'message': self.message}
         response = self.client.post(
-            '/api/v1/account/register',
+            '/account/register',
             json.dumps(data),
             content_type='application/json'
         )
@@ -46,7 +46,7 @@ class AccountViewsTests(APITestCase):
 
         # 登陆帐号
         response = self.client.post(
-            '/api/v1/account/login',
+            '/account/login/',
             json.dumps(self.data),
             content_type='application/json'
         )
@@ -56,14 +56,14 @@ class AccountViewsTests(APITestCase):
         password1 = password2 = '654321'
         data = {'username': self.username, 'password1': password1, 'password2': password2}
         response = self.client.post(
-            '/api/v1/account/reset_password',
+            '/account/reset_password',
             json.dumps(data),
             content_type='application/json'
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         data = {'username': self.username, 'password': password1}
         response = self.client.post(
-            '/api/v1/account/login',
+            '/account/login/',
             json.dumps(data),
             content_type='application/json'
         )

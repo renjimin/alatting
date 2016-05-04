@@ -179,7 +179,7 @@ class ResetPasswordView(FormView):
     """重置密码"""
     template_name = "account/forget-pwd.html"
     form_class = ResetPasswordForm
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.LOGIN_URL
 
     def form_valid(self, form):
         data = form.cleaned_data
