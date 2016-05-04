@@ -16,7 +16,7 @@
                 <img src="{% static 'account/img/password.png' %}">
                 <input class="codeinput" type="text" id = "id_message" name = "message" placeholder="验证码">
                 <input type="button" id="btncode" class="btn btn-success" value="获取验证码"/>
-                <input  type="button" id="btncodeoff" class="btn btn-default"value="获取验证码"/>
+                <input  type="button" id="btncodeoff" class="btn btn-default" value="获取验证码"/>
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">
@@ -41,7 +41,7 @@
 <script src="{% static 'account/js/login.js' %}"></script>
 {% if error %}
 <script>
-    yyAlert("{{error}}"+"========");
+    yyAlert("{{error}}");
 </script>
 {% endif %}
 
