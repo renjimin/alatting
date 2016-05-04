@@ -36,7 +36,7 @@ class MessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        try:  # TODO 要加装饰器判断入参合法性
+        try:
             inputvalue = request.data['username']
         except KeyError:
             return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
@@ -179,7 +179,7 @@ class ResetPasswordView(FormView):
     """重置密码"""
     template_name = "account/forget-pwd.html"
     form_class = ResetPasswordForm
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.LOGIN_URL
 
     def form_valid(self, form):
         data = form.cleaned_data

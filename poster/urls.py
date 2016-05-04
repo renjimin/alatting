@@ -1,7 +1,8 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from poster.view.create import (KeywordsView, CreateFormView,
+from django.contrib.auth.decorators import login_required
+from poster.view.create import (CategoryKeywordsView, CreateFormView,
                                 SelectTemplateView)
 from poster.view.edit import PosterEditView
 
@@ -10,21 +11,24 @@ from poster.view.edit import PosterEditView
 from poster.view.show import PosterView
 
 urlpatterns = [
-    url(r'^keywords/$', KeywordsView.as_view(), name='keywords'),
+    url(r'^keywords/$', login_required(CategoryKeywordsView.as_view()),
+        name='keywords'),
 
-    url(r'^create-form/$', CreateFormView.as_view(), name='create_form'),
+    url(r'^create-form/$', login_required(CreateFormView.as_view()),
+        name='create_form'),
 
-    url(r'^select-template/$', SelectTemplateView.as_view(),
+    url(r'^select-template/$', login_required(SelectTemplateView.as_view()),
         name='select_template'),
 ]
 
 # 显示海报
 
 urlpatterns += [
-    url(r'^(?P<pk>[\d]+)/$', PosterView.as_view(), name='poster'),
+    # url(r'^(?P<pk>[\d]+)/$', PosterView.as_view(), name='poster'),
 ]
 
 # 编辑海报url
 urlpatterns += [
-    url(r'^(?P<pk>[\d]+)/edit/$', PosterEditView.as_view(), name='edit'),
+    url(r'^(?P<pk>[\d]+)/edit/$', login_required(PosterEditView.as_view()),
+        name='edit'),
 ]

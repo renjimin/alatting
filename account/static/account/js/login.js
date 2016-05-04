@@ -3,50 +3,58 @@
  */
 $(document).ready(function () {
 
-    /*µÇÂ½½çÃæ×¢²áÒ³ÃæÌø×ª*/
+    /*ç™»é™†ç•Œé¢æ³¨å†Œé¡µé¢è·³è½¬*/
     $("#register").click(function () {
-        window.location.href = "register";
+        window.location.href = "/account/register";
     })
-    /*µã»÷»ñÈ¡ÑéÖ¤Âë*/
+    /*ç‚¹å‡»è·å–éªŒè¯ç */
     $("#btncode").click(function () {
         //alert("11")
-        $("#btncodeoff").show();
-        $("#btncode").hide();
-       /* var btncodeoff = document.getElementById("btncodeoff");
-        settime(btncodeoff);*/
+        /*$("#btncodeoff").show();
+         $("#btncode").hide();*/
+        /*var btncodeoff = document.getElementById("btncodeoff");
+         settime(btncodeoff);*/
+        var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
         var username = $("#id_username").val();
         if (!username) {
+            yyAlert("è¯·è¾“å…¥ç”¨æˆ·å");
             return false;
         }
-
+        if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
+            yyAlert("æ‰‹æœºå·ç æˆ–é‚®ç®±å·æ ¼å¼ä¸å¯¹");
+            return false;
+        }
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
             data: {"username": username},
             success: function (data) {
-                alert(data.message);
+                if (PHONE_REGEXP.test(username)) {
+                    yyAlert(data.message);
+                }
             },
             error: function (data) {
-                alert(data.message);
+                yyAlert(data.message);
             }
         })
     })
-    /*var countdown = 6;
+    /* var countdown = 6;
 
-    function settime(val) {
-        if (countdown < 0) {
-            $("#btncodeoff").hide();
-            $("#btncode").show();
-            val.removeAttribute("disabled");
-            val.value = "»ñÈ¡ÑéÖ¤Âë";
-        } else {
-            val.setAttribute("disabled", true);
-            val.value = "»ñÈ¡ÑéÖ¤Âë(" + countdown + ")";
-            countdown--;
-        }
-        setTimeout(function () {
-            settime(val)
-        }, 1000)
-    }*/
+     function settime(val) {
+     if (countdown < 0) {
+     $("#btncodeoff").hide();
+     $("#btncode").show();
+     val.removeAttribute("disabled");
+     val.value = "è·å–éªŒè¯ç ";
+     } else {
+     val.setAttribute("disabled", true);
+     val.value = "è·å–éªŒè¯ç (" + countdown + ")";
+     countdown--;
+     }
+     setTimeout(function () {
+     settime(val)
+     }, 1000)
+     }*/
 });
 

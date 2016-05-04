@@ -12,28 +12,28 @@
         <ul class="basic-ul">
             <li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon1.gif' %}"></i>海报名称</label>
-                <input type="text"/>
+                <input type="text" class="post-name"/>
             </li>
             <li class="big-text">
-                <label><i class="icon"><img src="{% static 'poster/images/icon2.gif' %}"></i>海报简述</label>
-                <input type="text"/>
+                <label><i class="icon"><img src="{% static 'poster/images/icon2.gif' %}"></i>海报简述<em>(50字以内)</em></label>
+                <input type="text" class="post-desc"/>
             </li>
             <li class="big-text">
                 <label><i class="icon"><img src="{% static 'poster/images/icon3.gif' %}"></i>海报LOGO</label>
-                <input type="text"/>
+                <input type="file" class="post-img"/>
             </li>
             <li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon4.gif' %}"></i>电子邮件</label>
-                <input type="text"/>
+                <input type="text" class="post-email"/>
             </li><li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon5.gif' %}"></i>电话</label>
-                <input type="text"/>
+                <input type="text" class="post-telephone"/>
             </li><li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon6.gif' %}"></i>手机</label>
-                <input type="text"/>
+                <input type="text" class="post-phone"/>
             </li><li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon7.gif' %}"></i>地址</label>
-                <input type="text"/>
+                <input type="text" class="post-address"/>
             </li>
 
 
@@ -53,5 +53,6 @@
 {% endblock %}
 
 {% block base_body_footer %}
+ <script src="{% static 'poster/js/jquery-1.11.1.min.js' %}"></script>
  <script src="{% static 'poster/js/basic-info.js' %}"></script>
 {% endblock %}

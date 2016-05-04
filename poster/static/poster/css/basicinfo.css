@@ -43,10 +43,11 @@ li{list-style: none;}
 
 .basic-ul > li >input{
     width: 66%;
-    height: 100%;
-    background: #ececec;
+    line-height: 100%;
+    background: #efefef;
     border: 0 none;
     outline: none;
+    display: inline-block;
 }
 
 
