@@ -7,35 +7,30 @@
 {% if error %}
 <p style="color: red;">{{error}}</p>
 {% endif %}
-<form method="post" class="regist">
+<form method="post" class="regist" >
     {% csrf_token %}
     <div class="regist-content">
         <ul class="list">
             <li class="list-li">
                 <img src="{% static 'account/img/name.png' %}">
-                <input class="list-input-on" type="text" ng-model="username" placeholder="邮箱号/手机号">
+                <input class="list-input-on" type="text" id="id_username" name = "username" placeholder="邮箱号/手机号">
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">
-                <input class="codeinput" type="text" ng-model="savecode" placeholder="验证码">
-                <!--<a ng-click="btncode()" ng-show="isShow" ng-model="registcode" class="button button-balanced"
-                   ng-class="paraclass" ng-bind="paracont">获取验证码</a>-->
-                <a ng-click="btncode()" class="btn btn-success">获取验证码</a>
+                <input class="codeinput" type="text" id = "id_message" name = "message" placeholder="验证码">
+                <input type="button" id="btncode" class="btn btn-success" value="获取验证码"/>
+                <input  type="button" id="btncodeoff" class="btn btn-default"value="获取验证码"/>
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">
-                <input class="list-input" type="password" ng-model="firstpassword" placeholder="请输入密码"
-                       style="">
+                <input class="list-input" type="password" id= "id_password1" name = "password1" placeholder="请输入密码">
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">
-                <input class="list-input" type="password" ng-model="secondpassword" placeholder="请再次输入密码"
-                       style="">
+                <input class="list-input" type="password" id = "id_password2" name = "password2" placeholder="请再次输入密码">
             </li>
         </ul>
-        <div class="btn btn-success btn-lg btn-block">
-            <a class="button" ng-click="register()">注 册</a>
-        </div>
+        <button type="submit" class="btn btn-success btn-lg btn-block">注 册</button>
     </div>
     <input type="hidden" name="next" value="{{ next }}"/>
 </form>
@@ -45,5 +40,6 @@
 {% endblock %}
 {% block base_footer_js %}
 {{ block.super }}
-<!-- 这里引入自定义的js文件 -->
+<script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+<script src="{% static 'account/js/login.js' %}"></script>
 {% endblock %}

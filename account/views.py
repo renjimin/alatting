@@ -130,7 +130,7 @@ class RegisterView(FormView):
     """
     template_name = "account/register.html"
     form_class = RegisterForm
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.LOGIN_URL
 
     def form_valid(self, form):
         data = form.cleaned_data

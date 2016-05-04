@@ -96,7 +96,22 @@ body {
     margin-top: 1%;
     padding: 0px 6px;
 }
-
+.regist .list-li .btn-success {
+    display: block;
+    float: right;
+    margin-top: 1%;
+    padding: 0px 6px;
+    background-color:#5cb85c;
+    width: 30%;
+}
+.regist .list-li .btn-default {
+    display: none;
+    float: right;
+    margin-top: 1%;
+    padding: 0px 6px;
+    background-color:rgb(171,171,171);
+    width: 41%;
+}
 .regist .list-li .codeinput {
     width: 40%;
 }
