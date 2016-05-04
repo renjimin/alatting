@@ -1,0 +1,240 @@
+/**
+* Empty. Add your own CSS if you like
+* @constructor
+* @title
+* @author
+* @time
+*/
+html {
+	height: 100%;
+}
+body{
+	height: 100%;
+}
+.login{
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background-image: url("../images/platform_mobile_yunye.png");
+	background-size: cover;
+	height: 100%;
+}
+.login .centerdiv{
+	padding: 15%;
+}
+.login .centerdiv img{
+	margin-left:25%;
+	width: 50%;
+}
+.login .input-group-lg img{
+	max-width: 40%;
+	margin-left: 20%;
+}
+.bar .title.title-left {
+    text-align: center;
+}
+.paraclass{
+	background: #ddd;
+}
+.Sparaevent{
+	background: rgb(33,138,57);
+}
+.regist-content,.login-con .item{
+	background: rgba(255,255,255,0);
+	width: 90%;
+	margin-left: 5%;
+	border-style:none none solid none;
+	border-color: #aaa;
+}
+.login-con .item{
+	background: rgba(255,255,255,0);
+	width: 90%;
+	margin-left: 5%;
+	border-style:none none solid none;
+	border-color: #aaa;
+}
+.login-con .button-balanced{
+	min-height: 10px;
+	line-height: 23px;
+	float: right;
+	display: inline-block;
+	margin-top:1%;
+	font-size: 14px;
+	background: rgb(34,140,58);
+}
+.rgister-bg .button-balanced{
+	min-height: 10px;
+	line-height: 23px;
+	float: right;
+	display: inline-block;
+	margin-top:1%;
+	font-size: 14px;
+}
+.rgister-bg input[type="checkbox"]{
+	height: 16px;
+	width: 16px;
+}
+.regist-content .button-dark{
+	min-height: 10px;
+	line-height: 23px;
+	float: right;
+	display: inline-block;
+	margin-top:1%;
+	font-size: 14px;
+	background: rgb(171,171,171);
+}
+.regist-content .item input{
+	font-size: 1.3em;
+	padding-left: 5%;
+	background: rgba(255,255,255,0);
+	color: white;
+}
+.login-con,.regist-content .list{
+	padding:5%;
+}
+.regist-content .list-input{
+	width: 40%;
+}
+.regist-content .list-input-on{
+	width: 70%;
+}
+.regist-content .list-li{
+	border-bottom: 1px solid #aaa;
+	padding-top: 7%;
+}
+.regist-content input[type="text"],.regist-content input[type="password"]{
+	padding-left: 5%;
+	display: inline-block;
+	background: none;
+	color:#fff;
+	font-size: 1em;
+}
+.list-login input[type="text"],.list-login input[type="password"]{
+
+	color:#fff;
+	font-size: 1em;
+}
+ .regist-content .list img{
+	max-width: 7%;
+	margin-left: 6%;
+	margin-bottom: -5px;
+}
+.list-login{
+	margin-bottom: 0px;
+}
+.list-login input{
+	padding-left: 20%;
+}
+.login-con .centerdiv{
+	padding: 15%;
+}
+.login-con .centerdiv img{
+	margin-left:25%;
+	width: 50%;
+}
+.login-con .button-bar{
+	width: 90%;
+	margin-left: 5%;
+	margin-top:10px;
+}
+.regist-content .list button{
+	width: 20%;
+	font-size: 1em;
+	height: 0%;
+	padding-right: 30%;
+
+}
+.login-con .item-checkbox{
+	border-style:none;
+	border-style:none;
+	color: white;
+	padding-left: 25px;
+	padding-top: 10px;
+}
+.login-con .item-checkbox a{
+	float: right;
+	margin-right: 6%;
+	text-decoration: none;
+	color: white;
+}
+.login-con .item{
+	background: rgba(255,255,255,0);
+	width: 90%;
+	margin-left: 5%;
+	margin-top: 5%;
+	border-style:none none solid none;
+}
+.forgetpassword{
+	background: #eee;
+}
+.forgetpassword input[type="text"]{
+	background: #fff;
+	width: 100%;
+	padding: 7%;
+	margin-top: 2.5%;
+	margin-left: 0%;
+}
+.forgetpassword .list-input{
+	width: 50%;
+}
+.forgetpassword  .list-li .button{
+	float: right;
+	margin-top:-11.5%;
+    min-height: 23px;
+    line-height: 29px;
+    margin-right: 6%;
+}
+.forgetpassword .item{
+	padding-top: 2%;
+	border-style: none;
+	background: #eee;
+}
+.forgetpassword .button-dark{
+	background: rgb(171,171,171);
+}
+.forgetpassword .item-input{
+	margin-top: -6%;
+	padding-top: 10px;
+}
+.forgetpassword .button-bar{
+
+	margin-left: 0%;
+}
+.btnsure .button{
+	min-height: 42px;
+	line-height: 42px;
+}
+.sendcode{
+	background: #eee;
+}
+.sendcode .list{
+	margin-bottom: 15px;
+}
+.sendcode .psd-center{
+	padding-top: 8px;
+}
+.forget .list-forget{
+	padding-top: 10%;
+}
+.sendcode .list-forget{
+	padding-top: 10%;
+}
+.sendcode .item{
+	border-style: none;
+}
+.sendcode li{
+	background: #eee;
+}
+.sendcode .item-input{
+
+}
+.sendcode .button-bar{
+	padding-top: 2%;
+	border-radius: 16px;
+	width:100%;
+
+}
+.list-forget.li.item{
+	font-size: 2.5em;
+}
+.checkbox-icon:before {
+    border-radius: 0px;
+}
