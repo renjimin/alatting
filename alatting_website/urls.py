@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^demo$', DemoView.as_view(), name='demo'),
     url(r'^test$', TestView.as_view(), name='test'),
     url(r'^capture$', CaptureView.as_view(), name='capture'),
-    # url(r'^poster/(?P<pk>\d+)/$', PosterView.as_view(), name='poster'),
+    url(r'^poster/(?P<pk>\d+)/$', PosterView.as_view(), name='poster'),
     url(r'^poster/(?P<pk>\d+)/capture/$', PosterCaptureView.as_view(), name='posterCapture'),
     url(r'^poster/rss$', PosterUpdateFeed()),
     # url(r'^poster/(?P<pk>\d+)/edit$', EditView.as_view(), name='edit'),

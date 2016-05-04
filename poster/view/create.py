@@ -11,8 +11,9 @@ class CategoryKeywordsView(ListView):
 
     def get_queryset(self):
         qs = super(CategoryKeywordsView, self).get_queryset()
+
         return qs.filter(
-            category_id=self.request.get('category_id')
+            category_id=self.request.POST.get('category_id')
         ).order_by('verb', 'noun')
 
 

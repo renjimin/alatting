@@ -6,3 +6,8 @@ $(function(){
         $(this).addClass('active').siblings().removeClass('active');
     });
 })
+window.onload=function(){
+    $('#templates-list').addClass('active');
+}
+var request = GetRequest();
+alert(request.id);
