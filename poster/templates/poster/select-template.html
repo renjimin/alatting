@@ -6,6 +6,7 @@
 
 {% block base_body %}
 <header class="templates-header">
+    <a href="javascript:history.back();" class="btn btn-back"></a>
     <h2 class="title">请选择模版</h2>
 </header>
 <ul class="templates-list active" id="templates-list">
@@ -21,7 +22,7 @@
     </li>-->
 </ul>
 <footer class="templates-footer">
-    <a href="javascript:void(0);" class="btn btn-default">返回</a><a href="javascript:void(0);" class="btn btn-default">创建</a>
+    <a href="javascript:void(0);" class="btn btn-default" onclick="yyAlert('提示信息')">返回</a><a href="javascript:void(0);" onclick="yyConfirm('提示信息')" class="btn btn-default">创建</a>
 </footer>
 {% endblock %}
 
