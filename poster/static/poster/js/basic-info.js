@@ -72,7 +72,7 @@ function submitinfo(){
 		params.address = postaddress;
 		console.log(params);
 
-		location.href = "/poster/select-template/?unique_name=" + postname + "&short_description=" + postdesc + "&phone=" + posttelephone + "&mobile" + postphone + "&email" + postemail + "&address"+postaddress;
+		location.href = "/poster/select-template/?unique_name=" + postname + "&short_description=" + postdesc + "&phone=" + posttelephone + "&mobile=" + postphone + "&email=" + postemail + "&address="+postaddress;
 
 
 }

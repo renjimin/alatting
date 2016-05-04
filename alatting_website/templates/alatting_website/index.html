@@ -20,10 +20,11 @@
             <li>
                 <div class="wraper">
                     <div class="img">
-                        <a href="{% url 'website:poster' poster.id %}" title="{{ poster.logo_title }}"><img src="{{ poster.snapshot }}" /></a>
+                        <a href="#" title="{{ poster.logo_title }}"><img src="{{ poster.snapshot }}" /></a>
+
                     </div>
                     <div class="det">
-                        <a href="{% url 'website:poster' poster.id %}">
+                        <a href="#">
                             <span class="title">{{ poster.logo_title }} </span>
                             <span class="view-num"><i class="glyphicon glyphicon-eye-open"></i><span>{{ poster.poster_statistics.views_count }}</span></span>
                         </a>
@@ -58,7 +59,7 @@
                             {% with category.children.all as category_children %}
                             {% for category2 in category_children %}
                             <dd class="subitem">
-                                <a class="subitem-link" href="{% url 'poster:keywords' %}?category_id={{category2.id}}" class="item-link">{{ category2.name }}</a>
+                                <a class="subitem-link" href="{% url 'poster:keywords' %}?category_id={{category2.id}}&cate={{ category.name }}&subcate={{ category2.name }}" class="item-link">{{ category2.name }}</a>
                             </dd>
                             {% endfor %}
                             {% endwith %}
