@@ -7,5 +7,7 @@ $(function(){
     });
 })
 window.onload=function(){
-    $('#templates-list').addClass('active')
+    $('#templates-list').addClass('active');
 }
+var request = GetRequest();
+alert(request.id);

@@ -13,19 +13,27 @@
     <div class="forget-pwd">
         <ul class="list">
             <li class="list-li">
-                <input class="list-input-on" type="text" id="id_username" name = "username" placeholder="邮箱号/手机号">
+                <input class="list-input-on" type="text" id="id_username" name="username" placeholder="邮箱号/手机号">
             </li>
             <li class="list-li">
-                <input class="codeinput" type="text" id = "id_message" name = "message" placeholder="验证码">
+                <input class="codeinput" type="text" id="id_message" name="message" placeholder="验证码">
                 <input type="button" id="btncode" class="btn btn-success" value="获取验证码"/>
-                <input  type="button" id="btncodeoff" class="btn btn-default"value="获取验证码"/>
+                <input type="button" id="btncodeoff" class="btn btn-default" value="获取验证码"/>
             </li>
         </ul>
-        <div class="button-bar bar-balanced btnsure">
-            <a class="button">确定</a>
-        </div>
+        <button type="submit" class="btn btn-success btn-lg btn-block" id="btnok">确 定</button>
     </div>
-    <input type="submit" value="重置密码"/>
+    <div class="forget-reset">
+        <ul class="list">
+            <li class="list-li">
+                <input class="list-input-on" type="text" id="id_username" name="username" placeholder="请输入新密码">
+            </li>
+            <li class="list-li">
+                <input class="codeinput" type="text" id="id_message" name="message" placeholder="请再次输入新密码">
+            </li>
+        </ul>
+        <button type="submit" class="btn btn-primary btn-lg btn-block" id="btnok">确 定</button>
+    </div>
     <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 {% endblock %}

@@ -92,26 +92,23 @@ body {
 }
 
 .regist .list-li .btn-success {
-    float: right;
-    margin-top: 1%;
-    padding: 0px 6px;
-}
-.regist .list-li .btn-success {
     display: block;
     float: right;
     margin-top: 1%;
     padding: 0px 6px;
-    background-color:#5cb85c;
+    background-color: #5cb85c;
     width: 30%;
 }
+
 .regist .list-li .btn-default {
     display: none;
     float: right;
     margin-top: 1%;
     padding: 0px 6px;
-    background-color:rgb(171,171,171);
+    background-color: rgb(171, 171, 171);
     width: 41%;
 }
+
 .regist .list-li .codeinput {
     width: 40%;
 }
@@ -141,14 +138,102 @@ body {
     color: white;
     width: 80%;
 }
+
 .forget-pwd {
-   margin-top: 15%;
+    margin-top: 15%;
 }
-.forget-pwd .list-li{
-    border-style: none none solid none;
-}
-.forget-pwd .list input{
+
+.forget-pwd .list-li {
+    border-style: none;
     width: 100%;
-    margin-left: -20%;
+    background: #ccc;
+    margin-top: 5%;
+    margin-left: -6%;
+}
+
+.forget-pwd .list input {
     padding-top: 5%;
+    margin-top: 2%;
+    border-style: none;
+    background: rgba(255, 255, 255, 0);
+    margin-left: 1%;
+    font-size: 1.2em;
+
+}
+
+.forget-pwd .list-li .btn-success {
+    display: block;
+    float: right;
+    margin-top: 4%;
+    margin-right: 10%;
+    padding: 0px 6px;
+    background-color: #5cb85c;
+    width: 30%;
+}
+
+.forget-pwd .list-li .btn-default {
+    display: none;
+    float: right;
+    margin-top: 4%;
+    padding: 0px 6px;
+    background-color: rgb(171, 171, 171);
+    width: 35%;
+}
+
+.forget-pwd .btn-block {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: #5cb85c;
+}
+.forget-reset{
+    display: none;
+}
+.forget-reset {
+    margin-top: 15%;
+}
+
+.forget-reset .list-li {
+    border-style: none;
+    width: 100%;
+    background: #ccc;
+    margin-top: 5%;
+    margin-left: -6%;
+}
+
+.forget-reset .list input {
+    width: 100%;
+    padding-top: 5%;
+    margin-top: 2%;
+    border-style: none;
+    background: rgba(255, 255, 255, 0);
+    margin-left: 1%;
+    font-size: 1.2em;
+
+}
+
+.forget-reset .list-li .btn-success {
+    display: block;
+    float: right;
+    margin-top: -9%;
+    margin-right: 10%;
+    padding: 0px 6px;
+    background-color: #5cb85c;
+    width: 30%;
+}
+
+.forget-reset .list-li .btn-default {
+    display: none;
+    float: right;
+    margin-top: 1%;
+    padding: 0px 6px;
+    background-color: #5cb85c;
+    width: 41%;
+}
+
+.forget-reset .btn-block {
+    width: 90%;
+    margin-left: 5%;
+    margin-top: 2%;
+    background-color: #5cb85c;
 }
