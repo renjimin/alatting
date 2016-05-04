@@ -10,7 +10,10 @@ ol, ul,li {
     list-style: none;
 }
 a:link,a:focus,a:hover,a:active{ text-decoration: none;}
+<<<<<<< HEAD
+=======
 
+>>>>>>> 635cad174bf12010b0fa19684a2c1d46c54e7325
 .container-fluid{
     padding-bottom: 80px;
 }

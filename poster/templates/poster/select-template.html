@@ -6,7 +6,11 @@
 
 {% block base_body %}
 <header class="templates-header">
+<<<<<<< HEAD
+    <a href="javascript:history.back();" class="btn btn-back"></a>
+=======
     <a href="javascript:history.back();" class="btn btn-back"><i class="glyphicon glyphicon-menu-left"></i> </a>
+>>>>>>> 635cad174bf12010b0fa19684a2c1d46c54e7325
     <h2 class="title">请选择模版</h2>
 </header>
 <ul class="templates-list" id="templates-list">
@@ -21,9 +25,14 @@
 
 </ul>
 <footer class="templates-footer">
+<<<<<<< HEAD
+    <a href="javascript:void(0);" class="btn btn-default" onclick="yyAlert('提示信息')">返回</a><a href="javascript:void(0);" onclick="yyConfirm('提示信息')" class="btn btn-default">创建</a>
+</footer>
+=======
     <a href="javascript:void(0);" class="btn btn-default" onclick="history.back();">返回</a><a href="javascript:void(0);" onclick="yyAlert('提示信息');" class="btn btn-default">创建</a><a href="javascript:void(0);" onclick="yyAlert('asdasd');" class="btn btn-default">创建</a>
 </footer>
 
+>>>>>>> 635cad174bf12010b0fa19684a2c1d46c54e7325
 {% endblock %}
 
 {% block base_body_footer %}
