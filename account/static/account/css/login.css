@@ -29,8 +29,9 @@ body {
 }
 
 .login .list-login img {
-    max-width: 8%;
+    max-width: 7%;
     margin-bottom: 3%;
+    margin-left: 4%;
 }
 
 .login .list-login label {
@@ -38,6 +39,7 @@ body {
     border-bottom-width: thin;
     border-color: #fff;
     width: 95%;
+    margin-top: 6%;
     margin-left: -3%;
 
 }
@@ -46,7 +48,7 @@ body {
     border-style: none;
     background: rgba(255, 255, 255, 0);
     text-align: center;
-    font-size: 1em;
+    font-size: 1.2em;
     color: white;
     width: 80%;
 }
@@ -61,6 +63,11 @@ body {
     margin-left: 5%;
     margin-top: 3%;
     color: white;
+}
+
+.login .item-checkbox .fotgetpwd {
+    float: right;
+    margin-right: 5%;
 }
 
 .regist {
@@ -83,10 +90,22 @@ body {
     margin-top: 7%;
     margin-left: -3%;
 }
-.regist a{
+
+.regist .list-li .btn-success {
+    float: right;
+    margin-top: 1%;
+    padding: 0px 6px;
+}
+
+.regist .list-li .codeinput {
+    width: 40%;
+}
+
+.regist a {
     text-decoration: none;
     color: white;
 }
+
 .regist img {
     max-width: 6%;
     margin-bottom: 3%;
@@ -96,6 +115,7 @@ body {
 .regist .btn-block {
     width: 90%;
     margin-left: 5%;
+    margin-top: 4%;
 }
 
 .regist .list-li input {
@@ -104,5 +124,5 @@ body {
     margin-left: 3%;
     font-size: 1.2em;
     color: white;
-    width: 60%;
+    width: 80%;
 }
