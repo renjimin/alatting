@@ -1,13 +1,41 @@
 {% extends 'alatting_website/base.html' %}
+{% load static %}
+{% block base_header_css %}
+<link rel="stylesheet" href="{% static 'website/css/select-template.css' %}"/>
+{% endblock %}
 
-{% block base_body_inner %}
-    选择模板
+{% block base_body %}
+<header class="templates-header">
+    <h2 class="title">请选择模版</h2>
+</header>
+<ul class="templates-list active" id="templates-list">
+    {% for template in template_list %}
+    <li class="template-item">
+        <a href="javascript:void(0);"><img src="/media/{{ template.image.file.name }}" /></a>
+    </li>
+    {% empty %}
+    <li class="empty-info">还没有添加模板</li>
+    {% endfor %}
+    <!--<li class="template-item">
+        <a href="javascript:void(0);" ng-click="saveTemplate()"><img src="../../img/demo/templete-2.jpg" /></a>
+    </li>-->
+</ul>
+<footer class="templates-footer">
+    <a href="javascript:void(0);" class="btn btn-default">返回</a><a href="javascript:void(0);" class="btn btn-default">创建</a>
+</footer>
+    <!--选择模板
     {% for template in template_list %}
         <li>模板名称:{{ template.name }} 背景地址： /media/{{ template.image.file.name }}</li>
     {% empty %}
         <li>还没有添加模板</li>
-    {% endfor %}
+    {% endfor %}-->
 {% endblock %}
 
 {% block base_body_footer %}
+{% endblock %}
+
+{% block base_footer_js %}
+    {{ block.super }}
+<script src="{% static 'website/js/jquery-1.8.3.min.js' %}"></script>
+<script src="{% static 'website/js/select-template.js' %}"></script>
 {% endblock %}

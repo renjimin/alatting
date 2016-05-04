@@ -96,7 +96,7 @@ class PosterPageListView(ListCreateAPIView):
     serializer_class = PosterPageSerializer
 
     def post(self, request, *args, **kwargs):
-        return super(PosterPageListView, self).post(request, *args , **kwargs)
+        return super(PosterPageListView, self).post(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         poster_id = self.request.data.get('poster_id')
