@@ -23,7 +23,7 @@
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">
-                <input class="list-input" type="password" ng-model="firstpassword" placeholder="请输入密码">
+                <input class="list-input" type="password"  placeholder="请输入密码">
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">
@@ -40,6 +40,6 @@
 {% endblock %}
 {% block base_footer_js %}
 {{ block.super }}
-<script src="{% static 'account/js/login.js' %}"></script>
 <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+<script src="{% static 'account/js/login.js' %}"></script>
 {% endblock %}

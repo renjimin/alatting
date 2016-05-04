@@ -13,7 +13,7 @@ $(document).ready(function () {
         $("#btncode").hide();
         var btncodeoff = document.getElementById("btncodeoff");
         settime(btncodeoff);
-        var username = $("#username").val()
+        var username = $("#username").val();
         if (!username) {
             return false;
         }
