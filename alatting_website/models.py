@@ -60,7 +60,7 @@ class Category(models.Model):
         TYPE_BUSINESS: BusinessMarketing,
     }
     id = models.AutoField(primary_key=True)
-    parent = models.ForeignKey('Category', null=True, blank=True)
+    parent = models.ForeignKey('Category', null=True, blank=True, related_name='children')
     type = models.CharField(
         max_length=15,
         choices=TYPE_CHOICES,

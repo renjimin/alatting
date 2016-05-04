@@ -2,13 +2,13 @@
 
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
-from django.views.generic import TemplateView, View, FormView
+from django.views.generic import TemplateView, View, FormView, ListView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
 from alatting_website.model.poster import PosterMoreLink
-from alatting_website.models import Poster, Rating, PosterStatistics
+from alatting_website.models import Poster, Rating, PosterStatistics, Category
 from alatting_website.model.statistics import PosterLike, PosterFun, PosterFavorites, PosterSubscribe
 from utils.db.utils import Utils as DBUtils
 from utils.utils import Utils
@@ -17,6 +17,38 @@ from utils.clip import SvgClip
 from alatting_website.logic.poster_service import PosterService
 import datetime, pytz, json
 from collections import OrderedDict
+
+
+def get_first_category_list():
+    return Category.objects.filter(parent__isnull=True).order_by('name')
+
+
+class IndexView(TemplateView):
+    template_name = 'alatting_website/index.html'
+
+    def get_poster_sort_keys(self):
+        req_sort = self.request.GET.get('sort', '')
+        sort_key = ''
+        if req_sort in ['hot', 'new']:
+            if req_sort == 'hot':
+                sort_key = '-poster_statistics__views_count'
+            elif req_sort == 'new':
+                sort_key = '-created_at'
+        return sort_key
+
+    def get_poster_list(self):
+        qs = Poster.objects.all()
+        sort_key = self.get_poster_sort_keys()
+        if sort_key:
+            qs = qs.order_by(sort_key)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super(IndexView, self).get_context_data(**kwargs)
+        ctx['posters'] = self.get_poster_list()
+        ctx['categorys'] = get_first_category_list()
+        return ctx
+
 
 class PosterView(DetailView):
     template_name = 'website/poster.html'
@@ -293,10 +325,6 @@ class PosterView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(PosterView, self).get_context_data(**kwargs)
         return context
-
-
-class IndexView(TemplateView):
-    template_name = 'alatting_website/index.html'
 
 
 class TestView(TemplateView):

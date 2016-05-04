@@ -100,8 +100,18 @@ class Poster(models.Model):
         blank=True,
         on_delete=SET_NULL
     )
+    snapshot = models.CharField(
+        verbose_name=u'首页截屏',
+        max_length=500,
+        default='',
+        blank=True
+    )
 
     objects = InheritanceManager()
+
+    @property
+    def thumb(self):
+        return self.snapshot
 
     # prevent save parent
     def save_base(self, raw=False, *args, **kwargs):

@@ -1,12 +1,8 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from poster.view.poster import PosterListView, PosterSimpleInfoListView, \
-    PosterDetailView, PosterPageListView
-from poster.view.resource import (
-    CategoryListView, CategoryKeywordListView, TemplateListView,
-    UploadFileView)
-from poster.views import KeywordsView, CreateFormView
+from poster.views import KeywordsView, CreateFormView, SelectTemplateView
+from poster.view.edit import PosterEditView
 
 
 urlpatterns = [
@@ -16,8 +12,14 @@ urlpatterns = [
     url(r'^create-form/$', CreateFormView.as_view(),
         name='create_form'),
 
-    url(r'^select-template/$', CategoryListView.as_view(),
+    url(r'^select-template/$', SelectTemplateView.as_view(),
         name='select_template'),
+]
+
+# 编辑海报url
+urlpatterns += [
+    url(r'^(?P<pk>[\d]+)/edit/$', PosterEditView.as_view(),
+        name='edit'),
 ]
 
 
