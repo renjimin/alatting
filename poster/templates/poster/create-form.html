@@ -1,8 +1,57 @@
 {% extends 'alatting_website/base.html' %}
+{% load static %}
+{% block base_header_css %}
+<link rel="stylesheet" href="{% static 'poster/css/basicinfo.css' %}">
+{% endblock %}
 
 {% block base_body_inner %}
-    海报基本信息
+<div class="main">
+    <p class="text-center basic-nav" onclick="yyAlert('提示信息',function(){alert(2)})">请输入基本信息</p>
+
+    <form class="form-basicinfo">
+        <ul class="basic-ul">
+            <li>
+                <label><i class="icon"><img src="{% static 'poster/images/icon1.gif' %}"></i>海报名称</label>
+                <input type="text"/>
+            </li>
+            <li class="big-text">
+                <label><i class="icon"><img src="{% static 'poster/images/icon2.gif' %}"></i>海报简述</label>
+                <input type="text"/>
+            </li>
+            <li class="big-text">
+                <label><i class="icon"><img src="{% static 'poster/images/icon3.gif' %}"></i>海报LOGO</label>
+                <input type="text"/>
+            </li>
+            <li>
+                <label><i class="icon"><img src="{% static 'poster/images/icon4.gif' %}"></i>电子邮件</label>
+                <input type="text"/>
+            </li><li>
+                <label><i class="icon"><img src="{% static 'poster/images/icon5.gif' %}"></i>电话</label>
+                <input type="text"/>
+            </li><li>
+                <label><i class="icon"><img src="{% static 'poster/images/icon6.gif' %}"></i>手机</label>
+                <input type="text"/>
+            </li><li>
+                <label><i class="icon"><img src="{% static 'poster/images/icon7.gif' %}"></i>地址</label>
+                <input type="text"/>
+            </li>
+
+
+        </ul>
+
+    <div class="text-center button-form">
+        <input type="button" value="返回">
+        <input type="button" value="确认" onclick="submitinfo()">
+    </div>
+    </form>
+
+</div>
+
+
+
+
 {% endblock %}
 
 {% block base_body_footer %}
+ <script src="{% static 'poster/js/basic-info.js' %}"></script>
 {% endblock %}
