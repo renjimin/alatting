@@ -37,7 +37,9 @@ class IndexView(TemplateView):
         return sort_key
 
     def get_poster_list(self):
-        qs = Poster.objects.all()
+        qs = Poster.objects.filter(
+            status=Poster.STATUS_PUBLISHED
+        ).order_by('-created_at')
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)

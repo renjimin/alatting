@@ -94,7 +94,7 @@ class Address(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=64)
-    image = models.ForeignKey(Image)
+    image = models.ForeignKey(Image, default=None, null=True, blank=False)
 
     def __str__(self):
         return "{:s}".format(self.name)

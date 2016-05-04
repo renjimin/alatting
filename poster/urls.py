@@ -6,47 +6,25 @@ from poster.view.create import (KeywordsView, CreateFormView,
 from poster.view.edit import PosterEditView
 
 
-urlpatterns = [
-    url(r'^keywords/$', KeywordsView.as_view(),
-        name='keywords'),
+# 创建海报
+from poster.view.show import PosterView
 
-    url(r'^create-form/$', CreateFormView.as_view(),
-        name='create_form'),
+urlpatterns = [
+    url(r'^keywords/$', KeywordsView.as_view(), name='keywords'),
+
+    url(r'^create-form/$', CreateFormView.as_view(), name='create_form'),
 
     url(r'^select-template/$', SelectTemplateView.as_view(),
         name='select_template'),
 ]
 
-# 编辑海报url
+# 显示海报
+
 urlpatterns += [
-    url(r'^(?P<pk>[\d]+)/edit/$', PosterEditView.as_view(),
-        name='edit'),
+    url(r'^(?P<pk>[\d]+)/$', PosterView.as_view(), name='poster'),
 ]
 
-
-# urlpatterns = [
-#     url(r'^categorys$', CategoryListView.as_view(), name='categorys'),
-#
-#     url(r'^category/(?P<pk>\d+)/keywords$',
-#         CategoryKeywordListView.as_view(),
-#         name='category_keywords'),
-#
-#     url(r'^templates$', TemplateListView.as_view(), name='templates'),
-#
-#     url(r'^posters/simple$',
-#         PosterSimpleInfoListView.as_view(),
-#         name='posters_simple'),
-#
-#     url(r'^posters$', PosterListView.as_view(), name='posters'),
-#
-#     url(r'^posters/(?P<pk>[\d]+)$',
-#         PosterDetailView.as_view(), name='poster_detail'),
-#
-#     url(r'^posterpages$', PosterPageListView.as_view(), name='posterpages'),
-#
-# ]
-#
-# urlpatterns += [
-#     url(r'^upload/(?P<page_key>\w+)$',
-#         UploadFileView.as_view(), name='upload')
-# ]
+# 编辑海报url
+urlpatterns += [
+    url(r'^(?P<pk>[\d]+)/edit/$', PosterEditView.as_view(), name='edit'),
+]
