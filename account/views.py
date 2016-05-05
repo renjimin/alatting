@@ -222,7 +222,7 @@ class LoginView(FormView):
             user = get_object_or_404(User, email=username)
             username = user.username
         else:
-            return render_to_response('account/forget-pwd.html', {'error': "请使用邮箱或者手机号登陆"})
+            return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
 
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -230,4 +230,4 @@ class LoginView(FormView):
             login(request, user)
             return super(LoginView, self).form_valid(form)
         else:
-            return render_to_response('account/forget-pwd.html', {'error': "请输入正确的用户名和密码"})
+            return render_to_response('account/login.html', {'error': "请输入正确的用户名和密码"})
