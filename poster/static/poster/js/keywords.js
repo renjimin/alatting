@@ -21,14 +21,12 @@ $(function(){
             }
 
             ths.attr('data-view','1');
-            chebox.removeClass('glyphicon-unchecked');
-            chebox.addClass('glyphicon-checked glyphicon-blue');
+            chebox.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
             var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+cont+'</span>';
             edcont.append($(txt));
         }else{
             ths.attr('data-view','0');
-            chebox.removeClass('glyphicon-checked glyphicon-blue');
-            chebox.addClass('glyphicon-unchecked');
+            chebox.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
             $('#ed-con-li'+id).remove();
         }
     });
@@ -38,11 +36,11 @@ $(function(){
         var id = ths.attr('data-id');
         ths.remove();
         $('.ed-choose-li').filter('[data-id='+id+']').children().children()
-            .removeClass('glyphicon-checked glyphicon-blue').addClass('glyphicon-unchecked');
+            .removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     });
 
     /*删除自定义关键词*/
-    $('#ed-choose').on('click','.glyphicon',function(e){
+    $('#ed-choose').on('click','.glyphicon-minus',function(e){
         e.stopPropagation();
         var ths = $(this);
         var edchos = ths.parent();
@@ -85,8 +83,9 @@ $(function(){
             success:function(data){
                 var id = data.id;
                 if(data.exists){
+                    yyAlert('您提交的关键词已经存在');
                     $('.ed-choose-li').filter('[data-id='+id+']').children().children()
-                        .removeClass('glyphicon-unchecked').addClass('glyphicon-checked glyphicon-blue');
+                        .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                 }else{
                     //添加成功后的操作
                     var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwv+newKwn+'" data-view="1" data-id="'+id+'">';
