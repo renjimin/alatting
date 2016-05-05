@@ -82,6 +82,7 @@ $(function(){
             if(name)  name += ','+kid;
             else name += kid;
         }
+
 //        console.log(name);
         window.location.href='/poster/create-form/';
     });
