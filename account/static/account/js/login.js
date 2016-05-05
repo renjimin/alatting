@@ -7,7 +7,7 @@ $(document).ready(function () {
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
 
     var deviceH = document.documentElement.clientHeight + "px";
-alert(deviceH)
+
     //表单获得焦点后动态改变body和背景图片的大小
     $('input').on("click", function () {
         $("body").attr("style", "background:url('/static/account/img/platform_mobile_yunye.png') no-repeat;width:100%;height:" + deviceH + ";background-size: 100%" + deviceH);
