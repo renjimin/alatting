@@ -187,7 +187,7 @@ class ResetPasswordView(FormView):
         password = data['password1']
         password2 = data['password2']
         if not pwd_validate(password, password2):
-            return render_to_response('account/register.html', {'error': "两次密码输入不一致"})
+            return render_to_response('account/forget-pwd.html', {'error': "两次密码输入不一致"})
         else:
             input_type = what(username)
             if input_type == "phonenumber":  # 手机号重置密码
