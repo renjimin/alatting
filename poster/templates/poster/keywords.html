@@ -13,34 +13,25 @@
         <div class="row">
             <div class="col-xs-6"><a href="javascript:void(0);" id="cat">{{ request.GET.cate }}</a></div>
             <div class="col-xs-6 hli-act"><a href="javascript:void(0);" class="" id="subcat">{{ request.GET.subcate }}</a></div>
+            <input type="hidden" id="category_id" value="{{ request.GET.category_id }}">
+            <input type="hidden" id="cate" value="{{ request.GET.cate }}">
+            <input type="hidden" id="subcate" value="{{ request.GET.subcate }}">
         </div>
     </div>
     <div class="ed-title">请选择行业关键词</div>
     <div class="kw-main container">
         <div class="kw-edit">
             <div class="ed-content" id="ed-content"></div>
+            <p class="ed-cont-tips">*最多只能选择五个关键词</p>
             <div class="ed-choose" id="ed-choose">
                 <div class="row">
-                    <div class="ed-choose-li col-xs-6" data-cont="招募创业精英" data-view="0" data-id="1">
+                    {% for cat in categroykeyword_list %}
+                    <div class="ed-choose-li col-xs-6" data-cont="{{cat.verb}}{{cat.noun}}" data-view="0" data-id="{{cat.id}}">
                         <div class="cbox-line">
-                            <input type="checkbox">招募+创业精英
+                            <input type="checkbox">{{cat.verb}}+{{cat.noun}}
                         </div>
                     </div>
-                    <div class="ed-choose-li col-xs-6" data-cont="提供创业扶持" data-view="0" data-id="2">
-                        <div class="cbox-line">
-                            <input type="checkbox">提供+创业扶持
-                        </div>
-                    </div>
-                    <div class="ed-choose-li col-xs-6" data-cont="吸引投资人" data-view="0" data-id="3">
-                        <div class="cbox-line">
-                            <input type="checkbox">吸引+投资人
-                        </div>
-                    </div>
-                    <div class="ed-choose-li col-xs-6" data-cont="孵化创业公司" data-view="0" data-id="4">
-                        <div class="cbox-line">
-                            <input type="checkbox">孵化+创业公司
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="ed-add row">
