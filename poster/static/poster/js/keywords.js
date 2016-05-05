@@ -39,7 +39,6 @@ $(function(){
         edchos.remove();
         $('#ed-con-li'+id).remove();
 
-
     });
 
     /*自定义添加关键词*/
