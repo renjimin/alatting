@@ -13,7 +13,7 @@ $(function(){
         var id = ths.attr('data-id');
         var edcont= $('#ed-content');
         if(view == '0'){
-            //多余五个关键词会被组织继续添加
+            //多余五个关键词会被阻止继续添加
             var num = edcont.children().length;
             if(num>=5){
                 yyAlert('您选择的关键词已多余5个');
@@ -66,7 +66,7 @@ $(function(){
             return;
         }
 
-        var category_id = $('#category_id').val();
+        var category_id = $('#sub_category_id').val();
         var url = '/api/v1/poster/category/'+category_id+'/keywords';
         $.ajax({
             url:url,
@@ -110,10 +110,9 @@ $(function(){
             else name += kid;
         }
 //        console.log(name);
-        var category_id = $('#category_id').val();
-        var cate = $('#cate').val();
-        var subcate = $('#subcate').val();
-        window.location.href='/poster/create-form/?category_id='+category_id+'&cate='+cate+'&subcate='+subcate+'&keywords='+name;
+        var main_category_id = $('#main_category_id').val();
+        var sub_category_id = $('#sub_category_id').val();
+        window.location.href='/poster/create-form/?main_category_id='+main_category_id+'&sub_category_id='+sub_category_id+'&category_keyword_id='+name;
     });
     $('#goback').on('click',function(){
         window.history.back();
