@@ -49,9 +49,7 @@ $(document).ready(function () {
             yyAlert("手机号码或邮箱号格式不对");
             return false;
         }
-        $("#btncodeoff").show();
-        $("#btncode").hide();
-        settime(btncodeoff);
+
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
@@ -61,6 +59,9 @@ $(document).ready(function () {
                     yyAlert(data.warning);
                     return false;
                 }
+                $("#btncodeoff").show();
+                $("#btncode").hide();
+                settime(btncodeoff);
                 if (PHONE_REGEXP.test(username)) {
                     yyAlert(data.message);
                 }
@@ -105,9 +106,6 @@ $(document).ready(function () {
             yyAlert("手机号码或邮箱号格式不对");
             return false;
         }
-        $("#btncodeoff-psd").show();
-        $("#btncode-psd").hide();
-        settimepsd(btncodeoff);
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
@@ -118,6 +116,9 @@ $(document).ready(function () {
                     yyAlert("该用户还未注册");
                     return false;
                 }
+                $("#btncodeoff-psd").show();
+                $("#btncode-psd").hide();
+                settimepsd(btncodeoff);
                 if (PHONE_REGEXP.test(username)) {
                     yyAlert(data.message);
                 }
