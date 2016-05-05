@@ -6,8 +6,15 @@ function showHeaderTools(){
 	}
 }
 function showDetails(e) {
-	$('.abutton-group li a').removeClass('open');
-	$(e).addClass('activate');
+	var topOffset=$(e).children('i').offset().top;
+	var leftOffset=$(e).children('i').offset().left;
+	console.log(topOffset);
+	$('.abutton-info').css('top',topOffset);
+	if(!$(e).hasClass('activate')){
+		$(e).addClass('activate');
+	}else{
+		$('.abutton-group li a').removeClass('activate');
+	}
 }
 /*music
 $(function(){
