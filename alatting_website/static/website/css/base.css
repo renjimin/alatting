@@ -105,3 +105,9 @@ a:link,a:focus,a:hover,a:active{ text-decoration: none;}
         -moz-transform:translateY(-40px);opacity: 1;
     }
 }
+
+
+/*适配*/
+@media (min-width: 600px){
+    .footer{width:600px;left:50%;margin-left:-300px;}
+}
