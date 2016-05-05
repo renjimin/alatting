@@ -58,4 +58,9 @@
 {% block base_footer_js %}
 {{ block.super }}
 <script src="{% static 'account/js/login.js' %}"></script>
+{% if error %}
+<script>
+    yyAlert("{{error}}");
+</script>
+{% endif %}
 {% endblock %}
