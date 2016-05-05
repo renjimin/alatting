@@ -55,8 +55,8 @@ $(function(){
 
     /*自定义添加关键词*/
     $("#addItem").on('click',function(){
-        var newKwn = $('#newKwn').val();
-        var newKwv = $('#newKwv').val();
+        var newKwn = $.trim($('#newKwn').val());
+        var newKwv = $.trim($('#newKwv').val());
         if(newKwv =='' ||newKwn == ''){
             yyAlert('请填写必要的词汇');
             return;
