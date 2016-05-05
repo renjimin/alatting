@@ -121,29 +121,6 @@ $(document).ready(function () {
             }
         })
     })
-    /*重置密码点击事件*/
-    $("#btnpwd").click(function () {
-        var username = $("#username").val();
-        var password1 = $("#password1").val();
-        var password2 = $("#password2").val();
-        $.ajax({
-            type: 'POST',
-            url: '/account/reset_password',
-            data: {
-                "username": username,
-                "password1": password1,
-                "password2": password2
-            },
-            success: function (data) {
-                // yyAlert(data.detail, function () {
-                window.location.href = "/account/login"
-                //});
-            },
-            error: function (data) {
-                yyAlert(data.detail);
-            }
-        })
-    })
     var countdown = 60;
 
     function settime(val) {
