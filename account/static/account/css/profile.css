@@ -46,6 +46,9 @@ header {
     line-height: 10px;
     display: block;
 }
+.header-tabs li a:hover, .header-tabs li.active a {
+    color: #666;
+}
 /*body*/
 .container-fluid.account-body-content {
     position: absolute;
@@ -58,6 +61,7 @@ header {
     margin: 0 auto;
     padding-left: 0;
     padding-right: 0;
+    padding-bottom: 0;
 }
 
 /*body account*/
