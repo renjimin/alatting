@@ -59,7 +59,7 @@
                             {% with category.children.all as category_children %}
                             {% for category2 in category_children %}
                             <dd class="subitem">
-                                <a class="subitem-link" href="{% url 'poster:keywords' %}?category_id={{category2.id}}&main_category_id={{category.id}}&cate={{ category.name|urlencode }}&subcate={{ category2.name|urlencode }}" class="item-link">{{ category2.name }}</a>
+                                <a class="subitem-link" href="{% url 'poster:keywords' %}?sub_category_id={{category2.id}}&main_category_id={{category.id}}&cate={{ category.name|urlencode }}&subcate={{ category2.name|urlencode }}" class="item-link">{{ category2.name }}</a>
                             </dd>
                             {% endfor %}
                             {% endwith %}
