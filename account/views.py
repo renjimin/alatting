@@ -230,4 +230,4 @@ class LoginView(FormView):
             login(request, user)
             return super(LoginView, self).form_valid(form)
         else:
-            return render_to_response('account/login.html', {'error': "请输入正确的用户名和密码"})
+            return render_to_response('account/login.html', {'error': "用户名或密码错误"})
