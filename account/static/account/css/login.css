@@ -5,9 +5,11 @@ html {
 body {
     height: 100%;
 }
+
 input {
-    outline:none;
+    outline: none;
 }
+
 .login {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: url("../img/platform_mobile_yunye.png");
@@ -80,7 +82,7 @@ input {
 }
 
 .regist .list {
-    padding-top: 40%;
+    padding-top: 24%;
 }
 
 .regist .list-li {
@@ -215,21 +217,17 @@ input {
     background-color: #5cb85c;
 }
 
-.forget-pwd .fgheader {
-
-}
-
 .forget-pwd .fgheader img {
     max-width: 6%;
 }
 
 .forget-reset .fgheader img {
-    max-width: 6%;
+    max-width: 4%;
 }
 
 .forget-pwd .fgheader span {
     margin-left: 36%;
-    font-size: 1.5em;
+    font-size: 1.3em;
     color: black;
 }
 
