@@ -1,7 +1,3 @@
-html,body{
-    width: 100%;
-    height: 100%;
-}
 div{
     margin: 0;
     padding: 0;
@@ -42,7 +38,6 @@ div{
 .bar-header, .tabs {
     background-image: none;
     border: none;
-    max-width: 600px;
     margin: 0 auto;
     z-index: 100;
 }
@@ -110,28 +105,28 @@ div{
     animation: rotating 1.2s linear infinite;
 }
 @-webkit-keyframes rotating {
-from {
--webkit-transform:rotate(0deg)
-}
-to {
-	-webkit-transform:rotate(360deg)
-}
+    from {
+        -webkit-transform:rotate(0deg)
+    }
+    to {
+	    -webkit-transform:rotate(360deg)
+    }
 }
 @keyframes rotating {
-from {
-transform:rotate(0deg)
-}
-to {
-	transform:rotate(360deg)
-}
+    from {
+        transform:rotate(0deg)
+    }
+    to {
+	    transform:rotate(360deg)
+    }
 }
 @-moz-keyframes rotating {
-from {
--moz-transform:rotate(0deg)
-}
-to {
-	-moz-transform:rotate(360deg)
-}
+    from {
+        -moz-transform:rotate(0deg)
+    }
+    to {
+        -moz-transform:rotate(360deg)
+    }
 }
 .button:after {
     position: absolute;
@@ -173,12 +168,6 @@ to {
 }
 
 .bar-footer {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
     bottom: 0;
     border-top-width: 1px;
     border-bottom-width: 0;
@@ -246,10 +235,7 @@ to {
 
 
 .container-fluid{
-    position: absolute;
-    width: 100%;
-    top: 44px;
-    padding: 0;
+    padding: 44px 0 0 0;
     margin: 0;
 }
 .header {
@@ -306,7 +292,7 @@ to {
     overflow: hidden;
 }
 .qrcode-inner .qrcode img {
-    max-width: 100%;
+    width: 100%;
 }
 .header-logo {
     width: 50%;
