@@ -1,6 +1,9 @@
 @charset "utf-8";
 /* CSS Document */
-
+body,html{
+    height: 100%;
+    overflow-x: hidden;
+}
 /*icons*/
 .ico-pages,.ico-music{width:20px;height:20px;display:inline-block; background-repeat:no-repeat; background-position:center center; background-size:100% 100%;}
 .ico-pages{ background-image:url(../images/icons/ico-pages.png);}
