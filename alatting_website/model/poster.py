@@ -94,11 +94,9 @@ class Poster(models.Model):
         default='',
         blank=True
     )
-    category_keyword = models.ForeignKey(
+    keywords = models.ManyToManyField(
         'CategoryKeyword',
-        null=True,
-        blank=True,
-        on_delete=SET_NULL
+        related_name='poster_keywords'
     )
     snapshot = models.CharField(
         verbose_name=u'首页截屏',
