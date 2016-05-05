@@ -59,9 +59,16 @@
     </div>
     <div class="abutton-info">
     	<div class="arrow"></div>
-    	<span>{{ poster.phone }}</span>
-    	<span>{{ poster.email }}</span>
-    	<span>{{ poster.address }}</span>
+    	<ul>
+    		<li class="phone"><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
+    		<li class="email"><i class="icon ico-email"></i><span>{{ poster.email }}</span></li>
+    		<li class="address"><i class="icon ico-address"></i><span>{{ poster.address }}</span></li>
+    		<li class="clock"><i class="icon ico-clock"></i><span>{{ poster.phone }}</span></li>
+    		<li class="like"><i class="icon ico-like"></i><span>{{ poster.phone }}</span></li>
+    		<li class="bookmark"><i class="icon ico-bookmark"></i><span>{{ poster.phone }}</span></li>
+    		<li class="subscribe"><i class="icon ico-subscribe"></i><span>{{ poster.phone }}</span></li>
+    		<li class="fun"><i class="icon ico-fun"></i><span>{{ poster.phone }}</span></li>
+    	</ul>
     </div>
 </header>
 {% endblock %}

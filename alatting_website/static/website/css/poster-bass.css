@@ -188,10 +188,13 @@ to {-moz-transform:rotate(360deg)
 
 .abutton-info{
     width: 100%;
-    height: 50px;
     background: #abc;
     position: absolute;
     z-index: 20;
+    display: none;
+}
+.abutton-info.activate{
+    display: block;
 }
 .abutton-info .arrow{
     display: block;
@@ -201,4 +204,17 @@ to {-moz-transform:rotate(360deg)
     position: relative;
     top: -25%;
     background: #abc;
+}
+.abutton-info ul li{
+    display: none;
+}
+.abutton-info ul{
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.abutton-info ul li i{
+    width: 50px;
+    height: 50px;
 }
