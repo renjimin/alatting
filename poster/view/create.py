@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.core.urlresolvers import reverse_lazy, reverse
+from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, CreateView
 from django.views.generic.list import ListView
 from alatting_website.model.poster import Poster
@@ -36,7 +37,13 @@ class CreateFormView(CreateView):
         obj.creator_id = self.request.user.id,
         obj.status = Poster.STATUS_DRAFT,
         obj.address = address
-        keywords = self.request.POST.get('keywords')
+        keywords = self.request.POST.get('keywords', '').split(',')
+        for kid in keywords:
+            try:
+                keyword = get_object_or_404(CategoryKeyword, id=kid)
+                obj.poster_keywords.add(keyword)
+            except:
+                pass
 
         return super(CreateFormView, self).form_valid(form)
 
@@ -45,6 +52,9 @@ class CreateFormView(CreateView):
             reverse('poster:select_template'),
             self.object.id
         )
+
+    def post(self, request, *args, **kwargs):
+        return super(CreateFormView, self).post(request, *args, **kwargs)
 
 
 class SelectTemplateView(ListView):
