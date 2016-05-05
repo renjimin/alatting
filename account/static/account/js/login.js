@@ -57,6 +57,10 @@ $(document).ready(function () {
             url: '/account/send_message',
             data: {"username": username},
             success: function (data) {
+                if(typeof(data.warning) != "undefined"){
+                    yyAlert(data.warning);
+                    return false;
+                }
                 if (PHONE_REGEXP.test(username)) {
                     yyAlert(data.message);
                 }
