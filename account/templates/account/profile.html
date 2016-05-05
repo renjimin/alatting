@@ -1,22 +1,13 @@
-{% load staticfiles %}
+{% extends 'alatting_website/base.html' %}
+{% load static %}
+{% block base_header_css %}
+<link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
+<link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
+{% endblock %}
 
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>个人主页</title>
-
-    <link rel="stylesheet" href="{% static "libs/bootstrap/css/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
-    <link rel="stylesheet" href="{% static "account/css/profile.css" %}">
-  </head>
-
-  <body class="col-xs-12 col-sm-12 col-md-offset-4 col-md-4 col-lg-offset-4 col-lg-4">
-  	<header>
+{% block base_body %}
+    <header>
       <div class="header-tabs">
         <ul class="tabs-navigation">
           <li class="tabs-navigation-item">
@@ -31,57 +22,124 @@
         </ul>
       </div>
     </header>
-    <div class="container-fluid body-content">
-      {% if object %}
-        {{ object.id  }}
-        {{ object.person.avatar }}
-        {{ object.money}}
-        {{ object.poster_count }}
-        {{ object.poster_likes_count }}
-        {{ object.poster_subscriptions_count }} 
-      {% else %}
-        0
-      {% endif %}
-     
+    <div class="container-fluid account-body-content">
+        <div class="ac-uinfo">
+            <div class="row">
+                <div class="col-xs-4  col-sm-4  col-md-4  col-lg-4">
+                    <div class="ac-uinfo-avatar">
+                        {% if object.person %}
+                            <img src="/media/{{object.person.avatar}}"/>
+                        {% else %}
+                            <img src="/media/avatars/avatar.png"/>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-xs-4  col-sm-4  col-md-4  col-lg-4">
+                    <div class="ac-uinfo-name">
+                        <span>
+                            {% if object %}
+                                {{ object.username  }}
+                            {% else %}
+                                user
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                <div class="col-xs-4  col-sm-4  col-md-4  col-lg-4">
+                    <div class="ac-uinfo-item">
+                        <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                        <span class="ac-uinfo-det">
+                            {% if object %}
+                                {{ object.poster_count }}
+                            {% else %}
+                                    0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="ac-uinfo-item">
+                        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                        <span class="ac-uinfo-det">
+                            {% if object %}
+                                {{ object.poster_likes_count }}
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="ac-uinfo-item">
+                        <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+                        <span class="ac-uinfo-det">
+                            {% if object %}
+                                {{ object.poster_subscriptions_count }} 
+                            {% else %}
+                                0
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8  col-sm-8  col-md-8  col-lg-8">
+                    <div class="ac-uinfo-money">
+                        <span class="fb-icon">
+                            <span class="fb-icon-money">$</span>
+                        </span>
+                        <span>回馈金</span>
+                    </div>
+                </div>
+                <div class="col-xs-4  col-sm-4  col-md-4  col-lg-4">
+                    <div class="ac-uinfo-mnum">$
+                        {% if object %}
+                            {{ object.money }} 
+                        {% else %}
+                            0
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ac-temp">
+            <!--add more-->
+            <div class="ac-temp-li ac-add" on-tap="addTemp()">
+                <div class="ac-temp-box">
+                    <div class="ac-list-img">
+                        <!--这张图是所有模板的缩微图的尺寸，内容可以随意-->
+                        <img src="{% static 'account/img/hb002.png' %}" alt="hb">
+                    </div>
+                    <div class="ac-list-item-ctrl">
+                        <div class="ac-add-icon-box">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- poster list -->
 
+            <div class="ac-temp-li ac-list" ng-repeat="t in tarr">
+                <div class="ac-temp-box" on-hold="onHold({{t.id}})">
+                    <div class="ac-list-img">
+                        <img src="{% static 'account/img/hb002.png' %}" alt="hb">
+                    </div>
+                    <div class="ac-list-item-ctrl" ng-show="itemshow{{t.id}}">
+                        <div class="ac-item-back" on-tap="onHold({{t.id}})">
+                            <span class="ac-item-delete glyphicon glyphicon-trash" on-tap="deletTemp({{t.id}})"></span>
+                        </div>
+                        <div class="ac-item-edit" on-tap="editTemp({{t.id}})">
+                            <div class="ac-item-edit-wrapper">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span><br>
+                                <span>编辑</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
-      Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
+        </div>
       Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
       Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
       Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>Lorem Ipsum<br/>
     </div>
-    <footer>
-      <div class="footer-tabs">
-      <ul class="tabs-navigation">
-        <li class="tabs-navigation-item">
-          <a class="tabs-navigation-icon" href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
-          <span class="tabs-navigation-title">主页</span>
-        </li>
-        <li class="tabs-navigation-item">
-          <a class="tabs-navigation-icon" href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
-          <span class="tabs-navigation-title">搜索</span>
-        </li>
-        <li class="tabs-navigation-item">
-          <a class="tabs-navigation-icon" href="#"><i class="fa fa-file-text-o" aria-hidden="true"></i></a>
-          <span class="tabs-navigation-title">类别</span>
-        </li>
-        <li class="tabs-navigation-item">
-          <a class="tabs-navigation-icon" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
-          <span class="tabs-navigation-title">我的</span>
-        </li>
-      </ul>
-      </div>
-    </footer>
-  </body>
-</html>
+{% endblock %}
+{% block base_footer_js %}
+<script src="{% static 'account/js/profile.js' %}"></script>
+{% endblock %}

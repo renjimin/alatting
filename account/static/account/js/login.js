@@ -1,360 +1,141 @@
 /**
- * µÇÂ½
- * @param  {[type]} $scope [description]
- * @param  {[type]} $http) {	$scope.loading [description]
- * @return {[type]}        [description]
+ *
  */
-app.controller('loadCtrl', ['$scope', '$http', '$ionicPopup', '$state',
-    function ($scope, $http, $ionicPopup, $state, $cookies) {
-        $scope.isSelected = true;
-        $scope.username = localStorage.getItem("username");
-        $scope.password = localStorage.getItem("password");
-        $scope.login = function () {
-            var username = $scope.username;
-            var password = $scope.password;
-            if (!username) {
-                $ionicPopup.alert({
-                    title: 'ÓÃ»§ÃûÎª¿Õ',
-                    template: ''
-                });
-                return false;
-            }
-            if (!password) {
-                $ionicPopup.alert({
-                    title: 'ÃÜÂëÎª¿Õ',
-                    template: ''
-                });
-                return false;
-            }
-            if ($scope.isSelected) {
-                if (username != null && password != null) {
-                    localStorage.setItem("username", username);
-                    localStorage.setItem("password", password);
-                }
-            } else {
-                localStorage.clear();
-            }
-            $http.post(API_CONFIG.root + '/api/v1/account/login', {
-                    "username": username,
-                    "password": password
-                }
-            ).success(function (data) {
-                    $state.go("homepages");
+$(document).ready(function () {
+    $("#id_username").prop('value', localStorage.getItem("username"));
+    $("#id_password").prop('value', localStorage.getItem("password"));
+    //è·å–è®¾å¤‡é«˜åº¦ï¼ˆè½¯é”®ç›˜è°ƒå‡ºæ¥æ—¶é«˜åº¦ä¹Ÿä¼šå˜å°ï¼Œæ‰€ä»¥åœ¨ç‚¹å‡»äº‹ä»¶å‰è·å–ï¼‰
 
-                }).error(function (data) {
-                    $ionicPopup.alert({
-                        title: 'ÓÃ»§Ãû»òÃÜÂë´íÎó',
-                        template: ''
-                    });
-                });
-        };
-        $scope.btnrember = function () {
-            if ($scope.isSelected) {
-                localStorage.clear();
-                var username = $scope.username;
-                var password = $scope.password;
-                if (username != null && password != null) {
-                    localStorage.setItem("username", username);
-                    localStorage.setItem("password", password);
-                }
-            } else {
-                localStorage.clear();
-            }
-            ;
+    var deviceH = document.documentElement.clientHeight + "px";
+
+    //è¡¨å•è·å¾—ç„¦ç‚¹ååŠ¨æ€æ”¹å˜bodyå’ŒèƒŒæ™¯å›¾ç‰‡çš„å¤§å°
+    $('input').on("click", function () {
+        $("body").attr("style", "background:url('./img/platform_mobile_yunye.png') no-repeat;width:100%;height:" + deviceH + ";background-size: 100%" + deviceH);
+    });
+    if ($("#checkout").attr("checked") == "checked") {
+        var username = $("#id_username").val();
+        var password = $("#id_password").val();
+        if (username != null && password != null) {
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
         }
-        $scope.register = function () {
-            $state.go("regist");
-        }
-        $scope.forgetpsd = function () {
-            $state.go("forget");
-        }
+    } else {
+        //localStorage.clear();
     }
-]);
-/**
- * ×¢²á
- * @param  {[type]} $scope [description]
- * @param  {[type]} $http) {	$scope.btncode [description]
- * @return {[type]}        [description]
- */
-app.controller('regist', function ($scope, $http, $ionicPopup, $state, $interval) {
-    $scope.paracont = "»ñÈ¡ÑéÖ¤Âë";
-    $scope.paraclass = "but_null";
-    $scope.paraevent = true;
-    var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-    var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
-    var passCode = true;
-    var registCode = '';
-    $scope.isShow = true;
-    $scope.btncode = function () {
-        var username = $scope.username;
-        var passUser = '';
+
+    $("#btnok").click(function () {
+        var username = $("#id_username").val();
+        var password = $("#id_password").val();
+        if (username != null && password != null) {
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
+        }
+    });
+    /*ç™»é™†ç•Œé¢æ³¨å†Œé¡µé¢è·³è½¬*/
+    $("#register").click(function () {
+        window.location.href = "/account/register";
+    })
+    /*ç‚¹å‡»è·å–éªŒè¯ç */
+    var code = "";
+    $("#btncode").click(function () {
+        $("#btncodeoff").show();
+        $("#btncode").hide();
+        var btncodeoff = document.getElementById("btncodeoff");
+        settime(btncodeoff);
+        var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+        var username = $("#id_username").val();
         if (!username) {
-            $ionicPopup.alert({
-                title: 'ÓÃ»§ÃûÎª¿Õ',
-                template: ''
-            });
+            yyAlert("è¯·è¾“å…¥ç”¨æˆ·å");
             return false;
         }
         if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
-            $ionicPopup.alert({
-                title: 'ÊÖ»úºÅÂë»òÓÊÏäºÅ¸ñÊ½²»¶Ô',
-                template: ''
-            });
+            yyAlert("æ‰‹æœºå·ç æˆ–é‚®ç®±å·æ ¼å¼ä¸å¯¹");
             return false;
         }
-        if (passCode) {
-            $scope.isclick = true;
-            passCode = false;
-            $scope.isShow = false;
-            $scope.ishide = true;
-            $http.post(API_CONFIG.root + "/api/v1/account/send_message", {"username": username}).success(function (data) {
+        $.ajax({
+            type: 'POST',
+            url: '/account/send_message',
+            data: {"username": username},
+            success: function (data) {
                 if (PHONE_REGEXP.test(username)) {
-                    $ionicPopup.alert({
-                        title: data.message,
-                        template: ''
-                    });
+                    code = data.message;
+                    yyAlert(data.message);
                 }
-            }).error(function (data) {
-                console.log(data);
-            });
-
-            var second = 60;
-            var timePromise = $interval(function () {
-                if (second <= 0) {
-                    $interval.cancel(timePromise);
-                    timePromise = null;
-                    $scope.paracont = "ÖØ·¢ÑéÖ¤Âë";
-                    $scope.paraclass = "but_null";
-                    $scope.paraevent = true;
-
-                    passCode = true;
-                    $scope.isShow = true;
-                    $scope.ishide = false;
-                    $interval.cancel(timePromise);
-                } else {
-                    second--;
-                    $scope.paracont = "»ñÈ¡ÑéÖ¤Âë" + "(" + second + ")";
-                    $scope.paraclass = "not but_null";
-
-                }
-            }, 1000, 100);
-        }
-    };
-    $scope.regist = function () {
-        var username = $scope.username;
-        var password = $scope.firstpassword;
-        var againpassword = $scope.secondpassword;
-        var code = $scope.savecode;
-        if (!username) {
-            $ionicPopup.alert({
-                title: 'ÇëÊäÈëÓÃ»§Ãû',
-                template: ''
-            });
-            return false;
-        }
-        if (!code) {
-            $ionicPopup.alert({
-                title: 'ÇëÊäÈëÑéÖ¤Âë',
-                template: ''
-            });
-            return false;
-        }
-        if (!password) {
-            $ionicPopup.alert({
-                title: 'ÇëÊäÈëÃÜÂë',
-                template: ''
-            });
-            return false;
-        }
-        if (!againpassword) {
-            $ionicPopup.alert({
-                title: 'ÇëÔÙ´ÎÊäÈëÃÜÂë',
-                template: ''
-            });
-            return false;
-        }
-        if (password != againpassword) {
-            $ionicPopup.alert({
-                title: 'Á½´ÎÊäÈëµÄÃÜÂë²»Ò»ÖÂ',
-                template: ''
-            });
-            return false;
-        }
-        $http.post(API_CONFIG.root + "/api/v1/account/register", {
-                "username": username,
-                "password1": password,
-                "password2": againpassword,
-                "message": code
+            },
+            error: function (data) {
+                yyAlert(data.message);
             }
-        ).success(function (data) {
-                console.log(data);
-                $ionicPopup.alert({
-                    title: data.detail,
-                    template: ''
-                });
-                $state.go("login");
-            }).error(function (data) {
-                console.log(data);
-                var alertPopup = $ionicPopup.alert({
-                    title: data.detail,
-                    template: ''
-                });
-            });
-    };
-});
-/**
- * Íü¼ÇÃÜÂëÌîĞ´ÑéÖ¤Âë
- * @param  {[type]} $scope [description]
- * @param  {[type]} $http) {	$scope.btnsendsure [description]
- * @return {[type]}        [description]
- */
-app.controller('forgetpassword', function ($scope, $http, $ionicPopup, $state, $interval) {
-    var username = '';
-    $scope.isshow = true;
-    var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-    var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
-    $scope.paracont = "»ñÈ¡ÑéÖ¤Âë";
-    $scope.paraclass = "but_null";
-    $scope.paraevent = true;
-    var passCode = true;
-    $scope.isShow = true;
-    $scope.btncode = function () {
-        username = $scope.usernameforget;
-        if (!username) {
-            $ionicPopup.alert({
-                title: 'ÓÃ»§ÃûÎª¿Õ',
-            });
-            return false;
-        }
-        ;
-        if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
-            $ionicPopup.alert({
-                title: 'ÊÖ»úºÅÂë»òÓÊÏäºÅ¸ñÊ½²»¶Ô',
-                template: ''
-            });
-            return false;
-        }
-        if (passCode) {
-            passCode = false;
-            $scope.isclick = true;
-            $scope.isShow = false;
-            $scope.ishide = true;
-            $http.post(API_CONFIG.root + "/api/v1/account/send_message", {"username": username}).success(function (data) {
-                if (PHONE_REGEXP.test(username)) {
-                    $ionicPopup.alert({
-                        title: data.message,
-                        template: ''
-                    });
-                }
-            }).error(function (data) {
-                console.log(data);
-            })
-
-            var second = 60;
-            var timePromise = $interval(function () {
-                if (second <= 0) {
-                    $interval.cancel(timePromise);
-                    timePromise = null;
-                    $scope.paracont = "ÖØ·¢ÑéÖ¤Âë";
-                    $scope.paraclass = "but_null";
-                    $scope.paraevent = true;
-
-                    passCode = true;
-                    $scope.isShow = true;
-                    $scope.ishide = false;
-                    $interval.cancel(timePromise);
-                } else {
-                    second--;
-                    $scope.paracont = "»ñÈ¡ÑéÖ¤Âë" + "(" + second + ")";
-                    $scope.paraclass = "not but_null";
-
-                }
-            }, 1000, 100);
-
-
-        }
-        ;
-    }
-    $scope.btnpsure = function () {
-        username = $scope.usernameforget;
-        var writecode = $scope.code;
-        if (!username) {
-            $ionicPopup.alert({
-                title: 'ÓÃ»§ÃûÎª¿Õ',
-                template: ''
-            });
-            return false;
-        }
+        })
+    })
+    /*å¿˜è®°å¯†ç ç‚¹å‡»ç¡®å®š*/
+    $("#btnsure").click(function () {
+        var writecode = $("#id_message").val();
         if (!writecode) {
-            $ionicPopup.alert({
-                title: 'ÇëÊäÈëÑéÖ¤Âë',
-                template: ''
-            });
+            yyAlert("è¯·å¡«å†™éªŒè¯ç ");
             return false;
         }
-        ;
-        $http.post(API_CONFIG.root + "/api/v1/account/auth_message", {
+        if (code != writecode) {
+            yyAlert("éªŒè¯ç å¡«å†™é”™è¯¯");
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/account/auth_message',
+            data: {
                 "username": username,
                 "message": writecode
+            },
+            success: function (data) {
+                //yyAlert(data.detail);
+            },
+            error: function (data) {
+                //yyAlert(data.detail);
             }
-        ).success(function () {
-                /*ÑéÖ¤³É¹¦Ìø×ª*/
-                $state.go("forgetpwd", {data: username});
-            }).error(function () {
-                /*ÑéÖ¤Ê§°Ü*/
-                $ionicPopup.alert({
-                    title: 'ÕËºÅÓëÑéÖ¤Âë²»Æ¥Åä',
-                    template: ''
-                });
-            })
-    }
-});
-/**
- * ÖØÖÃÃÜÂë
- * @param  {[type]} $scope       [description]
- * @param  {[type]} $http        [description]
- * @param  {[type]} $ionicPopup) {	$scope.btnresetpwd [description]
- * @return {[type]}              [description]
- */
-app.controller('sendcode', function ($scope, $http, $ionicPopup, $state, $stateParams) {
-    $scope.btnresetpwd = function () {
-        var username = $stateParams.data;
-        var password = $scope.newpsw;
-        var secondpassword = $scope.secondpsw;
-        //var username  =$scope.username;
-        if (!password && !secondpassword) {
-            $ionicPopup.alert({
-                title: 'ÊäÈëÃÜÂëÎª¿Õ',
-                template: ''
-            });
-            return false;
-        }
-        ;
-        if (password != secondpassword) {
-            $ionicPopup.alert({
-                title: 'Á½´ÎÊäÈëµÄÃÜÂë²»Ò»ÖÂ',
-                template: ''
-            });
-            return false;
-        }
-        $http.post(API_CONFIG.root + "/api/v1/account/reset_password", {
+        })
+        $(".forget-reset").show();
+        $(".forget-pwd").hide();
+    })
+    /*é‡ç½®å¯†ç ç‚¹å‡»äº‹ä»¶*/
+    $("#btnpwd").click(function () {
+        var username = $("#id_username").val();
+        var password1 = $("#password1").val();
+        var password2 = $("#password2").val();
+        $.ajax({
+            type: 'POST',
+            url: '/account/reset_password',
+            data: {
                 "username": username,
-                "password1": password,
-                "password2": secondpassword
+                "password1": password1,
+                "password2": password2
+            },
+            success: function (data) {
+                yyAlert(data.detail, function () {
+                    window.location.href = "/account/login"
+                });
+            },
+            error: function (data) {
+                yyAlert(data.detail);
             }
-        ).success(function (data) {
-                $ionicPopup.alert({
-                    title: 'ÖØÖÃÃÜÂë³É¹¦',
-                    template: ''
-                }).then(function () {
-                    $state.go("login");
-                });
+        })
+    })
+    var countdown = 60;
 
-            }).error(function (data) {
-                $ionicPopup.alert({
-                    title: data.detail,
-                    template: ''
-                });
-            })
+    function settime(val) {
+        if (countdown <= 0) {
+            $("#btncodeoff").hide();
+            $("#btncode").show();
+            val.removeAttribute("disabled");
+            val.value = "è·å–éªŒè¯ç ";
+            countdown = 60;
+        } else {
+            val.setAttribute("disabled", true);
+            val.value = "è·å–éªŒè¯ç (" + countdown + ")";
+            countdown--;
+        }
+        setTimeout(function () {
+            settime(val)
+        }, 1000)
     }
 });
+

@@ -7,10 +7,18 @@ body{
     background-color: #efefef;
     height: 100%;
     font-family: "Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
+    max-width:600px;
+    margin:0 auto;
+    box-shadow:0 0 10px #444;
 }
 ol, ul,li {
     list-style: none;
 }
+a:link,a:focus,a:hover,a:active{ text-decoration: none;}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 635cad174bf12010b0fa19684a2c1d46c54e7325
 .container-fluid{
     padding-bottom: 80px;
 }

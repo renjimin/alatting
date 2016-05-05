@@ -13,6 +13,7 @@
         coverbox = document.getElementById('yyalert-cover');
         popbox = document.getElementById('yyalert');
         yyBtnConfirm = document.getElementById('yyBtnAlert');
+        popbox.children[0].innerHTML = text;
         popbox.style.marginTop = -popbox.offsetHeight/2+'px';
         setTimeout(function(){
             alertEle.classList.add('open');
@@ -44,6 +45,7 @@
         popbox = document.getElementById('yyconfirm');
         yyBtnConfirm = document.getElementById('yyBtnConfirm');
         yyBtnCancel = document.getElementById('yyBtnCancel');
+        popbox.children[0].innerHTML = text;
 
         popbox.style.marginTop = -popbox.offsetHeight/2+'px';
         setTimeout(function(){
@@ -66,3 +68,15 @@
 
 	window.yyConfirm = yyConfirm;
 })();
+function GetRequest() {
+   var url = location.search; //获取url中"?"符后的字串
+   var theRequest = new Object();
+   if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for(var i = 0; i < strs.length; i ++) {
+         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
+      }
+   }
+   return theRequest;
+}

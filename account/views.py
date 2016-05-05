@@ -36,7 +36,7 @@ class MessageView(APIView):
     permission_classes = ()
 
     def post(self, request, **kwargs):
-        try:  # TODO 要加装饰器判断入参合法性
+        try:
             inputvalue = request.data['username']
         except KeyError:
             return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
@@ -96,6 +96,10 @@ class ProfileView(DetailView):
         user = self.request.user
         if user.is_authenticated():
             obj = self.request.user
+            posters_created = []
+            for poster_created in Poster.objects.filter(creator=self.request.user):
+                posters_created.append(poster_created)
+            obj.posters_created = posters_created
             obj.poster_count = Poster.objects.filter(creator=self.request.user).count()
             obj.poster_likes_count = PosterLike.objects.filter(creator=self.request.user).count()
             obj.poster_subscriptions_count = PosterSubscribe.objects.filter(follower=self.request.user).count()
@@ -130,7 +134,7 @@ class RegisterView(FormView):
     """
     template_name = "account/register.html"
     form_class = RegisterForm
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.LOGIN_URL
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -179,7 +183,7 @@ class ResetPasswordView(FormView):
     """重置密码"""
     template_name = "account/forget-pwd.html"
     form_class = ResetPasswordForm
-    success_url = settings.LOGIN_REDIRECT_URL
+    success_url = settings.LOGIN_URL
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -187,7 +191,7 @@ class ResetPasswordView(FormView):
         password = data['password1']
         password2 = data['password2']
         if not pwd_validate(password, password2):
-            return render_to_response('account/register.html', {'error': "两次密码输入不一致"})
+            return render_to_response('account/forget-pwd.html', {'error': "两次密码输入不一致"})
         else:
             input_type = what(username)
             if input_type == "phonenumber":  # 手机号重置密码
@@ -222,7 +226,7 @@ class LoginView(FormView):
             user = get_object_or_404(User, email=username)
             username = user.username
         else:
-            return render_to_response('account/forget-pwd.html', {'error': "请使用邮箱或者手机号登陆"})
+            return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
 
         user = authenticate(username=username, password=password)
         if user is not None:
@@ -230,4 +234,4 @@ class LoginView(FormView):
             login(request, user)
             return super(LoginView, self).form_valid(form)
         else:
-            return render_to_response('account/forget-pwd.html', {'error': "请输入正确的用户名和密码"})
+            return render_to_response('account/login.html', {'error': "用户名或密码错误"})

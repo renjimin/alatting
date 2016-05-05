@@ -1,40 +1,58 @@
 {% extends 'alatting_website/base.html' %}
-{% load static%}
+{%load static %}
 {% block base_header_css %}
 <link rel="stylesheet" href="{% static 'account/css/login.css' %}">
 {% endblock %}
 {% block base_body %}
 
-{% if error %}
-<p style="color: red;">{{error}}</p>
-{% endif %}
 <form method="post">
     {% csrf_token %}
     <div class="forget-pwd">
-        <ul class="list list-forget">
-            <li class="item">
-                请输入您的注册的手机号/邮箱号
-            </li>
-            <li>
-                <input type="text" ng-model="usernameforget" placeholder="请输入手机号/邮箱">
+        <div class="fgheader">
+            <a href="/account/login" class="">
+                <img src="{% static 'account/img/arrow-block.png' %}">
+            </a>
+            <span>输入帐号</span>
+        </div>
+        <ul class="list">
+            <li class="list-lion">
+                请输入你注册的邮箱/手机号
             </li>
             <li class="list-li">
-                <input class="list-input" type="text" ng-model="code" placeholder="请输入验证码">
-                <a ng-click="btncode()" ng-show="isShow" ng-model="registcode"
-                   class="button button-balanced button-sure" ng-class="paraclass" ng-bind="paracont">获取验证码</a>
-                <a ng-click="btncode()" ng-show="ishide" ng-model="registcode" ng-disabled="isclick"
-                   class="button button-dark button-sure" ng-class="paraclass" ng-bind="paracont">获取验证码</a>
+                <input class="list-input-on" type="text" id="id_username" name="username" placeholder="邮箱号/手机号">
+            </li>
+            <li class="list-li">
+                <input class="codeinput" type="text" id="id_message" name="message" placeholder="验证码">
+                <input type="button" id="btncode" class="btn btn-success" value="获取验证码"/>
+                <input type="button" id="btncodeoff" class="btn btn-default" value="获取验证码"/>
             </li>
         </ul>
-        <div class="button-bar bar-balanced btnsure">
-            <a class="button" ng-click="btnpsure()">确定</a>
+        <button type="button" class="btn btn-success btn-lg btn-block" id="btnsure">确 定</button>
+    </div>
+    <div class="forget-reset">
+        <div class="fgheader">
+            <a href="/account/reset_password">
+                <img src="{% static 'account/img/arrow-block.png' %}">
+            </a>
+            <span>重置密码</span>
         </div>
+        <ul class="list">
+            <li class="list-li">
+                <input class="list-input-on" type="password" id="password1" name="username" placeholder="请输入新密码">
+            </li>
+            <li class="list-li">
+                <input class="codeinput" type="password" id="password2" name="message" placeholder="请再次输入新密码">
+            </li>
+        </ul>
+        <button type="button" class="btn btn-primary btn-lg btn-block" id="btnpwd">确 定</button>
     </div>
     <input type="hidden" name="next" value="{{ next }}"/>
 </form>
 {% endblock %}
-
+{% block base_body_footer %}
+{% endblock %}
 {% block base_footer_js %}
 {{ block.super }}
-<!-- 这里引入自定义的js文件 -->
+<script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+<script src="{% static 'account/js/login.js' %}"></script>
 {% endblock %}
