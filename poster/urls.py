@@ -3,7 +3,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from poster.view.create import (CategoryKeywordsView, CreateFormView,
-                                SelectTemplateView)
+                                SelectTemplateView, PosterPageCreateView)
 from poster.view.edit import PosterEditView
 
 
@@ -19,6 +19,9 @@ urlpatterns = [
 
     url(r'^select-template/$', login_required(SelectTemplateView.as_view()),
         name='select_template'),
+
+    url(r'^posterpage/$', login_required(PosterPageCreateView.as_view()),
+        name='posterpage'),
 ]
 
 # 显示海报

@@ -1,3 +1,5 @@
+from django.conf import settings
+
 __author__ = 'tiger'
 import uuid
 import os
@@ -94,3 +96,17 @@ def get_script_path(instance, filename):
 
 def get_file_ext_name(file_name):
     return file_name.split('.')[-1] if '.' in file_name else ''
+
+
+def handle_uploaded_file(save_path, upfile):
+    save_full_path = os.path.join(
+        settings.MEDIA_ROOT, save_path
+    )
+    parent_path = os.path.dirname(save_full_path)
+    if not os.path.exists(parent_path):
+        os.makedirs(parent_path)
+
+    with open(save_full_path, 'wb+') as destination:
+        for chunk in upfile.chunks():
+            destination.write(chunk)
+    return save_full_path

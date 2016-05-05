@@ -7,11 +7,13 @@
 {% block base_body %}
 <div class="main">
     <p class="text-center basic-nav">请输入基本信息</p>
+    {{ form.errors }}
 
-    <form class="form-basicinfo" method="get" action="/poster/create-form" id="form-info">
-         <input type="hidden" name="category_keyword_id" value="{{request.GET.category_keyword_id}}">
-         <input type="hidden" name="main_category_id" value="{{request.GET.main_category_id}}">
-         <input type="hidden" name="sub_category_id" value="{{request.GET.sub_category_id}}">
+    <form class="form-basicinfo" method="post" enctype="multipart/form-data"
+          action="{% url 'poster:create_form' %}" id="form-info">
+         <input type="hidden" name="keywords" value="{{request.GET.category_keyword_id}}">
+         <input type="hidden" name="main_category" value="{{request.GET.main_category_id}}">
+         <input type="hidden" name="sub_category" value="{{request.GET.sub_category_id}}">
         <ul class="basic-ul">
             <li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon1.gif' %}"></i>海报名称</label>
@@ -26,9 +28,9 @@
             </li>
             <li class="big-text">
                 <label><i class="icon"><img src="{% static 'poster/images/icon3.gif' %}"></i>海报LOGO</label>
-                <!--<input type="file" name="logo_image_id" class="post-img"/>-->
+{#                <input type="file" name="logo" class="post-img"/>#}
                 <a href="javascript:;" class="file"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;选择文件
-                    <input type="file" name="logo_image_id" class="post-img"/>
+                    <input type="file" name="logo" class="post-img"/>
                 </a>
             </li>
             <li>
