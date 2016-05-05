@@ -10,6 +10,8 @@
     {% block base_header_css %}
     {% endblock %}
     {% block base_header_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'website/js/base.js' %}"></script>
     {% endblock %}
     {% block base_header_extra %}
     {% endblock %}
@@ -27,8 +29,6 @@
     {% include 'alatting_website/footer.html' %}
 {% endblock %}
 {% block base_footer_js %}
-    <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
-    <script src="{% static 'website/js/base.js' %}"></script>
 {% endblock %}
 </body>
 </html>
