@@ -13,7 +13,7 @@ body,html{
 .ico-feedback{ background-position:-2em 0;}
 .ico-export{ background-position:-3em 0;}
 .ico-stats{ background-position:-4em 0;}
-.ico-phone,.ico-email,.ico-address,.ico-clock,.ico-like,.ico-bookmark,.ico-subscribe,.ico-fun,.ico-alogo{width:1em;height:1em;display:inline-block;background:url(../images/icons/sprits_tools.png) center center no-repeat; background-size:auto 100%;}
+.ico-phone,.ico-email,.ico-address,.ico-clock,.ico-like,.ico-bookmark,.ico-subscribe,.ico-fun,.ico-alogo,.ico-mobile{width:1em;height:1em;display:inline-block;background:url(../images/icons/sprits_tools.png) center center no-repeat; background-size:auto 100%;}
 .ico-phone{background-position:0 0;}
 .ico-email{background-position:-1em 0;}
 .ico-address{background-position:-2em 0;}
@@ -23,6 +23,7 @@ body,html{
 .ico-subscribe{background-position:-6em 0;}
 .ico-fun{background-position:-7em 0;}
 .ico-alogo{background-position:-8em 0;}
+.ico-mobile{background-position:-9em 0;}
 .ico-share-email,.ico-share-wechat,.ico-share-qq,.ico-share-sina{width:1em;height:1em;display:inline-block;background:url(../images/icons/sprits_share.png) no-repeat; background-size:auto 100%;}
 .ico-share-wechat{ background-position:-1em 0;}
 .ico-share-qq{ background-position:-2em 0;}
