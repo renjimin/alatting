@@ -55,8 +55,7 @@ class MessageView(APIView):
                 user = User.objects.all().filter(email=inputvalue)
                 if len(user) != 0:
                     data['warning'] = "用户已存在"
-                else:
-                    send_verify_email(inputvalue, message)
+                send_verify_email(inputvalue, message)
             else:  # 手机号
                 person = Person.objects.all().filter(phonenumber=inputvalue)
                 if len(person) != 0:

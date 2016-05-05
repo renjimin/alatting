@@ -7,7 +7,7 @@ $(function(){
     $('#ed-choose').on('click','.ed-choose-li',function(e){
 
         var ths = $(this);
-        var chebox = ths.find('input');
+        var chebox = ths.children().children();
         var cont = ths.attr('data-cont');
         var view = ths.attr('data-view');
         var id = ths.attr('data-id');
@@ -21,18 +21,26 @@ $(function(){
             }
 
             ths.attr('data-view','1');
-            chebox.prop('checked','true');
+            chebox.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
             var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+cont+'</span>';
             edcont.append($(txt));
         }else{
             ths.attr('data-view','0');
-            chebox.removeProp("checked");;
+            chebox.removeClass('glyphicon-check').addClass('glyphicon-unchecked');
             $('#ed-con-li'+id).remove();
         }
-
     });
+    /*选中内容框中点击取消选中内容*/
+    $('#ed-content').on('click','span',function(){
+        var ths = $(this);
+        var id = ths.attr('data-id');
+        ths.remove();
+        $('.ed-choose-li').filter('[data-id='+id+']').children().children()
+            .removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+    });
+
     /*删除自定义关键词*/
-    $('#ed-choose').on('click','.glyphicon',function(e){
+    $('#ed-choose').on('click','.glyphicon-minus',function(e){
         e.stopPropagation();
         var ths = $(this);
         var edchos = ths.parent();
@@ -73,16 +81,28 @@ $(function(){
             data:{verb:newKwv,noun:newKwn},
             type: "POST",
             success:function(data){
-                //添加成功后的操作
-                //var num = $('.ed-choose-li').length;
                 var id = data.id;
-                var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwv+newKwn+'" data-view="1" data-id="'+id+'">';
+                if(data.exists){
+                    yyAlert('您提交的关键词已经存在');
+                    var chos = $('.ed-choose-li').filter('[data-id='+id+']');
+                    chos.children().children()
+                        .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                    var view = chos.attr('data-view');
+                    if(view == 0){
+                        var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
+                        $('#ed-content').append($(txt));
+                    }
+                }else{
+                    //添加成功后的操作
+                    var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwv+newKwn+'" data-view="1" data-id="'+id+'">';
                     cht += '<div class="cbox-line">';
-                    cht += '<input type="checkbox" checked="checked">'+newKwv+'+'+newKwn;
+                    cht += '<span class="glyphicon glyphicon-check glyphicon-blue"></span>'+newKwv+'+'+newKwn;
                     cht += '</div><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
-                $('#ed-choose').children().append($(cht));
-                var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
-                $('#ed-content').append($(txt));
+                    $('#ed-choose').children().append($(cht));
+
+                    var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
+                    $('#ed-content').append($(txt));
+                }
                 //初始化输入框
                 $('#newKwn').prop('value','');
                 $('#newKwv').prop('value','');
@@ -114,7 +134,18 @@ $(function(){
         var sub_category_id = $('#sub_category_id').val();
         window.location.href='/poster/create-form/?main_category_id='+main_category_id+'&sub_category_id='+sub_category_id+'&category_keyword_id='+name;
     });
+
+    /*返回*/
     $('#goback').on('click',function(){
+        var newKwn = $.trim($('#newKwn').val());
+        var newKwv = $.trim($('#newKwv').val());
+        var edcont = $('#ed-content').children();
+        var num = edcont.length;
+        if(newKwn != ''|| newKwv != '' || num!=0){
+            yyConfirm('您当前有编辑过的内容，确定要退出吗？',function(){
+                window.history.back();
+            });
+        }
         window.history.back();
     });
 });
