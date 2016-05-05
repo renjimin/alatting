@@ -15,6 +15,7 @@
         yyBtnConfirm = document.getElementById('yyBtnAlert');
         popbox.children[0].innerHTML = text;
         popbox.style.marginTop = -popbox.offsetHeight/2+'px';
+        popbox.style.marginLeft =  -popbox.offsetWidth/2+'px';
         setTimeout(function(){
             alertEle.classList.add('open');
         },50);
@@ -68,15 +69,26 @@
 
 	window.yyConfirm = yyConfirm;
 })();
-function GetRequest() {
-   var url = location.search; //获取url中"?"符后的字串
-   var theRequest = new Object();
-   if (url.indexOf("?") != -1) {
-      var str = url.substr(1);
-      strs = str.split("&");
-      for(var i = 0; i < strs.length; i ++) {
-         theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]);
-      }
-   }
-   return theRequest;
-}
+(function () {
+	function yyMessage(text){
+        var yymessage = document.getElementById('yymessage');
+
+		if(yymessage == undefined || yymessage.length <= 0){
+    		var divelement = '<div class="yymessage-txt"></div>';
+            yymessage = document.createElement('div');
+            yymessage.setAttribute('id','yymessage');
+			yymessage.setAttribute('class','yymessage');
+            yymessage.innerHTML = divelement;
+    		document.body.appendChild(yymessage);
+		}
+
+        yymessage.children[0].innerHTML = text;
+
+        yymessage.classList.add('open');
+        setTimeout(function(){
+            yymessage.classList.remove('open');
+        },3000);
+
+	}
+	window.yyMessage = yyMessage;
+})();
