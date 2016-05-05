@@ -30,12 +30,13 @@ li{list-style: none;}
     display: inline-block;
     width: 32%;
     height: 100%;
-    text-align: center;
+    text-align: left;
     background: #ffffff;
     margin: 0;
     font-weight: normal;
     color: #7f7f7f;
     font-size: 14px;
+    padding-left: 1em;
 }
 
 .basic-ul > li >label >i{
@@ -49,6 +50,7 @@ li{list-style: none;}
     border: 0 none;
     outline: none;
     display: inline-block;
+    padding-left: 3px;
 }
 
 
@@ -106,6 +108,8 @@ max-width: 1.2em;
     background: none;
     outline: none;
     line-height: 2em;
+    padding-left: 3px;
+    color: #E2DFDF;
 }
 
 .post-ds{
