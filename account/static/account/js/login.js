@@ -71,12 +71,9 @@ $(document).ready(function () {
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#id_message").val();
+        var username = $("#id_username").val();
         if (!writecode) {
             yyAlert("请填写验证码");
-            return false;
-        }
-        if (code != writecode) {
-            yyAlert("验证码填写错误");
             return false;
         }
         $.ajax({
@@ -87,14 +84,15 @@ $(document).ready(function () {
                 "message": writecode
             },
             success: function (data) {
-                //yyAlert(data.detail);
+                $(".forget-reset").show();
+                $(".forget-pwd").hide();
             },
-            error: function (data) {
-                //yyAlert(data.detail);
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 401) {
+                    yyAlert("验证码不正确或已过期");
+                }
             }
         })
-        $(".forget-reset").show();
-        $(".forget-pwd").hide();
     })
     /*重置密码点击事件*/
     $("#btnpwd").click(function () {
@@ -110,9 +108,9 @@ $(document).ready(function () {
                 "password2": password2
             },
             success: function (data) {
-                yyAlert(data.detail, function () {
-                    window.location.href = "/account/login"
-                });
+                // yyAlert(data.detail, function () {
+                window.location.href = "/account/login"
+                //});
             },
             error: function (data) {
                 yyAlert(data.detail);
