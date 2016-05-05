@@ -126,3 +126,10 @@ max-width: 1.2em;
     height: 100px;
     display:inline-block;
 }
+
+.button-form {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
