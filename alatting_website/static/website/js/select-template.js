@@ -6,6 +6,7 @@ $(function(){
         }
         $(this).addClass('active').siblings().removeClass('active');
         templateid = $(this).data('id');
+        $("#template_id").val(templateid);
     });
 })
 window.onload=function(){
@@ -19,5 +20,7 @@ function createTemplate(){
         yyAlert('请选择模版!');
         return false;
     }
-    location.href = "/poster/1/?unique_name=" + request.unique_name + "&short_description=" + request.short_description + "&phone=" + request.phone + "&mobile=" + request.mobile + "&email=" + request.email + "&address="+request.address;
+
+    $('#selForm').submit();
+
 }
