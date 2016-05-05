@@ -22,7 +22,11 @@
 
 </ul>
 <footer class="templates-footer">
-    <a href="javascript:void(0);" class="btn btn-default" onclick="history.back();">返回</a><a href="javascript:void(0);" onclick="createTemplate()" class="btn btn-default">创建</a>
+    <form method="post" action="/poster/select-template/" id="selForm">
+        <input type="hidden" name="poster_id" value="{{ request.GET.poster_id }}" />
+        <input type="hidden" name="template_id" id="template_id" value="" />
+        <a href="javascript:void(0);" class="btn btn-default" onclick="history.back();">返回</a><a href="javascript:void(0);" onclick="createTemplate()" class="btn btn-default">创建</a>
+    </form>
 </footer>
 
 

@@ -13,7 +13,7 @@ class CategoryKeywordsView(ListView):
         qs = super(CategoryKeywordsView, self).get_queryset()
 
         return qs.filter(
-            category_id=self.request.POST.get('category_id')
+            category_id=self.request.GET.get('category_id')
         ).order_by('verb', 'noun')
 
 
