@@ -94,12 +94,6 @@ class Poster(models.Model):
         default='',
         blank=True
     )
-    category_keyword = models.ForeignKey(
-        'CategoryKeyword',
-        null=True,
-        blank=True,
-        on_delete=SET_NULL
-    )
     snapshot = models.CharField(
         verbose_name=u'首页截屏',
         max_length=500,
@@ -326,3 +320,9 @@ class PosterMoreLink(models.Model):
 
     def __str__(self):
         return "{:s}".format(self.name)
+
+
+class PosterKeyword(models.Model):
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='poster_keywords')
+    category_keyword = models.ForeignKey('CategoryKeyword')
