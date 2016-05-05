@@ -24,13 +24,19 @@
             <li>
                 <div class="wraper">
                     <div class="img">
-                        <a href="#" title="{{ poster.logo_title }}"><img src="{{ poster.snapshot }}" /></a>
-
+                        <a href="{% url 'website:poster' poster.id %}" title="{{ poster.logo_title }}">
+                            <img src="{{ poster.snapshot }}" />
+                        </a>
                     </div>
                     <div class="det">
-                        <a href="#">
+                        <a href="{% url 'website:poster' poster.id %}">
                             <span class="title">{{ poster.logo_title }} </span>
-                            <span class="view-num"><i class="glyphicon glyphicon-eye-open"></i><span>{{ poster.poster_statistics.views_count }}</span></span>
+                            <span class="view-num">
+                                <i class="glyphicon glyphicon-eye-open"></i>
+                                <span>
+                                    {{ poster.poster_statistics.views_count }}
+                                </span>
+                            </span>
                         </a>
                     </div>
                 </div>
