@@ -6,12 +6,12 @@ $(document).ready(function () {
     $("#id_password").prop('value', localStorage.getItem("password"));
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
 
-    var deviceH = document.documentElement.clientHeight + "px";
+   /* var deviceH = document.documentElement.clientHeight + "px";
 
     //表单获得焦点后动态改变body和背景图片的大小
     $('input').on("click", function () {
-        $("body").attr("style", "background:url('./img/platform_mobile_yunye.png') no-repeat;width:100%;height:" + deviceH + ";background-size: 100%" + deviceH);
-    });
+        $("body").attr("style", "background:url('/static/account/img/platform_mobile_yunye.png') no-repeat;width:100%;height:" + deviceH + ";background-size: 100%" + deviceH);
+    });*/
     if ($("#checkout").attr("checked") == "checked") {
         var username = $("#id_username").val();
         var password = $("#id_password").val();
@@ -71,12 +71,9 @@ $(document).ready(function () {
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#id_message").val();
+        var username = $("#id_username").val();
         if (!writecode) {
             yyAlert("请填写验证码");
-            return false;
-        }
-        if (code != writecode) {
-            yyAlert("验证码填写错误");
             return false;
         }
         $.ajax({
@@ -87,14 +84,15 @@ $(document).ready(function () {
                 "message": writecode
             },
             success: function (data) {
-                //yyAlert(data.detail);
+                $(".forget-reset").show();
+                $(".forget-pwd").hide();
             },
-            error: function (data) {
-                //yyAlert(data.detail);
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 401) {
+                    yyAlert("验证码不正确或已过期");
+                }
             }
         })
-        $(".forget-reset").show();
-        $(".forget-pwd").hide();
     })
     /*重置密码点击事件*/
     $("#btnpwd").click(function () {
@@ -110,9 +108,9 @@ $(document).ready(function () {
                 "password2": password2
             },
             success: function (data) {
-                yyAlert(data.detail, function () {
-                    window.location.href = "/account/login"
-                });
+                // yyAlert(data.detail, function () {
+                window.location.href = "/account/login"
+                //});
             },
             error: function (data) {
                 yyAlert(data.detail);
