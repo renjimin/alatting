@@ -124,6 +124,24 @@ body {
     margin-left: 4%;
 }
 
+.regist .rgheader {
+    background-image: url("../img/headerbg.png");
+    background-size: cover;
+}
+
+.regist .rgheader img {
+    max-width: 6%;
+    margin-bottom: 3%;
+    margin-left: 4%;
+    margin-top: 1%;
+}
+
+.regist .rgheader span {
+    margin-left: 36%;
+    font-size: 1.5em;
+    color: white;
+}
+
 .regist .btn-block {
     width: 90%;
     margin-left: 5%;
@@ -140,7 +158,7 @@ body {
 }
 
 .forget-pwd {
-    margin-top: 15%;
+    margin-top: 0%;
 }
 
 .forget-pwd .list-li {
@@ -150,6 +168,7 @@ body {
     margin-top: 5%;
     margin-left: -6%;
 }
+
 .forget-pwd .list-lion {
     border-style: none;
     width: 100%;
@@ -157,13 +176,14 @@ body {
     margin-left: -6%;
     font-size: 1.2em;
 }
+
 .forget-pwd .list input {
     padding-top: 5%;
     margin-top: 2%;
     border-style: none;
     background: rgba(255, 255, 255, 0);
     margin-left: 1%;
-    font-size: 1.2em;
+    font-size: 1em;
 
 }
 
@@ -171,10 +191,10 @@ body {
     display: block;
     float: right;
     margin-top: 4%;
-    margin-right: 10%;
+    margin-right: 2%;
     padding: 0px 6px;
     background-color: #5cb85c;
-    width: 30%;
+    width: 28%;
 }
 
 .forget-pwd .list-li .btn-default {
@@ -183,7 +203,7 @@ body {
     margin-top: 4%;
     padding: 0px 6px;
     background-color: rgb(171, 171, 171);
-    width: 35%;
+    width: 43%;
 }
 
 .forget-pwd .btn-block {
@@ -192,11 +212,28 @@ body {
     margin-top: 2%;
     background-color: #5cb85c;
 }
-.forget-reset{
-    display: none;
+
+.forget-pwd .fgheader {
+
+}
+.forget-pwd .fgheader img{
+    max-width: 6%;
+}
+.forget-reset .fgheader img{
+    max-width: 6%;
+}
+.forget-pwd .fgheader span {
+    margin-left: 36%;
+    font-size: 1.5em;
+    color: black;
+}
+.forget-reset .fgheader span {
+    margin-left: 36%;
+    font-size: 1.5em;
+    color: black;
 }
 .forget-reset {
-    margin-top: 15%;
+    display: none;
 }
 
 .forget-reset .list-li {
