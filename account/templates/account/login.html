@@ -1,46 +1,53 @@
 {% extends 'alatting_website/base.html' %}
-{%load static %}
+{% load static %}
 {% block base_header_css %}
-<link rel="stylesheet" href="{% static 'account/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'account/css/login.css' %}">
 {% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'account/js/login.js' %}"></script>
+{% endblock %}
+
 {% block base_body %}
-
-<form method="post"  class="login">
-    {% csrf_token %}
-
-    <div class="centerdiv ">
-        <img src="{% static 'account/img/yunye.png' %}">
-    </div>
-    <ul class="list-login">
-        <label class="item-input">
-            <img src="{% static 'account/img/name.png'%}">
-            <input type="text" name="username" id="id_username" placeholder="邮&nbsp;箱/手机号">
-        </label>
-        <label class="item-input">
-            <img src="{% static 'account/img/password.png' %}">
-            <input type="password" name="password" id="id_password" placeholder="密码">
-        </label>
-    </ul>
-    <button type="submit" class="btn btn-primary btn-lg btn-block" id="btnok">登 入</button>
-    <div id="register" class="btn btn-success btn-lg btn-block">
-        <a class="button">注 册</a>
-    </div>
-    <div class="item-checkbox">
-        <input type="checkbox" checked = "checked" id="btnchk" >记住密码
-        <a href="/account/reset_password" class="fotgetpwd">忘记密码?</a>
-    </div>
-    <input type="hidden" name="next" value="{{ next }}"/>
-</form>
+    <form method="post" class="login">
+        {% csrf_token %}
+        <div class="centerdiv ">
+            <img src="{% static 'account/img/yunye.png' %}">
+        </div>
+        <ul class="list-login">
+            <label class="item-input">
+                <img src="{% static 'account/img/name.png' %}">
+                <input type="text" name="username" id="id_username"
+                       placeholder="邮&nbsp;箱/手机号">
+            </label>
+            <label class="item-input">
+                <img src="{% static 'account/img/password.png' %}">
+                <input type="password" name="password" id="id_password"
+                       placeholder="密码">
+            </label>
+        </ul>
+        <button type="submit" class="btn btn-primary btn-lg btn-block"
+                id="btnok">登 入
+        </button>
+        <div id="register" class="btn btn-success btn-lg btn-block">
+            <a class="button">注 册</a>
+        </div>
+        <div class="item-checkbox">
+            <input type="checkbox" checked="checked" id="btnchk">记住密码
+            <a href="/account/reset_password" class="fotgetpwd">忘记密码?</a>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}"/>
+    </form>
 
 {% endblock %}
 {% block base_body_footer %}
 {% endblock %}
 {% block base_footer_js %}
-{{ block.super }}
-<script src="{% static 'account/js/login.js' %}"></script>
-{% if error %}
-<script>
-    yyAlert("{{error}}"); /*传入出现跳转页面后再另一页上显示*/
-</script>
-{% endif %}
+    {% if error %}
+        <script>
+            yyAlert("{{error}}");
+            /*传入出现跳转页面后再另一页上显示*/
+        </script>
+    {% endif %}
 {% endblock %}

@@ -2,8 +2,8 @@
 {%load static %}
 
 {% block base_header_js %}
-<script type="text/javascript" src="{% static 'website/js/jquery-1.8.3.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'website/js/poster-bass.js' %}"></script>
+    {{ block.super }}
+    <script type="text/javascript" src="{% static 'website/js/poster-bass.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
