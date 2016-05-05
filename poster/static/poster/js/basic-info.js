@@ -43,7 +43,7 @@ function submitinfo(){
 	}
 
 
-	var reg3=/^1[3|4|5|8][0-9]\d{4,8}$/;
+	var reg3=/^1[3|4|5|7|8][0-9]\d{4,8}$/;
 	if(postphone == '') {
 		yyAlert('手机不能为空!');
 		return false;
@@ -87,3 +87,35 @@ function back(){
 		history.back(-1);
 	});
 }
+
+$(function(){
+
+	document.getElementById('postFile').onchange = function() {
+ var val = this.value;
+ var upLoadType = '.jpg,.gif,.bmp,.png';//['.jpg','.gif','.bmp','.png']; //可上传的格式
+ var fileExt = val.substr(val.lastIndexOf(".")).toLowerCase();
+ var result = upLoadType.indexOf(fileExt);
+ _alertMsg = document.getElementById('error_text');
+ var oFReader = new FileReader();
+ if (this.files.length === 0) { return; }
+ var oFile = this.files[0];
+
+ if (oFile.size / 1024 < 100) {
+  _alertMsg.innerHTML="<font style='color:blue'>√</font>";
+ };
+ if (result < 0) {
+  //_alertMsg.innerHTML="请输入正确格式:" + upLoadType;
+	 yyAlert("请输入正确格式:" + upLoadType);
+
+ } else{
+  _alertMsg.innerHTML="<font style='color:blue'>√</font>";
+ };
+
+ oFReader.readAsDataURL(oFile);
+ oFReader.onload = function (oFREvent) {
+  document.getElementById("uploadPreview").src = oFREvent.target.result;
+ };
+};
+
+
+})
