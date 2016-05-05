@@ -8,6 +8,7 @@ function submitinfo(){
     var postaddress = $.trim($('.post-address').val());
 
 
+
 	if(postname == ''){
 		yyAlert('海报名称不能为空!');
 		return false;
@@ -18,7 +19,7 @@ function submitinfo(){
 		return false;
 	}
 
-	if(postdesc == ''){
+	if(posteimg == ''){
 		yyAlert('海报logo不能为空!');
 		return false;
 	}
