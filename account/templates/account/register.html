@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{% static 'account/css/login.css' %}">
 {% endblock %}
 {% block base_body %}
-<form method="post" class="regist">
+<form method="post" class="regist" id="registForm">
     {% csrf_token %}
     <div class="rgheader">
         <a href="/account/login">
@@ -33,7 +33,7 @@
                 <input class="list-input" type="password" id="id_password2" name="password2" placeholder="请再次输入密码">
             </li>
         </ul>
-        <button type="submit" class="btn btn-success btn-lg btn-block">注 册</button>
+        <button type="button" id="btnregist" class="btn btn-success btn-lg btn-block">注 册</button>
     </div>
     <input type="hidden" name="next" value="{{ next }}"/>
 </form>
