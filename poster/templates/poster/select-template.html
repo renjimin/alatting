@@ -12,7 +12,7 @@
 </header>
 <ul class="templates-list" id="templates-list">
     {% for template in template_list %}
-    <li class="template-item">
+    <li class="template-item" data-id="{{ template.id }}">
         <a href="javascript:void(0);"><img src="/media/{{ template.image.file.name }}" /></a>
     </li>
     {% empty %}
@@ -22,7 +22,7 @@
 
 </ul>
 <footer class="templates-footer">
-    <a href="javascript:void(0);" class="btn btn-default" onclick="history.back();">返回</a><a href="javascript:void(0);" onclick="yyAlert('提示信息');" class="btn btn-default">创建</a><a href="javascript:void(0);" onclick="yyAlert('asdasd');" class="btn btn-default">创建</a>
+    <a href="javascript:void(0);" class="btn btn-default" onclick="history.back();">返回</a><a href="javascript:void(0);" onclick="createTemplate()" class="btn btn-default">创建</a>
 </footer>
 
 

@@ -25,6 +25,9 @@
     color: #5b5b5b;
     font-weight: 600;
     padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 .hli-act{
     background: #f3f3f3;

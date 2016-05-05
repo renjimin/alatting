@@ -39,4 +39,9 @@
 {{ block.super }}
 <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
 <script src="{% static 'account/js/login.js' %}"></script>
+{% if error %}
+<script>
+    yyAlert("{{error}}"); /*传入出现跳转页面后再另一页上显示*/
+</script>
+{% endif %}
 {% endblock %}
