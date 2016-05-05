@@ -76,12 +76,12 @@ $(function(){
                 //添加成功后的操作
                 //var num = $('.ed-choose-li').length;
                 var id = data.id;
-                var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwn+newKwv+'" data-view="1" data-id="'+id+'">';
+                var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwv+newKwn+'" data-view="1" data-id="'+id+'">';
                     cht += '<div class="cbox-line">';
-                    cht += '<input type="checkbox" checked="checked">'+newKwn+'+'+newKwv;
+                    cht += '<input type="checkbox" checked="checked">'+newKwv+'+'+newKwn;
                     cht += '</div><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
                 $('#ed-choose').children().append($(cht));
-                var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwn+newKwv+'</span>';
+                var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
                 $('#ed-content').append($(txt));
                 //初始化输入框
                 $('#newKwn').prop('value','');
