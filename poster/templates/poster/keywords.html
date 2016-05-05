@@ -13,9 +13,8 @@
         <div class="row">
             <div class="col-xs-6"><a href="javascript:void(0);" id="cat">{{ request.GET.cate }}</a></div>
             <div class="col-xs-6 hli-act"><a href="javascript:void(0);" class="" id="subcat">{{ request.GET.subcate }}</a></div>
-            <input type="hidden" id="category_id" value="{{ request.GET.category_id }}">
-            <input type="hidden" id="cate" value="{{ request.GET.cate }}">
-            <input type="hidden" id="subcate" value="{{ request.GET.subcate }}">
+            <input type="hidden" id="main_category_id" value="{{ request.GET.main_category_id }}">
+            <input type="hidden" id="sub_category_id" value="{{ request.GET.sub_category_id }}">
         </div>
     </div>
     <div class="ed-title">请选择行业关键词</div>
