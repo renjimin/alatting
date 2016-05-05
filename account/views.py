@@ -96,6 +96,10 @@ class ProfileView(DetailView):
         user = self.request.user
         if user.is_authenticated():
             obj = self.request.user
+            posters_created = []
+            for poster_created in Poster.objects.filter(creator=self.request.user):
+                posters_created.append(poster_created)
+            obj.posters_created = posters_created
             obj.poster_count = Poster.objects.filter(creator=self.request.user).count()
             obj.poster_likes_count = PosterLike.objects.filter(creator=self.request.user).count()
             obj.poster_subscriptions_count = PosterSubscribe.objects.filter(follower=self.request.user).count()
@@ -187,7 +191,7 @@ class ResetPasswordView(FormView):
         password = data['password1']
         password2 = data['password2']
         if not pwd_validate(password, password2):
-            return render_to_response('account/register.html', {'error': "两次密码输入不一致"})
+            return render_to_response('account/forget-pwd.html', {'error': "两次密码输入不一致"})
         else:
             input_type = what(username)
             if input_type == "phonenumber":  # 手机号重置密码
@@ -230,4 +234,4 @@ class LoginView(FormView):
             login(request, user)
             return super(LoginView, self).form_valid(form)
         else:
-            return render_to_response('account/login.html', {'error': "请输入正确的用户名和密码"})
+            return render_to_response('account/login.html', {'error': "用户名或密码错误"})
