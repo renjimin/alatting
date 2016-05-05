@@ -1,3 +1,8 @@
+/**/
+/*footer*/
+.footer {
+    max-width:600px;
+}
 /*header*/
 header {
     position: absolute;
@@ -45,7 +50,7 @@ header {
 .container-fluid.account-body-content {
     position: absolute;
     top: 44px;
-    bottom: 30px;
+    bottom: 60px;
     right: 0;
     left: 0;
     overflow-y: auto;
@@ -164,10 +169,10 @@ header {
 .ac-temp {
     padding: 20px 10px;
     box-shadow: 0 3px 10px #7c7c7c inset;
-    display: flex;
 }
 .ac-temp-li {
-    width: 49.95%;
+    width: 49.5%;
+    display: inline-block;
 }
 .ac-temp-box {
     margin: 8px;
