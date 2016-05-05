@@ -5,6 +5,7 @@
 $(function(){
     /*选择关键词*/
     $('#ed-choose').on('click','.ed-choose-li',function(e){
+
         var ths = $(this);
         var chebox = ths.find('input');
         var cont = ths.attr('data-cont');
@@ -12,6 +13,13 @@ $(function(){
         var id = ths.attr('data-id');
         var edcont= $('#ed-content');
         if(view == '0'){
+            //多余五个关键词会被组织继续添加
+            var num = edcont.children().length;
+            if(num>=5){
+                yyAlert('您选择的关键词已多余5个');
+                return;
+            }
+
             ths.attr('data-view','1');
             chebox.prop('checked','true');
             var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+cont+'</span>';
@@ -23,14 +31,14 @@ $(function(){
         }
 
     });
-
+    /*删除自定义关键词*/
     $('#ed-choose').on('click','.glyphicon',function(e){
         e.stopPropagation();
         var ths = $(this);
         var edchos = ths.parent();
         var id = edchos.attr('data-id');
 
-        var url = '/api/v1/poster/keywords/'+id;
+        var url = '/api/v1/poster/keywords/'+id+'/';
         $.ajax({
             url:url,
             type:"DELETE",
@@ -101,12 +109,14 @@ $(function(){
             if(name)  name += ','+kid;
             else name += kid;
         }
+//        console.log(name);
         var category_id = $('#category_id').val();
         var cate = $('#cate').val();
         var subcate = $('#subcate').val();
-
-        console.log(name);
         window.location.href='/poster/create-form/?category_id='+category_id+'&cate='+cate+'&subcate='+subcate+'&keywords='+name;
+    });
+    $('#goback').on('click',function(){
+        window.history.back();
     });
 });
 
