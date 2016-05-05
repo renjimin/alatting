@@ -227,11 +227,17 @@ class LoginView(FormView):
 
         input_type = what(username)
         if input_type == "phonenumber":
-            person = get_object_or_404(Person, phonenumber=username)
-            username = person.user.username
+            try:
+                person = Person.objects.get(phonenumber=username)
+                username = person.user.username
+            except Person.DoesNotExist:
+                return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         elif input_type == "email":
-            user = get_object_or_404(User, email=username)
-            username = user.username
+            try:
+                user = User.objects.get(email=username)
+                username = user.username
+            except User.DoesNotExist:
+                return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         else:
             return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
 
