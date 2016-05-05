@@ -57,6 +57,10 @@ $(document).ready(function () {
             url: '/account/send_message',
             data: {"username": username},
             success: function (data) {
+                if(typeof(data.warning) != "undefined"){
+                    yyAlert(data.warning);
+                    return false;
+                }
                 if (PHONE_REGEXP.test(username)) {
                     yyAlert(data.message);
                 }
@@ -65,7 +69,30 @@ $(document).ready(function () {
                 yyAlert(data.message);
             }
         })
-    })
+    });
+    $("#btnregist").click(function () {
+        var username = $.trim($("#rg_username").val());
+        var code = $("#id_message").val();
+        var password1 = $("#id_password1").val();
+        var password2 = $("#id_password2").val();
+        if (!username) {
+            yyAlert("请输入用户名");
+            return false;
+        }
+        if (!code) {
+            yyAlert("请输入验证码");
+            return false;
+        }
+        if (!password1) {
+            yyAlert("请输入密码");
+            return false;
+        }
+        if(!password2){
+            yyAlert("请再次输入密码");
+            return false;
+        }
+        $("#registForm").submit();
+    });
     /*忘记密码后获取验证码*/
     $("#btncode-psd").click(function () {
         var btncodeoff = document.getElementById("btncodeoff-psd");
@@ -127,7 +154,16 @@ $(document).ready(function () {
             }
         })
     })
-    var countdown = 6;
+    $("#btnFpwd").click(function(){
+        var password1 = $("#password1").val();
+        var password2 = $("#password2").val();
+        if(password1 !=password2){
+           yyAlert("两次输入密码不一致");
+            return false;
+        }
+        $("#forgetForm").submit();
+    })
+    var countdown = 60;
 
     function settime(val) {
         if (countdown <= 0) {
@@ -135,7 +171,7 @@ $(document).ready(function () {
             $("#btncode").show();
             val.removeAttribute("disabled");
             val.value = "获取验证码";
-            countdown = 6;
+            countdown = 60;
         } else {
             val.setAttribute("disabled", true);
             val.value = "获取验证码(" + countdown + ")";
