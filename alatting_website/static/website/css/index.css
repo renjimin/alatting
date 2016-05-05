@@ -20,15 +20,15 @@ body{}
 
 /**/
 .image-list{padding:5px; overflow:hidden;}
-.image-list li{width:50%;float:left;padding:5px;}
+.image-list li{width:50%;float:left;margin:8px 0;position: relative;padding-bottom:65%;}
 .image-list li img{max-width:100%; vertical-align: top;}
-.image-list li .img{height:220px;overflow:hidden;}
+.image-list li .img{height:100%;width:100%;overflow:hidden;}
 .image-list li .det{ position: absolute;bottom:0;left:0;width:100%;padding:5px 10px; background: rgba(255,255,255,0.9);font-size:1em;}
 .image-list li .det .title{display:block;overflow:hidden;white-space:nowrap;text-overflow: ellipsis;color:#515151;margin-bottom:5px;}
 .image-list li .det .view-num{color:#a6a7ac;}
 .view-num i{margin-right:5px;}
 .empty-info{padding:20px;color:#999; text-align: center;}
-.image-list li .wraper{position: relative;box-shadow:0 0 5px #999;}
+.image-list li .wraper{position: absolute;top:0;width:90%;height:100%;left:5%;box-shadow:0 0 5px #999;}
 /**/
 .list {position: relative;padding-top: 1px;padding-bottom: 1px;padding-left: 0; margin-bottom: 20px;}
 .list:last-child {margin-bottom: 0px;}
@@ -60,3 +60,9 @@ body{}
 .type-model-containar .list .open .sublist .subitem-link{ background: rgba(255,255,255,0.7);}
 .type-model-containar .list .open .sublist .subitem-link:active{background:rgba(255,255,255,0.5);}
 .type-model-containar .list .item.open .item-link i,.type-model-containar .list .subitem.open .subitem-link i{display: block;}
+
+/*适配*/
+@media (min-width: 600px){
+    .home-header{width:600px;left:50%;margin-left:-300px;}
+    .footer{width:600px;left:50%;margin-left:-300px;}
+}
