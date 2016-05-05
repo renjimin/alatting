@@ -119,6 +119,22 @@ class CategoryKeywordListView(ListCreateAPIView):
             category_id=self.kwargs.get('pk')
         )
 
+    def create(self, request, *args, **kwargs):
+        qs = CategoryKeyword.objects.filter(
+            verb=request.data['verb'],
+            noun=request.data['noun']
+        )
+        if qs.exists():
+            CategoryKeywordSerializer()
+            return Response({
+                'exists': True, 'id': qs.first().id,
+                'keyword': CategoryKeywordSerializer(qs.first()).data
+            }, status=status.HTTP_200_OK)
+        else:
+            return super(CategoryKeywordListView, self).create(
+                request, *args, **kwargs
+            )
+
 
 class TemplateListView(ListAPIView):
     model = Template

@@ -8,7 +8,6 @@ from django.views.generic import FormView
 from django.views.generic.detail import DetailView
 from rest_framework import status
 from rest_framework.response import Response
-from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 
@@ -20,8 +19,6 @@ from alatting_website.models import (
     )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import AllowAny
 from .email import send_verify_email
 from .models import LoginMessage, UserFriends
 from .serializers import AccountProfileSerializer, AccountFriendsListSerializer
@@ -58,8 +55,7 @@ class MessageView(APIView):
                 user = User.objects.all().filter(email=inputvalue)
                 if len(user) != 0:
                     data['warning'] = "用户已存在"
-                else:
-                    send_verify_email(inputvalue, message)
+                send_verify_email(inputvalue, message)
             else:  # 手机号
                 person = Person.objects.all().filter(phonenumber=inputvalue)
                 if len(person) != 0:
