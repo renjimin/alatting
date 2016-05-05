@@ -15,9 +15,9 @@
 
     <form class="form-basicinfo" method="post" enctype="multipart/form-data"
           action="{% url 'poster:create_form' %}" id="form-info">
-         <input type="hidden" name="category_keyword_id" value="{{request.GET.category_keyword_id}}">
-         <input type="hidden" name="main_category_id" value="{{request.GET.main_category_id}}">
-         <input type="hidden" name="sub_category_id" value="{{request.GET.sub_category_id}}">
+         <input type="hidden" name="keywords" value="{{request.GET.category_keyword_id}}">
+         <input type="hidden" name="main_category" value="{{request.GET.main_category_id}}">
+         <input type="hidden" name="sub_category" value="{{request.GET.sub_category_id}}">
         <ul class="basic-ul">
             <li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon1.gif' %}"></i>海报名称</label>
