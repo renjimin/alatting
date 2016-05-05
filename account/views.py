@@ -56,7 +56,13 @@ class MessageView(APIView):
             data = {'username': inputvalue}
             if input_type == 'email':  # 邮箱
                 send_verify_email(inputvalue, message)
+                user = User.objects.all().filter(email=inputvalue)
+                if len(user) != 0:
+                    data['warning'] = "用户已存在"
             else:  # 手机号
+                person = Person.objects.all().filter(phonenumber=inputvalue)
+                if len(person) != 0:
+                    data['warning'] = "用户已存在"
                 data['message'] = message
             return Response(data)
 
