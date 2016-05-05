@@ -5,6 +5,11 @@
           href="{% static 'website/css/select-template.css' %}"/>
 {% endblock %}
 
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'website/js/select-template.js' %}"></script>
+{% endblock %}
+
 {% block base_body %}
     <header class="templates-header">
 
@@ -38,15 +43,7 @@
                class="btn btn-default">创建</a>
         </form>
     </footer>
-
-
 {% endblock %}
 
 {% block base_body_footer %}
-{% endblock %}
-
-{% block base_footer_js %}
-    {{ block.super }}
-    <script src="{% static 'website/js/jquery-1.8.3.min.js' %}"></script>
-    <script src="{% static 'website/js/select-template.js' %}"></script>
 {% endblock %}

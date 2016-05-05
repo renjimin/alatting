@@ -4,6 +4,10 @@
 <link rel="stylesheet" href="{% static 'website/css/index.css' %}"/>
 {% endblock %}
 
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'website/js/index.js' %}"></script>
+{% endblock %}
 
 {% block base_body %}
     <header class="home-header">
@@ -75,8 +79,4 @@
             <div class="type-model-click" id="hide-cate"></div>
         </div>
     </div>
-{% endblock %}
-{% block base_footer_js %}
-    {{ block.super }}
-<script src="{% static 'website/js/index.js' %}"></script>
 {% endblock %}

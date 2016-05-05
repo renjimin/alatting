@@ -12,7 +12,6 @@ $(function(){
 window.onload=function(){
     $('#templates-list').addClass('active');
 }
-var request = GetRequest();
 
 
 function createTemplate(){

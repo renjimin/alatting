@@ -4,7 +4,10 @@
 {% block base_header_css %}
     <link rel="stylesheet" href="{% static 'poster/css/keywords.css' %}"/>
 {% endblock %}
+
 {% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'poster/js/keywords.js' %}"></script>
 {% endblock %}
 
 {% block base_body %}
@@ -58,10 +61,5 @@
 </div>
 {% endblock %}
 
-
 {% block base_body_footer %}
-{% endblock %}
-{% block base_footer_js %}
-{{ block.super }}
-<script src="{% static 'poster/js/keywords.js' %}"></script>
 {% endblock %}
