@@ -98,13 +98,13 @@ $(document).ready(function () {
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#message").val();
-        var username = $.trim( $("#username").val());
-        if (!writecode) {
-            yyAlert("请填写验证码");
+        var username = $.trim($("#username").val());
+        if (!username) {
+            yyAlert("请填写用户名");
             return false;
         }
-        if(!username){
-            yyAlert("请填写用户名");
+        if (!writecode) {
+            yyAlert("请填写验证码");
             return false;
         }
         $("#resetUsername").text(username);
@@ -127,7 +127,7 @@ $(document).ready(function () {
             }
         })
     })
-    var countdown = 60;
+    var countdown = 6;
 
     function settime(val) {
         if (countdown <= 0) {
@@ -135,15 +135,15 @@ $(document).ready(function () {
             $("#btncode").show();
             val.removeAttribute("disabled");
             val.value = "获取验证码";
-            countdown = 60;
+            countdown = 6;
         } else {
             val.setAttribute("disabled", true);
             val.value = "获取验证码(" + countdown + ")";
             countdown--;
+            setTimeout(function () {
+                settime(val)
+            }, 1000)
         }
-        setTimeout(function () {
-            settime(val)
-        }, 1000)
     }
 
     function settimepsd(val) {
@@ -157,10 +157,11 @@ $(document).ready(function () {
             val.setAttribute("disabled", true);
             val.value = "获取验证码(" + countdown + ")";
             countdown--;
+            setTimeout(function () {
+                settime(val)
+            }, 1000)
         }
-        setTimeout(function () {
-            settime(val)
-        }, 1000)
+
     }
 });
 
