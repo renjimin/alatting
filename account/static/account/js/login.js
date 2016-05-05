@@ -40,7 +40,7 @@ $(document).ready(function () {
     $("#btncode").click(function () {
 
         var btncodeoff = document.getElementById("btncodeoff");
-        var username = $("#id_username").val();
+        var username = $("#rg_username").val();
         if (!username) {
             yyAlert("请输入用户名");
             return false;
