@@ -96,6 +96,10 @@ class ProfileView(DetailView):
         user = self.request.user
         if user.is_authenticated():
             obj = self.request.user
+            posters_created = []
+            for poster_created in Poster.objects.filter(creator=self.request.user):
+                posters_created.append(poster_created)
+            obj.posters_created = posters_created
             obj.poster_count = Poster.objects.filter(creator=self.request.user).count()
             obj.poster_likes_count = PosterLike.objects.filter(creator=self.request.user).count()
             obj.poster_subscriptions_count = PosterSubscribe.objects.filter(follower=self.request.user).count()
