@@ -98,11 +98,17 @@ $(document).ready(function () {
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#message").val();
-        var username = $("#username").val();
+        var username = $.trim( $("#username").val());
         if (!writecode) {
             yyAlert("请填写验证码");
             return false;
         }
+        if(!username){
+            yyAlert("请填写用户名");
+            return false;
+        }
+        $("#resetUsername").text(username);
+        $("#id_username").val(username);
         $.ajax({
             type: 'POST',
             url: '/account/auth_message',
