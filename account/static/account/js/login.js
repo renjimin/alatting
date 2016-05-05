@@ -5,7 +5,8 @@ $(document).ready(function () {
     $("#id_username").prop('value', localStorage.getItem("username"));
     $("#id_password").prop('value', localStorage.getItem("password"));
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
-
+    var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
     var deviceH = document.documentElement.clientHeight + "px";
 
     //表单获得焦点后动态改变body和背景图片的大小
@@ -37,12 +38,8 @@ $(document).ready(function () {
     })
     /*点击获取验证码*/
     $("#btncode").click(function () {
-        $("#btncodeoff").show();
-        $("#btncode").hide();
+
         var btncodeoff = document.getElementById("btncodeoff");
-        settime(btncodeoff);
-        var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-        var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
         var username = $("#id_username").val();
         if (!username) {
             yyAlert("请输入用户名");
@@ -52,6 +49,9 @@ $(document).ready(function () {
             yyAlert("手机号码或邮箱号格式不对");
             return false;
         }
+        $("#btncodeoff").show();
+        $("#btncode").hide();
+        settime(btncodeoff);
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
@@ -68,12 +68,7 @@ $(document).ready(function () {
     })
     /*忘记密码后获取验证码*/
     $("#btncode-psd").click(function () {
-        $("#btncodeoff-psd").show();
-        $("#btncode-psd").hide();
         var btncodeoff = document.getElementById("btncodeoff-psd");
-        settimepsd(btncodeoff);
-        var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-        var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
         var username = $("#username").val();
         if (!username) {
             yyAlert("请输入用户名");
@@ -83,6 +78,9 @@ $(document).ready(function () {
             yyAlert("手机号码或邮箱号格式不对");
             return false;
         }
+        $("#btncodeoff-psd").show();
+        $("#btncode-psd").hide();
+        settimepsd(btncodeoff);
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
