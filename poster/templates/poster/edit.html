@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="header-logo"><img src="{% static 'website/images/logo.png' %}"></div>
+        <div class="header-logo"><img src="{{ poster.logo_image.file.url }}"></div>
         <div class="header-abutton">
             <div class="abutton-inner" id="abutton">
                 <div class="abutton-internal">
@@ -50,7 +50,7 @@
     </div>
     <div class="header-info">
         <div class="desc">
-            阿拉鼎总部位于美国洛杉矶，专注智能海报营销
+            <span>{{ poster.short_description }}</span>
         </div>
     </div>
     <div class="abutton-info">
@@ -58,7 +58,7 @@
 
 		<section class="phone">
 			<li><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
-			<li><i class="icon ico-phone"></i><span>{{ poster.mobile }}</span></li>
+			<li><i class="icon ico-mobile"></i><span>{{ poster.mobile }}</span></li>
 		</section>
 		<section class="email"><i class="icon ico-email"></i><span>{{ poster.email }}</span></section>
 		<section class="address"><i class="icon ico-address"></i><span>{{ poster.address }}</span></section>

@@ -92,15 +92,15 @@ body{
     position: relative;
     cursor: pointer;
 }
-.ed-choose .cbox-line input[type=checkbox]{
-    width: 18px;
-    height: 18px;
-    margin-top: -5px;
-    margin-right: 4px;
-    display: inline-block;
-    vertical-align: middle;
+.ed-choose .cbox-line .glyphicon{
+    color: #aeaeae;
+    margin-right: 3px;
+    font-size: 20px;
 }
-.ed-choose-li .glyphicon{
+.ed-choose .cbox-line .glyphicon-blue{
+    color: #268bb9;
+}
+.ed-choose-li>.glyphicon{
     display: block;
     position: absolute;
     top: 9px;

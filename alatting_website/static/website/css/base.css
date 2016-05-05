@@ -1,15 +1,11 @@
-body{
-    background-color: #efefef;
-    height: 100%;
-    font-family: "Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif;
-    max-width:600px;
-    margin:0 auto;
-    box-shadow:0 0 10px #444;
-}
-ol, ul,li {
-    list-style: none;
-}
+html.body{min-height:100%:}
+body{ background-color: #efefef;font-family: "Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif; max-width:600px; margin:0 auto; box-shadow:0 0 10px #444; -webkit-backface-visibility: hidden;}
+ol, ul,li { list-style: none;}
 a:link,a:focus,a:hover,a:active{ text-decoration: none;}
+a,button,:focus,a:focus,button:focus,a:active,a:hover {  outline: 0; }
+button,input,select,textarea {  margin: 0; font-size: 100%;  font-family: inherit;  outline-offset: 0;  outline-style: none; outline-width: 0;  -webkit-font-smoothing: inherit; -webkit-appearance: none;  background-image: none; }
+
+
 
 .container-fluid{
     padding-bottom: 80px;
