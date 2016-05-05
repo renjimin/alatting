@@ -30,7 +30,7 @@
                     {% for cat in categorykeyword_list %}
                     <div class="ed-choose-li col-xs-6" data-cont="{{cat.verb}}{{cat.noun}}" data-view="0" data-id="{{cat.id}}">
                         <div class="cbox-line">
-                            <input type="checkbox">{{cat.verb}}+{{cat.noun}}
+                            <span class="glyphicon glyphicon-unchecked"></span>{{cat.verb}}+{{cat.noun}}
                         </div>
                     </div>
                     {% endfor %}
