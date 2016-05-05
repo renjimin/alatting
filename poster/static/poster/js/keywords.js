@@ -82,26 +82,36 @@ $(function(){
             type: "POST",
             success:function(data){
                 var id = data.id;
+                var edcont = $('#ed-content');
+                var num = edcont.children().length;
                 if(data.exists){
                     yyAlert('您提交的关键词已经存在');
-                    var chos = $('.ed-choose-li').filter('[data-id='+id+']');
-                    chos.children().children()
-                        .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-                    var view = chos.attr('data-view');
-                    if(view == 0){
-                        var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
-                        $('#ed-content').append($(txt));
+                    if(num<5){
+                        var chos = $('.ed-choose-li').filter('[data-id='+id+']');
+                        chos.children().children()
+                            .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                        var view = chos.attr('data-view');
+                        if(view == 0){
+                            chos.attr('data-view','1');
+                            var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
+                            $('#ed-content').append($(txt));
+                        }
                     }
                 }else{
                     //添加成功后的操作
                     var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwv+newKwn+'" data-view="1" data-id="'+id+'">';
                     cht += '<div class="cbox-line">';
-                    cht += '<span class="glyphicon glyphicon-check glyphicon-blue"></span>'+newKwv+'+'+newKwn;
+                    if(num<5){
+                        cht += '<span class="glyphicon glyphicon-check"></span>'+newKwv+'+'+newKwn;
+                    }else{
+                        cht += '<span class="glyphicon glyphicon-unchecked"></span>'+newKwv+'+'+newKwn;
+                    }
                     cht += '</div><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
                     $('#ed-choose').children().append($(cht));
-
-                    var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
-                    $('#ed-content').append($(txt));
+                    if(num<5){
+                        var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
+                        edcont.append($(txt));
+                    }
                 }
                 //初始化输入框
                 $('#newKwn').prop('value','');
