@@ -38,16 +38,16 @@
                     </a>
                 </div>
                 <ul class="abutton-group abutton-contact">
-                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></a></li>
-                    <li><a href="#" class=""><i class="icon ico-email"></i><span>{{ poster.email }}</span></a></li>
-                    <li><a href="#" class=""><i class="icon ico-address"></i><span>{{ poster.address }}</span></a></li>
-                    <li><a href="#"><i class="icon ico-clock"></i><span>{{ poster.phone }}</span></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-phone"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-email"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-address"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-clock"></i></a></li>
                 </ul>
                 <ul class="abutton-group abutton-express">
-                    <li><a href="#"><i class="icon ico-like"></i></a></li>
-                    <li><a href="#"><i class="icon ico-bookmark"></i></a></li>
-                    <li><a href="#"><i class="icon ico-subscribe"></i></a></li>
-                    <li><a href="#"><i class="icon ico-fun"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-like"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-bookmark"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-subscribe"></i></a></li>
+                    <li><a href="#" onclick="showDetails(this)"><i class="icon ico-fun"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -56,6 +56,19 @@
         <div class="desc">
             阿拉鼎总部位于美国洛杉矶，专注智能海报营销
         </div>
+    </div>
+    <div class="abutton-info">
+    	<div class="arrow"></div>
+    	<ul>
+    		<li class="phone"><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
+    		<li class="email"><i class="icon ico-email"></i><span>{{ poster.email }}</span></li>
+    		<li class="address"><i class="icon ico-address"></i><span>{{ poster.address }}</span></li>
+    		<li class="clock"><i class="icon ico-clock"></i><span>{{ poster.phone }}</span></li>
+    		<li class="like"><i class="icon ico-like"></i><span>{{ poster.phone }}</span></li>
+    		<li class="bookmark"><i class="icon ico-bookmark"></i><span>{{ poster.phone }}</span></li>
+    		<li class="subscribe"><i class="icon ico-subscribe"></i><span>{{ poster.phone }}</span></li>
+    		<li class="fun"><i class="icon ico-fun"></i><span>{{ poster.phone }}</span></li>
+    	</ul>
     </div>
 </header>
 {% endblock %}
