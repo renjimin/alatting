@@ -98,11 +98,17 @@ $(document).ready(function () {
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#message").val();
-        var username = $("#username").val();
+        var username = $.trim( $("#username").val());
         if (!writecode) {
             yyAlert("请填写验证码");
             return false;
         }
+        if(!username){
+            yyAlert("请填写用户名");
+            return false;
+        }
+        $("#resetUsername").text(username);
+        $("#id_username").val(username);
         $.ajax({
             type: 'POST',
             url: '/account/auth_message',
@@ -118,29 +124,6 @@ $(document).ready(function () {
                 if (xhr.status == 401) {
                     yyAlert("验证码不正确或已过期");
                 }
-            }
-        })
-    })
-    /*重置密码点击事件*/
-    $("#btnpwd").click(function () {
-        var username = $("#username").val();
-        var password1 = $("#password1").val();
-        var password2 = $("#password2").val();
-        $.ajax({
-            type: 'POST',
-            url: '/account/reset_password',
-            data: {
-                "username": username,
-                "password1": password1,
-                "password2": password2
-            },
-            success: function (data) {
-                // yyAlert(data.detail, function () {
-                window.location.href = "/account/login"
-                //});
-            },
-            error: function (data) {
-                yyAlert(data.detail);
             }
         })
     })

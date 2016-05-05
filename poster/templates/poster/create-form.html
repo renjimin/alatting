@@ -4,14 +4,20 @@
 <link rel="stylesheet" href="{% static 'poster/css/basicinfo.css' %}">
 {% endblock %}
 
+{% block base_header_js %}
+    {{ block.super}}
+    <script src="{% static 'poster/js/basic-info.js' %}"></script>
+{% endblock %}
+
 {% block base_body %}
 <div class="main">
     <p class="text-center basic-nav">请输入基本信息</p>
 
-    <form class="form-basicinfo" method="get" action="/poster/create-form" id="form-info">
-         <input type="hidden" name="category_keyword_id" value="{{request.GET.category_keyword_id}}">
-         <input type="hidden" name="main_category_id" value="{{request.GET.main_category_id}}">
-         <input type="hidden" name="sub_category_id" value="{{request.GET.sub_category_id}}">
+    <form class="form-basicinfo" method="post" enctype="multipart/form-data"
+          action="{% url 'poster:create_form' %}" id="form-info">
+         <input type="hidden" name="keywords" value="{{request.GET.category_keyword_id}}">
+         <input type="hidden" name="main_category" value="{{request.GET.main_category_id}}">
+         <input type="hidden" name="sub_category" value="{{request.GET.sub_category_id}}">
         <ul class="basic-ul">
             <li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon1.gif' %}"></i>海报名称</label>
@@ -47,24 +53,25 @@
                 <label><i class="icon"><img src="{% static 'poster/images/icon7.gif' %}"></i>地址</label>
                 <input type="text" name="address" class="post-address" placeholder="请输入地址"/>
             </li>
-
-
         </ul>
 
-    <div class="text-center button-form">
-        <input type="button" value="返回" onclick="back()">
-        <input type="button" value="确认" onclick="submitinfo()">
-    </div>
+        <div class="text-center button-form">
+            <input type="button" value="返回" onclick="back()">
+            <input type="button" value="确认" onclick="submitinfo()">
+        </div>
     </form>
-
 </div>
-
-
-
-
 {% endblock %}
 
 {% block base_body_footer %}
- <script src="{% static 'poster/js/jquery-1.11.1.min.js' %}"></script>
- <script src="{% static 'poster/js/basic-info.js' %}"></script>
+    {% if form.errors %}
+        <script>
+            yyAlert('基本信息保存失败!');
+            {% for field, errors in form.errors.items %}
+                {% for error in errors%}
+                    console.log("{{error}}");
+                {% endfor %}
+            {% endfor %}
+        </script>
+    {% endif %}
 {% endblock %}
