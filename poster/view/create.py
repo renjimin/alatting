@@ -64,6 +64,7 @@ class CreateFormView(CreateView):
         )
 
     def post(self, request, *args, **kwargs):
+        self.object = None
         upfile = request.FILES.get('logo', None)
         image_obj = None
         if upfile:
