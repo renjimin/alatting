@@ -57,7 +57,7 @@ $(document).ready(function () {
             url: '/account/send_message',
             data: {"username": username},
             success: function (data) {
-                if(typeof(data.warning) != "undefined"){
+                if (typeof(data.warning) != "undefined") {
                     yyAlert(data.warning);
                     return false;
                 }
@@ -87,7 +87,7 @@ $(document).ready(function () {
             yyAlert("请输入密码");
             return false;
         }
-        if(!password2){
+        if (!password2) {
             yyAlert("请再次输入密码");
             return false;
         }
@@ -113,6 +113,11 @@ $(document).ready(function () {
             url: '/account/send_message',
             data: {"username": username},
             success: function (data) {
+                if (typeof(data.warning) == "undefined") {
+                    console.log(data)
+                    yyAlert("该用户还未注册");
+                    return false;
+                }
                 if (PHONE_REGEXP.test(username)) {
                     yyAlert(data.message);
                 }
@@ -154,11 +159,11 @@ $(document).ready(function () {
             }
         })
     })
-    $("#btnFpwd").click(function(){
+    $("#btnFpwd").click(function () {
         var password1 = $("#password1").val();
         var password2 = $("#password2").val();
-        if(password1 !=password2){
-           yyAlert("两次输入密码不一致");
+        if (password1 != password2) {
+            yyAlert("两次输入密码不一致");
             return false;
         }
         $("#forgetForm").submit();
