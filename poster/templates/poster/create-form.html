@@ -4,9 +4,9 @@
 <link rel="stylesheet" href="{% static 'poster/css/basicinfo.css' %}">
 {% endblock %}
 
-{% block base_body_inner %}
+{% block base_body %}
 <div class="main">
-    <p class="text-center basic-nav" onclick="yyAlert('提示信息',function(){alert(2)})">请输入基本信息</p>
+    <p class="text-center basic-nav">请输入基本信息</p>
 
     <form class="form-basicinfo" method="get" action="poster/select-template">
         <ul class="basic-ul">
@@ -15,12 +15,18 @@
                 <input type="text" name="unique_name" class="post-name"/>
             </li>
             <li class="big-text">
-                <label><i class="icon"><img src="{% static 'poster/images/icon2.gif' %}"></i>海报简述<em>(50字以内)</em></label>
-                <input type="text" name="short_description" class="post-desc"/>
+                <label style="line-height: 10em;">
+                    <span class="post-ds"><i class="icon"><img src="{% static 'poster/images/icon2.gif' %}"></i>海报简述<br/><em>(50字以内)</em></span>
+                </label>
+                <textarea name="short_description" class="post-desc area" cols="15" maxlength="50"></textarea>
+
             </li>
             <li class="big-text">
                 <label><i class="icon"><img src="{% static 'poster/images/icon3.gif' %}"></i>海报LOGO</label>
-                <input type="file" name="logo_image_id" class="post-img"/>
+                <!--<input type="file" name="logo_image_id" class="post-img"/>-->
+                <a href="javascript:;" class="file"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;选择文件
+                    <input type="file" name="logo_image_id" class="post-img"/>
+                </a>
             </li>
             <li>
                 <label><i class="icon"><img src="{% static 'poster/images/icon4.gif' %}"></i>电子邮件</label>
@@ -40,7 +46,7 @@
         </ul>
 
     <div class="text-center button-form">
-        <input type="button" value="返回">
+        <input type="button" value="返回" onclick="javascript:history.go(-1);">
         <input type="button" value="确认" onclick="submitinfo()">
     </div>
     </form>
