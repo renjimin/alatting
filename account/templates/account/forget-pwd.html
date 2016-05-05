@@ -8,6 +8,12 @@
 <form method="post">
     {% csrf_token %}
     <div class="forget-pwd">
+        <div class="fgheader">
+            <a href="/account/login" class="">
+                <img src="{% static 'account/img/arrow-block.png' %}">
+            </a>
+            <span>输入帐号</span>
+        </div>
         <ul class="list">
             <li class="list-lion">
                 请输入你注册的邮箱/手机号
@@ -24,6 +30,12 @@
         <button type="button" class="btn btn-success btn-lg btn-block" id="btnsure">确 定</button>
     </div>
     <div class="forget-reset">
+        <div class="fgheader">
+            <a href="/account/reset_password">
+                <img src="{% static 'account/img/arrow-block.png' %}">
+            </a>
+            <span>重置密码</span>
+        </div>
         <ul class="list">
             <li class="list-li">
                 <input class="list-input-on" type="password" id="password1" name="username" placeholder="请输入新密码">
