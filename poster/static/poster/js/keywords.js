@@ -84,8 +84,14 @@ $(function(){
                 var id = data.id;
                 if(data.exists){
                     yyAlert('您提交的关键词已经存在');
-                    $('.ed-choose-li').filter('[data-id='+id+']').children().children()
+                    var chos = $('.ed-choose-li').filter('[data-id='+id+']');
+                    chos.children().children()
                         .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                    var view = chos.attr('data-view');
+                    if(view == 0){
+                        var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
+                        $('#ed-content').append($(txt));
+                    }
                 }else{
                     //添加成功后的操作
                     var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwv+newKwn+'" data-view="1" data-id="'+id+'">';
@@ -93,10 +99,10 @@ $(function(){
                     cht += '<span class="glyphicon glyphicon-check glyphicon-blue"></span>'+newKwv+'+'+newKwn;
                     cht += '</div><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
                     $('#ed-choose').children().append($(cht));
-                }
 
-                var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
-                $('#ed-content').append($(txt));
+                    var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
+                    $('#ed-content').append($(txt));
+                }
                 //初始化输入框
                 $('#newKwn').prop('value','');
                 $('#newKwv').prop('value','');
