@@ -18,8 +18,12 @@ function submitinfo(){
 		return false;
 	}
 
+	if(postdesc == ''){
+		yyAlert('海报logo不能为空!');
+		return false;
+	}
 
-	var reg=/^\w{1,}@\w+(\.\w+)+$/;
+	var reg=/[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/;
 	if(postemail == '') {
 		yyAlert('email不能为空!');
 		return false;
@@ -57,23 +61,29 @@ function submitinfo(){
 
 
 
-		var uploadimg="";
-		var params = {};
-		//params.category_keyword_id = $stateParams.data.keywordId;
-		//params.main_category_id = $stateParams.data.catId;
-		//params.sub_category_id = $stateParams.data.subCatId;
-		params.logo_image_id = uploadimg;
-		params.unique_name = postname;
-		params.logo_title = postname;
-		params.short_description = postdesc;
-		params.phone = posttelephone;
-		params.mobile = postphone;
-		params.email = postemail;
-		params.address = postaddress;
-		console.log(params);
+		//var uploadimg="";
+		//var params = {};
+		////params.category_keyword_id = $stateParams.data.keywordId;
+		////params.main_category_id = $stateParams.data.catId;
+		////params.sub_category_id = $stateParams.data.subCatId;
+		//params.logo_image_id = uploadimg;
+		//params.unique_name = postname;
+		//params.logo_title = postname;
+		//params.short_description = postdesc;
+		//params.phone = posttelephone;
+		//params.mobile = postphone;
+		//params.email = postemail;
+		//params.address = postaddress;
+		//console.log(params);
 
-		location.href = "/poster/select-template/?unique_name=" + postname + "&short_description=" + postdesc + "&phone=" + posttelephone + "&mobile=" + postphone + "&email=" + postemail + "&address="+postaddress;
-
+		//location.href = "/poster/select-template/?unique_name=" + postname + "&short_description=" + postdesc + "&phone=" + posttelephone + "&mobile=" + postphone + "&email=" + postemail + "&address="+postaddress;
+		$("#form-info").submit();
 
 }
 
+
+function back(){
+	yyConfirm("确定返回上一页",function(){
+		history.back(-1);
+	});
+}

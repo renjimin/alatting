@@ -3,11 +3,6 @@
  * Created by zhangjie on 2016/5/3.
  */
 $(function(){
-    var requeststr = GetRequest();
-    console.log(requeststr);
-    //$('#cat').html(requeststr.cate+"--");
-    //$('#subcat').html(requeststr.subcate);
-
     /*选择关键词*/
     $('#ed-choose').on('click','.ed-choose-li',function(e){
         var ths = $(this);
@@ -35,36 +30,59 @@ $(function(){
         var edchos = ths.parent();
         var id = edchos.attr('data-id');
 
-        //删除成功后的操作
-        edchos.remove();
-        $('#ed-con-li'+id).remove();
-
-
+        var url = '/api/v1/poster/keywords/'+id;
+        $.ajax({
+            url:url,
+            type:"DELETE",
+            success:function(){
+                //删除成功后的操作
+                edchos.remove();
+                $('#ed-con-li'+id).remove();
+            },
+            error:function(){
+                yyAlert('网络错误，请稍后再试');
+            }
+        });
     });
 
     /*自定义添加关键词*/
     $("#addItem").on('click',function(){
-
         var newKwn = $('#newKwn').val();
         var newKwv = $('#newKwv').val();
         if(newKwv =='' ||newKwn == ''){
-            alert('请填写必要的词汇');
+            yyAlert('请填写必要的词汇');
+            return;
+        }
+        if(getCharLen(newKwn)>50||getCharLen(newKwv)>50){
+            yyAlert('请填写的词汇过多');
             return;
         }
 
-        //添加成功后的操作
-        var num = $('.ed-choose-li').length;
-        var id = num+1;
-        var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwn+newKwv+'" data-view="1" data-id="'+id+'">';
-            cht += '<div class="cbox-line">';
-            cht += '<input type="checkbox" checked="checked">'+newKwn+'+'+newKwv;
-            cht += '</div><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
-        $('#ed-choose').children().append($(cht));
-        var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwn+newKwv+'</span>';
-        $('#ed-content').append($(txt));
-
-        $('#newKwn').prop('value','');
-        $('#newKwv').prop('value','');
+        var category_id = $('#category_id').val();
+        var url = '/api/v1/poster/category/'+category_id+'/keywords';
+        $.ajax({
+            url:url,
+            data:{verb:newKwv,noun:newKwn},
+            type: "POST",
+            success:function(data){
+                //添加成功后的操作
+                //var num = $('.ed-choose-li').length;
+                var id = data.id;
+                var cht = '<div class="ed-choose-li col-xs-6" data-cont="'+newKwn+newKwv+'" data-view="1" data-id="'+id+'">';
+                    cht += '<div class="cbox-line">';
+                    cht += '<input type="checkbox" checked="checked">'+newKwn+'+'+newKwv;
+                    cht += '</div><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></div>';
+                $('#ed-choose').children().append($(cht));
+                var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwn+newKwv+'</span>';
+                $('#ed-content').append($(txt));
+                //初始化输入框
+                $('#newKwn').prop('value','');
+                $('#newKwv').prop('value','');
+            },
+            error:function(){
+                yyAlert('网络错误，请稍后再试');
+            }
+        });
 
     });
 
@@ -83,8 +101,27 @@ $(function(){
             if(name)  name += ','+kid;
             else name += kid;
         }
-//        console.log(name);
-        window.location.href='/poster/create-form/';
+        var category_id = $('#category_id').val();
+        var cate = $('#cate').val();
+        var subcate = $('#subcate').val();
+
+        console.log(name);
+        window.location.href='/poster/create-form/?category_id='+category_id+'&cate='+cate+'&subcate='+subcate+'&keywords='+name;
     });
 });
+
+function getCharLen(char){
+    var leng=0;
+    var len = char.length;
+    if(len==0)return leng;
+    for(var i =0 ;i<len;i++){
+        var c =char.charCodeAt(i);
+        if ((c >= 0x0001 && c <= 0x007e) || (0xff60<=c && c<=0xff9f)) {
+            leng++;
+        }else{
+            leng+=2;
+        }
+    }
+    return leng;
+}
 
