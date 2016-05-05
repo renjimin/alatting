@@ -155,8 +155,9 @@ $(function(){
             yyConfirm('您当前有编辑过的内容，确定要退出吗？',function(){
                 window.history.back();
             });
+        }else{
+            window.history.back();
         }
-        window.history.back();
     });
 });
 
