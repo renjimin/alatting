@@ -8,7 +8,6 @@ from django.views.generic import FormView
 from django.views.generic.detail import DetailView
 from rest_framework import status
 from rest_framework.response import Response
-from django.views.generic import View
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 
@@ -20,8 +19,6 @@ from alatting_website.models import (
     )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from rest_framework.authentication import BasicAuthentication
-from rest_framework.permissions import AllowAny
 from .email import send_verify_email
 from .models import LoginMessage, UserFriends
 from .serializers import AccountProfileSerializer, AccountFriendsListSerializer
@@ -55,8 +52,15 @@ class MessageView(APIView):
                                             username=inputvalue)
             data = {'username': inputvalue}
             if input_type == 'email':  # 邮箱
-                send_verify_email(inputvalue, message)
+                user = User.objects.all().filter(email=inputvalue)
+                if len(user) != 0:
+                    data['warning'] = "用户已存在"
+                else:
+                    send_verify_email(inputvalue, message)
             else:  # 手机号
+                person = Person.objects.all().filter(phonenumber=inputvalue)
+                if len(person) != 0:
+                    data['warning'] = "用户已存在"
                 data['message'] = message
             return Response(data)
 
@@ -220,11 +224,17 @@ class LoginView(FormView):
 
         input_type = what(username)
         if input_type == "phonenumber":
-            person = get_object_or_404(Person, phonenumber=username)
-            username = person.user.username
+            try:
+                person = Person.objects.get(phonenumber=username)
+                username = person.user.username
+            except Person.DoesNotExist:
+                return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         elif input_type == "email":
-            user = get_object_or_404(User, email=username)
-            username = user.username
+            try:
+                user = User.objects.get(email=username)
+                username = user.username
+            except User.DoesNotExist:
+                return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         else:
             return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
 

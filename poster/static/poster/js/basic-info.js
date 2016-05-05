@@ -8,6 +8,7 @@ function submitinfo(){
     var postaddress = $.trim($('.post-address').val());
 
 
+
 	if(postname == ''){
 		yyAlert('海报名称不能为空!');
 		return false;
@@ -18,7 +19,7 @@ function submitinfo(){
 		return false;
 	}
 
-	if(postdesc == ''){
+	if(posteimg == ''){
 		yyAlert('海报logo不能为空!');
 		return false;
 	}
@@ -83,7 +84,7 @@ function submitinfo(){
 
 
 function back(){
-	yyConfirm("确定返回上一页",function(){
+	yyConfirm("当前输入信息会丢失",function(){
 		history.back(-1);
 	});
 }
@@ -101,14 +102,14 @@ $(function(){
  var oFile = this.files[0];
 
  if (oFile.size / 1024 < 100) {
-  _alertMsg.innerHTML="<font style='color:blue'>√</font>";
+  _alertMsg.innerHTML="<font style='color:blue'></font>";
  };
  if (result < 0) {
   //_alertMsg.innerHTML="请输入正确格式:" + upLoadType;
 	 yyAlert("请输入正确格式:" + upLoadType);
 
  } else{
-  _alertMsg.innerHTML="<font style='color:blue'>√</font>";
+  _alertMsg.innerHTML="<font style='color:blue'></font>";
  };
 
  oFReader.readAsDataURL(oFile);

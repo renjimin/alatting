@@ -1,6 +1,5 @@
 var currentAbtn;
 
-
 function showHeaderTools(){
 	if($('#abutton').hasClass('open')){
 		$('#abutton').removeClass('open');
@@ -11,8 +10,6 @@ function showHeaderTools(){
 	$('.abutton-info').removeClass('activate');
 	currentAbtn = null;
 }
-
-
 
 function showDetails(e) {
 	var icon = $(e).children('i');
@@ -27,13 +24,13 @@ function showDetails(e) {
 		currentAbtn = null;
 	}else{
 		$('.abutton-info').addClass('activate');
-		$('.abutton-info ul li').hide();
-		var ele = '.abutton-info ul li.' + btnType;
+		$('.abutton-info section').hide();
+		var ele = '.abutton-info section.' + btnType;
 		$(ele).show();
 		currentAbtn = btnType;
 	}
 }
-/*music
+/*music*/
 $(function(){
 	$('#music').click(function(){
 		if($(this).hasClass('rotate')){
@@ -43,9 +40,3 @@ $(function(){
 		}
 	});
 })
-
-
-$(function () { 
-　　$(".dropdown-toggle").dropdown(); 　
-});
-*/

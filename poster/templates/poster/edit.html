@@ -23,9 +23,7 @@
             <div class="qrcode-inner">
                 <div class="circle"></div>
                 <div class="qrcode">
-                    <a href="javascript:void(0);" class="btn">
-                        <img src="{% static 'website/images/card/erwei.png' %}">
-                    </a>
+                    <a href="javascript:void(0);" class="btn"><img src="{% static 'website/images/card/erwei.png' %}"></a>
                 </div>
             </div>
         </div>
@@ -33,9 +31,7 @@
         <div class="header-abutton">
             <div class="abutton-inner" id="abutton">
                 <div class="abutton-internal">
-                    <a class="abtn" href="javascript:void(0);" onclick="showHeaderTools()">
-                        <i class="icon ico-alogo"></i>
-                    </a>
+                    <a class="abtn" href="javascript:void(0);" onclick="showHeaderTools()"><i class="icon ico-alogo"></i></a>
                 </div>
                 <ul class="abutton-group abutton-contact">
                     <li><a href="#" onclick="showDetails(this)"><i class="icon ico-phone"></i></a></li>
@@ -59,16 +55,19 @@
     </div>
     <div class="abutton-info">
     	<div class="arrow"></div>
-    	<ul>
-    		<li class="phone"><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
-    		<li class="email"><i class="icon ico-email"></i><span>{{ poster.email }}</span></li>
-    		<li class="address"><i class="icon ico-address"></i><span>{{ poster.address }}</span></li>
-    		<li class="clock"><i class="icon ico-clock"></i><span>{{ poster.phone }}</span></li>
-    		<li class="like"><i class="icon ico-like"></i><span>{{ poster.phone }}</span></li>
-    		<li class="bookmark"><i class="icon ico-bookmark"></i><span>{{ poster.phone }}</span></li>
-    		<li class="subscribe"><i class="icon ico-subscribe"></i><span>{{ poster.phone }}</span></li>
-    		<li class="fun"><i class="icon ico-fun"></i><span>{{ poster.phone }}</span></li>
-    	</ul>
+
+		<section class="phone">
+			<li><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
+			<li><i class="icon ico-phone"></i><span>{{ poster.mobile }}</span></li>
+		</section>
+		<section class="email"><i class="icon ico-email"></i><span>{{ poster.email }}</span></section>
+		<section class="address"><i class="icon ico-address"></i><span>{{ poster.address }}</span></section>
+		<section class="clock"><i class="icon ico-clock"></i><span>{{ poster.phone }}</span></section>
+		<section class="like"><i class="icon ico-like"></i><span>{{ poster.phone }}</span></section>
+		<section class="bookmark"><i class="icon ico-bookmark"></i><span>{{ poster.phone }}</span></section>
+		<section class="subscribe"><i class="icon ico-subscribe"></i><span>{{ poster.phone }}</span></section>
+		<section class="fun"><i class="icon ico-fun"></i><span>{{ poster.phone }}</span></section>
+
     </div>
 </header>
 {% endblock %}
