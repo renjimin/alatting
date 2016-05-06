@@ -1,29 +1,101 @@
 {% extends 'alatting_website/base.html' %}
 {%load static %}
+
 {% block base_header_css %}
-    <link rel="stylesheet" href="{% static 'website/css/poster-bass.css' %}">
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 {% endblock %}
 
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'poster/js/poster-base.js' %}"></script>
+{% endblock %}
 
 {% block base_body_header %}
+<div class="bar-header bar">
+	<button class="button button-clear"><i class="ico-pages"></i></button>
+	<div class="title" style="left: 36px; right: 36px;">
+		<p>{{ poster.logo_title }}</p>
+	</div>
+	<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>
+</div>
+{% endblock %}
+
+{% block base_body_inner %}
+    <header class="header">
+        <div class="header-bar">
+            <div class="header-qrcode">
+                <div class="qrcode-inner">
+                    <div class="circle"></div>
+                    <div class="qrcode">
+                        <a href="javascript:void(0);" class="btn">
+                            <img src="{% url 'website:code_poster' object.id %}" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="header-logo"><img src="{{ poster.logo_image.file.url }}"></div>
+            <div class="header-abutton">
+                <div class="abutton-inner" id="abutton">
+                    <div class="abutton-internal">
+                        <a class="abtn" href="javascript:void(0);" onclick="showHeaderTools()"><i class="icon ico-alogo"></i></a>
+                    </div>
+                    <ul class="abutton-group abutton-contact">
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-phone"></i></a></li>
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-email"></i></a></li>
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-address"></i></a></li>
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-clock"></i></a></li>
+                    </ul>
+                    <ul class="abutton-group abutton-express">
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-like"></i></a></li>
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-bookmark"></i></a></li>
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-subscribe"></i></a></li>
+                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-fun"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="header-info">
+            <div class="desc">
+                {{ poster.short_description }}
+            </div>
+        </div>
+        <div class="abutton-info">
+            <div class="arrow"></div>
+            <section class="phone">
+                <li><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
+                <li><i class="icon ico-phone"></i><span>{{ poster.mobile }}</span></li>
+            </section>
+            <section class="email"><i class="icon ico-email"></i><span>{{ poster.email }}</span></section>
+            <section class="address"><i class="icon ico-address"></i><span>{{ poster.address }}</span></section>
+            <section class="clock"><i class="icon ico-clock"></i><span>{{ poster.phone }}</span></section>
+            <section class="like"><i class="icon ico-like"></i><span>{{ poster.phone }}</span></section>
+            <section class="bookmark"><i class="icon ico-bookmark"></i><span>{{ poster.phone }}</span></section>
+            <section class="subscribe"><i class="icon ico-subscribe"></i><span>{{ poster.phone }}</span></section>
+            <section class="fun"><i class="icon ico-fun"></i><span>{{ poster.phone }}</span></section>
+        </div>
+    </header>
+    {% block poster_base_body %}
+
+    {% endblock %}
 {% endblock %}
 
 {% block base_body_footer %}
-<div class="bar-footer bar">
-	<a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
-		<i class="icon ico-share"></i>
-	</a>
-	<a class="tab-item dropdown-toggle" id="rate-toggle" href="javascript:void(0);" data-dropdown="rate-panel">
-		<i class="icon ico-star"></i>
-	</a>
-	<a class="tab-item dropdown-toggle" id="feedback-toggle" href="javascript:void(0);" data-dropdown="feedback-panel">
-		<i class="icon ico-feedback"></i>
-	</a>
-	<a class="tab-item dropdown-toggle" id="export-toggle" href="javascript:void(0);" data-dropdown="export-panel">
-		<i class="icon ico-export"></i>
-	</a>
-	<a class="tab-item dropdown-toggle" id="stats-toggle" href="javascript:void(0);" data-dropdown="stats-panel">
-		<i class="icon ico-stats"></i>
-	</a>
-</div>
+    <div class="bar-footer bar">
+        <a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
+            <i class="icon ico-share"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="rate-toggle" href="javascript:void(0);" data-dropdown="rate-panel">
+            <i class="icon ico-star"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="feedback-toggle" href="javascript:void(0);" data-dropdown="feedback-panel">
+            <i class="icon ico-feedback"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="export-toggle" href="javascript:void(0);" data-dropdown="export-panel">
+            <i class="icon ico-export"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="stats-toggle" href="javascript:void(0);" data-dropdown="stats-panel">
+            <i class="icon ico-stats"></i>
+        </a>
+    </div>
 {% endblock %}

@@ -6,14 +6,14 @@ body,html{
 }
 /*icons*/
 .ico-pages,.ico-music{width:20px;height:20px;display:inline-block; background-repeat:no-repeat; background-position:center center; background-size:100% 100%;}
-.ico-pages{ background-image:url(../images/icons/ico-pages.png);}
-.ico-music{ background-image:url(../images/icons/ico-music.png);}
-.ico-share,.ico-star,.ico-feedback,.ico-export,.ico-stats{width:1em;height:1em;display:inline-block;background:url(../images/sprits_footer.png) no-repeat; background-size:auto 100%;}
+.ico-pages{ background-image:url(/static/website/images/icons/ico-pages.png);}
+.ico-music{ background-image:url(/static/website/images/icons/ico-music.png);}
+.ico-share,.ico-star,.ico-feedback,.ico-export,.ico-stats{width:1em;height:1em;display:inline-block;background:url(/static/website/images/sprits_footer.png) no-repeat; background-size:auto 100%;}
 .ico-star{ background-position:-1em 0;}
 .ico-feedback{ background-position:-2em 0;}
 .ico-export{ background-position:-3em 0;}
 .ico-stats{ background-position:-4em 0;}
-.ico-phone,.ico-email,.ico-address,.ico-clock,.ico-like,.ico-bookmark,.ico-subscribe,.ico-fun,.ico-alogo,.ico-mobile{width:1em;height:1em;display:inline-block;background:url(../images/icons/sprits_tools.png) center center no-repeat; background-size:auto 100%;}
+.ico-phone,.ico-email,.ico-address,.ico-clock,.ico-like,.ico-bookmark,.ico-subscribe,.ico-fun,.ico-alogo,.ico-mobile{width:1em;height:1em;display:inline-block;background:url(/static/website/images/icons/sprits_tools.png) center center no-repeat; background-size:auto 100%;}
 .ico-phone{background-position:0 0;}
 .ico-email{background-position:-1em 0;}
 .ico-address{background-position:-2em 0;}
@@ -44,17 +44,17 @@ body,.scroll-content,.bar-footer{max-width:600px;margin:0 auto;font-family:"Micr
 .header-bar:after{content:"";display:block;height:0;overflow:hidden;clear:both;}
 /*header*/
 .header{position:relative; background-color:#f9f9f9; background-size:cover; background-repeat:no-repeat; background-position:center center;}
-.header-bar{padding:15px 0;}
+.header-bar{padding:15px 0;position: relative;}
 .header-qrcode{width:25%;float:left;}
-.header-logo{width:50%;float:left; text-align:center;}
+.header-logo{width:50%;text-align:center;position: absolute;left: 25%;height: 100%;margin-top: -15px;padding: 15px 0;}
 .header-abutton{width:25%;float:right;}
 .qrcode-inner,.abutton-inner{width:90%;padding-top:90%;margin:0 auto; position:relative;}
 .qrcode-inner .circle{ position:absolute;width:100%;height:100%;z-index:10;top:0;left:0; background:#ccc;border-radius:50%;}
 .qrcode-inner .qrcode{ position:absolute;width:100%;height:100%;z-index:15;top:0;left:0;}
-.qrcode-inner .qrcode img{max-width:100%;}
-.qrcode-inner .qrcode a.btn{width:100%;height:100%;display:block;padding:20%;border-radius:50%;overflow:hidden;}
+.qrcode-inner .qrcode img{width:100%;}
+.qrcode-inner .qrcode a.btn{width:100%;height:100%;display:block;padding:20%;border-radius:50%;overflow:hidden;text-align: center}
 .qrcode-inner .qrcode a.btn.activated{ background:#bbb;}
-.header-logo img{max-width:100%;}
+.header-logo img{max-width:100%;height: 100%;}
 .abutton-group{font-size:15px; position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;transform:scale(0);-webkit-transform:scale(0);transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
 .abutton-group li {position: absolute;width: 100%;height: 100%;-webkit-transform-origin: 100% 100%;-moz-transform-origin: 100% 100%;-ms-transform-origin: 100% 100%;transform-origin: 100% 100%;overflow: hidden;left: 50%;top: 50%;margin-top: -100%;margin-left: -100%;-webkit-transition: border .3s ease;-moz-transition: border .3s ease;transition: border .3s ease;border:1px solid transparent;}
 .abutton-group li a { display: block;width: 100%;height:100%; position: absolute; bottom: -50%; right: -50%; border-radius: 50%; text-decoration: none; color: #fff;  text-align: center; transform: skew(0) rotate(-45deg) scale(1);transition: all 0.2s ease;-webkit-transition: all 0.2s ease;  box-sizing: border-box; -webkit-box-sizing:border-box;}
@@ -69,8 +69,8 @@ body,.scroll-content,.bar-footer{max-width:600px;margin:0 auto;font-family:"Micr
 .abutton-group li:nth-child(2) a {transform: rotate(-45deg) skew(0);padding-bottom:67%;}
 .abutton-group li:nth-child(3) a {transform: rotate(-135deg) skew(0);padding-left:67%;}
 .abutton-group li:nth-child(4) a {transform: rotate(-225deg) skew(0);padding-top:67%;}
-.abutton-group li:first-child  a .icon,.abutton-group li:nth-child(3) a .icon,.abutton-group li:nth-child(2)  a .icon,.abutton-group li:nth-child(4) a .icon{position:relative;top:45%;margin-top:-0.6em;}
-.btn-music.rotate:after{ background:url(../images/icons/music.gif) center center no-repeat; background-size:100% auto;position: absolute;top: -6px;right: -6px;bottom: -6px;left: -6px;content: ' ';}
+.abutton-group li:first-child  a .icon,.abutton-group li:nth-child(3) a .icon,.abutton-group li:nth-child(2)  a .icon,.abutton-group li:nth-child(4) a .icon{position:relative;top:50%;margin-top:-0.6em;}
+.btn-music.rotate:after{ background:url(/static/website/images/icons/music.gif) center center no-repeat; background-size:100% auto;position: absolute;top: -6px;right: -6px;bottom: -6px;left: -6px;content: ' ';}
 .rotate i {-webkit-animation: rotating 1.2s linear infinite;-moz-animation: rotating 1.2s linear infinite;-o-animation: rotating 1.2s linear infinite;animation: rotating 1.2s linear infinite;}
 @-webkit-keyframes rotating {
 from {
