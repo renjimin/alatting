@@ -1,3 +1,4 @@
+var nameFlag = false;
 function submitinfo(){
     var postname = $.trim($('.post-name').val());
 	var postdesc = $.trim($('.post-desc').val());
@@ -11,6 +12,9 @@ function submitinfo(){
 
 	if(postname == ''){
 		yyAlert('海报名称不能为空!');
+		return false;
+	}else if(nameFlag){
+		yyAlert('海报名称已存在!');
 		return false;
 	}
 
@@ -132,7 +136,10 @@ $(function(){
 		success:function(data){
 			if(data.exists){
 				yyAlert('海报名称已经存在');
+				nameFlag = true;
 				return false;
+			}else{
+				nameFlag = false;
 			}
 		},
 		error:function(){
