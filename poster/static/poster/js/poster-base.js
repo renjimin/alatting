@@ -30,8 +30,9 @@ function showDetails(e) {
 		currentAbtn = btnType;
 	}
 }
-/*music*/
+
 $(function(){
+	/* music */
 	$('#music').click(function(){
 		if($(this).hasClass('rotate')){
 			$(this).removeClass('rotate');
@@ -39,4 +40,6 @@ $(function(){
 			$(this).addClass('rotate');
 		}
 	});
+	/* dropdown */
+	$(".dropdown-toggle").dropdown(); 　
 })

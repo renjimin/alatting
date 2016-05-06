@@ -32,37 +32,52 @@ class MessageView(APIView):
     """生成验证码"""
     permission_classes = ()
 
+
+    def is_user_existed(self, raw_input):
+        input_type = what(raw_input)
+        if input_type == 'email':  # 邮箱
+            user = User.objects.all().filter(email=raw_input)
+            user_existed = "0" if len(user) == 0 else "1"
+        elif input_type == 'phonenumber':  # 手机号
+            person = Person.objects.all().filter(phonenumber=raw_input)
+            user_existed = "0" if len(person) == 0 else "1"
+        else:
+            user_existed = "0"
+        return [input_type, user_existed]
+
+
     def post(self, request, **kwargs):
         try:
             inputvalue = request.data['username']
+            # 这个参数区别注册和重置密码需求，为0要求用户不存在，为1反之
+            need_user_existed = request.data['user_existed']
         except KeyError:
             return Response({'detail': '参数错误'}, status=status.HTTP_400_BAD_REQUEST)
-        input_type = what(inputvalue)
-        message = get_message(inputvalue)
-        if input_type == None:
-            return Response({'detail': '参数错误,请用邮箱或者手机号注册'},
-                            status=status.HTTP_400_BAD_REQUEST)
-        else:
-            try:
-                msg = LoginMessage.objects.get(username=inputvalue)
-                msg.message = message
-                msg.save()
-            except LoginMessage.DoesNotExist:
-                LoginMessage.objects.create(message=message,
-                                            username=inputvalue)
-            data = {'username': inputvalue}
-            if input_type == 'email':  # 邮箱
-                user = User.objects.all().filter(email=inputvalue)
-                if len(user) != 0:
-                    data['warning'] = "用户已存在"
-                send_verify_email(inputvalue, message)
-            else:  # 手机号
-                person = Person.objects.all().filter(phonenumber=inputvalue)
-                if len(person) != 0:
-                    data['warning'] = "用户已存在"
-                data['message'] = message
-            return Response(data)
 
+        input_type, is_user_existed = self.is_user_existed(inputvalue)
+        if input_type == None:
+            return Response({'detail': '参数错误,请用邮箱或者手机号注册'}, status=401)
+        if need_user_existed != is_user_existed:
+            if is_user_existed == '1':
+                data = {'detail': '用户已存在'}
+            else:
+                data = {'detail': '用户不存在'}
+            return Response(data, status=403)
+
+        message = get_message(inputvalue)
+        try:
+            msg = LoginMessage.objects.get(username=inputvalue)
+            msg.message = message
+            msg.save()
+        except LoginMessage.DoesNotExist:
+            LoginMessage.objects.create(message=message,
+                                        username=inputvalue)
+        data = {'username': inputvalue}
+        if input_type == 'email':  # 邮箱
+            send_verify_email(inputvalue, message)
+        else:  # 手机号
+            data['message'] = message
+        return Response(data)
 
 class CheckMessageView(APIView):
     """校验验证码"""

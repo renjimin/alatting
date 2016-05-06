@@ -25,24 +25,29 @@ $(document).ready(function () {
     }
 
     $("#btnok").click(function () {
-        var username = $("#id_username").val();
-        var password = $("#id_password").val();
-        if (username != null && password != null) {
-            localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
+        if ($("#btnchk").is(':checked')) {
+            var username = $("#id_username").val();
+            var password = $("#id_password").val();
+            if (username != null && password != null) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+            }
+        } else {
+            localStorage.clear();
         }
+        $("#btnLogin").submit();
     });
     /*登陆界面注册页面跳转*/
     $("#register").click(function () {
         window.location.href = "/account/register";
     })
-    /*点击获取验证码*/
+    /*注册点击获取验证码*/
     $("#btncode").click(function () {
 
         var btncodeoff = document.getElementById("btncodeoff");
         var username = $("#rg_username").val();
         if (!username) {
-            yyAlert("请输入用户名");
+            yyAlert("请输入邮箱/手机号");
             return false;
         }
         if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
@@ -53,7 +58,10 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
-            data: {"username": username},
+            data: {
+                "username": username,
+                "user_existed": "0"
+            },
             success: function (data) {
                 if (typeof(data.warning) != "undefined") {
                     yyAlert(data.warning);
@@ -66,8 +74,16 @@ $(document).ready(function () {
                     yyAlert(data.message);
                 }
             },
-            error: function (data) {
-                yyAlert(data.message);
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 403) {
+                    yyAlert(" 用户已存在");
+                }
+                else if (xhr.status == 401) {
+                    yyAlert("请用邮箱/手机号注册");
+                }
+                else {
+                    yyAlert("参数错误");
+                }
             }
         })
     });
@@ -77,7 +93,7 @@ $(document).ready(function () {
         var password1 = $("#id_password1").val();
         var password2 = $("#id_password2").val();
         if (!username) {
-            yyAlert("请输入用户名");
+            yyAlert("请输入邮箱/手机号");
             return false;
         }
         if (!code) {
@@ -99,7 +115,7 @@ $(document).ready(function () {
         var btncodeoff = document.getElementById("btncodeoff-psd");
         var username = $("#username").val();
         if (!username) {
-            yyAlert("请输入用户名");
+            yyAlert("请输入已注册的邮箱/手机号");
             return false;
         }
         if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
@@ -109,13 +125,11 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
-            data: {"username": username},
+            data: {
+                "username": username,
+                "user_existed": "1"
+            },
             success: function (data) {
-                if (typeof(data.warning) == "undefined") {
-                    console.log(data)
-                    yyAlert("该用户还未注册");
-                    return false;
-                }
                 $("#btncodeoff-psd").show();
                 $("#btncode-psd").hide();
                 settimepsd(btncodeoff);
@@ -123,8 +137,16 @@ $(document).ready(function () {
                     yyAlert(data.message);
                 }
             },
-            error: function (data) {
-                yyAlert(data.message);
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 403) {
+                    yyAlert("用户未注册");
+                }
+                else if (xhr.status == 401) {
+                    yyAlert("帐号格式错误");
+                }
+                else {
+                    yyAlert("参数错误");
+                }
             }
         })
     })
@@ -156,6 +178,9 @@ $(document).ready(function () {
             error: function (xhr, status, statusText) {
                 if (xhr.status == 401) {
                     yyAlert("验证码不正确或已过期");
+                }
+                if (xhr.status == 404) {
+                    yyAlert("该用户未注册");
                 }
             }
         })
