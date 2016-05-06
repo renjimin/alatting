@@ -48,7 +48,7 @@ body{
 }
 .ed-content{
     padding:15px 0;
-    height: 160px;
+    height: 110px;
     overflow-y: auto;
     line-height: 35px;
 }
@@ -70,7 +70,7 @@ body{
 }
 .ed-choose{
     background: #f3f3f3;
-    height: 265px;
+    height: 246px;
     overflow-y: scroll;
     padding: 15px;
     -webkit-border-radius: 5px;
@@ -96,6 +96,7 @@ body{
     color: #aeaeae;
     margin-right: 3px;
     font-size: 20px;
+    top:3px;
 }
 .ed-choose .cbox-line .glyphicon-check{
     color: #268bb9;

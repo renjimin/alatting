@@ -11,17 +11,15 @@
 {% endblock %}
 
 {% block base_body %}
-<div class="kw">
-    <div class="kw-list container">
-        <div class="row">
-            <div class="col-xs-6"><a href="javascript:void(0);" id="cat">{{ request.GET.cate }}</a></div>
-            <div class="col-xs-6 hli-act"><a href="javascript:void(0);" class="" id="subcat">{{ request.GET.subcate }}</a></div>
-            <input type="hidden" id="main_category_id" value="{{ request.GET.main_category_id }}">
-            <input type="hidden" id="sub_category_id" value="{{ request.GET.sub_category_id }}">
-        </div>
+<div class="kw container-fluid">
+    <div class="kw-list row">
+        <div class="col-xs-6"><a href="javascript:void(0);" id="cat">{{ request.GET.cate }}</a></div>
+        <div class="col-xs-6 hli-act"><a href="javascript:void(0);" class="" id="subcat">{{ request.GET.subcate }}</a></div>
+        <input type="hidden" id="main_category_id" value="{{ request.GET.main_category_id }}">
+        <input type="hidden" id="sub_category_id" value="{{ request.GET.sub_category_id }}">
     </div>
-    <div class="ed-title">请选择行业关键词</div>
-    <div class="kw-main container">
+    <div class="ed-title row">请选择行业关键词</div>
+    <div class="kw-main">
         <div class="kw-edit">
             <div class="ed-content" id="ed-content"></div>
             <p class="ed-cont-tips">*最多只能选择五个关键词</p>

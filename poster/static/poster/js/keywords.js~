@@ -7,7 +7,7 @@ $(function(){
     $('#ed-choose').on('click','.ed-choose-li',function(e){
 
         var ths = $(this);
-        var chebox = ths.children('.cbox-line').children();
+        var chebox = ths.children().children();
         var cont = ths.attr('data-cont');
         var view = ths.attr('data-view');
         var id = ths.attr('data-id');
@@ -88,13 +88,13 @@ $(function(){
                     yyAlert('您提交的关键词已经存在');
                     if(num<5){
                         var chos = $('.ed-choose-li').filter('[data-id='+id+']');
+                        chos.children().children()
+                            .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                         var view = chos.attr('data-view');
                         if(view == 0){
-                            chos.children('.cbox-line').children()
-                            .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                             chos.attr('data-view','1');
                             var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
-                            edcont.append($(txt));
+                            $('#ed-content').append($(txt));
                         }
                     }
                 }else{
@@ -149,14 +149,16 @@ $(function(){
     $('#goback').on('click',function(){
         var newKwn = $.trim($('#newKwn').val());
         var newKwv = $.trim($('#newKwv').val());
-        var num = $('#ed-content').children().length;
+        var edcont = $('#ed-content').children();
+        var num = edcont.length;
+
         if(newKwn != ''|| newKwv != '' || num!=0){
+console.log(num);
             yyConfirm('您当前有编辑过的内容，确定要退出吗？',function(){
                 window.history.back();
             });
-        }else{
-            window.history.back();
         }
+        window.history.back();
     });
 });
 
