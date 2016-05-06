@@ -1,4 +1,6 @@
 from django.contrib import admin
+from alatting_website.model.poster import PosterKeyword
+from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
     Person, Image, Music, Video, Category,
     Poster, PosterImage, PosterVideo, PosterLike, PageText,
@@ -142,4 +144,14 @@ class PosterMoreLinkAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(CategoryKeyword)
 class CategoryKeywordAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(PosterSubscribe)
+class PosterSubscribeAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(PosterKeyword)
+class PosterKeywordAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
