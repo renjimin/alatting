@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.conf.urls import url
-from poster.apiview.poster import PosterPageListView
+from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView
 from poster.apiview.resource import CategoryKeywordListView, \
     CategoryKeywordDetailView
 
@@ -13,5 +13,8 @@ urlpatterns = [
         name='category_keywords_detail'),
 
     url(r'^posterpages$', PosterPageListView.as_view(), name='posterpages'),
+
+    url(r'^check/unique/$', CheckPosterUniqueNameView.as_view(),
+        name='check_unique'),
 
 ]

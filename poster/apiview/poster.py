@@ -4,6 +4,8 @@ from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
     RetrieveUpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
 from poster.serializer.poster import (
@@ -112,3 +114,14 @@ class PosterPageListView(ListCreateAPIView):
             index=index,
             name="p%s_t%s_i%s" % (poster_id, template_id, index)
         )
+
+
+class CheckPosterUniqueNameView(APIView):
+
+    def get(self, request, *args, **kwargs):
+        name = request.GET.get('name', None)
+        exists = True
+        if name:
+            if not Poster.objects.filter(unique_name=name).exists():
+                exists = False
+        return Response({'exists': exists})
