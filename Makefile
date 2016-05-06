@@ -5,6 +5,7 @@ help:
 	@echo "dbshell          open a database shell"
 	@echo "mkmigrate        makemigrations"
 	@echo "migrate          migrate"
+	@echo "cs               collect static files"
 
 server:
 	@python manage.py runserver 0.0.0.0:8000
@@ -23,6 +24,9 @@ mkmigrate:
 
 migrate:
 	@python manage.py migrate
+
+cs:
+    @python manage.py collectstatic --noinput
 
 
 .PHONY: server shell dbshell clean clean-build clean-pyc lint \
