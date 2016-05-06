@@ -1,12 +1,13 @@
 html,
 body {
-min-height:100%:
+min-height:100%;
 }
 body {
 	background-color: #efefef;
 	font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	max-width: 600px;
 	margin: 0 auto;
+    position: relative;
 	-webkit-backface-visibility: hidden;
 }
 ol,
