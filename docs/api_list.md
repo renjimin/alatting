@@ -89,3 +89,17 @@
   }
 ]
 ```
+
+
+## 检查海报名称是否已经存在
+
+    GET /api/v1/poster/check/unique/?name=XXXXX
+    
+    
+**Response**
+```json
+{
+    "exists": false             //true or false,  true表示存在， false表示不存在
+}
+```
+   
