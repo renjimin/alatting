@@ -88,10 +88,10 @@ $(function(){
                     yyAlert('您提交的关键词已经存在');
                     if(num<5){
                         var chos = $('.ed-choose-li').filter('[data-id='+id+']');
-                        chos.children('.cbox-line').children()
-                            .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                         var view = chos.attr('data-view');
                         if(view == 0){
+                            chos.children('.cbox-line').children()
+                            .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                             chos.attr('data-view','1');
                             var txt = '<span id="ed-con-li'+id+'" data-id="'+id+'">'+newKwv+newKwn+'</span>';
                             edcont.append($(txt));
