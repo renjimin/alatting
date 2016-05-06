@@ -25,9 +25,17 @@ $(document).ready(function () {
     }
 
     $("#btnok").click(function () {
+        var username = $("#id_username").val();
+        var password = $("#id_password").val();
+        if(!username){
+            yyAlert("请输入邮箱/手机号");
+            return false;
+        }
+        if(!password){
+            yyAlert("请输入密码");
+            return false;
+        }
         if ($("#btnchk").is(':checked')) {
-            var username = $("#id_username").val();
-            var password = $("#id_password").val();
             if (username != null && password != null) {
                 localStorage.setItem("username", username);
                 localStorage.setItem("password", password);
