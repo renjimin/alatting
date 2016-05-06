@@ -1,8 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-body,html{
-    height: 100%;
-    overflow-x: hidden;
+body,html{height: 100%;overflow-x: hidden;
 }
 /*icons*/
 .ico-pages,.ico-music{width:20px;height:20px;display:inline-block; background-repeat:no-repeat; background-position:center center; background-size:100% 100%;}
@@ -189,68 +187,30 @@ to {-moz-transform:rotate(360deg)
 
 
 
-.container-fluid{padding: 44px 0 0 0;}
+.container-fluid{padding: 44px 0;}
 .bar-header, .bar-footer {background: #000;}
 
 .abutton-info{height: 50px;width: 100%;position: absolute;z-index: 20;display: none;}
 .abutton-info.activate{display: block;}
-.abutton-info .arrow{display: block;width: 25px;height: 25px;transform: rotate(45deg);position: absolute;top: -20%;background: #abc;}
+.abutton-info .arrow{display: block;width: 25px;height: 25px;transform: rotate(45deg);position: absolute;top: -20%;background: #fff;}
 .abutton-info section{background: #abc;display: none;font-size: 24px;}
-.abutton-info section i{margin:13px;}
-.abutton-info section span{height: 50px;vertical-align: top;line-height: 50px;}
-.abutton-info section li{display: block;border-bottom: 1px solid #fff;}
+.abutton-info section i{margin:13px;float: left;}
+.abutton-info section span{vertical-align: top;line-height: 50px;background: #fff;position:absolute;left: 50px;width: 100%;padding-left: 5px;}
+section.clock span{left: 62px;}
+.abutton-info section li{display: block;border-bottom: 1px solid #fff;height: 50px;display:block;overflow: hidden;}
 .abutton-info section li:last-child{border-bottom: none;}
 
-.item {
-    border-color: #ddd;
-    background-color: #fff;
-    color: #444;
-    position: relative;
-    z-index: 2;
-    display: block;
-    margin: -1px;
-    padding: 16px;
-    border-width: 1px;
-    border-style: solid;
-    font-size: 16px;
-}
+.item {border-color: #ddd;background-color: #fff;color: #444;position: relative;z-index: 2;display: block;margin: -1px;padding: 16px;border-width: 1px;border-style: solid;font-size: 16px;}
 
-.item-avatar > img:first-child{
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    max-width: 40px;
-    max-height: 40px;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-}
-.feedback-contrainar .card .item {
-    font-size: 0.9em;
-}
-.item-avatar{
-    padding-left: 72px;
-    min-height: 72px;
-}
-.row {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-box;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    padding: 5px;
-    width: 100%;
-    margin: 0px;
-}
-.col {
-    -webkit-box-flex: 1;
-    -webkit-flex: 1;
-    -moz-box-flex: 1;
-    -moz-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    display: block;
-    padding: 5px;
-    width: 100%;
+.item-avatar > img:first-child{position: absolute;top: 16px;left: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;}
+.feedback-contrainar .card .item {font-size: 0.9em;}
+.item-avatar{padding-left: 72px;min-height: 72px;}
+.row {display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -moz-flex;display: -ms-flexbox;display: flex;padding: 5px;width: 100%;margin: 0px;}
+.col {-webkit-box-flex: 1;-webkit-flex: 1;-moz-box-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;padding: 5px;width: 100%;}
+
+.abutton-info .clock .text{
+	line-height: 24px;
+	font-weight: 100;
+	font-size: 18px;
+	font-style: normal;
 }

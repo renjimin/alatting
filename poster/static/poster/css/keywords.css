@@ -96,6 +96,7 @@ body{
     color: #aeaeae;
     margin-right: 3px;
     font-size: 20px;
+    top:3px;
 }
 .ed-choose .cbox-line .glyphicon-check{
     color: #268bb9;
