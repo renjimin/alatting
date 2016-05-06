@@ -21,14 +21,18 @@ $(document).ready(function () {
     }
 
     $("#btnok").click(function () {
-        var username = $("#id_username").val();
-        var password = $("#id_password").val();
+        var username = $.trim($("#id_username").val());
+        var password = $.trim($("#id_password").val());
         if(!username){
             yyAlert("请输入邮箱/手机号");
             return false;
         }
         if(!password){
             yyAlert("请输入密码");
+            return false;
+        }
+        if(password.length < 5){
+            yyAlert("密码长度应不小于5位");
             return false;
         }
         if ($("#btnchk").is(':checked')) {
@@ -41,10 +45,6 @@ $(document).ready(function () {
         }
         $("#btnLogin").submit();
     });
-    /*登陆界面注册页面跳转*/
-    $("#register").click(function () {
-        window.location.href = "/account/register";
-    })
     /*注册点击获取验证码*/
     $("#btncode").click(function () {
 
@@ -80,10 +80,10 @@ $(document).ready(function () {
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 403) {
-                    yyAlert(" 用户已存在");
+                    yyAlert("用户已存在");
                 }
                 else if (xhr.status == 401) {
-                    yyAlert("请用邮箱/手机号注册");
+                    yyAlert("请使用邮箱/手机号注册");
                 }
                 else {
                     yyAlert("参数错误");
@@ -91,11 +91,12 @@ $(document).ready(function () {
             }
         })
     });
+
     $("#btnregist").click(function () {
         var username = $.trim($("#rg_username").val());
-        var code = $("#id_message").val();
-        var password1 = $("#id_password1").val();
-        var password2 = $("#id_password2").val();
+        var code = $.trim($("#id_message").val());
+        var password1 = $.trim($("#id_password1").val());
+        var password2 = $.trim($("#id_password2").val());
         if (!username) {
             yyAlert("请输入邮箱/手机号");
             return false;
@@ -118,6 +119,7 @@ $(document).ready(function () {
         }
         $("#registForm").submit();
     });
+
     /*忘记密码后获取验证码*/
     $("#btncode-psd").click(function () {
         var btncodeoff = document.getElementById("btncodeoff-psd");
@@ -157,7 +159,7 @@ $(document).ready(function () {
                 }
             }
         })
-    })
+    });
     /*忘记密码点击确定*/
     $("#btnsure").click(function () {
         var writecode = $("#message").val();
@@ -192,7 +194,7 @@ $(document).ready(function () {
                 }
             }
         })
-    })
+    });
     $("#btnFpwd").click(function () {
         var password1 = $("#password1").val();
         var password2 = $("#password2").val();
@@ -201,7 +203,7 @@ $(document).ready(function () {
             return false;
         }
         $("#forgetForm").submit();
-    })
+    });
     var countdown = 60;
 
     function settime(val) {

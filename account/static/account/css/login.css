@@ -28,7 +28,8 @@ input {
 }
 
 .login .list-login {
-    margin-top: 20%;
+    margin: 20% 0 0 0;
+    padding:0;
 }
 
 .login .list-login img {
@@ -37,12 +38,11 @@ input {
     margin-left: 4%;
 }
 
-.login .list-login label {
+.login .list-login li {
     border-style: none none solid none;
     border-bottom-width: thin;
-    width: 95%;
-    margin-top: 6%;
-    margin-left: -3%;
+    width: 85%;
+    margin: 6% auto 0;
 
 }
 
@@ -56,27 +56,28 @@ input {
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
+    line-height: 200%;
 }
 
 .login .btn-block {
-    width: 90%;
-    margin-left: 5%;
-    margin-top: 2%;
+    width: 85%;
+    margin: 5% auto 0;
 }
 
 .login .item-checkbox {
-    margin-left: 5%;
-    margin-top: 3%;
+    margin-left: 8%;
+    margin-top: 5%;
     color: white;
 }
 
 .login .logincheckbox {
     -webkit-appearance: checkbox;
+    margin-right: 5px;
 }
 
 .login .item-checkbox .fotgetpwd {
     float: right;
-    margin-right: 5%;
+    margin-right: 9%;
 }
 
 .regist {
@@ -131,8 +132,7 @@ input {
 .regist .list-li .btn-success {
     display: block;
     float: right;
-    margin-top: 1%;
-    padding: 0px 6px;
+    padding: 0 6px;
     background-color: #5cb85c;
     width: 30%;
 }
@@ -141,7 +141,7 @@ input {
     display: none;
     float: right;
     margin-top: 1%;
-    padding: 0px 6px;
+    padding: 0 6px;
     background-color: rgb(171, 171, 171);
     width: 41%;
 }
@@ -221,12 +221,12 @@ input {
 }
 
 .regist .btn-block {
-    width: 90%;
-    margin-left: 5%;
-    margin-top: 4%;
+    width: 85%;
+    margin: 10% auto 0;
 }
 
 .regist .list-li input {
+    line-height: 200%;
     border-style: none;
     background: rgba(255, 255, 255, 0);
     margin-left: 3%;
