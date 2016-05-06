@@ -4,17 +4,23 @@
 {% block base_header_css %}
     {{ block.super }}
      <link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}"/>
+    <link rel="stylesheet" href="{% static 'poster/plugins/slider/swiper.css' %}">
 {% endblock %}
 
 {% block base_header_js %}
     {{ block.super }}
-     <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
-     <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
+    <script src="{% static 'poster/plugins/slider/swiper.js' %}"></script>
+    <script src="{% static 'poster/plugins/slider/imgslider.js' %}"></script>
+
+
 
 {% endblock %}
 
 {% block base_body %}
 
+    <div class="block1" style="width:100%;height:300px;overflow:hidden;"></div>
    <button class="btncs">按钮</button>
 
     <div class="dialog">
@@ -43,10 +49,11 @@
 
     $('#as').diyUpload({
 
-	url:'http://192.168.223.128:8000/api/v1/poster/upload/logo',
+	url:'http://192.168.118.130:8000/api/v1/poster/upload/logo',
 
 	success:function( data ) {
-
+         $('.block1').imgslider({'data':data});
+        $(".dialog").animate({top:'100%'});
 		console.info( data );
 	},
 
