@@ -25,12 +25,17 @@ $(document).ready(function () {
     }
 
     $("#btnok").click(function () {
-        var username = $("#id_username").val();
-        var password = $("#id_password").val();
-        if (username != null && password != null) {
-            localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
+        if ($("#btnchk").is(':checked')) {
+            var username = $("#id_username").val();
+            var password = $("#id_password").val();
+            if (username != null && password != null) {
+                localStorage.setItem("username", username);
+                localStorage.setItem("password", password);
+            }
+        }else{
+            localStorage.clear();
         }
+        $("#btnLogin").submit();
     });
     /*登陆界面注册页面跳转*/
     $("#register").click(function () {
@@ -42,7 +47,7 @@ $(document).ready(function () {
         var btncodeoff = document.getElementById("btncodeoff");
         var username = $("#rg_username").val();
         if (!username) {
-            yyAlert("请输入用户名");
+            yyAlert("请输入邮箱/手机号");
             return false;
         }
         if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
