@@ -14,6 +14,8 @@ function submitinfo(){
 		return false;
 	}
 
+
+
 	if(postdesc == ''){
 		yyAlert('海报简述不能为空!');
 		return false;
@@ -117,6 +119,30 @@ $(function(){
   document.getElementById("uploadPreview").src = oFREvent.target.result;
  };
 };
+
+
+	$(".post-name").blur(function(){
+	 var postname = $.trim($('.post-name').val());
+		console.log(encodeURIComponent(postname));
+	var url = '/api/v1/poster/check/unique/';
+	$.ajax({
+		url:url,
+		data:{name:encodeURIComponent(postname)},
+		type: "GET",
+		success:function(data){
+			if(data.exists){
+				yyAlert('海报名称已经存在');
+				return false;
+			}
+		},
+		error:function(){
+			yyAlert('网络错误，请稍后再试');
+			return false;
+		}
+	});
+
+	})
+
 
 
 })
