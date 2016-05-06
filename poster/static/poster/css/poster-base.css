@@ -189,7 +189,7 @@ to {-moz-transform:rotate(360deg)
 
 
 
-.container-fluid{padding: 44px 0 0 0;}
+.container-fluid{padding: 44px 0;}
 .bar-header, .bar-footer {background: #000;}
 
 .abutton-info{height: 50px;width: 100%;position: absolute;z-index: 20;display: none;}
