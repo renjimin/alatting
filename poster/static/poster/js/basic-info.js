@@ -19,7 +19,6 @@ function submitinfo(){
 	}
 
 
-
 	if(postdesc == ''){
 		yyAlert('海报简述不能为空!');
 		return false;
