@@ -53,6 +53,9 @@ input {
     font-size: 1.2em;
     color: white;
     width: 80%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }
 
 .login .btn-block {
@@ -230,6 +233,9 @@ input {
     font-size: 1.2em;
     color: white;
     width: 80%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }
 
 .forget-pwd .list {
@@ -237,11 +243,13 @@ input {
     margin: 0;
     padding: 0;
 }
+
 .forget-pwd .list-li-first {
     box-shadow: inset 0px 1px 1px 0px #ccc;
     border-bottom: 1px solid #ccc;
     background: white;
 }
+
 .forget-pwd .list-li {
     margin-top: 3%;
     box-shadow: inset 0px 1px 1px 0px #ccc;
@@ -326,11 +334,13 @@ input {
 .forget-reset {
     display: none;
 }
-.forget-reset .list{
+
+.forget-reset .list {
     width: 100%;
     padding: 0;
     margin: 0;
 }
+
 .forget-reset .list-li-first {
     box-shadow: inset 0px 1px 1px 0px #ccc;
     border-bottom: 1px solid #ccc;
@@ -338,6 +348,7 @@ input {
     margin-top: 5%;
     background: white;
 }
+
 .forget-reset .list-li {
     box-shadow: inset 0px 1px 1px 0px #ccc;
     border-bottom: 1px solid #ccc;

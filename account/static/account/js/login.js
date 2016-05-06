@@ -116,6 +116,10 @@ $(document).ready(function () {
             yyAlert("请再次输入密码");
             return false;
         }
+        if(password1!= password2){
+            yyAlert("两次密码不一致");
+            return false;
+        }
         $("#registForm").submit();
     });
     /*忘记密码后获取验证码*/
