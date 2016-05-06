@@ -24,7 +24,7 @@ body,html{
 .ico-fun{background-position:-7em 0;}
 .ico-alogo{background-position:-8em 0;}
 .ico-mobile{background-position:-9em 0;}
-.ico-share-email,.ico-share-wechat,.ico-share-qq,.ico-share-sina{width:1em;height:1em;display:inline-block;background:url(../images/icons/sprits_share.png) no-repeat; background-size:auto 100%;}
+.ico-share-email,.ico-share-wechat,.ico-share-qq,.ico-share-sina{width:1em;height:1em;display:inline-block;background:url(/static/website/images/icons/sprits_share.png) no-repeat; background-size:auto 100%;}
 .ico-share-wechat{ background-position:-1em 0;}
 .ico-share-qq{ background-position:-2em 0;}
 .ico-share-sina{ background-position:-3em 0;}
@@ -138,8 +138,8 @@ to {-moz-transform:rotate(360deg)
 .rate-totals  .num em,.rate-totals  .num span{font-size:0.8em;}
 .rate-levels{}
 .rate-levels .rate-level{}
-.rate-level .label{width:30%;float:left;color:#fff; text-align:center;line-height:30px;}
-.rate-level .progress{margin-left:30%;}
+.rate-level .labell{width:30%;float:left;color:#fff; text-align:center;line-height:30px;}
+.rate-level .progresss{margin-left:30%;}
 .rate-level .label .icon{margin-right:5px;}
 .rate-progress-bar{height:30px;line-height:30px;padding:0 10px;display:inline-block;}
 .rate-levels .rate-level:first-child .rate-progress-bar{background-color: #9cbb57;}
@@ -161,7 +161,7 @@ to {-moz-transform:rotate(360deg)
 .col-15 {-webkit-box-flex: 0;-webkit-flex: 0 0 15%;-moz-box-flex: 0;-moz-flex: 0 0 15%;-ms-flex: 0 0 15%;flex: 0 0 15%; max-width: 15%;}
 .col-35 {-webkit-box-flex: 0;-webkit-flex: 0 0 35%;-moz-box-flex: 0;-moz-flex: 0 0 35%;-ms-flex: 0 0 35%;flex: 0 0 35%; max-width: 35%;}
 .stats-types{ }
-.stats-types .row{padding:0;    border-top: 7px solid transparent;}
+.stats-types .row{padding:0;    border-top: 3px solid transparent;}
 .stats-types .col-15{background-color: #6b6e73; color:#fff;text-align:center;font-size:24px;padding:10px;}
 .stats-types .col-35{background-color: #868a8d;color:#fff;padding:10px;}
 .stats-types .col-35 .num{display:inline-block;width:50%;}
@@ -178,6 +178,7 @@ to {-moz-transform:rotate(360deg)
 .bar .title + .button:last-child, .bar > .button + .button:last-child, .bar > .button.pull-right, .bar .buttons.pull-right, .bar .title + .buttons {position: absolute;top: 5px;right: 5px;bottom: 5px;}
 .bar-footer .tab-item {opacity: 1;padding: 10px 5px;max-width: none;}
 .bar-footer .tab-item .icon {height: 1em;width: 1em;font-size: 24px;}
+.bar-footer .tab-item .glyphicon{height: 1em;width: 1em;font-size: 24px;}
 .tab-item {-webkit-box-flex: 1;-webkit-flex: 1;-moz-box-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;overflow: hidden;max-width: 150px;height: 100%;color: inherit;text-align: center;text-decoration: none;text-overflow: ellipsis;white-space: nowrap;font-weight: 400;font-size: 14px;font-family: "-apple-system", "Helvetica Neue", "Roboto", "Segoe UI", sans-serif;opacity: 0.7;}
 .bar button {z-index: 1;padding: 0 8px;min-width: initial;min-height: 31px;font-weight: 400;font-size: 13px;}
 .button {border-color: transparent;background-color: #f8f8f8;color: #444;position: relative;display: inline-block;margin: 0;padding: 0 12px;min-width: 52px;min-height: 47px;border-width: 1px;border-style: solid;border-radius: 4px;vertical-align: top;text-align: center;text-overflow: ellipsis;font-size: 16px;line-height: 42px;cursor: pointer;}
@@ -199,3 +200,57 @@ to {-moz-transform:rotate(360deg)
 .abutton-info section span{height: 50px;vertical-align: top;line-height: 50px;}
 .abutton-info section li{display: block;border-bottom: 1px solid #fff;}
 .abutton-info section li:last-child{border-bottom: none;}
+
+.item {
+    border-color: #ddd;
+    background-color: #fff;
+    color: #444;
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: -1px;
+    padding: 16px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 16px;
+}
+
+.item-avatar > img:first-child{
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.feedback-contrainar .card .item {
+    font-size: 0.9em;
+}
+.item-avatar{
+    padding-left: 72px;
+    min-height: 72px;
+}
+.row {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 5px;
+    width: 100%;
+    margin: 0px;
+}
+.col {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: block;
+    padding: 5px;
+    width: 100%;
+}

@@ -9,6 +9,7 @@
 {% block base_header_js %}
     {{ block.super }}
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
+    <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -47,10 +48,10 @@
                         <li><a href="#" onclick="showDetails(this)"><i class="icon ico-clock"></i></a></li>
                     </ul>
                     <ul class="abutton-group abutton-express">
-                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-like"></i></a></li>
-                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-bookmark"></i></a></li>
-                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-subscribe"></i></a></li>
-                        <li><a href="#" onclick="showDetails(this)"><i class="icon ico-fun"></i></a></li>
+                        <li><a href="#" ><i class="icon ico-like"></i></a></li>
+                        <li><a href="#" ><i class="icon ico-bookmark"></i></a></li>
+                        <li><a href="#" ><i class="icon ico-subscribe"></i></a></li>
+                        <li><a href="#" ><i class="icon ico-fun"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -97,5 +98,195 @@
         <a class="tab-item dropdown-toggle" id="stats-toggle" href="javascript:void(0);" data-dropdown="stats-panel">
             <i class="icon ico-stats"></i>
         </a>
+        
+        <section class="dropdown-panel" id="share-panel">
+            <div class="share-group">
+                <a href="#" class="tab-item"><i class="icon ico-share-email"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-share-wechat"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-share-qq"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-share-sina"></i></a>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="rate-panel">
+            <div class="rate-group">
+                <div class="rate-info clearfix">
+                    <div class="rate-totals">
+                        <div class="score">3.0</div>
+                        <div class="rate-action" data-score="3.6">
+                            <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                            <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                            <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                            <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                            <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                        </div>
+                        <div class="num">
+                            <i class="icon ion-person"></i><em>128</em><span>total</span>
+                        </div>
+                    </div>
+                    <div class="rate-levels">
+                        <div class="rate-level">
+                            <div class="labell">
+                                <i class="glyphicon glyphicon-star"></i><em>5</em>
+                            </div>
+                            <div class="progresss">
+                                <div class="rate-progress-bar">2</div>
+                            </div>
+                        </div>
+                        <div class="rate-level">
+                            <div class="labell">
+                                <i class="glyphicon glyphicon-star"></i><em>4</em>
+                            </div>
+                            <div class="progresss">
+                                <div class="rate-progress-bar">2</div>
+                            </div>
+                        </div>
+                        <div class="rate-level">
+                            <div class="labell">
+                                <i class="glyphicon glyphicon-star"></i><em>3</em>
+                            </div>
+                            <div class="progresss">
+                                <div class="rate-progress-bar">2</div>
+                            </div>
+                        </div>
+                        <div class="rate-level">
+                            <div class="labell">
+                                <i class="glyphicon glyphicon-star"></i><em>2</em>
+                            </div>
+                            <div class="progresss">
+                                <div class="rate-progress-bar">2</div>
+                            </div>
+                        </div>
+                        <div class="rate-level">
+                            <div class="labell">
+                                <i class="glyphicon glyphicon-star"></i><em>1</em>
+                            </div>
+                            <div class="progresss">
+                                <div class="rate-progress-bar">2</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rate-action">
+                    <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                    <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                    <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                    <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                    <a href="javascript:void(0);" class="rate-star"><i class="glyphicon glyphicon-star"></i></a>
+                </div>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="feedback-panel">
+            <div class="feedback-contrainar">
+                <div class="list card">
+
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+                    <div class="item item-avatar">
+                        <img src="{% static 'poster/img/demo/avatar1.png' %}" />
+                        <div class="tit">
+                            <span class="time"><i class="icon ion-clock"></i>5月 1周前</span>
+                            <span class="name">Topic</span>
+                        </div>
+                        <div class="det">
+                            这里是内容
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="export-panel">
+            <div class="share-group">
+                <a href="#" class="tab-item"><i class="glyphicon glyphicon-book"></i></a>
+                <a href="#" class="tab-item"><i class="glyphicon glyphicon-picture"></i></a>
+                <a href="#" class="tab-item"><i class="glyphicon glyphicon-print"></i></a>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="stats-panel">
+            <div class="data-contrainar">
+                <div class="stats-title"><i class="icon ion-stats-bars"></i>数据分析</div>
+                <div class="stats-graph">
+                    
+                </div>
+                <div class="stats-types">
+                    <div class="row">
+                        <div class="col col-15"><i class="icon ico-fun"></i></div>
+                        <div class="col col-35"><span class="num">0</span><span class="status"><i class="glyphicon glyphicon-arrow-up"></i>0</span></div>
+                        <div class="col col-15"><i class="glyphicon glyphicon-eye-open"></i></div>
+                        <div class="col col-35"><span class="num">0</span><span class="status"><i class="glyphicon glyphicon-arrow-up"></i>0</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-15"><i class="icon ico-bookmark"></i></div>
+                        <div class="col col-35"><span class="num">0</span><span class="status"><i class="glyphicon glyphicon-arrow-up"></i>0</span></div>
+                        <div class="col col-15"><i class="glyphicon glyphicon-share"></i></div>
+                        <div class="col col-35"><span class="num">0</span><span class="status"><i class="glyphicon glyphicon-arrow-up"></i>0</span></div>
+                    </div>
+                    <div class="row">
+                        <div class="col col-15"><i class="icon ico-like"></i></div>
+                        <div class="col col-35"><span class="num">0</span><span class="status"><i class="glyphicon glyphicon-arrow-up"></i>0</span></div>
+                        <div class="col col-15"><i class="glyphicon glyphicon-star"></i></div>
+                        <div class="col col-35"><span class="num">0</span><span class="status"><i class="glyphicon glyphicon-arrow-up"></i>0</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 {% endblock %}

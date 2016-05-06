@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block base_body %}
-    <form method="post" class="login">
+    <form method="post" class="login" id="btnLogin">
         {% csrf_token %}
         <div class="centerdiv ">
             <img src="{% static 'account/img/yunye.png' %}">
@@ -27,7 +27,7 @@
                        placeholder="密码"required>
             </label>
         </ul>
-        <button type="submit" class="btn btn-primary btn-lg btn-block"
+        <button type="button" class="btn btn-primary btn-lg btn-block"
                 id="btnok">登 入
         </button>
         <div id="register" class="btn btn-success btn-lg btn-block">
