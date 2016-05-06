@@ -15,8 +15,8 @@ function showDetails(e) {
 	var icon = $(e).children('i');
 	var btnType = icon.attr("class").split(' ')[1].split('-')[1];
 	var topOffset = icon.offset().top-5;
-	var leftOffset = icon.offset().left-2;
-
+	var leftOffset = icon.offset().left-$('body').offset().left-2;
+	
 	$('.abutton-info').css('top',topOffset);
 	$('.abutton-info .arrow').css('left',leftOffset);
 	if(currentAbtn == btnType){
