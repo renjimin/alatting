@@ -7,16 +7,16 @@
 <form method="post" class="regist" id="registForm">
     {% csrf_token %}
     <div class="rgheader">
-        <a href="/account/login">
-            <img src="{% static 'account/img/arrow.png' %}">
+        <a href="/account/login" class="btn-back">
+            <i class="icon-back"></i>
         </a>
-        <span>注册</span>
+        <h3>注册</h3>
     </div>
     <div class="regist-content">
         <ul class="list">
             <li class="list-li">
                 <img src="{% static 'account/img/name.png' %}">
-                <input class="list-input-on" type="text" id="rg_username" name="username" placeholder="邮箱号/手机号">
+                <input class="list-input-on" type="text" id="rg_username" name="username" placeholder="邮箱/手机号">
             </li>
             <li class="list-li">
                 <img src="{% static 'account/img/password.png' %}">

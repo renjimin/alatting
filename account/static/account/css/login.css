@@ -11,7 +11,6 @@ input {
 }
 
 .login {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: url("../img/platform_mobile_yunye.png");
     background-size: cover;
     min-height: 100%;
@@ -41,7 +40,6 @@ input {
 .login .list-login label {
     border-style: none none solid none;
     border-bottom-width: thin;
-    border-color: #fff;
     width: 95%;
     margin-top: 6%;
     margin-left: -3%;
@@ -69,16 +67,49 @@ input {
     color: white;
 }
 
+.login .logincheckbox {
+    -webkit-appearance: checkbox;
+}
+
 .login .item-checkbox .fotgetpwd {
     float: right;
     margin-right: 5%;
 }
 
 .regist {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-image: url("../img/platform_mobile_yunye.png");
     background-size: cover;
     min-height: 100%;
+}
+
+.regist .glyphicon-menu-left {
+    font-size: 2em;
+}
+
+.rgheader {
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+}
+
+.rgheader .btn-back {
+    display: inline-block;
+    padding: 13px 10px;
+    height: 24px;
+    box-sizing: content-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 24px;
+}
+
+.icon-back {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background: url(../img/arrow.png) no-repeat;
+    background-size: auto 100%;
+    vertical-align: top;
 }
 
 .regist .list {
@@ -90,7 +121,6 @@ input {
     list-style-type: none;
     border-style: none none solid none;
     border-bottom-width: thin;
-    border-color: #fff;
     margin-top: 7%;
     margin-left: -3%;
 }
@@ -134,16 +164,57 @@ input {
 }
 
 .regist .rgheader img {
-    max-width: 6%;
+    max-width: 4%;
     margin-bottom: 3%;
     margin-left: 4%;
-    margin-top: 1%;
+    margin-top: 2%;
 }
 
-.regist .rgheader span {
-    margin-left: 36%;
-    font-size: 1.5em;
+.regist .rgheader h3 {
+    text-align: center;
+    font-size: 1.3em;
     color: white;
+    font-weight: normal;
+    margin: 0;
+    line-height: 50px;
+}
+
+.forget-pwd .rgheader h3 {
+    text-align: center;
+    font-size: 1.3em;
+    color: black;
+    font-weight: normal;
+    margin: 0;
+    line-height: 50px;
+}
+
+.forget-reset .rgheader h3 {
+    box-shadow: 0px 1px 1px 1px #d1d1d1;
+    color: black;
+    text-align: center;
+    font-size: 1.3em;
+    color: black;
+    font-weight: normal;
+    margin: 0;
+    line-height: 50px;
+}
+
+.forget-pwd .icon-back {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background: url(../img/arrow-block.png) no-repeat;
+    background-size: auto 100%;
+    vertical-align: top;
+}
+
+.forget-reset .icon-back {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background: url(../img/arrow-block.png) no-repeat;
+    background-size: auto 100%;
+    vertical-align: top;
 }
 
 .regist .btn-block {
@@ -161,24 +232,23 @@ input {
     width: 80%;
 }
 
-.forget-pwd {
-    margin-top: 0%;
+.forget-pwd .list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
 .forget-pwd .list-li {
-    border-style: none;
-    width: 100%;
-    background: #ccc;
-    margin-top: 5%;
-    margin-left: -6%;
+    margin-top: 3%;
+    box-shadow: inset 0px 1px 1px 0px #ccc;
+    border-bottom: 1px solid #ccc
 }
 
 .forget-pwd .list-lion {
-    border-style: none;
-    width: 100%;
-    margin-top: 5%;
-    margin-left: -6%;
-    font-size: 1.2em;
+    line-height: 2em;
+    box-shadow: inset 0px 1px 1px 0px #ccc;
+    border-bottom: 0px solid #ccc;
+    font-size: 1.3em;
 }
 
 .forget-pwd .list input {
@@ -187,7 +257,8 @@ input {
     border-style: none;
     background: rgba(255, 255, 255, 0);
     margin-left: 1%;
-    font-size: 1em;
+    font-size: 1.2em;
+    width: 50%;
 
 }
 
@@ -211,18 +282,24 @@ input {
 }
 
 .forget-pwd .btn-block {
-    width: 90%;
-    margin-left: 5%;
+    width: 96%;
+    margin-left: 2%;
     margin-top: 2%;
     background-color: #5cb85c;
 }
 
 .forget-pwd .fgheader img {
-    max-width: 6%;
+    max-width: 4%;
+    margin-bottom: 3%;
+    margin-left: 4%;
+    margin-top: 2%;
 }
 
 .forget-reset .fgheader img {
     max-width: 4%;
+    margin-bottom: 3%;
+    margin-left: 4%;
+    margin-top: 2%;
 }
 
 .forget-pwd .fgheader span {
@@ -240,13 +317,15 @@ input {
 .forget-reset {
     display: none;
 }
-
-.forget-reset .list-li {
-    border-style: none;
+.forget-reset .list{
     width: 100%;
-    background: #ccc;
-    margin-top: 5%;
-    margin-left: -6%;
+    padding: 0;
+    margin: 0;
+}
+.forget-reset .list-li {
+    margin-top: 3%;
+    box-shadow: inset 0px 1px 1px 0px #ccc;
+    border-bottom: 1px solid #ccc
 }
 
 .forget-reset .list input {
@@ -280,8 +359,8 @@ input {
 }
 
 .forget-reset .btn-block {
-    width: 90%;
-    margin-left: 5%;
+    width: 96%;
+    margin-left: 2%;
     margin-top: 2%;
     background-color: #5cb85c;
 }
