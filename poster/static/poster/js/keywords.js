@@ -35,7 +35,7 @@ $(function(){
         var ths = $(this);
         var id = ths.attr('data-id');
         ths.remove();
-        $('.ed-choose-li').filter('[data-id='+id+']').children().children()
+        $('.ed-choose-li').filter('[data-id='+id+']').children('.cbox-line').children()
             .removeClass('glyphicon-check').addClass('glyphicon-unchecked');
     });
 
@@ -89,7 +89,7 @@ $(function(){
                     if(num<5){
                         var chos = $('.ed-choose-li').filter('[data-id='+id+']');
                         var view = chos.attr('data-view');
-                        if(view == 0){
+                        if(view == '0'){
                             chos.children('.cbox-line').children()
                             .removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                             chos.attr('data-view','1');
