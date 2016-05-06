@@ -26,7 +26,7 @@ migrate:
 	@python manage.py migrate
 
 cs:
-    @python manage.py collectstatic --noinput
+	@python manage.py collectstatic --noinput
 
 
 .PHONY: server shell dbshell clean clean-build clean-pyc lint \
