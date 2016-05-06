@@ -116,6 +116,7 @@ max-width: 1.2em;
     line-height: 2em;
     height: 8em;
     padding-left: 3px;
+    resize: none;
 }
 
 .post-ds{
