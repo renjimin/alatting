@@ -256,6 +256,9 @@ class LoginView(FormView):
         if user is not None:
             request = super(LoginView, self).get_context_data().get('view').request
             login(request, user)
+            next_url = self.request.GET.get('next', None)
+            if next_url:
+                self.success_url = next_url
             return super(LoginView, self).form_valid(form)
         else:
             return render_to_response('account/login.html', {'error': "用户名或密码错误"})
