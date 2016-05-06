@@ -77,7 +77,7 @@ $(document).ready(function () {
         var password1 = $("#id_password1").val();
         var password2 = $("#id_password2").val();
         if (!username) {
-            yyAlert("请输入用户名");
+            yyAlert("请输入邮箱/手机号");
             return false;
         }
         if (!code) {
@@ -99,7 +99,7 @@ $(document).ready(function () {
         var btncodeoff = document.getElementById("btncodeoff-psd");
         var username = $("#username").val();
         if (!username) {
-            yyAlert("请输入用户名");
+            yyAlert("请输入注册的邮箱/手机号");
             return false;
         }
         if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
