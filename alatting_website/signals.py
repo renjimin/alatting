@@ -24,6 +24,7 @@ def poster_save_publish(sender, instance, **kwargs):
 		for subscription in posterSubscriptions:
 			follower = User.objects.get(id=subscription.follower_id)
 			follower_email = follower.email
-			send_mail('poster update7', 'poster/'+str(instance.id)+' is updated', settings.EMAIL_HOST_USER,
-		    [follower_email], fail_silently=False)
+			if follower_email:
+				send_mail('poster update7', 'poster/'+str(instance.id)+' is updated',
+						  settings.EMAIL_HOST_USER, [follower_email], fail_silently=False)
 	
