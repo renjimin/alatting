@@ -126,26 +126,29 @@ $(function(){
 
 	$(".post-name").blur(function(){
 	 var postname = $.trim($('.post-name').val());
-		console.log(encodeURIComponent(postname));
-	var url = '/api/v1/poster/check/unique/';
-	$.ajax({
-		url:url,
-		data:{name:encodeURIComponent(postname)},
-		type: "GET",
-		success:function(data){
-			if(data.exists){
-				yyAlert('海报名称已经存在');
-				nameFlag = true;
-				return false;
-			}else{
-				nameFlag = false;
-			}
-		},
-		error:function(){
-			yyAlert('网络错误，请稍后再试');
+	 var url = '/api/v1/poster/check/unique/';
+		if(postname == ''){
 			return false;
 		}
-	});
+
+		$.ajax({
+			url:url,
+			data:{name:encodeURIComponent(postname)},
+			type: "GET",
+			success:function(data){
+				if(data.exists){
+					yyAlert('海报名称已经存在');
+					nameFlag = true;
+					return false;
+				}else{
+					nameFlag = false;
+				}
+			},
+			error:function(){
+				yyAlert('网络错误，请稍后再试');
+				return false;
+			}
+		});
 
 	})
 
