@@ -53,6 +53,9 @@ input {
     font-size: 1.2em;
     color: white;
     width: 80%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }
 
 .login .btn-block {
@@ -172,7 +175,7 @@ input {
 
 .regist .rgheader h3 {
     text-align: center;
-    font-size: 1.3em;
+    font-size: 1.4em;
     color: white;
     font-weight: normal;
     margin: 0;
@@ -181,7 +184,7 @@ input {
 
 .forget-pwd .rgheader h3 {
     text-align: center;
-    font-size: 1.3em;
+    font-size: 1.4em;
     color: black;
     font-weight: normal;
     margin: 0;
@@ -230,6 +233,9 @@ input {
     font-size: 1.2em;
     color: white;
     width: 80%;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
 }
 
 .forget-pwd .list {
@@ -238,27 +244,36 @@ input {
     padding: 0;
 }
 
+.forget-pwd .list-li-first {
+    box-shadow: inset 0px 1px 1px 0px #ccc;
+    border-bottom: 1px solid #ccc;
+    background: white;
+}
+
 .forget-pwd .list-li {
     margin-top: 3%;
     box-shadow: inset 0px 1px 1px 0px #ccc;
-    border-bottom: 1px solid #ccc
+    border-bottom: 1px solid #ccc;
+    background: white;
 }
 
 .forget-pwd .list-lion {
-    line-height: 2em;
+    line-height: 3em;
+    padding-left: 3%;
     box-shadow: inset 0px 1px 1px 0px #ccc;
     border-bottom: 0px solid #ccc;
-    font-size: 1.3em;
+    font-size: 1.2em;
+    color: #999;
 }
 
 .forget-pwd .list input {
-    padding-top: 5%;
     margin-top: 2%;
     padding-left: 3%;
     border-style: none;
     background: rgba(255, 255, 255, 0);
     font-size: 1.2em;
     width: 50%;
+    line-height: 50px;
 
 }
 
@@ -270,6 +285,7 @@ input {
     padding: 0px 6px;
     background-color: #5cb85c;
     width: 28%;
+    line-height: 2em;
 }
 
 .forget-pwd .list-li .btn-default {
@@ -279,12 +295,13 @@ input {
     padding: 0px 6px;
     background-color: rgb(171, 171, 171);
     width: 38%;
+    line-height: 2em;
 }
 
 .forget-pwd .btn-block {
     width: 96%;
     margin-left: 2%;
-    margin-top: 2%;
+    margin-top: 5%;
     background-color: #5cb85c;
 }
 
@@ -317,20 +334,31 @@ input {
 .forget-reset {
     display: none;
 }
-.forget-reset .list{
+
+.forget-reset .list {
     width: 100%;
     padding: 0;
     margin: 0;
 }
-.forget-reset .list-li {
-    margin-top: 3%;
+
+.forget-reset .list-li-first {
     box-shadow: inset 0px 1px 1px 0px #ccc;
-    border-bottom: 1px solid #ccc
+    border-bottom: 1px solid #ccc;
+    line-height: 50px;
+    margin-top: 5%;
+    background: white;
+}
+
+.forget-reset .list-li {
+    box-shadow: inset 0px 1px 1px 0px #ccc;
+    border-bottom: 1px solid #ccc;
+    line-height: 50px;
+    margin-top: 2%;
+    background: white;
 }
 
 .forget-reset .list input {
     width: 100%;
-    padding-top: 5%;
     padding-left: 3%;
     margin-top: 2%;
     border-style: none;
@@ -361,6 +389,6 @@ input {
 .forget-reset .btn-block {
     width: 96%;
     margin-left: 2%;
-    margin-top: 2%;
+    margin-top: 5%;
     background-color: #5cb85c;
 }

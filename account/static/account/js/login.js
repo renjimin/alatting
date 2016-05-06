@@ -4,15 +4,11 @@
 $(document).ready(function () {
     $("#id_username").prop('value', localStorage.getItem("username"));
     $("#id_password").prop('value', localStorage.getItem("password"));
-    //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
     var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
+    //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
     var deviceH = document.documentElement.clientHeight + "px";
 
-    //表单获得焦点后动态改变body和背景图片的大小
-    $('#id_username,#id_password').on("click", function () {
-        $("body").attr("style", "background:url('/static/account/img/platform_mobile_yunye.png') no-repeat;width:100%;height:" + deviceH + ";background-size: 100%" + deviceH);
-    });
     if ($("#checkout").attr("checked") == "checked") {
         var username = $("#id_username").val();
         var password = $("#id_password").val();
@@ -25,9 +21,17 @@ $(document).ready(function () {
     }
 
     $("#btnok").click(function () {
+        var username = $("#id_username").val();
+        var password = $("#id_password").val();
+        if(!username){
+            yyAlert("请输入邮箱/手机号");
+            return false;
+        }
+        if(!password){
+            yyAlert("请输入密码");
+            return false;
+        }
         if ($("#btnchk").is(':checked')) {
-            var username = $("#id_username").val();
-            var password = $("#id_password").val();
             if (username != null && password != null) {
                 localStorage.setItem("username", username);
                 localStorage.setItem("password", password);
@@ -106,6 +110,10 @@ $(document).ready(function () {
         }
         if (!password2) {
             yyAlert("请再次输入密码");
+            return false;
+        }
+        if(password1!= password2){
+            yyAlert("两次密码不一致");
             return false;
         }
         $("#registForm").submit();
