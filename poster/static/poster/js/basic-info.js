@@ -18,6 +18,10 @@ function submitinfo(){
 		return false;
 	}
 
+	if(postname.length > 20){
+		yyAlert("海报名称不能超过20字符");
+		return false;
+	}
 
 
 	if(postdesc == ''){
