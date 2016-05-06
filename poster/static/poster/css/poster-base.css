@@ -1,7 +1,6 @@
 @charset "utf-8";
 /* CSS Document */
-body,html{height: 100%;overflow-x: hidden;
-}
+body,html{height: 100%;overflow-x: hidden;}
 /*icons*/
 .ico-pages,.ico-music{width:20px;height:20px;display:inline-block; background-repeat:no-repeat; background-position:center center; background-size:100% 100%;}
 .ico-pages{ background-image:url(/static/website/images/icons/ico-pages.png);}
@@ -34,7 +33,7 @@ body,html{height: 100%;overflow-x: hidden;
 /*clear*/
 .rate-level:after{content:"";display:block;height:0;clear:both;}
 /*defaut style*/
-body,.scroll-content,.bar-footer{max-width:600px;margin:0 auto;font-family:"Microsoft YaHei";}
+.scroll-content,.bar-footer{max-width:600px;margin:0 auto;font-family:"Microsoft YaHei";}
 .scroll-content{padding-top:0;}
 .bar-header,.tabs{ background-image:none;border:none;max-width:600px;margin:0 auto;    z-index: 100;}
 .bar-header,.bar-footer{background:#000;}
@@ -198,6 +197,8 @@ to {-moz-transform:rotate(360deg)
 
 
 
+
+.container-fluid{padding: 44px 0;width: 100%;max-width:600px;position: absolute;height: 100%;overflow-y: scroll;overflow-x: hidden;}
 .container-fluid{padding: 40px 0;}
 .bar-header, .bar-footer {background: #000;}
 
@@ -208,6 +209,9 @@ to {-moz-transform:rotate(360deg)
 .abutton-info section i{margin:13px;float: left;}
 .abutton-info section span{vertical-align: top;line-height: 49px;font-size:18px;background: #f0f0f0;position:absolute;left: 50px;width: 100%;padding-left: 5px;}
 section.clock span{left: 62px;}
+
+.abutton-info .clock .text{line-height: 24px;font-weight: 100;font-size: 18px;font-style: normal;}
+.abutton-info section li{display: block;border-bottom: 1px solid #fff;height: 50px;display:block;overflow: hidden;}
 .abutton-info section span input[type="text"]{border:0;background:none;width:100%;padding:10px;line-height:20px;font-size:16px;}
 .abutton-info section li{display: block;border-bottom: 1px solid #000;height: 50px;display:block;overflow: hidden;}
 .abutton-info section li:last-child{border-bottom: none;}
@@ -218,7 +222,7 @@ section.clock span{left: 62px;}
 .feedback-contrainar .card .item {font-size: 0.9em;}
 .item-avatar{padding-left: 72px;min-height: 72px;}
 .row {display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -moz-flex;display: -ms-flexbox;display: flex;padding: 5px;width: 100%;margin: 0px;}
-.col {-webkit-box-flex: 1;-webkit-flex: 1;-moz-box-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;padding: 5px;width: 100%;}
+.col{line-height: 20px;}
 
 .abutton-info .clock .text{
 	line-height: 24px;
@@ -234,3 +238,4 @@ section.clock span{left: 62px;}
 .bar-header .btn-page{ position: relative;}
 .bar-header .btn-page i{ position:absolute;top:50%;margin-top:-10px;}
 .edit-bar-header .title{margin:0 70px 0 0;}
+

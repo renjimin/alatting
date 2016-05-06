@@ -6,7 +6,6 @@ function showHeaderTools(){
 	}else{
 		$('#abutton').addClass('open');
 	}
-
 	$('.abutton-info').removeClass('open');
 	currentAbtn = null;
 }
@@ -16,11 +15,9 @@ function showDetails(e) {
 	var btnType = icon.attr("class").split(' ')[1].split('-')[1];
 	var topOffset = icon.offset().top+icon.height() - 30;
 	var leftOffset = icon.offset().left+icon.width()/2 - 12;
-
 	if(icon.height() >= icon.width()){
 		topOffset = icon.offset().top+icon.height()/2 + 15 - 30;
 	}
-
 	$('.abutton-info').css('top',topOffset);
 	$('.abutton-info .arrow').css('left',leftOffset);
 	if(currentAbtn == btnType){
