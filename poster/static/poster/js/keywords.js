@@ -70,7 +70,7 @@ $(function(){
             return;
         }
         if(getCharLen(newKwn)>50||getCharLen(newKwv)>50){
-            yyAlert('请填写的词汇过多');
+            yyAlert('您填写的词汇过多');
             return;
         }
 
@@ -147,10 +147,7 @@ $(function(){
 
     /*返回*/
     $('#goback').on('click',function(){
-        var newKwn = $.trim($('#newKwn').val());
-        var newKwv = $.trim($('#newKwv').val());
-        var num = $('#ed-content').children().length;
-        if(newKwn != ''|| newKwv != '' || num!=0){
+        if(checkEdit()){
             yyConfirm('您当前有编辑过的内容，确定要退出吗？',function(){
                 window.history.back();
             });
@@ -158,7 +155,36 @@ $(function(){
             window.history.back();
         }
     });
+
+    /*点击头部类别时返回类别选择页面*/
+    $(".kw-list-li").on('click',function(){
+        var item = $(this).attr('data-item');
+        var main_category_id = $('#main_category_id').val();
+        var sub_category_id = $('#sub_category_id').val();
+        if(item=='main'){
+            var url = '/?main_category_id='+main_category_id;
+        }else{
+            var url = '/?main_category_id='+main_category_id+'&sub_category_id='+sub_category_id;
+        }
+        if(checkEdit()){
+            yyConfirm('您当前有编辑过的内容，确定要重新选择行业类别吗？',function(){
+                window.location.href=url;
+            });
+        }else{
+            window.location.href=url;
+        }
+    });
 });
+
+function checkEdit(){
+    var newKwn = $.trim($('#newKwn').val());
+    var newKwv = $.trim($('#newKwv').val());
+    var num = $('#ed-content').children().length;
+    if(newKwn != ''|| newKwv != '' || num!=0){
+        return true;
+    }
+    return false;
+}
 
 function getCharLen(char){
     var leng=0;
