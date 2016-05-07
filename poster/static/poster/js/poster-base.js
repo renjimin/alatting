@@ -58,9 +58,8 @@ $(function(){
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
                           $.fn.uploads.showDialog(function(data){
-                                $('.header-logo img').css('background-image', 'url(' + data.file + ')');
-                                $('.header-logo img').css('background-size', 'cover');
-                                storageAPI.setCss(".header-logo img", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                                $('.header-logo img').attr("src",data.file);
+                                storageAPI.setHead("logo_img",data.file);                            
                            }); 
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
@@ -277,6 +276,7 @@ $(function(){
                 $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
             }
         }
+        //logo本地存储
         if(pageHeadData.logo_img){
             $('.header-logo img').attr("src",pageHeadData.logo_img);       
         }
