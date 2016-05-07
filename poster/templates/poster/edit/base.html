@@ -1,0 +1,40 @@
+{% extends 'poster/base.html' %}
+{%load static %}
+
+{% block base_header_css %}
+    {{ block.super }}
+    {% include "poster/edit/header-css.html" %}
+{% endblock %}
+
+{% block base_header_js %}
+    <script>
+        var yunyeEditorGlobal = {
+            posterId: "{{ poster.id }}",
+            posterPageId: "{{ posterpage.id }}",
+            address: "{{ poster.address }}",
+            mobile: "{{ poster.mobile }}",
+            phone: "{{ poster.phone }}",
+            email: "{{ poster.email }}",
+            updated_at: "{{ poster.updated_at }}"
+        }
+        var logoTitleType = "image",clockType = "weekly";
+    </script>
+
+    {{ block.super }}
+    {% include "poster/edit/header-js.html" %}
+{% endblock %}
+
+{% block base_body_header %}
+    {% include "poster/edit/header-bar.html" %}
+{% endblock %}
+
+{% block base_body_inner %}
+    {% include "poster/edit/poster-header.html" %}
+    {% block poster_base_body %}
+    {% endblock %}
+{% endblock %}
+
+{% block base_body_footer %}
+    {% include "poster/edit/footer.html" %}
+    {% include "poster/edit/plugins.html" %}
+{% endblock %}

@@ -7,7 +7,7 @@ from alatting_website.models import CategoryKeyword
 
 class PosterEditView(DetailView):
     model = PosterPage
-    template_name = 'poster/edit.html'
+    template_name = 'poster/edit/edit.html'
 
     def get_context_data(self, **kwargs):
         ctx = super(PosterEditView, self).get_context_data(**kwargs)

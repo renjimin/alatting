@@ -31,12 +31,12 @@ var curentOpts={};
             s.upload(btn);
             s.addControlListen(btn);
         }
-		s.edit = function(element){
+        s.edit = function(element){
             isEdit = true;
             btn = null;
             btn = element.clone();
             defaults.container.find('.btn-container').empty().append(btn);
-			currentElebox = element.parent();
+            currentElebox = element.parent();
             //s.upload(btn);
             s.controlInit(btn);
             s.addControlListen(btn);
@@ -61,34 +61,35 @@ var curentOpts={};
             });
         }
         s.controlInit = function(b){
-			if(typeof(b)!='undefined'){
-				var reg = /(rotate\([\-\+]?((\d+)))/i;
-			    var wt = b.css('transform');
+            if(typeof(b)!='undefined'){
+                var reg = /(rotate\([\-\+]?((\d+)))/i;
+                var wt = b.css('transform');
                 if(wt==null){
                     wt = '';
                 }
                 var wts = wt.match (reg);
-			    var $2 = RegExp.$2;
+                var $2 = RegExp.$2;
                 if($2==null || $2 == ''){
                     $2 = 0;
                 }
-				eleopts = {
-					'href': $(b).attr('href'),
-		            'text': $(b).text(),
-		            'color': $(b).css('color')==null?'000':$(b).css('color'),
-		            'fontSize': $(b).css('font-size'),
-                    'fontFamily': $(b).css('font-family'),
-		            'background': $(b).css('background'),
-		            'opacity': $(b).css('opacity'),
-		            'boxShadow':$(b).css('box-shadow-spread'),
-		            'borderRadius':$(b).css('border-radius'),
-		            'rotate':$2,
-		            'borderColor':$(b).css('border-color'),
-		            'borderStyle':$(b).css('border-style'),
-		            'borderWidth':$(b).css('border-width')
-				}
-				$.extend(opts,eleopts);
-			}
+            eleopts = {
+                'href': $(b).attr('href'),
+                'text': $(b).text(),
+                'color': $(b).css('color')==null?'000':$(b).css('color'),
+                'fontSize': parseInt($(b).css('font-size')),
+                'fontFamily': $(b).css('font-family').replace(/'/g,""),
+                'background': $(b).css('background'),
+                'opacity': $(b).css('opacity'),
+                'boxShadow':$(b).css('box-shadow-spread'),
+                'borderRadius':$(b).css('border-radius'),
+                'rotate':$2,
+                'borderColor':$(b).css('border-color'),
+                'borderStyle':$(b).css('border-style'),
+                'borderWidth':$(b).css('border-width')
+            }
+            opts = $.extend(opts,eleopts);
+        }
+
 
 
             var href = opts.href=="javascript:void(0)"?'':opts.href
@@ -100,6 +101,7 @@ var curentOpts={};
             }
             $('.button-fontSize').val(opts.fontSize);
             $('.button-fontFamily').val(opts.fontFamily);
+            console.log(opts.fontFamily);
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
@@ -246,43 +248,43 @@ var curentOpts={};
 
 
         }
-		if(typeof(ele)=='undefined' || ele == null){
-			this.add();
-		}else{
-			this.edit(ele);
-		}
+        if(typeof(ele)=='undefined' || ele == null){
+            this.add();
+        }else{
+            this.edit(ele);
+        }
 
 
     }
-	function buttonConfirm(){
+    function buttonConfirm(){
         var cnd = $('<div class="cnd-element button-element">'
-				+'<div class="element-box">'
-				+'	<div class="element-box-contents">'
-				+'		'
-				+'	</div>'
-				+'</div>'
-				+'<div class="nbar nbar-rotate nbar-radius"></div>'
-				+'<div class="nbar nbar-line"></div>'
-				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
-				+'<div class="nbar nbar-se nbar-radius"></div>'
-				+'<div class="nbar nbar-sw nbar-radius"></div>'
-				+'<div class="nbar nbar-ne nbar-radius"></div>'
-			+'</div>');
+                +'<div class="element-box">'
+                +'    <div class="element-box-contents">'
+                +'        '
+                +'    </div>'
+                +'</div>'
+                +'<div class="nbar nbar-rotate nbar-radius"></div>'
+                +'<div class="nbar nbar-line"></div>'
+                +'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
+                +'<div class="nbar nbar-se nbar-radius"></div>'
+                +'<div class="nbar nbar-sw nbar-radius"></div>'
+                +'<div class="nbar nbar-ne nbar-radius"></div>'
+            +'</div>');
 
-		if(!isEdit){
-			cnd.find('.element-box-contents').append(btn.clone());
-			cnd.css({'top':$(window).height()/2-btn.height()/2+'px','left':$(window).width()/2-btn.width()/2+'px'})
-			fullcontainer.append(cnd);
+        if(!isEdit){
+            cnd.find('.element-box-contents').append(btn.clone());
+            cnd.css({'top':$(window).height()/2-btn.height()/2+'px','left':$(window).width()/2-btn.width()/2+'px'})
+            fullcontainer.append(cnd);
             scale(cnd);
-		}else{
-			currentElebox.empty().append(btn);
-		}
-		$('#button-model').removeClass('open')
-	}
+        }else{
+            currentElebox.empty().append(btn);
+        }
+        $('#button-model').removeClass('open')
+    }
 var editButtonBasic = function(){
     $("#button-basic").show();
     $("#button-border").hide();
@@ -315,6 +317,7 @@ var deleteButton = function(){
 
 }
 
+
 $(function(){
     $('#systemimg-model li').click(function(){
         $('#systemimg-model').removeClass('open');
@@ -323,24 +326,32 @@ $(function(){
         addSystemimg(eleobj);
     });
 })
+var openSystemimg = function(){
+    if($('#systemimg-model').hasClass('open')){
+        $('#systemimg-model').removeClass('open')
+    }else{
+        $('#systemimg-model').addClass('open')
+    }
+
+}
 var addSystemimg = function(eleobj){
     var cnd = $('<div class="cnd-element systemimg-element">'
-				+'<div class="element-box">'
-				+'	<div class="element-box-contents">'
-				+'		'
-				+'	</div>'
-				+'</div>'
-				+'<div class="nbar nbar-rotate nbar-radius"></div>'
-				+'<div class="nbar nbar-line"></div>'
-				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit" style="display: none;"><i class="glyphicon glyphicon-pencil"></i></div>'
-				+'<div class="nbar nbar-se nbar-radius"></div>'
-				+'<div class="nbar nbar-sw nbar-radius"></div>'
-				+'<div class="nbar nbar-ne nbar-radius"></div>'
-			+'</div>');
+                +'<div class="element-box">'
+                +'    <div class="element-box-contents">'
+                +'        '
+                +'    </div>'
+                +'</div>'
+                +'<div class="nbar nbar-rotate nbar-radius"></div>'
+                +'<div class="nbar nbar-line"></div>'
+                +'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-nw nbar-radius nbar-edit" style="display: none;"><i class="glyphicon glyphicon-pencil"></i></div>'
+                +'<div class="nbar nbar-se nbar-radius"></div>'
+                +'<div class="nbar nbar-sw nbar-radius"></div>'
+                +'<div class="nbar nbar-ne nbar-radius"></div>'
+            +'</div>');
     cnd.find('.element-box-contents').append(eleobj);
     cnd.hide();
     fullcontainer.append(cnd);
