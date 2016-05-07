@@ -1,0 +1,38 @@
+.content{
+    padding: 10px;
+    position: relative;
+    height:100%;
+}
+
+.content > div{
+    background: #B5B1AB;
+    overflow: hidden;
+}
+
+.content > .cndiv1{
+    -webkit-clip-path: polygon(0 32.5%, 100% 0, 100% 67.5%,0 100%);
+    clip-path: url(#cndiv1);
+    position: absolute;
+    width:48.5%;
+    left:1%;
+    height:75%;
+}
+
+.content > .cndiv2{
+    -webkit-clip-path: polygon(0 0, 100% 32.5%, 100% 100%,0 67.5%);
+    clip-path: url(#cndiv2);
+    position: absolute;
+    right: 1%;
+    width:48.5%;
+    height:75%;
+}
+
+.content > .cndiv3{
+    -webkit-clip-path: polygon(0 50%, 50% 0, 100% 50%,50% 100%);
+    clip-path: url(#cndiv3);
+    position: absolute;
+    width:98%;
+    top: 54%;
+    left:1%;
+    height:50%;
+}
