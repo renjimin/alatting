@@ -1,0 +1,32 @@
+.text-model{
+    position: absolute;
+    left: 0;
+    bottom: -265px;
+    z-index: 80;
+    height: 265px;
+    width: 100%;
+}
+.text-element{
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    z-index: 100;
+    max-width: 200px;
+    height: auto;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px;
+    border: 2px dashed transparent;
+    text-align: center;
+    word-break: break-all;
+}
+.text-element-act{
+    border-color: #1a0605;
+}
+#text-slide-down{
+    height: 30px;
+    background: #373737;
+    text-align: center;
+    color:#00e8d4;
+    font-size: 24px;
+}

@@ -178,7 +178,7 @@ $(function(){
         });              
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
-        $("#teditor").hide();
+//        $("#teditor").hide();
     });
 
     //改变文字颜色

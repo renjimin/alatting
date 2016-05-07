@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="{% static 'poster/plugins/textEditor/jquery.textEditor.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 
-    <link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}">
+<link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}">
 
-    <link rel="stylesheet" href="{% static 'poster/css/poster-edit-base.css' %}">
-    <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
+<link rel="stylesheet" href="{% static 'poster/css/poster-edit-base.css' %}">
+<link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
+<link rel="stylesheet" href="{% static 'poster/plugins/textEditor/teditor.css' %}">
 
 {% endblock %}
 
@@ -181,7 +182,6 @@
 
 {% block base_body_footer %}
     <div id="colorBox" style="position: absolute;z-index: 100;overflow: scroll;width: 100%;"></div>
-    <div  class="teditor" id="teditor" style="position: absolute;z-index: 100;overflow: hidden;width: 100%;top:0;"></div>
     <div class="bar-footer bar">
         <a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
             <i class="icon ico-edit-text"></i>
@@ -198,10 +198,10 @@
         
         <section class="dropdown-panel" id="share-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon ico-text"></i></a>
-                <a href="#" class="tab-item"><i class="icon ico-text-space"></i></a>
-                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
-                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
+                <a href="javascript:void(0);" class="tab-item share-text"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item share-edit"><i class="icon ico-text-space"></i></a>
+                <a href="javascript:void(0);" class="tab-item share-copy"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" class="tab-item shate-delet"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="rate-panel">
@@ -227,6 +227,11 @@
             </div>
         </section>
     </div>
+<div class="text-model" id="text-model">
+    <div class="teditor" id="teditor"></div>
+    <div id="text-slide-down"><span class="glyphicon glyphicon-triangle-bottom"></span></div>
+    <div id="text-hide-def"></div>
+</div>
 <div class="type-model button-model" id="button-model">
     <div class="model-header">
         <!--<a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>-->
@@ -374,4 +379,5 @@
 <script src="{% static 'poster/plugins/button/scale.js' %}"></script>
 <script src="{% static 'poster/plugins/button/button-edit.js' %}"></script>
 <script src="{% static 'poster/js/baidumap.js' %}"></script>
+<script src="{% static 'poster/plugins/textEditor/teditor.js' %}"></script>
 {% endblock %}
