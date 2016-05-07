@@ -94,7 +94,8 @@
 				var $fileBox = $('#fileBox_'+file.id);
 				var $diyBar = $fileBox.find('.diyBar');	
 				showDiyProgress( 0, $diyBar , '上传失败!' );
-				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
+				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason
+				console.log('uploadError');
 				if ( errorCallBack ) {
 					errorCallBack( err );
 				}
@@ -173,7 +174,7 @@
 	//实例化Web Uploader
 	function getUploader( opt ) {
 
-		return new WebUploader.Uploader( opt );;
+		return new WebUploader.Uploader( opt );
 	}
 	
 	//操作进度条;
