@@ -16,7 +16,7 @@ $(function(){
     });
 
     $('#type-model-ftcat').height($(window).height() - 60);
-    $('#type-model-ftcat-container').css("max-height", $(window).height()*0.618+'px');
+    $('#type-model-ftcat-container').css("max-height", ($(window).height() - 70)+'px');
     $("#ftcatelist .item-link").click(function(){
         $(this).parent().addClass('open');
         $(this).parent().siblings().removeClass('open').find('.sublist').slideUp(200);
