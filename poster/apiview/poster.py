@@ -1,11 +1,13 @@
 # coding=utf-8
 import base64
+from _datetime import datetime
 import json
 
+import pytz
 from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
-    RetrieveUpdateAPIView, UpdateAPIView)
+    RetrieveUpdateAPIView, UpdateAPIView, get_object_or_404)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -134,6 +136,37 @@ class CheckPosterUniqueNameView(APIView):
         return Response({'exists': exists})
 
 
+class PosterStatusView(APIView):
+    """获取当前营业状态的api"""
+
+    def get(self, request, *args, **kwargs):
+        poster = get_object_or_404(Poster, id=self.kwargs['pk'])
+        try:
+            timezone = pytz.timezone(poster.lifetime_timezone)
+        except pytz.UnknownTimeZoneError:
+            timezone = "Asia/Shanghai"
+        now = datetime.now(tz=timezone)
+        day_now = now.strftime('%Y-%m-%d')
+        status = 'Disable'
+        lifetime_dict = json.loads(poster.lifetime_value)
+        if poster.lifetime_type in ['specific_days', 'weekly']:
+            make_time = lambda x, y: datetime.strptime(x + ' ' + y, '%Y-%m-%d %H:%M:%S')
+            if poster.lifetime_type == 'specific_days':
+                if day_now in lifetime_dict.keys() and lifetime_dict[day_now]['enabled']:
+                    start_time = make_time(day_now, lifetime_dict[day_now]['time_start'])
+                    end_time = make_time(day_now, lifetime_dict[day_now]['time_end'])
+                    if timezone.localize(start_time) <= now <= timezone.localize(end_time):
+                        status = 'Enable'
+            else:
+                weekday = now.strftime('%A')
+                if weekday in lifetime_dict.keys() and lifetime_dict[weekday]['enabled']:
+                    start_time = make_time(day_now, lifetime_dict[weekday]['time_start'])
+                    end_time = make_time(day_now, lifetime_dict[weekday]['time_end'])
+                    if timezone.localize(start_time) <= now <= timezone.localize(end_time):
+                        status = 'Enable'
+        return Response({'detail': status})
+
+
 class SystemImageListView(ListAPIView):
     model = SystemImage
     serializer_class = SystemImageListSerializer
@@ -173,6 +206,8 @@ class PosterSaveContentMixin(object):
             if k == "lifetime":  # 设置生存期结构体
                 for l, lv in head_json[k].items():
                     setattr(instance, l, lv)
+                    if l == 'lifetime_value':
+                        setattr(instance, l, json.dumps(lv))
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
                 for ck in head_json[k]:  # 一个个添加关键词
