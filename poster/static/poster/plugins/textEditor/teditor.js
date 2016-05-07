@@ -1,7 +1,9 @@
+
 $(function(){
     $('#text-element-act').tEditor({});
 
-    $('.share-text').on('click',function(){
+    $('.share-text').on('touchend',function(e){
+        e.stopPropagation();
         addDefTextElement();
     });
 /*
@@ -14,7 +16,8 @@ $(function(){
         }
     });
 */
-    $('#text-slide-down').on('click',function(){
+    $('#text-slide-down').on('click',function(e){
+        e.stopPropagation();
         $('#text-model').animate({bottom:'-265px'},200);
     });
 
@@ -55,6 +58,7 @@ $(function(){
     });
 
 });
+
 
 var addDefTextElement = function(){
     var cnd = $('<div class="cnd-element text-element">'
