@@ -57,12 +57,11 @@ $(function(){
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.uploads({
-                        pick:'tet',
-                        success:function(data){
-                            console.log(1);
-                        }
-                    })
+                          $.fn.uploads.showDialog(function(data){
+                                $('.header-logo img').css('background-image', 'url(' + data.file + ')');
+                                $('.header-logo img').css('background-size', 'cover');
+                                storageAPI.setCss(".header-logo img", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           }); 
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
@@ -122,19 +121,11 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                        console.log('start');
-                        $.uploads({
-                                url:'/api/v1/poster/upload/logo',
-                                pick:'haha',
-                                success:function(data){
-                                    console.log(data)
-                                }
-                        })
-                        console.log(43)
-                            //$('.yunye-template').css('background-image', 'url(' + options.file + ')');
-                            //$('.yunye-template').css('background-size', 'cover');
-                            //storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                             //});                        
+                          $.fn.uploads.showDialog(function(data){
+                                $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                                $('.yunye-template').css('background-size', 'cover');
+                                storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           });                     
                     }},
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
@@ -212,12 +203,13 @@ $(function(){
                         })                    
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.uploads({
-                        pick:'tet',
-                        success:function(data){
-                            console.log(1);
-                        }
-                    })
+                          $.fn.uploads.showDialog(function(data){
+                                console.log(data)
+                                $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
+                                $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                                storageAPI.setCss(".qrcode .btn", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});
+                                storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                               
+                           });     
                 }}],
             followMouse:true
         });                    

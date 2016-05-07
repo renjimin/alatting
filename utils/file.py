@@ -7,7 +7,7 @@ import uuid
 import os
 import time
 from django.core.files.storage import FileSystemStorage
-
+MAX_BUFF_SIZE = 65535
 
 class OverwriteStorage(FileSystemStorage):
     def get_available_name(self, name, max_length=None):
@@ -127,11 +127,18 @@ def read_template_file_content(file_path):
     return ''.join(content)
 
 
+def spilt_string(string, width):
+    """按照固定长度来拆分一个字符串"""
+    return [string[x:x+width] for x in range(0, len(string), width)]
+
+
 def save_file(file_full_path, content):
     with open(file_full_path, 'w+') as destination:
-        # 按行写入前端上传的html\css\js文件
-        for line in content.split('\n'):
-            destination.write(line+'\n')
+        if len(content) < MAX_BUFF_SIZE:
+            destination.write(content)
+        else:
+            for chunk in spilt_string(content, MAX_BUFF_SIZE):
+                destination.write(chunk)
     return file_full_path.replace(settings.MEDIA_ROOT, '')
 
 
