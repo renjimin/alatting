@@ -340,6 +340,40 @@
             var obtog = $(this).siblings('.base-bot-name').children('.toggle');
             openEff(obtog);
         });
+        pluginBox.off('touchstart touchmove touchend','#effects-color-list').on('touchstart touchmove touchend','#effects-color-list',function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            if(event.type == "touchstart" ){
+                move=true;
+            }else if(event.type == "touchmove" ){
+                var e = event.originalEvent.targetTouches[0];
+                if(move){
+                    $('#eff-color-selected').show();
+                    var color = $(e.target).attr('data-color');
+                    var tbox= $('#teditor').offset();
+                    var tX = Math.floor(e.pageX-tbox.left);
+                    var tY = Math.floor(e.pageY-tbox.top);
+                    tX = tX-20;
+                    tY = tY-45;
+                    var uleft = $('#effects-color-list').offset().left;
+                    var utop = $('#effects-color-list').offset().top;
+                    var uwidth = $('#effects-color-list').parent().outerWidth();
+                    if(utop+20>e.pageY && e.pageY>utop && uleft+uwidth>e.pageX && e.pageX>uleft ){
+                        var distance = Math.floor(e.pageX-uleft);
+                        var num = Math.floor(distance/5);
+                        var color = $('#effects-color-list').children().eq(num).attr('data-color');
+                        $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':color});
+                        var efstyle = color+' 5px 5px';
+                        $element.css("text-shadow",efstyle);
+                    }else{
+                        $('#eff-color-selected').hide();
+                    }
+                }
+            }else{
+                move=false;
+                $('#eff-color-selected').hide();
+            }
+        });
         function openEff(ths){
             var tgo = ths.children('.tog-line');
             var open = ths.attr('data-tog');
@@ -397,7 +431,7 @@
         for(var i=0;i<option.colorArr.length;i++){
             cdiv += '<li class="color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
         }
-        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
+        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected" class="ted-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
         cdiv += '<div class="ted-ctrl-li ted-ctrl-font" id="ted-ctrl-font"><div class="font-list"><ul>';
         for(var i=0;i<option.fontFamily.length;i++){
             cdiv += '<li class="ted-font-li" style="font-family:\''+option.fontFamily[i]+'\';" data-fm="'+option.fontFamily[i]+'">'+option.fontFamily[i]+'</li>';
@@ -406,7 +440,7 @@
         cdiv += '<div class="ted-ctrl-li ted-ctrl-effects" id="ted-ctrl-effects">';
         cdiv += '<div class="ted-effects-li ted-effects-opacity"><div class="base-bot-name">透明度</div><div class="base-bot-value">100</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="opacity"></div></div></div></div>';
         cdiv += '<div class="ted-effects-li"><div class="ted-effects-top"><div class="base-bot-name">阴影</div> <div class="base-bot-value">0</div> <div class="base-bot-slide"> <div class="slideline"> <div class="sl-bar ted-eff-bar" data-item="shadow"></div> </div> </div> </div>';
-        cdiv += '<div class="teb-effects-bot"> <div class="base-bot-name"> <div class="toggle" data-tog="0"> <div class="tog-line"> <div class="line-left"></div> <div class="tog-btn"></div> </div> </div> </div> <div class="base-bot-value effects-style">模糊</div> <div class="base-bot-slide"> <div class="effects-color"> <ul>';
+        cdiv += '<div class="teb-effects-bot"> <div class="base-bot-name"> <div class="toggle" data-tog="0"> <div class="tog-line"> <div class="line-left"></div> <div class="tog-btn"></div> </div> </div> </div> <div class="base-bot-value effects-style">模糊</div> <div class="base-bot-slide"><div id="eff-color-selected" class="ted-color-selected"></div><div class="effects-color"><ul id="effects-color-list">';
         for(var i=0;i<option.colorArr.length;i++){
             cdiv += '<li class="ef-color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
         }
