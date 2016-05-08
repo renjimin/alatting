@@ -50,18 +50,9 @@ header {
     color: #666;
 }
 /*body*/
-.container-fluid.account-body-content {
-    position: absolute;
-    top: 44px;
-    bottom: 60px;
-    right: 0;
-    left: 0;
-    overflow-y: auto;
-    max-width: 600px;
-    margin: 0 auto;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
+.account-body-content {
+    padding-top: 44px;
+    padding-bottom: 60px;
 }
 
 /*body account*/

@@ -43,6 +43,12 @@ class IndexView(TemplateView):
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)
+        cat_filter_key = self.request.GET.get('category', '')
+        if cat_filter_key:
+            qs = qs.filter(main_category  = cat_filter_key)
+        sub_cat_filter_keys = self.request.GET.getlist('subcategory', '')
+        if sub_cat_filter_keys:
+            qs = qs.filter(sub_category__in = sub_cat_filter_keys)
         return qs
 
     def get_context_data(self, **kwargs):
