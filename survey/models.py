@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from alatting_website.models import Category
-from survey import QuestionChoices, QuestionProcessors
+from survey import *
 
 class Survey(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -138,8 +138,25 @@ class Choice(models.Model):
     value = models.CharField(u"Short Value", max_length=64)
     text = models.CharField(u"Choice Text", max_length=200)
 
-    def __unicode__(self):
-        return u'(%s) %d. %s' % (self.question.number, self.sortid, self.text)
+    def inputs(self):
+        inp = Input.objects.filter(choice=self)
+        return inp
+
+    def __str__(self):
+        return '(%s) %d. %s' % (self.question.text, self.sortid, self.text)
+
+class Input(models.Model):
+    placeholder = models.CharField(max_length=256, blank=True, null=True)
+    question = models.ForeignKey(Question, blank=True, null=True)
+    choice = models.ForeignKey(Choice, blank=True, null=True)
+    InputChoices = [
+        ('text', 'input type[text]'),
+        ('textarea', 'input type[textarea]')
+    ]
+    type = models.CharField(
+        max_length=32, choices=InputChoices
+    )
+
 
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"

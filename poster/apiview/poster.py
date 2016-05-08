@@ -15,12 +15,12 @@ from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.model.resource import Image
 from alatting_website.models import CategoryKeyword, Template
-from poster.models import SystemImage, SystemBackground
+from poster.models import SystemImage, SystemBackground, SystemMusic
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
-    PosterSaveSerializer)
+    PosterSaveSerializer, SystemMusicListSerializer)
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, save_file, \
     read_template_file_content
@@ -221,6 +221,12 @@ class SystemBackgroundListView(ListAPIView):
     queryset = SystemBackground.objects.all()
 
 
+class SystemMusicListView(ListAPIView):
+    model = SystemMusic
+    serializer_class = SystemMusicListSerializer
+    queryset = SystemMusic.objects.all()
+
+
 class PosterSaveContentMixin(object):
     """
     保存编辑修改的海报内容
@@ -233,12 +239,12 @@ class PosterSaveContentMixin(object):
     def _logo_handler(self, instance, head_json):
         if head_json["logoTitleType"] == 'image':
             try:
-                image = Image.objects.get(id=head_json["logo_image"]['id'])
+                image = Image.objects.get(file=head_json["logo_image"]['url'].replace('/media/', ''))
                 setattr(instance, "logo_image", image)
             except Exception:
                 pass # 后续加上设置默认logo图片
         if head_json["logoTitleType"] == 'text':
-            setattr(instance, "logo_title", head_json["logo_text"])
+            setattr(instance, "logo_title", head_json["logo_title"])
 
     def _css_handler(self, old_css, new_css):
         "处理一下css内容， 把最新的css更改保存到数据库中"
@@ -248,7 +254,6 @@ class PosterSaveContentMixin(object):
         return json2css(merge_json(old_json, new_json))
 
     def _save_head_info(self, instance, head_json):
-        # print(head_json)
         self._logo_handler(instance, head_json)  # 存一下logo信息
         for k, v in head_json.items():
             if k in self._head_fields():  # 存储头部其他字段
@@ -260,10 +265,11 @@ class PosterSaveContentMixin(object):
                 address.province = head_json[k]['province']
                 address.save()
             if k == "lifetime":  # 设置生存期结构体
-                for l, lv in head_json[k].items():
-                    setattr(instance, l, lv)
-                    if l == 'lifetime_value':
-                        setattr(instance, l, json.dumps(lv))
+                print('{}_{}'.format(k, v))
+                # for l, lv in head_json[k].items():
+                #     setattr(instance, l, lv)
+                #     if l == 'lifetime_value':
+                #         setattr(instance, l, json.dumps(lv))
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
                 for ck in head_json[k]:  # 一个个添加关键词

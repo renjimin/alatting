@@ -1,0 +1,3 @@
+{% for choice in qdict.choices %}
+	<label class="checkbox-inline"><input name="question_{{ question.sortid }}_{{choice.sortid}}" type="checkbox" value="{{choice.value}}">{{choice.text}}</label>
+{% endfor %}
