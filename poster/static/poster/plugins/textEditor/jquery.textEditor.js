@@ -361,10 +361,8 @@
                     if(utop+20>e.pageY && e.pageY>utop && uleft+uwidth>e.pageX && e.pageX>uleft ){
                         var distance = Math.floor(e.pageX-uleft);
                         var num = Math.floor(distance/5);
-                        var color = $('#effects-color-list').children().eq(num).attr('data-color');
-                        $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':color});
-                        var efstyle = color+' 5px 5px';
-                        $element.css("text-shadow",efstyle);
+                        ef.color = $('#effects-color-list').children().eq(num).attr('data-color');
+                        setEff($element,ef);
                     }else{
                         $('#eff-color-selected').hide();
                     }
