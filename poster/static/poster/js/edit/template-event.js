@@ -22,18 +22,18 @@ $(function () {
                         success: function (data, file) {
                             data.imgid = file.id;
                             _this.imgslider({'data': data});
-                            $(".upload-image-dialog").removeClass('open');
+                            //$(".upload-image-dialog").removeClass('open');
                             //console.info(data);
                         },
                         error: function (err) {
-                            //console.info(err);
+                            console.info(err);
                         },
                         buttonText: '选择图片上传',
                         chunked: false,
                         fileNumLimit: 4,
                         fileSingleSizeLimit: 5 * 1024 * 1024,
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
-                        compress: true,
+                        compress: false,
                         threads: 1,
                         sliderContainer: _this
                     });
@@ -48,7 +48,6 @@ $(function () {
                 text: "上传图片",
                 callback: function (obj) {
                     $.fn.uploads.showDialog(function (data) {
-                        console.log(data);
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
