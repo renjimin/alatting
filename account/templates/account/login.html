@@ -10,6 +10,7 @@
 {% endblock %}
 
 {% block base_body %}
+    {% with false as open_cellphone %}
     <form method="post" class="login" id="btnLogin">
         {% csrf_token %}
         <div class="centerdiv">
@@ -19,7 +20,7 @@
             <li class="item-input">
                 <img src="{% static 'account/img/name.png' %}">
                 <input type="text" name="username" id="id_username"
-                       placeholder="邮&nbsp;箱/手机号" required>
+                       placeholder="{% if open_cellphone %}邮&nbsp;箱/手机号{% else %}邮箱{% endif %}" required>
             </li>
             <li class="item-input">
                 <img src="{% static 'account/img/password.png' %}">
@@ -43,7 +44,7 @@
         </div>
         <input type="hidden" name="next" value="{{ next }}"/>
     </form>
-
+    {% endwith %}
 {% endblock %}
 {% block base_body_footer %}
 {% endblock %}

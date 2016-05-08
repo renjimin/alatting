@@ -2,6 +2,8 @@
  *
  */
 $(document).ready(function () {
+    var openCellphone = false;
+
     $("#id_username").prop('value', localStorage.getItem("username"));
     $("#id_password").prop('value', localStorage.getItem("password"));
     var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -20,11 +22,31 @@ $(document).ready(function () {
         //localStorage.clear();
     }
 
+    var checkUsername = function(username){
+        if(!username){
+            var text = "邮箱";
+            if(openCellphone){
+                text = "邮箱或手机号";
+            }
+            yyAlert("请输入" + text);
+            return false;
+        }
+        if(!EMAIL_REGEXP.test(username)){
+            yyAlert("邮箱格式不正确");
+            return false;
+        }
+        if(openCellphone && !PHONE_REGEXP.test(username)){
+            yyAlert("手机号码格式不正确");
+            return false;
+        }
+        return true;
+    };
+
     $("#btnok").click(function () {
         var username = $.trim($("#id_username").val());
         var password = $.trim($("#id_password").val());
-        if(!username){
-            yyAlert("请输入邮箱/手机号");
+
+        if(!checkUsername(username)){
             return false;
         }
         if(!password){
@@ -46,19 +68,13 @@ $(document).ready(function () {
         $("#btnLogin").submit();
     });
     /*注册点击获取验证码*/
+    var userExists = false;
     $("#btncode").click(function () {
-
         var btncodeoff = document.getElementById("btncodeoff");
-        var username = $("#rg_username").val();
-        if (!username) {
-            yyAlert("请输入邮箱/手机号");
+        var username = $("#id_username").val();
+        if(!checkUsername(username)){
             return false;
         }
-        if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
-            yyAlert("手机号码或邮箱号格式不对");
-            return false;
-        }
-
         $.ajax({
             type: 'POST',
             url: '/account/send_message',
@@ -67,6 +83,7 @@ $(document).ready(function () {
                 "user_existed": "0"
             },
             success: function (data) {
+                userExists = false;
                 if (typeof(data.warning) != "undefined") {
                     yyAlert(data.warning);
                     return false;
@@ -80,10 +97,15 @@ $(document).ready(function () {
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 403) {
-                    yyAlert("用户已存在");
+                    yyAlert("用户名已经存在,请更换");
+                    userExists = true;
                 }
                 else if (xhr.status == 401) {
-                    yyAlert("请使用邮箱/手机号注册");
+                    var text = "邮箱";
+                    if(openCellphone){
+                        text = "邮箱/手机号";
+                    }
+                    yyAlert("请使用"+text+"注册");
                 }
                 else {
                     yyAlert("参数错误");
@@ -93,13 +115,16 @@ $(document).ready(function () {
     });
 
     $("#btnregist").click(function () {
-        var username = $.trim($("#rg_username").val());
+        var username = $.trim($("#id_username").val());
         var code = $.trim($("#id_message").val());
         var password1 = $.trim($("#id_password1").val());
         var password2 = $.trim($("#id_password2").val());
-        if (!username) {
-            yyAlert("请输入邮箱/手机号");
+        if(!checkUsername(username)){
             return false;
+        }
+        if(userExists){
+            yyAlert("用户名已经存在,请更换");
+            return;
         }
         if (!code) {
             yyAlert("请输入验证码");
@@ -117,6 +142,10 @@ $(document).ready(function () {
             yyAlert("两次密码不一致");
             return false;
         }
+        if(password1.length < 5 || password2.length < 5){
+            yyAlert("密码长度不能小于5位");
+            return false;
+        }
         $("#registForm").submit();
     });
 
@@ -124,12 +153,7 @@ $(document).ready(function () {
     $("#btncode-psd").click(function () {
         var btncodeoff = document.getElementById("btncodeoff-psd");
         var username = $("#username").val();
-        if (!username) {
-            yyAlert("请输入已注册的邮箱/手机号");
-            return false;
-        }
-        if (!PHONE_REGEXP.test(username) && !EMAIL_REGEXP.test(username)) {
-            yyAlert("手机号码或邮箱号格式不对");
+        if(!checkUsername(username)){
             return false;
         }
         $.ajax({
@@ -164,8 +188,7 @@ $(document).ready(function () {
     $("#btnsure").click(function () {
         var writecode = $("#message").val();
         var username = $.trim($("#username").val());
-        if (!username) {
-            yyAlert("请填写用户名");
+        if(!checkUsername(username)){
             return false;
         }
         if (!writecode) {
