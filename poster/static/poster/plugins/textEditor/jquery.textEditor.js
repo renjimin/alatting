@@ -345,14 +345,21 @@
         pluginBox.off('touchstart touchmove touchend','#effects-color-list').on('touchstart touchmove touchend','#effects-color-list',function(event){
             event.preventDefault();
             event.stopPropagation();
+            var e = event.originalEvent.targetTouches[0];
             if(event.type == "touchstart" ){
-
-                move=true;
+                var targ=$(event.target);
+                ef.color = targ.attr('data-color');
+                var tbox= $('#teditor').offset();
+                var tX = Math.floor(e.pageX-tbox.left)-20;
+                var tY = Math.floor(e.pageY-tbox.top)-45;
+                $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':ef.color});
+                setEff($element,ef);
+                var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+                openEff(obtog);
             }else if(event.type == "touchmove" ){
-                var e = event.originalEvent.targetTouches[0];
+                move=true;
                 if(move){
                     $('#eff-color-selected').show();
-                    var color = $(e.target).attr('data-color');
                     var tbox= $('#teditor').offset();
                     var tX = Math.floor(e.pageX-tbox.left)-20;
                     var tY = Math.floor(e.pageY-tbox.top)-45;
