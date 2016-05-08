@@ -77,8 +77,7 @@
                 $element = $prevElement.last();
                 $element.trigger('click');
             }else{
-                var height = $('#text-model').outerHeight();
-                $('#text-model').animate({bottom:'-'+height+'px'},200);
+                $('#text-model').fadeOut(200);
                 $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
