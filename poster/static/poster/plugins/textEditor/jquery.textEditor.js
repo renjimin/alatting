@@ -85,7 +85,7 @@
                 $element.trigger('click');
             }else{
                 $('#text-model').animate({'bottom':'-300px'},200);
-                $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+                $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
         /*复制文本*/
