@@ -79,7 +79,7 @@
             }else{
                 var height = $('#text-model').outerHeight();
                 $('#text-model').animate({bottom:'-'+height+'px'},200);
-                $('#ele-rotate-ctrl').css({left:'-20px',top:'-20px'});
+                $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
         /*复制文本*/
@@ -89,10 +89,12 @@
             $element.parent().append($newel);
             $element.parent().children().css('z-index','100').removeClass('text-element-act');
             $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
+            $newel.domRotate({ebox:fullcontainer});
             $element = $newel;
         });
         /*文字内容编辑*/
         pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
+            clearTransform($element);
             $('.ted-text-content').fadeIn(200);
             if(option.pluginType == 'main'){
                 $('#tt-content').val($element.find('.el-content').html());
@@ -257,12 +259,14 @@
 
                     /*设置元素属性效果*/
                     if(item == 'wordspace'){
+                        clearTransform($element);
                         var size = Math.floor(20*rate/100);
-                        $element.css("letter-spacing", size+'px');
+                        $element.children('.el-content').css("letter-spacing", size+'px');
                     }
                     if(item == 'lineheight'){
+                        clearTransform($element);
                         var lh= 1+rate/100;
-                        $element.css("line-height", lh+'em');
+                        $element.children('.el-content').css("line-height", lh+'em');
                     }
                     if(item == 'opacity'){
                         rate = 100 - rate;
@@ -349,6 +353,12 @@
             $('.ted-ctrl-li').fadeOut(200);
             $('#ted-ctrl-'+item).fadeIn(200);
         });
+
+        function clearTransform($obj){
+            $obj.css('transform','').removeData('botp rbotp midp dlength').removeClass('text-element-act');
+            $obj.children('.el-editor').css('transform','');
+            $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+        }
 
     };
 
