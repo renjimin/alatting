@@ -1,11 +1,10 @@
 .text-model{
     position: absolute;
     left:0px;
-    bottom: 0px;
+    bottom: -300px;
     z-index: 699;
     height: 265px;
     width: 100%;
-    display: none;
 }
 .text-element{
     position: absolute;

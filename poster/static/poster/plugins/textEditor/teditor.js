@@ -11,7 +11,7 @@ $(function(){
 
     $('#text-slide-down').on('click',function(e){
         e.stopPropagation();
-        $('#text-model').fadeOut(200);
+        $('#text-model').animate({'bottom':'-300px'},200);
     });
 
 
@@ -40,7 +40,12 @@ $(function(){
 
     fullcontainer.on('click','.el-editor',function(e){
         e.stopPropagation();
-        $('#text-model').fadeToggle(200);
+        var bot = parseInt($('#text-model').css('bottom'));
+        if(bot<0){
+            $('#text-model').animate({'bottom':'0px'},200);
+        }else{
+            $('#text-model').animate({'bottom':'-300px'},200);
+        }
     });
 
 
