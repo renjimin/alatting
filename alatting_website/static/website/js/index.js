@@ -1,8 +1,14 @@
 $(function(){
     $("#catelist .item-link").click(function(){
-        $(this).parent().addClass('open');
-        $(this).parent().siblings().removeClass('open').find('.sublist').slideUp(200);
-        $(this).parent().find('.sublist').slideDown(200);
+        if($(this).parent().hasClass('open')){
+             $(this).parent().find('.sublist').slideUp(200);
+            $(this).parent().removeClass('open');
+        }else{
+            $(this).parent().addClass('open');
+            $(this).parent().siblings().removeClass('open').find('.sublist').slideUp(200);
+            $(this).parent().find('.sublist').slideDown(200);
+        }
+
     });
     $('#btn-create').click(function(){
         var login_url = $(this).data('login');
