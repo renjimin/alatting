@@ -95,6 +95,10 @@
             $element.parent().append($newel);
             $element.parent().children('.text-element').css('z-index','100').removeClass('text-element-act');
             $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
+            var rbotp = $element.data('rbotp');
+            $newel.data('rbotp',{left:rbotp.left,top:(rbotp.top+30)});
+            $newel.data('midp',$element.data('midp'));
+            $newel.data('botp',$element.data('botp'));
             $newel.domRotate({ebox:fullcontainer});
             $element = $newel;
         });
