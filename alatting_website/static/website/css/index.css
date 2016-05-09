@@ -5,7 +5,8 @@
 * @time   2016.05.04
 */
 /*公共*/
-body {
+body,html {
+	height: 100%;
 }
 .i-containar,
 .type-model {
@@ -281,7 +282,8 @@ body {
 .type-model-containar .list .open .sublist .subitem-link {
 	background: rgba(255,255,255,0.7);
 }
-.type-model-containar .list .open .sublist .subitem-link:active {
+.type-model-containar .list .open .sublist .subitem-link:active,
+.type-model-containar .list .open .sublist .subitem-link.active{
 	background: rgba(255,255,255,0.5);
 }
 .type-model-containar .list .item.open .item-link i,

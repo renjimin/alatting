@@ -62,18 +62,18 @@
         </ul>
 
     </div>
-    <div class="type-model" id="type-model">
+    <div class="type-model {% if request.GET.main_category_id != '' %} open {% endif %}" id="type-model">
         <div class="type-model-inner">
             <div class="type-model-containar">
-                <ul class="list" id="catelist">
+                <ul class="list" id="catelist" data-subid="{{ request.GET.sub_category_id }}">
                     {% for category in categorys %}
-                    <li class="item">
+                    <li class="item {% if request.GET.main_category_id == category.id|stringformat:"i"  %} open {% endif %}" data-id="{{ category.id }}" data-id1="{{ request.GET.main_category_id }}">
                         <a class="item-link" href="javascript:void(0);"><i class="glyphicon glyphicon-menu-down"></i>{{ category.name }}</a>
-                        <dl class="sublist">
+                        <dl class="sublist" {% if request.GET.main_category_id ==  category.id|stringformat:"i" %} style="display:block" {% endif %}>
                             {% with category.children.all as category_children %}
                             {% for category2 in category_children %}
                             <dd class="subitem">
-                                <a class="subitem-link" href="{% url 'poster:keywords' %}?sub_category_id={{category2.id}}&main_category_id={{category.id}}&cate={{ category.name|urlencode }}&subcate={{ category2.name|urlencode }}" class="item-link">{{ category2.name }}</a>
+                                <a class="subitem-link {% if request.GET.sub_category_id == category2.id|stringformat:"i"  %} active {% endif %}" href="{% url 'poster:keywords' %}?sub_category_id={{category2.id}}&main_category_id={{category.id}}&cate={{ category.name|urlencode }}&subcate={{ category2.name|urlencode }}" class="item-link">{{ category2.name }}</a>
                             </dd>
                             {% endfor %}
                             {% endwith %}
