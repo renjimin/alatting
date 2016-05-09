@@ -9,7 +9,6 @@
 {% block base_header_js %}
     {{ block.super }}
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
-    <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -44,7 +43,7 @@
             <div class="header-abutton">
                 <div class="abutton-inner" id="abutton">
                     <div class="abutton-internal">
-                        <a class="abtn" href="javascript:void(0);" onclick="showHeaderTools()"><i class="icon ico-menu"></i></a>
+                        <a class="abtn" href="javascript:void(0);"><i class="icon ico-menu"></i></a>
                     </div>
                     <ul class="abutton-group abutton-contact">
                         <li><a href="#" onclick="showDetails(this)"><i class="icon ico-phone"></i></a></li>
@@ -115,7 +114,7 @@
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-picture"></i></a>
+                <a href="#" class="tab-item"><input class="icon glyphicon glyphicon-picture" style="margin:0 auto" accept="image/*" type="file"></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-leaf"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
