@@ -4,7 +4,6 @@ $(function(){
 		currentToggle:null,
 		init:function(){
 			this.bindEvent();
-			window.showDetails=this.showDetails;
 		},
 		bindEvent:function(){
 			/* 点击页面空余部分隐藏toggle菜单 */
@@ -37,29 +36,28 @@ $(function(){
 					uiController.currentToggle = toggleTargetName;
 				}
 			});
-		},
-		showDetails:function (e) {
-			var icon = $(e).children('i');
-			var btnType = icon.attr("class").split(' ')[1].split('-')[1];
-			var topOffset = icon.offset().top+icon.height() - 30;
-			var leftOffset = icon.offset().left+icon.width()/2 - 12;
-			if(icon.height() >= icon.width()){
-				topOffset = icon.offset().top+icon.height()/2 + 15 - 30;
-			}
-			$('.abutton-info').css('top',topOffset);
-			$('.abutton-info .arrow').css('left',leftOffset);
-			if(this.currentAbtn == btnType){
-				$('.abutton-info').removeClass('open');
-				this.currentAbtn = null;
-			}else{
-				$('.abutton-info').addClass('open');
-				$('.abutton-info section').hide();
-				var ele = '.abutton-info section.' + btnType;
-				$(ele).show();
-				this.currentAbtn = btnType;
-			}
+			$('.abutton-contact li a').click(function(event){
+				var icon = $(this).children('i');
+				var btnType = icon.attr("class").split(' ')[1].split('-')[1];
+				var topOffset = icon.offset().top+icon.height() - 30;
+				var leftOffset = icon.offset().left+icon.width()/2 - 12;
+				if(icon.height() >= icon.width()){
+					topOffset = icon.offset().top+icon.height()/2 + 15 - 30;
+				}
+				$('.abutton-info').css('top',topOffset);
+				$('.abutton-info .arrow').css('left',leftOffset);
+				if(uiController.currentAbtn == btnType){
+					$('.abutton-info').removeClass('open');
+					uiController.currentAbtn = null;
+				}else{
+					$('.abutton-info').addClass('open');
+					$('.abutton-info section').hide();
+					var ele = '.abutton-info section.' + btnType;
+					$(ele).show();
+					uiController.currentAbtn = btnType;
+				}
+			});
 		}
-
 	}
 	uiController.init();
 })
