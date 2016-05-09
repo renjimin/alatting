@@ -93,16 +93,19 @@
     <div class="type-model-ftcat" id="type-model-ftcat">
         <div class="type-model-ftcat-inner">
             <div class="type-model-ftcat-container" id="type-model-ftcat-container">
-                <ul class="list" id="ftcatelist">
+                <ul class="ftcate-list" id="ftcatelist">
                     {% for category in categorys %}
-                    <li class="item">
-                        <a class="item-link" href="javascript:void(0);">{{ category.name }}</a>
-                        <dl class="sublist">
+                    <li class="ftcat-item">
+                        <a class="ftcat-item-link" href="javascript:void(0);">{{ category.name }}</a><a class="ftcat-item-sbt hidden" href="javascript:void(0);" id="ftcat-item-{{category.id}}">
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                            <span>确&nbsp;认</span>
+                        </a>
+                        <dl class="ftcat-item-sublist">
                             {% with category.children.all as category_children %}
                             {% for category2 in category_children %}
-                            <dd class="subitem">
+                            <dd class="ftcat-subitem">
                                 <label class="checkbox-inline">
-                                    <input type="checkbox" id="cat-{{category.id}}-{{category2.id}}" value="{{category.id}}-{{category2.id}}"> {{ category2.name }}
+                                    <input type="checkbox" name="ftcat-subitem-{{category.id}}" value="{{category2.id}}"> {{ category2.name }}
                                 </label>
                             </dd>
                             {% endfor %}
@@ -110,7 +113,7 @@
                         </dl>
                     </li>
                     {% empty %}
-                    <li class="item empty-info">
+                    <li class="ftcat-item empty-info">
                         获取数据失败，请稍后重试！
                     </li>
                     {% endfor %}

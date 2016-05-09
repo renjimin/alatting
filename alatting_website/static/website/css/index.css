@@ -305,6 +305,19 @@ body,html {
 	visibility: visible;
 	opacity: 1;
 }
+.type-model-ftcat .ftcat-item {
+	border-color: #ddd;
+	background-color: #fff;
+	color: #444;
+	position: relative;
+	z-index: 2;
+	display: block;
+	margin: -1px;
+	padding: 16px;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 16px;
+}
 .type-model-ftcat-inner {
 	background: rgba(0,0,0,0.4);
     height: 100%;
@@ -321,22 +334,42 @@ body,html {
     background: rgba(230,230,230,0.96);
     box-shadow: 0 6px 6px rgba(0,0,0,.1) inset;
 }
-.sublist {
-	margin: 0;
-}
 .type-model-ftcat-container a {
 	color: #444;
 	text-decoration: none;
 }
-.type-model-ftcat-container .list .item {
+.type-model-ftcat-container .ftcate-list {
+	position: relative;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	padding-left: 0;
+	margin-bottom: 20px;
+}
+.type-model-ftcat-container .ftcate-list:last-child {
+	margin-bottom: 0px;
+}
+.type-model-ftcat-container .ftcate-list .ftcat-item {
 	padding: 0;
 	background: none;
 	border-color: rgba(210,210,210,1);
 }
-.type-model-ftcat-container .list .item-link {
-	display: block;
-	padding: 10px 20px;
+.type-model-ftcat-container .ftcate-list .ftcat-item-link {
+	display: inline-block;
+    padding: 10px 20px;
+    width: 64%;
 }
+.type-model-ftcat-container .ftcate-list .ftcat-item-sbt{
+    display: inline-block;
+    padding: 5px 20px;
+    width: 36%;
+    text-align: center;
+ }
+ .type-model-ftcat-container .ftcate-list .ftcat-item-sbt span{
+    vertical-align: middle;
+ }
+ .type-model-ftcat-container .ftcate-list .ftcat-item-sbt .glyphicon{
+    font-size: 25px;
+ }
 .type-model-ftcat-click {
 	position: absolute;
     top: 0;
@@ -344,7 +377,7 @@ body,html {
     width: 100%;
     height: 100%;
 }
-/*二级*/
+/*footer 类型选择 二级*/
 .type-model-ftcat-container input[type=checkbox] {
 	-webkit-appearance: checkbox;
 	-moz-appearance: checkbox;
@@ -353,22 +386,28 @@ body,html {
 .type-model-ftcat-container .checkbox-inline {
 	margin: 0;
 }
-.type-model-ftcat-container .list .sublist {
+.type-model-ftcat-container .ftcate-list .ftcat-item-sublist {
 	position: relative;
 	border-top: 1px solid rgba(210,210,210,1);
 	display: none;
 	padding-left: 10px;
+	margin: 0;
 }
-.type-model-ftcat-container .list .sublist .subitem {
+.type-model-ftcat-container .ftcate-list .ftcat-item-sublist .ftcat-subitem {
 	display: inline-block;
 	padding-top: 5px;
     padding-bottom: 5px;
 }
+.ftcat-item.empty-info {
+	padding: 20px;
+	color: #999;
+	text-align: center;
+}
 /*open*/
-.type-model-ftcat-container .list .open .item-link {
+.type-model-ftcat-container .ftcate-list .open .ftcat-item-link {
 	background: #fff;
 }
-.type-model-ftcat-container .list .open .sublist {
+.type-model-ftcat-container .ftcate-list .open .ftcat-item-sublist {
 	box-shadow: 0 3px 3px #ccc inset;
 	background: rgba(204,204,204,0.9);
 }
