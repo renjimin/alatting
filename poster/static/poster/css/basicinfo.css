@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+input:-webkit-autofill { 
+-webkit-box-shadow: 0 0 0px 1000px #efefef inset; 
+}
+
 .main{
     margin: 0;
     padding: 0;
@@ -26,8 +30,9 @@ li{list-style: none;}
 
 .basic-ul li{
     width: 100%;
-    line-height: 5em;
+    line-height: 4em;
     border-bottom: 5px solid #383838;
+    background: #efefef;
 }
 
 .basic-ul > li >label{
@@ -126,7 +131,7 @@ max-width: 1.2em;
 
 .basicimg{
     width: 96px;
-    height: 100px;
+    height: 98px;
     display:inline-block;
 }
 

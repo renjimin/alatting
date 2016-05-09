@@ -3,7 +3,7 @@ import uuid
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render_to_response
+from django.shortcuts import get_object_or_404, render_to_response, render
 from django.views.generic import FormView
 from django.views.generic.detail import DetailView
 from rest_framework import status
@@ -154,6 +154,13 @@ class RegisterView(FormView):
     form_class = RegisterForm
     success_url = settings.LOGIN_URL
 
+    def response_error_msg(self, form, error):
+        form.initial = form.cleaned_data
+        return render(
+            self.request, self.template_name,
+            {'form': form, 'error': error}
+        )
+
     def form_valid(self, form):
         data = form.cleaned_data
         username = data['username']
@@ -161,34 +168,37 @@ class RegisterView(FormView):
         password = data['password1']
         password2 = data['password2']
         if not pwd_validate(password, password2):
-            return render_to_response('account/register.html', {'error': "两次密码输入不一致"})
+            form.initial = data
+            return self.response_error_msg(form, u'两次密码输入不一致')
         else:
             input_type = what(username)
             if not input_type:
-                return render_to_response('account/register.html', {'error': "请用邮箱或者手机号注册"})
+                form.initial = data
+                return self.response_error_msg(form, u'请用邮箱或者手机号注册')
             else:
                 try:
                     msg = LoginMessage.objects.get(username=username)
                 except LoginMessage.DoesNotExist:
-                    return render_to_response('account/register.html', {'error': "未发送过此验证码"})
+                    form.initial = data
+                    return self.response_error_msg(form, u'未发送过此验证码')
 
                 offset_naive_dt = msg.created_at.replace(tzinfo=None)
                 # 校验时间是否已过期
                 if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
-                    return render_to_response('account/register.html', {'error': "验证码已过期"})
+                    return self.response_error_msg(form, u'验证码已过期')
                 if msg.message != message:  # 校验验证码是否正确
-                    return render_to_response('account/register.html', {'error': "验证码不正确"})
+                    return self.response_error_msg(form, u'验证码不正确')
 
                 username_temp = '{}_{}'.format(username, str(uuid.uuid1()).split('-')[0])
                 if input_type == 'email':
                     user = User.objects.all().filter(email=username)
                     if len(user) != 0:
-                        return render_to_response('account/register.html', {'error': "账户已存在"})
+                        return self.response_error_msg(form, u'用户名已存在')
                     user = User.objects.create_user(username_temp, username, password)
                 else:
                     user = Person.objects.all().filter(phonenumber=username)
                     if len(user) != 0:
-                        return render_to_response('account/register.html', {'error': "账户已存在"})
+                        return self.response_error_msg(form, u'用户名已存在')
                     user = User.objects.create_user(username_temp, password=password)
                     person = Person.objects.create(phonenumber=username, user=user)
                     person.save()

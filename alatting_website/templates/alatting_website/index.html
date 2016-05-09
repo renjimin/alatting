@@ -16,7 +16,11 @@
             <a href="/?sort=hot" class="button button-clear btn-select">热门</a>
             <a href="/?sort=new" class="button button-clear btn-select">最新</a>
         </div>
-        <a href="javascript:void(0);" id="btn-create" class="button button-clear btn-create"><i class="glyphicon glyphicon-plus"></i><span>创建</span></a>
+        <a href="javascript:void(0);" id="btn-create"
+           data-login="{% if request.user.is_authenticated %}{% else %}{% url 'account:login' %}{% endif %}"
+           class="button button-clear btn-create">
+            <i class="glyphicon glyphicon-plus"></i><span>创建</span>
+        </a>
     </header>
     <div class="containar i-containar">
         <ul class="image-list">
@@ -83,6 +87,36 @@
                 </ul>
             </div>
             <div class="type-model-click" id="hide-cate"></div>
+        </div>
+    </div>
+
+    <div class="type-model-ftcat" id="type-model-ftcat">
+        <div class="type-model-ftcat-inner">
+            <div class="type-model-ftcat-container" id="type-model-ftcat-container">
+                <ul class="list" id="ftcatelist">
+                    {% for category in categorys %}
+                    <li class="item">
+                        <a class="item-link" href="javascript:void(0);">{{ category.name }}</a>
+                        <dl class="sublist">
+                            {% with category.children.all as category_children %}
+                            {% for category2 in category_children %}
+                            <dd class="subitem">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" id="cat-{{category.id}}-{{category2.id}}" value="{{category.id}}-{{category2.id}}"> {{ category2.name }}
+                                </label>
+                            </dd>
+                            {% endfor %}
+                            {% endwith %}
+                        </dl>
+                    </li>
+                    {% empty %}
+                    <li class="item empty-info">
+                        获取数据失败，请稍后重试！
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="type-model-ftcat-click" id="hide-ftcate"></div>
         </div>
     </div>
 {% endblock %}

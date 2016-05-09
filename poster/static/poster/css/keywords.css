@@ -48,7 +48,7 @@ body{
 }
 .ed-content{
     padding:15px 0;
-    height: 110px;
+    height: 145px;
     overflow-y: auto;
     line-height: 35px;
 }
@@ -70,7 +70,7 @@ body{
 }
 .ed-choose{
     background: #f3f3f3;
-    height: 246px;
+    height: 211px;
     overflow-y: scroll;
     padding: 15px;
     border-radius: 5px;
