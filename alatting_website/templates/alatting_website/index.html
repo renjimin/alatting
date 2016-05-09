@@ -16,7 +16,11 @@
             <a href="/?sort=hot" class="button button-clear btn-select">热门</a>
             <a href="/?sort=new" class="button button-clear btn-select">最新</a>
         </div>
-        <a href="javascript:void(0);" id="btn-create" class="button button-clear btn-create"><i class="glyphicon glyphicon-plus"></i><span>创建</span></a>
+        <a href="javascript:void(0);" id="btn-create"
+           data-login="{% if request.user.is_authenticated %}{% else %}{% url 'account:login' %}{% endif %}"
+           class="button button-clear btn-create">
+            <i class="glyphicon glyphicon-plus"></i><span>创建</span>
+        </a>
     </header>
     <div class="containar i-containar">
         <ul class="image-list">

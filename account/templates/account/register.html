@@ -35,13 +35,11 @@
                 </li>
                 <li class="list-li">
                     <img src="{% static 'account/img/password.png' %}">
-                    <input class="list-input" type="password" id="id_password1" maxlength="15"
-                           name="password1" placeholder="请输入密码">
+                    {{ form.password1 }}
                 </li>
                 <li class="list-li">
                     <img src="{% static 'account/img/password.png' %}">
-                    <input class="list-input" type="password" id="id_password2" maxlength="15"
-                           name="password2" placeholder="请再次输入密码">
+                    {{ form.password2 }}
                 </li>
             </ul>
             <button type="button" id="btnregist"

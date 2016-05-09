@@ -5,6 +5,13 @@ $(function(){
         $(this).parent().find('.sublist').slideDown(200);
     });
     $('#btn-create').click(function(){
+        var login_url = $(this).data('login');
+        if(login_url != ""){
+            yyAlert("您需要登录才能创建海报", function () {
+                window.location.href = login_url;
+            });
+            return false;
+        }
         if($('#type-model').hasClass('open')){
             $('#type-model').removeClass('open');
         }else{

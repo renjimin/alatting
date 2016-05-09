@@ -16,6 +16,7 @@ else:
 class RegisterForm(forms.Form):
     username = forms.CharField(
         label=u'用户名',
+        max_length=100,
         widget=forms.TextInput(
             attrs={'placeholder': TIPS_TEXT, 'class': 'list-input-on'}
         )
@@ -27,8 +28,20 @@ class RegisterForm(forms.Form):
             attrs={'placeholder': u'验证码', 'class': 'codeinput'}
         )
     )
-    password1 = forms.CharField(label=u'密码', widget=forms.PasswordInput)
-    password2 = forms.CharField(label=u'密码确认', widget=forms.PasswordInput)
+    password1 = forms.CharField(
+        label=u'密码',
+        max_length=15,
+        widget=forms.PasswordInput(
+            attrs={'placeholder': u'请输入密码', 'class': 'list-input'}
+        )
+    )
+    password2 = forms.CharField(
+        label=u'密码确认',
+        max_length=15,
+        widget=forms.PasswordInput(
+            attrs={'placeholder': u'请再次输入密码', 'class': 'list-input'}
+        )
+    )
 
 
 class ResetPasswordForm(forms.Form):

@@ -4,8 +4,12 @@
 $(document).ready(function () {
     var openCellphone = false;
 
-    $("#id_username").prop('value', localStorage.getItem("username"));
-    $("#id_password").prop('value', localStorage.getItem("password"));
+    var tmpUsername = localStorage.getItem("username"),
+        tmpPwd = localStorage.getItem("password");
+    if(tmpUsername && tmpPwd){
+        $("#id_username").prop('value', tmpUsername);
+        $("#id_password").prop('value', tmpPwd);
+    }
     var EMAIL_REGEXP = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
