@@ -9,7 +9,7 @@
 			var arrow = $('<span class="dropdown-arrow-down"></span>');
 			arrow.css({'left':_this.position().left+_this.width()/2+'px'})
 			arrow.appendTo(a);
-　　　　　	_this.on('click',function(event){
+　　　　　		_this.on('click',function(event){
 				if(a.hasClass('open')){
 					a.removeClass('open');
 				}else{
