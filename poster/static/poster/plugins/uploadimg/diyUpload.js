@@ -86,7 +86,7 @@
 				$diyBar.fadeOut( 1000 ,function(){
 					//$fileBox.children('.diySuccess').show();
 				});
-				uploadfiles['sucess'].push({'sliderContainer':opt.sliderContainer,'file':file});
+				uploadfiles['success'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( successCallBack ) {
 					successCallBack( response, file );
 				}
