@@ -73,8 +73,6 @@ body{
     height: 246px;
     overflow-y: scroll;
     padding: 15px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
 }
 .ed-choose .col-xs-6{
@@ -109,8 +107,6 @@ body{
     background-color: #e0342b;
     color:#ffffff;
     padding: 3px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
     border-radius: 20px;
 }
 .ed-add{
@@ -148,8 +144,6 @@ body{
     width: 100px;
     background: #f3f3f3;
     font-size: 20px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
     border-radius: 5px;
     margin: 0 10px;
     border: 0;

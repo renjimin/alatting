@@ -58,25 +58,25 @@ body,html{height: 100%;overflow-x: hidden;}
 .qrcode-inner .qrcode a.btn:active{ background:#bbb;}
 .header-logo img{max-width:100%;height: 100%;}
 .abutton-group{font-size:15px; position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;transform:scale(0);-webkit-transform:scale(0);transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
-.abutton-group li {position: absolute;width: 100%;height: 100%;-webkit-transform-origin: 100% 100%;-moz-transform-origin: 100% 100%;-ms-transform-origin: 100% 100%;transform-origin: 100% 100%;overflow: hidden;left: 50%;top: 50%;margin-top: -100%;margin-left: -100%;-webkit-transition: border .3s ease;-moz-transition: border .3s ease;transition: border .3s ease;border:1px solid transparent;}
-.abutton-group li a { display: block;width: 100%;height:100%; position: absolute; bottom: -50%; right: -50%; border-radius: 50%; text-decoration: none; color: #fff;  text-align: center; transform: skew(0) rotate(-45deg) scale(1);transition: all 0.2s ease;-webkit-transition: all 0.2s ease;  box-sizing: border-box; -webkit-box-sizing:border-box;}
+.abutton-group li {position: absolute;width: 100%;height: 100%;-webkit-transform-origin: 100% 100%;transform-origin: 100% 100%;overflow: hidden;left: 50%;top: 50%;margin-top: -100%;margin-left: -100%;-webkit-transition: border .3s ease;transition: border .3s ease;border:1px solid transparent;}
+.abutton-group li a { display: block;width: 100%;height:100%; position: absolute; bottom: -50%; right: -50%; border-radius: 50%; text-decoration: none; color: #fff;  text-align: center; -webkit-transform: skew(0) rotate(-45deg) scale(1); transform: skew(0) rotate(-45deg) scale(1);transition: all 0.2s ease;-webkit-transition: all 0.2s ease;  box-sizing: border-box; -webkit-box-sizing:border-box;}
 .abutton-group li a span {  font-size: 1.1em;  opacity: 0.7;}
 .abutton-group li a .icon{font-size:20px;}
-.abutton-group li:first-child {transform: rotate(-45deg) skew(0);}
-.abutton-group li:nth-child(2) {transform: rotate(45deg) skew(0);}
-.abutton-group li:nth-child(3) {transform: rotate(135deg) skew(0);}
-.abutton-group li:nth-child(4) {transform: rotate(225deg) skew(0);}
+.abutton-group li:first-child {-webkit-transform: rotate(-45deg) skew(0);transform: rotate(-45deg) skew(0);}
+.abutton-group li:nth-child(2) {-webkit-transform: rotate(45deg) skew(0);transform: rotate(45deg) skew(0);}
+.abutton-group li:nth-child(3) {-webkit-transform: rotate(135deg) skew(0);transform: rotate(135deg) skew(0);}
+.abutton-group li:nth-child(4) {-webkit-transform: rotate(225deg) skew(0);transform: rotate(225deg) skew(0);}
 .abutton-group li a {background-color: #8d8d8d;}
-.abutton-group li:first-child  a{transform: rotate(45deg) scale(1);padding-right:67%;}
-.abutton-group li:nth-child(2) a {transform: rotate(-45deg) skew(0);padding-bottom:67%;}
-.abutton-group li:nth-child(3) a {transform: rotate(-135deg) skew(0);padding-left:67%;}
-.abutton-group li:nth-child(4) a {transform: rotate(-225deg) skew(0);padding-top:67%;}
+.abutton-group li:first-child  a{-webkit-transform: rotate(45deg) scale(1);transform: rotate(45deg) scale(1);padding-right:67%;}
+.abutton-group li:nth-child(2) a {-webkit-transform: rotate(-45deg) skew(0);transform: rotate(-45deg) skew(0);padding-bottom:67%;}
+.abutton-group li:nth-child(3) a {-webkit-transform: rotate(-135deg) skew(0);transform: rotate(-135deg) skew(0);padding-left:67%;}
+.abutton-group li:nth-child(4) a {-webkit-transform: rotate(-225deg) skew(0);transform: rotate(-225deg) skew(0);padding-top:67%;}
 .abutton-group li:first-child  a .icon,.abutton-group li:nth-child(3) a .icon{display:block;position:relative;left:0;width:100%;height:100%;}
 .abutton-group li:nth-child(2) a .icon,.abutton-group li:nth-child(4) a .icon{display:block;position:relative;top:0;width:100%;height:100%;}
 .abutton-group li:nth-child(1) a .icon:before,.abutton-group li:nth-child(3) a .icon:before{position: absolute;top:50%;left:50%;margin-top:-0.5em;margin-left:-0.5em;}
 .abutton-group li:nth-child(2) a .icon:before,.abutton-group li:nth-child(4) a .icon:before{position: absolute;top:50%;left:50%;margin-top:-0.5em;margin-left:-0.5em;}
 .btn-music.rotate:after{ background:url(/static/website/images/icons/music.gif) center center no-repeat; background-size:100% auto;position: absolute;top: -6px;right: -6px;bottom: -6px;left: -6px;content: ' ';}
-.rotate i {-webkit-animation: rotating 1.2s linear infinite;-moz-animation: rotating 1.2s linear infinite;-o-animation: rotating 1.2s linear infinite;animation: rotating 1.2s linear infinite;}
+.rotate i {-webkit-animation: rotating 1.2s linear infinite;animation: rotating 1.2s linear infinite;}
 .abutton-group li a:active{background:#ddd;}
 @-webkit-keyframes rotating {
 from {
@@ -87,16 +87,10 @@ to {-webkit-transform:rotate(360deg)
 }
 @keyframes rotating {
 from {
-transform:rotate(0deg)
+-webkit-transform:rotate(0deg);
+        transform:rotate(0deg)
 }
-to {transform:rotate(360deg)
-}
-}
-@-moz-keyframes rotating {
-from {
--moz-transform:rotate(0deg)
-}
-to {-moz-transform:rotate(360deg)
+to {-webkit-transform:rotate(360deg);transform:rotate(360deg)
 }
 }
 /* active style */
@@ -125,12 +119,12 @@ to {-moz-transform:rotate(360deg)
 .yellow {background-color: yellow;}
 .pink { background-color: pink;}
 
-.dropdown-panel{position:absolute;bottom:100%;left:0;width: 100%; background-color: rgba(0,0,0,.8);-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.35);box-shadow: 0 0 10px rgba(0,0,0,0.35);padding: 0;opacity: 0;visibility: hidden;-webkit-transition: -webkit-transform 0.15s ease, opacity 0.15s ease;transition: transform 0.15s ease, opacity 0.15s ease;-webkit-transform: scale(0.95);-ms-transform: scale(0.95);transform: scale(0.95);-webkit-transform-origin: top right;-ms-transform-origin: top right;transform-origin: top right;}
+.dropdown-panel{position:absolute;bottom:100%;left:0;width: 100%; background-color: rgba(0,0,0,.8);box-shadow: 0 0 10px rgba(0,0,0,0.35);padding: 0;opacity: 0;visibility: hidden;-webkit-transition: -webkit-transform 0.15s ease, opacity 0.15s ease;-webkit-transition: opacity 0.15s ease, -webkit-transform 0.15s ease;transition: opacity 0.15s ease, -webkit-transform 0.15s ease;transition: transform 0.15s ease, opacity 0.15s ease;transition: transform 0.15s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;-webkit-transform: scale(0.95);transform: scale(0.95);-webkit-transform-origin: top right;transform-origin: top right;}
 
-.dropdown-panel.open{visibility: visible;opacity: 1;-webkit-transform: scale(1);-ms-transform: scale(1);transform: scale(1);}
+.dropdown-panel.open{visibility: visible;opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 .dropdown-panel .dropdown-arrow-down{display:block;width:0;height:0;border-top:6px solid rgba(0,0,0,.8);border-left:6px solid transparent;border-right:6px solid transparent; position:absolute;bottom:0;margin-bottom:-6px;left:50%;}
 /*footer*/
-.share-group{display: -webkit-box;display: -webkit-flex; display: -moz-box; display: -moz-flex;display: -ms-flexbox;display: flex;color:#fff;}
+.share-group{display: -webkit-box;display: -webkit-flex; display: -moz-flex;display: -ms-flexbox;display: flex;color:#fff;}
 .rate-info{padding:15px 0;}
 .rate-action{ background:#666; text-align:center;    font-size: 32px;}
 .rate-action .rate-star{line-height:40px;height:40px;display:inline-block; vertical-align: middle;color:#999;padding:4px;}
@@ -165,8 +159,8 @@ to {-moz-transform:rotate(360deg)
 .feedback-contrainar .card .det{background:#fff;padding:10px;border-radius:0 0 5px 5px; position:relative;    min-height: 70px;}
 .feedback-contrainar .card .det:after{content:"";display:block;position:absolute;top:10px;left:-6px;width:0;height:0;border-right:6px solid #fff;border-top:6px solid transparent;border-bottom:6px solid transparent;}
 .feedback-contrainar .card .item-avatar > img:first-child{ margin-top:20px;}
-.col-15 {-webkit-box-flex: 0;-webkit-flex: 0 0 15%;-moz-box-flex: 0;-moz-flex: 0 0 15%;-ms-flex: 0 0 15%;flex: 0 0 15%; max-width: 15%;}
-.col-35 {-webkit-box-flex: 0;-webkit-flex: 0 0 35%;-moz-box-flex: 0;-moz-flex: 0 0 35%;-ms-flex: 0 0 35%;flex: 0 0 35%; max-width: 35%;}
+.col-15 {-webkit-box-flex: 0;-webkit-flex: 0 0 15%;-moz-flex: 0 0 15%;-ms-flex: 0 0 15%;flex: 0 0 15%; max-width: 15%;}
+.col-35 {-webkit-box-flex: 0;-webkit-flex: 0 0 35%;-moz-flex: 0 0 35%;-ms-flex: 0 0 35%;flex: 0 0 35%; max-width: 35%;}
 .stats-types{ }
 .stats-types .row{padding:0;    border-top: 3px solid transparent;}
 .stats-types .col-15{background-color: #6b6e73; color:#fff;text-align:center;font-size:24px;padding:10px;}
@@ -179,7 +173,7 @@ to {-moz-transform:rotate(360deg)
 
 
 /* 继承自ionic */
-.bar {display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -moz-flex;display: -ms-flexbox;display: flex;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;position: absolute;right: 0;left: 0;z-index: 9;-webkit-box-sizing: border-box;-moz-box-sizing: border-box;box-sizing: border-box;padding: 5px;width: 100%;height: 40px;border-width: 0;border-style: solid;border-top: 1px solid transparent;border-bottom: 1px solid #ddd;background-color: white;background-size: 0;}
+.bar {display: -webkit-box;display: -webkit-flex;display: -moz-flex;display: -ms-flexbox;display: flex;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;position: absolute;right: 0;left: 0;z-index: 9;box-sizing: border-box;padding: 5px;width: 100%;height: 40px;border-width: 0;border-style: solid;border-top: 1px solid transparent;border-bottom: 1px solid #ddd;background-color: white;background-size: 0;}
 .bar .title {display: block;position: absolute;top: 0;right: 0;left: 0;z-index: 0;overflow: hidden;margin: 0 10px;min-width: 30px;height: 43px;text-align: center;text-overflow: ellipsis;white-space: nowrap;font-size: 1.1em;font-weight: 500;line-height: 40px;color: #fff;font-family: "Microsoft YaHei";}
 .bar .title + .button:last-child, .bar > .button + .button:last-child, .bar > .button.pull-right, .bar .buttons.pull-right, .bar .title + .buttons {position: absolute;top: 5px;right: 5px;bottom: 5px;}
 .bar-footer .tab-item {opacity: 1;padding: 10px 5px;max-width: none;}
@@ -187,7 +181,7 @@ to {-moz-transform:rotate(360deg)
 .bar-footer .tab-item .icon.ico-edit-button{width:2em;}
 .bar-footer .tab-item i + span{margin-left:5px; vertical-align: top;line-height:24px;display:inline-block;}
 .bar-footer .tab-item .glyphicon{height: 1em;width: 1em;}
-.tab-item {-webkit-box-flex: 1;-webkit-flex: 1;-moz-box-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;overflow: hidden;max-width: 150px;height: 100%;color: inherit;text-align: center;text-decoration: none;text-overflow: ellipsis;white-space: nowrap;font-weight: 400;font-size: 14px;opacity: 0.7;}
+.tab-item {-webkit-box-flex: 1;-webkit-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;overflow: hidden;max-width: 150px;height: 100%;color: inherit;text-align: center;text-decoration: none;text-overflow: ellipsis;white-space: nowrap;font-weight: 400;font-size: 14px;opacity: 0.7;}
 .bar button {z-index: 1;padding: 0 8px;min-width: initial;min-height: 31px;font-weight: 400;font-size: 13px;}
 .button {border-color: transparent;background-color: #f8f8f8;color: #444;position: relative;display: inline-block;margin: 0;padding: 0 12px;min-width: 52px;min-height: 47px;border-width: 1px;border-style: solid;border-radius: 4px;vertical-align: top;text-align: center;text-overflow: ellipsis;font-size: 16px;line-height: 42px;cursor: pointer;}
 .button-clear {-webkit-transition: opacity 0.1s;transition: opacity 0.1s;padding: 0 6px;max-height: 42px;border-color: transparent;background: none;box-shadow: none;}
@@ -204,7 +198,7 @@ to {-moz-transform:rotate(360deg)
 
 .abutton-info{height: 50px;width: 100%;position: absolute;z-index: 20;display: none;}
 .abutton-info.open{display: block;}
-.abutton-info .arrow{display: block;width: 25px;height: 25px;transform: rotate(45deg);position: absolute;top: -20%;background: #f0f0f0;}
+.abutton-info .arrow{display: block;width: 25px;height: 25px;-webkit-transform: rotate(45deg);transform: rotate(45deg);position: absolute;top: -20%;background: #f0f0f0;}
 .abutton-info section{background: #e1e1e1;display: none;font-size: 24px;box-shadow:0 0 8px #999;}
 .abutton-info section i{margin:13px;float: left;}
 .abutton-info section span{vertical-align: top;line-height: 49px;font-size:18px;background: #f0f0f0;position:absolute;left: 50px;width: 100%;padding-left: 5px;}
@@ -221,7 +215,7 @@ section.clock span{left: 62px;}
 .item-avatar > img:first-child{position: absolute;top: 16px;left: 16px;max-width: 40px;max-height: 40px;width: 100%;height: 100%;border-radius: 50%;}
 .feedback-contrainar .card .item {font-size: 0.9em;}
 .item-avatar{padding-left: 72px;min-height: 72px;}
-.row {display: -webkit-box;display: -webkit-flex;display: -moz-box;display: -moz-flex;display: -ms-flexbox;display: flex;padding: 5px;width: 100%;margin: 0px;}
+.row {display: -webkit-box;display: -webkit-flex;display: -moz-flex;display: -ms-flexbox;display: flex;padding: 5px;width: 100%;margin: 0px;}
 .col{line-height: 20px;}
 
 .abutton-info .clock .text{
@@ -238,4 +232,3 @@ section.clock span{left: 62px;}
 .bar-header .btn-page{ position: relative;}
 .bar-header .btn-page i{ position:absolute;top:50%;margin-top:-10px;}
 .edit-bar-header .title{margin:0 70px 0 0;}
-
