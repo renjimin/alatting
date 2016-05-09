@@ -59,7 +59,7 @@
         $etrl.css({left:keepTwoValid(editorp.left-boxpx.left)+'px',top:keepTwoValid(editorp.top-boxpx.top)+'px'});
 
         /*element 移动*/
-        $element.off('touchstart touchmove touchend','.el-content').on('touchstart touchmove touchend','.el-content',function(event){
+        box.off('touchstart touchmove touchend','.el-content').on('touchstart touchmove touchend','.el-content',function(event){
             event.stopPropagation();
             var e = event.originalEvent.targetTouches[0];
             if (event.type == "touchstart"){
@@ -120,7 +120,7 @@
         });
 
         /*element 旋转缩放*/
-        $ctrl.off('touchstart touchmove touchend').on('touchstart touchmove touchend', function(event){
+        box.off('touchstart touchmove touchend','#ele-rotate-ctrl').on('touchstart touchmove touchend','#ele-rotate-ctrl', function(event){
             var e = event.originalEvent.targetTouches[0];
             event.stopPropagation();
             if (event.type == "touchstart"){

@@ -31,7 +31,7 @@
 }
 .ted-menu li.ted-menu-act{
     background-color: #626262;
-    color: #00e8d4;
+    color: #fff;
 }
 /*ted-ctrl*/
 .ted-ctrl{
@@ -244,7 +244,7 @@
     width: 40px;
     height: 100%;
     float: left;
-    background: #00e8d4;
+    background: #ffffff;
 }
 .tog-btn{
     float: left;

@@ -31,6 +31,7 @@
         var option = _this.option;
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
+        var postcontainer = $('.container-fluid').children('.yunye-template');
         var move=false;
         /*载入控件dom*/
         var ch = pluginBox.children().length;
@@ -95,7 +96,7 @@
             $element.parent().append($newel);
             $element.parent().children('.text-element').css('z-index','100').removeClass('text-element-act');
             $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
-            $newel.domRotate({ebox:fullcontainer});
+            $newel.domRotate({ebox:postcontainer});
             $element = $newel;
         });
         /*文字内容编辑*/
@@ -103,16 +104,20 @@
             clearTransform($element);
             $('.ted-text-content').fadeIn(200);
             if(option.pluginType == 'main'){
-                $('#tt-content').val($element.find('.el-content').html());
+                var cont = $element.find('.el-content').html();
             }else if(option.pluginType == 'other'){
-                $('#tt-content').val($element.html());
+                var cont = $element.html();
             }else{}
+            cont = cont.replace('<br>','\n');
+            $('#tt-content').val(cont);
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
+            var cont = $('#tt-content').val();
+            cont = cont.replace('\n','<br>');
             if(option.pluginType == 'main'){
-                $element.find('.el-content').html($('#tt-content').val());
+                $element.find('.el-content').html(cont);
             }else if(option.pluginType == 'other'){
-                $element.html($('#tt-content').val());
+                $element.html(cont);
             }else{}
         });
         pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
