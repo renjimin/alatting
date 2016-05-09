@@ -5,11 +5,12 @@ from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.db.models import SET_NULL
-from utils.db.fields import OverWriteFileField, OverWriteImageField, OverWriteVideoField, \
+from utils.db.fields import OverWriteFileField, \
     BigAutoField, BigForeignKey, BigOneToOneField
 from model_utils.managers import InheritanceManager
 from utils import file
-from alatting_website.model.statistics import PosterStatistics, HistoryStatistics
+from alatting_website.model.statistics import (PosterStatistics,
+                                               HistoryStatistics)
 
 
 class Poster(models.Model):
@@ -152,12 +153,51 @@ class Poster(models.Model):
         return reverse('website:poster', kwargs={'pk': self.id})
 
 
-class PosterPage(models.Model):
+class AbstractPageTemplate(models.Model):
+    temp_html = models.TextField(
+        default='',
+        blank=False,
+        help_text=u'保存临时修改的html内容'
+    )
+    temp_css = models.TextField(
+        default='',
+        blank=True,
+        help_text=u'保存临时修改的css内容'
+    )
+    temp_script = models.TextField(
+        default='',
+        blank=True,
+        help_text=u'保存临时修改的js内容'
+    )
+
+    class Meta:
+        abstract = True
+
+
+class PosterPage(AbstractPageTemplate):
     id = BigAutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_pages')
     template = models.ForeignKey('Template')
     index = models.SmallIntegerField(default=0)
     name = models.CharField(max_length=64, default='')
+    html = OverWriteFileField(
+        upload_to=file.get_html_path,
+        default='',
+        blank=True,
+        help_text=u'正式发布的海报html文件路径'
+    )
+    css = OverWriteFileField(
+        upload_to=file.get_css_path,
+        default='',
+        blank=True,
+        help_text=u'正式发布的海报css文件路径'
+    )
+    script = OverWriteFileField(
+        upload_to=file.get_script_path,
+        default='',
+        blank=True,
+        help_text=u'正式发布的海报js文件路径'
+    )
 
     # class Meta:
     # unique_together = ('poster', 'index')
