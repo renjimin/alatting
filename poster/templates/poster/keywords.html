@@ -13,8 +13,8 @@
 {% block base_body %}
 <div class="kw container-fluid">
     <div class="kw-list row">
-        <div class="col-xs-6 kw-list-li" data-item="mian"><a href="javascipt:;" id="cat">{{ request.GET.cate }}</a></div>
-        <div class="col-xs-6 kw-list-li hli-act" data-item="sub"><a href="javascipt:;" class="" id="subcat">{{ request.GET.subcate }}</a></div>
+        <div class="col-xs-6"><a href="javascript:void(0);" id="cat" class="kw-list-li" data-item="main">{{ request.GET.cate }}</a></div>
+        <div class="col-xs-6 hli-act"><a href="javascript:void(0);" id="subcat" class="kw-list-li"  data-item="sub">{{ request.GET.subcate }}</a></div>
         <input type="hidden" id="main_category_id" value="{{ request.GET.main_category_id }}">
         <input type="hidden" id="sub_category_id" value="{{ request.GET.sub_category_id }}">
     </div>
