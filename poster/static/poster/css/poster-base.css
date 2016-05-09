@@ -119,8 +119,9 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)
 .yellow {background-color: yellow;}
 .pink { background-color: pink;}
 
+.dropdown-toggle i{color: white;}
+.dropdown-toggle.open i{color: yellow;}
 .dropdown-panel{position:absolute;bottom:100%;left:0;width: 100%; background-color: rgba(0,0,0,.8);box-shadow: 0 0 10px rgba(0,0,0,0.35);padding: 0;opacity: 0;visibility: hidden;-webkit-transition: -webkit-transform 0.15s ease, opacity 0.15s ease;-webkit-transition: opacity 0.15s ease, -webkit-transform 0.15s ease;transition: opacity 0.15s ease, -webkit-transform 0.15s ease;transition: transform 0.15s ease, opacity 0.15s ease;transition: transform 0.15s ease, opacity 0.15s ease, -webkit-transform 0.15s ease;-webkit-transform: scale(0.95);transform: scale(0.95);-webkit-transform-origin: top right;transform-origin: top right;}
-
 .dropdown-panel.open{visibility: visible;opacity: 1;-webkit-transform: scale(1);transform: scale(1);}
 .dropdown-panel .dropdown-arrow-down{display:block;width:0;height:0;border-top:6px solid rgba(0,0,0,.8);border-left:6px solid transparent;border-right:6px solid transparent; position:absolute;bottom:0;margin-bottom:-6px;left:50%;}
 /*footer*/
@@ -176,7 +177,6 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)
 .bar {display: -webkit-box;display: -webkit-flex;display: -moz-flex;display: -ms-flexbox;display: flex;-webkit-transform: translate3d(0, 0, 0);transform: translate3d(0, 0, 0);-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;position: absolute;right: 0;left: 0;z-index: 9;box-sizing: border-box;padding: 5px;width: 100%;height: 40px;border-width: 0;border-style: solid;border-top: 1px solid transparent;border-bottom: 1px solid #ddd;background-color: white;background-size: 0;}
 .bar .title {display: block;position: absolute;top: 0;right: 0;left: 0;z-index: 0;overflow: hidden;margin: 0 10px;min-width: 30px;height: 43px;text-align: center;text-overflow: ellipsis;white-space: nowrap;font-size: 1.1em;font-weight: 500;line-height: 40px;color: #fff;font-family: "Microsoft YaHei";}
 .bar .title + .button:last-child, .bar > .button + .button:last-child, .bar > .button.pull-right, .bar .buttons.pull-right, .bar .title + .buttons {position: absolute;top: 5px;right: 5px;bottom: 5px;}
-.bar-footer .tab-item {opacity: 1;padding: 10px 5px;max-width: none;}
 .bar-footer .tab-item .icon {height: 1em;width: 1em;font-size: 24px;}
 .bar-footer .tab-item .icon.ico-edit-button{width:2em;}
 .bar-footer .tab-item i + span{margin-left:5px; vertical-align: top;line-height:24px;display:inline-block;}

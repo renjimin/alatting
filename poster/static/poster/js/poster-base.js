@@ -4,8 +4,10 @@ $(function(){
 		currentToggle:null,
 		init:function(){
 			this.bindEvent();
+			window.showDetails=this.showDetails;
 		},
 		bindEvent:function(){
+			/* 点击页面空余部分隐藏toggle菜单 */
 			$('body').click(function(){
 				$('.abutton-info').removeClass('open');
 				this.currentAbtn = null;
@@ -13,7 +15,7 @@ $(function(){
 			$('.abutton-info,#abutton').click(function(event){
 				event.stopPropagation();
 			});
-			$('.abtn').on('click',function(event) {
+			$('.abtn').click(function(event) {
 				if($('#abutton').hasClass('open')){
 					$('#abutton').removeClass('open');
 				}else{
@@ -22,22 +24,19 @@ $(function(){
 				$('.abutton-info').removeClass('open');
 				this.currentAbtn = null;
 			});
-			/* music */
-			$('#music').click(function(){
-				if($(this).hasClass('rotate')){
-					$(this).removeClass('rotate');
+			/* 底部toggle菜单 */
+			$(".dropdown-toggle").click(function(event) {
+				$(".dropdown-panel").removeClass('open');
+				$(".dropdown-toggle").removeClass('open');
+				var toggleTargetName = $(event.currentTarget).data("dropdown");
+				if(uiController.currentToggle == toggleTargetName){
+					uiController.currentToggle = null;
 				}else{
-					$(this).addClass('rotate');
+					$(event.currentTarget).addClass('open');
+					$("#" + toggleTargetName).addClass('open');
+					uiController.currentToggle = toggleTargetName;
 				}
 			});
-			/* dropdown */
-			$(".dropdown-toggle").click(function(event) {
-				$('.dropdown-panel').removeClass('open');
-				var toggleTarget = $("#" + $(event.currentTarget).data("dropdown"));
-				toggleTarget.addClass('open');
-				console.log(1);
-			});
-			window.showDetails=this.showDetails;
 		},
 		showDetails:function (e) {
 			var icon = $(e).children('i');
@@ -57,7 +56,7 @@ $(function(){
 				$('.abutton-info section').hide();
 				var ele = '.abutton-info section.' + btnType;
 				$(ele).show();
-				currentAbtn = btnType;
+				this.currentAbtn = btnType;
 			}
 		}
 
