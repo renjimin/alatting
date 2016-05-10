@@ -1,7 +1,8 @@
 # coding=utf-8
 
 from django.conf.urls import include, url
-from alatting_website.views import PosterView, IndexView, PosterCodeView, SvgClipView, DemoView, CaptureView, TestView, PosterCaptureView
+from alatting_website.views import PosterView, IndexView, IndexCategoryView, \
+    PosterCodeView, SvgClipView, DemoView, CaptureView, TestView, PosterCaptureView
 from alatting_website.view.edit_view import EditView, CreatePosterView
 from alatting_website.feeds import PosterUpdateFeed
 
@@ -21,6 +22,6 @@ urlpatterns = [
         SvgClipView.as_view(), name='svg_clip'),
 
     url(r'^search$', DemoView.as_view(), name='search'),
-    url(r'^category$', DemoView.as_view(), name='category'),
+    url(r'^category$', IndexCategoryView.as_view(), name='category'),
 
 ]

@@ -1,6 +1,7 @@
 # coding=utf-8
 from rest_framework import serializers
 from alatting_website.model.poster import Poster, PosterPage
+from poster.models import SystemImage
 from poster.serializer.resource import CategorySerializer, ImageSerializer, \
     AddressSerializer, CategoryKeywordSerializer, TemplateSerializer
 
@@ -65,3 +66,21 @@ class PosterPageSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         return attrs
         # raise serializers.ValidationError('field1 with field2 already exists')
+
+
+class PosterPublishSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = Poster
+
+
+class SystemImageListSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
+
+    def get_image_url(self, obj):
+        return obj.image.file.url if obj.image else ''
+
+    class Meta:
+        model = SystemImage
+        fields = ('id', 'image', 'image_url')

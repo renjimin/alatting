@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.contrib.auth.models import AnonymousUser, User
+from django.views.generic import CreateView
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
     RetrieveUpdateAPIView)
@@ -8,10 +9,12 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
+from poster.models import SystemImage
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer)
+    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer)
 from poster.serializer.resource import AddressSerializer
+from utils.file import handle_uploaded_file, get_image_path
 
 
 def set_dev_request_user(request):
@@ -125,3 +128,30 @@ class CheckPosterUniqueNameView(APIView):
             if not Poster.objects.filter(unique_name=name).exists():
                 exists = False
         return Response({'exists': exists})
+
+
+class PosterPublishView(RetrieveUpdateAPIView):
+    model = Poster
+    queryset = Poster.objects.all()
+    serializer_class = PosterPublishSerializer
+
+    def get_queryset(self):
+        qs = super(PosterPublishView, self).get_queryset()
+        return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
+
+    def perform_update(self, serializer):
+        pages = PosterPage.objects.filter(
+            poster_id=serializer.instance.id
+        ).order_by('-index')
+        for page in pages:
+            pass
+            # page.temp_html --> page.html
+            # page.temp_js --> page.js
+            # page.temp_css --> page.css
+        serializer.save(status=Poster.STATUS_PUBLISHED)
+
+
+class SystemImageListView(ListAPIView):
+    model = SystemImage
+    serializer_class = SystemImageListSerializer
+    queryset = SystemImage.objects.all()
