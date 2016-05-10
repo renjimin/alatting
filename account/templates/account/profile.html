@@ -5,6 +5,10 @@
 <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
 {% endblock %}
 
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'account/js/profile.js' %}"></script>
+{% endblock %}
 
 {% block base_body %}
     <header>
@@ -131,8 +135,4 @@
                 </div>
             </div>{% endfor %}</div>
     </div>
-{% endblock %}
-{% block base_footer_js %}
-<script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
-<script src="{% static 'account/js/profile.js' %}"></script>
 {% endblock %}

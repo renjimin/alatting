@@ -1,0 +1,48 @@
+{% extends 'alatting_website/index.html' %}
+{% load static %}
+{% block base_header_css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'website/css/index-category.css' %}"/>
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'website/js/index-category.js' %}"></script>
+{% endblock %}
+
+{% block footer_category %}
+    <div class="type-model-ftcat open" id="type-model-ftcat">
+        <div class="type-model-ftcat-inner">
+            <div class="type-model-ftcat-container" id="type-model-ftcat-container">
+                <ul class="ftcate-list" id="ftcatelist">
+                    {% for category in categorys %}
+                    <li class="ftcat-item">
+                        <a class="ftcat-item-link" href="javascript:void(0);">{{ category.name }}</a><a class="ftcat-item-sbt hidden" href="javascript:void(0);" id="ftcat-item-{{category.id}}">
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                            <span>确&nbsp;认</span>
+                        </a>
+                        <dl class="ftcat-item-sublist">
+                            {% with category.children.all as category_children %}
+                            {% for category2 in category_children %}
+                            <dd class="ftcat-subitem">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="ftcat-subitem-{{category.id}}" value="{{category2.id}}"> {{ category2.name }}
+                                </label>
+                            </dd>
+                            {% endfor %}
+                            {% endwith %}
+                        </dl>
+                    </li>
+                    {% empty %}
+                    <li class="ftcat-item empty-info">
+                        获取数据失败，请稍后重试！
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="type-model-ftcat-click" id="hide-ftcate"></div>
+        </div>
+    </div>
+{% endblock %}
+
+    
