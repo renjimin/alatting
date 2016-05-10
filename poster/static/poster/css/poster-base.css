@@ -193,7 +193,7 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)
 
 
 
-.container-fluid{padding: 44px 0;width: 100%;max-width:600px;position: absolute;height: 100%;overflow-y: scroll;overflow-x: hidden;}
+.container-fluid{padding: 44px 0;width: 100%;max-width:600px;position:relative;overflow-y: scroll;overflow-x: hidden;}
 .container-fluid{padding: 40px 0;}
 .bar-header, .bar-footer {background: #000;}
 
