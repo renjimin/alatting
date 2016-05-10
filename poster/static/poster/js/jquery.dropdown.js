@@ -17,8 +17,8 @@
 				id = _this.data('dropdown'),
 				a=$('#'+id),
 				pid = _this.attr('id');
-
-　　　　　		_this.on('click',function(event){
+			
+			_this.on('click',function(event){
 				if(options == null){
 					if(a.hasClass('open')){
 						_this.removeClass('open');
@@ -45,7 +45,7 @@
 						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
 						dpw.css('top',_this.offset().top + offsetY);
 						if(_option.offsetXPercent != 0 || _option.offsetX != 0){
-							var offsetX = _option.offsetXPercent * _this.width() / 100 + parseInt(_option.offsetX);
+							var offsetX = _option.offsetXPercent * _this.width() / 100 + parseInt(_option.offsetX) - dpw.width()/2;
 							dpw.css('left',_this.offset().left + offsetX);
 						}
 						var arrOffset = _option.arrowOffset * dpw.width() / 100 - 10;

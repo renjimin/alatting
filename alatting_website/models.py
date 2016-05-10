@@ -1,5 +1,7 @@
 from decimal import Decimal
+import os
 import re
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
 from alatting_website.model.statistics import (
@@ -93,12 +95,30 @@ class Address(models.Model):
         return "{:s}".format(self.address1)
 
 
-class Template(AbstractPageTemplate):
-    name = models.CharField(max_length=64)
+class Template(models.Model):
+    name = models.CharField(max_length=64, unique=True)
     image = models.ForeignKey(Image, default=None, null=True, blank=False)
 
     def __str__(self):
         return "{:s}".format(self.name)
+
+    def get_template_static_dir_path(self, with_root=False):
+        dir_root = os.path.join(settings.BASE_DIR, 'poster',
+                                'templates', 'page_template')
+        full_path = os.path.join(dir_root, self.name)
+        if with_root:
+            return full_path
+        else:
+            return full_path.replace(settings.BASE_DIR, '')
+
+    def html_path(self):
+        return os.path.join(self.get_template_static_dir_path(), 'index.html')
+
+    def css_path(self):
+        return os.path.join(self.get_template_static_dir_path(), 'index.css')
+
+    def js_path(self):
+        return os.path.join(self.get_template_static_dir_path(), 'index.js')
 
 
 class TemplateRegion(models.Model):
