@@ -1,4 +1,7 @@
 # coding=utf-8
+import datetime
+import os
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django.db import models
@@ -154,9 +157,41 @@ class Poster(models.Model):
 
 
 class AbstractPageTemplate(models.Model):
+    html = OverWriteFileField(
+        upload_to=file.get_html_path,
+        default='',
+        blank=True,
+        help_text=u'发布的html内容'
+    )
+    css = OverWriteFileField(
+        upload_to=file.get_css_path,
+        default='',
+        blank=True,
+        help_text=u'发布的css内容'
+    )
+    script = OverWriteFileField(
+        upload_to=file.get_script_path,
+        default='',
+        blank=True,
+        help_text=u'发布的js内容'
+    )
+
+    class Meta:
+        abstract = True
+
+
+class PosterPage(AbstractPageTemplate):
+    # 发布后的静态文件保存路径
+    STATIC_DIR_STR = 'poster/{year}/{poster_id}/{page_id}'
+
+    id = BigAutoField(primary_key=True)
+    poster = BigForeignKey(Poster, related_name='poster_pages')
+    template = models.ForeignKey('Template')
+    index = models.SmallIntegerField(default=0)
+    name = models.CharField(max_length=64, default='')
     temp_html = models.TextField(
         default='',
-        blank=False,
+        blank=True,
         help_text=u'保存临时修改的html内容'
     )
     temp_css = models.TextField(
@@ -170,40 +205,28 @@ class AbstractPageTemplate(models.Model):
         help_text=u'保存临时修改的js内容'
     )
 
-    class Meta:
-        abstract = True
-
-
-class PosterPage(AbstractPageTemplate):
-    id = BigAutoField(primary_key=True)
-    poster = BigForeignKey(Poster, related_name='poster_pages')
-    template = models.ForeignKey('Template')
-    index = models.SmallIntegerField(default=0)
-    name = models.CharField(max_length=64, default='')
-    html = OverWriteFileField(
-        upload_to=file.get_html_path,
-        default='',
-        blank=True,
-        help_text=u'正式发布的海报html文件路径'
-    )
-    css = OverWriteFileField(
-        upload_to=file.get_css_path,
-        default='',
-        blank=True,
-        help_text=u'正式发布的海报css文件路径'
-    )
-    script = OverWriteFileField(
-        upload_to=file.get_script_path,
-        default='',
-        blank=True,
-        help_text=u'正式发布的海报js文件路径'
-    )
-
     # class Meta:
     # unique_together = ('poster', 'index')
 
     def __str__(self):
         return "{:s}".format(self.name)
+
+    def get_static_file_path(self, with_root=False):
+        dir_path = self.STATIC_DIR_STR.format(
+            year=datetime.datetime.now().year,
+            poster_id=self.poster.id,
+            page_id=self.id
+        )
+        if with_root:
+            return os.path.join(settings.MEDIA_ROOT, dir_path)
+        else:
+            return dir_path
+
+    def check_and_create_static_file_dir(self):
+        full_dir_path = self.get_static_file_path(with_root=True)
+        if not os.path.exists(full_dir_path):
+            os.makedirs(full_dir_path)
+        return full_dir_path
 
 
 class PageText(models.Model):

@@ -10,7 +10,8 @@ from alatting_website.model.resource import Image
 from alatting_website.models import Template, CategoryKeyword, Address
 from poster.forms import PosterCreateForm
 from poster.serializer.resource import AddressSerializer
-from utils.file import handle_uploaded_file, get_image_path
+from utils.file import handle_uploaded_file, get_image_path, \
+    read_template_file_content
 
 
 class CategoryKeywordsView(ListView):
@@ -108,10 +109,11 @@ class PosterPageCreateView(View):
             template_id=template_id,
             index=index,
             name="p%s_t%s_i%s" % (poster_id, template_id, index),
-            temp_html=template.temp_html,
-            temp_css=template.temp_css,
-            temp_script=template.temp_script
+            temp_html=read_template_file_content(template.html.url),
+            temp_css=read_template_file_content(template.css.url),
+            temp_script=read_template_file_content(template.script.url)
         )
+        posterpage.check_and_create_static_file_dir()
         return redirect(reverse('poster:edit',
                                 kwargs={
                                     'pk': posterpage.id,
