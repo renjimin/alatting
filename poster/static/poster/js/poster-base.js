@@ -11,7 +11,7 @@ $(function(){
 			id:'dpw_email',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:86
+			arrowOffset:86.5
 		});
 	$(".abutton-contact .ico-address").registerDropDown({
 			id:'dpw_address',
@@ -23,12 +23,12 @@ $(function(){
 			id:'dpw_clock',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:86,
+			arrowOffset:86.5,
 			dynamicClass:'clock'
 		});
 	$('.bar-header .title').registerDropDown({
 			id:'dpw_title',
-			offsetXPercent:5,
+			offsetXPercent:50,
 			offsetYPercent:100,
 			offsetY:17,
 			arrowOffset:50,
