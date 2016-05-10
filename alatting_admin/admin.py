@@ -97,7 +97,7 @@ class ExpertShowAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(Template)
 class TemplateAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
+    list_display = ('id', 'name', 'image')
 
 
 @admin.register(TemplateRegion)

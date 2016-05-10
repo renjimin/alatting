@@ -110,3 +110,15 @@ def handle_uploaded_file(save_path, upfile):
         for chunk in upfile.chunks():
             destination.write(chunk)
     return save_full_path
+
+
+def read_template_file_content(file_path):
+    content = []
+    if len(file_path) > 1:
+        full_path = os.path.join(settings.BASE_DIR, file_path[1:])
+        if os.path.exists(full_path) and os.path.isfile(full_path):
+            file_ext = get_file_ext_name(os.path.basename(full_path))
+            if file_ext.lower() in ['css', 'js', 'html', 'htm']:
+                with open(full_path, 'r') as f:
+                    content = f.read().strip().replace('\n', '')
+    return ''.join(content)
