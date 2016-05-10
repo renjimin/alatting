@@ -129,3 +129,4 @@ def save_file(file_pull_path, content):
         # 按行写入前端上传的html\css\js文件
         for line in content.split('\n'):
             destination.write(line+'\n')
+    return file_pull_path

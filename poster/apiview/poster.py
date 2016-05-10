@@ -143,17 +143,12 @@ class PosterPublishView(RetrieveUpdateAPIView):
         pages = PosterPage.objects.filter(
             poster_id=serializer.instance.id
         ).order_by('-index')
+        foo = lambda x, y: '{}/page.{}'.format(x, y)
         for page in pages:
             full_path = page.check_and_create_static_file_dir()
-            static_file_path = '{}/page.{}'.format(full_path, 'html')
-            save_file(static_file_path, page.temp_html)
-            page.html = static_file_path
-            static_file_path = '{}/page.{}'.format(full_path, 'css')
-            save_file(static_file_path, page.temp_css)
-            page.css = static_file_path
-            static_file_path = '{}/page.{}'.format(full_path, 'js')
-            save_file(static_file_path, page.temp_script)
-            page.script = static_file_path
+            page.html = save_file(foo(full_path, 'html'), page.temp_html)
+            page.css = save_file(foo(full_path, 'css'), page.temp_css)
+            page.script = save_file(foo(full_path, 'js'), page.temp_script)
         serializer.save(status=Poster.STATUS_PUBLISHED)
 
 
