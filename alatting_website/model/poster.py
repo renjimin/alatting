@@ -1,4 +1,7 @@
 # coding=utf-8
+import datetime
+import os
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from django.db import models
@@ -178,6 +181,9 @@ class AbstractPageTemplate(models.Model):
 
 
 class PosterPage(AbstractPageTemplate):
+    # 发布后的静态文件保存路径
+    STATIC_DIR_STR = 'poster/{year}/{poster_id}/{page_id}'
+
     id = BigAutoField(primary_key=True)
     poster = BigForeignKey(Poster, related_name='poster_pages')
     template = models.ForeignKey('Template')
@@ -204,6 +210,22 @@ class PosterPage(AbstractPageTemplate):
 
     def __str__(self):
         return "{:s}".format(self.name)
+
+    def get_static_file_path(self, with_root=False):
+        dir_path = self.STATIC_DIR_STR.format(
+            year=datetime.datetime.now().year,
+            poster_id=self.poster.id,
+            page_id=self.id
+        )
+        if with_root:
+            return os.path.join(settings.MEDIA_ROOT, dir_path)
+        else:
+            return dir_path
+
+    def check_and_create_static_file_dir(self):
+        full_path = self.get_static_file_path(with_root=True)
+        if not os.path.exists(full_path):
+            os.makedirs(full_path)
 
 
 class PageText(models.Model):
