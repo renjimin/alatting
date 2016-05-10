@@ -223,9 +223,10 @@ class PosterPage(AbstractPageTemplate):
             return dir_path
 
     def check_and_create_static_file_dir(self):
-        full_path = self.get_static_file_path(with_root=True)
-        if not os.path.exists(full_path):
-            os.makedirs(full_path)
+        full_dir_path = self.get_static_file_path(with_root=True)
+        if not os.path.exists(full_dir_path):
+            os.makedirs(full_dir_path)
+        return full_dir_path
 
 
 class PageText(models.Model):
