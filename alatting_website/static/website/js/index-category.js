@@ -1,8 +1,26 @@
 $(function(){
-    /*footer*/
+    /*footer 图标显示为active*/
     $('.footer-tab li.active').removeClass("active");
     $('.footer-tab').find("li").eq(2).addClass("active");
-    /*footer 类型选择*/
+    /*footer 类别列表在页面加载时是否显示*/
+    var queryString = window.location.search;
+    if(queryString) {
+        /* url = /category/?category=..&subcateogry=..&subcategory-.. */
+        /* url = /category/?category=..&subcateogry=..&subcategory-.. &sort=..*/
+        /* url = /category/?sort=..*/
+        if($('#type-model-ftcat').hasClass('open')) {
+            $('#type-model-ftcat').removeClass('open');
+        }
+    } else {
+        /* url= /category */
+        if(!($('#type-model-ftcat').hasClass('open'))) {
+            $('#type-model-ftcat').addClass('open');
+        }
+    }
+    $('#hide-ftcate').click(function(){
+        $('#type-model-ftcat').removeClass('open');
+    });
+    /*footer 类别列表内部显示*/
     $('#type-model-ftcat').height($(window).height() - 60);
     $('#type-model-ftcat-container').css("max-height", ($(window).height() - 70)+'px');
     $("#ftcatelist .ftcat-item-link").click(function(){
@@ -22,16 +40,7 @@ $(function(){
             $(this).parent().siblings().find('.ftcat-item-link').css("width", "100%");
         }
     });
-    // $('#ftcat').click(function(){
-    //     if($('#type-model-ftcat').hasClass('open')){
-    //         $('#type-model-ftcat').removeClass('open');
-    //     }else{
-    //         $('#type-model-ftcat').addClass('open');
-    //     }
-    // });
-    $('#hide-ftcate').click(function(){
-        $('#type-model-ftcat').removeClass('open');
-    });
+    /*footer 查看对应类别海报*/
     $(".ftcat-item-sbt").click(function(){
         var state_id = $(this).attr('id')
         var ftcat_item_id = state_id.substr(state_id.lastIndexOf('-') + 1);
@@ -45,5 +54,30 @@ $(function(){
             }
         }
         window.location.href = hrefURL;
+    });
+    /*footer 查看对应类别海报后排序*/
+    $('#ftcat-hottest').click(function(){
+        var url = window.location.href;
+        var newUrl = url;
+        if(url.indexOf("sort=hot")==-1 && url.indexOf("sort=new")==-1) {
+            var separator = (url.indexOf("?")===-1)?"?":"&";
+            var newParam = separator + "sort=hot";
+            newUrl = url + newParam;     
+        } else if(url.indexOf("sort=hot")==-1 && url.indexOf("sort=new")!=-1) {
+            newUrl = url.replace("sort=new", "sort=hot");
+        }
+        window.location.href =newUrl;
+    });
+    $('#ftcat-newest').click(function(){
+        var url = window.location.href;
+        var newUrl = url;
+        if(url.indexOf("sort=hot")==-1 && url.indexOf("sort=new")==-1) {
+            var separator = (url.indexOf("?")===-1)?"?":"&";
+            var newParam = separator + "sort=new";
+            newUrl = url + newParam;     
+        } else if(url.indexOf("sort=hot")!=-1 && url.indexOf("sort=new")==-1) {
+            newUrl = url.replace("sort=hot", "sort=new");
+        }
+        window.location.href =newUrl;
     });
 })
