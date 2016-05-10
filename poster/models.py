@@ -28,7 +28,7 @@ class SystemImage(models.Model):
         img = img.resize((250, 160), pilimage.ANTIALIAS)
         thumbnail_file = self._get_thumbnail_name(full_path)
         img.save(thumbnail_file)
-        img_obj = Image(file=thumbnail_file)
+        img_obj = Image(file=thumbnail_file.replace(settings.MEDIA_ROOT, ''))
         img_obj.save()
         return img_obj
 
