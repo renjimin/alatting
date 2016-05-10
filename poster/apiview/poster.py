@@ -145,9 +145,15 @@ class PosterPublishView(RetrieveUpdateAPIView):
         ).order_by('-index')
         for page in pages:
             full_path = page.check_and_create_static_file_dir()
-            save_file(full_path, 'page.html', page.temp_html)
-            save_file(full_path, 'page.css', page.temp_css)
-            save_file(full_path, 'page.js', page.temp_script)
+            static_file_path = '{}/page.{}'.format(full_path, 'html')
+            save_file(static_file_path, page.temp_html)
+            page.html = static_file_path
+            static_file_path = '{}/page.{}'.format(full_path, 'css')
+            save_file(static_file_path, page.temp_css)
+            page.css = static_file_path
+            static_file_path = '{}/page.{}'.format(full_path, 'js')
+            save_file(static_file_path, page.temp_script)
+            page.script = static_file_path
         serializer.save(status=Poster.STATUS_PUBLISHED)
 
 

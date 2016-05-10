@@ -124,8 +124,7 @@ def read_template_file_content(file_path):
     return ''.join([line.strip().replace('\n', '') for line in content])
 
 
-def save_file(file_path, filename, content):
-    file_pull_path = '{}/{}'.format(file_path, filename)
+def save_file(file_pull_path, content):
     with open(file_pull_path, 'w+') as destination:
         # 按行写入前端上传的html\css\js文件
         for line in content.split('\n'):
