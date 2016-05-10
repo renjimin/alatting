@@ -120,8 +120,8 @@ def read_template_file_content(file_path):
             file_ext = get_file_ext_name(os.path.basename(full_path))
             if file_ext.lower() in ['css', 'js', 'html', 'htm']:
                 with open(full_path, 'r') as f:
-                    content = f.read().strip().replace('\n', '')
-    return ''.join(content)
+                    content = f.readlines()
+    return ''.join([line.strip().replace('\n', '') for line in content])
 
 
 def save_file(file_path, filename, content):
