@@ -65,3 +65,10 @@ class PosterPageSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         return attrs
         # raise serializers.ValidationError('field1 with field2 already exists')
+
+
+class PosterPublishSerializer(serializers.ModelSerializer):
+    status = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = Poster

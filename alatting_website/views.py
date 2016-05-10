@@ -43,6 +43,21 @@ class IndexView(TemplateView):
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)
+        return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super(IndexView, self).get_context_data(**kwargs)
+        ctx['posters'] = self.get_poster_list()
+        ctx['categorys'] = get_first_category_list()
+        return ctx
+
+class IndexCategoryView(TemplateView):
+    template_name = 'alatting_website/index-category.html'
+
+    def get_poster_list(self):
+        qs = Poster.objects.filter(
+            status=Poster.STATUS_PUBLISHED
+        ).order_by('-created_at')
         cat_filter_key = self.request.GET.get('category', '')
         if cat_filter_key:
             qs = qs.filter(main_category  = cat_filter_key)
@@ -52,11 +67,10 @@ class IndexView(TemplateView):
         return qs
 
     def get_context_data(self, **kwargs):
-        ctx = super(IndexView, self).get_context_data(**kwargs)
+        ctx = super(IndexCategoryView, self).get_context_data(**kwargs)
         ctx['posters'] = self.get_poster_list()
         ctx['categorys'] = get_first_category_list()
         return ctx
-
 
 class PosterView(DetailView):
     template_name = 'website/poster.html'

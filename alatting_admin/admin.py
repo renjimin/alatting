@@ -13,8 +13,11 @@ from alatting_website.models import (
 
 class AlattingAdminModelMixin(object):
     def get_list_display(self, request):
-        fields = self.model._meta.get_concrete_fields_with_model()
-        return [pair[0].name for pair in fields]
+        fields = super(AlattingAdminModelMixin, self).get_list_display(request)
+        if fields and fields[0] == '__str__':
+            fields = self.model._meta.get_concrete_fields_with_model()
+            return [pair[0].name for pair in fields]
+        return fields
 
 
 @admin.register(Person)
@@ -104,7 +107,7 @@ class TemplateRegionAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(PosterPage)
 class PosterPageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
+    list_display = ('id', 'poster', 'template', 'index', 'name')
 
 
 @admin.register(Rating)

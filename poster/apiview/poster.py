@@ -10,7 +10,7 @@ from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer)
+    PosterPageSerializer, PosterPublishSerializer)
 from poster.serializer.resource import AddressSerializer
 
 
@@ -125,3 +125,16 @@ class CheckPosterUniqueNameView(APIView):
             if not Poster.objects.filter(unique_name=name).exists():
                 exists = False
         return Response({'exists': exists})
+
+
+class PosterPublishView(RetrieveUpdateAPIView):
+    model = Poster
+    queryset = Poster.objects.all()
+    serializer_class = PosterPublishSerializer
+
+    def get_queryset(self):
+        qs = super(PosterPublishView, self).get_queryset()
+        return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
+
+    def perform_update(self, serializer):
+        serializer.save(status=Poster.STATUS_PUBLISHED)

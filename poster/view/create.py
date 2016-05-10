@@ -98,14 +98,22 @@ class PosterPageCreateView(View):
         pages = PosterPage.objects.filter(
             poster_id=poster_id, template_id=template_id
         ).order_by('-index')
+        template = get_object_or_404(Template, pk=template_id)
         if pages.exists():
             index = int(pages.first().index) + 1
         else:
             index = 0
-        PosterPage.objects.create(
+        posterpage = PosterPage.objects.create(
             poster_id=poster_id,
             template_id=template_id,
             index=index,
-            name="p%s_t%s_i%s" % (poster_id, template_id, index)
+            name="p%s_t%s_i%s" % (poster_id, template_id, index),
+            temp_html=template.temp_html,
+            temp_css=template.temp_css,
+            temp_script=template.temp_script
         )
-        return redirect(reverse('poster:edit', kwargs={'pk': poster_id}))
+        return redirect(reverse('poster:edit',
+                                kwargs={
+                                    'pk': posterpage.id,
+                                    'poster_pk': poster_id
+                                }))

@@ -11,7 +11,8 @@ from alatting_website.model.resource import (
 )
 from alatting_website.model.poster import (
     Poster, PosterPage, ActivityInvitation, BusinessMarketing,
-    ProductSell, ExpertShow, PageText, BusinessCard, PosterMoreLink
+    ProductSell, ExpertShow, PageText, BusinessCard, PosterMoreLink,
+    AbstractPageTemplate
 )
 from utils import file
 from utils.db.fields import (
@@ -92,7 +93,7 @@ class Address(models.Model):
         return "{:s}".format(self.address1)
 
 
-class Template(models.Model):
+class Template(AbstractPageTemplate):
     name = models.CharField(max_length=64)
     image = models.ForeignKey(Image, default=None, null=True, blank=False)
 

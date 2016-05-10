@@ -32,6 +32,7 @@ urlpatterns += [
 
 # 编辑海报url
 urlpatterns += [
-    url(r'^(?P<pk>[\d]+)/edit/$', login_required(PosterEditView.as_view()),
+    url(r'^(?P<poster_pk>[\d]+)/edit/(?P<pk>[\d]+)$',
+        login_required(PosterEditView.as_view()),
         name='edit'),
 ]
