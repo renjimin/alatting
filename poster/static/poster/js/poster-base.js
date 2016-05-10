@@ -17,7 +17,7 @@ $(function(){
 			id:'dpw_address',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:93
+			arrowOffset:94
 		});
 	$(".abutton-contact .ico-clock").registerDropDown({
 			id:'dpw_clock',
