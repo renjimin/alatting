@@ -44,5 +44,8 @@ $(function(){
 		dpw.removeClass('open');
 	});
 
-	//绑定数据
+	//数据
+	$('#dpw_title input').on('change',function(event){
+		$('.edit-bar-header .title p').html(event.currentTarget.value);
+	});
 });
