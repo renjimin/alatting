@@ -122,3 +122,9 @@ def read_template_file_content(file_path):
                 with open(full_path, 'r') as f:
                     content = f.read().strip().replace('\n', '')
     return ''.join(content)
+
+
+def save_file(file_path, filename, content):
+    file_pull_path = '{}/{}'.format(file_path, filename)
+    with open(file_pull_path, 'w+') as destination:
+        destination.write(content)

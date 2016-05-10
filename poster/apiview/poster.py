@@ -14,7 +14,7 @@ from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer)
 from poster.serializer.resource import AddressSerializer
-from utils.file import handle_uploaded_file, get_image_path
+from utils.file import handle_uploaded_file, get_image_path, save_file
 
 
 def set_dev_request_user(request):
@@ -144,10 +144,10 @@ class PosterPublishView(RetrieveUpdateAPIView):
             poster_id=serializer.instance.id
         ).order_by('-index')
         for page in pages:
-            pass
-            # page.temp_html --> page.html
-            # page.temp_js --> page.js
-            # page.temp_css --> page.css
+            full_path = page.check_and_create_static_file_dir()
+            save_file(full_path, 'page.html', page.temp_html)
+            save_file(full_path, 'page.css', page.temp_css)
+            save_file(full_path, 'page.js', page.temp_script)
         serializer.save(status=Poster.STATUS_PUBLISHED)
 
 
