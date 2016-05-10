@@ -1,4 +1,5 @@
 from django.contrib import admin
+from poster.models import SystemImage
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -97,7 +98,7 @@ class ExpertShowAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(Template)
 class TemplateAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
+    list_display = ('id', 'name', 'image')
 
 
 @admin.register(TemplateRegion)
@@ -157,4 +158,9 @@ class PosterSubscribeAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(PosterKeyword)
 class PosterKeywordAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(SystemImage)
+class SystemImageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

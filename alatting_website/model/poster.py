@@ -154,20 +154,23 @@ class Poster(models.Model):
 
 
 class AbstractPageTemplate(models.Model):
-    temp_html = models.TextField(
-        default='',
-        blank=False,
-        help_text=u'保存临时修改的html内容'
-    )
-    temp_css = models.TextField(
+    html = OverWriteFileField(
+        upload_to=file.get_html_path,
         default='',
         blank=True,
-        help_text=u'保存临时修改的css内容'
+        help_text=u'发布的html内容'
     )
-    temp_script = models.TextField(
+    css = OverWriteFileField(
+        upload_to=file.get_css_path,
         default='',
         blank=True,
-        help_text=u'保存临时修改的js内容'
+        help_text=u'发布的css内容'
+    )
+    script = OverWriteFileField(
+        upload_to=file.get_script_path,
+        default='',
+        blank=True,
+        help_text=u'发布的js内容'
     )
 
     class Meta:
@@ -180,23 +183,20 @@ class PosterPage(AbstractPageTemplate):
     template = models.ForeignKey('Template')
     index = models.SmallIntegerField(default=0)
     name = models.CharField(max_length=64, default='')
-    html = OverWriteFileField(
-        upload_to=file.get_html_path,
+    temp_html = models.TextField(
         default='',
         blank=True,
-        help_text=u'正式发布的海报html文件路径'
+        help_text=u'保存临时修改的html内容'
     )
-    css = OverWriteFileField(
-        upload_to=file.get_css_path,
+    temp_css = models.TextField(
         default='',
         blank=True,
-        help_text=u'正式发布的海报css文件路径'
+        help_text=u'保存临时修改的css内容'
     )
-    script = OverWriteFileField(
-        upload_to=file.get_script_path,
+    temp_script = models.TextField(
         default='',
         blank=True,
-        help_text=u'正式发布的海报js文件路径'
+        help_text=u'保存临时修改的js内容'
     )
 
     # class Meta:
