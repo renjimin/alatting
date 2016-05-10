@@ -10,19 +10,22 @@ $(function(){
         /* url = /category/?sort=..*/
         if($('#type-model-ftcat').hasClass('open')) {
             $('#type-model-ftcat').removeClass('open');
+            $('.body-container').css("overflow", "");
         }
     } else {
         /* url= /category */
         if(!($('#type-model-ftcat').hasClass('open'))) {
             $('#type-model-ftcat').addClass('open');
+            $('.body-container').css("overflow", "hidden");
         }
     }
     $('#hide-ftcate').click(function(){
         $('#type-model-ftcat').removeClass('open');
+        $('.body-container').css("overflow", "");
     });
     /*footer 类别列表内部显示*/
     $('#type-model-ftcat').height($(window).height() - 60);
-    $('#type-model-ftcat-container').css("max-height", ($(window).height() - 70)+'px');
+    $('#type-model-ftcat-container').css("max-height", ($(window).height() - 80)+'px');
     $("#ftcatelist .ftcat-item-link").click(function(){
         if($(this).parent().hasClass('open')){
             $(this).parent().find('.ftcat-item-sublist').slideUp(200);

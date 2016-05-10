@@ -1,4 +1,6 @@
-
+.body-container {
+    height: 100%;
+}
 /*footer 类型选择*/
 .type-model-ftcat {
 	position: fixed;
