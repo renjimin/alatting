@@ -149,6 +149,7 @@ class PosterPublishView(RetrieveUpdateAPIView):
             page.html = save_file(foo(full_path, 'html'), page.temp_html)
             page.css = save_file(foo(full_path, 'css'), page.temp_css)
             page.script = save_file(foo(full_path, 'js'), page.temp_script)
+            page.save()
         serializer.save(status=Poster.STATUS_PUBLISHED)
 
 
