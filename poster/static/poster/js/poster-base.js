@@ -1,3 +1,4 @@
+/*
 $(function(){
 	var uiController = {
 		currentAbtn:null,
@@ -6,7 +7,7 @@ $(function(){
 			this.bindEvent();
 		},
 		bindEvent:function(){
-			/* 点击页面空余部分隐藏toggle菜单 */
+			// 点击页面空余部分隐藏toggle菜单 
 			$('body').click(function(){
 				$('.abutton-info').removeClass('open');
 				this.currentAbtn = null;
@@ -23,7 +24,7 @@ $(function(){
 				$('.abutton-info').removeClass('open');
 				this.currentAbtn = null;
 			});
-			/* 底部toggle菜单 */
+			// 底部toggle菜单 
 			$(".dropdown-toggle").click(function(event) {
 				$(".dropdown-panel").removeClass('open');
 				$(".dropdown-toggle").removeClass('open');
@@ -52,8 +53,8 @@ $(function(){
 				}else{
 					$('.abutton-info').addClass('open');
 					$('.abutton-info section').hide();
-					var ele = '.abutton-info section.' + btnType;
-					$(ele).show();
+					$('.abutton-info section.' + btnType).show();
+					//$('.abutton-info section.' + btnType + ' li input').eq(0).trigger('focus');
 					uiController.currentAbtn = btnType;
 				}
 			});
@@ -61,3 +62,41 @@ $(function(){
 	}
 	uiController.init();
 })
+*/
+
+$(function(){
+	$(".dropdown-toggle").registerDropDown();
+	$(".abutton-contact .ico-phone").registerDropDown({
+			content:['<i class="icon ico-phone"></i><span><input type="text" value="' + $(".abutton-contact .ico-phone").data('django').split(',')[0] +'" /></input>',
+					'<i class="icon ico-phone"></i><span><input type="text" value="' + $(".abutton-contact .ico-phone").data('django').split(',')[1] +'" /></input>'],
+			offsetYPercent:'50%',
+			offsetY:'30',
+			arrowOffset:'75%'
+		});
+	$(".abutton-contact .ico-email").registerDropDown({
+			content:['<i class="icon ico-email"></i><span><input type="text" value="'+ $(".abutton-contact .ico-email").data('django') +'" /></span>'],
+			offsetYPercent:'50%',
+			offsetY:'30',
+			arrowOffset:'83%'
+		});
+	$(".abutton-contact .ico-address").registerDropDown({
+			content:['<i class="icon ico-phone"></i><span><input type="text" value="' + $(".abutton-contact .ico-address").data('django')+'" /></input>'],
+			offsetYPercent:'50%',
+			offsetY:'30',
+			arrowOffset:'90%'
+		});
+	$(".abutton-contact .ico-clock").registerDropDown({
+			content:['<i class="text">周一</i><span><input type="text" value="编辑工作时间" /></span>',
+                	'<i class="text">周二</i><span><input type="text" value="编辑工作时间" /></span>',
+                	'<i class="text">周三</i><span><input type="text" value="编辑工作时间" /></span>',
+                	'<i class="text">周四</i><span><input type="text" value="编辑工作时间" /></span>',
+                	'<i class="text">周五</i><span><input type="text" value="编辑工作时间" /></span>',
+                	'<i class="text">周六</i><span><input type="text" value="编辑工作时间" /></span>',
+                	'<i class="text">周日</i><span><input type="text" value="编辑工作时间" /></span>'],
+			offsetYPercent:'50%',
+			offsetY:'30',
+			arrowOffset:'83%',
+			dynamicClass:'clock'
+		});
+});
+

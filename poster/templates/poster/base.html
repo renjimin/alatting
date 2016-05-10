@@ -9,6 +9,7 @@
 {% block base_header_js %}
     {{ block.super }}
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
+    <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -46,9 +47,9 @@
                         <a class="abtn" href="javascript:void(0);"><i class="icon ico-menu"></i></a>
                     </div>
                     <ul class="abutton-group abutton-contact">
-                        <li><a href="#"><i class="icon ico-phone"></i></a></li>
-                        <li><a href="#"><i class="icon ico-email"></i></a></li>
-                        <li><a href="#"><i class="icon ico-address"></i></a></li>
+                        <li><a href="#"><i class="icon ico-phone" data-django="{{ poster.phone }},{{ poster.mobile }}"></i></a></li>
+                        <li><a href="#"><i class="icon ico-email" data-django="{{ poster.email }}"></i></a></li>
+                        <li><a href="#"><i class="icon ico-address" data-django="{{ poster.address }}"></i></a></li>
                         <li><a href="#"><i class="icon ico-clock"></i></a></li>
                     </ul>
                     <ul class="abutton-group abutton-express">
@@ -64,24 +65,6 @@
             <div class="desc">
                 {{ poster.short_description }}
             </div>
-        </div>
-        <div class="abutton-info">
-            <div class="arrow"></div>
-            <section class="phone">
-                <li><i class="icon ico-phone"></i><span>{{ poster.phone }}</span></li>
-                <li><i class="icon ico-phone"></i><span>{{ poster.mobile }}</span></li>
-            </section>
-            <section class="email"><li><i class="icon ico-email"></i><span>{{ poster.email }}</span></li></section>
-            <section class="address"><li><i class="icon ico-address"></i><span>{{ poster.address }}</span></li></section>
-            <section class="clock">
-                <li><i class="text">周一</i><span><input type="text" placeholder="编辑工作时间" /> </span></li>
-                <li><i class="text">周二</i><span><input type="text" placeholder="编辑工作时间" /></span></li>
-                <li><i class="text">周三</i><span><input type="text" placeholder="编辑工作时间" /></span></li>
-                <li><i class="text">周四</i><span><input type="text" placeholder="编辑工作时间" /></span></li>
-                <li><i class="text">周五</i><span><input type="text" placeholder="编辑工作时间" /></span></li>
-                <li><i class="text">周六</i><span><input type="text" placeholder="编辑工作时间" /></span></li>
-                <li><i class="text">周日</i><span><input type="text" placeholder="编辑工作时间" /></span></li>
-            </section>
         </div>
     </header>
     {% block poster_base_body %}
@@ -135,4 +118,7 @@
             </div>
         </section>
     </div>
+    <section id="dp" style="position: absolute;">
+
+    </section>
 {% endblock %}
