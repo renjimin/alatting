@@ -3,30 +3,34 @@
 
 {% block base_header_css %}
     {{ block.super }}
-     <link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}"/>
 {% endblock %}
 
 {% block base_header_js %}
     {{ block.super }}
-     <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
-     <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
 
 {% endblock %}
 
 {% block base_body %}
 
-   <button class="btncs">按钮</button>
+    <button class="btncs">按钮</button>
 
     <div class="dialog">
 
-        <div id="demo" >
+        <div id="demo">
 
             <div id="as" class="webuploader-container">
-            <div class="webuploader-pick">选择文件</div>
-            <div id="rt_rt_1aidhgpbe70k1dhvopts2u4gq4">
-            <input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/jpg,image/jpeg,image/png">
-            <label></label>
-            </div>
+                <div class="webuploader-pick">选择文件</div>
+                <div id="rt_rt_1aidhgpbe70k1dhvopts2u4gq4">
+                    <input type="file" name="file"
+                           class="webuploader-element-invisible"
+                           multiple="multiple"
+                           accept="image/jpg,image/jpeg,image/png">
+                    <label></label>
+                </div>
             </div>
 
         </div>
@@ -39,55 +43,38 @@
 
 
 {% block base_body_footer %}
-<script>
+    <script>
 
-    $('#as').diyUpload({
+        $('#as').diyUpload({
 
-	url:'http://192.168.223.128:8000/api/v1/poster/upload/logo',
+            url: '/api/v1/poster/upload/logo',
 
-	success:function( data ) {
+            chunked: false,
 
-		console.info( data );
-	},
+            chunkRetry: 0,
 
-	error:function( err ) {
+            success: function (data) {
+                console.info(data);
+            },
 
-		console.info( err );
+            error: function (err) {
+                console.info(err);
+            },
 
-	},
+            buttonText: '选择图片上传',
 
-	buttonText : '选择图片上传',
+            fileNumLimit: 8,
 
-	chunked:true,
+            fileSingleSizeLimit: 5 * 1024 * 1024,
 
+            accept: {}
 
+        });
 
-	chunkSize:512 * 1024,
-
-
-
-	fileNumLimit:7,
-
-	fileSizeLimit:500000 * 1024,
-
-	fileSingleSizeLimit:50000 * 1024,
-
-	accept: {}
-
-});
-
-    $(function(){
-
-    $(".btncs").click(function(){
-
-        $(".dialog").animate({top:'0px'});
-
-    })
-
-
-});
-
-</script>
-
-
+        $(function () {
+            $(".btncs").click(function () {
+                $(".dialog").animate({top: '0px'});
+            });
+        });
+    </script>
 {% endblock %}
