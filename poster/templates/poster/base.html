@@ -3,6 +3,7 @@
 
 {% block base_header_css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 {% endblock %}
 
@@ -14,6 +15,7 @@
         }
     </script>
     {{ block.super }}
+    <script src="{% static 'poster/plugins/changebg/jquery.changebg.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
