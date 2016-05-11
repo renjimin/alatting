@@ -17,6 +17,7 @@
     {% endblock %}
 </head>
 <body>
+<div class="body-container">
 {% block base_body_header %}
 {% endblock %}
 {% block base_body %}
@@ -31,5 +32,6 @@
 {% block base_footer_js %}
     <script src="{% static 'website/js/footer.js' %}"></script>
 {% endblock %}
+</div>
 </body>
 </html>

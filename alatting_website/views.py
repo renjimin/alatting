@@ -54,6 +54,16 @@ class IndexView(TemplateView):
 class IndexCategoryView(TemplateView):
     template_name = 'alatting_website/index-category.html'
 
+    def get_poster_sort_keys(self):
+        req_sort = self.request.GET.get('sort', '')
+        sort_key = ''
+        if req_sort in ['hot', 'new']:
+            if req_sort == 'hot':
+                sort_key = '-poster_statistics__views_count'
+            elif req_sort == 'new':
+                sort_key = '-created_at'
+        return sort_key
+
     def get_poster_list(self):
         qs = Poster.objects.filter(
             status=Poster.STATUS_PUBLISHED
@@ -64,6 +74,9 @@ class IndexCategoryView(TemplateView):
         sub_cat_filter_keys = self.request.GET.getlist('subcategory', '')
         if sub_cat_filter_keys:
             qs = qs.filter(sub_category__in = sub_cat_filter_keys)
+        sort_key = self.get_poster_sort_keys()
+        if sort_key:
+            qs = qs.order_by(sort_key)
         return qs
 
     def get_context_data(self, **kwargs):

@@ -9,10 +9,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
-from poster.models import SystemImage
+from poster.models import SystemImage, SystemBackground
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer)
+    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer, SystemBackgroundListSerializer)
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, save_file
 
@@ -143,11 +143,13 @@ class PosterPublishView(RetrieveUpdateAPIView):
         pages = PosterPage.objects.filter(
             poster_id=serializer.instance.id
         ).order_by('-index')
+        foo = lambda x, y: '{}/page.{}'.format(x, y)
         for page in pages:
             full_path = page.check_and_create_static_file_dir()
-            save_file(full_path, 'page.html', page.temp_html)
-            save_file(full_path, 'page.css', page.temp_css)
-            save_file(full_path, 'page.js', page.temp_script)
+            page.html = save_file(foo(full_path, 'html'), page.temp_html)
+            page.css = save_file(foo(full_path, 'css'), page.temp_css)
+            page.script = save_file(foo(full_path, 'js'), page.temp_script)
+            page.save()
         serializer.save(status=Poster.STATUS_PUBLISHED)
 
 
@@ -155,3 +157,9 @@ class SystemImageListView(ListAPIView):
     model = SystemImage
     serializer_class = SystemImageListSerializer
     queryset = SystemImage.objects.all()
+
+
+class SystemBackgroundListView(ListAPIView):
+    model = SystemBackground
+    serializer_class = SystemBackgroundListSerializer
+    queryset = SystemBackground.objects.all()

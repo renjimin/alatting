@@ -7,7 +7,6 @@ body {
 	font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	max-width: 600px;
 	margin: 0 auto;
-    position: relative;
 	-webkit-backface-visibility: hidden;
 }
 ol,
