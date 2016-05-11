@@ -28,11 +28,11 @@
         <div id="demo" >
 
             <div id="as" class="webuploader-container">
-            <div class="webuploader-pick">选择文件</div>
-            <div id="rt_rt_1aidhgpbe70k1dhvopts2u4gq4">
-            <input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/jpg,image/jpeg,image/png">
-            <label></label>
-            </div>
+                <div class="webuploader-pick">选择文件</div>
+                <div id="rt_rt_1aidhgpbe70k1dhvopts2u4gq4">
+                    <input type="file" name="file" class="webuploader-element-invisible" multiple="multiple" accept="image/jpg,image/jpeg,image/png">
+                    <label></label>
+                </div>
             </div>
 
         </div>
@@ -58,29 +58,16 @@
 	},
 
 	error:function( err ) {
-
 		console.info( err );
 
 	},
-
 	buttonText : '选择图片上传',
-
 	chunked:true,
-
-
-
 	chunkSize:512 * 1024,
-
-
-
 	fileNumLimit:7,
-
 	fileSizeLimit:500000 * 1024,
-
 	fileSingleSizeLimit:50000 * 1024,
-
 	accept: {}
-
 });
 
     $(function(){
