@@ -7,9 +7,18 @@
 {% endblock %}
 
 {% block base_header_js %}
+    <script>
+        var yunyeEditorGlobal = {
+            posterId: "{{ poster.id }}",
+            posterPageId: "{{ posterpage.id }}"
+        }
+    </script>
     {{ block.super }}
+    <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
+    <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
+    <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -28,8 +37,9 @@
 {% endblock %}
 
 {% block base_body_inner %}
-    <header class="header">
-        <div class="header-bar">
+    <header class="header" >
+        <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
+        <div class="header-bar" >
             <div class="header-qrcode">
                 <div class="qrcode-inner">
                     <div class="circle"></div>
@@ -63,7 +73,7 @@
         </div>
         <div class="header-info">
             <div class="desc">
-                <span>{{ poster.short_description }}</span>
+                <span style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
             </div>
         </div>
     </header>
@@ -92,13 +102,15 @@
             <li><span><input type="text" value="{{ poster.logo_title }}" /></span></li>
         </ul>
         <ul id="dpw_desc">
-            <div class="input-outer"><textarea type="text">{{ poster.short_description }}</textarea></div>
-            <div class="input-outer">
+            <div class="input-outer"><textarea type="text">{{ poster.short_description }}</textarea>
                 <span>海报关键词</span>
                 <div class="ed-content">
                     <span id="ed-con-li2" data-id="2">aabb</span>
                 </div>
+            </div>
+            <div class="input-outer autoheight">
                 <div class="ed-choose">
+                    <span>互联网</span><span>地产</span><span>教育/培训</span><span>服饰/时尚</span><span>餐饮/食品</span><span>金融/银行</span><span>零售/电商</span>
                 </div>
             </div>
         </ul>
