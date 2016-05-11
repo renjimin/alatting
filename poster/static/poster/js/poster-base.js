@@ -61,15 +61,17 @@ $(function(){
                     console.log(img)
                     ths.css('background-image', 'url(' + img + ')');
                     ths.css('background-size', 'cover');
-                    $("#closebg").click(function(){
-                        $(".system-item").remove();;
-                    })
                 })
             }},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
         });
+<<<<<<< HEAD
+    $(document).on("click",'#closebg',function(event){
+        $(".system-item").fadeOut(200);
+    });
+=======
     $("#closebg").click(function(){
         $(".system-item").hide();
     })
@@ -81,6 +83,7 @@ $(function(){
         });
     });
 
+>>>>>>> 16d030d7c343a9d202803a457836ef36f9d5ab50
     $('body').on('click',function(event){
         var dpw = $('#dp');
         var list = window.clickItmList;

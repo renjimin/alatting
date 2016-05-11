@@ -38,6 +38,8 @@
                     }
                 });
 
+            }else{
+                bimg.children('.system-item').fadeIn(200);
             }
             var s  = this.options;
                 var ele = this.$element;
@@ -47,9 +49,6 @@
 
                 callBack_Selected(ele,img);
             });
-        	$("#closebg").click(function(){
-                $(".system-item").hide();
-            })
         }
 
     //在插件中使用doChangeBkg对象
