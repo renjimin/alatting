@@ -1,5 +1,13 @@
 $(function(){
-	// 注册toggle
+	$(".back-to-home").click(function(){
+		var url = $(this).data("url");
+		yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
+		//todo:lyh:异步调用保存方法，将本地缓存数据保存至数据库,
+		//保存操作完成后进行页面跳转
+		window.location.href = url;
+	    });
+	});
+
 	$(".dropdown-toggle").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({
 			id:'dpw_phone',
@@ -33,7 +41,6 @@ $(function(){
 			eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40)',
 			dynamicClass:'info'
 		});
-
 	$('.header-logo').registerPopUp({
 			id:'dpw_menu',
 			offsetYPercent:50,
@@ -79,7 +86,7 @@ $(function(){
 	$('#dpw_title input').on('change',function(event){
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
 	});
-	$('#dpw_desc input').on('change',function(event){
-		$('.desc span').html(event.currentTarget.value);
+	$('#dpw_desc textarea').on('change',function(event){
+		$('.header-info .desc span').html(event.currentTarget.value);
 	});
 });
