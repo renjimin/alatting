@@ -75,8 +75,8 @@ $(function(){
     })
 
     $('.glyphicon-text-height').on('click',function(){
+        $('#colorBox').toggle();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
-            console.log(1);
             ths.css('color',color);
         });
     });
