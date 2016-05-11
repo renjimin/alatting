@@ -24,6 +24,7 @@
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
+						$(document).trigger("clsdp");
 					}else{
 						$('.dropdown-panel').removeClass('open');
 						$('.dropdown-toggle').removeClass('open');
