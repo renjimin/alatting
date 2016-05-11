@@ -9,10 +9,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage
-from poster.models import SystemImage
+from poster.models import SystemImage, SystemBackground
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer)
+    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer, SystemBackgroundListSerializer)
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, save_file
 
@@ -157,3 +157,9 @@ class SystemImageListView(ListAPIView):
     model = SystemImage
     serializer_class = SystemImageListSerializer
     queryset = SystemImage.objects.all()
+
+
+class SystemBackgroundListView(ListAPIView):
+    model = SystemBackground
+    serializer_class = SystemBackgroundListSerializer
+    queryset = SystemBackground.objects.all()

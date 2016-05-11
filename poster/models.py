@@ -11,6 +11,14 @@ class SystemImage(models.Model):
     id = BigAutoField(primary_key=True)
     image = models.ForeignKey(Image, related_name='system_images')
     name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return "{:d}".format(self.pk)
+
+
+class SystemBackground(models.Model):
+    id = BigAutoField(primary_key=True)
+    image = models.ForeignKey(Image, related_name='system_background')
     thumbnail_img = models.ForeignKey(Image, null=True, default=None, blank=True)
 
     def __str__(self):
@@ -36,4 +44,4 @@ class SystemImage(models.Model):
     def save(self, *args, **kwargs):
         full_path = '{}{}'.format(settings.BASE_DIR, self.image.file.url)
         self.thumbnail_img = self._thumbnail_save(full_path)
-        super(SystemImage, self).save(*args, **kwargs)
+        super(SystemBackground, self).save(*args, **kwargs)
