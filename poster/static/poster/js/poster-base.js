@@ -61,22 +61,22 @@ $(function(){
                     console.log(img)
                     ths.css('background-image', 'url(' + img + ')');
                     ths.css('background-size', 'cover');
-                    $("#closebg").click(function(){
-                        $(".system-item").remove();;
-                    })
                 })
             }},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
         });
-    $("#closebg").click(function(){
-        $(".system-item").hide();
-    })
+    $(document).on("clsdp",function(){
+        $("#colorBox").hide();
+    });
+    $(document).on("click",'#closebg',function(event){
+        $(".system-item").fadeOut(200);
+    });
 
     $('.glyphicon-text-height').on('click',function(){
+        $("#colorBox").show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
-            console.log(1);
             ths.css('color',color);
         });
     });
