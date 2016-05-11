@@ -3,6 +3,7 @@
 
 {% block base_header_css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'poster/plugins/slider/swiper.css' %}">
     <style>
         {{ posterpage.temp_css|safe }}
     </style>
@@ -10,6 +11,8 @@
 
 {% block base_header_js %}
     {{ block.super }}
+    <script src="{% static 'poster/plugins/slider/swiper.js' %}"></script>
+    <script src="{% static 'poster/plugins/slider/imgslider.js' %}"></script>
     <script>
         {{ posterpage.temp_script|safe }}
     </script>

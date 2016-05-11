@@ -1,0 +1,21 @@
+.js-color-box{
+    height: 80px;
+    width: 100%;
+}
+.js-color-box ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.js-color-box .color-list{
+    width: auto;
+    height: 60px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+.js-color-box .color-li{
+    width: 20px;
+    height: 60px;
+    display: inline-block;
+    vertical-align: middle;
+}
