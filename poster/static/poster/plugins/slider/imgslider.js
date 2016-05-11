@@ -1,56 +1,51 @@
-(function () {
-    'use strict';
-    var swiper;
-    var imgslider = function(container){
-        if (!(this instanceof imgslider)) return new imgslider();
-        var s = this;
-        s.container = $(container);
-        s.wraper = null;
-        s.dragable = false;
-        s.init = function(){
-            var $swipercon = $('<div class="swiper-container"><div class="swiper-wrapper"></div></div>');
-            $($swipercon).appendTo(s.container);
-            swiper = new Swiper('.swiper-container');
-            s.wraper = s.container.find('.swiper-wrapper');
+(function ($) {
+    $.fn.imgslider = function(opations){
+        var opts = {
+            'data':null
         };
-        s.addImage = function(data){
-            if(this.container.find('img').length <= 0){
-                this.init();
+        return this.each(function () {
+            var s = $(this),
+				_option = $.extend(opts,opations);
+            var imgarray = [];
+
+            $.extend(s,{'wraper':null,'swiper':null});
+
+            var imgs  =s.find('img');
+            for(i = 0 ; imgs.length > 0 && i<imgs.length ; i++){
+                imgarray.push({'file':imgs.attr('src')});
             }
-            this.wraper.append('<div class="swiper-slide"><img src="'+data.file+'" /></div>');
-            swiper.update();
 
-            this.container.find('img').bind('touchstart', function (event) {
-                event.preventDefault();
-                s.imgTouchStart($(this),event);
-            });
+            s.empty();
+            var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div></div>';
+            s.html($swipercon);
 
-        };
-        s.touches = {
-            start_X: 0,
-            start_Y: 0,
-            current_X: 0,
-            current_Y: 0,
-            diff: 0
-        };
-        s.imgTouchStart = function(o,e){
-            if (e.originalEvent) e = e.originalEvent;
+            s.addImage = function(datas){
+                s.wraper = s.find('.swiper-wrapper');
+                console.log(datas.length);
+                for(i=0;datas.length>0 && i<datas.length;i++){
+                    s.wraper.append('<div class="swiper-slide"><img src="'+datas[i].file+'" /></div>');
+                }
+                s.wraper.append('<div class="swiper-slide"><img src="'+_option.data.file+'" /></div>');
 
-            o.bind('touchmove', function (event) {
-                event.preventDefault();
-                s.imgTouchMove($(this),event);
-            });
-            o.bind('touchend', function (event) {
-                event.preventDefault();
-                s.imgTouchEnd($(this),event);
-            });
-        };
-        s.imgTouchMove = function(o,e){
-            if (e.originalEvent) e = e.originalEvent;
-        }
-        s.imgTouchEnd = function(o,e){
-            if (e.originalEvent) e = e.originalEvent;
-        }
+                s.swiper = new Swiper('.swiper-container');
+
+
+            };
+
+
+
+            if(_option.data != null && _option.data != ''){
+                s.addImage(imgarray);
+            }
+
+
+
+
+
+
+
+
+        })
+
     }
-    window.imgslider = imgslider;
-})();
+})(jQuery);

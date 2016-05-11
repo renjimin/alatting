@@ -3,6 +3,7 @@
 
 {% block base_header_css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 {% endblock %}
 
@@ -14,6 +15,7 @@
         }
     </script>
     {{ block.super }}
+    <script src="{% static 'poster/plugins/changebg/jquery.changebg.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
@@ -35,7 +37,6 @@
         <button class="btn btn-save">存储</button>
         <button class="btn btn-post">发布</button>
     </div>
-
 	<!--<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>-->
 </div>
 {% endblock %}
@@ -81,7 +82,6 @@
             </div>
         </div>
     </header>
-    
     <section id="dp">
         <ul id="dpw_phone">
             <li><i class="icon ico-phone"></i><span><input type="text" value="{{ poster.phone }}" /></input></li>
@@ -115,6 +115,12 @@
             <div class="input-outer autoheight">
                 <div class="ed-choose">
                     <span>互联网</span><span>地产</span><span>教育/培训</span><span>服饰/时尚</span><span>餐饮/食品</span><span>金融/银行</span><span>零售/电商</span>
+                    <span>媒体/广告</span><span>旅游/景区</span><span>其它行业</span><span>个人</span><span>企业宣传</span><span>品牌推广</span><span>产品介绍</span>
+                    <span>会议邀请</span><span>课程培训</span><span>企业招聘</span><span>活动宣传</span><span>节日传情</span><span>事件祝福</span><span>其他场景</span>
+                    <div class="add-choose">
+                         <input type="text" placeholder="自定义(限四字)" />
+                         <button>新增</button>
+                    </div>
                 </div>
             </div>
         </ul>
