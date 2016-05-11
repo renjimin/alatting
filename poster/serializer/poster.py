@@ -69,10 +69,11 @@ class PosterPageSerializer(serializers.ModelSerializer):
 
 
 class PosterPublishSerializer(serializers.ModelSerializer):
-    status = serializers.CharField(write_only=True)
+    status = serializers.CharField()
 
     class Meta:
         model = Poster
+        fields = ('status', )
 
 
 class SystemImageListSerializer(serializers.ModelSerializer):
@@ -99,3 +100,15 @@ class SystemBackgroundListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SystemImage
         fields = ('image', 'image_url', 'thumbnail_url')
+
+
+class PosterSaveSerializer(serializers.ModelSerializer):
+    pages_statics = serializers.SerializerMethodField()
+
+    def get_pages_statics(self, obj):
+        return PosterPage.objects.filter(poster_id=obj.id).\
+            values('id', 'temp_html', 'temp_css', 'temp_script')
+
+    class Meta:
+        model = Poster
+        fields = ('pages_statics',)
