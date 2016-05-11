@@ -1,5 +1,5 @@
 $(function(){
-	// 注册toggle
+	// 注册弹出层
 	$(".dropdown-toggle").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({
 			id:'dpw_phone',
@@ -33,7 +33,6 @@ $(function(){
 			eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40)',
 			dynamicClass:'info'
 		});
-
 	$('.header-logo').registerPopUp({
 			id:'dpw_menu',
 			offsetYPercent:50,
@@ -68,7 +67,7 @@ $(function(){
 	$('#dpw_title input').on('change',function(event){
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
 	});
-	$('#dpw_desc input').on('change',function(event){
-		$('.desc span').html(event.currentTarget.value);
+	$('#dpw_desc textarea').on('change',function(event){
+		$('.header-info .desc span').html(event.currentTarget.value);
 	});
 });
