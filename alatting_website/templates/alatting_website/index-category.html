@@ -10,8 +10,15 @@
     <script src="{% static 'website/js/index-category.js' %}"></script>
 {% endblock %}
 
+{% block header_sort %}
+    <div class="home-header-sort">
+        <a href="#" class="button button-clear btn-select" id="ftcat-hottest">热门</a>
+        <a href="#" class="button button-clear btn-select" id="ftcat-newest">最新</a>
+    </div>
+{% endblock %}
+
 {% block footer_category %}
-    <div class="type-model-ftcat open" id="type-model-ftcat">
+    <div class="type-model-ftcat" id="type-model-ftcat">
         <div class="type-model-ftcat-inner">
             <div class="type-model-ftcat-container" id="type-model-ftcat-container">
                 <ul class="ftcate-list" id="ftcatelist">

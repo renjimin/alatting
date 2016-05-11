@@ -120,11 +120,13 @@ def read_template_file_content(file_path):
             file_ext = get_file_ext_name(os.path.basename(full_path))
             if file_ext.lower() in ['css', 'js', 'html', 'htm']:
                 with open(full_path, 'r') as f:
-                    content = f.read().strip().replace('\n', '')
-    return ''.join(content)
+                    content = f.readlines()
+    return ''.join([line.strip().replace('\n', '') for line in content])
 
 
-def save_file(file_path, filename, content):
-    file_pull_path = '{}/{}'.format(file_path, filename)
+def save_file(file_pull_path, content):
     with open(file_pull_path, 'w+') as destination:
-        destination.write(content)
+        # 按行写入前端上传的html\css\js文件
+        for line in content.split('\n'):
+            destination.write(line+'\n')
+    return file_pull_path.replace(settings.MEDIA_ROOT, '')

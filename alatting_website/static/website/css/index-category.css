@@ -1,4 +1,6 @@
-
+.body-container {
+    height: 100%;
+}
 /*footer 类型选择*/
 .type-model-ftcat {
 	position: fixed;
@@ -97,20 +99,21 @@
 	position: relative;
 	border-top: 1px solid rgba(210,210,210,1);
 	display: none;
-	padding-left: 10px;
+	padding-left: 30px;
 	margin: 0;
 }
 .type-model-ftcat-container .ftcate-list .ftcat-item-sublist .ftcat-subitem {
 	display: inline-block;
-	padding-top: 5px;
+    padding-top: 5px;
+    padding-right: 20px;
     padding-bottom: 5px;
+    min-width: 30%;
 }
 .ftcat-item.empty-info {
 	padding: 20px;
 	color: #999;
 	text-align: center;
 }
-/*open*/
 .type-model-ftcat-container .ftcate-list .open .ftcat-item-link {
 	background: #fff;
 }

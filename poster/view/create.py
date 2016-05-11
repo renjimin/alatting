@@ -104,14 +104,18 @@ class PosterPageCreateView(View):
             index = int(pages.first().index) + 1
         else:
             index = 0
+
+        html = read_template_file_content(template.html_path())
+        css = read_template_file_content(template.css_path())
+        js = read_template_file_content(template.js_path())
         posterpage = PosterPage.objects.create(
             poster_id=poster_id,
             template_id=template_id,
             index=index,
             name="p%s_t%s_i%s" % (poster_id, template_id, index),
-            temp_html=read_template_file_content(template.html.url),
-            temp_css=read_template_file_content(template.css.url),
-            temp_script=read_template_file_content(template.script.url)
+            temp_html=html,
+            temp_css=css,
+            temp_script=js
         )
         posterpage.check_and_create_static_file_dir()
         return redirect(reverse('poster:edit',
