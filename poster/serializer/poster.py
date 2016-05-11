@@ -77,6 +77,17 @@ class PosterPublishSerializer(serializers.ModelSerializer):
 
 class SystemImageListSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
+
+    def get_image_url(self, obj):
+        return obj.image.file.url if obj.image else ''
+
+    class Meta:
+        model = SystemImage
+        fields = ('image', 'name', 'image_url')
+
+
+class SystemBackgroundListSerializer(serializers.ModelSerializer):
+    image_url = serializers.SerializerMethodField()
     thumbnail_url = serializers.SerializerMethodField()
 
     def get_image_url(self, obj):
@@ -87,4 +98,4 @@ class SystemImageListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SystemImage
-        fields = ('id', 'image', 'name', 'image_url', 'thumbnail_url')
+        fields = ('image', 'image_url', 'thumbnail_url')
