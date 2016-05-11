@@ -1,0 +1,19 @@
+{% extends 'alatting_website/base.html' %}
+{%load static %}
+
+{% block base_header_css %}
+    
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+	template survey index
+
+{% endblock %}
+
+{% block base_body_footer %}
+{% endblock %}
