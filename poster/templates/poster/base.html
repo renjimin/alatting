@@ -7,9 +7,18 @@
 {% endblock %}
 
 {% block base_header_js %}
+    <script>
+        var yunyeEditorGlobal = {
+            posterId: "{{ poster.id }}",
+            posterPageId: "{{ posterpage.id }}"
+        }
+    </script>
     {{ block.super }}
+    <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
+    <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
+    <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
