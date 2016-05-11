@@ -171,7 +171,7 @@ UPLOAD_ACCEPT_FILE_TYPES = {
 }
 
 # 上传文件大小限制为 5M
-UPLOAD_FILE_SIZE_LIMIT = 0.1 * 1024 * 1024
+UPLOAD_FILE_SIZE_LIMIT = 5 * 1024 * 1024
 
 # import djcelery
 # djcelery.setup_loader()
