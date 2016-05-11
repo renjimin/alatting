@@ -183,6 +183,6 @@ class PosterSaveView(RetrieveUpdateAPIView):
         pages = PosterPage.objects.filter(poster_id=poster_id).order_by('-index')
         for page in pages:
             static_map = json_data['poster_page_{:d}'.format(page.id)]
-            page.temp_html = base64.b64decode(static_map['html'])  # TODO当前仅保存了html内容
+            page.temp_html = base64.b64decode(static_map['html'])  #TODO 当前仅保存了html内容
             page.save()
         serializer.save()
