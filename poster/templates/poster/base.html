@@ -3,6 +3,8 @@
 
 {% block base_header_css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
+     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 {% endblock %}
 
@@ -14,29 +16,29 @@
         }
     </script>
     {{ block.super }}
+    <script src="{% static 'poster/plugins/changebg/jquery.changebg.js' %}"></script>
     <script src="{% static 'poster/plugins/dropdown/jquery.dropdown.js' %}"></script>
+    <script src="{% static 'poster/plugins/colorSelect/jquery.colorSelect-1.1.1.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
-    <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
     <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
 <div class="bar-header bar edit-bar-header">
-    <a href="javascript:void(0)" class="btn-back back-to-home"
-       data-url="{% url 'website:index' %}">
+    <a href="javascript:void(0)" class="btn-back back-to-home" data-url="{% url 'website:index' %}">
         <i class="icon-back"></i>
     </a>
-	<button class="button button-clear btn-page"><i class="ico-pages"></i></button>
-	<div class="title" style="left: 36px; right: 36px;">
-		<p>{{ poster.logo_title }}</p>
-	</div>
+    <button class="button button-clear btn-page"><i class="ico-pages"></i></button>
+    <div class="title" style="left: 36px; right: 36px;">
+        <p>{{ poster.logo_title }}</p>
+    </div>
     <div class="top-btn">
         <button class="btn btn-save">存储</button>
         <button class="btn btn-post">发布</button>
     </div>
-	<!--<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>-->
+    <!--<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>-->
 </div>
 {% endblock %}
 
@@ -81,7 +83,6 @@
             </div>
         </div>
     </header>
-    
     <section id="dp">
         <ul id="dpw_phone">
             <li><i class="icon ico-phone"></i><span><input type="text" value="{{ poster.phone }}" /></input></li>
@@ -126,12 +127,14 @@
         </ul>
         <span class="arrow"></span>
     </section>
+   
     {% block poster_base_body %}
 
     {% endblock %}
 {% endblock %}
 
 {% block base_body_footer %}
+    <div id="colorBox" style="position: absolute;bottom: 70px;left: 0;z-index: 100;overflow: scroll;width: 100%;"></div>
     <div class="bar-footer bar">
         <a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
             <i class="icon ico-edit-text"></i>
