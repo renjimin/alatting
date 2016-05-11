@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.conf.urls import url
 from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView, \
-                        PosterPublishView, SystemImageListView, SystemBackgroundListView
+                        PosterPublishView, SystemImageListView, SystemBackgroundListView, PosterSaveView
 from poster.apiview.resource import CategoryKeywordListView, \
     CategoryKeywordDetailView, UploadFileView
 
@@ -23,6 +23,9 @@ urlpatterns = [
 
     url(r'^publish/(?P<pk>\d+)/$',
         PosterPublishView.as_view(), name='poster_publish'),
+
+    url(r'^save/(?P<pk>\d+)/$',
+        PosterSaveView.as_view(), name='poster_save'),
 
     url(r'^system/images$',
         SystemImageListView.as_view(), name='system_images'),
