@@ -109,13 +109,11 @@ class PosterPageCreateView(View):
             template_id=template_id,
             index=index,
             name="p%s_t%s_i%s" % (poster_id, template_id, index),
-            html=template.html,
-            css=template.css,
-            script=template.script,
             temp_html=read_template_file_content(template.html.url),
             temp_css=read_template_file_content(template.css.url),
             temp_script=read_template_file_content(template.script.url)
         )
+        posterpage.check_and_create_static_file_dir()
         return redirect(reverse('poster:edit',
                                 kwargs={
                                     'pk': posterpage.id,
