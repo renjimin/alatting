@@ -7,7 +7,7 @@ $(function(){
         window.location.href = url;
         });
     });
-
+    //弹出菜单
     $(".dropdown-toggle").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
             id:'dpw_phone',
@@ -73,6 +73,14 @@ $(function(){
     $("#closebg").click(function(){
         $(".system-item").hide();
     })
+
+    $('.glyphicon-text-height').on('click',function(){
+        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+            console.log(1);
+            ths.css('color',color);
+        });
+    });
+
     $('body').on('click',function(event){
         var dpw = $('#dp');
         var list = window.clickItmList;

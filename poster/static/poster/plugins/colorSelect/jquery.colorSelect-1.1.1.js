@@ -42,6 +42,7 @@
             cdiv += '</ul></div>';
             box.append(cdiv);
         }
+
         /*色块的事件绑定*/
         box.unbind('click').on('click','.color-li',function(){
             var color = $(this).attr('data-color');
