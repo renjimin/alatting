@@ -10,6 +10,7 @@ from PIL import Image as pilimage
 class SystemImage(models.Model):
     id = BigAutoField(primary_key=True)
     image = models.ForeignKey(Image, related_name='system_images')
+    name = models.CharField(max_length=64, unique=True)
     thumbnail_img = models.ForeignKey(Image, null=True, default=None, blank=True)
 
     def __str__(self):

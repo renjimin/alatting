@@ -87,4 +87,4 @@ class SystemImageListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SystemImage
-        fields = ('id', 'image', 'image_url', 'thumbnail_url')
+        fields = ('id', 'image', 'name', 'image_url', 'thumbnail_url')

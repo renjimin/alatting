@@ -5,35 +5,34 @@ $(function(){
 			id:'dpw_phone',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:79
 		});
 	$(".abutton-contact .ico-email").registerDropDown({
 			id:'dpw_email',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:86.5
 		});
 	$(".abutton-contact .ico-address").registerDropDown({
 			id:'dpw_address',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:94
 		});
 	$(".abutton-contact .ico-clock").registerDropDown({
 			id:'dpw_clock',
 			offsetYPercent:50,
 			offsetY:30,
-			arrowOffset:86.5,
 			dynamicClass:'clock'
 		});
 	$('.bar-header .title').registerDropDown({
 			id:'dpw_title',
-			offsetXPercent:50,
-			offsetYPercent:100,
-			offsetY:17,
-			arrowOffset:50,
+			offsetYPercent:50,
+			offsetY:18,
 			dynamicClass:'title'
 		});
+	$('.header-info').registerDropDown({
+			id:'dpw_desc',
+			dynamicClass:'info'
+		});
+	
 
 	$('body').on('click',function(event){
 		var dpw = $('#dp');
@@ -47,5 +46,8 @@ $(function(){
 	//数据
 	$('#dpw_title input').on('change',function(event){
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
+	});
+	$('#dpw_desc input').on('change',function(event){
+		$('.desc span').html(event.currentTarget.value);
 	});
 });

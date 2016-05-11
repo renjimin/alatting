@@ -48,7 +48,7 @@
 							var offsetX = _option.offsetXPercent * _this.width() / 100 + parseInt(_option.offsetX) - dpw.width()/2;
 							dpw.css('left',_this.offset().left + offsetX);
 						}
-						var arrOffset = _option.arrowOffset * dpw.width() / 100 - 10;
+						var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
 						$('#dp .arrow').css('left', arrOffset );
 					}
 				}

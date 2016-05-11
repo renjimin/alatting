@@ -63,7 +63,7 @@
         </div>
         <div class="header-info">
             <div class="desc">
-                {{ poster.short_description }}
+                <span>{{ poster.short_description }}</span>
             </div>
         </div>
     </header>
@@ -90,6 +90,17 @@
         </ul>
         <ul id="dpw_title">
             <li><span><input type="text" value="{{ poster.logo_title }}" /></span></li>
+        </ul>
+        <ul id="dpw_desc">
+            <div class="input-outer"><textarea type="text">{{ poster.short_description }}</textarea></div>
+            <div class="input-outer">
+                <span>海报关键词</span>
+                <div class="ed-content">
+                    <span id="ed-con-li2" data-id="2">aabb</span>
+                </div>
+                <div class="ed-choose">
+                </div>
+            </div>
         </ul>
         <span class="arrow"></span>
     </section>
