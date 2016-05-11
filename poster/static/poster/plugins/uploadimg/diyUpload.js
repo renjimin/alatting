@@ -36,9 +36,8 @@
 
 			//迭代出默认配置
 			$.each( getOption( '#'+$fileInputId ),function( key, value ){
-					opt[ key ] = opt[ key ] || value; 
+				opt[ key ] == undefined ? opt[ key ] = value : opt[ key ] = opt[ key ];
 			});
-
 
 			if ( opt.buttonText ) {
 				opt['pick']['label'] = opt.buttonText;
@@ -160,9 +159,9 @@
 			//服务器地址;
 			server:"",
 			//是否已二进制的流的方式发送文件，这样整个上传内容php://input都为文件内容
-			sendAsBinary:false,
+			sendAsBinary:true,
 			// 开起分片上传。 thinkphp的上传类测试分片无效,图片丢失;
-			chunked:false,
+			chunked:true,
 			// 分片大小
 			chunkSize:512 * 1024,
 			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
