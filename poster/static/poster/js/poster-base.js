@@ -1,4 +1,13 @@
 $(function(){
+    $(".back-to-home").click(function(){
+        var url = $(this).data("url");
+        yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
+            //todo:lyh:异步调用保存方法，将本地缓存数据保存至数据库,
+            //保存操作完成后进行页面跳转
+            window.location.href = url;
+        });
+    });
+
 	// 注册toggle
 	$(".dropdown-toggle").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({

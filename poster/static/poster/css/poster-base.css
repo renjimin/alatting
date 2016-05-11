@@ -232,3 +232,19 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 #dp.info .ed-choose {background: #f3f3f3;height: 95%;overflow-y: scroll;padding: 15px;border-radius: 5px;}
 #dp.info .autoheight{width:100%;height: 100%;padding-top: 170px;margin-top: -170px;}
 #dpw_desc{height: 100%;overflow: hidden;}
+
+.edit-bar-header .btn-back{
+    display: inline-block;
+    padding: 4px;
+    box-sizing: content-box;
+    font-size: 22px;
+}
+.edit-bar-header .icon-back {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background: url(/static/account/img/arrow.png) no-repeat;
+    background-size: auto 100%;
+    vertical-align: top;
+    color:#fff;
+}

@@ -17,12 +17,16 @@
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/jquery.dropdown.js' %}"></script>
-    <script src="{% static 'poster/js/poster-base.js' %}"></script>
     <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
+    <script src="{% static 'poster/js/poster-base.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
 <div class="bar-header bar edit-bar-header">
+    <a href="javascript:void(0)" class="btn-back back-to-home"
+       data-url="{% url 'website:index' %}">
+        <i class="icon-back"></i>
+    </a>
 	<button class="button button-clear btn-page"><i class="ico-pages"></i></button>
 	<div class="title" style="left: 36px; right: 36px;">
 		<p>{{ poster.logo_title }}</p>
