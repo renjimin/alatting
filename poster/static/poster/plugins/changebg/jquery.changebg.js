@@ -20,13 +20,13 @@
                 $.ajax({
                     type: 'GET',
                     // async:false,
-                    url: 'http://192.168.14.128:8080/api/v1/poster/system/background',
+                    url: '/api/v1/poster/system/background',
                     success: function (data) {
                         // ss= data;
                         console.log(data);
                         var cbox= '<div class="system-item"><div ><h3>系统图案</h3><i id = "closebg" class="glyphicon glyphicon-remove"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
-                            var img = "http://192.168.14.128:8080"+data[i].image_url;
+                            var img = data[i].image_url;
                             cbox += '<li class="item-system" data-img="'+img+'"><img src="'+img+'"></li>';
                         }
                         cbox += '</ul></div>';
