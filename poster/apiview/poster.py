@@ -1,9 +1,11 @@
 # coding=utf-8
+import base64
+
 from django.contrib.auth.models import AnonymousUser, User
 from django.views.generic import CreateView
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
-    RetrieveUpdateAPIView)
+    RetrieveUpdateAPIView, UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,7 +14,8 @@ from alatting_website.model.poster import Poster, PosterPage
 from poster.models import SystemImage, SystemBackground
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer, SystemBackgroundListSerializer)
+    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer, SystemBackgroundListSerializer,
+    PosterSaveSerializer)
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, save_file
 
@@ -163,3 +166,23 @@ class SystemBackgroundListView(ListAPIView):
     model = SystemBackground
     serializer_class = SystemBackgroundListSerializer
     queryset = SystemBackground.objects.all()
+
+
+class PosterSaveView(RetrieveUpdateAPIView):
+    model = Poster
+    queryset = Poster.objects.all()
+    serializer_class = PosterSaveSerializer
+
+    def get_queryset(self):
+        qs = super(PosterSaveView, self).get_queryset()
+        return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
+
+    def perform_update(self, serializer):
+        poster_id = serializer.instance.id
+        json_data = self.request.data['yunyeTemplateData{:d}'.format(poster_id)]
+        pages = PosterPage.objects.filter(poster_id=poster_id).order_by('-index')
+        for page in pages:
+            static_map = json_data['poster_page_{:d}'.format(page.id)]
+            page.temp_html = base64.b64decode(static_map['html'])  # TODO当前仅保存了html内容
+            page.save()
+        serializer.save()
