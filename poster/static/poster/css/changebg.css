@@ -1,0 +1,45 @@
+#bimg h3 {
+    text-align: center;
+    line-height: 50px;
+    margin: 0;
+    font-size: 1.4em;
+    background: #ACACAC;
+}
+
+#bimg .system-bgk {
+    position: absolute;
+    background: #ACACAC;
+}
+
+#bimg .system-item ul {
+    height: 50%;
+    background: #8F8F8F;
+    overflow: auto;
+    overflow-y: auto
+}
+
+#bimg .icon-back {
+    height: 23px;
+    width: 23px;
+    position: absolute;
+    left: 42%;
+    top: 212px;
+    font-size: 28px;
+    background: url(edit-tool-text.png) no-repeat;
+    background-size: auto 100%;
+    background-image: url(edit-tool-pic.png);
+}
+
+#bimg .item-system {
+    width: 33.3333333%;
+    height: 200px;
+    padding: 15px;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+#bimg .item-system img {
+    max-width: 100%;
+    max-height: 100%;
+}
