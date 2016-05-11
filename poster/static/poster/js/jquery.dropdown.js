@@ -50,8 +50,7 @@
 						$('#dp .arrow').css('left', arrOffset );
 
 						if(_option.eval){
-							var result = eval(_option.eval);
-							console.log(result);
+							eval(_option.eval);
 						}
 					}
 				}
@@ -102,10 +101,10 @@
 						right = left + dpw.width(),
 						documentW = $(document.body).width();
 					if( right > documentW ){
-						left = documentW - dpw.width() ;
+						left = documentW - dpw.width() -5;
 						dpw.css('left',left);
 					}else if( left < 0){
-						dpw.css('left',0);
+						dpw.css('left',5);
 					}else{
 						dpw.css('left',left);
 					}

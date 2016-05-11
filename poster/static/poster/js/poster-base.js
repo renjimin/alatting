@@ -30,7 +30,7 @@ $(function(){
 		});
 	$('.header-info').registerDropDown({
 			id:'dpw_desc',
-			eval:'$("#dp").width() * _this.offset()',
+			eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40)',
 			dynamicClass:'info'
 		});
 
@@ -43,7 +43,6 @@ $(function(){
 				{icon:"ico-address",text:"地址"},
 				{icon:"ico-clock",text:"时间"}],
 		});
-
 	$('body').on('click',function(event){
 		var dpw = $('#dp');
 		var list = window.clickItmList;
