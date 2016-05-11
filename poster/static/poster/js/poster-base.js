@@ -34,15 +34,25 @@ $(function(){
 			dynamicClass:'info'
 		});
 
-	$('.ico-menu').registerPopUp({
+	$('.header-logo').registerPopUp({
 			id:'dpw_menu',
 			offsetYPercent:50,
 			offsetY:30,
-			list:[{icon:"ico-email",text:"邮箱",callback:function(){console.log(1);}},
-				{icon:"ico-phone",text:"电话"},
-				{icon:"ico-address",text:"地址"},
-				{icon:"ico-clock",text:"时间"}],
+			list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
+				{icon:"ico-phone",text:" 上传图片"},
+				{icon:"ico-address",text:"照相"},
+				{icon:"ico-clock",text:"图片链接"}],
 		});
+	$('.mask').registerPopUp({
+			id:'dpw_header',
+			offsetYPercent:90,
+			offsetY:30,
+			list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
+				{icon:"ico-phone",text:" 上传图片"},
+				{icon:"ico-address",text:"照相"},
+				{icon:"ico-clock",text:"图片链接"}],
+		});
+
 	$('body').on('click',function(event){
 		var dpw = $('#dp');
 		var list = window.clickItmList;

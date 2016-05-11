@@ -83,7 +83,10 @@
 			dpw.append(str);
 
 			for(var i in _option.list){
-				if(_option.list[i].callback)$("#dp #" + _option.id+'_'+i ).click(_option.list[i].callback);
+				if(_option.list[i].callback)$("#dp #" + _option.id+'_'+i ).click(function(){
+					_option.list[i].callback;
+					dpw.removeClass('open');
+				});
 			}
 			
 			_this.on('click',function(event){
@@ -110,7 +113,6 @@
 					}
 					var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
 					$('#dp .arrow').css('left', arrOffset );
-
 				}
 			});
 		})

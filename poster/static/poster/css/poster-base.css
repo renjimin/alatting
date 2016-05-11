@@ -102,7 +102,7 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .open .abutton-contact{transform:scale(0);-webkit-transform:scale(0);}
 .open .abutton-express{transform:scale(1);-webkit-transform:scale(1);}
 
-.header-info{padding:0 15px 15px; text-align:center;font-size:1.1em;}
+.header-info{padding:10px; text-align:center;font-size:1.1em;border-top:1px solid #fff;}
 
 /*slider*/
 .slider {height: 100%;}
