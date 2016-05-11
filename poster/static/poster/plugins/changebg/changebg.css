@@ -1,4 +1,4 @@
-#bimg h3 {
+.system-item h3 {
     text-align: center;
     line-height: 50px;
     margin: 0;
@@ -6,19 +6,19 @@
     background: #ACACAC;
 }
 
-#bimg .system-bgk {
+.system-item .system-bgk {
     position: absolute;
     background: #ACACAC;
 }
 
-#bimg .system-item ul {
+.system-item ul {
     height: 50%;
     background: #8F8F8F;
     overflow: auto;
     overflow-y: auto
 }
 
-#bimg .icon-back {
+.system-item .icon-back {
     height: 23px;
     width: 23px;
     position: absolute;
@@ -30,7 +30,7 @@
     background-image: url(edit-tool-pic.png);
 }
 
-#bimg .item-system {
+.system-item .item-system {
     width: 33.3333333%;
     height: 200px;
     padding: 15px;
@@ -39,7 +39,7 @@
     text-align: center;
 }
 
-#bimg .item-system img {
+.system-item .item-system img {
     max-width: 100%;
     max-height: 100%;
 }

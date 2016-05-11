@@ -49,7 +49,16 @@ $(function(){
 			offsetYPercent:90,
 			offsetY:30,
 			arrowOffset:80,
-			list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
+			list:[{icon:"ico-email",text:"系统图案",callback:function(){
+				console.log(1);
+				$('.header').bgselect({}, function (ths,img) {
+					console.log(img);
+					ths.css('background-image', 'url(' + img + ')');
+					ths.css('background-size', 'cover');
+
+				})
+				console.log(2)
+			}},
 				{icon:"ico-phone",text:" 上传图片"},
 				{icon:"ico-address",text:"照相"},
 				{icon:"ico-clock",text:"图片链接"}],
