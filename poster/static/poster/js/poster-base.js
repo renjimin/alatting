@@ -63,9 +63,13 @@ $(function(){
                     ths.css('background-size', 'cover');
                 })
             }},
-                {icon:"ico-phone",text:" 上传图片"},
-                {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}],
+                {icon:"ico-phone",text:" 颜色",callback:function(){
+                    $("#colorBox").show();
+                    $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                         $('.header').css('background',color);
+                    });
+                }},
+                {icon:"ico-address",text:"上传图片"}],
         });
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
