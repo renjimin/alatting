@@ -63,15 +63,11 @@ class UploadFileView(APIView):
         return Response(data, status=status_code)
 
     def post(self, request, *args, **kwargs):
-        page_key = kwargs.get('page_key')
-        if page_key not in settings.UPLOAD_SUPPORT_PAGE_KEY:
-            return self.response({'detail': 'unsupport page key'})
-
         upload_file = request.FILES['file']
         ext_type = get_file_ext_name(upload_file.name)
         accept_types = self.get_accept_file_mime_type()
         if ext_type not in accept_types:
-            return self.response({'detail': 'unsupport file mimetype'})
+            return self.response({'detail': '不支持上传%s文件类型' % ext_type})
 
         model, serializer_model, path_method = self.get_models(ext_type)
         if not model:
