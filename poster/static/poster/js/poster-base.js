@@ -67,23 +67,20 @@ $(function(){
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
         });
-<<<<<<< HEAD
+    $(document).on("clsdp",function(){
+        $("#colorBox").hide();
+    });
     $(document).on("click",'#closebg',function(event){
         $(".system-item").fadeOut(200);
     });
-=======
-    $("#closebg").click(function(){
-        $(".system-item").hide();
-    })
 
     $('.glyphicon-text-height').on('click',function(){
-        $('#colorBox').toggle();
+        $("#colorBox").show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
     });
 
->>>>>>> 16d030d7c343a9d202803a457836ef36f9d5ab50
     $('body').on('click',function(event){
         var dpw = $('#dp');
         var list = window.clickItmList;
