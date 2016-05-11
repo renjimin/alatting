@@ -137,7 +137,7 @@
 			//类型限制;
 			accept:{
 				title:"Images",
-				extensions:"jpg,jpeg,png",
+				extensions:"jpg,jpeg,png,gif",
 				mimeTypes:"image/*"
 			},
 			//配置生成缩略图的选项
@@ -159,15 +159,14 @@
 			//服务器地址;
 			server:"",
 			//是否已二进制的流的方式发送文件，这样整个上传内容php://input都为文件内容
-			sendAsBinary:true,
+			sendAsBinary:false,
 			// 开起分片上传。 thinkphp的上传类测试分片无效,图片丢失;
 			chunked:true,
 			// 分片大小
-			chunkSize:512 * 1024,
+			chunkSize: 0.5 * 1024 * 1024,
 			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-			fileNumLimit:50,
-			fileSizeLimit:5000 * 1024,
-			fileSingleSizeLimit:500 * 1024
+			fileNumLimit: 50,
+			fileSingleSizeLimit: 5 * 1024 * 1024
 		};
 	}
 	
