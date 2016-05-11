@@ -45,8 +45,10 @@ $(function(){
 		});
 	$('.mask').registerPopUp({
 			id:'dpw_header',
+			offsetXPercent:80,
 			offsetYPercent:90,
 			offsetY:30,
+			arrowOffset:80,
 			list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
 				{icon:"ico-phone",text:" 上传图片"},
 				{icon:"ico-address",text:"照相"},

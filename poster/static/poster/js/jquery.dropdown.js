@@ -60,10 +60,11 @@
 	$.fn.registerPopUp = function(options){
 		var opts = {
 			list:[],
-			offsetXPercent:0,
+			offsetXPercent:50,
 			offsetX:0,
 			offsetYPercent:0,
-			offsetY:0
+			offsetY:0,
+			arrowOffset:0
 		};
 		window.clickItmList = window.clickItmList || ["#dp"];
 		window.clickItmList.push(this.selector);
@@ -81,14 +82,16 @@
 			}
 			str += '</ul>'
 			dpw.append(str);
-
 			for(var i in _option.list){
-				if(_option.list[i].callback)$("#dp #" + _option.id+'_'+i ).click(function(){
-					_option.list[i].callback;
-					dpw.removeClass('open');
-				});
+				if(_option.list[i].callback){
+					var n = i ;
+					$("#dp #" + _option.id+'_'+i ).click(function(event){
+						_option.list[n].callback();
+						dpw.removeClass('open');
+					});
+				}
+					
 			}
-			
 			_this.on('click',function(event){
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
@@ -100,7 +103,7 @@
 
 					var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
 					dpw.css('top',_this.offset().top + offsetY);
-					var left = _this.offset().left + _this.width()/2 - dpw.width()/2,
+					var left = _this.offset().left + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2,
 						right = left + dpw.width(),
 						documentW = $(document.body).width();
 					if( right > documentW ){
@@ -111,8 +114,12 @@
 					}else{
 						dpw.css('left',left);
 					}
-					var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
-					$('#dp .arrow').css('left', arrOffset );
+					if(_option.arrowOffset){
+						$('#dp .arrow').css('left', (dpw.width() * _option.arrowOffset)/100 -15  );
+					}else{
+						$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
+					}
+					
 				}
 			});
 		})

@@ -47,7 +47,7 @@ body,html{height: 100%;overflow-x: hidden;}
 .header-bar:after{content:"";display:block;height:0;overflow:hidden;clear:both;}
 /*header*/
 .header{position:relative; background-color:#c5c5c5; background-size:cover; background-repeat:no-repeat; background-position:center center;}
-.header-bar{padding:15px 0;position: relative;}
+.header-bar{padding:15px 0;position: relative;z-index: 20;}
 .header-qrcode{width:25%;float:left;}
 .header-logo{width:50%;text-align:center;position: absolute;left: 25%;height: 100%;margin-top: -15px;padding: 15px 0;}
 .header-abutton{width:25%;float:right;}
@@ -59,8 +59,8 @@ body,html{height: 100%;overflow-x: hidden;}
 .qrcode-inner .qrcode a.btn:active{ background:#bbb;}
 .header-logo img{max-width:100%;height: 100%;}
 .abutton-group{font-size:15px; position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;transform:scale(0);-webkit-transform:scale(0);transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
-.abutton-group li {position: absolute;width: 100%;height: 100%;-webkit-transform-origin: 100% 100%;transform-origin: 100% 100%;overflow: hidden;left: 50%;top: 50%;margin-top: -100%;margin-left: -100%;-webkit-transition: border .3s ease;transition: border .3s ease;border:1px solid transparent;}
-.abutton-group li a { display: block;width: 100%;height:100%; position: absolute; bottom: -50%; right: -50%; border-radius: 50%; text-decoration: none; color: #fff;  text-align: center; -webkit-transform: skew(0) rotate(-45deg) scale(1); transform: skew(0) rotate(-45deg) scale(1);transition: all 0.2s ease;-webkit-transition: all 0.2s ease;  box-sizing: border-box; -webkit-box-sizing:border-box;}
+.abutton-group li {pointer-events: none;position: absolute;width: 100%;height: 100%;-webkit-transform-origin: 100% 100%;transform-origin: 100% 100%;overflow: hidden;left: 50%;top: 50%;margin-top: -100%;margin-left: -100%;-webkit-transition: border .3s ease;transition: border .3s ease;border:1px solid transparent;}
+.abutton-group li a { pointer-events: fill;display: block;width: 100%;height:100%; position: absolute; bottom: -50%; right: -50%; border-radius: 50%; text-decoration: none; color: #fff;  text-align: center; -webkit-transform: skew(0) rotate(-45deg) scale(1); transform: skew(0) rotate(-45deg) scale(1);transition: all 0.2s ease;-webkit-transition: all 0.2s ease;  box-sizing: border-box; -webkit-box-sizing:border-box;}
 .abutton-group li a span {  font-size: 1.1em;  opacity: 0.7;}
 .abutton-group li a .icon{font-size:20px;}
 .abutton-group li:first-child {-webkit-transform: rotate(-45deg) skew(0);transform: rotate(-45deg) skew(0);}
@@ -103,7 +103,6 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .open .abutton-express{transform:scale(1);-webkit-transform:scale(1);}
 
 .header-info{padding:10px; text-align:center;font-size:1.1em;border-top:1px solid #fff;}
-
 /*slider*/
 .slider {height: 100%;}
 .slider-slide { color: #000; background-color: #fff; text-align: center; font-weight: 300;}
