@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from django.conf.urls import url
+from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from poster.view.create import (CategoryKeywordsView, CreateFormView,
                                 SelectTemplateView, PosterPageCreateView)
@@ -34,5 +35,9 @@ urlpatterns += [
 urlpatterns += [
     url(r'^(?P<poster_pk>[\d]+)/edit/(?P<pk>[\d]+)$',
         login_required(PosterEditView.as_view()),
+        name='edit'),
+
+    url(r'^files-upload$',
+        TemplateView.as_view(template_name='poster/files-upload.html'),
         name='edit'),
 ]
