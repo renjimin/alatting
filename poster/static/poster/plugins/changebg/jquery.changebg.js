@@ -24,7 +24,7 @@
                     success: function (data) {
                         // ss= data;
                         console.log(data);
-                        var cbox= '<div class="system-item"><div ><i class="icon-back"></i><h3>系统图案</h3></div><ul>';
+                        var cbox= '<div class="system-item"><div ><h3>系统图案</h3><i id = "closebg" class="glyphicon glyphicon-remove"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
                             var img = "http://192.168.14.128:8080"+data[i].image_url;
                             cbox += '<li class="item-system" data-img="'+img+'"><img src="'+img+'"></li>';
@@ -47,6 +47,9 @@
 
                 callBack_Selected(ele,img);
             });
+        	$("#closebg").click(function(){
+                $(".system-item").hide();
+            })
         }
 
     //在插件中使用doChangeBkg对象

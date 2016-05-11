@@ -1,3 +1,9 @@
+.system-item{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 999;
+}
 .system-item h3 {
     text-align: center;
     line-height: 50px;
@@ -12,22 +18,18 @@
 }
 
 .system-item ul {
-    height: 50%;
+    height: 100%;
     background: #8F8F8F;
-    overflow: auto;
     overflow-y: auto
 }
 
-.system-item .icon-back {
+.system-item .glyphicon{
     height: 23px;
     width: 23px;
     position: absolute;
-    left: 42%;
-    top: 212px;
+    margin-left: 90%;
+    margin-top: 3%;
     font-size: 28px;
-    background: url(edit-tool-text.png) no-repeat;
-    background-size: auto 100%;
-    background-image: url(edit-tool-pic.png);
 }
 
 .system-item .item-system {
