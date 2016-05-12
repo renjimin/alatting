@@ -1,5 +1,6 @@
 # coding=utf-8
 import base64
+import json
 
 from django.contrib.auth.models import AnonymousUser, User
 from django.views.generic import CreateView
@@ -133,6 +134,18 @@ class CheckPosterUniqueNameView(APIView):
         return Response({'exists': exists})
 
 
+class SystemImageListView(ListAPIView):
+    model = SystemImage
+    serializer_class = SystemImageListSerializer
+    queryset = SystemImage.objects.all()
+
+
+class SystemBackgroundListView(ListAPIView):
+    model = SystemBackground
+    serializer_class = SystemBackgroundListSerializer
+    queryset = SystemBackground.objects.all()
+
+
 class PosterPublishView(RetrieveUpdateAPIView):
     model = Poster
     queryset = Poster.objects.all()
@@ -156,18 +169,6 @@ class PosterPublishView(RetrieveUpdateAPIView):
         serializer.save(status=Poster.STATUS_PUBLISHED)
 
 
-class SystemImageListView(ListAPIView):
-    model = SystemImage
-    serializer_class = SystemImageListSerializer
-    queryset = SystemImage.objects.all()
-
-
-class SystemBackgroundListView(ListAPIView):
-    model = SystemBackground
-    serializer_class = SystemBackgroundListSerializer
-    queryset = SystemBackground.objects.all()
-
-
 class PosterSaveView(RetrieveUpdateAPIView):
     model = Poster
     queryset = Poster.objects.all()
@@ -177,12 +178,35 @@ class PosterSaveView(RetrieveUpdateAPIView):
         qs = super(PosterSaveView, self).get_queryset()
         return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
 
+    def _head_fields(self):
+        "头部要保存的基本信息，不在此列表中的字段未变更"
+        return ["mobile", "email", "phone", "logo_title", "short_description"]
+
+    def _css_handler(self, old_css, new_css):
+        "处理一下css内容， 把最新的css更改保存到数据库中"
+        from utils.jsonutils import merge_json, css2json, json2css
+        old_json = css2json(old_css)
+        new_json = json.dumps(new_css)
+        return json2css(merge_json(old_json, new_json))
+
     def perform_update(self, serializer):
         poster_id = serializer.instance.id
         json_data = self.request.data['yunyeTemplateData{:d}'.format(poster_id)]
+        # 存储头部基本信息
+        try:
+            for k, v in json_data['head'].items():
+                if k in self._head_fields():
+                    setattr(serializer.instance, k, v)
+        except KeyError:
+            pass
+        # 存储静态文件信息
         pages = PosterPage.objects.filter(poster_id=poster_id).order_by('-index')
         for page in pages:
-            static_map = json_data['poster_page_{:d}'.format(page.id)]
-            page.temp_html = base64.b64decode(static_map['html'])  #TODO 当前仅保存了html内容
-            page.save()
+            try:
+                static_map = json_data['page']['poster_page_{:d}'.format(page.id)]
+                page.temp_html = base64.b64decode(static_map['html'])
+                page.temp_css = self._css_handler(page.temp_css, static_map['css'])
+                page.save()
+            except KeyError:
+                pass
         serializer.save()

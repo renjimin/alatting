@@ -44,7 +44,7 @@
             var s  = this.options;
                 var ele = this.$element;
                 var callBack_Selected =this.callBack;
-                bimg.on('click','.item-system',function(){
+                bimg.off('click','.item-system').on('click','.item-system',function(){
                 var img = $(this).attr('data-img');
                     $('.item-system').css({ 
                         'opacity':'.5',
