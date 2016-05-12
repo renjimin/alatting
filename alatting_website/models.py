@@ -120,6 +120,16 @@ class Template(models.Model):
     def js_path(self):
         return os.path.join(self.get_template_static_dir_path(), 'index.js')
 
+    def static_file_exists(self):
+        html = os.path.join(settings.BASE_DIR, self.html_path()[1:])
+        css = os.path.join(settings.BASE_DIR, self.css_path()[1:])
+        js = os.path.join(settings.BASE_DIR, self.js_path()[1:])
+        return all([
+            os.path.exists(html),
+            os.path.exists(css),
+            os.path.exists(js)
+        ])
+
 
 class TemplateRegion(models.Model):
     template = models.ForeignKey(Template, related_name='template_regions')
