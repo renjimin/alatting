@@ -62,6 +62,7 @@ $(function(){
                             ths.css('background-image', 'url(' + img + ')');
                             ths.css('background-size', 'cover');
                             storageAPI.setCss(".header", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
                         })
                     }},
                     {icon:"ico-phone",text:" 颜色",callback:function(){
@@ -74,7 +75,32 @@ $(function(){
                     {icon:"ico-address",text:"上传图片"}
                 ]
         });
-    
+/**模版空白设置背景*/
+   $('.yunye-template').registerPopUp({
+            id:'dpw_header',
+            offsetXPercent:50,
+            offsetYPercent:50,
+            offsetY:30,
+            arrowOffset:80,
+            orientation:1,
+            list:[{icon:"ico-email",text:"系统图案",callback:function(){
+                        $('.yunye-template').bgselect({}, function (ths,img) {
+                            ths.css('background-image', 'url(' + img + ')');
+                            ths.css('background-size', 'cover');
+                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},
+                    {icon:"ico-phone",text:" 颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('.yunye-template').css('background',color);
+                            storageAPI.setCss(".yunye-template", {'background':color});
+                        });
+                    }},
+                    {icon:"ico-address",text:"上传图片"}
+                ]
+        });    
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
     });
@@ -116,6 +142,7 @@ $(function(){
     /**读取缓存背景图片*/
     var storageAPI = $.fn.yunyeStorage;
     if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
+    if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
 
     //数据初始化
     var pageHeadData = storageAPI.getPosterHeadData();
