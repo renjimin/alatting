@@ -48,7 +48,8 @@ $(function(){
             list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}]
+                {icon:"ico-clock",text:"图片链接"}],
+            orientation:1
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
