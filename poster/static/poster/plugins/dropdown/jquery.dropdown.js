@@ -66,7 +66,8 @@
 			offsetX:0,
 			offsetYPercent:0,
 			offsetY:0,
-			arrowOffset:0
+			arrowOffset:0,
+			orientation:0
 		};
 		return this.each(function () {
 			var _this = $(this),
@@ -77,8 +78,15 @@
 				dpw = $('#dp');
 
 			var str = '<ul id="'+ _option.id +'">'
-			for(var i in _option.list){
-				str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[i].icon+'"></i><span>'+_option.list[i].text+'</span>'
+			if(_option.orientation){
+				var len = _option.list.length;
+				for(var i in _option.list){
+					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
+				}
+			}else{
+				for(var i in _option.list){
+					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[i].icon+'"></i><span>'+_option.list[i].text+'</span>'
+				}
 			}
 			str += '</ul>'
 			dpw.append(str);
@@ -118,6 +126,13 @@
 						$('#dp .arrow').css('left', (dpw.width() * _option.arrowOffset)/100 -15  );
 					}else{
 						$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
+					}
+					if(_option.orientation){
+						$('#dp .arrow').css('top', dpw.height() - 2 );
+						$('#dp .arrow').attr('class', 'arrow down')
+					}else{
+						$('#dp .arrow').css('top',  -30);
+						$('#dp .arrow').attr('class', 'arrow up')
 					}
 				}
 				event.stopPropagation();

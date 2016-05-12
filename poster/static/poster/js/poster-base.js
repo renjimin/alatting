@@ -48,7 +48,8 @@ $(function(){
             list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}]
+                {icon:"ico-clock",text:"图片链接"}],
+            orientation:1
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -60,12 +61,14 @@ $(function(){
                         $('.header').bgselect({}, function (ths,img) {
                             ths.css('background-image', 'url(' + img + ')');
                             ths.css('background-size', 'cover');
+                            storageAPI.setCss(".header", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
                         })
                     }},
                     {icon:"ico-phone",text:" 颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.header').css('background',color);
+                            storageAPI.setCss(".header", {'background':color});
                         });
                     }},
                     {icon:"ico-address",text:"上传图片"}
@@ -130,6 +133,11 @@ $(function(){
             $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
         }
     }
+    /**读取缓存背景图片*/
+    var storageAPI = $.fn.yunyeStorage;
+    storageAPI.getCss(".header");
+    $('.header').css(storageAPI.getCss(".header"));
+
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
