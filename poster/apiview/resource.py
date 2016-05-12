@@ -5,7 +5,7 @@ from django.core.files import File
 from rest_framework import status
 
 from rest_framework.generics import ListAPIView, ListCreateAPIView, \
-    RetrieveUpdateDestroyAPIView
+    RetrieveUpdateDestroyAPIView, RetrieveAPIView
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -62,16 +62,22 @@ class UploadFileView(APIView):
     def response(data, status_code=status.HTTP_400_BAD_REQUEST):
         return Response(data, status=status_code)
 
-    def post(self, request, *args, **kwargs):
-        page_key = kwargs.get('page_key')
-        if page_key not in settings.UPLOAD_SUPPORT_PAGE_KEY:
-            return self.response({'detail': 'unsupport page key'})
+    def check_file_size(self, upload_file):
+        if upload_file.size > settings.UPLOAD_FILE_SIZE_LIMIT:
+            mb = settings.UPLOAD_FILE_SIZE_LIMIT / 1024 / 1024
+            return self.response({'detail': '上传的单个文件不能大于 %sM' % mb})
+        return None
 
+    def post(self, request, *args, **kwargs):
         upload_file = request.FILES['file']
         ext_type = get_file_ext_name(upload_file.name)
         accept_types = self.get_accept_file_mime_type()
         if ext_type not in accept_types:
-            return self.response({'detail': 'unsupport file mimetype'})
+            return self.response({'detail': '不支持上传%s文件类型' % ext_type})
+
+        check_resp = self.check_file_size(upload_file)
+        if check_resp:
+            return check_resp
 
         model, serializer_model, path_method = self.get_models(ext_type)
         if not model:
@@ -146,3 +152,9 @@ class CategoryKeywordDetailView(RetrieveUpdateDestroyAPIView):
     model = CategoryKeyword
     serializer_class = CategoryKeywordSerializer
     queryset = CategoryKeyword.objects.all()
+
+
+class TemplateDetailView(RetrieveAPIView):
+    model = Template
+    queryset = Template.objects.all()
+    serializer_class = TemplateSerializer

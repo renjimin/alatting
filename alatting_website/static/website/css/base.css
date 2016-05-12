@@ -9,6 +9,9 @@ body {
 	margin: 0 auto;
 	-webkit-backface-visibility: hidden;
 }
+.body-container{
+	height: 100%;
+}
 ol,
 ul,
 li {

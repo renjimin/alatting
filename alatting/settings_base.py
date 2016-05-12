@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'corsheaders',
     'account',
     'poster',
+    'survey',
     'alatting_website',
     'alatting_admin',
 )
@@ -163,17 +164,15 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 REGISTRATION_EMAIL_HTML = False
 
 
-# 上传文件接口配置项
-UPLOAD_SUPPORT_PAGE_KEY = [
-    'logo', 'avatar'
-]
-
+# 上传文件类型白名单
 UPLOAD_ACCEPT_FILE_TYPES = {
-    'image': ['jpg', 'jpeg', 'png'],
+    'image': ['jpg', 'jpeg', 'png', 'gif'],
     'video': ['mp4', 'ogv', 'webm'],
     'audio': ['mp3']
 }
 
+# 上传文件大小限制为 5M
+UPLOAD_FILE_SIZE_LIMIT = 5 * 1024 * 1024
 
 # import djcelery
 # djcelery.setup_loader()

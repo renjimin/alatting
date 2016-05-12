@@ -32,12 +32,13 @@
 				var errorCallBack = opt.error;
 				delete opt.error;
 			}
-			
+
+
 			//迭代出默认配置
 			$.each( getOption( '#'+$fileInputId ),function( key, value ){
-					opt[ key ] = opt[ key ] || value; 
+				opt[ key ] == undefined ? opt[ key ] = value : opt[ key ] = opt[ key ];
 			});
-			
+
 			if ( opt.buttonText ) {
 				opt['pick']['label'] = opt.buttonText;
 				delete opt.buttonText;	
@@ -136,7 +137,7 @@
 			//类型限制;
 			accept:{
 				title:"Images",
-				extensions:"jpg,jpeg,png",
+				extensions:"jpg,jpeg,png,gif",
 				mimeTypes:"image/*"
 			},
 			//配置生成缩略图的选项
@@ -162,11 +163,10 @@
 			// 开起分片上传。 thinkphp的上传类测试分片无效,图片丢失;
 			chunked:true,
 			// 分片大小
-			chunkSize:512 * 1024,
+			chunkSize: 0.5 * 1024 * 1024,
 			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-			fileNumLimit:50,
-			fileSizeLimit:5000 * 1024,
-			fileSingleSizeLimit:500 * 1024
+			fileNumLimit: 50,
+			fileSingleSizeLimit: 5 * 1024 * 1024
 		};
 	}
 	

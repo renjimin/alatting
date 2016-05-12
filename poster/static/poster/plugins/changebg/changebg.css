@@ -1,7 +1,8 @@
 .system-item{
-    position: absolute;
+    position: fixed;
     top: 0;
     height: 100%;
+    width: 100%;
     z-index: 999;
 }
 .system-item h3 {
@@ -34,11 +35,11 @@
 
 .system-item .item-system {
     width: 33.3333333%;
-    height: 200px;
     padding: 15px;
     float: left;
     position: relative;
     text-align: center;
+    opacity: .5;
 }
 
 .system-item .item-system img {

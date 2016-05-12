@@ -1,23 +1,18 @@
-.content{
+.yunye-template{
 	width: 100%;
-	height:357px;
+	height: 430px;
 }
 
-.block1{
+.yunye-template .content-top{
 	background: #B5B1AB;
-	height: 20%;
+	height: 30%;
 }
 
-.block2{
-	height: 31%;
+.yunye-template .content-middle{
+	height: 30%;
 }
 
-.block3{
+.yunye-template .content-bottom{
 	background: #B5B1AB;
-	height: 36%;
+	height: 40%;
 }
-
-
-
-
-

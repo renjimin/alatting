@@ -42,10 +42,12 @@
             cdiv += '</ul></div>';
             box.append(cdiv);
         }
+
         /*色块的事件绑定*/
-        box.unbind('click').on('click','.color-li',function(){
+        box.unbind('click').on('click','.color-li',function(event){
             var color = $(this).attr('data-color');
             fun(ele,color);
+            event.stopPropagation();
         });
     }
 

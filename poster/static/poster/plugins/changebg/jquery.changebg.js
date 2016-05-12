@@ -20,13 +20,13 @@
                 $.ajax({
                     type: 'GET',
                     // async:false,
-                    url: 'http://192.168.14.128:8080/api/v1/poster/system/background',
+                    url: '/api/v1/poster/system/background',
                     success: function (data) {
                         // ss= data;
                         console.log(data);
                         var cbox= '<div class="system-item"><div ><h3>系统图案</h3><i id = "closebg" class="glyphicon glyphicon-remove"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
-                            var img = "http://192.168.14.128:8080"+data[i].image_url;
+                            var img = data[i].image_url;
                             cbox += '<li class="item-system" data-img="'+img+'"><img src="'+img+'"></li>';
                         }
                         cbox += '</ul></div>';
@@ -38,18 +38,24 @@
                     }
                 });
 
+            }else{
+                bimg.children('.system-item').fadeIn(200);
             }
             var s  = this.options;
                 var ele = this.$element;
                 var callBack_Selected =this.callBack;
-                bimg.on('click','.item-system',function(){
+                bimg.off('click','.item-system').on('click','.item-system',function(){
                 var img = $(this).attr('data-img');
-
+                    $('.item-system').css({ 
+                        'opacity':'.5',
+                        'border': '0px solid #01a1ef'
+                    });
+                    $(this).css({
+                        'opacity':'1',
+                        'border': '5px solid #01a1ef'
+                    })
                 callBack_Selected(ele,img);
             });
-        	$("#closebg").click(function(){
-                $(".system-item").hide();
-            })
         }
 
     //在插件中使用doChangeBkg对象

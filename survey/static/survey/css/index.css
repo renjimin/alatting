@@ -1,0 +1,119 @@
+.error{
+	color:red;	
+}
+.qs {
+	text-align: center;
+	font-size: 15px;
+    color:#5b5b5b;
+    background: #d0d0d0;
+}
+.qs input[type=radio] {
+	-webkit-appearance: radio;
+	-moz-appearance: radio;
+}
+.qs input[type=checkbox] {
+	-webkit-appearance: checkbox;
+	-moz-appearance: checkbox;
+	margin-right: 10px;
+}
+.qs textarea {
+	min-height: 250px;
+	margin-top: 10px;
+	border-radius: 10px;
+}
+.qs .progress {
+	margin: 0 -15px;
+	height: 10px;
+}
+.qs-cat{
+    margin-top: 15px;
+    background: #ffffff;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+.qs-cat a{
+    display: block;
+    font-size: 20px;
+    color: #5b5b5b;
+    font-weight: 600;
+    padding: 0 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.qs-cat .qs-cat-subcat {
+	background: #f3f3f3;
+    background-image: url('../img/sv-jiantou.png');
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+}
+.qs-title {
+	height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid #b4b4b4;
+}
+.qs-list {
+	padding-top: 10px;
+	font-size: 18px;
+}
+.qs-list-title {
+	height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+    font-weight: 600;
+    text-align: center;
+}
+.qs-list .radio {
+	background: #fff;
+	border-radius: 10px;
+	text-align: left;
+	margin: 10px 50px;
+	padding: 10px 0 10px 20px;
+}
+.qs-list .radio-label{
+	height: 50px;
+    line-height: 50px;
+    font-size: 18px;
+}
+.qs-list input[type=radio] {
+	vertical-align: middle;
+	line-height: 50px;
+	height: 50px;
+	margin-top: 0;
+}
+.qs-list .form-control{
+	padding:0 6px;
+	font-size: 18px;
+}
+.qs-list .sm-input-label {
+	width: 50px;
+}
+.qs-list-section {
+	padding: 20px 0;
+}
+.qs-list-input-group.row {
+	padding-top: 10px;
+}
+.qs-list-section.row {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #b4b4b4;
+}
+.qs-footer{
+    height: 70px;
+    background:#434343;
+    text-align: center;
+    font-size: 18px;
+    padding: 15px;
+}
+.qs-footer .btn{
+    width: 100px;
+    background: #f3f3f3;
+    font-size: 20px;
+    border-radius: 5px;
+    margin: 0 10px;
+    border: 0;
+}
