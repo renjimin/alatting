@@ -8,6 +8,7 @@
     {{ block.super }}
     <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'survey/js/index.js' %}"></script>
+    <script src="{% static 'survey/js/plugins/jquery.validate.min.js' %}"></script>
 {% endblock %}
 
 {% block base_body %}
@@ -24,20 +25,20 @@
 			<div class="qs-list">
 				<div class="step">
 					<div class="qs-list-section">
-						<div class="qs-list-title">
+						<div class="qs-list-title"> 
 							请问您目前的英文程度为？
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">完全不会</label>
+							<label class="radio-label"><input type="radio" name="step1radio" value="完全不会">完全不会</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">初学者</label>
+							<label class="radio-label"><input type="radio" name="step1radio" value="初学者">初学者</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">中阶</label>
+							<label class="radio-label"><input type="radio" name="step1radio" value="中阶">中阶</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">高阶</label>
+							<label class="radio-label"><input type="radio" name="step1radio" value="高阶">高阶</label>
 						</div>
 					</div>
 				</div>
@@ -47,20 +48,20 @@
 							请问您的学习目标为？       
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">基本运用</label>
+							<label class="radio-label"><input type="radio" name="step2radio" value="基本运用">基本运用</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">流利运用</label>
+							<label class="radio-label"><input type="radio" name="step2radio" value="流利运用">流利运用</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">专业运用</label>
+							<label class="radio-label"><input type="radio" name="step2radio" value="专业运用">专业运用</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">考试准备</label>
+							<label class="radio-label"><input type="radio" name="step2radio" value="考试准备">考试准备</label>
 							<label><input type="text" class="form-control" placeholder="考试名称"></label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">其他</label>
+							<label class="radio-label"><input type="radio" name="step2radio" value="其他">其他</label>
 							<label><input type="text" class="form-control" placeholder="请输入"></label>
 						</div>	
 					</div>	  	
@@ -71,7 +72,7 @@
 							请问您希望的上课次数？   
 						</div>
 						<div>
-							每周 <label class="sm-input-label"><input type="text" class="form-control"></label> 次
+							每周 <label class="sm-input-label"><input type="text" id="step3text" name="step3text" class="form-control"></label> 次
 						</div>
 					</div>	
 					<div class="qs-list-section row">
@@ -80,30 +81,30 @@
 						</div>
 						<div class="qs-list-input-group row">
 							<div class="col-xs-3"></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周一</label></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周五</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周一">周一</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周五">周五</label></div>
 						</div>
 						<div class="row  qs-list-input-group">
 							<div class="col-xs-3"></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周二</label></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周六</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周二">周二</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周六">周六</label></div>
 						</div>
 						<div class="row  qs-list-input-group">
 							<div class="col-xs-3"></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周三</label></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周日</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周三">周三</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周日">周日</label></div>
 						</div>
 						<div class="row  qs-list-input-group">
 							<div class="col-xs-3"></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周四</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox1[]" value="周四">周四</label></div>
 						</div>
 					</div>  
 					<div class="qs-list-section">
 						<div class="row  qs-list-input-group">
 							<div class="col-xs-2"></div> 
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">上午</label></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">下午</label></div>
-							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">晚上</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox2[]" value="上午">上午</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox2[]" value="下午">下午</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox" name="step3checkbox2[]" value="晚上">晚上</label></div>
 						</div>
 					</div>	
 				</div>
@@ -113,16 +114,16 @@
 							什么时候开始课程？    
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">马上</label>
+							<label class="radio-label"><input type="radio" name="step4radio1" value="马上">马上</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">一～二周</label>
+							<label class="radio-label"><input type="radio" name="step4radio1" value="一～二周">一～二周</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">这个月内</label>
+							<label class="radio-label"><input type="radio" name="step4radio1" value="这个月内">这个月内</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">其他</label>
+							<label class="radio-label"><input type="radio" name="step4radio1" value="其他">其他</label>
 							<label><input type="text" class="form-control" placeholder="请输入"></label>
 						</div>	
 					</div>
@@ -131,13 +132,13 @@
 							您希望的上课方式为？   
 						</div> 
 						<div class="radio">
-							<label class="radio-label"><input type="radio">到家教处上课</label>
+							<label class="radio-label"><input type="radio" name="step4radio2" value="到家教处上课">到家教处上课</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">家教到府上课</label>
+							<label class="radio-label"><input type="radio" name="step4radio2" value="家教到府上课">家教到府上课</label>
 						</div>
 						<div class="radio">
-							<label class="radio-label"><input type="radio">透过网路/电话上课</label>
+							<label class="radio-label"><input type="radio" name="step4radio2" value="透过网路/电话上课">透过网路/电话上课</label>
 						</div>
 					</div>	 
 				</div>
@@ -147,7 +148,7 @@
 							您的年龄？     
 						</div>
 						<div>
-							<label class="sm-input-label"><input type="text" class="form-control"></label>
+							<label class="sm-input-label"><input type="text" id="step5text" name="step5text" class="form-control"></label>
 						</div>
 					</div>
 					<div class="qs-list-section">
