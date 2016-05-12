@@ -11,7 +11,7 @@ from alatting_website.models import Template, CategoryKeyword, Address
 from poster.forms import PosterCreateForm
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, \
-    read_template_file_content
+    read_template_file_content, rotate_image
 
 
 class CategoryKeywordsView(ListView):
@@ -71,9 +71,10 @@ class CreateFormView(CreateView):
         if upfile:
             image_obj = Image()
             save_path = get_image_path(image_obj, upfile.name)
-            handle_uploaded_file(save_path, upfile)
+            full_path = handle_uploaded_file(save_path, upfile)
             image_obj.file = save_path
             image_obj.save()
+            rotate_image(full_path)
 
         form = self.get_form()
         form.instance.logo_image = image_obj

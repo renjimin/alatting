@@ -1,4 +1,5 @@
 import codecs
+from PIL import Image
 from django.conf import settings
 
 __author__ = 'tiger'
@@ -132,3 +133,36 @@ def save_file(file_full_path, content):
         for line in content.split('\n'):
             destination.write(line+'\n')
     return file_full_path.replace(settings.MEDIA_ROOT, '')
+
+
+IMAGE_ROTATES = {
+    1: 0,
+    6: -90,
+    8: -270,
+    3: -180
+}
+
+
+def rotate_image(image_path):
+    """
+    :param image_path 图片文件全路径
+    274 代表 PIL.ExifTagsTAGS 中的 Orientation(旋转角度)
+    旋转角度    参数(Orientation)
+    0°	        1
+    顺时针90°	6
+    逆时针90°	8
+    180°	    3
+    """
+    if os.path.exists(image_path):
+        key_code = 274
+        try:
+            img = Image.open(image_path)
+            exif = img._getexif()
+            if exif:
+                key = exif.get(key_code, None)
+                if key and key != 1 and key in IMAGE_ROTATES.keys():
+                    new_img = img.rotate(IMAGE_ROTATES.get(key))
+                    new_img.save(image_path)
+        except:
+            # todo:lyh:写入错误日志
+            pass
