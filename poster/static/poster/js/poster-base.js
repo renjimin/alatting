@@ -1,5 +1,7 @@
 $(function(){
-    var myScroll = new IScroll('#wrapper');
+    var myScroll = new IScroll('#wrapper',{
+        click: true,
+    });
     $(".back-to-home").click(function(){
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
