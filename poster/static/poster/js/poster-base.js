@@ -63,7 +63,7 @@ $(function(){
                     })
                 }},
                 {icon:"ico-phone",text:" 颜色",callback:function(){
-                    $("#colorBox").show();
+                    $("#colorBox").css('top',$('.content').offset().top).show();
                     $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                          $('.header').css('background',color);
                     });
@@ -79,7 +79,10 @@ $(function(){
     });
 
     $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").show();
+        window.clickItmList = window.clickItmList || ["#dp"];
+        window.clickItmList.push('.glyphicon-text-height');
+        window.clickItmList.push('#colorBox');
+        $("#colorBox").css('top', $(document).height() - 153 ).show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
@@ -92,6 +95,7 @@ $(function(){
             if($(event.target).closest(list[i]).length!=0)return;
         }
         dpw.removeClass('open');
+         $("#colorBox").hide();
     });
 
     //数据
