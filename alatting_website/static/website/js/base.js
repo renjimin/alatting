@@ -23,7 +23,7 @@
         yyBtnConfirm.innerHTML = options.okText;
         popbox.children[0].innerHTML = text;
         /* position */
-        popbox.style.marginTop = -popbox.offsetHeight/2+'px';
+        popbox.style.marginTop = - popbox.offsetHeight/2+'px';
         popbox.style.marginLeft =  -popbox.offsetWidth/2+'px';
         setTimeout(function(){
             alertEle.classList.add('open');
@@ -67,7 +67,8 @@
 		yyBtnCancel.innerHTML = options.cancelText;
         popbox.children[0].innerHTML = text;
 
-        popbox.style.marginTop = -popbox.offsetHeight/2+'px';
+        popbox.style.marginTop = - popbox.offsetHeight/2+'px';
+        popbox.style.marginLeft =  - popbox.offsetWidth/2+'px';
         setTimeout(function(){
             confirmEle.classList.add('open');
         },50);
