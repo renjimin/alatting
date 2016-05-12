@@ -38,7 +38,7 @@ $(function(){
         });
     $('.header-info').registerDropDown({
             id:'dpw_desc',
-            eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40)',
+            eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40);$("#dp textarea").focusEnd();',
             dynamicClass:'info'
         });
     $('.header-logo').registerPopUp({
