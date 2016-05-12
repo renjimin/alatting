@@ -46,7 +46,14 @@
                 var callBack_Selected =this.callBack;
                 bimg.on('click','.item-system',function(){
                 var img = $(this).attr('data-img');
-
+                    $('.item-system').css({ 
+                        'opacity':'.5',
+                        'border': '0px solid #01a1ef'
+                    });
+                    $(this).css({
+                        'opacity':'1',
+                        'border': '5px solid #01a1ef'
+                    })
                 callBack_Selected(ele,img);
             });
         }
