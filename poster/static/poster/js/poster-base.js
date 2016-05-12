@@ -78,16 +78,16 @@ $(function(){
         });
     /**模版空白设置背景*/
    $('.yunye-template').registerPopUp({
-            id:'dpw_header',
+            id:'dpw_template',
             offsetXPercent:50,
             offsetYPercent:50,
             offsetY:30,
             arrowOffset:80,
             orientation:1,
             list:[{icon:"ico-email",text:"系统图案",callback:function(){
-                        $('.yunye-template').bgselect({}, function (ths,img) {
-                            ths.css('background-image', 'url(' + img + ')');
-                            ths.css('background-size', 'cover');
+                        $(this).bgselect({}, function (ths,img) {
+                            $('.yunye-template').css('background-image', 'url(' + img + ')');
+                            $('.yunye-template').css('background-size', 'cover');
                             storageAPI.setCss(".yunye-template", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
                             $(".system-item").fadeOut(500);
                         })
