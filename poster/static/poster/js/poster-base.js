@@ -63,10 +63,11 @@ $(function(){
                     ths.css('background-size', 'cover');
                 })
             }},
-                {icon:"ico-phone",text:" 上传图片"},
+                {icon:"ico-phone",text:" 上传图片",callback:function(){alert(23);}},
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
         });
+    
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
     });

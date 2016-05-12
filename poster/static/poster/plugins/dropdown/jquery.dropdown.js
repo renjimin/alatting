@@ -20,11 +20,11 @@
 				pid = _this.attr('id');
 			
 			_this.on('click',function(event){
+				$(document).trigger("clsdp");
 				if(options == null){
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
-						$(document).trigger("clsdp");
 					}else{
 						$('.dropdown-panel').removeClass('open');
 						$('.dropdown-toggle').removeClass('open');
@@ -84,14 +84,10 @@
 			str += '</ul>'
 			dpw.append(str);
 			for(var i in _option.list){
-				if(_option.list[i].callback){
-					var n = i ;
-					$("#dp #" + _option.id+'_'+i ).click(function(event){
-						_option.list[n].callback();
-						dpw.removeClass('open');
+				$("#dp #" + _option.id+'_'+i ).click(function(event){
+						var l = event.currentTarget.id.split('_');
+						_option.list[l[l.length-1]].callback();
 					});
-				}
-					
 			}
 			_this.on('click',function(event){
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
