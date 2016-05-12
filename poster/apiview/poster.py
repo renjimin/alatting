@@ -184,10 +184,10 @@ class PosterSaveView(RetrieveUpdateAPIView):
 
     def _css_handler(self, old_css, new_css):
         "处理一下css内容， 把最新的css更改保存到数据库中"
-        from utils.jsonutils import mergejson, css2json, json2css
+        from utils.jsonutils import merge_json, css2json, json2css
         old_json = css2json(old_css)
         new_json = json.dumps(new_css)
-        return json2css(mergejson(old_json, new_json))
+        return json2css(merge_json(old_json, new_json))
 
     def perform_update(self, serializer):
         poster_id = serializer.instance.id
