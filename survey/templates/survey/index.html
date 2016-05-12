@@ -1,0 +1,174 @@
+{% extends 'alatting_website/base.html' %}
+{%load static %}
+{% block base_header_css %}
+    <link rel="stylesheet" href="{% static 'survey/css/index.css' %}">
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'survey/js/index.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+	<div class="qs container-fluid ">
+		<form class="form">
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+			</div>		
+			<div class="qs-cat row">		
+				<div class="col-xs-6"><a href="javascript:void(0);">家教类别</a></div>
+        		<div class="col-xs-6 qs-cat-subcat"><a href="javascript:void(0);">语言家教</a></div>
+        	</div>
+        	<div class="qs-title row">英文家教</div>
+			<div class="qs-list">
+				<div class="step">
+					<div class="qs-list-section">
+						<div class="qs-list-title">
+							请问您目前的英文程度为？
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">完全不会</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">初学者</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">中阶</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">高阶</label>
+						</div>
+					</div>
+				</div>
+				<div class="step hidden">
+					<div class="qs-list-section">
+						<div class="qs-list-title">
+							请问您的学习目标为？       
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">基本运用</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">流利运用</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">专业运用</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">考试准备</label>
+							<label><input type="text" class="form-control" placeholder="考试名称"></label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">其他</label>
+							<label><input type="text" class="form-control" placeholder="请输入"></label>
+						</div>	
+					</div>	  	
+				</div>
+				<div class="step hidden">
+					<div class="qs-list-section row">
+						<div class="qs-list-title">
+							请问您希望的上课次数？   
+						</div>
+						<div>
+							每周 <label class="sm-input-label"><input type="text" class="form-control"></label> 次
+						</div>
+					</div>	
+					<div class="qs-list-section row">
+						<div class="qs-list-title">
+							请问您希望的上课时间？   
+						</div>
+						<div class="qs-list-input-group row">
+							<div class="col-xs-3"></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周一</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周五</label></div>
+						</div>
+						<div class="row  qs-list-input-group">
+							<div class="col-xs-3"></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周二</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周六</label></div>
+						</div>
+						<div class="row  qs-list-input-group">
+							<div class="col-xs-3"></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周三</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周日</label></div>
+						</div>
+						<div class="row  qs-list-input-group">
+							<div class="col-xs-3"></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">周四</label></div>
+						</div>
+					</div>  
+					<div class="qs-list-section">
+						<div class="row  qs-list-input-group">
+							<div class="col-xs-2"></div> 
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">上午</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">下午</label></div>
+							<div class="col-xs-3"><label class="checkbox-inline"><input type="checkbox">晚上</label></div>
+						</div>
+					</div>	
+				</div>
+				<div class="step hidden display">
+					<div class="qs-list-section row">
+						<div class="qs-list-title">
+							什么时候开始课程？    
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">马上</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">一～二周</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">这个月内</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">其他</label>
+							<label><input type="text" class="form-control" placeholder="请输入"></label>
+						</div>	
+					</div>
+					<div class="qs-list-section">
+						<div class="qs-list-title">
+							您希望的上课方式为？   
+						</div> 
+						<div class="radio">
+							<label class="radio-label"><input type="radio">到家教处上课</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">家教到府上课</label>
+						</div>
+						<div class="radio">
+							<label class="radio-label"><input type="radio">透过网路/电话上课</label>
+						</div>
+					</div>	 
+				</div>
+				<div class="step hidden display">
+					<div class="qs-list-section row">
+						<div class="qs-list-title">
+							您的年龄？     
+						</div>
+						<div>
+							<label class="sm-input-label"><input type="text" class="form-control"></label>
+						</div>
+					</div>
+					<div class="qs-list-section">
+						<div class="qs-list-title">
+							有什么家教需要知道的吗？   
+						</div> 
+						<div>
+							<textarea class="form-control" row="5"></textarea>
+						</div>
+					</div>	 
+				</div>
+				<div class="qs-footer navbar-fixed-bottom">
+			      	<div>
+						<button type="button" class="back btn btn-default">返&nbsp;回</button>
+						<button type="button" class="next btn btn-default">确&nbsp;认</button>
+			      	</div>
+				</div>	
+			</div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block base_body_footer %}
+{% endblock %}

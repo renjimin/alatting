@@ -57,15 +57,18 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             list:[{icon:"ico-email",text:"系统图案",callback:function(){
-                $('.header').bgselect({}, function (ths,img) {
-                    console.log(img)
-                    ths.css('background-image', 'url(' + img + ')');
-                    ths.css('background-size', 'cover');
-                })
-            }},
-                {icon:"ico-phone",text:" 上传图片",callback:function(){alert(23);}},
-                {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}],
+                    $('.header').bgselect({}, function (ths,img) {
+                        ths.css('background-image', 'url(' + img + ')');
+                        ths.css('background-size', 'cover');
+                    })
+                }},
+                {icon:"ico-phone",text:" 颜色",callback:function(){
+                    $("#colorBox").show();
+                    $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                         $('.header').css('background',color);
+                    });
+                }},
+                {icon:"ico-address",text:"上传图片"}],
         });
     
     $(document).on("clsdp",function(){

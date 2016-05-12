@@ -86,7 +86,8 @@
 			for(var i in _option.list){
 				$("#dp #" + _option.id+'_'+i ).click(function(event){
 						var l = event.currentTarget.id.split('_');
-						_option.list[l[l.length-1]].callback();
+						var cb = _option.list[l[l.length-1]].callback;
+						if(cb)cb();
 					});
 			}
 			_this.on('click',function(event){
