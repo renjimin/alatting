@@ -43,8 +43,6 @@ $(function(){
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
-            offsetYPercent:50,
-            offsetY:30,
             list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
