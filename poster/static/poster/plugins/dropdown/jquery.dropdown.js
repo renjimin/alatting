@@ -83,7 +83,7 @@
 			if(_option.orientation){
 				var len = _option.list.length;
 				for(var i in _option.list){
-					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
+					str += '<li id="'+ (_option.id+'_'+(len - i -1)) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
 				}
 			}else{
 				for(var i in _option.list){

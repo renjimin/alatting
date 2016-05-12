@@ -4,7 +4,7 @@
 {% block base_header_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
-     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 {% endblock %}
 
@@ -16,6 +16,7 @@
         }
     </script>
     {{ block.super }}
+    <script src="{% static 'website/js/iscroll-lite.js' %}"></script>
     <script src="{% static 'poster/plugins/changebg/jquery.changebg.js' %}"></script>
     <script src="{% static 'poster/plugins/dropdown/jquery.dropdown.js' %}"></script>
     <script src="{% static 'poster/plugins/colorSelect/jquery.colorSelect-1.1.1.js' %}"></script>

@@ -1,4 +1,5 @@
 $(function(){
+    var myScroll = new IScroll('#wrapper');
     $(".back-to-home").click(function(){
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
@@ -73,7 +74,7 @@ $(function(){
                     {icon:"ico-address",text:"上传图片"}
                 ]
         });
-/**模版空白设置背景*/
+    /**模版空白设置背景*/
    $('.yunye-template').registerPopUp({
             id:'dpw_header',
             offsetXPercent:50,
@@ -156,39 +157,45 @@ $(function(){
     if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
     if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
     if(pageHeadData.address)$('#dpw_address input').val(pageHeadData.address);
-    /*(pageHeadData.clock){
+    if(pageHeadData.clock){
         for(var i in pageHeadData.clock){
             $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
         }
-    }*/
+    }
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        $.fn.yunyeStorage.setHead("title",event.currentTarget.value);
+        storageAPI.setHead("title",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
-        $.fn.yunyeStorage.setHead("desc",event.currentTarget.value);
+        storageAPI.setHead("desc",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(0)').on('change',function(event){
-        $.fn.yunyeStorage.setHead("phone",event.currentTarget.value);
+        storageAPI.setHead("phone",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(1)').on('change',function(event){
-        $.fn.yunyeStorage.setHead("mobile",event.currentTarget.value);
+        storageAPI.setHead("mobile",event.currentTarget.value);
     });
     $('#dpw_email input').on('change',function(event){
-        $.fn.yunyeStorage.setHead("email",event.currentTarget.value);
+        storageAPI.setHead("email",event.currentTarget.value);
     });
     $('#dpw_address input').on('change',function(event){
-        $.fn.yunyeStorage.setHead("address",event.currentTarget.value);
+        storageAPI.setHead("address",event.currentTarget.value);
     });
     $('#dpw_clock input').on('change',function(event){
-        console.log(1);
         var inputs = $('#dpw_clock input');
         var arr = [];
         for(var i = 0 ; i < inputs.length ; i ++){
              arr.push(inputs[i].value);
         }
-        $.fn.yunyeStorage.setHead("clock",arr);
+        for(var i = 0 ; i < arr.length/2 ; i++){
+            var even = arr[ i * 2],odd = arr[ (i * 2) +1];
+            if(even && odd && (odd <= even) ){
+                $(event.target).val("");
+                yyConfirm("结束时间不能早于开始时间");
+            }
+        }
+        storageAPI.setHead("clock",arr);
     });
 });
