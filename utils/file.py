@@ -1,3 +1,4 @@
+import codecs
 from django.conf import settings
 
 __author__ = 'tiger'
@@ -119,9 +120,10 @@ def read_template_file_content(file_path):
         if os.path.exists(full_path) and os.path.isfile(full_path):
             file_ext = get_file_ext_name(os.path.basename(full_path))
             if file_ext.lower() in ['css', 'js', 'html', 'htm']:
-                with open(full_path, 'r') as f:
-                    content = f.readlines()
-    return ''.join([line.strip().replace('\n', '') for line in content])
+                f = codecs.open(full_path, 'r', 'utf-8')
+                content = f.readlines()
+                f.close()
+    return ''.join(content)
 
 
 def save_file(file_full_path, content):
