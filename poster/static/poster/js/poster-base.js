@@ -111,11 +111,52 @@ $(function(){
         $("#colorBox").hide();
     });
 
-    //数据
+    //数据初始化
+    var pageHeadData = $.fn.yunyeStorage.getPosterHeadData();
+    if(pageHeadData.title){
+        $('.edit-bar-header .title p').html(pageHeadData.title);
+        $('#dpw_title input').val(pageHeadData.title);
+    }
+    if(pageHeadData.desc){  
+        $('.header-info .desc span').html(pageHeadData.desc);
+        $('#dpw_desc textarea').val(pageHeadData.desc);
+    }
+    if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
+    if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
+    if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
+    if(pageHeadData.address)$('#dpw_address input').val(pageHeadData.address);
+    if(pageHeadData.clock){
+        for(var i in pageHeadData.clock){
+            $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
+        }
+    }
+    //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
+        $.fn.yunyeStorage.setHead("title",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
+        $.fn.yunyeStorage.setHead("desc",event.currentTarget.value);
+    });
+    $('#dpw_phone input:eq(0)').on('change',function(event){
+        $.fn.yunyeStorage.setHead("phone",event.currentTarget.value);
+    });
+    $('#dpw_phone input:eq(1)').on('change',function(event){
+        $.fn.yunyeStorage.setHead("mobile",event.currentTarget.value);
+    });
+    $('#dpw_email input').on('change',function(event){
+        $.fn.yunyeStorage.setHead("email",event.currentTarget.value);
+    });
+    $('#dpw_address input').on('change',function(event){
+        $.fn.yunyeStorage.setHead("address",event.currentTarget.value);
+    });
+    $('#dpw_clock input').on('change',function(event){
+        var inputs = $('#dpw_clock input');
+        var arr = [];
+        for(var i = 0 ; i < inputs.length ; i ++){
+             arr.push(inputs[i].value);
+        }
+        $.fn.yunyeStorage.setHead("clock",arr);
     });
 });
