@@ -57,20 +57,20 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             list:[{icon:"ico-email",text:"系统图案",callback:function(){
-                $('.header').bgselect({}, function (ths,img) {
-                    console.log(img)
-                    ths.css('background-image', 'url(' + img + ')');
-                    ths.css('background-size', 'cover');
-                })
-            }},
+                    $('.header').bgselect({}, function (ths,img) {
+                        ths.css('background-image', 'url(' + img + ')');
+                        ths.css('background-size', 'cover');
+                    })
+                }},
                 {icon:"ico-phone",text:" 颜色",callback:function(){
-                    $("#colorBox").show();
+                    $("#colorBox").css('top',$('.content').offset().top).show();
                     $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                          $('.header').css('background',color);
                     });
                 }},
                 {icon:"ico-address",text:"上传图片"}],
         });
+    
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
     });
@@ -79,7 +79,10 @@ $(function(){
     });
 
     $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").show();
+        window.clickItmList = window.clickItmList || ["#dp"];
+        window.clickItmList.push('.glyphicon-text-height');
+        window.clickItmList.push('#colorBox');
+        $("#colorBox").css('top', $(document).height() - 153 ).show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
@@ -92,6 +95,7 @@ $(function(){
             if($(event.target).closest(list[i]).length!=0)return;
         }
         dpw.removeClass('open');
+         $("#colorBox").hide();
     });
 
     //数据
