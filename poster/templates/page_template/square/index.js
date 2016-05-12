@@ -33,11 +33,7 @@ $(function(){
             }]
     };
 
-    var topOption = $.extend({id: 'content_top_menu'}, menuOptions),
-        midOption = $.extend({id: 'content_mid_menu'}, menuOptions),
-        btmOption = $.extend({id: 'content_btm_menu'}, menuOptions);
-    $('.content-top').registerPopUp(topOption);
-    $('.content-middle').registerPopUp(midOption);
-    $('.content-bottom').registerPopUp(btmOption);
+    var sqOption = $.extend({id: 'sq_menu'}, menuOptions);
+    $('.yunye-template').registerPopUp(sqOption);
 });
 
