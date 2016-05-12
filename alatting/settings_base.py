@@ -30,9 +30,9 @@ INSTALLED_APPS = (
     'corsheaders',
     'account',
     'poster',
+    'survey',
     'alatting_website',
     'alatting_admin',
-    'survey',
 )
 
 MIDDLEWARE_CLASSES = (
