@@ -39,8 +39,7 @@
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
 
-						console.log($('.container-fluid').scrollTop(100));
-						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
+						var offsetY =  _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('.container-fluid').offset().top;
 						dpw.css('top',_this.offset().top + offsetY);
 						if(_option.offsetXPercent != 0 || _option.offsetX != 0){
 							var offsetX = _option.offsetXPercent * _this.width() / 100 + parseInt(_option.offsetX) - dpw.width()/2;
@@ -49,6 +48,7 @@
 						var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
 						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').css('left', arrOffset );
+						$('#dp .arrow').attr('class', 'arrow up')
 						//第一个input自动获取焦点
 						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
@@ -111,11 +111,10 @@
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
 
-					
 					if(_option.orientation){
-						var offsetY = _this.height() - dpw.height() - _option.offsetYPercent * _this.height() / 100 - parseInt(_option.offsetY);
+						var offsetY =  _this.height() - dpw.height() - _option.offsetYPercent * _this.height() / 100 - parseInt(_option.offsetY) - $('.container-fluid').offset().top;
 					}else{
-						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
+						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('.container-fluid').offset().top;
 					}
 					dpw.css('top',_this.offset().top + offsetY);
 
