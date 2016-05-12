@@ -10,8 +10,6 @@
 			eval:'',
 			position:"top"
 		};
-		window.clickItmList = window.clickItmList || ["#dp"];
-		window.clickItmList.push(this.selector);
 		return this.each(function () {
 			var _this = $(this),
 				_option = $.extend(opts,options),
@@ -36,7 +34,7 @@
 					if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 						dpw.attr('class', '').removeClass('open');
 					}else{
-						dpw.attr('class', '').attr('style', '')
+						dpw.attr('class', '').attr('style', '');
 						$('#dp ul').hide();
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
@@ -49,12 +47,15 @@
 						}
 						var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
 						$('#dp .arrow').css('left', arrOffset );
-
+						//第一个input自动获取焦点
+						$('#'+_option.id + ' input').focusEnd();
+						//执行自定义行为
 						if(_option.eval){
 							eval(_option.eval);
 						}
 					}
 				}
+				event.stopPropagation();
 			});
 		})
 	}
@@ -67,8 +68,6 @@
 			offsetY:0,
 			arrowOffset:0
 		};
-		window.clickItmList = window.clickItmList || ["#dp"];
-		window.clickItmList.push(this.selector);
 		return this.each(function () {
 			var _this = $(this),
 				_option = $.extend(opts,options),
@@ -120,9 +119,34 @@
 					}else{
 						$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
 					}
-					
 				}
+				event.stopPropagation();
 			});
 		})
+	}
+})(jQuery);
+
+(function($){
+	$.fn.setCursorPosition = function(position) {
+		if (this.lengh == 0) return this;
+		return $(this).setSelection(position, position);
+	}
+	$.fn.setSelection = function(selectionStart, selectionEnd) {
+		if (this.lengh == 0) return this;
+		input = this[0];
+		if (input.createTextRange) {
+			var range = input.createTextRange();
+			range.collapse(true);
+			range.moveEnd('character', selectionEnd);
+			range.moveStart('character', selectionStart);
+			range.select();
+		} else if (input.setSelectionRange) {
+			input.focus();
+			input.setSelectionRange(selectionStart, selectionEnd);
+		}
+		return this;
+	}
+	$.fn.focusEnd = function() {
+		this.setCursorPosition(this.val().length);
 	}
 })(jQuery);
