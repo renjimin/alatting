@@ -48,7 +48,7 @@
 						var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
 						$('#dp .arrow').css('left', arrOffset );
 						//第一个input自动获取焦点
-						$('#'+_option.id + ' input').focusEnd();
+						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
 						if(_option.eval){
 							eval(_option.eval);
@@ -162,6 +162,7 @@
 		return this;
 	}
 	$.fn.focusEnd = function() {
+		if (!this.lengh) return this;
 		this.setCursorPosition(this.val().length);
 	}
 })(jQuery);

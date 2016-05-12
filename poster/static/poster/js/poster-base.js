@@ -113,9 +113,12 @@ $(function(){
         $('#dp').removeClass('open');
         $("#colorBox").hide();
     });
+    /**读取缓存背景图片*/
+    var storageAPI = $.fn.yunyeStorage;
+    if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
 
     //数据初始化
-    var pageHeadData = $.fn.yunyeStorage.getPosterHeadData();
+    var pageHeadData = storageAPI.getPosterHeadData();
     if(pageHeadData.title){
         $('.edit-bar-header .title p').html(pageHeadData.title);
         $('#dpw_title input').val(pageHeadData.title);
@@ -128,16 +131,11 @@ $(function(){
     if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
     if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
     if(pageHeadData.address)$('#dpw_address input').val(pageHeadData.address);
-    if(pageHeadData.clock){
+    /*(pageHeadData.clock){
         for(var i in pageHeadData.clock){
             $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
         }
-    }
-    /**读取缓存背景图片*/
-    var storageAPI = $.fn.yunyeStorage;
-    storageAPI.getCss(".header");
-    $('.header').css(storageAPI.getCss(".header"));
-
+    }*/
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
@@ -160,6 +158,7 @@ $(function(){
         $.fn.yunyeStorage.setHead("address",event.currentTarget.value);
     });
     $('#dpw_clock input').on('change',function(event){
+        console.log(1);
         var inputs = $('#dpw_clock input');
         var arr = [];
         for(var i = 0 ; i < inputs.length ; i ++){
