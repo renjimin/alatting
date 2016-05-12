@@ -27,13 +27,18 @@
         this.storageKey = "yunyeTemplateData" + this.posterId;
 
         this.getInitData = function(){
-            var pages = {};
+            var pages  = {},
+                posterData = {
+                "head":{},
+                "pages": {}
+            };
             pages[self.posterPageId] = {
                 "html": "",
                 "css": {},
                 "head": {}
             };
-            return pages
+            posterData["pages"] = pages;
+            return posterData
         };
 
         this.checkRequiredIds = function(){
@@ -51,8 +56,16 @@
             return self.storage.get(self.storageKey);
         };
 
+        this.getPosterHeadData = function () {
+            return self.getPosterData()["head"];
+        };
+
+        this.getPosterPagesData = function () {
+            return self.getPosterData()["pages"];
+        };
+
         this.getPosterPageData = function(){
-            return self.getPosterData()[self.posterPageId];
+            return self.getPosterPagesData()[self.posterPageId];
         };
 
         this.getHtmlObj = function(){
@@ -69,7 +82,7 @@
 
         this.setAttr = function (target, name, value) {
             var posterData = self.getPosterData();
-            posterData[self.posterPageId][target][name] = value;
+            posterData["pages"][self.posterPageId][target][name] = value;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);
         };
@@ -92,11 +105,14 @@
         };
 
         this.getHead = function (name){
-            return self.getHeadObj()[name];
+            return self.getPosterData()["head"][name];
         };
 
         this.setHead = function (name, value) {
-            return self.setAttr("head", name, value);
+            var posterData = self.getPosterData();
+            posterData["head"][name] = value;
+            self.storage.set(self.storageKey, posterData);
+            return self.storage.get(self.storageKey);
         };
 
         this.getCss = function(name){
@@ -129,6 +145,9 @@
         return {
             "init": self.init,
             "getPosterData": self.getPosterData,
+            "getPosterHeadData": self.getPosterHeadData,
+            "getPosterPageData": self.getPosterPageData,
+            "getPosterPagesData": self.getPosterPagesData,
             "setHead": self.setHead,
             "getHead": self.getHead,
             "setCss": self.setCss,
