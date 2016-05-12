@@ -10,8 +10,6 @@
 			eval:'',
 			position:"top"
 		};
-		window.clickItmList = window.clickItmList || ["#dp"];
-		window.clickItmList.push(this.selector);
 		return this.each(function () {
 			var _this = $(this),
 				_option = $.extend(opts,options),
@@ -55,6 +53,7 @@
 						}
 					}
 				}
+				event.stopPropagation();
 			});
 		})
 	}
@@ -67,8 +66,6 @@
 			offsetY:0,
 			arrowOffset:0
 		};
-		window.clickItmList = window.clickItmList || ["#dp"];
-		window.clickItmList.push(this.selector);
 		return this.each(function () {
 			var _this = $(this),
 				_option = $.extend(opts,options),
@@ -120,8 +117,8 @@
 					}else{
 						$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
 					}
-					
 				}
+				event.stopPropagation();
 			});
 		})
 	}
