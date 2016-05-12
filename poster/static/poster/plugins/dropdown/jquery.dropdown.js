@@ -39,14 +39,16 @@
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
 
-						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
+						var offsetY =  _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('#scroller').offset().top;
 						dpw.css('top',_this.offset().top + offsetY);
 						if(_option.offsetXPercent != 0 || _option.offsetX != 0){
 							var offsetX = _option.offsetXPercent * _this.width() / 100 + parseInt(_option.offsetX) - dpw.width()/2;
 							dpw.css('left',_this.offset().left + offsetX);
 						}
 						var arrOffset = (_this.offset().left - dpw.offset().left) + _this.width()/2 -15 ;
+						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').css('left', arrOffset );
+						$('#dp .arrow').attr('class', 'arrow up')
 						//第一个input自动获取焦点
 						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
@@ -81,7 +83,7 @@
 			if(_option.orientation){
 				var len = _option.list.length;
 				for(var i in _option.list){
-					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
+					str += '<li id="'+ (_option.id+'_'+(len - i -1)) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
 				}
 			}else{
 				for(var i in _option.list){
@@ -109,8 +111,13 @@
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
 
-					var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
+					if(_option.orientation){
+						var offsetY =  _this.height() - dpw.height() - _option.offsetYPercent * _this.height() / 100 - parseInt(_option.offsetY) - $('#scroller').offset().top;
+					}else{
+						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('#scroller').offset().top;
+					}
 					dpw.css('top',_this.offset().top + offsetY);
+
 					var left = _this.offset().left + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2,
 						right = left + dpw.width(),
 						documentW = $(document.body).width();
@@ -131,7 +138,7 @@
 						$('#dp .arrow').css('top', dpw.height() - 2 );
 						$('#dp .arrow').attr('class', 'arrow down')
 					}else{
-						$('#dp .arrow').css('top',  -30);
+						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').attr('class', 'arrow up')
 					}
 				}
