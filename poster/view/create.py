@@ -2,7 +2,7 @@
 import os
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy, reverse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render_to_response
 from django.views.generic import TemplateView, CreateView, View
 from django.views.generic.list import ListView
 from alatting_website.model.poster import Poster, PosterKeyword, PosterPage

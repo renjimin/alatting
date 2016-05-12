@@ -5,7 +5,7 @@ from django.core.files import File
 from rest_framework import status
 
 from rest_framework.generics import ListAPIView, ListCreateAPIView, \
-    RetrieveUpdateDestroyAPIView
+    RetrieveUpdateDestroyAPIView, RetrieveAPIView
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -152,3 +152,9 @@ class CategoryKeywordDetailView(RetrieveUpdateDestroyAPIView):
     model = CategoryKeyword
     serializer_class = CategoryKeywordSerializer
     queryset = CategoryKeyword.objects.all()
+
+
+class TemplateDetailView(RetrieveAPIView):
+    model = Template
+    queryset = Template.objects.all()
+    serializer_class = TemplateSerializer

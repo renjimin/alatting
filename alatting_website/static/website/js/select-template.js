@@ -1,25 +1,34 @@
-var templateid = '';
-$(function(){
-    $('#templates-list li').click(function(){
-        if(! $('#templates-list').hasClass('cover-item')){
+$(function () {
+    var selectTemplateId = "";
+
+    $('#templates-list li').click(function () {
+        if (!$('#templates-list').hasClass('cover-item')) {
             $('#templates-list').addClass('cover-item');
         }
         $(this).addClass('active').siblings().removeClass('active');
-        templateid = $(this).data('id');
-        $("#template_id").val(templateid);
+        selectTemplateId = $(this).data('id');
+        $("#template_id").val(selectTemplateId);
     });
-})
-window.onload=function(){
+
+    $(".create-template").click(function(){
+        if (selectTemplateId == '') {
+            yyAlert('请选择模版!');
+            return false;
+        }
+        $.get(
+            "/api/v1/poster/templates/" + selectTemplateId,
+            function(resp){
+                if(!resp.file_exists){
+                    yyAlert("所选模板暂不可用，请重新选择");
+                }else{
+                    $('#selForm').submit();
+                }
+            }
+        );
+    });
+});
+
+
+window.onload = function () {
     $('#templates-list').addClass('active');
-}
-
-
-function createTemplate(){
-    if(templateid == ''){
-        yyAlert('请选择模版!');
-        return false;
-    }
-
-    $('#selForm').submit();
-
-}
+};

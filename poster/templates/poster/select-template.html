@@ -12,9 +12,6 @@
 
 {% block base_body %}
     <header class="templates-header">
-
-        <!--<a href="javascript:history.back();" class="btn btn-back"><i class="glyphicon glyphicon-menu-left"></i> </a>-->
-
         <h2 class="title">请选择模版</h2>
     </header>
     <ul class="templates-list" id="templates-list">
@@ -25,7 +22,6 @@
             </li>
         {% empty %}
             <li class="empty-info">还没有添加模板</li>
-
         {% endfor %}
 
     </ul>
@@ -38,8 +34,7 @@
             <a href="javascript:void(0);" class="btn btn-default"
                onclick="history.back();">返回</a>
             <a href="javascript:void(0);"
-               onclick="createTemplate()"
-               class="btn btn-default">创建</a>
+               class="btn btn-default create-template">创建</a>
         </form>
     </footer>
 {% endblock %}

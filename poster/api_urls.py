@@ -3,7 +3,7 @@ from django.conf.urls import url
 from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView, \
                         PosterPublishView, SystemImageListView, SystemBackgroundListView, PosterSaveView
 from poster.apiview.resource import CategoryKeywordListView, \
-    CategoryKeywordDetailView, UploadFileView
+    CategoryKeywordDetailView, UploadFileView, TemplateDetailView
 
 
 urlpatterns = [
@@ -32,4 +32,7 @@ urlpatterns = [
 
     url(r'^system/background$',
         SystemBackgroundListView.as_view(), name='system_background'),
+
+    url(r'templates/(?P<pk>\d+)$',
+        TemplateDetailView.as_view(), name='template_detail'),
 ]
