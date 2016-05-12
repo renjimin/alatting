@@ -48,7 +48,7 @@ $(function(){
             list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}],
+                {icon:"ico-clock",text:"图片链接"}]
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -57,45 +57,58 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             list:[{icon:"ico-email",text:"系统图案",callback:function(){
-                    $('.header').bgselect({}, function (ths,img) {
-                        ths.css('background-image', 'url(' + img + ')');
-                        ths.css('background-size', 'cover');
-                    })
-                }},
-                {icon:"ico-phone",text:" 颜色",callback:function(){
-                    $("#colorBox").css('top',$('.content').offset().top).show();
-                    $(this).colorSelect({clbox:'colorBox'},function(ths,color){
-                         $('.header').css('background',color);
-                    });
-                }},
-                {icon:"ico-address",text:"上传图片"}],
+                        $('.header').bgselect({}, function (ths,img) {
+                            ths.css('background-image', 'url(' + img + ')');
+                            ths.css('background-size', 'cover');
+                        })
+                    }},
+                    {icon:"ico-phone",text:" 颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('.header').css('background',color);
+                        });
+                    }},
+                    {icon:"ico-address",text:"上传图片"}
+                ]
         });
     
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
     });
-    $(document).on("click",'#closebg',function(event){
-        $(".system-item").fadeOut(200);
-    });
 
+    //改变文字颜色
     $('.glyphicon-text-height').on('click',function(){
-        window.clickItmList = window.clickItmList || ["#dp"];
-        window.clickItmList.push('.glyphicon-text-height');
-        window.clickItmList.push('#colorBox');
         $("#colorBox").css('top', $(document).height() - 153 ).show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
+        event.stopPropagation();
     });
 
     $('body').on('click',function(event){
-        var dpw = $('#dp');
+        //处理点击事件
+        var click_list = ['#closebg'];
+        var item = '';
+        for(var i in click_list){
+            if($(event.target).closest(click_list[i]).length!=0){
+                item = click_list[i];
+                break;
+            }
+        }
+        switch(item){
+            case "#closebg":
+                $(".system-item").fadeOut(200);
+                break;
+        }
+        //点击被保护列表中的对象返回
+        window.clickItmList = window.clickItmList || ["#dp"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
         }
-        dpw.removeClass('open');
-         $("#colorBox").hide();
+        //点击页面空白区域行为
+        $('#dp').removeClass('open');
+        $("#colorBox").hide();
     });
 
     //数据
