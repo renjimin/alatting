@@ -4,7 +4,7 @@
 /*webuploader css*/
 .webuploader-container {
 	position: relative;
-	padding: 10px 4px;
+	padding: 31px 4px 10px 4px;
 }
 .webuploader-element-invisible {
 	position: absolute !important;
@@ -52,7 +52,7 @@
 	width: 130px;
 	height: 130px;
 	margin-top:5px;
-	margin-left:5px;
+	margin-left: 5px;
 	overflow:hidden;
 	position:relative;
 	background-color:#099;
@@ -78,6 +78,11 @@
 	cursor:pointer;
 	display:none;
 }
+
+.parentFileBox>.fileBoxUl>li>.diyCancel{
+	display:block;
+}
+
 .parentFileBox>.fileBoxUl>li>.diyCancel {
 	background:url(../../images/x_alt.png) no-repeat;
 }
@@ -204,7 +209,20 @@
 }
 
 
+.demoheader{
+	text-align: center;
+	line-height: 50px;
+	margin: 0;
+	font-size: 1.4em;
+	background: #ACACAC;
+	overflow: hidden;
+}
 
-
+.closefile{
+	font-size: 20px;
+	float: right;
+	line-height: 50px;
+	padding-right: 9px;
+}
 
 
