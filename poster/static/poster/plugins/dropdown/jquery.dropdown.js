@@ -116,27 +116,21 @@
 					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width();
 
 					if(_option.followMouse){
-						originX = event.pageX,originY = event.pageY,diffY = 0;
-					}else{
-						originX = _this.offset().left,originY = _this.offset().top,diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
-					}
-					if(_option.orientation){
-						if(_option.followMouse){
-							offsetY =  - dpw.height() - diffY;
-						}else{
-							offsetY =  _this.height() - dpw.height() - diffY;
-						} 
-					}else{
-						offsetY = diffY;
-					}
-					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
-
-					if(_option.followMouse){
+						originX = event.pageX,originY = event.pageY,diffY = 0,diffX = 0;
 						left = originX - dpw.width()/2;
 					}else{
-						left = originX + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2;
+						originX = _this.offset().left,
+						originY = _this.offset().top,
+						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) + dpw.height(),
+						diffX =  (_this.width() * _option.offsetXPercent )/100 + _option.offsetX;
+						left = originX + diffX - dpw.width()/2;
 					}
 					right = left + dpw.width();
+
+					offsetY = _option.orientation ? (_this.height() - diffY) :  diffY;
+					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
+
+					
 					if( right > documentW ){
 						left = documentW - dpw.width() -5;
 						dpw.css('left',left);

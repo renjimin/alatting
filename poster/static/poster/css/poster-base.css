@@ -59,6 +59,7 @@ body,html{height: 100%;overflow-x:hidden;}
 .qrcode-inner .qrcode a.btn{width:100%;height:100%;display:block;padding:20%;border-radius:50%;overflow:hidden;text-align: center}
 .qrcode-inner .qrcode a.btn:active{ background:#bbb;}
 .header-logo img{max-width:100%;height: 100%;}
+.header-logo h2{max-width:100%;height: 100%;overflow: hidden;text-align: center;margin: 0;padding: 10% 0;}
 .abutton-group{font-size:15px; position:absolute;width:100%;height:100%;top:0;left:0;z-index:10;transform:scale(0);-webkit-transform:scale(0);transition:all 0.2s ease;-webkit-transition:all 0.2s ease;}
 .abutton-group li {pointer-events: none;position: absolute;width: 100%;height: 100%;-webkit-transform-origin: 100% 100%;transform-origin: 100% 100%;overflow: hidden;left: 50%;top: 50%;margin-top: -100%;margin-left: -100%;-webkit-transition: border .3s ease;transition: border .3s ease;border:1px solid transparent;}
 .abutton-group li a { pointer-events: fill;display: block;width: 100%;height:100%; position: absolute; bottom: -50%; right: -50%; border-radius: 50%; text-decoration: none; color: #fff;  text-align: center; -webkit-transform: skew(0) rotate(-45deg) scale(1); transform: skew(0) rotate(-45deg) scale(1);transition: all 0.2s ease;-webkit-transition: all 0.2s ease;  box-sizing: border-box; -webkit-box-sizing:border-box;}
@@ -231,23 +232,13 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 #dp.info .ed-content span {display: inline-block;vertical-align: middle;height: 30px;line-height: 26px;padding: 0 5px;color: #268bb9;font-weight: 600;border: 2px solid #268bb9;margin: 3px;}
 #dp.info .ed-choose {background: #f3f3f3;height: 95%;overflow-y: scroll;padding: 15px;border-radius: 5px;}
 #dp.info .add-choose{margin-top: 10px;}
-#dp.info .add-choose input{height: 40px;padding: 0 10px;border: none;width: 150px;font-size: 18px;}
+.ed-add{height: 100px;margin-top: 10px;}
+#dp.info .ed-add .col-xs-1 span {display: block;margin-top: 25px;height: 34px;line-height: 34px;text-align: center;font-weight: 600;font-size: 18px;}
+.ed-add .ed-add-li {padding: 0;}
+.ed-add .form-control {padding: 0 6px;font-size: 18px;}
 #dp.info .add-choose button{height: 40px;padding: 0 15px;border: none;color: white;font-size: 18px;background: #717171;}
 #dp.info .autoheight{width:100%;height: 100%;padding-top: 195px;margin-top: -195px;}
 #dpw_desc{height: 100%;overflow: hidden;}
 
-.edit-bar-header .btn-back{
-    display: inline-block;
-    padding: 4px;
-    box-sizing: content-box;
-    font-size: 22px;
-}
-.edit-bar-header .icon-back {
-    width: 1em;
-    height: 1em;
-    display: inline-block;
-    background: url(/static/account/img/arrow.png) no-repeat;
-    background-size: auto 100%;
-    vertical-align: top;
-    color:#fff;
-}
+.edit-bar-header .btn-back{display: inline-block;padding: 4px;box-sizing: content-box;font-size: 22px;}
+.edit-bar-header .icon-back {width: 1em;height: 1em;display: inline-block;background: url(/static/account/img/arrow.png) no-repeat;background-size: auto 100%;vertical-align: top;color:#fff;}

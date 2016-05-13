@@ -41,7 +41,7 @@ $(function(){
             eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40);$("#dp textarea").focusEnd();',
             dynamicClass:'info'
         });
-    $('.header-logo').registerPopUp({
+    /*$('.header-logo').registerPopUp({
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"ico-email",text:"打字"},
@@ -49,7 +49,7 @@ $(function(){
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
             followMouse:true,
-        });
+        });*/
     $('.mask').registerPopUp({
             id:'dpw_header',
             offsetXPercent:80,
@@ -65,7 +65,7 @@ $(function(){
                         })
                     }},
                     {icon:"ico-phone",text:" 颜色",callback:function(){
-                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $("#colorBox").css('top',$('.mask').height()+$('.mask').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.header').css('background',color);
                             storageAPI.setCss(".header", {'background':color});
@@ -142,7 +142,6 @@ $(function(){
         }
         //点击页面空白区域行为
         $('#dp').removeClass('open');
-        $("#colorBox").hide();
     });
     
     /**读取缓存背景图片*/
