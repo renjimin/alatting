@@ -38,7 +38,7 @@ $(function(){
         });
     $('.header-info').registerDropDown({
             id:'dpw_desc',
-            eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40);$("#dp textarea").focusEnd();',
+            eval:'$("#dp").height($(document).height() - 113 - $(".header-bar").height()  );$("#dp textarea").focusEnd();',
             dynamicClass:'info'
         });
     $('.header-logo').registerPopUp({
@@ -53,6 +53,7 @@ $(function(){
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
+            followMouse:true
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -130,7 +131,7 @@ $(function(){
         });*/
         $('#teditor').show();
         $(this).tEditor();
-        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 100);
+        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
         event.stopPropagation();
     });
 
