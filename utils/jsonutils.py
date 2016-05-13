@@ -76,7 +76,7 @@ def css2json(css):
 
 
 def json2css(json):
-    "json转回css, 这个转有点弱，要求css文件书写规范"
+    """json转回css, 这个转有点弱，要求css文件书写规范"""
     root = _jsonlib.loads(json)
     for selectors in root.items():
         for k, v in selectors[1].items():
@@ -84,8 +84,9 @@ def json2css(json):
     handler_json = _jsonlib.dumps(root)
     return str(handler_json).replace("\"", "").replace(",", "")
 
+
 def merge_json(old_json, new_json):
-    "合并两个json，返回json,以new_json字段为准"
+    """合并两个json，返回json,以new_json字段为准"""
     old_dict = _jsonlib.loads(old_json)
     new_dict = _jsonlib.loads(new_json)
 

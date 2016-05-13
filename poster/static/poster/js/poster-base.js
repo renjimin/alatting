@@ -43,6 +43,7 @@ $(function(){
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
+            offsetYPercent:100,
             list:[{icon:"ico-email",text:"打字"},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
@@ -96,7 +97,13 @@ $(function(){
                             storageAPI.setCss(".yunye-template", {'background':color});
                         });
                     }},
-                    {icon:"ico-address",text:"上传图片"}
+                    {icon:"ico-address",text:"上传图片",callback:function(){
+                        $.fn.uploads.showDialog(function(data){
+                            $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                            $('.yunye-template').css('background-size', 'cover');
+                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                                            });                        
+                    }}
                 ]
         });    
     $(document).on("clsdp",function(){
