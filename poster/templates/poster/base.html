@@ -23,6 +23,8 @@
     <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -45,6 +47,7 @@
 {% endblock %}
 
 {% block base_body_inner %}
+<div id="test" style="display: none;">图片上传接口demo</div>
     <header class="header" >
         <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
         <div class="header-bar" >
@@ -182,4 +185,5 @@
             </div>
         </section>
     </div>
+
 {% endblock %}

@@ -56,7 +56,8 @@ class MessageView(APIView):
 
         input_type, is_user_existed = self.is_user_existed(inputvalue)
         if input_type == None:
-            return Response({'detail': '参数错误,请用邮箱或者手机号注册'}, status=401)
+            return Response({'detail': '参数错误,请用邮箱号注册'}, status=401)
+            # return Response({'detail': '参数错误,请用邮箱或者手机号注册'}, status=401)
         if need_user_existed != is_user_existed:
             if is_user_existed == '1':
                 data = {'detail': '用户已存在'}
@@ -174,7 +175,8 @@ class RegisterView(FormView):
             input_type = what(username)
             if not input_type:
                 form.initial = data
-                return self.response_error_msg(form, u'请用邮箱或者手机号注册')
+                return self.response_error_msg(form, u'请用邮箱注册')
+                # return self.response_error_msg(form, u'请用邮箱或者手机号注册')
             else:
                 try:
                     msg = LoginMessage.objects.get(username=username)
@@ -252,15 +254,18 @@ class LoginView(FormView):
                 person = Person.objects.get(phonenumber=username)
                 username = person.user.username
             except Person.DoesNotExist:
-                return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
+                return render_to_response('account/login.html', {'error': "请输入正确的邮箱"})
+                # return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         elif input_type == "email":
             try:
                 user = User.objects.get(email=username)
                 username = user.username
             except User.DoesNotExist:
-                return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
+                return render_to_response('account/login.html', {'error': "请输入正确的邮箱"})
+                # return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         else:
-            return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
+            return render_to_response('account/login.html', {'error': "请使用邮箱登陆"})
+            # return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
 
         user = authenticate(username=username, password=password)
         if user is not None:
