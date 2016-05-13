@@ -45,7 +45,12 @@ $(function(){
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字"},
-                {icon:"glyphicon glyphicon-picture",text:" 上传图片"},
+                {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
+                    $.fn.uploads.showDialog(function(data){
+                            $('.header-logo img').attr("src",data.file);
+                            storageAPI.setHead("logo_img",data.file);
+                    });
+                }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
         });
@@ -173,6 +178,9 @@ $(function(){
         for(var i in pageHeadData.clock){
             $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
         }
+    }
+    if(pageHeadData.logo_img){
+            $('.header-logo img').attr("src",pageHeadData.logo_img);       
     }
     //数据绑定
     $('#dpw_title input').on('change',function(event){
