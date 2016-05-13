@@ -41,7 +41,7 @@ $(function(){
             eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40);$("#dp textarea").focusEnd();',
             dynamicClass:'info'
         });
-    /*$('.header-logo').registerPopUp({
+    $('.header-logo').registerPopUp({
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字"},
@@ -53,7 +53,7 @@ $(function(){
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
-        });*/
+        });
     $('.mask').registerPopUp({
             id:'dpw_header',
             offsetXPercent:80,
