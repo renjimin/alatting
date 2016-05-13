@@ -1,7 +1,4 @@
-$(function(){
-    var myScroll = new IScroll('#wrapper',{
-        click: true,
-    });
+$(function(){   
     $(".back-to-home").click(function(){
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
@@ -27,7 +24,7 @@ $(function(){
             offsetYPercent:50,
             offsetY:30,
         });
-    $(".abutton-contact .ico-clock").registerDropDown({
+   $(".abutton-contact .ico-clock").registerDropDown({
             id:'dpw_clock',
             offsetYPercent:50,
             offsetY:30,
@@ -46,11 +43,11 @@ $(function(){
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
-            list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
+            offsetYPercent:100,
+            list:[{icon:"ico-email",text:"打字"},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
-            orientation:1
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -76,7 +73,7 @@ $(function(){
                     {icon:"ico-address",text:"上传图片"}
                 ]
         });
-    /**模版空白设置背景*/
+    /* 模版空白设置背景 */
    $('.yunye-template').registerPopUp({
             id:'dpw_template',
             offsetXPercent:50,
@@ -99,7 +96,13 @@ $(function(){
                             storageAPI.setCss(".yunye-template", {'background':color});
                         });
                     }},
-                    {icon:"ico-address",text:"上传图片"}
+                    {icon:"ico-address",text:"上传图片",callback:function(){
+                        $.fn.uploads.showDialog(function(data){
+                            $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                            $('.yunye-template').css('background-size', 'cover');
+                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                                            });                        
+                    }}
                 ]
         });    
     $(document).on("clsdp",function(){
@@ -108,7 +111,7 @@ $(function(){
 
     //改变文字颜色
     $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").css('top', $(document).height() - 153 ).show();
+        $("#colorBox").css('top', $(document).height() - 160 - 90).show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
@@ -131,7 +134,7 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
@@ -194,7 +197,7 @@ $(function(){
         for(var i = 0 ; i < arr.length/2 ; i++){
             var even = arr[ i * 2],odd = arr[ (i * 2) +1];
             if(even && odd && (odd <= even) ){
-                $(event.target).val("");
+                $(event.target).blur().val("");
                 yyConfirm("结束时间不能早于开始时间");
             }
         }

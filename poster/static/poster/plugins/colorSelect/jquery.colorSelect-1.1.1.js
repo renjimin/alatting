@@ -35,19 +35,84 @@
         var ele = this.$element;
         var fun = this.func;
         if(!ch){
-            var cdiv= '<div class="js-color-box"><ul class="color-list">';
+            var cdiv= '<div class="js-colorselect"><div class="js-color-title">颜色面板<span class="glyphicon glyphicon-remove" id="csclose"></span></div><div class="js-color-main"><div class="js-color-box"><ul class="color-list">';
             for(var i=0;i<this.select.colorArr.length;i++){
                 cdiv += '<li class="color-li" style="background:'+this.select.colorArr[i]+'" data-color="'+this.select.colorArr[i]+'"></li>';
             }
             cdiv += '</ul></div>';
+            cdiv += '<div class="js-color-canvas"><div id="js-color-selected"></div><canvas id="js-color-canvas" width="800" height="200"></canvas></div></div>';
             box.append(cdiv);
+
+            var canvas = document.getElementById("js-color-canvas");
+            var ctx=canvas.getContext("2d");
+            var boxwidth=parseInt($('.js-color-canvas').width());
+            var boxheight=parseInt($('.js-color-canvas').height());
+            var grd=ctx.createLinearGradient(0,0,boxwidth,0);
+                grd.addColorStop(0,"red");
+                grd.addColorStop(0.15,"#f96");
+                grd.addColorStop(0.35,"yellow");
+                grd.addColorStop(0.50,"green");
+                grd.addColorStop(0.70,"#ace");
+                grd.addColorStop(0.85,"blue");
+                grd.addColorStop(1,"blueviolet");
+                ctx.fillStyle=grd;
+                ctx.fillRect(0,0,boxwidth,boxheight);
+        }else{
+            var canvas = document.getElementById("js-color-canvas");
+            var ctx=canvas.getContext("2d");
+            box.fadeIn(200);
         }
 
-        /*色块的事件绑定*/
-        box.unbind('click').on('click','.color-li',function(event){
-            var color = $(this).attr('data-color');
+        $("#js-color-canvas").off('click').on('click',function(e){
+            var canvasOffset = $(canvas).offset();
+            var canvasX = Math.floor(e.pageX - canvasOffset.left);
+            var canvasY = Math.floor(e.pageY - canvasOffset.top);
+            var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
+            var pixel = imageData.data;
+            var color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
+            $('.color-li').removeClass('color-act');
             fun(ele,color);
-            event.stopPropagation();
+        });
+
+        var move=false;
+        $('#js-color-canvas').off('touchstart touchmove touchend').on({
+            touchstart:function(){
+                move=true;
+                $('.color-li').removeClass('color-act');
+            },
+            touchmove:function(event){
+                event.preventDefault();
+                var e = event.originalEvent.targetTouches[0];
+                if(move){
+                    $('#js-color-selected').show();
+                    var canvasOffset = $(canvas).offset();
+                    var canvasX = Math.floor(e.pageX - canvasOffset.left);
+                    var canvasY = Math.floor(e.pageY - canvasOffset.top);
+                    var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
+                    var pixel = imageData.data;
+                    var color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
+                    var sleft = e.pageX-20;
+                    var stop = e.pageY-40;
+                    $('#js-color-selected').css({'left':sleft+'px',top:stop+'px','background':color});
+                    fun(ele,color);
+                }
+            },
+            touchend:function(){
+                move=false;
+                $('#js-color-selected').hide();
+            }
+        });
+
+        /*色块的选择*/
+        box.off('click').on('click','.color-li',function(){
+            var color = $(this).attr('data-color');
+            $('.color-li').removeClass('color-act');
+            $(this).addClass('color-act');
+            fun(ele,color);
+        });
+        /*色块的关闭*/
+        $('#csclose').off('click').on('click', function () {
+            box.fadeOut(200);
         });
     }
 

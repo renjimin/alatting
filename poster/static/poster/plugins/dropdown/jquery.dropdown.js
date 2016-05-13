@@ -39,7 +39,7 @@
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
 
-						var offsetY =  _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('#scroller').offset().top;
+						var offsetY =  _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('.container-fluid').offset().top;
 						dpw.css('top',_this.offset().top + offsetY);
 						if(_option.offsetXPercent != 0 || _option.offsetX != 0){
 							var offsetX = _option.offsetXPercent * _this.width() / 100 + parseInt(_option.offsetX) - dpw.width()/2;
@@ -103,6 +103,7 @@
 					});
 			}
 			_this.on('click',function(event){
+				$(document).trigger("clsdp");
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
 				}else{
@@ -112,9 +113,9 @@
 					dpw.addClass('popUp').addClass('open');
 
 					if(_option.orientation){
-						var offsetY =  _this.height() - dpw.height() - _option.offsetYPercent * _this.height() / 100 - parseInt(_option.offsetY) - $('#scroller').offset().top;
+						var offsetY =  _this.height() - dpw.height() - _option.offsetYPercent * _this.height() / 100 - parseInt(_option.offsetY) - $('.container-fluid').offset().top;
 					}else{
-						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('#scroller').offset().top;
+						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('.container-fluid').offset().top;
 					}
 					dpw.css('top',_this.offset().top + offsetY);
 

@@ -13,6 +13,7 @@
             alertEle = document.createElement('div');
             alertEle.setAttribute('id','yyalert-dialog');
             alertEle.innerHTML = cover + divelement;
+
     		document.body.appendChild(alertEle);
 		}
         coverbox = document.getElementById('yyalert-cover');
@@ -56,7 +57,7 @@
             confirmEle = document.createElement('div');
             confirmEle.setAttribute('id','yyconfirm-dialog');
             confirmEle.innerHTML = cover + divelement;
-    		document.body.appendChild(confirmEle);
+                            document.body.appendChild(confirmEle);
 		}
         coverbox = document.getElementById('yyconfirm-cover');
         popbox = document.getElementById('yyconfirm');
