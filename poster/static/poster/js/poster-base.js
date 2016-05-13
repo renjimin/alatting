@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+
 $(function(){
-=======
+
 $(function(){   
->>>>>>> 54d00efaa991bc39cf8dd4ddf5e99bfa3675ae6c
     $(".back-to-home").click(function(){
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
@@ -47,16 +46,13 @@ $(function(){
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
-<<<<<<< HEAD
             offsetYPercent:50,
             offsetY:30,
             list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
-=======
             list:[{icon:"ico-email",text:"打字"},
->>>>>>> 54d00efaa991bc39cf8dd4ddf5e99bfa3675ae6c
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}],
+                {icon:"ico-clock",text:"图片链接"}]
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -73,7 +69,7 @@ $(function(){
             }},
                 {icon:"ico-phone",text:" 上传图片",callback:function(){
                     $.fn.uploads.showDialog(function(){
-                        console.log("heh");
+                        console.log(date.file);
                     });
 
                 }},
@@ -109,8 +105,6 @@ $(function(){
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
-<<<<<<< HEAD
-=======
         storageAPI.setHead("desc",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(0)').on('change',function(event){
@@ -139,7 +133,6 @@ $(function(){
             }
         }
         storageAPI.setHead("clock",arr);
->>>>>>> 54d00efaa991bc39cf8dd4ddf5e99bfa3675ae6c
     });
 
 
