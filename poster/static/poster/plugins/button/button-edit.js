@@ -26,12 +26,13 @@ var btn,currentElebox = null,isEdit = false;
             isEdit = false;
             btn = $('<a class="element btn btn-default">请输入文字</a>')
             defaults.container.find('.btn-container').empty().append(btn);
-            s.upload(btn);
             s.controlInit();
+            s.upload(btn);
             s.addControlListen(btn);
         }
 		s.edit = function(element){
             isEdit = true;
+            btn = null;
             btn = element.clone();
             defaults.container.find('.btn-container').empty().append(btn);
 			currentElebox = element.parent();
@@ -72,7 +73,7 @@ var btn,currentElebox = null,isEdit = false;
 				eleopts = {
 					'href': $(b).attr('href'),
 		            'text': $(b).text(),
-		            'color': $(b).css('color'),
+		            'color': $(b).css('color')==null?'000':$(b).css('color'),
 		            'fontSize': $(b).css('font-size'),
 		            'background': $(b).css('background'),
 		            'opacity': $(b).css('opacity'),
@@ -90,7 +91,7 @@ var btn,currentElebox = null,isEdit = false;
             var href = opts.href=="javascript:void(0)"?'':opts.href
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
-            $('.button-color').css('color',opts.color+'px');
+            $('.button-color').css('background','#'+opts.color);
             for(i=12;i<30;i++){
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
@@ -128,10 +129,20 @@ var btn,currentElebox = null,isEdit = false;
                 opts.borderWidth = $(this).val();
                 o.css('border-width',opts.borderWidth);
             });
-            $('.button-borderColor').on('input propertychange',function(){
+            $('.button-borderColor').on('change',function(){
                 opts.borderColor = $(this).val();
                 o.css('border-color','#'+opts.borderColor);
                 $(this).css('background','#'+opts.borderColor);
+            });
+            $('.button-color').on('change',function(){
+                opts.color = $(this).val();
+                o.css('color','#'+opts.color);
+                $(this).css('background','#'+opts.color);
+            });
+            $('.button-background').on('change',function(){
+                opts.background = $(this).val();
+                o.css('background','#'+opts.background);
+                $(this).css('background','#'+opts.background);
             });
 
             s.touches = {
@@ -255,12 +266,44 @@ var btn,currentElebox = null,isEdit = false;
 			+'</div>');
 
 		if(!isEdit){
-			cnd.find('.element-box-contents').append(btn);
+			cnd.find('.element-box-contents').append(btn.clone());
 			cnd.css({'top':$(window).height()/2+btn.height()/2+'px','left':$(window).width()/2+btn.width()/2+'px'})
 			$('body').append(cnd);
-            scale();
+            scale(cnd);
 		}else{
 			currentElebox.empty().append(btn);
 		}
 		$('#button-model').removeClass('open')
 	}
+
+$(function(){
+    $('#systemimg-model li').click(function(){
+        $('#systemimg-model').removeClass('open');
+        var eleobj = $('<div class="element systemimg '+$(this).attr('class')+'"></div>');
+
+        addSystemimg(eleobj);
+    });
+})
+var addSystemimg = function(eleobj){
+    var cnd = $('<div class="cnd-element">'
+				+'<div class="element-box">'
+				+'	<div class="element-box-contents">'
+				+'		'
+				+'	</div>'
+				+'</div>'
+				+'<div class="nbar nbar-rotate nbar-radius"></div>'
+				+'<div class="nbar nbar-line"></div>'
+				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-nw nbar-radius nbar-edit"></div>'
+				+'<div class="nbar nbar-se nbar-radius"></div>'
+				+'<div class="nbar nbar-sw nbar-radius"></div>'
+				+'<div class="nbar nbar-ne nbar-radius"></div>'
+			+'</div>');
+    cnd.find('.element-box-contents').append(eleobj);
+    cnd.css({'top':$(window).height()/2+eleobj.height()/2+'px','left':$(window).width()/2+eleobj.width()/2+'px'})
+    $('body').append(cnd);
+    scale(cnd);
+}

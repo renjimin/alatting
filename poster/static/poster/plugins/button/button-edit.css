@@ -78,6 +78,8 @@
 	border: 4px solid #fff;
 	box-shadow: 0 0 1px 1px #ccc;
 	background: none;
+	text-indent: -999px;
+    overflow: hidden;
 }
 .button-edit-tools .form-background {
 	display: block;
@@ -86,6 +88,8 @@
 	background: #fff;
 	box-shadow: 0 0 1px 1px #ccc;
 	border: 1px solid #fff;
+	text-indent: -999px;
+    overflow: hidden;
 }
 .button-edit-container {
 	width: 100%;
@@ -110,6 +114,9 @@
 }
 .type-model-inner {
 	position: relative;
+}
+.type-model-click{
+	width:100%;height:100%;position: absolute;top:0;left:0;
 }
 .btn-container {
 	position: absolute;
@@ -197,13 +204,13 @@
 	height: 5px;
 	bottom: 0;
 	cursor: s-resize;
-	background: url(bar-1px.png) repeat-x;
-	display: none;
+	background: url(bar-1px.png) repeat-x bottom;
+
 }
 .nbar-s div {
 	position: absolute;
 	left: 50%;
-	top: -6px;
+	top: 0;
 	margin-left: -6px;
 }
 .nbar-e {
@@ -213,7 +220,7 @@
 	right: 0;
 	cursor: n-resize;
 	background: url(bar-1px.png) right repeat-y;
-	display: none;
+
 }
 .nbar-e div {
 	position: absolute;
@@ -228,7 +235,7 @@
 	left: 0;
 	cursor: n-resize;
 	background: url(bar-1px.png) repeat-y;
-	display: none;
+
 }
 .nbar-w div {
 	position: absolute;
@@ -245,22 +252,25 @@
 	bottom: -6px;
 	right: -6px;
 	cursor: se-resize;
-	display: none;
+
 }
 .nbar-sw {
 	bottom: -6px;
 	left: -6px;
 	cursor: sw-resize;
-	display: none;
+
 }
 .nbar-ne {
 	top: -6px;
 	right: -6px;
 	cursor: ne-resize;
-	display: none;
+
 }
 .cnd-element .nbar{
-	display:none;
+display:none;
+}
+.cnd-element.active .nbar{
+display:block;
 }
 .cnd-element.active .nbar.nbar-edit{
 	display:block;
