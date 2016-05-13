@@ -121,7 +121,7 @@
 					}else{
 						originX = _this.offset().left,
 						originY = _this.offset().top,
-						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) + dpw.height(),
+						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) + _option.orientation ? dpw.height() : 0,
 						diffX =  (_this.width() * _option.offsetXPercent )/100 + _option.offsetX;
 						left = originX + diffX - dpw.width()/2;
 					}
