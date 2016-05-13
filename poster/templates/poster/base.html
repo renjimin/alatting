@@ -28,6 +28,7 @@
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
+    <script src="{% static 'poster/plugins/button/jscolor.js' %}"></script>
 
 {% endblock %}
 
@@ -246,7 +247,7 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label">颜色</label>
                             <div class="col-xs-4">
-                                <input class="form-color button-color" readonly="readonly" />
+                                <input class="form-color button-color jscolor" readonly="readonly" />
                             </div>
                             <label class="col-xs-2 control-label">大小</label>
                             <div class="col-xs-3">
@@ -256,7 +257,7 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label">背景</label>
                             <div class="col-xs-5">
-                                <input class="form-background button-background" readonly="readonly" />
+                                <input class="form-background button-background jscolor" readonly="readonly" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -298,7 +299,7 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label">边框</label>
                             <div class="col-xs-3">
-                                <input class="form-color button-borderColor" />
+                                <input class="form-color button-borderColor  jscolor" />
                             </div>
                             <div class="col-xs-3">
                             <select class="form-control button-borderStyle"><option value="solid">solid</option><option value="solid">solid</option>
@@ -321,8 +322,8 @@
                 </div>
             </div>
         </div>
-        <div class="type-model-click" id="hide-cate"></div>
     </div>
+    <div class="type-model-click" onclick="$(this).parent().removeClass('open')"></div>
 </div>
 <div class="type-model systemimg-model" id="systemimg-model">
     <div class="type-model-inner">
@@ -343,8 +344,8 @@
 
             </div>
         </div>
-        <div class="type-model-click" id="hide-cate"></div>
     </div>
+        <div class="type-model-click" onclick="$(this).parent().removeClass('open')"></div>
 </div>
 <script src="{% static 'poster/plugins/button/scale.js' %}"></script>
 <script src="{% static 'poster/plugins/button/button-edit.js' %}"></script>

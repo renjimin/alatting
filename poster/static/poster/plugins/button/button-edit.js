@@ -26,8 +26,8 @@ var btn,currentElebox = null,isEdit = false;
             isEdit = false;
             btn = $('<a class="element btn btn-default">请输入文字</a>')
             defaults.container.find('.btn-container').empty().append(btn);
-            s.upload(btn);
             s.controlInit();
+            s.upload(btn);
             s.addControlListen(btn);
         }
 		s.edit = function(element){
@@ -73,7 +73,7 @@ var btn,currentElebox = null,isEdit = false;
 				eleopts = {
 					'href': $(b).attr('href'),
 		            'text': $(b).text(),
-		            'color': $(b).css('color'),
+		            'color': $(b).css('color')==null?'000':$(b).css('color'),
 		            'fontSize': $(b).css('font-size'),
 		            'background': $(b).css('background'),
 		            'opacity': $(b).css('opacity'),
@@ -91,7 +91,7 @@ var btn,currentElebox = null,isEdit = false;
             var href = opts.href=="javascript:void(0)"?'':opts.href
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
-            $('.button-color').css('color',opts.color+'px');
+            $('.button-color').css('background','#'+opts.color);
             for(i=12;i<30;i++){
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
@@ -129,10 +129,20 @@ var btn,currentElebox = null,isEdit = false;
                 opts.borderWidth = $(this).val();
                 o.css('border-width',opts.borderWidth);
             });
-            $('.button-borderColor').on('input propertychange',function(){
+            $('.button-borderColor').on('change',function(){
                 opts.borderColor = $(this).val();
                 o.css('border-color','#'+opts.borderColor);
                 $(this).css('background','#'+opts.borderColor);
+            });
+            $('.button-color').on('change',function(){
+                opts.color = $(this).val();
+                o.css('color','#'+opts.color);
+                $(this).css('background','#'+opts.color);
+            });
+            $('.button-background').on('change',function(){
+                opts.background = $(this).val();
+                o.css('background','#'+opts.background);
+                $(this).css('background','#'+opts.background);
             });
 
             s.touches = {
