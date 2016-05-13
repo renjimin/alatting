@@ -276,7 +276,16 @@ input {
     line-height: 50px;
 
 }
+.forget-pwd .list .list-input-on {
+    margin-top: 2%;
+    padding-left: 3%;
+    border-style: none;
+    background: rgba(255, 255, 255, 0);
+    font-size: 1.2em;
+    width: 90%;
+    line-height: 50px;
 
+}
 .forget-pwd .list-li .btn-success {
     display: block;
     float: right;
