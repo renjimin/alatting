@@ -60,7 +60,7 @@ $(function(){
             offsetYPercent:90,
             offsetY:30,
             arrowOffset:80,
-            list:[{icon:"icon ico-edit-pic",text:"系统图案",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"系统背景",callback:function(){
                         $('.header').bgselect({}, function (ths,img) {
                             ths.css('background-image', 'url(' + img + ')');
                             ths.css('background-size', 'cover');
@@ -92,7 +92,7 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             orientation:1,
-            list:[{icon:"icon ico-edit-pic",text:"系统图案",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"系统背景",callback:function(){
                         $(this).bgselect({}, function (ths,img) {
                             $('.yunye-template').css('background-image', 'url(' + img + ')');
                             $('.yunye-template').css('background-size', 'cover');
