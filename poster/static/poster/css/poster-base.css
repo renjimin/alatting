@@ -251,3 +251,18 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
     vertical-align: top;
     color:#fff;
 }
+.systemimg-list ul{ overflow: hidden;height:100%;}
+.systemimg-list li{width:33.3333333%;height:33.333333%;float:left;padding:15px; background-repeat: no-repeat;background-position: center center; background-size:50% 50%; }
+.systemimg-list li:active{background-color:rgba(0,0,0,.1)}
+.systemimg-model{padding-top:200px;padding-bottom:92px;}
+.systemimg-model .type-model-containar,.systemimg-model  .systemimg-list{height:100%; overflow: auto;}
+.systemimg{width:100px;height:100px; background-repeat: no-repeat;background-position: center center; background-size:50% 50%;}
+.systemimg-1{background-image:url(/static/poster/images/systemimg/system-1.svg);}
+.systemimg-2{background-image:url(/static/poster/images/systemimg/system-2.svg);}
+.systemimg-3{background-image:url(/static/poster/images/systemimg/system-3.svg)}
+.systemimg-4{background-image:url(/static/poster/images/systemimg/system-4.svg)}
+.systemimg-5{background-image:url(/static/poster/images/systemimg/system-5.svg)}
+.systemimg-6{background-image:url(/static/poster/images/systemimg/system-6.svg)}
+.systemimg-7{background-image:url(/static/poster/images/systemimg/system-7.svg)}
+.systemimg-8{background-image:url(/static/poster/images/systemimg/system-8.svg)}
+.systemimg-9{background-image:url(/static/poster/images/systemimg/system-9.svg)}

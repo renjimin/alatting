@@ -167,7 +167,7 @@
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" class="tab-item"><i class="icon glyphicon glyphicon-picture"></i></a>
+                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon glyphicon glyphicon-picture"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-leaf"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
@@ -303,7 +303,28 @@
         <div class="type-model-click" id="hide-cate"></div>
     </div>
 </div>
+<div class="type-model systemimg-model" id="systemimg-model">
+    <div class="type-model-inner">
 
+        <div class="type-model-containar">
+            <div class="systemimg-list">
+                <ul>
+                    <li class="systemimg-1"></li>
+                    <li class="systemimg-2"></li>
+                    <li class="systemimg-3"></li>
+                    <li class="systemimg-4"></li>
+                    <li class="systemimg-5"></li>
+                    <li class="systemimg-6"></li>
+                    <li class="systemimg-7"></li>
+                    <li class="systemimg-8"></li>
+                    <li class="systemimg-9"></li>
+                </ul>
+
+            </div>
+        </div>
+        <div class="type-model-click" id="hide-cate"></div>
+    </div>
+</div>
 <script src="{% static 'poster/plugins/button/scale.js' %}"></script>
 <script src="{% static 'poster/plugins/button/button-edit.js' %}"></script>
 {% endblock %}
