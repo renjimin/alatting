@@ -32,6 +32,7 @@ var btn,currentElebox = null,isEdit = false;
         }
 		s.edit = function(element){
             isEdit = true;
+            btn = null;
             btn = element.clone();
             defaults.container.find('.btn-container').empty().append(btn);
 			currentElebox = element.parent();
@@ -255,12 +256,44 @@ var btn,currentElebox = null,isEdit = false;
 			+'</div>');
 
 		if(!isEdit){
-			cnd.find('.element-box-contents').append(btn);
+			cnd.find('.element-box-contents').append(btn.clone());
 			cnd.css({'top':$(window).height()/2+btn.height()/2+'px','left':$(window).width()/2+btn.width()/2+'px'})
 			$('body').append(cnd);
-            scale();
+            scale(cnd);
 		}else{
 			currentElebox.empty().append(btn);
 		}
 		$('#button-model').removeClass('open')
 	}
+
+$(function(){
+    $('#systemimg-model li').click(function(){
+        $('#systemimg-model').removeClass('open');
+        var eleobj = $('<div class="element systemimg '+$(this).attr('class')+'"></div>');
+
+        addSystemimg(eleobj);
+    });
+})
+var addSystemimg = function(eleobj){
+    var cnd = $('<div class="cnd-element">'
+				+'<div class="element-box">'
+				+'	<div class="element-box-contents">'
+				+'		'
+				+'	</div>'
+				+'</div>'
+				+'<div class="nbar nbar-rotate nbar-radius"></div>'
+				+'<div class="nbar nbar-line"></div>'
+				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+				+'<div class="nbar nbar-nw nbar-radius nbar-edit"></div>'
+				+'<div class="nbar nbar-se nbar-radius"></div>'
+				+'<div class="nbar nbar-sw nbar-radius"></div>'
+				+'<div class="nbar nbar-ne nbar-radius"></div>'
+			+'</div>');
+    cnd.find('.element-box-contents').append(eleobj);
+    cnd.css({'top':$(window).height()/2+eleobj.height()/2+'px','left':$(window).width()/2+eleobj.width()/2+'px'})
+    $('body').append(cnd);
+    scale(cnd);
+}
