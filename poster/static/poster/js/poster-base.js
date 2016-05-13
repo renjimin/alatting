@@ -69,7 +69,7 @@ $(function(){
                         })
                     }},
                     {icon:"glyphicon glyphicon-adjust",text:" 颜色",callback:function(){
-                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $("#colorBox").css('top',$('.mask').height()+$('.mask').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.header').css('background',color);
                             storageAPI.setCss(".header", {'background':color});
@@ -157,7 +157,6 @@ $(function(){
         }
         //点击页面空白区域行为
         $('#dp').removeClass('open');
-        $("#colorBox").hide();
     });
     /**读取缓存背景图片*/
     var storageAPI = $.fn.yunyeStorage;

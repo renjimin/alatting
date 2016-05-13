@@ -49,7 +49,7 @@
 						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').css('left', arrOffset );
 						$('#dp .arrow').attr('class', 'arrow up')
-						//第一个input自动获取焦点
+						//第一个input自动获取焦点s
 						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
 						if(_option.eval){
@@ -116,27 +116,19 @@
 					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width();
 
 					if(_option.followMouse){
-						originX = event.pageX,originY = event.pageY,diffY = 0;
-					}else{
-						originX = _this.offset().left,originY = _this.offset().top,diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
-					}
-					if(_option.orientation){
-						if(_option.followMouse){
-							offsetY =  - dpw.height() - diffY;
-						}else{
-							offsetY =  _this.height() - dpw.height() - diffY;
-						} 
-					}else{
-						offsetY = diffY;
-					}
-					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
-
-					if(_option.followMouse){
+						originX = event.pageX,originY = event.pageY,diffY = 0,diffX = 0;
 						left = originX - dpw.width()/2;
 					}else{
-						left = originX + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2;
+						originX = _this.offset().left,
+						originY = _this.offset().top,
+						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) + (_option.orientation ? dpw.height() : 0),
+						diffX =  (_this.width() * _option.offsetXPercent )/100 + _option.offsetX;
+						left = originX + diffX - dpw.width()/2;
 					}
+					console.log(_this.height() );
 					right = left + dpw.width();
+					offsetY = _option.orientation ? (_this.height() - diffY) :  diffY;
+					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
 					if( right > documentW ){
 						left = documentW - dpw.width() -5;
 						dpw.css('left',left);
@@ -145,7 +137,6 @@
 					}else{
 						dpw.css('left',left);
 					}
-
 					if(_option.arrowOffset){
 						$('#dp .arrow').css('left', (dpw.width() * _option.arrowOffset)/100 -15  );
 					}else{
@@ -153,13 +144,10 @@
 						$('#dp .arrow').css('left', dpw.width()/2 -15  );
 					}
 					
-
 					if(_option.orientation){
-						$('#dp .arrow').css('top', dpw.height() - 2 );
-						$('#dp .arrow').attr('class', 'arrow down')
+						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
 					}else{
-						$('#dp .arrow').css('top',-30);
-						$('#dp .arrow').attr('class', 'arrow up')
+						$('#dp .arrow').css('top',-30).attr('class', 'arrow up')
 					}
 				}
 				event.stopPropagation();
@@ -188,7 +176,7 @@
 		}
 		return this;
 	}
-	$.fn.focusEnd = function() {
+	$.fn.focusEnd = function() { 
 		if (!this[0]) return this;
 		this.setCursorPosition(this.val().length);
 	}
