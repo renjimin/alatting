@@ -213,7 +213,8 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 #dp i{margin:13px;float: left;line-height: 13px;}
 #dp span{vertical-align: top;line-height: 49px;font-size:18px;background: #f0f0f0;position:absolute;left: 50px;width: 100%;padding-left: 5px;}
 #dp span input[type="text"]{border:0;background:none;width:100%;padding:10px;line-height:20px;font-size:16px;}
-#dp span input[type="time"]{border:0;background:none;padding:10px 0;line-height:20px;font-size:16px;text-align: right;}
+#dp span input[type="time"]{border:0;background:none;padding:10px 0;line-height:20px;font-size:16px;text-align: right;height: 49px;min-width: 120px;}
+#dp span p{padding:10px 0;line-height:25px;font-size:16px;margin:0;height: 49px;}
 #dp .text{line-height: 24px;font-weight: 100;font-size: 18px;font-style: normal;}
 #dp.clock span{left: 62px;}
 #dp.title span{left: 0;}

@@ -211,13 +211,16 @@ $(function(){
         var inputs = $('#dpw_clock input');
         var arr = [];
         for(var i = 0 ; i < inputs.length ; i ++){
-             arr.push(inputs[i].value);
+            arr.push(inputs[i].value);
         }
         for(var i = 0 ; i < arr.length/2 ; i++){
             var even = arr[ i * 2],odd = arr[ (i * 2) +1];
             if(even && odd && (odd <= even) ){
-                $(event.target).blur().val("");
+                $(event.target).blur();
+                $('#dpw_clock input').eq(i*2).val("");
+                $('#dpw_clock input').eq(i*2 + 1).val("");
                 yyConfirm("结束时间不能早于开始时间");
+                break;
             }
         }
         storageAPI.setHead("clock",arr);
