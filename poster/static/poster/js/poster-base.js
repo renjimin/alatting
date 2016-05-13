@@ -47,6 +47,7 @@ $(function(){
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
+            followMouse:true,
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -72,7 +73,7 @@ $(function(){
                     {icon:"ico-address",text:"上传图片"}
                 ]
         });
-    /**模版空白设置背景*/
+    /* 模版空白设置背景 */
    $('.yunye-template').registerPopUp({
             id:'dpw_template',
             offsetXPercent:50,
@@ -104,7 +105,7 @@ $(function(){
 
     //改变文字颜色
     $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").css('top', $(document).height() - 153 ).show();
+        $("#colorBox").css('top', $(document).height() - 160 - 90).show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
@@ -127,7 +128,7 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
@@ -136,6 +137,7 @@ $(function(){
         $('#dp').removeClass('open');
         $("#colorBox").hide();
     });
+    
     /**读取缓存背景图片*/
     var storageAPI = $.fn.yunyeStorage;
     if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
