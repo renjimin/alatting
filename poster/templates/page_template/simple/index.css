@@ -1,18 +1,24 @@
 .yunye-template{
+	padding: 20px 30px 50px;
+    background-color: #fff;
+}
+
+.yunye-template >.content{
 	width: 100%;
 	height: 430px;
 }
 
-.yunye-template .content-top{
-	background: #B5B1AB;
+.yunye-template > .content > .content-top{
+	background-color: #B5B1AB;
 	height: 30%;
 }
 
-.yunye-template .content-middle{
+.yunye-template > .content > .content-middle{
 	height: 30%;
+    background-color: #fff;
 }
 
-.yunye-template .content-bottom{
-	background: #B5B1AB;
+.yunye-template > .content > .content-bottom{
+	background-color: #B5B1AB;
 	height: 40%;
 }

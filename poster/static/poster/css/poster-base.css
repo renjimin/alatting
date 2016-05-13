@@ -23,6 +23,7 @@ body,html{height: 100%;overflow-x:hidden;}
 .ico-alogo:before{background-position:-8em 0;}
 .ico-mobile:before{background-position:-9em 0;}
 .ico-menu:before{background-position:-9em 0;}
+.ico-mobile:before{background-position:-10em 0;}
 .ico-share-email,.ico-share-wechat,.ico-share-qq,.ico-share-sina{width:1em;height:1em;display:inline-block;background:url(/static/website/images/icons/sprits_share.png) no-repeat; background-size:auto 100%;}
 .ico-share-wechat{ background-position:-1em 0;}
 .ico-share-qq{ background-position:-2em 0;}

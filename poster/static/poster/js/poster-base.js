@@ -44,10 +44,10 @@ $(function(){
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
             offsetYPercent:100,
-            list:[{icon:"ico-email",text:"打字"},
-                {icon:"ico-phone",text:" 上传图片"},
-                {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}],
+            list:[{icon:"icon ico-edit-text",text:"打字"},
+                {icon:"glyphicon glyphicon-picture",text:" 上传图片"},
+                {icon:"glyphicon glyphicon-camera",text:"照相"},
+                {icon:"glyphicon glyphicon-link",text:"图片链接"}],
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -55,7 +55,7 @@ $(function(){
             offsetYPercent:90,
             offsetY:30,
             arrowOffset:80,
-            list:[{icon:"ico-email",text:"系统图案",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"系统图案",callback:function(){
                         $('.header').bgselect({}, function (ths,img) {
                             ths.css('background-image', 'url(' + img + ')');
                             ths.css('background-size', 'cover');
@@ -63,14 +63,20 @@ $(function(){
                             $(".system-item").fadeOut(500);
                         })
                     }},
-                    {icon:"ico-phone",text:" 颜色",callback:function(){
+                    {icon:"glyphicon glyphicon-adjust",text:" 颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.header').css('background',color);
                             storageAPI.setCss(".header", {'background':color});
                         });
                     }},
-                    {icon:"ico-address",text:"上传图片"}
+                    {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
+                         $.fn.uploads.showDialog(function(data){
+                            $('.header').css('background-image', 'url(' + data.file + ')');
+                            $('.header').css('background-size', 'cover');
+                            storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           });                           
+                    }}
                 ]
         });
     /* 模版空白设置背景 */
@@ -81,7 +87,7 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             orientation:1,
-            list:[{icon:"ico-email",text:"系统图案",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"系统图案",callback:function(){
                         $(this).bgselect({}, function (ths,img) {
                             $('.yunye-template').css('background-image', 'url(' + img + ')');
                             $('.yunye-template').css('background-size', 'cover');
@@ -89,20 +95,21 @@ $(function(){
                             $(".system-item").fadeOut(500);
                         })
                     }},
-                    {icon:"ico-phone",text:" 颜色",callback:function(){
+                    {icon:"glyphicon glyphicon-adjust",text:" 颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.yunye-template').css('background',color);
                             storageAPI.setCss(".yunye-template", {'background':color});
                         });
                     }},
-                    {icon:"ico-address",text:"上传图片",callback:function(){
+                    {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
                         $.fn.uploads.showDialog(function(data){
                             $('.yunye-template').css('background-image', 'url(' + data.file + ')');
                             $('.yunye-template').css('background-size', 'cover');
                             storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                                            });                        
-                    }}
+                             });                        
+                    }},
+                    {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
         });    
     $(document).on("clsdp",function(){
