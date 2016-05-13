@@ -119,14 +119,18 @@ $(function(){
         });    
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
+        $("#teditor").hide();
     });
 
     //改变文字颜色
-    $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").css('top', $(document).height() - 160 - 90).show();
-        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+    $('.glyphicon-text-height').on('click',function(event){
+        //$("#colorBox").css('top', $(document).height() - 160 - 93).show();
+        /*$(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
-        });
+        });*/
+        $('#teditor').show();
+        $(this).tEditor();
+        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 100);
         event.stopPropagation();
     });
 
@@ -146,7 +150,7 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox","#teditor"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;

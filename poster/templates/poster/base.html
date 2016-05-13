@@ -5,6 +5,7 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/plugins/textEditor/jquery.textEditor.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
 {% endblock %}
@@ -18,6 +19,7 @@
     </script>
     {{ block.super }}
     <script src="{% static 'poster/plugins/changebg/jquery.changebg.js' %}"></script>
+    <script src="{% static 'poster/plugins/textEditor/jquery.textEditor.js' %}"></script>
     <script src="{% static 'poster/plugins/dropdown/jquery.dropdown.js' %}"></script>
     <script src="{% static 'poster/plugins/colorSelect/jquery.colorSelect-1.1.1.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
@@ -143,6 +145,7 @@
 
 {% block base_body_footer %}
     <div id="colorBox" style="position: absolute;z-index: 100;overflow: scroll;width: 100%;"></div>
+    <div  class="teditor" id="teditor" style="position: absolute;z-index: 100;overflow: hidden;width: 100%;"></div>
     <div class="bar-footer bar">
         <a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
             <i class="icon ico-edit-text"></i>

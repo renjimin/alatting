@@ -189,7 +189,7 @@
 		return this;
 	}
 	$.fn.focusEnd = function() {
-		if (!this.lengh) return this;
+		if (!this[0]) return this;
 		this.setCursorPosition(this.val().length);
 	}
 })(jQuery);
