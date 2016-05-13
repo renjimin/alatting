@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
 {% endblock %}
 
 {% block base_header_js %}
@@ -25,6 +26,7 @@
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
+
 {% endblock %}
 
 {% block base_body_header %}
@@ -165,7 +167,7 @@
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><input class="icon glyphicon glyphicon-picture" style="margin:0 auto" accept="image/*" type="file"></a>
+                <a href="javascript:void(0);" class="tab-item"><i class="icon glyphicon glyphicon-picture"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-leaf"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
@@ -173,8 +175,8 @@
         </section>
         <section class="dropdown-panel" id="feedback-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon glyphicon-unchecked"></i></a>
+                <a href="javascript:void(0);" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon glyphicon glyphicon glyphicon-unchecked"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
                 <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
             </div>
@@ -186,5 +188,122 @@
             </div>
         </section>
     </div>
+<div class="type-model button-model" id="button-model">
+    <div class="model-header">
+        <a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>
+        <a href="javascript:void(0);" class="btn-right pull-right" onclick="buttonConfirm()">确定</a>
+    </div>
+    <div class="type-model-inner">
+        <div class="button-edit-container">
+            <div class="btn-container">
+                <a class="btn btn-default">test</a>
+            </div>
+        </div>
+        <div class="type-model-containar button-tools-container">
+            <div class="button-edit">
 
+                <div class="button-edit-tools">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">功能</label>
+                            <div class="col-xs-9">
+                                <select class="form-control"><option>无</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">链接</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control button-href" placeholder="请输入链接">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">文字</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control button-text" placeholder="请输入文字内容">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">颜色</label>
+                            <div class="col-xs-4">
+                                <input class="form-color button-color" readonly="readonly" />
+                            </div>
+                            <label class="col-xs-2 control-label">大小</label>
+                            <div class="col-xs-3">
+                                <select class="form-control button-fontSize"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">背景</label>
+                            <div class="col-xs-5">
+                                <input class="form-background button-background" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">透明度</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-opacity" name="opacity" min="0" max="100" value="100">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-opacity" data-val="100" value="100" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">阴影</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-boxShadow" name="volume" min="0" max="100" value="16">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-boxShadow" data-val="16" value="16px" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">弧度</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-borderRadius" name="volume" min="0" max="100" value="30">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-borderRadius" data-val="30" value="30px" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">旋转</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-rotate" name="volume" min="0" max="360" value="0">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-rotate" data-val="0" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">边框</label>
+                            <div class="col-xs-3">
+                                <input class="form-color button-borderColor" />
+                            </div>
+                            <div class="col-xs-3">
+                            <select class="form-control button-borderStyle"><option value="solid">solid</option><option value="solid">solid</option>
+                                <option value="none">无边框</option>
+                                <option value="solid">solid</option>
+                                <option value="dotted">dotted</option>
+                                <option value="dashed">dashed</option>
+                                <option value="double">double</option>
+                                <option value="groove">groove</option>
+                                <option value="ridge">ridge</option>
+                                <option value="inset">inset</option>
+                                <option value="outset">outset</option>
+                            </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-control button-borderWidth"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="type-model-click" id="hide-cate"></div>
+    </div>
+</div>
+
+<script src="{% static 'poster/plugins/button/scale.js' %}"></script>
+<script src="{% static 'poster/plugins/button/button-edit.js' %}"></script>
 {% endblock %}
