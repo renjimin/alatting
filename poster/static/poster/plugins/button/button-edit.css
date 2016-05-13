@@ -1,0 +1,273 @@
+/*创建前 类型选择*/
+.type-model {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	visibility: hidden;
+	opacity: 0;
+	-webkit-transition: all 0.15s;
+	transition: all 0.15s;
+}
+.type-model.open {
+	visibility: visible;
+	opacity: 1;
+}
+.type-model-inner {
+	background: rgba(0,0,0,0.4);
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+.type-model-containar {
+	position: relative;
+	z-index: 20;
+	background: rgba(230,230,230,0.96);
+	box-shadow: 0 6px 6px rgba(0,0,0,.1) inset;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(0.95);
+	transform: scale(0.95);
+	-webkit-transform-origin: center center;
+	-ms-transform-origin: center center;
+	transform-origin: center center;
+	-webkit-transition: all 0.15s;
+	transition: all 0.15s;
+	transition-delay: 0.1s;
+	-webkit-transition-delay: 0.1s;
+}
+.type-model.open .type-model-containar {
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
+}
+.range {
+	overflow: hidden;
+	height: 34px;
+	outline: 0;
+	background: -webkit-gradient(linear, 50% 0, 50% 100%, color-stop(0, #ccc), color-stop(100%, #ccc)) center no-repeat;
+	background: linear-gradient(to right, #ccc 0, #ccc 100%) center no-repeat;
+	background-size: 99% 2px;
+	-webkit-appearance: none;
+}
+ input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	cursor: default;
+	top: 0;
+	height: 24px;
+	width: 24px;
+	transform: translateY(0);
+	background: none repeat scroll 0 0 #fff;
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	-webkit-box-shadow: 0 -1px 1px #999 inset;
+}
+.button-edit-tools {
+	padding: 15px;
+}
+.button-edit-tools .form-group label {
+	padding-top: 7px;
+	color: #666;
+	font-weight: normal;
+}
+.button-edit-tools .form-color {
+	display: block;
+	width: 80px;
+	height: 34px;
+	border: 4px solid #fff;
+	box-shadow: 0 0 1px 1px #ccc;
+	background: none;
+}
+.button-edit-tools .form-background {
+	display: block;
+	width: 80px;
+	height: 34px;
+	background: #fff;
+	box-shadow: 0 0 1px 1px #ccc;
+	border: 1px solid #fff;
+}
+.button-edit-container {
+	width: 100%;
+	height: 30%;
+	top: 0;
+	left: 0;
+	z-index: 20;
+	position: absolute;
+}
+.button-edit-container .btn {
+	white-space: normal;
+	word-break: break-all;
+}
+.button-tools-container {
+	position: absolute;
+	left: 0;
+	top: 30%;
+	height: 70%;
+	overflow: auto;
+	width: 100%;
+	text-align: center;
+}
+.type-model-inner {
+	position: relative;
+}
+.btn-container {
+	position: absolute;
+	top: 50%;
+	margin-top: -15px;
+	left: 0;
+	width: 100%;
+	text-align: center;
+}
+.model-header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 36px;
+	line-height: 36px;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -moz-flex;
+	display: -ms-flexbox;
+	display: flex;
+	background: #000;
+	z-index:30;
+}
+.model-header .btn-right,
+.model-header .btn-back {
+	position: absolute;
+	right: 5px;
+	color: #fff;
+	padding: 0 10px;
+}
+.model-header .btn-back {
+	position: static;
+}
+.button-model {
+	padding-bottom: 0;
+}
+.cnd-element {
+	position: absolute;
+	z-index: 100;
+}
+.cnd-element .nbar {
+	position: absolute;
+	z-index: 998;
+}
+.nbar-radius {
+	width: 12px;
+	height: 12px;
+	background-color: #fff;
+	border: 1px solid #08a1ef;
+	border-radius: 50%;
+}
+.nbar-rotate {
+	top: -30px;
+	left: 50%;
+	margin-left: -6px;
+	background-color: #44cb83;
+	border: none;
+	cursor: url(mouserotate.ico) 10 10, default;
+}
+.nbar-line {
+	width: 1px;
+	height: 18px;
+	top: -18px;
+	left: 50%;
+	background-color: #44cb83;
+}
+.nbar-n {
+	width: 100%;
+	height: 5px;
+	top: 0;
+	cursor: n-resize;
+	background: url(bar-1px.png) repeat-x;
+	display: none;
+}
+.nbar-n div {
+	position: absolute;
+	left: 50%;
+	top: -6px;
+	margin-left: -6px;
+}
+.nbar-s {
+	width: 100%;
+	height: 5px;
+	bottom: 0;
+	cursor: s-resize;
+	background: url(bar-1px.png) repeat-x;
+	display: none;
+}
+.nbar-s div {
+	position: absolute;
+	left: 50%;
+	top: -6px;
+	margin-left: -6px;
+}
+.nbar-e {
+	width: 5px;
+	height: 100%;
+	top: 0;
+	right: 0;
+	cursor: n-resize;
+	background: url(bar-1px.png) right repeat-y;
+	display: none;
+}
+.nbar-e div {
+	position: absolute;
+	top: 50%;
+	right: -6px;
+	margin-top: -6px;
+}
+.nbar-w {
+	width: 5px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	cursor: n-resize;
+	background: url(bar-1px.png) repeat-y;
+	display: none;
+}
+.nbar-w div {
+	position: absolute;
+	top: 50%;
+	left: -6px;
+	margin-top: -6px;
+}
+.nbar-nw {
+	top: -6px;
+	left: -6px;
+	cursor: nw-resize;
+}
+.nbar-se {
+	bottom: -6px;
+	right: -6px;
+	cursor: se-resize;
+	display: none;
+}
+.nbar-sw {
+	bottom: -6px;
+	left: -6px;
+	cursor: sw-resize;
+	display: none;
+}
+.nbar-ne {
+	top: -6px;
+	right: -6px;
+	cursor: ne-resize;
+	display: none;
+}
+.cnd-element .nbar{
+	display:none;
+}
+.cnd-element.active .nbar.nbar-edit{
+	display:block;
+}
+.cnd-element.active .nbar.nbar-rotate{
+	display:block;
+}
+.cnd-element.active .nbar-line{
+	display:block;
+}
