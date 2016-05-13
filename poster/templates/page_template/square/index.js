@@ -34,6 +34,6 @@ $(function(){
     };
 
     var sqOption = $.extend({id: 'sq_menu'}, menuOptions);
-    $('.yunye-template').registerPopUp(sqOption);
+    $('.yunye-template > .content').registerPopUp(sqOption);
 });
 

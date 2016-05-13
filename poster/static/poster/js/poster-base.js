@@ -1,6 +1,3 @@
-
-$(function(){
-
 $(function(){   
     $(".back-to-home").click(function(){
         var url = $(this).data("url");
@@ -41,18 +38,16 @@ $(function(){
         });
     $('.header-info').registerDropDown({
             id:'dpw_desc',
-            eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40)',
+            eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40);$("#dp textarea").focusEnd();',
             dynamicClass:'info'
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
-            offsetYPercent:50,
-            offsetY:30,
-            list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
+            offsetYPercent:100,
             list:[{icon:"ico-email",text:"打字"},
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}]
+                {icon:"ico-clock",text:"图片链接"}],
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -61,47 +56,127 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             list:[{icon:"ico-email",text:"系统图案",callback:function(){
-                $('.header').bgselect({}, function (ths,img) {
-                    console.log(img)
-                    ths.css('background-image', 'url(' + img + ')');
-                    ths.css('background-size', 'cover');
-                })
-            }},
-                {icon:"ico-phone",text:" 上传图片",callback:function(){
-                    $.fn.uploads.showDialog(function(){
-                        console.log(date.file);
-                    });
-
-                }},
-                {icon:"ico-address",text:"照相"},
-                {icon:"ico-clock",text:"图片链接"}],
+                        $('.header').bgselect({}, function (ths,img) {
+                            ths.css('background-image', 'url(' + img + ')');
+                            ths.css('background-size', 'cover');
+                            storageAPI.setCss(".header", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},
+                    {icon:"ico-phone",text:" 颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('.header').css('background',color);
+                            storageAPI.setCss(".header", {'background':color});
+                        });
+                    }},
+                    {icon:"ico-address",text:"上传图片",callback:function(){
+                         $.fn.uploads.showDialog(function(data){
+                            $('.header').css('background-image', 'url(' + data.file + ')');
+                            $('.header').css('background-size', 'cover');
+                            storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           });                           
+                    }}
+                ]
         });
+    /* 模版空白设置背景 */
+   $('.yunye-template').registerPopUp({
+            id:'dpw_template',
+            offsetXPercent:50,
+            offsetYPercent:50,
+            offsetY:30,
+            arrowOffset:80,
+            orientation:1,
+            list:[{icon:"ico-email",text:"系统图案",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('.yunye-template').css('background-image', 'url(' + img + ')');
+                            $('.yunye-template').css('background-size', 'cover');
+                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},
+                    {icon:"ico-phone",text:" 颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('.yunye-template').css('background',color);
+                            storageAPI.setCss(".yunye-template", {'background':color});
+                        });
+                    }},
+                    {icon:"ico-address",text:"上传图片",callback:function(){
+                        $.fn.uploads.showDialog(function(data){
+                            $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                            $('.yunye-template').css('background-size', 'cover');
+                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                             });                        
+                    }}
+                ]
+        });    
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
     });
-    $(document).on("click",'#closebg',function(event){
-        $(".system-item").fadeOut(200);
-    });
 
+    //改变文字颜色
     $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").show();
+        $("#colorBox").css('top', $(document).height() - 160 - 90).show();
         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
         });
+        event.stopPropagation();
     });
 
     $('body').on('click',function(event){
-        var dpw = $('#dp');
+        //处理点击事件
+        var click_list = ['#closebg'];
+        var item = '';
+        for(var i in click_list){
+            if($(event.target).closest(click_list[i]).length!=0){
+                item = click_list[i];
+                break;
+            }
+        }
+        switch(item){
+            case "#closebg":
+                $(".system-item").fadeOut(200);
+                break;
+        }
+        //点击被保护列表中的对象返回
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
         }
-        dpw.removeClass('open');
+        //点击页面空白区域行为
+        $('#dp').removeClass('open');
+        $("#colorBox").hide();
     });
+    /**读取缓存背景图片*/
+    var storageAPI = $.fn.yunyeStorage;
+    if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
+    if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
 
-    //数据
+    //数据初始化
+    var pageHeadData = storageAPI.getPosterHeadData();
+    if(pageHeadData.title){
+        $('.edit-bar-header .title p').html(pageHeadData.title);
+        $('#dpw_title input').val(pageHeadData.title);
+    }
+    if(pageHeadData.desc){  
+        $('.header-info .desc span').html(pageHeadData.desc);
+        $('#dpw_desc textarea').val(pageHeadData.desc);
+    }
+    if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
+    if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
+    if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
+    if(pageHeadData.address)$('#dpw_address input').val(pageHeadData.address);
+    if(pageHeadData.clock){
+        for(var i in pageHeadData.clock){
+            $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
+        }
+    }
+    //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
+        storageAPI.setHead("title",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
@@ -134,6 +209,4 @@ $(function(){
         }
         storageAPI.setHead("clock",arr);
     });
-
-
 });

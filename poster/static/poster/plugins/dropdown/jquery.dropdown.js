@@ -66,10 +66,11 @@
 			list:[],
 			offsetXPercent:50,
 			offsetX:0,
-			offsetYPercent:0,
+			offsetYPercent:50,
 			offsetY:0,
 			arrowOffset:0,
-			orientation:0
+			orientation:0,
+			followMouse:false
 		};
 		return this.each(function () {
 			var _this = $(this),
@@ -112,16 +113,30 @@
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
 
-					if(_option.orientation){
-						var offsetY =  _this.height() - dpw.height() - _option.offsetYPercent * _this.height() / 100 - parseInt(_option.offsetY) - $('.container-fluid').offset().top;
-					}else{
-						var offsetY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) - $('.container-fluid').offset().top;
-					}
-					dpw.css('top',_this.offset().top + offsetY);
+					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width();
 
-					var left = _this.offset().left + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2,
-						right = left + dpw.width(),
-						documentW = $(document.body).width();
+					if(_option.followMouse){
+						originX = event.pageX,originY = event.pageY,diffY = 0;
+					}else{
+						originX = _this.offset().left,originY = _this.offset().top,diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
+					}
+					if(_option.orientation){
+						if(_option.followMouse){
+							offsetY =  - dpw.height() - diffY;
+						}else{
+							offsetY =  _this.height() - dpw.height() - diffY;
+						} 
+					}else{
+						offsetY = diffY;
+					}
+					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
+
+					if(_option.followMouse){
+						left = originX - dpw.width()/2;
+					}else{
+						left = originX + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2;
+					}
+					right = left + dpw.width();
 					if( right > documentW ){
 						left = documentW - dpw.width() -5;
 						dpw.css('left',left);
@@ -130,11 +145,15 @@
 					}else{
 						dpw.css('left',left);
 					}
+
 					if(_option.arrowOffset){
 						$('#dp .arrow').css('left', (dpw.width() * _option.arrowOffset)/100 -15  );
 					}else{
-						$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
+						//$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
+						$('#dp .arrow').css('left', dpw.width()/2 -15  );
 					}
+					
+
 					if(_option.orientation){
 						$('#dp .arrow').css('top', dpw.height() - 2 );
 						$('#dp .arrow').attr('class', 'arrow down')

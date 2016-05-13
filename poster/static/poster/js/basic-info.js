@@ -112,7 +112,7 @@ $(function(){
 	if (result < 0) {
 	//_alertMsg.innerHTML="请输入正确格式:" + upLoadType;
 		 yyAlert("请输入正确格式:" + upLoadType);
-		
+
 
 	} else{
 		_alertMsg.innerHTML="<font style='color:blue'></font>";
