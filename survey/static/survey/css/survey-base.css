@@ -71,7 +71,7 @@
     background-size: auto 100%;
 }
 .qs-title {
-	height: 50px;
+    height: 50px;
     line-height: 50px;
     font-size: 18px;
     font-weight: 600;
@@ -79,25 +79,25 @@
     border-bottom: 1px solid #b4b4b4;
 }
 .qs-list {
-	padding-top: 10px;
-	font-size: 18px;
+    padding-top: 10px;
+    font-size: 18px;
 }
 .qs-list-title {
-	height: 50px;
+    height: 50px;
     line-height: 50px;
     font-size: 18px;
     font-weight: 600;
     text-align: center;
 }
 .qs-list .radio {
-	background: #fff;
-	border-radius: 10px;
-	text-align: left;
-	margin: 10px 30px;
-	padding: 5px 0 5px 20px;
+    background: #fff;
+    border-radius: 10px;
+    text-align: left;
+    margin: 10px 30px;
+    padding: 5px 0 5px 20px;
 }
 .qs-list .radio-label{
-	height: 50px;
+    height: 50px;
     line-height: 50px;
     font-size: 18px;
 }
@@ -108,27 +108,27 @@
     padding-left: 0;
 }
 .qs-list input[type=radio] {
-	vertical-align: middle;
-	line-height: 50px;
-	height: 50px;
-	margin-top: 0;
+    vertical-align: middle;
+    line-height: 50px;
+    height: 50px;
+    margin-top: 0;
 }
 .qs-list .form-control{
-	padding:0 6px;
-	font-size: 18px;
+    padding:0 6px;
+    font-size: 18px;
 }
 .qs-list .sm-input-label {
-	width: 50px;
+    width: 50px;
 }
 .qs-list-section {
-	padding: 20px 0;
+    padding: 20px 0;
 }
 .qs-list-input-group.row {
-	padding-top: 10px;
+    padding-top: 10px;
 }
 .qs-list-section.qs-list-section-pre {
-	padding-bottom: 20px;
-	border-bottom: 1px solid #b4b4b4;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #b4b4b4;
 }
 .qs-footer{
     height: 70px;
