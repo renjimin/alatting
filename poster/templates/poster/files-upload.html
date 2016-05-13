@@ -11,8 +11,11 @@
 
 {% block base_header_js %}
     {{ block.super }}
-    <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
+
     <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
     <script src="{% static 'poster/plugins/slider/swiper.js' %}"></script>
     <script src="{% static 'poster/plugins/slider/imgslider.js' %}"></script>
 {% endblock %}
@@ -20,15 +23,15 @@
 {% block base_body %}
 
     <div class="block1" style="width:100%;height:300px;overflow:hidden;"></div>
-    <button class="btncs">按钮</button>
+    <button class="btncs">弹窗式上传</button>
 
+    <div id="test" style="display: none">图片上传接口demo</div>
+    <!--<input type="file" id="test"/>-->
 
     <div class="dialog">
 
         <div id="demo">
-
             <div id="as" class="webuploader-container">
-
                 <div class="webuploader-pick">选择文件</div>
                 <div id="rt_rt_1aidhgpbe70k1dhvopts2u4gq4">
                     <input type="file" name="file"
@@ -38,9 +41,10 @@
                            chunked="false">
                     <label></label>
                 </div>
-
             </div>
         </div>
+
+
     </div>
 {% endblock %}
 
@@ -64,12 +68,39 @@
             fileSingleSizeLimit: 5 * 1024 * 1024,
             accept: 'image/jpg,image/jpeg,image/png,image/gif',
             threads: 1
+
         });
 
-        $(function () {
-            $(".btncs").click(function () {
-                $(".dialog").animate({top: '0px'});
-            });
+
+    $(function () {
+        $(".btncs").click(function () {
+            $(".dialog").animate({top: '0px'});
         });
+    });
+
+
+
+    $('#test').uploads({
+        pick: '#test',
+        url: '/api/v1/poster/upload/logo',
+        success: function (data) {
+            //console.info(data);
+            console.info("success");
+        },
+        error: function (err) {
+            //console.info(err);
+            console.info("error");
+        },
+
+        fileQueued:function(file){
+            console.log('111')
+            //console.log(file)
+        },
+        complete:function(){
+            console.log('完成')
+        }
+
+    });
+
     </script>
 {% endblock %}
