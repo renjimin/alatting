@@ -197,13 +197,13 @@
 	height: 5px;
 	bottom: 0;
 	cursor: s-resize;
-	background: url(bar-1px.png) repeat-x;
-	display: none;
+	background: url(bar-1px.png) repeat-x bottom;
+
 }
 .nbar-s div {
 	position: absolute;
 	left: 50%;
-	top: -6px;
+	top: 0;
 	margin-left: -6px;
 }
 .nbar-e {
@@ -213,7 +213,7 @@
 	right: 0;
 	cursor: n-resize;
 	background: url(bar-1px.png) right repeat-y;
-	display: none;
+
 }
 .nbar-e div {
 	position: absolute;
@@ -228,7 +228,7 @@
 	left: 0;
 	cursor: n-resize;
 	background: url(bar-1px.png) repeat-y;
-	display: none;
+
 }
 .nbar-w div {
 	position: absolute;
@@ -245,22 +245,25 @@
 	bottom: -6px;
 	right: -6px;
 	cursor: se-resize;
-	display: none;
+
 }
 .nbar-sw {
 	bottom: -6px;
 	left: -6px;
 	cursor: sw-resize;
-	display: none;
+
 }
 .nbar-ne {
 	top: -6px;
 	right: -6px;
 	cursor: ne-resize;
-	display: none;
+
 }
 .cnd-element .nbar{
-	display:none;
+display:none;
+}
+.cnd-element.active .nbar{
+display:block;
 }
 .cnd-element.active .nbar.nbar-edit{
 	display:block;

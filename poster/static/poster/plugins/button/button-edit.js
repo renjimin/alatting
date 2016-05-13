@@ -32,6 +32,7 @@ var btn,currentElebox = null,isEdit = false;
         }
 		s.edit = function(element){
             isEdit = true;
+            btn = null;
             btn = element.clone();
             defaults.container.find('.btn-container').empty().append(btn);
 			currentElebox = element.parent();
@@ -255,10 +256,10 @@ var btn,currentElebox = null,isEdit = false;
 			+'</div>');
 
 		if(!isEdit){
-			cnd.find('.element-box-contents').append(btn);
+			cnd.find('.element-box-contents').append(btn.clone());
 			cnd.css({'top':$(window).height()/2+btn.height()/2+'px','left':$(window).width()/2+btn.width()/2+'px'})
 			$('body').append(cnd);
-            scale();
+            scale(cnd);
 		}else{
 			currentElebox.empty().append(btn);
 		}
@@ -294,5 +295,5 @@ var addSystemimg = function(eleobj){
     cnd.find('.element-box-contents').append(eleobj);
     cnd.css({'top':$(window).height()/2+eleobj.height()/2+'px','left':$(window).width()/2+eleobj.width()/2+'px'})
     $('body').append(cnd);
-    scale();
+    scale(cnd);
 }
