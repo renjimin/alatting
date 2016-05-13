@@ -22,15 +22,20 @@
 
 {% block base_body %}
 
-    <div class="block1" style="width:100%;height:300px;overflow:hidden;"></div>
+
     <button class="btncs">弹窗式上传</button>
 
-    <div id="test" style="display: none">图片上传接口demo</div>
+    <!--<div id="test">图片上传接口demo</div>-->
     <!--<input type="file" id="test"/>-->
 
     <div class="dialog">
 
         <div id="demo">
+            <div>
+                <div class="demoheader">选择图片上传<i class="closefile glyphicon glyphicon-remove" class="glyphicon glyphicon-remove"></i></div>
+            </div>
+
+
             <div id="as" class="webuploader-container">
                 <div class="webuploader-pick">选择文件</div>
                 <div id="rt_rt_1aidhgpbe70k1dhvopts2u4gq4">
@@ -76,31 +81,37 @@
         $(".btncs").click(function () {
             $(".dialog").animate({top: '0px'});
         });
+
+        $(".closefile").click(function(){
+            $(".dialog").hide();
+        })
     });
 
 
+    </script>
+{% endblock %}
 
+
+<!--
     $('#test').uploads({
         pick: '#test',
         url: '/api/v1/poster/upload/logo',
         success: function (data) {
-            //console.info(data);
+
             console.info("success");
         },
         error: function (err) {
-            //console.info(err);
+
             console.info("error");
         },
 
         fileQueued:function(file){
             console.log('111')
-            //console.log(file)
+
         },
         complete:function(){
             console.log('完成')
         }
 
-    });
-
-    </script>
-{% endblock %}
+    })
+   -->
