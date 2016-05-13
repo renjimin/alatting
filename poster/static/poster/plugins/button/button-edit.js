@@ -247,7 +247,7 @@ var btn,currentElebox = null,isEdit = false;
 
     }
 	function buttonConfirm(){
-        var cnd = $('<div class="cnd-element">'
+        var cnd = $('<div class="cnd-element button-element">'
 				+'<div class="element-box">'
 				+'	<div class="element-box-contents">'
 				+'		'
@@ -268,7 +268,7 @@ var btn,currentElebox = null,isEdit = false;
 		if(!isEdit){
 			cnd.find('.element-box-contents').append(btn.clone());
 			cnd.css({'top':$(window).height()/2+btn.height()/2+'px','left':$(window).width()/2+btn.width()/2+'px'})
-			$('body').append(cnd);
+			$('.container-fluid').append(cnd);
             scale(cnd);
 		}else{
 			currentElebox.empty().append(btn);
@@ -285,7 +285,7 @@ $(function(){
     });
 })
 var addSystemimg = function(eleobj){
-    var cnd = $('<div class="cnd-element">'
+    var cnd = $('<div class="cnd-element systemimg-element">'
 				+'<div class="element-box">'
 				+'	<div class="element-box-contents">'
 				+'		'
@@ -304,6 +304,10 @@ var addSystemimg = function(eleobj){
 			+'</div>');
     cnd.find('.element-box-contents').append(eleobj);
     cnd.css({'top':$(window).height()/2+eleobj.height()/2+'px','left':$(window).width()/2+eleobj.width()/2+'px'})
-    $('body').append(cnd);
+    $('.container-fluid').append(cnd);
     scale(cnd);
+}
+
+var copySystemimg = function(){
+    $('.systemimg-element')
 }

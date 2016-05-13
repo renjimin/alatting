@@ -272,12 +272,6 @@ display:none;
 .cnd-element.active .nbar{
 display:block;
 }
-.cnd-element.active .nbar.nbar-edit{
-	display:block;
-}
-.cnd-element.active .nbar.nbar-rotate{
-	display:block;
-}
-.cnd-element.active .nbar-line{
-	display:block;
+.cnd-element.active .nbar.nbar-ne,.cnd-element.active .nbar.nbar-sw,.cnd-element.active .nbar.nbar-n div,.cnd-element.active .nbar.nbar-s div,.cnd-element.active .nbar.nbar-e div,.cnd-element.active .nbar.nbar-w div{
+	display:none;
 }
