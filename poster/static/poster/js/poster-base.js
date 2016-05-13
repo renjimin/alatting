@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 $(function(){
+=======
+$(function(){   
+>>>>>>> 54d00efaa991bc39cf8dd4ddf5e99bfa3675ae6c
     $(".back-to-home").click(function(){
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function(){
@@ -24,7 +28,7 @@ $(function(){
             offsetYPercent:50,
             offsetY:30,
         });
-    $(".abutton-contact .ico-clock").registerDropDown({
+   $(".abutton-contact .ico-clock").registerDropDown({
             id:'dpw_clock',
             offsetYPercent:50,
             offsetY:30,
@@ -43,9 +47,13 @@ $(function(){
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
+<<<<<<< HEAD
             offsetYPercent:50,
             offsetY:30,
             list:[{icon:"ico-email",text:"打字",callback:function(){console.log(1);}},
+=======
+            list:[{icon:"ico-email",text:"打字"},
+>>>>>>> 54d00efaa991bc39cf8dd4ddf5e99bfa3675ae6c
                 {icon:"ico-phone",text:" 上传图片"},
                 {icon:"ico-address",text:"照相"},
                 {icon:"ico-clock",text:"图片链接"}],
@@ -101,6 +109,37 @@ $(function(){
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
+<<<<<<< HEAD
+=======
+        storageAPI.setHead("desc",event.currentTarget.value);
+    });
+    $('#dpw_phone input:eq(0)').on('change',function(event){
+        storageAPI.setHead("phone",event.currentTarget.value);
+    });
+    $('#dpw_phone input:eq(1)').on('change',function(event){
+        storageAPI.setHead("mobile",event.currentTarget.value);
+    });
+    $('#dpw_email input').on('change',function(event){
+        storageAPI.setHead("email",event.currentTarget.value);
+    });
+    $('#dpw_address input').on('change',function(event){
+        storageAPI.setHead("address",event.currentTarget.value);
+    });
+    $('#dpw_clock input').on('change',function(event){
+        var inputs = $('#dpw_clock input');
+        var arr = [];
+        for(var i = 0 ; i < inputs.length ; i ++){
+             arr.push(inputs[i].value);
+        }
+        for(var i = 0 ; i < arr.length/2 ; i++){
+            var even = arr[ i * 2],odd = arr[ (i * 2) +1];
+            if(even && odd && (odd <= even) ){
+                $(event.target).blur().val("");
+                yyConfirm("结束时间不能早于开始时间");
+            }
+        }
+        storageAPI.setHead("clock",arr);
+>>>>>>> 54d00efaa991bc39cf8dd4ddf5e99bfa3675ae6c
     });
 
 
