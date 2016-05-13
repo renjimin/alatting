@@ -82,7 +82,7 @@ def json2css(json):
         for k, v in selectors[1].items():
             selectors[1][k] = v + ";"
     handler_json = _jsonlib.dumps(root)
-    return str(handler_json).replace("\"", "").replace(",", "")
+    return handler_json.replace("\"", "").replace(",", "")
 
 
 def merge_json(old_json, new_json):
