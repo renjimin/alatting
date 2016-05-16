@@ -74,7 +74,7 @@
 			arrowOffset:0,
 			orientation:0,
 			followMouse:false,
-		suspendFun: null
+			suspendFun: null
 		};
 		return this.each(function () {
 			var _this = $(this),
