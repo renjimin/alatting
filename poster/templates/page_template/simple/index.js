@@ -49,8 +49,8 @@ $(function(){
             {
                 icon: "ico-clock",
                 text: "图片链接",
-                callback: function () {
-                    alert("弹出图片链接编辑层");
+                callback: function (obj) {
+                    console.log(obj);
                 }
             }]
     };
@@ -65,16 +65,8 @@ $(function(){
     $('.content-middle').registerPopUp(midOption);
     $('.content-bottom').registerPopUp(btmOption);
 
-
-
-
-
-
     $(".closefile").click(function(){
-    $(".dialog").hide();
-    })
-
-
-
+        $(".dialog").hide();
+    });
 });
 
