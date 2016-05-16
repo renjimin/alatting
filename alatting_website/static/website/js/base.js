@@ -1,3 +1,71 @@
+String.prototype.format = function (args) {
+    var result = this;
+    if (arguments.length > 0) {
+        if (arguments.length == 1 && typeof (args) == "object") {
+            for (var key in args) {
+                if (args[key] != undefined) {
+                    var reg = new RegExp("({" + key + "})", "g");
+                    result = result.replace(reg, args[key]);
+                }
+            }
+        } else {
+            for (var i = 0; i < arguments.length; i++) {
+                if (arguments[i] != undefined) {
+                    var reg = new RegExp("({)" + i + "(})", "g");
+                    result = result.replace(reg, arguments[i]);
+                }
+            }
+        }
+    }
+    return result;
+};
+
+(function($){
+    $.fn.yyTools = {
+        "getAllowFileTypesAll": function(){
+            return  [
+                "jpg", "jpeg", "gif", "png",
+                "flv", "webm", "mp4", "ogg",
+                "mp3"
+            ];
+        },
+        "getAllowFileTypes": function(){
+            return {
+                "image": ["jpg", "jpeg", "gif", "png"],
+                "video": ["webm", "mp4", "ogg"],
+                "music": ["mp3"]
+            }
+        },
+        'getFileExtension': function(fileName){
+            return fileName.split('.').pop().toLowerCase();
+        },
+        "allowedFileType": function(fileName){
+            var ret = $.inArray(
+                $.fn.yyTools.getFileExtension(fileName),
+                $.fn.yyTools.getAllowFileTypesAll()
+            );
+            return ret != -1;
+        },
+        "getFileTypeName": function(fileName){
+            if(!$.fn.yyTools.allowedFileType(fileName)){
+                yyAlert("不接受此文件类型");
+                return;
+            }
+            var ext = $.fn.yyTools.getFileExtension(fileName),
+                types = $.fn.yyTools.getAllowFileTypes(),
+                name = "";
+            $.each(types, function(tName, tArr){
+                if($.inArray(ext, tArr) != -1){
+                    name = tName;
+                    return false;
+                }
+            });
+            return name;
+        }
+    }
+})(jQuery);
+
+
 (function () {
 	function yyAlert(text,callback,params){
         var defaults = {
