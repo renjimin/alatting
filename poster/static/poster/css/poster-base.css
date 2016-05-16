@@ -197,7 +197,7 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .abutton-info .clock .text{line-height: 24px;font-weight: 100;font-size: 16px;font-style: normal;}
 
 .top-btn{position: absolute;right:5px;top:8px;height:24px;}
-.bar-header .btn-save,.bar-header .btn-post{border:1px solid #808080;color:#808080;background:none;margin:0 3px;min-height:20px;height:24px;line-height:24px; }
+.bar-header .btn-save,.bar-header .btn-post,.bar-header .btn-bg{border:1px solid #808080;color:#808080;background:none;margin:0 3px;min-height:20px;height:24px;line-height:24px; }
 .bar-header .btn-save{}
 .bar-header .btn-post{}
 .bar-header .btn-page{ position: relative;}
