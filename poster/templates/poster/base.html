@@ -26,7 +26,7 @@
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
-
+<script type="text/javascript" src = "http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -41,6 +41,7 @@
         <p>{{ poster.logo_title }}</p>
     </div>
     <div class="top-btn">
+        <button class="btn-bg">换肤</button>
         <button class="btn btn-save">存储</button>
         <button class="btn btn-post">发布</button>
     </div>
