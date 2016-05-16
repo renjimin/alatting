@@ -6,26 +6,38 @@ from django.contrib.auth.models import User
 from survey import QuestionChoices
 
 class Survey(models.Model):
-	name = models.CharField(max_length=64, unique=True)
-	main_category = models.ForeignKey(
-		Category,
-		related_name='main_cat_surveys',
-		limit_choices_to={'parent__isnull': True},
-		null=True
-	)
-	sub_category = models.ForeignKey(
-		Category,
-		related_name='sub_cat_surveys',
-		limit_choices_to={'parent__isnull': False},
-		null=True
-	)
-	
-	def __str__(self):
-		return "{:s}".format(self.name)
+    name = models.CharField(max_length=64, unique=True)
+    main_category = models.ForeignKey(
+        Category,
+        related_name='main_cat_surveys',
+        limit_choices_to={'parent__isnull': True},
+        null=True
+    )
+    sub_category = models.ForeignKey(
+        Category,
+        related_name='sub_cat_surveys',
+        limit_choices_to={'parent__isnull': False},
+        null=True
+    )
+    
+    def __str__(self):
+        return "{:s}".format(self.name)
 
 
 class Questionnaire(models.Model):
     name = models.CharField(max_length=128)
+    main_category = models.ForeignKey(
+        Category,
+        related_name='main_cat_qs',
+        limit_choices_to={'parent__isnull': True},
+        null=True
+    )
+    sub_category = models.ForeignKey(
+        Category,
+        related_name='sub_cat_qs',
+        limit_choices_to={'parent__isnull': False},
+        null=True
+    )
 
     def __unicode__(self):
         return "{:s}".format(self.name)
@@ -51,7 +63,7 @@ class QuestionSet(models.Model):
     def questions(self):
         if not hasattr(self, "__qcache"):
             self.__qcache = \
-            	questions_ = Question.objects.filter(questionset=self.id).order_by('sortid')
+                questions_ = Question.objects.filter(questionset=self.id).order_by('sortid')
         return self.__qcache
 
     def next(self):
@@ -135,12 +147,8 @@ class RunInfo(models.Model):
     questionset = models.ForeignKey(QuestionSet, blank=True, null=True) # or straight int?
     created = models.DateTimeField(auto_now_add=True)
 
-    def save(self, **kwargs):
-        self.random = (self.random or '').lower()
-        super(RunInfo, self).save(**kwargs)
-
     def __unicode__(self):
-        return "%s" % (self.random)
+        return "%s" % (self.pk)
 
     class Meta:
         verbose_name_plural = 'Run Info'
