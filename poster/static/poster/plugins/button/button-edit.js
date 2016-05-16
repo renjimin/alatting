@@ -1,5 +1,5 @@
-var btn,currentElebox = null,isEdit = false;
-	var curentOpts={};
+var btn,currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
+var curentOpts={};
 
 
     var addButton = function(ele,options){
@@ -26,8 +26,8 @@ var btn,currentElebox = null,isEdit = false;
             isEdit = false;
             btn = $('<a class="element btn btn-default">请输入文字</a>')
             defaults.container.find('.btn-container').empty().append(btn);
-            s.upload(btn);
             s.controlInit();
+            s.upload(btn);
             s.addControlListen(btn);
         }
 		s.edit = function(element){
@@ -73,7 +73,7 @@ var btn,currentElebox = null,isEdit = false;
 				eleopts = {
 					'href': $(b).attr('href'),
 		            'text': $(b).text(),
-		            'color': $(b).css('color'),
+		            'color': $(b).css('color')==null?'000':$(b).css('color'),
 		            'fontSize': $(b).css('font-size'),
 		            'background': $(b).css('background'),
 		            'opacity': $(b).css('opacity'),
@@ -91,7 +91,7 @@ var btn,currentElebox = null,isEdit = false;
             var href = opts.href=="javascript:void(0)"?'':opts.href
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
-            $('.button-color').css('color',opts.color+'px');
+            $('.button-color').css('background','#'+opts.color);
             for(i=12;i<30;i++){
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
@@ -129,10 +129,20 @@ var btn,currentElebox = null,isEdit = false;
                 opts.borderWidth = $(this).val();
                 o.css('border-width',opts.borderWidth);
             });
-            $('.button-borderColor').on('input propertychange',function(){
+            $('.button-borderColor').on('change',function(){
                 opts.borderColor = $(this).val();
                 o.css('border-color','#'+opts.borderColor);
                 $(this).css('background','#'+opts.borderColor);
+            });
+            $('.button-color').on('change',function(){
+                opts.color = $(this).val();
+                o.css('color','#'+opts.color);
+                $(this).css('background','#'+opts.color);
+            });
+            $('.button-background').on('change',function(){
+                opts.background = $(this).val();
+                o.css('background','#'+opts.background);
+                $(this).css('background','#'+opts.background);
             });
 
             s.touches = {
@@ -237,7 +247,7 @@ var btn,currentElebox = null,isEdit = false;
 
     }
 	function buttonConfirm(){
-        var cnd = $('<div class="cnd-element">'
+        var cnd = $('<div class="cnd-element button-element">'
 				+'<div class="element-box">'
 				+'	<div class="element-box-contents">'
 				+'		'
@@ -249,7 +259,7 @@ var btn,currentElebox = null,isEdit = false;
 				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit"></div>'
+				+'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
 				+'<div class="nbar nbar-se nbar-radius"></div>'
 				+'<div class="nbar nbar-sw nbar-radius"></div>'
 				+'<div class="nbar nbar-ne nbar-radius"></div>'
@@ -257,8 +267,8 @@ var btn,currentElebox = null,isEdit = false;
 
 		if(!isEdit){
 			cnd.find('.element-box-contents').append(btn.clone());
-			cnd.css({'top':$(window).height()/2+btn.height()/2+'px','left':$(window).width()/2+btn.width()/2+'px'})
-			$('body').append(cnd);
+			cnd.css({'top':$(window).height()/2-btn.height()/2+'px','left':$(window).width()/2-btn.width()/2+'px'})
+			fullcontainer.append(cnd);
             scale(cnd);
 		}else{
 			currentElebox.empty().append(btn);
@@ -275,7 +285,7 @@ $(function(){
     });
 })
 var addSystemimg = function(eleobj){
-    var cnd = $('<div class="cnd-element">'
+    var cnd = $('<div class="cnd-element systemimg-element">'
 				+'<div class="element-box">'
 				+'	<div class="element-box-contents">'
 				+'		'
@@ -287,13 +297,20 @@ var addSystemimg = function(eleobj){
 				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit"></div>'
+				+'<div class="nbar nbar-nw nbar-radius nbar-edit" style="display: none;"><i class="glyphicon glyphicon-pencil"></i></div>'
 				+'<div class="nbar nbar-se nbar-radius"></div>'
 				+'<div class="nbar nbar-sw nbar-radius"></div>'
 				+'<div class="nbar nbar-ne nbar-radius"></div>'
 			+'</div>');
     cnd.find('.element-box-contents').append(eleobj);
-    cnd.css({'top':$(window).height()/2+eleobj.height()/2+'px','left':$(window).width()/2+eleobj.width()/2+'px'})
-    $('body').append(cnd);
+    cnd.hide();
+   fullcontainer.append(cnd);
+    cnd.css({'top':$(window).height()/2-eleobj.height()/2+'px','left':$(window).width()/2-eleobj.width()/2+'px'}).show();
     scale(cnd);
+}
+
+var copySystemimg = function(){
+    var imgclone = $('.systemimg-element.active').clone();
+    imgclone.css({'top':imgclone.offset().top+10+'px','left':imgclone.offset().left+10+'px'});
+    fullcontainer.append(imgclone);
 }

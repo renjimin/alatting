@@ -7,6 +7,10 @@ $(function(){
         window.location.href = url;
         });
     });
+    $(".icon-change-template").click(function(){
+        alert("更换模板");
+    });
+
     //弹出菜单
     $(".dropdown-toggle").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
@@ -69,7 +73,7 @@ $(function(){
                         })
                     }},
                     {icon:"glyphicon glyphicon-adjust",text:" 颜色",callback:function(){
-                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $("#colorBox").css('top',$('.mask').height()+$('.mask').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.header').css('background',color);
                             storageAPI.setCss(".header", {'background':color});
@@ -171,14 +175,18 @@ $(function(){
         });              
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
+        $("#teditor").hide();
     });
 
     //改变文字颜色
-    $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").css('top', $(document).height() - 160 - 90).show();
-        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+    $('.glyphicon-text-height').on('click',function(event){
+        //$("#colorBox").css('top', $(document).height() - 160 - 93).show();
+        /*$(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
-        });
+        });*/
+        $('#teditor').show();
+        $(this).tEditor();
+        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 100);
         event.stopPropagation();
     });
 
@@ -198,14 +206,13 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox","#teditor"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
         }
         //点击页面空白区域行为
         $('#dp').removeClass('open');
-        $("#colorBox").hide();
     });
     /**读取缓存背景图片*/
     var storageAPI = $.fn.yunyeStorage;
@@ -261,13 +268,16 @@ $(function(){
         var inputs = $('#dpw_clock input');
         var arr = [];
         for(var i = 0 ; i < inputs.length ; i ++){
-             arr.push(inputs[i].value);
+            arr.push(inputs[i].value);
         }
         for(var i = 0 ; i < arr.length/2 ; i++){
             var even = arr[ i * 2],odd = arr[ (i * 2) +1];
             if(even && odd && (odd <= even) ){
-                $(event.target).blur().val("");
+                $(event.target).blur();
+                $('#dpw_clock input').eq(i*2).val("");
+                $('#dpw_clock input').eq(i*2 + 1).val("");
                 yyConfirm("结束时间不能早于开始时间");
+                break;
             }
         }
         storageAPI.setHead("clock",arr);

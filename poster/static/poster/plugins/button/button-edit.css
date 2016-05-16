@@ -78,6 +78,8 @@
 	border: 4px solid #fff;
 	box-shadow: 0 0 1px 1px #ccc;
 	background: none;
+	text-indent: -999px;
+    overflow: hidden;
 }
 .button-edit-tools .form-background {
 	display: block;
@@ -86,6 +88,8 @@
 	background: #fff;
 	box-shadow: 0 0 1px 1px #ccc;
 	border: 1px solid #fff;
+	text-indent: -999px;
+    overflow: hidden;
 }
 .button-edit-container {
 	width: 100%;
@@ -110,6 +114,9 @@
 }
 .type-model-inner {
 	position: relative;
+}
+.type-model-click{
+	width:100%;height:100%;position: absolute;top:0;left:0;
 }
 .btn-container {
 	position: absolute;
@@ -259,18 +266,15 @@
 	cursor: ne-resize;
 
 }
+.nbar-edit{
+	width:18px;height:18px;line-height:18px;    text-align: center;font-size:12px;
+}
 .cnd-element .nbar{
 display:none;
 }
 .cnd-element.active .nbar{
 display:block;
 }
-.cnd-element.active .nbar.nbar-edit{
-	display:block;
-}
-.cnd-element.active .nbar.nbar-rotate{
-	display:block;
-}
-.cnd-element.active .nbar-line{
-	display:block;
+.cnd-element.active .nbar.nbar-ne,.cnd-element.active .nbar.nbar-sw,.cnd-element.active .nbar.nbar-n div,.cnd-element.active .nbar.nbar-s div,.cnd-element.active .nbar.nbar-e div,.cnd-element.active .nbar.nbar-w div{
+	display:none;
 }
