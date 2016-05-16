@@ -1,4 +1,5 @@
 (function($){
+	var n = 0;
 	var opps = {
 			pick: '#test',
 			url: '/api/v1/poster/upload',
@@ -134,6 +135,8 @@
 	$.extend({
 		'uploads':function(options){
 			var option = $.extend(opps,options),s = this;
+			n++;
+			option.pick = "#test"+n;
 			//组装参数;
 			if( option.url ) {
 				option.server = option.url;
@@ -209,8 +212,8 @@
 				}
             	alert( text );
         	});
-
-        	setTimeout(function(){$('#test input').trigger('click');},100);
+			console.log(option.pick);
+        	setTimeout(function(){$('#test1').find('input').trigger('click');},100);
 
 		}
 	});
