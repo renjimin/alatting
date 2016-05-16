@@ -133,26 +133,25 @@ $(function(){
             yyAlert('请选择关键词');
             return;
         }
-
         for(var i=0;i<num;i++){
             var kid= $(edcont.get(i)).attr('data-id');
             if(name)  name += ','+kid;
             else name += kid;
         }
-//        console.log(name);
-        var main_category_id = $('#main_category_id').val();
-        var sub_category_id = $('#sub_category_id').val();
-        window.location.href='/poster/create-form/?main_category_id='+main_category_id+'&sub_category_id='+sub_category_id+'&category_keyword_id='+name;
+        var nextUrl = $(this).data('next-url');
+        nextUrl += "&category_keyword_id=" + name;
+        window.location.href = nextUrl;
     });
 
     /*返回*/
     $('#goback').on('click',function(){
+        var indexUrl = $(this).data('back-url');
         if(checkEdit()){
             yyConfirm('您当前有编辑过的内容，确定要退出吗？',function(){
-                window.history.back();
+                window.location.href = indexUrl;
             });
         }else{
-            window.history.back();
+            window.location.href = indexUrl;
         }
     });
 
