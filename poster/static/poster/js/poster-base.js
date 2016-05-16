@@ -121,6 +121,58 @@ $(function(){
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
         });    
+  $('.btn-bg').registerPopUp({
+            id:'dpw_bg',
+            offsetXPercent:50,
+            offsetYPercent:50,
+            offsetY:30,
+            arrowOffset:60,
+            orientation:0,
+            list:[{icon:"icon ico-edit-pic",text:"头/底背景",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('.bar-header,.bar-footer').css('background-image', 'url(' + img + ')');
+                            $('.bar-header,.bar-footer').css('background-size', 'cover');
+                            storageAPI.setCss(".bar-header", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            storageAPI.setCss(".bar-footer", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},                                      
+                    {icon:"glyphicon glyphicon-adjust",text:" 头/底颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('.bar-header,.bar-footer').css('background',color);
+                             storageAPI.setCss(".bar-header", {'background':color});
+                             storageAPI.setCss(".bar-footer", {'background':color});
+                        });
+                    }},
+                    {icon:"icon ico-edit-pic",text:"整体背景",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('body').css('background-image', 'url(' + img + ')');
+                            $('body').css('background-size', 'cover');
+                            $('.yunye-template,.header').css('background-image', 'url()')
+                            storageAPI.setCss("body", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $('.header,.yunye-template,.bar-header,.bar-footer').css('background','none');
+                            storageAPI.setCss(".header", {'background':'none'});
+                            storageAPI.setCss(".yunye-template", {'background':'none'});
+                            storageAPI.setCss(".bar-header", {'background':'none'});
+                            storageAPI.setCss(".bar-footer", {'background':'none'});                           
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},
+                     {icon:"glyphicon glyphicon-adjust",text:" 整体颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('body').css('background',color);
+                             $('.bar-header,.bar-footer,.yunye-template,.header').css('background',color);
+                            storageAPI.setCss("body", {'background':color});
+                            storageAPI.setCss(".bar-header", {'background':color});
+                            storageAPI.setCss(".bar-footer", {'background':color});
+                            storageAPI.setCss(".yunye-template", {'background':color});
+                            storageAPI.setCss(".header", {'background':color});
+                        });
+                    }},
+                ]
+        });              
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
         $("#teditor").hide();
@@ -166,7 +218,9 @@ $(function(){
     var storageAPI = $.fn.yunyeStorage;
     if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
     if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
-
+    if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
+    if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));   
+    if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
     //数据初始化
     var pageHeadData = storageAPI.getPosterHeadData();
     if(pageHeadData.title){

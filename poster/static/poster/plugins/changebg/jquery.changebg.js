@@ -52,7 +52,7 @@
                     });
                     $(this).css({
                         'opacity':'1',
-                        'border': '5px solid #01a1ef'
+                        'border': '3px solid #01a1ef'
                     })
                 callBack_Selected(ele,img);
             });

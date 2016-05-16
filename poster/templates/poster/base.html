@@ -30,7 +30,7 @@
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
     <script src="{% static 'poster/plugins/button/jscolor.js' %}"></script>
-
+    
 {% endblock %}
 
 {% block base_body_header %}
@@ -43,6 +43,7 @@
         <p>{{ poster.logo_title }}</p>
     </div>
     <div class="top-btn">
+        <button class="btn-bg">换肤</button>
         <button class="btn btn-save">存储</button>
         <button class="btn btn-post">发布</button>
     </div>
@@ -188,32 +189,32 @@
         
         <section class="dropdown-panel" id="share-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-width"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-text"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-text-space"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon glyphicon glyphicon-picture"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-leaf"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon ico-systemimg"></i></a>
+                <a href="javascript:void(0);" onclick="uploadSys();" class="tab-item"><i class="icon ico-systemimgs"></i></a>
+                <a href="javascript:void(0);" onclick="copySystemimg()" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" onclick="deleteSystemimg()" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="feedback-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon glyphicon glyphicon glyphicon-unchecked"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="javascript:void(0);" class="tab-item"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon ico-input"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="export-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-music"></i><span>音乐链接</span></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-music"></i><span>上传音乐</span></a>
+                <a href="#" class="tab-item"><i class="icon ico-music-link"></i><span>音乐链接</span></a>
+                <a href="#" class="tab-item"><i class="icon ico-music-upload"></i><span>上传音乐</span></a>
             </div>
         </section>
     </div>
