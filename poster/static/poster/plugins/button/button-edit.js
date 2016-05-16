@@ -354,7 +354,6 @@ var uploadSys = function(){
     $.uploads({
         success:function(){console.log("avxc");},
         error:function(){console.log("error");},
-
         url:'/api/v1/poster/upload/avatar'
     });
 

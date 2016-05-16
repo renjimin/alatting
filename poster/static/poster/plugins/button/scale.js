@@ -37,7 +37,7 @@ var scale = function(box,options){
 
         opt.left = o.offset().left == 0 ? parseInt(o.css('left')) : o.offset().left;
         opt.top = o.offset().top == 0 ? parseInt(o.css('top')) : o.offset().top;
-        
+
         opt.currentAngle = o.data('rotate') == null ? '0': o.data('rotate');
 
         opt.scaleX = o.data('scaleX') == null ? '1': o.data('scaleX');
