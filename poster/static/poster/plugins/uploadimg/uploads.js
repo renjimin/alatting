@@ -108,6 +108,8 @@
         	setTimeout(function(){$('#'+pick).find('input').trigger('click');},100);
 
 		}
+	})
+	
 	});
 
 /*
@@ -163,6 +165,7 @@
 			}
 			var webUploader;
 			var option = $.extend(opps,options),s = this;
+
 			//组装参数;
 			if( option.url ) {
 				option.server = option.url;
@@ -221,4 +224,19 @@
 			//选择文件错误触发事件;
 			webUploader.on('error', function( code ) {
 				var text = '';
-				switch( cod
+				switch( code ) {
+					case  'F_DUPLICATE' : text = '该文件已经被选择了!' ;
+					break;
+					case  'Q_EXCEED_NUM_LIMIT' : text = '上传文件数量超过限制!' ;
+					break;
+					case  'F_EXCEED_SIZE' : text = '文件大小超过限制!';
+					break;
+					case  'Q_EXCEED_SIZE_LIMIT' : text = '所有文件总大小超过限制!';
+					break;
+					case 'Q_TYPE_DENIED' : text = '文件类型不正确或者是空文件!';
+					break;
+					default : text = '未知错误!';
+ 					break;
+				}
+            	alert( text );
+        	}); */
