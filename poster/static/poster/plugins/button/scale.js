@@ -25,14 +25,25 @@ var scale = function(box,options){
     ele = o.find('.element');
     nbarse = o.find('.nbar-se');
 
-    opt.left = o.offset().left;
-    opt.top = o.offset().top;
 
-    opt.currentAngle = o.data('rotate') == null ? '0': o.data('rotate');
 
-    opt.scaleX = o.data('scaleX') == null ? '1': o.data('scaleX');
-    opt.scaleY = o.data('scaleY') == null ? '1': o.data('scaleY');
+    s.initData = function(){
+        o = box;
+        b = o.find('.element-box');
+        r = o.find('.nbar-rotate');
+        editBtn = o.find('.nbar-edit');
+        ele = o.find('.element');
+        nbarse = o.find('.nbar-se');
 
+        opt.left = o.offset().left == 0 ? parseInt(o.css('left')) : o.offset().left;
+        opt.top = o.offset().top == 0 ? parseInt(o.css('top')) : o.offset().top;
+        
+        opt.currentAngle = o.data('rotate') == null ? '0': o.data('rotate');
+
+        opt.scaleX = o.data('scaleX') == null ? '1': o.data('scaleX');
+        opt.scaleY = o.data('scaleY') == null ? '1': o.data('scaleY');
+    }
+    s.initData();
     var touchEvents={
         'startX':0,
         'startY':0,
@@ -45,11 +56,13 @@ var scale = function(box,options){
     b.on({
         'touchstart':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            s.initData();
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
             $('.cnd-element').removeClass('active');
             o.addClass('active');
+            console.log('top:'+opt.top+'  left:'+opt.left+'  o.left:'+ o.css('left'));
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
@@ -83,6 +96,7 @@ var scale = function(box,options){
     r.on({
         'touchstart':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            s.initData();
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
@@ -139,6 +153,7 @@ var scale = function(box,options){
     nbarse.on({
         'touchstart':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            s.initData();
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
