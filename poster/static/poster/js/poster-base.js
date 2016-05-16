@@ -52,10 +52,12 @@ $(function(){
 
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.uploads(function(data){
-                            $('.header-logo img').attr("src",data.file);
-                            storageAPI.setHead("logo_img",data.file);
-                    });
+                    $.uploads({
+                        pick:'tet',
+                        success:function(data){
+                            console.log(1);
+                        }
+                    })
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
