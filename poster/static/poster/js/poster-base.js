@@ -83,7 +83,8 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                         $.uploads(function(data){
+                         $.uploads(function(){
+                            console.log(22)
                             $('.header').css('background-image', 'url(' + data.file + ')');
                             $('.header').css('background-size', 'cover');
                             storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
@@ -115,11 +116,19 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                        $.uploads(function(options){
-                            $('.yunye-template').css('background-image', 'url(' + options.file + ')');
-                            $('.yunye-template').css('background-size', 'cover');
-                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                             });                        
+                        console.log('start');
+                        $.uploads({
+                                url:'/api/v1/poster/upload/logo',
+                                pick:'haha',
+                                success:function(data){
+                                    console.log(data)
+                                }
+                        })
+                        console.log(43)
+                            //$('.yunye-template').css('background-image', 'url(' + options.file + ')');
+                            //$('.yunye-template').css('background-size', 'cover');
+                            //storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                             //});                        
                     }},
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
