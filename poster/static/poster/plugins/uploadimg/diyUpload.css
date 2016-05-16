@@ -87,7 +87,7 @@
 	background:url(../../images/x_alt.png) no-repeat;
 }
 .parentFileBox>.fileBoxUl>li>.diySuccess {
-	/*background:url(../images/check_alt.png) no-repeat;*/
+	background:url(../../images/check_alt.png) no-repeat;
 	cursor:default;
 }
 .parentFileBox>.fileBoxUl>li>.diyFileName {
@@ -205,6 +205,7 @@
 	filter: Alpha(opacity=90);
 	font-family: 'Microsoft YaHei';
 	overflow: hidden;
+	left: 0;
 	/*display: none;*/
 }
 

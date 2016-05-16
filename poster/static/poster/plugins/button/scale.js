@@ -62,7 +62,7 @@ var scale = function(box,options){
             touchEvents.startY = touch.pageY;
             $('.cnd-element').removeClass('active');
             o.addClass('active');
-            console.log('top:'+opt.top+'  left:'+opt.left+'  o.left:'+ o.css('left'));
+           // console.log('top:'+opt.top+'  left:'+opt.left+'  o.left:'+ o.css('left'));
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
@@ -188,7 +188,6 @@ var scale = function(box,options){
             opt.scaleY = scaley;
             o.attr('data-scaleX',scalex);
             o.attr('data-scaleY',scaley);
-            console.log(opt.scaleX);
         }
     });
     if(ele.hasClass('btn')){

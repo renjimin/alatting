@@ -70,6 +70,7 @@
 	padding-top: 7px;
 	color: #666;
 	font-weight: normal;
+	padding-right: 0;
 }
 .button-edit-tools .form-color {
 	display: block;
@@ -97,14 +98,14 @@
 	top: 0;
 	left: 0;
 	z-index: 20;
-	position: absolute;
+	position: static;
 }
 .button-edit-container .btn {
 	white-space: normal;
 	word-break: break-all;
 }
 .button-tools-container {
-	position: absolute;
+	position: static;
 	left: 0;
 	top: 30%;
 	height: 70%;
@@ -112,22 +113,29 @@
 	width: 100%;
 	text-align: center;
 }
-.type-model-inner {
+.button-model .type-model-inner {
 	position: relative;
+	height:auto;
+	background: #666;
 }
 .type-model-click{
-	width:100%;height:100%;position: absolute;top:0;left:0;
+	width:100%;
+	height:100%;
+	position: absolute;
+	top:0;
+	left:0;
+    display: none;
 }
 .btn-container {
-	position: absolute;
+	position: static;
 	top: 50%;
-	margin-top: -15px;
 	left: 0;
 	width: 100%;
 	text-align: center;
+	padding:30px 0 66px;
 }
 .model-header {
-	position: absolute;
+	position: static;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -139,7 +147,7 @@
 	display: -moz-flex;
 	display: -ms-flexbox;
 	display: flex;
-	background: #000;
+	background: #666;
 	z-index:30;
 }
 .model-header .btn-right,
@@ -154,6 +162,9 @@
 }
 .button-model {
 	padding-bottom: 0;
+	bottom:87px;
+	height:auto;
+	top: auto;
 }
 .cnd-element {
 	position: absolute;
@@ -278,3 +289,22 @@ display:block;
 .cnd-element.active .nbar.nbar-ne,.cnd-element.active .nbar.nbar-sw,.cnd-element.active .nbar.nbar-n div,.cnd-element.active .nbar.nbar-s div,.cnd-element.active .nbar.nbar-e div,.cnd-element.active .nbar.nbar-w div{
 	display:none;
 }
+/**/
+.systemimg-list ul{ overflow: hidden;height:100%;margin:0;}
+.systemimg-list li{width:33.3333333%;height:33.333333%;float:left;padding:15px; background-repeat: no-repeat;background-position: center center; background-size:80% 80%; }
+.systemimg-list li:active{background-color:rgba(0,0,0,.1)}
+.systemimg-model{height:auto;bottom:87px;top:auto;}
+.systemimg-model .type-model-containar,.systemimg-model  .systemimg-list{height:100%; overflow: auto;}
+.systemimg{width:100px;height:100px; background-repeat: no-repeat;background-position: center center; background-size:90% 90%;}
+.systemimg-1{background-image:url(/static/poster/images/systemimg/system-1.svg);}
+.systemimg-2{background-image:url(/static/poster/images/systemimg/system-2.svg);}
+.systemimg-3{background-image:url(/static/poster/images/systemimg/system-3.svg)}
+.systemimg-4{background-image:url(/static/poster/images/systemimg/system-4.svg)}
+.systemimg-5{background-image:url(/static/poster/images/systemimg/system-5.svg)}
+.systemimg-6{background-image:url(/static/poster/images/systemimg/system-6.svg)}
+.systemimg-7{background-image:url(/static/poster/images/systemimg/system-7.svg)}
+.systemimg-8{background-image:url(/static/poster/images/systemimg/system-8.svg)}
+.systemimg-9{background-image:url(/static/poster/images/systemimg/system-9.svg)}
+
+.tangram-suggestion-main{z-index: 3000;}
+.systemimg-model .systemimg-list{height:300px;overflow: auto;}

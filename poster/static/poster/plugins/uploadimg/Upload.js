@@ -114,17 +114,11 @@
 					default : text = '未知错误!';
  					break;
 				}
-            	alert( text );
-        	});
-
-
+            			alert( text );
+        		});
+			
 			webUploader.upload();
-
-
-
 		})
-
-
 	}
 
 })(jQuery)

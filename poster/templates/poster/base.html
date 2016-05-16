@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/textEditor/jquery.textEditor.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
+
+    <link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}">
+
     <link rel="stylesheet" href="{% static 'poster/css/poster-edit-base.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/input/yunye-input.css' %}">
@@ -16,7 +19,8 @@
     <script>
         var yunyeEditorGlobal = {
             posterId: "{{ poster.id }}",
-            posterPageId: "{{ posterpage.id }}"
+            posterPageId: "{{ posterpage.id }}",
+            posterAddress: "{{ poster.address }}"
         }
     </script>
     {{ block.super }}
@@ -29,11 +33,11 @@
     <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
     <script src="{% static 'poster/plugins/input/yunye-input.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
+    <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
     <script src="{% static 'poster/plugins/button/jscolor.js' %}"></script>
     <script src="{% static 'poster/js/poster-base.js' %}"></script>
-
-    
 {% endblock %}
 
 {% block base_body_header %}
@@ -46,7 +50,7 @@
         <p>{{ poster.logo_title }}</p>
     </div>
     <div class="top-btn">
-        <button class="btn-bg">换肤</button>
+        <button class="btn btn-bg">换肤</button>
         <button class="btn btn-save">存储</button>
         <button class="btn btn-post">发布</button>
     </div>
@@ -111,7 +115,8 @@
             <li><i class="icon ico-email"></i><span><input type="text" value="{{ poster.email }}" /></span></li>
         </ul>
         <ul id="dpw_address">
-            <li><i class="icon ico-address"></i><span><input type="text" value="{{ poster.address }}" /></input></li>
+            <li><i class="icon ico-address"></i><span><input id="suggestId" type="text" value="{{ poster.address }}" /></input></li>
+            <div id="allmap" style="width: 100%;height: 300px;"></div>
         </ul>
         <ul id="dpw_clock">
             <li><i class="text">周一</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
@@ -167,7 +172,7 @@
         </ul>
         <span class="arrow"></span>
     </section>
-   
+
     {% block poster_base_body %}
 
     {% endblock %}
@@ -189,7 +194,7 @@
         <a class="tab-item dropdown-toggle" id="export-toggle" href="javascript:void(0);" data-dropdown="export-panel">
             <i class="icon glyphicon glyphicon-music"></i>
         </a>
-        
+
         <section class="dropdown-panel" id="share-panel">
             <div class="share-group">
                 <a href="#" class="tab-item"><i class="icon ico-text"></i></a>
@@ -200,18 +205,18 @@
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon ico-systemimg"></i></a>
-                <a href="javascript:void(0);" onclick="uploadSys();" class="tab-item"><i class="icon ico-systemimgs"></i></a>
+                <a href="javascript:void(0);" onclick="openSystemimg()" class="tab-item"><i class="icon ico-systemimg"></i></a>
+                <a href="javascript:void(0);" onclick="uploadSystemimg()" class="tab-item"><i class="icon ico-systemimgs"></i></a>
                 <a href="javascript:void(0);" onclick="copySystemimg()" class="tab-item"><i class="icon ico-copy"></i></a>
                 <a href="javascript:void(0);" onclick="deleteSystemimg()" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="feedback-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" class="tab-item"><i class="icon ico-text"></i></a>
-                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon ico-input"></i></a>
-                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
-                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="editButtonBasic()"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="editButtonBorder()"><i class="icon ico-input"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="copyButton()"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="deleteButton()"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="export-panel">
@@ -223,7 +228,7 @@
     </div>
 <div class="type-model button-model" id="button-model">
     <div class="model-header">
-        <a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>
+        <!--<a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>-->
         <a href="javascript:void(0);" class="btn-right pull-right" onclick="buttonConfirm()">确定</a>
     </div>
     <div class="type-model-inner">
@@ -236,28 +241,28 @@
             <div class="button-edit">
 
                 <div class="button-edit-tools">
-                    <form class="form-horizontal">
+                    <div class="form-horizontal" id="button-basic">
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">功能</label>
-                            <div class="col-xs-9">
+                            <label class="col-xs-2 control-label">功能</label>
+                            <div class="col-xs-10">
                                 <select class="form-control"><option>无</option></select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">链接</label>
-                            <div class="col-xs-9">
+                            <label class="col-xs-2 control-label">链接</label>
+                            <div class="col-xs-10">
                                 <input type="text" class="form-control button-href" placeholder="请输入链接">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">文字</label>
-                            <div class="col-xs-9">
+                            <label class="col-xs-2 control-label">文字</label>
+                            <div class="col-xs-10">
                                 <input type="text" class="form-control button-text" placeholder="请输入文字内容">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">颜色</label>
-                            <div class="col-xs-4">
+                            <label class="col-xs-2 control-label">颜色</label>
+                            <div class="col-xs-5">
                                 <input class="form-color button-color jscolor" readonly="readonly" />
                             </div>
                             <label class="col-xs-2 control-label">大小</label>
@@ -266,11 +271,18 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-xs-3 control-label">背景</label>
-                            <div class="col-xs-5">
+                            <label class="col-xs-2 control-label">背景</label>
+                            <div class="col-xs-4">
                                 <input class="form-background button-background jscolor" readonly="readonly" />
                             </div>
+                            <label class="col-xs-2 control-label">字体</label>
+                            <div class="col-xs-4">
+                                <select class="form-control button-fontFamily"><option value="Microsoft YaHei">微软雅黑</option><option value="宋体">宋体</option></select>
+                            </div>
                         </div>
+                    </div>
+                    <div class="form-horizontal" id="button-border" style="display: none;">
+
                         <div class="form-group">
                             <label class="col-xs-3 control-label">透明度</label>
                             <div class="col-xs-6">
@@ -329,7 +341,7 @@
                                 <select class="form-control button-borderWidth"></select>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -360,4 +372,5 @@
 </div>
 <script src="{% static 'poster/plugins/button/scale.js' %}"></script>
 <script src="{% static 'poster/plugins/button/button-edit.js' %}"></script>
+<script src="{% static 'poster/js/baidumap.js' %}"></script>
 {% endblock %}

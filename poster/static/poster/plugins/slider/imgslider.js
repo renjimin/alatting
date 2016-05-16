@@ -7,7 +7,8 @@
             var s = $(this),
 				_option = $.extend(opts,opations);
             var imgarray = [];
-
+            console.log(_option.data);
+console.log("11");
             $.extend(s,{'wraper':null,'swiper':null});
 
             var imgs  =s.find('img');
