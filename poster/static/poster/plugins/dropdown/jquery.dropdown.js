@@ -49,7 +49,7 @@
 						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').css('left', arrOffset );
 						$('#dp .arrow').attr('class', 'arrow up')
-						//第一个input自动获取焦点s
+						//第一个input自动获取焦点
 						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
 						if(_option.eval){

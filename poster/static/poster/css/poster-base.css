@@ -206,8 +206,8 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 
 
 /* 弹出层样式 */
-#dp{z-index: 101;width: 100%;background: #e1e1e1;box-shadow:0 0 8px #999;display: none;position: absolute;}
-#dp.open{display: block;}
+#dp{z-index: 101;width: 100%;background: #e1e1e1;box-shadow:0 0 8px #999;visibility:hidden;position: absolute;display: block;}
+#dp.open{visibility:visible;}
 #dp ul{width: 100%;display:none;margin:0;}
 #dp li{display:block;border-bottom: 1px solid #fff;height: 50px;display:block;overflow: hidden;font-size: 24px;line-height: 24px;}
 #dp li:last-child{border-bottom: none;}
@@ -273,3 +273,4 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .systemimg-8{background-image:url(/static/poster/images/systemimg/system-8.svg)}
 .systemimg-9{background-image:url(/static/poster/images/systemimg/system-9.svg)}
 
+.tangram-suggestion-main{z-index: 3000;}

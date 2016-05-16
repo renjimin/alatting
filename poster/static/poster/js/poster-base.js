@@ -44,7 +44,9 @@ $(function(){
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
             offsetYPercent:100,
-            list:[{icon:"icon ico-edit-text",text:"打字"},
+            list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
+
+                }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
                     $.fn.uploads.showDialog(function(data){
                             $('.header-logo img').attr("src",data.file);
@@ -177,7 +179,6 @@ $(function(){
     if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
     if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
     if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
-    if(pageHeadData.address)$('#dpw_address input').val(pageHeadData.address);
     if(pageHeadData.clock){
         for(var i in pageHeadData.clock){
             $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
@@ -203,9 +204,6 @@ $(function(){
     });
     $('#dpw_email input').on('change',function(event){
         storageAPI.setHead("email",event.currentTarget.value);
-    });
-    $('#dpw_address input').on('change',function(event){
-        storageAPI.setHead("address",event.currentTarget.value);
     });
     $('#dpw_clock input').on('change',function(event){
         var inputs = $('#dpw_clock input');
