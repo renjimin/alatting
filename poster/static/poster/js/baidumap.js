@@ -14,8 +14,8 @@ $(function(){
 			,"location" : baiduMap
 		});
 
-		if(_localAdress){
-			var pp = storageAPI.getPosterHeadData().address.point;
+		if(_localAdress.point){
+			var pp = _localAdress.point;
 			var point = new BMap.Point(pp.lng, pp.lat);
 			baiduMap.addOverlay(new BMap.Marker(point));//添加标注
 			ac.setInputValue(_localAdress.title);
@@ -43,5 +43,4 @@ $(function(){
 			local.search(myValue);
 		});
 	} 
-
 });
