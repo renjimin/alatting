@@ -14,7 +14,7 @@ $(function(){
 			,"location" : baiduMap
 		});
 
-		if(_localAdress.point){
+		if(_localAdress && _localAdress.point){
 			var pp = _localAdress.point;
 			var point = new BMap.Point(pp.lng, pp.lat);
 			baiduMap.addOverlay(new BMap.Marker(point));//添加标注
