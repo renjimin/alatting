@@ -214,8 +214,8 @@
         </section>
         <section class="dropdown-panel" id="feedback-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" class="tab-item"><i class="icon ico-text"></i></a>
-                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon ico-input"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="editButtonBasic()"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="editButtonBorder()"><i class="icon ico-input"></i></a>
                 <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
                 <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
@@ -229,7 +229,7 @@
     </div>
 <div class="type-model button-model" id="button-model">
     <div class="model-header">
-        <a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>
+        <!--<a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>-->
         <a href="javascript:void(0);" class="btn-right pull-right" onclick="buttonConfirm()">确定</a>
     </div>
     <div class="type-model-inner">
@@ -242,7 +242,7 @@
             <div class="button-edit">
 
                 <div class="button-edit-tools">
-                    <form class="form-horizontal">
+                    <div class="form-horizontal" id="button-basic">
                         <div class="form-group">
                             <label class="col-xs-3 control-label">功能</label>
                             <div class="col-xs-9">
@@ -277,6 +277,9 @@
                                 <input class="form-background button-background jscolor" readonly="readonly" />
                             </div>
                         </div>
+                    </div>
+                    <div class="form-horizontal" id="button-border" style="display: none;">
+
                         <div class="form-group">
                             <label class="col-xs-3 control-label">透明度</label>
                             <div class="col-xs-6">
@@ -335,7 +338,7 @@
                                 <select class="form-control button-borderWidth"></select>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
