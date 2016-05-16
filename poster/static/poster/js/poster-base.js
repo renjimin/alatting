@@ -216,6 +216,7 @@ $(function(){
         }
         //点击页面空白区域行为
         $('#dp').removeClass('open');
+        $('#dp ul').css("visibility","hidden");
     });
     /**读取缓存背景图片*/
     var storageAPI = $.fn.yunyeStorage;
