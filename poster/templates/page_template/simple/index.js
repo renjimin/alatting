@@ -50,7 +50,7 @@ $(function(){
                 icon: "ico-clock",
                 text: "图片链接",
                 callback: function (obj) {
-                    console.log(obj);
+                    obj.resourceLink();
                 }
             }]
     };
