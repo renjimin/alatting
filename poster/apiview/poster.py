@@ -152,7 +152,7 @@ class PosterSaveContentMixin(object):
     """
     def _head_fields(self):
         "头部要保存的基本信息，不在此列表中的字段未变更"
-        return ["mobile", "email", "phone", "logo_title", "lifetime",
+        return ["mobile", "email", "phone", "logo_title",
                 "short_description", "category_keyword"]
 
     def _css_handler(self, old_css, new_css):
@@ -166,6 +166,10 @@ class PosterSaveContentMixin(object):
         for k, v in head_json.items():
             if k in self._head_fields():  # 存储头部其他字段
                 setattr(instance, k, v)
+            if k == "address":  # 设置地理位置
+                address = instance.address
+                address.address1 = head_json[k]
+                address.save()
             if k == "lifetime":  # 设置生存期结构体
                 for l, lv in head_json[k].items():
                     setattr(instance, l, lv)
