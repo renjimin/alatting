@@ -128,7 +128,7 @@ $(function(){
             offsetY:30,
             arrowOffset:60,
             orientation:0,
-            list:[{icon:"icon ico-edit-pic",text:"头/底背景",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"顶/底背景",callback:function(){
                         $(this).bgselect({}, function (ths,img) {
                             $('.bar-header,.bar-footer').css('background-image', 'url(' + img + ')');
                             $('.bar-header,.bar-footer').css('background-size', 'cover');
@@ -137,7 +137,7 @@ $(function(){
                             $(".system-item").fadeOut(500);
                         })
                     }},                                      
-                    {icon:"glyphicon glyphicon-adjust",text:" 头/底颜色",callback:function(){
+                    {icon:"glyphicon glyphicon-adjust",text:" 顶/底颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.bar-header,.bar-footer').css('background',color);
@@ -145,7 +145,7 @@ $(function(){
                              storageAPI.setCss(".bar-footer", {'background':color});
                         });
                     }},
-                    {icon:"icon ico-edit-pic",text:"整体背景",callback:function(){
+                    {icon:"icon ico-edit-pic",text:"主体背景",callback:function(){
                         $(this).bgselect({}, function (ths,img) {
                             $('body').css('background-image', 'url(' + img + ')');
                             $('body').css('background-size', 'cover');
@@ -159,7 +159,7 @@ $(function(){
                             $(".system-item").fadeOut(500);
                         })
                     }},
-                     {icon:"glyphicon glyphicon-adjust",text:" 整体颜色",callback:function(){
+                     {icon:"glyphicon glyphicon-adjust",text:" 主体颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('body').css('background',color);
