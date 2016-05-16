@@ -326,35 +326,18 @@ var deleteSystemimg = function(){
 }
 
 var uploadSystemimg = function(eleobj){
-    var cnd = $('<div class="cnd-element systemimg-element">'
-				+'<div class="element-box">'
-				+'	<div class="element-box-contents">'
-				+'		'
-				+'	</div>'
-				+'</div>'
-				+'<div class="nbar nbar-rotate nbar-radius"></div>'
-				+'<div class="nbar nbar-line"></div>'
-				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit" style="display: none;"><i class="glyphicon glyphicon-pencil"></i></div>'
-				+'<div class="nbar nbar-se nbar-radius"></div>'
-				+'<div class="nbar nbar-sw nbar-radius"></div>'
-				+'<div class="nbar nbar-ne nbar-radius"></div>'
-			+'</div>');
-    cnd.find('.element-box-contents').append(eleobj);
-    cnd.hide();
-    fullcontainer.append(cnd);
-    cnd.css({'top':$(window).height()/2-eleobj.height()/2+'px','left':$(window).width()/2-eleobj.width()/2+'px'}).show();
-    scale(cnd);
-}
-var uploadSys = function(){
-
-    $.uploads({
-        success:function(){console.log("avxc");},
-        error:function(){console.log("error");},
-        url:'/api/v1/poster/upload/avatar'
+     $.uploads({
+         url:'/api/v1/poster/upload/logo',
+         pick:'uploadSystemimg',
+         success:function(data){
+            console.log(data);
+            var img = $('<img />');
+            img.attr('src',data.file);
+             if(data.width > $(window).width()){
+                 img.width( $(window).width() *.6);
+             }
+            addSystemimg(img);
+         },
+         error:function(){console.log("error");}
     });
-
 }
