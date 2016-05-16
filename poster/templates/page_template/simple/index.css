@@ -11,14 +11,17 @@
 .yunye-template > .content > .content-top{
 	background-color: #B5B1AB;
 	height: 30%;
+	overflow: hidden;
 }
 
 .yunye-template > .content > .content-middle{
 	height: 30%;
     background-color: #fff;
+	overflow: hidden;
 }
 
 .yunye-template > .content > .content-bottom{
 	background-color: #B5B1AB;
 	height: 40%;
+	overflow: hidden;
 }

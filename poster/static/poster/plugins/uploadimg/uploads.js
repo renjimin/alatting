@@ -1,23 +1,25 @@
 (function($){
-	var n = 0;
-	var opps = {
-			pick: '#test',
-			url: '/api/v1/poster/upload',
-			success:null,
-			error:null,
-			fileQueued:null,
-			complete:null,
-			uploadfinish:null,
-			progress:null,
-			buttonText: '选择图片上传',
-			chunked: false,
-			fileNumLimit: 8,
-			fileSingleSizeLimit: 5 * 1024 * 1024,
-			accept: 'image/jpg,image/jpeg,image/png,image/gif',
-			threads: 1,
-			auto:true
 
-		}
+	var opps = {
+		pick: 'test',
+		url: '/api/v1/poster/upload',
+		success:null,
+		error:null,
+		fileQueued:null,
+		complete:null,
+		uploadfinish:null,
+		progress:null,
+		buttonText: '选择图片上传',
+		chunked: false,
+		fileNumLimit: 8,
+		fileSingleSizeLimit: 5 * 1024 * 1024,
+		accept: 'image/jpg,image/jpeg,image/png,image/gif',
+		threads: 1,
+		auto:true
+
+	}
+
+
 
 /*
 	$.fn.uploads = function(options){
@@ -131,20 +133,24 @@
 
 
 	}*/
-
+	var webUploader;
 	$.extend({
 		'uploads':function(options){
 			var option = $.extend(opps,options),s = this;
-			n++;
-			option.pick = "#test"+n;
 			//组装参数;
 			if( option.url ) {
 				option.server = option.url;
 				delete option.url;
 			}
+			if($('#'+option.pick).length <= 0){
+				$('body').append('<div id="'+option.pick+'" style="display:none;"></div>');
+			}
+			var pick = option.pick;
+			if($('#'+pick).length > 0 && $('#'+pick).find('input').length <= 0 ){
+				option.pick = '#'+pick;
+				webUploader = WebUploader.create( option );
+			}
 
-			var webUploader = WebUploader.create( option );
-			console.log(option);
 
 			//绑定文件加入队列事件;
 			webUploader.on('fileQueued', function( file ) {
@@ -212,8 +218,8 @@
 				}
             	alert( text );
         	});
-			console.log(option.pick);
-        	setTimeout(function(){$('#test1').find('input').trigger('click');},100);
+			//console.log(option.pick);
+        	setTimeout(function(){$('#'+pick).find('input').trigger('click');},100);
 
 		}
 	});

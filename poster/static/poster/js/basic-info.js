@@ -1,7 +1,8 @@
+
 $(function () {
     document.getElementById('postFile').onchange = function () {
         var val = this.value;
-        var upLoadType = '.jpg,.gif,.png,.jpeg'; //['.jpg','.gif','.bmp','.png']; //可上传的格式
+        var upLoadType = '.jpg,.gif,.png,.jpeg'; //['.jpg','.gif','.png']; //可上传的格式
         var fileExt = val.substr(val.lastIndexOf(".")).toLowerCase();
         var result = upLoadType.indexOf(fileExt);
         var _alertMsg = document.getElementById('error_text');
@@ -17,6 +18,8 @@ $(function () {
         if (result < 0) {
             //_alertMsg.innerHTML="请输入正确格式:" + upLoadType;
             yyAlert("请输入正确格式:" + upLoadType);
+            return;
+
         } else {
             _alertMsg.innerHTML = "<font style='color:blue'></font>";
         }
