@@ -7,11 +7,14 @@ var scale = function(box,options){
     	'ty':'0',
     	'cx':'0',
     	'cy':'0',
-    	'currentAngle':'0'
+    	'currentAngle':'0',
+        'currentScale':'0',
+        'scaleX':'1',
+        'scaleY':'1',
     }
     var opt = $.extend(defaults,options),s = this;
 
-    var o,b,r,editBtn,ele,dragable=false;
+    var o,b,r,editBtn,ele,dragable=false,nbarse;
     if(typeof(box) == 'undefined'|| box ==null || box.length <= 0){
         return;
     }
@@ -20,34 +23,50 @@ var scale = function(box,options){
     r = o.find('.nbar-rotate');
     editBtn = o.find('.nbar-edit');
     ele = o.find('.element');
+    nbarse = o.find('.nbar-se');
 
-    opt.left = o.offset().left;
-    opt.top = o.offset().top;
-    var reg = /(rotate\([\-\+]?((\d+)))/i;
-    var wt = o.css('transform'), wts = wt.match (reg);
-    var $2 = RegExp.$2;
-    if($2==null || $2 == ''){
-        opt.currentAngle = 0;
-    }else{
-        opt.currentAngle = $2;
+
+
+    s.initData = function(){
+        o = box;
+        b = o.find('.element-box');
+        r = o.find('.nbar-rotate');
+        editBtn = o.find('.nbar-edit');
+        ele = o.find('.element');
+        nbarse = o.find('.nbar-se');
+
+        opt.left = o.offset().left == 0 ? parseInt(o.css('left')) : o.offset().left;
+        opt.top = o.offset().top == 0 ? parseInt(o.css('top')) : o.offset().top;
+
+        opt.currentAngle = o.data('rotate') == null ? '0': o.data('rotate');
+
+        opt.scaleX = o.data('scaleX') == null ? '1': o.data('scaleX');
+        opt.scaleY = o.data('scaleY') == null ? '1': o.data('scaleY');
     }
+    s.initData();
     var touchEvents={
         'startX':0,
         'startY':0,
         'currentX':0,
         'currentY':0,
     }
+    /*
+    * 拖动 element-box
+    */
     b.on({
         'touchstart':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            s.initData();
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
             $('.cnd-element').removeClass('active');
             o.addClass('active');
+           // console.log('top:'+opt.top+'  left:'+opt.left+'  o.left:'+ o.css('left'));
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            e.preventDefault();
             var touch = e.touches[0];
             touchEvents.currentX = touch.pageX;
             touchEvents.currentY = touch.pageY;
@@ -71,15 +90,20 @@ var scale = function(box,options){
     });
     var currentAngle = opt.currentAngle;
 
+    /*
+    * 旋转 nbar-rotate
+    */
     r.on({
         'touchstart':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            s.initData();
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            e.preventDefault();
             var touch = e.touches[0];
             touchEvents.currentX = touch.pageX;
             touchEvents.currentY = touch.pageY;
@@ -110,11 +134,60 @@ var scale = function(box,options){
             }
             var offsetAngle = angle - parseInt(opt.currentAngle);
             //console.log(o.offsetLeft+'   top:'+o.offsetTop);
-            o.css('transform', 'rotate('+offsetAngle+'deg)');
+
+            opt.scaleX = o.attr('data-scaleX');
+            opt.scaleY = o.attr('data-scaleY');
+
+            o.css('transform', 'rotate('+offsetAngle+'deg) scale('+opt.scaleX+','+opt.scaleY+')');
+            o.attr('data-rotate',offsetAngle);
             currentAngle = offsetAngle;
         },
         'touchend':function(event){
             opt.currentAngle = currentAngle;
+        }
+    });
+    /*
+    * 缩放（右下角） nbar-se
+    */
+    var scalex, scaley;
+    nbarse.on({
+        'touchstart':function(e){
+            if (e.originalEvent) e = e.originalEvent;
+            s.initData();
+            var touch = e.touches[0];
+            touchEvents.startX = touch.pageX;
+            touchEvents.startY = touch.pageY;
+        },
+        'touchmove':function(e){
+            if (e.originalEvent) e = e.originalEvent;
+            e.preventDefault();
+            var touch = e.touches[0];
+            touchEvents.currentX = touch.pageX;
+            touchEvents.currentY = touch.pageY;
+
+            var cx = opt.cx;
+            var cy = opt.cy;
+
+            var sx = (touchEvents.startX - cx) * (touchEvents.startX - cx) + (touchEvents.startY - cy) * (touchEvents.startY - cy);
+            var sy = (touchEvents.currentX - cx) * (touchEvents.currentX - cx) + (touchEvents.currentY - cy) * (touchEvents.currentY - cy);
+
+
+
+            var to = Math.sqrt(sy) - Math.sqrt(sx);
+            var tof = to/Math.sqrt(cx*cx + cy*cy);
+
+            var toxy = tof;
+            scalex = toxy + parseInt(opt.scaleX);
+            scaley = toxy + parseInt(opt.scaleY);
+
+            //console.log(o.offsetLeft+'   top:'+o.offsetTop);
+            o.css('transform', 'scale('+scalex+','+scaley+') rotate('+opt.currentAngle+'deg)');
+        },
+        'touchend':function(e){
+            opt.scaleX = scalex;
+            opt.scaleY = scaley;
+            o.attr('data-scaleX',scalex);
+            o.attr('data-scaleY',scaley);
         }
     });
     if(ele.hasClass('btn')){

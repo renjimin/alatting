@@ -26,6 +26,10 @@ $(function () {
             }
         );
     });
+
+    $(".history-back").click(function () {
+        window.location.href = $(this).data('back-url');
+    });
 });
 
 

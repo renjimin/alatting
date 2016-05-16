@@ -3,7 +3,7 @@ import os
 from django.conf import settings
 from django.core.urlresolvers import reverse_lazy, reverse
 from django.shortcuts import get_object_or_404, redirect, render_to_response
-from django.views.generic import TemplateView, CreateView, View
+from django.views.generic import TemplateView, CreateView, View, UpdateView
 from django.views.generic.list import ListView
 from alatting_website.model.poster import Poster, PosterKeyword, PosterPage
 from alatting_website.model.resource import Image
@@ -27,28 +27,22 @@ class CategoryKeywordsView(ListView):
         ).order_by('verb', 'noun')
 
 
-class CreateFormView(CreateView):
+class PosterFormViewMixin(object):
     model = Poster
     form_class = PosterCreateForm
-    template_name = 'poster/create-form.html'
 
-    def form_valid(self, form):
-        address = Address()
-        address.address1 = self.request.POST.get('address')
-        address.save()
-        address.refresh_from_db()
-        obj = form.instance
-        obj.main_category_id = self.request.POST.get('main_category')
-        obj.sub_category_id = self.request.POST.get('sub_category')
-        obj.creator = self.request.user
-        obj.status = Poster.STATUS_DRAFT
-        obj.address = address
-        obj.logo_title = obj.unique_name
-        return super(CreateFormView, self).form_valid(form)
+    def get_success_url(self):
+        return '%s?poster_id=%s' % (
+            reverse('poster:select_template'),
+            self.object.id
+        )
 
     def update_poster_keywords(self):
         keywords = self.request.POST.get('keywords', '').split(',')
         try:
+            PosterKeyword.objects.filter(
+                poster=self.object
+            ).delete()
             for kid in keywords:
                 keyword = get_object_or_404(CategoryKeyword, id=kid)
                 PosterKeyword.objects.create(
@@ -58,16 +52,9 @@ class CreateFormView(CreateView):
         except:
             pass
 
-    def get_success_url(self):
-        return '%s?poster_id=%s' % (
-            reverse('poster:select_template'),
-            self.object.id
-        )
-
-    def post(self, request, *args, **kwargs):
-        self.object = None
+    def post_method(self, request):
+        form = self.get_form()
         upfile = request.FILES.get('logo', None)
-        image_obj = None
         if upfile:
             image_obj = Image()
             save_path = get_image_path(image_obj, upfile.name)
@@ -75,15 +62,84 @@ class CreateFormView(CreateView):
             image_obj.file = save_path
             image_obj.save()
             rotate_image(full_path)
-
-        form = self.get_form()
-        form.instance.logo_image = image_obj
+            form.instance.logo_image = image_obj
         if form.is_valid():
             resp = self.form_valid(form)
             self.update_poster_keywords()
             return resp
         else:
             return self.form_invalid(form)
+
+
+class CreateFormView(PosterFormViewMixin, CreateView):
+    template_name = 'poster/create-form.html'
+
+    def get_initial(self):
+        req_get = self.request.GET
+        main_category_id = req_get.get('main_category_id')
+        sub_category_id = req_get.get('sub_category_id')
+        keywords = req_get.get('category_keyword_id')
+        cate = req_get.get('cate')
+        subcate = req_get.get('subcate')
+        return {
+            'main_category_id': main_category_id,
+            'sub_category_id': sub_category_id,
+            'keywords': keywords,
+            'cate': cate,
+            'subcate': subcate
+        }
+
+    def form_valid(self, form):
+        address = Address()
+        address.address1 = self.request.POST.get('address')
+        address.save()
+        address.refresh_from_db()
+        obj = form.instance
+        obj.main_category_id = self.request.POST.get('main_category_id')
+        obj.sub_category_id = self.request.POST.get('sub_category_id')
+        obj.creator = self.request.user
+        obj.status = Poster.STATUS_DRAFT
+        obj.address = address
+        obj.logo_title = obj.unique_name
+        return super(CreateFormView, self).form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        self.object = None
+        return self.post_method(request)
+
+
+class UpdateFormView(PosterFormViewMixin, UpdateView):
+    template_name = 'poster/create-form.html'
+
+    def get_initial(self):
+        keywords = PosterKeyword.objects.filter(
+            poster=self.object
+        ).values_list('category_keyword_id', flat=True)
+
+        return {
+            'main_category_id': self.object.main_category_id,
+            'sub_category_id': self.object.sub_category_id,
+            'keywords': ','.join(str(key) for key in keywords),
+            'cate': self.object.main_category.name,
+            'subcate': self.object.sub_category.name,
+        }
+
+    def form_valid(self, form):
+        obj = form.instance
+        address = Address.objects.filter(
+            address1=obj.address
+        ).first()
+        if address.address1 != self.request.POST.get('address', ''):
+            address = Address()
+            address.address1 = self.request.POST.get('address')
+            address.save()
+            address.refresh_from_db()
+            obj.address = address
+        return super(UpdateFormView, self).form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return self.post_method(request)
 
 
 class SelectTemplateView(ListView):
