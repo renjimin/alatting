@@ -266,6 +266,9 @@
 	cursor: ne-resize;
 
 }
+.nbar-edit{
+	width:18px;height:18px;line-height:18px;    text-align: center;font-size:12px;
+}
 .cnd-element .nbar{
 display:none;
 }
