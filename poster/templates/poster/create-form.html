@@ -1,69 +1,115 @@
 {% extends 'alatting_website/base.html' %}
 {% load static %}
 {% block base_header_css %}
-<link rel="stylesheet" href="{% static 'poster/css/basicinfo.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/css/basicinfo.css' %}">
 {% endblock %}
 
 {% block base_header_js %}
-    {{ block.super}}
+    {{ block.super }}
     <script src="{% static 'poster/js/basic-info.js' %}"></script>
 {% endblock %}
 
 {% block base_body %}
-<div class="main">
-    <p class="text-center basic-nav">请输入基本信息</p>
+    <div class="main">
+        <p class="text-center basic-nav">请输入基本信息</p>
 
-    <form class="form-basicinfo" method="post" enctype="multipart/form-data"
-          action="{% url 'poster:create_form' %}" id="form-info">
-         <input type="hidden" name="keywords" value="{{request.GET.category_keyword_id}}">
-         <input type="hidden" name="main_category" value="{{request.GET.main_category_id}}">
-         <input type="hidden" name="sub_category" value="{{request.GET.sub_category_id}}">
-        <ul class="basic-ul">
-            <li>
-                <label><i class="icon"><img src="{% static 'poster/images/icon1.gif' %}"></i>海报名称</label>
-                <input type="text" name="unique_name" class="post-name" placeholder="例:3551海报" maxlength="20"/>
-            </li>
-            <li class="big-text">
-                <label style="line-height: 10em;">
-                    <span class="post-ds"><i class="icon"><img src="{% static 'poster/images/icon2.gif' %}"></i>海报简述<br/><em>(50字以内)</em></span>
-                </label>
-                <textarea name="short_description" class="post-desc area" cols="15" maxlength="50" placeholder="例:3551光谷人才计划，武汉东湖高新区启动之引才计划"></textarea>
+        <form class="form-basicinfo" method="post"
+              enctype="multipart/form-data"
+              action="{% if poster %}{% url 'poster:update_form' pk=poster.id %}{% else %}{% url 'poster:create_form' %}{% endif %}" id="form-info">
+            <input type="hidden" id="posterId" name="posterId" value="{{ poster.id }}"/>
+            {{ form.main_category_id }}
+            {{ form.sub_category_id }}
+            {{ form.keywords }}
+            {{ form.cate }}
+            {{ form.subcate }}
+            <ul class="basic-ul">
+                <li>
+                    <label>
+                        <i class="icon">
+                            <img src="{% static 'poster/images/icon1.gif' %}">
+                        </i>
+                        海报名称
+                    </label>
+                    <input type="text" name="unique_name" class="post-name"
+                           {% if poster %}readonly="readonly"{% endif %}
+                           placeholder="例:3551海报" maxlength="20"
+                           value="{{ poster.unique_name }}"/>
+                </li>
+                <li class="big-text">
+                    <label style="line-height: 10em;">
+                        <span class="post-ds">
+                            <i class="icon">
+                                <img src="{% static 'poster/images/icon2.gif' %}">
+                            </i>
+                            海报简述<br/>
+                            <em>(50字以内)</em>
+                        </span>
+                    </label>
+                    <textarea name="short_description"
+                              class="post-desc area"
+                              cols="15" maxlength="50"
+                              placeholder="例:3551光谷人才计划，武汉东湖高新区启动之引才计划">{{ poster.short_description }}</textarea>
+                </li>
+                <li class="big-text">
+                    <label>
+                        <i class="icon">
+                            <img src="{% static 'poster/images/icon3.gif' %}">
+                        </i>
+                        海报LOGO
+                    </label>
 
-            </li>
-            <li class="big-text">
-                <label><i class="icon"><img src="{% static 'poster/images/icon3.gif' %}"></i>海报LOGO</label>
+                    <span class="basicimg">
+                        <img src="{% if poster %}{{ poster.logo_image.file.url }}{% else %}{% static 'poster/images/x.png' %}{% endif %}"
+                             id="uploadPreview"
+                             style="width: 100%; height: 100%;">
+                    </span>
+                    <a href="javascript:;" class="file">
+                        <i class="glyphicon glyphicon-plus-sign"></i>
+                        &nbsp;选择文件
+                        <input type="file" name="logo" class="post-img"
+                               id="postFile"/>
+                    </a>
+                    <span id="error_text"></span>
 
-                <span class="basicimg"><img src="{% static 'poster/images/x.png' %}" id="uploadPreview" style="width: 100%; height: 100%;"></span>
-                <a href="javascript:;" class="file"><i class="glyphicon glyphicon-plus-sign"></i>&nbsp;选择文件
-                    <input type="file" name="logo" class="post-img" id="postFile"/>
-                </a>
-                <span id="error_text"></span>
-                <div class="clear"></div>
-            </li>
-            <li>
-                <label><i class="icon"><img src="{% static 'poster/images/icon4.gif' %}"></i>电子邮件</label>
-                <input type="text" name="email" class="post-email" placeholder="例:152663788@qq.com"/>
-            </li>
-            <li>
-                <label><i class="icon"><img src="{% static 'poster/images/icon5.gif' %}"></i>电话</label>
-                <input type="text" name="phone" class="post-telephone" placeholder="例:027-12345678"/>
-            </li>
-            <li>
-                <label><i class="icon"><img src="{% static 'poster/images/icon6.gif' %}"></i>手机</label>
-                <input type="text" name="mobile" class="post-phone" placeholder="例:1352345678"/>
-            </li>
-            <li>
-                <label><i class="icon"><img src="{% static 'poster/images/icon7.gif' %}"></i>地址</label>
-                <input type="text" name="address" class="post-address" placeholder="例:武汉市光谷国际广场A座802"/>
-            </li>
-        </ul>
+                    <div class="clear"></div>
+                </li>
+                <li>
+                    <label><i class="icon"><img
+                            src="{% static 'poster/images/icon4.gif' %}"></i>电子邮件</label>
+                    <input type="text" name="email" class="post-email"
+                           placeholder="例:152663788@qq.com"
+                           value="{{ poster.email }}"/>
+                </li>
+                <li>
+                    <label><i class="icon"><img
+                            src="{% static 'poster/images/icon5.gif' %}"></i>电话</label>
+                    <input type="text" name="phone" class="post-telephone"
+                           placeholder="例:027-12345678"
+                           value="{{ poster.phone }}"/>
+                </li>
+                <li>
+                    <label><i class="icon"><img
+                            src="{% static 'poster/images/icon6.gif' %}"></i>手机</label>
+                    <input type="text" name="mobile" class="post-phone"
+                           placeholder="例:1352345678"
+                           value="{{ poster.mobile }}"/>
+                </li>
+                <li>
+                    <label><i class="icon"><img
+                            src="{% static 'poster/images/icon7.gif' %}"></i>地址</label>
+                    <input type="text" name="address" class="post-address"
+                           placeholder="例:武汉市光谷国际广场A座802"
+                           value="{{ poster.address.address1 }}"/>
+                </li>
+            </ul>
 
-        <div class="text-center button-form">
-            <input type="button" value="返回" onclick="back()">
-            <input type="button" value="确认" onclick="submitinfo()">
-        </div>
-    </form>
-</div>
+            <div class="text-center button-form">
+                <input type="button" class="poster-form-back-btn" value="返回"
+                       data-back-url="{% url 'poster:keywords' %}?main_category_id={{ form.main_category_id.value }}&sub_category_id={{ form.sub_category_id.value }}&cate={{ form.cate.value|urlencode }}&subcate={{ form.subcate.value|urlencode }}">
+                <input type="button" class="poster-form-submit-btn" value="确认">
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 {% block base_body_footer %}
@@ -72,7 +118,7 @@
             yyAlert('基本信息保存失败!');
             {% for field, errors in form.errors.items %}
                 {% for error in errors%}
-                    console.log("{{error}}");
+                    console.log("{{ field }}---{{error}}");
                 {% endfor %}
             {% endfor %}
         </script>

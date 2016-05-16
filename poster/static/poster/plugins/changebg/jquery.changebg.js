@@ -24,10 +24,10 @@
                     success: function (data) {
                         // ss= data;
                         console.log(data);
-                        var cbox= '<div class="system-item"><div ><h3>系统图案</h3><i id = "closebg" class="glyphicon glyphicon-remove"></i></div><ul>';
+                        var cbox= '<div class="system-item"><div ><h3>系统背景</h3><i id = "closebg" class="glyphicon glyphicon-remove"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
-                            var img = data[i].image_url;
-                            cbox += '<li class="item-system" data-img="'+img+'"><img src="'+img+'"></li>';
+                            var img = data[i].thumbnail_url;
+                            cbox += '<li class="item-system" data-img="'+data[i].image_url+'"><img src="'+img+'"></li>';
                         }
                         cbox += '</ul></div>';
                         bimg.append(cbox);
@@ -52,7 +52,7 @@
                     });
                     $(this).css({
                         'opacity':'1',
-                        'border': '5px solid #01a1ef'
+                        'border': '3px solid #01a1ef'
                     })
                 callBack_Selected(ele,img);
             });

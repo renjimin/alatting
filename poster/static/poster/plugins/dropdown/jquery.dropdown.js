@@ -19,7 +19,8 @@
 			
 			_this.on('click',function(event){
 				$(document).trigger("clsdp");
-				if(options == null){
+				if(!options){
+                    $('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
@@ -49,7 +50,7 @@
 						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').css('left', arrOffset );
 						$('#dp .arrow').attr('class', 'arrow up')
-						//第一个input自动获取焦点
+						//第一个input自动获取焦点s
 						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
 						if(_option.eval){
@@ -60,7 +61,7 @@
 				event.stopPropagation();
 			});
 		})
-	}
+	};
 	$.fn.registerPopUp = function(options){
 		var opts = {
 			list:[],
@@ -70,7 +71,8 @@
 			offsetY:0,
 			arrowOffset:0,
 			orientation:0,
-			followMouse:false
+			followMouse:false,
+            suspendFun: null
 		};
 		return this.each(function () {
 			var _this = $(this),
@@ -80,7 +82,7 @@
 				pid = _this.attr('id'),
 				dpw = $('#dp');
 
-			var str = '<ul id="'+ _option.id +'">'
+			var str = '<ul id="'+ _option.id +'">';
 			if(_option.orientation){
 				var len = _option.list.length;
 				for(var i in _option.list){
@@ -91,7 +93,7 @@
 					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[i].icon+'"></i><span>'+_option.list[i].text+'</span>'
 				}
 			}
-			str += '</ul>'
+			str += '</ul>';
 			dpw.append(str);
 			for(var i in _option.list){
 				$("#dp #" + _option.id+'_'+i ).click(function(event){
@@ -104,11 +106,17 @@
 					});
 			}
 			_this.on('click',function(event){
+                if(_option.suspendFun !== null
+                    && $.isFunction(_option.suspendFun)){
+                    if(!_option.suspendFun()){
+                        return false;
+                    }
+                }
 				$(document).trigger("clsdp");
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
 				}else{
-					dpw.attr('class', '').attr('style', '')
+					dpw.attr('class', '').attr('style', '');
 					$('#dp ul').hide();
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
@@ -116,27 +124,19 @@
 					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width();
 
 					if(_option.followMouse){
-						originX = event.pageX,originY = event.pageY,diffY = 0;
-					}else{
-						originX = _this.offset().left,originY = _this.offset().top,diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
-					}
-					if(_option.orientation){
-						if(_option.followMouse){
-							offsetY =  - dpw.height() - diffY;
-						}else{
-							offsetY =  _this.height() - dpw.height() - diffY;
-						} 
-					}else{
-						offsetY = diffY;
-					}
-					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
-
-					if(_option.followMouse){
+						originX = event.pageX,originY = event.pageY,diffY = 0,diffX = 0;
 						left = originX - dpw.width()/2;
 					}else{
-						left = originX + (_this.width() * _option.offsetXPercent )/100 + _option.offsetX - dpw.width()/2;
+						originX = _this.offset().left,
+						originY = _this.offset().top,
+						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) + (_option.orientation ? dpw.height() : 0),
+						diffX =  (_this.width() * _option.offsetXPercent )/100 + _option.offsetX;
+						left = originX + diffX - dpw.width()/2;
 					}
+					console.log(_this.height() );
 					right = left + dpw.width();
+					offsetY = _option.orientation ? (_this.height() - diffY) :  diffY;
+					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
 					if( right > documentW ){
 						left = documentW - dpw.width() -5;
 						dpw.css('left',left);
@@ -145,7 +145,6 @@
 					}else{
 						dpw.css('left',left);
 					}
-
 					if(_option.arrowOffset){
 						$('#dp .arrow').css('left', (dpw.width() * _option.arrowOffset)/100 -15  );
 					}else{
@@ -153,13 +152,10 @@
 						$('#dp .arrow').css('left', dpw.width()/2 -15  );
 					}
 					
-
 					if(_option.orientation){
-						$('#dp .arrow').css('top', dpw.height() - 2 );
-						$('#dp .arrow').attr('class', 'arrow down')
+						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
 					}else{
-						$('#dp .arrow').css('top',-30);
-						$('#dp .arrow').attr('class', 'arrow up')
+						$('#dp .arrow').css('top',-30).attr('class', 'arrow up')
 					}
 				}
 				event.stopPropagation();
@@ -170,12 +166,12 @@
 
 (function($){
 	$.fn.setCursorPosition = function(position) {
-		if (this.lengh == 0) return this;
+		if (this.length == 0) return this;
 		return $(this).setSelection(position, position);
-	}
+	};
 	$.fn.setSelection = function(selectionStart, selectionEnd) {
-		if (this.lengh == 0) return this;
-		input = this[0];
+		if (this.length == 0) return this;
+		var input = this[0];
 		if (input.createTextRange) {
 			var range = input.createTextRange();
 			range.collapse(true);
@@ -187,9 +183,9 @@
 			input.setSelectionRange(selectionStart, selectionEnd);
 		}
 		return this;
-	}
+	};
 	$.fn.focusEnd = function() {
-		if (!this.lengh) return this;
+		if (!this[0]) return this;
 		this.setCursorPosition(this.val().length);
-	}
+	};
 })(jQuery);

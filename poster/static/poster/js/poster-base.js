@@ -7,6 +7,10 @@ $(function(){
         window.location.href = url;
         });
     });
+    $(".icon-change-template").click(function(){
+        alert("更换模板");
+    });
+
     //弹出菜单
     $(".dropdown-toggle").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
@@ -60,7 +64,7 @@ $(function(){
             offsetYPercent:90,
             offsetY:30,
             arrowOffset:80,
-            list:[{icon:"icon ico-edit-pic",text:"系统图案",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"系统背景",callback:function(){
                         $('.header').bgselect({}, function (ths,img) {
                             ths.css('background-image', 'url(' + img + ')');
                             ths.css('background-size', 'cover');
@@ -69,7 +73,7 @@ $(function(){
                         })
                     }},
                     {icon:"glyphicon glyphicon-adjust",text:" 颜色",callback:function(){
-                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $("#colorBox").css('top',$('.mask').height()+$('.mask').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                              $('.header').css('background',color);
                             storageAPI.setCss(".header", {'background':color});
@@ -92,7 +96,7 @@ $(function(){
             offsetY:30,
             arrowOffset:80,
             orientation:1,
-            list:[{icon:"icon ico-edit-pic",text:"系统图案",callback:function(){
+            list:[{icon:"icon ico-edit-pic",text:"系统背景",callback:function(){
                         $(this).bgselect({}, function (ths,img) {
                             $('.yunye-template').css('background-image', 'url(' + img + ')');
                             $('.yunye-template').css('background-size', 'cover');
@@ -117,16 +121,72 @@ $(function(){
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
         });    
+  $('.btn-bg').registerPopUp({
+            id:'dpw_bg',
+            offsetXPercent:50,
+            offsetYPercent:50,
+            offsetY:30,
+            arrowOffset:60,
+            orientation:0,
+            list:[{icon:"icon ico-edit-pic",text:"头/底背景",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('.bar-header,.bar-footer').css('background-image', 'url(' + img + ')');
+                            $('.bar-header,.bar-footer').css('background-size', 'cover');
+                            storageAPI.setCss(".bar-header", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            storageAPI.setCss(".bar-footer", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},                                      
+                    {icon:"glyphicon glyphicon-adjust",text:" 头/底颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('.bar-header,.bar-footer').css('background',color);
+                             storageAPI.setCss(".bar-header", {'background':color});
+                             storageAPI.setCss(".bar-footer", {'background':color});
+                        });
+                    }},
+                    {icon:"icon ico-edit-pic",text:"整体背景",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('body').css('background-image', 'url(' + img + ')');
+                            $('body').css('background-size', 'cover');
+                            $('.yunye-template,.header').css('background-image', 'url()')
+                            storageAPI.setCss("body", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $('.header,.yunye-template,.bar-header,.bar-footer').css('background','none');
+                            storageAPI.setCss(".header", {'background':'none'});
+                            storageAPI.setCss(".yunye-template", {'background':'none'});
+                            storageAPI.setCss(".bar-header", {'background':'none'});
+                            storageAPI.setCss(".bar-footer", {'background':'none'});                           
+                            $(".system-item").fadeOut(500);
+                        })
+                    }},
+                     {icon:"glyphicon glyphicon-adjust",text:" 整体颜色",callback:function(){
+                        $("#colorBox").css('top',$('.content').offset().top).show();
+                        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                             $('body').css('background',color);
+                             $('.bar-header,.bar-footer,.yunye-template,.header').css('background',color);
+                            storageAPI.setCss("body", {'background':color});
+                            storageAPI.setCss(".bar-header", {'background':color});
+                            storageAPI.setCss(".bar-footer", {'background':color});
+                            storageAPI.setCss(".yunye-template", {'background':color});
+                            storageAPI.setCss(".header", {'background':color});
+                        });
+                    }},
+                ]
+        });              
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
+        $("#teditor").hide();
     });
 
     //改变文字颜色
-    $('.glyphicon-text-height').on('click',function(){
-        $("#colorBox").css('top', $(document).height() - 160 - 90).show();
-        $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+    $('.glyphicon-text-height').on('click',function(event){
+        //$("#colorBox").css('top', $(document).height() - 160 - 93).show();
+        /*$(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);
-        });
+        });*/
+        $('#teditor').show();
+        $(this).tEditor();
+        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 100);
         event.stopPropagation();
     });
 
@@ -146,20 +206,21 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox","#teditor"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
         }
         //点击页面空白区域行为
         $('#dp').removeClass('open');
-        $("#colorBox").hide();
     });
     /**读取缓存背景图片*/
     var storageAPI = $.fn.yunyeStorage;
     if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
     if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
-
+    if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
+    if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));   
+    if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
     //数据初始化
     var pageHeadData = storageAPI.getPosterHeadData();
     if(pageHeadData.title){
@@ -207,13 +268,16 @@ $(function(){
         var inputs = $('#dpw_clock input');
         var arr = [];
         for(var i = 0 ; i < inputs.length ; i ++){
-             arr.push(inputs[i].value);
+            arr.push(inputs[i].value);
         }
         for(var i = 0 ; i < arr.length/2 ; i++){
             var even = arr[ i * 2],odd = arr[ (i * 2) +1];
             if(even && odd && (odd <= even) ){
-                $(event.target).blur().val("");
+                $(event.target).blur();
+                $('#dpw_clock input').eq(i*2).val("");
+                $('#dpw_clock input').eq(i*2 + 1).val("");
                 yyConfirm("结束时间不能早于开始时间");
+                break;
             }
         }
         storageAPI.setHead("clock",arr);

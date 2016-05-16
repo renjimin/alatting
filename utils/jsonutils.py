@@ -81,7 +81,7 @@ def json2css(json):
     for selectors in root.items():
         for k, v in selectors[1].items():
             selectors[1][k] = v + ";"
-    handler_json = _jsonlib.dumps(root)
+    handler_json = _jsonlib.dumps(root)[1:-1]  # 去头"{"去尾"}"
     return handler_json.replace("\"", "").replace(",", "")
 
 

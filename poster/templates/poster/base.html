@@ -5,8 +5,14 @@
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'poster/plugins/changebg/changebg.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/plugins/textEditor/jquery.textEditor.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
+<<<<<<< HEAD
     <link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}">
+=======
+    <link rel="stylesheet" href="{% static 'poster/css/poster-edit-base.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
+>>>>>>> 659df244fe28b660dfb8be101dce9f5fab761955
 {% endblock %}
 
 {% block base_header_js %}
@@ -18,6 +24,7 @@
     </script>
     {{ block.super }}
     <script src="{% static 'poster/plugins/changebg/jquery.changebg.js' %}"></script>
+    <script src="{% static 'poster/plugins/textEditor/jquery.textEditor.js' %}"></script>
     <script src="{% static 'poster/plugins/dropdown/jquery.dropdown.js' %}"></script>
     <script src="{% static 'poster/plugins/colorSelect/jquery.colorSelect-1.1.1.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
@@ -27,12 +34,15 @@
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
+<<<<<<< HEAD
     <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
+=======
+    <script src="{% static 'poster/plugins/button/jscolor.js' %}"></script>
+    
+>>>>>>> 659df244fe28b660dfb8be101dce9f5fab761955
 {% endblock %}
 
 {% block base_body_header %}
-
-
 <div class="bar-header bar edit-bar-header">
     <a href="javascript:void(0)" class="btn-back back-to-home" data-url="{% url 'website:index' %}">
         <i class="icon-back"></i>
@@ -42,6 +52,7 @@
         <p>{{ poster.logo_title }}</p>
     </div>
     <div class="top-btn">
+        <button class="btn-bg">换肤</button>
         <button class="btn btn-save">存储</button>
         <button class="btn btn-post">发布</button>
     </div>
@@ -91,6 +102,12 @@
             </div>
         </div>
     </header>
+    <div class="change-template-icon">
+        <a href="javascript:void(0);" class="icon-change-template">
+            <img src="{% static 'poster/images/icon-change-template.png' %}"
+             alt="更换模板"/>
+        </a>
+    </div>
     <section id="dp">
         <ul id="dpw_phone">
             <li><i class="icon ico-phone"></i><span><input type="text" value="{{ poster.phone }}" /></input></li>
@@ -103,13 +120,13 @@
             <li><i class="icon ico-address"></i><span><input type="text" value="{{ poster.address }}" /></input></li>
         </ul>
         <ul id="dpw_clock">
-            <li><i class="text">周一</i><span><input type="time" />至<input type="time" /></span></li>
-            <li><i class="text">周二</i><span><input type="time" />至<input type="time" /></span></li>
-            <li><i class="text">周三</i><span><input type="time" />至<input type="time" /></span></li>
-            <li><i class="text">周四</i><span><input type="time" />至<input type="time" /></span></li>
-            <li><i class="text">周五</i><span><input type="time" />至<input type="time" /></span></li>
-            <li><i class="text">周六</i><span><input type="time" />至<input type="time" /></span></li>
-            <li><i class="text">周日</i><span><input type="time" />至<input type="time" /></span></li>
+            <li><i class="text">周一</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
+            <li><i class="text">周二</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
+            <li><i class="text">周三</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
+            <li><i class="text">周四</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
+            <li><i class="text">周五</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
+            <li><i class="text">周六</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
+            <li><i class="text">周日</i><span><input type="time" class="col-xs-4" /><p class="col-xs-1">至</p><input type="time" class="col-xs-4" /></span></li>
         </ul>
         <ul id="dpw_title">
             <li><span><input type="text" value="{{ poster.logo_title }}" /></span></li>
@@ -123,14 +140,34 @@
             </div>
             <div class="input-outer autoheight">
                 <div class="ed-choose">
-                    
+
+                    {% for cat in categorykeyword_list %}
+                    <div class="ed-choose-li col-xs-6" data-cont="{{cat.verb}}{{cat.noun}}" data-view="0" data-id="{{cat.id}}">
+                        <div class="cbox-line">
+                            <span class="glyphicon glyphicon-unchecked"></span>{{cat.verb}}+{{cat.noun}}
+                        </div>
+                    </div>
+                    {% endfor %}
+
                     <span>互联网</span><span>地产</span><span>教育/培训</span><span>服饰/时尚</span><span>餐饮/食品</span><span>金融/银行</span><span>零售/电商</span>
                     <span>媒体/广告</span><span>旅游/景区</span><span>其它行业</span><span>个人</span><span>企业宣传</span><span>品牌推广</span><span>产品介绍</span>
                     <span>会议邀请</span><span>课程培训</span><span>企业招聘</span><span>活动宣传</span><span>节日传情</span><span>事件祝福</span><span>其他场景</span>
-                    <div class="add-choose">
-                         <input type="text" placeholder="自定义(限四字)" />
-                         <button>新增</button>
+                    <div class="ed-add">
+                        <div class="ed-add-li col-xs-3">
+                            <span>动词</span><br>
+                            <input type="text" class="form-control" id="newKwv" placeholder="例:招募">
+                        </div>
+                        <div class="ed-add-li col-xs-1"><span>+</span></div>
+                        <div class="ed-add-li col-xs-4">
+                            <span>名词</span><br>
+                            <input type="text" class="form-control" id="newKwn" placeholder="例:创业精英">
+                        </div>
+                        <div class="ed-add-li col-xs-2  col-xs-offset-1">
+                            <span>&nbsp;</span><br>
+                            <input type="button" class="btn btn-default form-control" id="addItem" value="新增">
+                        </div>
                     </div>
+
                 </div>
             </div>
         </ul>
@@ -144,6 +181,7 @@
 
 {% block base_body_footer %}
     <div id="colorBox" style="position: absolute;z-index: 100;overflow: scroll;width: 100%;"></div>
+    <div  class="teditor" id="teditor" style="position: absolute;z-index: 100;overflow: hidden;width: 100%;top:0;"></div>
     <div class="bar-footer bar">
         <a class="tab-item dropdown-toggle" id="share-toggle" href="javascript:void(0);" data-dropdown="share-panel">
             <i class="icon ico-edit-text"></i>
@@ -160,34 +198,172 @@
         
         <section class="dropdown-panel" id="share-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-width"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-text"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-text-space"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><input class="icon glyphicon glyphicon-picture" style="margin:0 auto" accept="image/*" type="file"></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-leaf"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon ico-systemimg"></i></a>
+                <a href="javascript:void(0);" onclick="uploadSys();" class="tab-item"><i class="icon ico-systemimgs"></i></a>
+                <a href="javascript:void(0);" onclick="copySystemimg()" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" onclick="deleteSystemimg()" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="feedback-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon glyphicon-unchecked"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="javascript:void(0);" class="tab-item"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon ico-input"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="export-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-music"></i><span>音乐链接</span></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-music"></i><span>上传音乐</span></a>
+                <a href="#" class="tab-item"><i class="icon ico-music-link"></i><span>音乐链接</span></a>
+                <a href="#" class="tab-item"><i class="icon ico-music-upload"></i><span>上传音乐</span></a>
             </div>
         </section>
     </div>
+<div class="type-model button-model" id="button-model">
+    <div class="model-header">
+        <a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')">返回</a>
+        <a href="javascript:void(0);" class="btn-right pull-right" onclick="buttonConfirm()">确定</a>
+    </div>
+    <div class="type-model-inner">
+        <div class="button-edit-container">
+            <div class="btn-container">
+                <a class="btn btn-default">test</a>
+            </div>
+        </div>
+        <div class="type-model-containar button-tools-container">
+            <div class="button-edit">
 
+                <div class="button-edit-tools">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">功能</label>
+                            <div class="col-xs-9">
+                                <select class="form-control"><option>无</option></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">链接</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control button-href" placeholder="请输入链接">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">文字</label>
+                            <div class="col-xs-9">
+                                <input type="text" class="form-control button-text" placeholder="请输入文字内容">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">颜色</label>
+                            <div class="col-xs-4">
+                                <input class="form-color button-color jscolor" readonly="readonly" />
+                            </div>
+                            <label class="col-xs-2 control-label">大小</label>
+                            <div class="col-xs-3">
+                                <select class="form-control button-fontSize"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">背景</label>
+                            <div class="col-xs-5">
+                                <input class="form-background button-background jscolor" readonly="readonly" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">透明度</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-opacity" name="opacity" min="0" max="100" value="100">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-opacity" data-val="100" value="100" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">阴影</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-boxShadow" name="volume" min="0" max="100" value="16">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-boxShadow" data-val="16" value="16px" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">弧度</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-borderRadius" name="volume" min="0" max="100" value="30">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-borderRadius" data-val="30" value="30px" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">旋转</label>
+                            <div class="col-xs-6">
+                                <input type="range" class="range button-rotate" name="volume" min="0" max="360" value="0">
+                            </div>
+                            <div class="col-xs-3">
+                                <input type="text" class="form-control button-rotate" data-val="0" value="0" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">边框</label>
+                            <div class="col-xs-3">
+                                <input class="form-color button-borderColor  jscolor" />
+                            </div>
+                            <div class="col-xs-3">
+                            <select class="form-control button-borderStyle"><option value="solid">solid</option><option value="solid">solid</option>
+                                <option value="none">无边框</option>
+                                <option value="solid">solid</option>
+                                <option value="dotted">dotted</option>
+                                <option value="dashed">dashed</option>
+                                <option value="double">double</option>
+                                <option value="groove">groove</option>
+                                <option value="ridge">ridge</option>
+                                <option value="inset">inset</option>
+                                <option value="outset">outset</option>
+                            </select>
+                            </div>
+                            <div class="col-xs-3">
+                                <select class="form-control button-borderWidth"></select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="type-model-click" onclick="$(this).parent().removeClass('open')"></div>
+</div>
+<div class="type-model systemimg-model" id="systemimg-model">
+    <div class="type-model-inner">
+
+        <div class="type-model-containar">
+            <div class="systemimg-list">
+                <ul>
+                    <li class="systemimg-1"></li>
+                    <li class="systemimg-2"></li>
+                    <li class="systemimg-3"></li>
+                    <li class="systemimg-4"></li>
+                    <li class="systemimg-5"></li>
+                    <li class="systemimg-6"></li>
+                    <li class="systemimg-7"></li>
+                    <li class="systemimg-8"></li>
+                    <li class="systemimg-9"></li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+        <div class="type-model-click" onclick="$(this).parent().removeClass('open')"></div>
+</div>
+<script src="{% static 'poster/plugins/button/scale.js' %}"></script>
+<script src="{% static 'poster/plugins/button/button-edit.js' %}"></script>
 {% endblock %}
