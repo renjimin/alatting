@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{% static 'poster/plugins/colorSelect/jquery.colorSelect.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/textEditor/jquery.textEditor.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/css/poster-edit-base.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
 {% endblock %}
 
@@ -91,6 +92,12 @@
             </div>
         </div>
     </header>
+    <div class="change-template-icon">
+        <a href="javascript:void(0);" class="icon-change-template">
+            <img src="{% static 'poster/images/icon-change-template.png' %}"
+             alt="更换模板"/>
+        </a>
+    </div>
     <section id="dp">
         <ul id="dpw_phone">
             <li><i class="icon ico-phone"></i><span><input type="text" value="{{ poster.phone }}" /></input></li>
@@ -181,32 +188,32 @@
         
         <section class="dropdown-panel" id="share-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-text-width"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-text"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-text-space"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon glyphicon glyphicon-picture"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-leaf"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon ico-systemimg"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-systemimgs"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="feedback-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" class="tab-item"><i class="icon glyphicon glyphicon-text-height"></i></a>
-                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon glyphicon glyphicon glyphicon-unchecked"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-plus"></i></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-trash"></i></a>
+                <a href="javascript:void(0);" class="tab-item"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="addButton()"><i class="icon ico-input"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="#" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
         </section>
         <section class="dropdown-panel" id="export-panel">
             <div class="share-group">
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-music"></i><span>音乐链接</span></a>
-                <a href="#" class="tab-item"><i class="icon glyphicon glyphicon-music"></i><span>上传音乐</span></a>
+                <a href="#" class="tab-item"><i class="icon ico-music-link"></i><span>音乐链接</span></a>
+                <a href="#" class="tab-item"><i class="icon ico-music-upload"></i><span>上传音乐</span></a>
             </div>
         </section>
     </div>
