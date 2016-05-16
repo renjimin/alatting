@@ -9,6 +9,7 @@ var curentOpts={};
             'text':'请输入文字',
             'color':'000',
             'fontSize':'14',
+            'fontFamily':'Microsoft YaHei',
             'background':'fff',
             'opacity':'1',
             'boxShadow':'0',
@@ -48,6 +49,7 @@ var curentOpts={};
             o.css({
                 'color':'#'+opts.color,
                 'font-size':opts.fontSize+'px',
+                'font-family':opts.fontFamily,
                 'background':'#'+opts.background,
                 'opacity':opts.opacity,
                 'box-shadow':'0 0 '+opts.boxShadow+' #444',
@@ -75,6 +77,7 @@ var curentOpts={};
 		            'text': $(b).text(),
 		            'color': $(b).css('color')==null?'000':$(b).css('color'),
 		            'fontSize': $(b).css('font-size'),
+                    'fontFamily': $(b).css('font-family'),
 		            'background': $(b).css('background'),
 		            'opacity': $(b).css('opacity'),
 		            'boxShadow':$(b).css('box-shadow-spread'),
@@ -96,6 +99,7 @@ var curentOpts={};
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
             $('.button-fontSize').val(opts.fontSize);
+            $('.button-fontFamily').val(opts.fontFamily);
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
@@ -120,6 +124,10 @@ var curentOpts={};
             $('.button-fontSize').on('change',function(){
                 opts.fontSize = $(this).val();
                 o.css('font-size',opts.fontSize+'px');
+            });
+            $('.button-fontFamily').on('change',function(){
+                opts.fontFamily = $(this).val();
+                o.css('font-family',opts.fontFamily);
             });
             $('.button-borderStyle').on('change',function(){
                 opts.borderStyle = $(this).val();
@@ -275,6 +283,37 @@ var curentOpts={};
 		}
 		$('#button-model').removeClass('open')
 	}
+var editButtonBasic = function(){
+    $("#button-basic").show();
+    $("#button-border").hide();
+    if(!$('#button-model').hasClass('open')){
+        $('#button-model').addClass('open');
+        addButton();
+    }
+}
+var editButtonBorder = function(){
+    $("#button-basic").hide();
+    $("#button-border").show();
+    if(!$('#button-model').hasClass('open')){
+        $('#button-model').addClass('open');
+        addButton();
+    }
+}
+var copyButton = function(){
+    var imgclone = $('.button-element.active').clone();
+    $('.button-element').removeClass('active');
+    imgclone.animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
+    fullcontainer.append(imgclone);
+    scale(imgclone);
+}
+var deleteButton = function(){
+    var imgactive = $('.button-element.active');
+
+    imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
+        imgactive.remove();
+    });
+
+}
 
 $(function(){
     $('#systemimg-model li').click(function(){
