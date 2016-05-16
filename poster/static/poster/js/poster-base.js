@@ -52,7 +52,7 @@ $(function(){
 
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.fn.uploads.showDialog(function(data){
+                    $.uploads(function(data){
                             $('.header-logo img').attr("src",data.file);
                             storageAPI.setHead("logo_img",data.file);
                     });
@@ -83,7 +83,7 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                         $.fn.uploads.showDialog(function(data){
+                         $.uploads(function(data){
                             $('.header').css('background-image', 'url(' + data.file + ')');
                             $('.header').css('background-size', 'cover');
                             storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
@@ -115,8 +115,8 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                        $.fn.uploads.showDialog(function(data){
-                            $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                        $.uploads(function(options){
+                            $('.yunye-template').css('background-image', 'url(' + options.file + ')');
                             $('.yunye-template').css('background-size', 'cover');
                             storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
                              });                        
