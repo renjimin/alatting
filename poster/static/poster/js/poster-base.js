@@ -49,7 +49,11 @@ $(function(){
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
-
+                    $('.header-logo').empty().append('<h2>input</h2>');
+                    $('#teditor').show();
+                    $('.header-logo h2').tEditor();
+                    $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
+                    event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
                     $.uploads({
@@ -184,7 +188,7 @@ $(function(){
     });
 
     //改变文字颜色
-    $('.glyphicon-text-height').on('click',function(event){
+    $('.ico-text').on('click',function(event){
         //$("#colorBox").css('top', $(document).height() - 160 - 93).show();
         /*$(this).colorSelect({clbox:'colorBox'},function(ths,color){
             ths.css('color',color);

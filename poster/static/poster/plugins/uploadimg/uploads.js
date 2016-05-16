@@ -1,6 +1,4 @@
 (function($){
-
-	
 	$.extend({
 		'uploads':function(options){
 			var opps = {
@@ -20,8 +18,7 @@
 				threads: 1,
 				auto:true
 			}
-			var webUploader;
-			var option = $.extend(opps,options),s = this;
+			var option = $.extend(opps,options);
 			//组装参数;
 			if( option.url ) {
 				option.server = option.url;
@@ -33,7 +30,7 @@
 			var pick = option.pick;
 			if($('#'+pick).length > 0 && $('#'+pick).find('input').length <= 0 ){
 				option.pick = '#'+pick;
-				webUploader = WebUploader.create( option );
+				var webUploader = WebUploader.create( option );
 
 				//绑定文件加入队列事件;
 				webUploader.on('fileQueued', function( file ) {
@@ -97,7 +94,7 @@
 			
 	        	setTimeout(function(){
 	        		$('#'+pick).find('input').trigger('click');
-	        	},100);
+	        	},40);
 
 		}
 	});
