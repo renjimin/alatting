@@ -1,7 +1,7 @@
 (function($){
-	var n = 0;
+
 	var opps = {
-<<<<<<< HEAD
+		pick: 'test',
 		url: '/api/v1/poster/upload',
 		success:null,
 		error:null,
@@ -19,40 +19,7 @@
 
 	}
 
-	$.fn.uploads = function(){
-		var self = this;
-		this.success = null;
-		this.init = function(){
-			var option = $.extend(opps,{pick: '#test',
-										url: '/api/v1/poster/upload/logo',
-										});
-			if( option.url ) {
-				option.server = option.url;
-				delete option.url;
-			}
-			var webUploader = WebUploader.create(option);
-			webUploader.on('uploadSuccess',function( file, response ){
 
-				if(self.success)self.success(response);
-=======
-			pick: '#test',
-			url: '/api/v1/poster/upload',
-			success:null,
-			error:null,
-			fileQueued:null,
-			complete:null,
-			uploadfinish:null,
-			progress:null,
-			buttonText: '选择图片上传',
-			chunked: false,
-			fileNumLimit: 8,
-			fileSingleSizeLimit: 5 * 1024 * 1024,
-			accept: 'image/jpg,image/jpeg,image/png,image/gif',
-			threads: 1,
-			auto:true
->>>>>>> 659df244fe28b660dfb8be101dce9f5fab761955
-
-		}
 
 /*
 	$.fn.uploads = function(options){
