@@ -45,12 +45,7 @@ $(function(){
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字"},
-                {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.fn.uploads.showDialog(function(data){
-                            $('.header-logo img').attr("src",data.file);
-                            storageAPI.setHead("logo_img",data.file);
-                    });
-                }},
+                {icon:"glyphicon glyphicon-picture",text:" 上传图片"},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
             followMouse:true

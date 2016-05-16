@@ -20,44 +20,29 @@
 	$.fn.uploads = function(){
 		var self = this;
 		this.success = null;
-		this.init = function(){
-			var option = $.extend(opps,{pick: '#test',
-										url: '/api/v1/poster/upload/logo',
-										});
+		this.showDialog = function(options){
+			var option = $.extend(opps,options);
 			if( option.url ) {
 				option.server = option.url;
 				delete option.url;
 			}
+			console.log(option.pick);
 			var webUploader = WebUploader.create(option);
 			webUploader.on('uploadSuccess',function( file, response ){
-				console.log(123123)
-				if(self.success)self.success(response);
-
+				if(option.success)option.success(response);
 			});
-
 			webUploader.on('uploadError',function( file, reason ){
-				if ( self.error ) {
-					self.error( reason );
-
-				}
+				if ( option.error ) option.error( reason );
 			});
-
-
-
-		};
-		this.showDialog = function(succ,error){
-			self.success = succ;
-			self.error = error;
-			$('#test input').trigger('click');
+			
 		}
 		return{
-			"init":self.init,
 			"showDialog":self.showDialog
 		}
 	}();
 
+})(jQuery)
 	/*$.fn.uploads = function(options){
-
 		return this.each(function(){
 
 			var option = $.extend(opps,options);
@@ -139,13 +124,5 @@
 
 			//webUploader.upload();
 
-		})
+		})*/
 
-
-	}*/
-
-})(jQuery)
-
-$(function(){
-	$.fn.uploads.init();
-});
