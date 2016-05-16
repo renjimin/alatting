@@ -175,7 +175,7 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .bar-footer .tab-item .icon.ico-edit-button{width:2em;}
 .bar-footer .tab-item i + span{margin-left:5px; vertical-align: top;line-height:24px;display:inline-block;}
 .bar-footer .tab-item .glyphicon{height: 1em;width: 1em;}
-.tab-item {-webkit-box-flex: 1;-webkit-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;overflow: hidden;max-width: 150px;height: 50px;color: inherit;text-align: center;text-decoration: none;text-overflow: ellipsis;white-space: nowrap;font-weight: 400;font-size: 14px;opacity: 0.7;}
+.tab-item {-webkit-box-flex: 1;-webkit-flex: 1;-moz-flex: 1;-ms-flex: 1;flex: 1;display: block;overflow: hidden;max-width: 150px;color: inherit;text-align: center;text-decoration: none;text-overflow: ellipsis;white-space: nowrap;font-weight: 400;font-size: 14px;opacity: 0.7;}
 .bar button {z-index: 1;padding: 0 8px;min-width: initial;min-height: 31px;font-weight: 400;font-size: 13px;}
 .button {border-color: transparent;background-color: #f8f8f8;color: #444;position: relative;display: inline-block;margin: 0;padding: 0 12px;min-width: 52px;min-height: 47px;border-width: 1px;border-style: solid;border-radius: 4px;vertical-align: top;text-align: center;text-overflow: ellipsis;font-size: 16px;line-height: 42px;cursor: pointer;}
 .button-clear {-webkit-transition: opacity 0.1s;transition: opacity 0.1s;padding: 0 6px;max-height: 42px;border-color: transparent;background: none;box-shadow: none;}
@@ -206,8 +206,8 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 
 
 /* 弹出层样式 */
-#dp{z-index: 101;width: 100%;background: #e1e1e1;box-shadow:0 0 8px #999;display: none;position: absolute;}
-#dp.open{display: block;}
+#dp{z-index: 101;width: 100%;background: #e1e1e1;box-shadow:0 0 8px #999;visibility:hidden;position: absolute;display: block;}
+#dp.open{visibility:visible;}
 #dp ul{width: 100%;display:none;margin:0;}
 #dp li{display:block;border-bottom: 1px solid #fff;height: 50px;display:block;overflow: hidden;font-size: 24px;line-height: 24px;}
 #dp li:last-child{border-bottom: none;}
@@ -273,3 +273,4 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 .systemimg-8{background-image:url(/static/poster/images/systemimg/system-8.svg)}
 .systemimg-9{background-image:url(/static/poster/images/systemimg/system-9.svg)}
 
+.tangram-suggestion-main{z-index: 3000;}

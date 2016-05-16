@@ -42,13 +42,15 @@ $(function(){
         });
     $('.header-info').registerDropDown({
             id:'dpw_desc',
-            eval:'$("#dp").height($(document.body).height() - _this.offset().top - $("bar-footer bar").height()-40);$("#dp textarea").focusEnd();',
+            eval:'$("#dp").height($(document).height() - 113 - $(".header-bar").height()  );$("#dp textarea").focusEnd();',
             dynamicClass:'info'
         });
     $('.header-logo').registerPopUp({
             id:'dpw_menu',
             offsetYPercent:100,
-            list:[{icon:"icon ico-edit-text",text:"打字"},
+            list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
+
+                }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
                     $.fn.uploads.showDialog(function(data){
                             $('.header-logo img').attr("src",data.file);
@@ -57,6 +59,7 @@ $(function(){
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
+            followMouse:true
         });
     $('.mask').registerPopUp({
             id:'dpw_header',
@@ -186,7 +189,7 @@ $(function(){
         });*/
         $('#teditor').show();
         $(this).tEditor();
-        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 100);
+        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
         event.stopPropagation();
     });
 
@@ -227,14 +230,13 @@ $(function(){
         $('.edit-bar-header .title p').html(pageHeadData.title);
         $('#dpw_title input').val(pageHeadData.title);
     }
-    if(pageHeadData.desc){  
-        $('.header-info .desc span').html(pageHeadData.desc);
-        $('#dpw_desc textarea').val(pageHeadData.desc);
+    if(pageHeadData.short_description){  
+        $('.header-info .desc span').html(pageHeadData.short_description);
+        $('#dpw_desc textarea').val(pageHeadData.short_description);
     }
     if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
     if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
     if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
-    if(pageHeadData.address)$('#dpw_address input').val(pageHeadData.address);
     if(pageHeadData.clock){
         for(var i in pageHeadData.clock){
             $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
@@ -250,7 +252,7 @@ $(function(){
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
-        storageAPI.setHead("desc",event.currentTarget.value);
+        storageAPI.setHead("short_description",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(0)').on('change',function(event){
         storageAPI.setHead("phone",event.currentTarget.value);
@@ -260,9 +262,6 @@ $(function(){
     });
     $('#dpw_email input').on('change',function(event){
         storageAPI.setHead("email",event.currentTarget.value);
-    });
-    $('#dpw_address input').on('change',function(event){
-        storageAPI.setHead("address",event.currentTarget.value);
     });
     $('#dpw_clock input').on('change',function(event){
         var inputs = $('#dpw_clock input');
