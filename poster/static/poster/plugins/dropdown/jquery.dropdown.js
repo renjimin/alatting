@@ -20,7 +20,7 @@
 			_this.on('click',function(event){
 				$(document).trigger("clsdp");
 				if(!options){
-                    $('#dp').hide();
+			  $('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
@@ -34,9 +34,11 @@
 					var dpw = $('#dp');
 					if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 						dpw.attr('class', '').removeClass('open');
+						$('#dp ul').css("visibility","hidden");
 					}else{
 						dpw.attr('class', '').attr('style', '');
 						$('#dp ul').hide();
+						$('#'+_option.id).css("visibility","visible");
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
 
@@ -72,7 +74,7 @@
 			arrowOffset:0,
 			orientation:0,
 			followMouse:false,
-            suspendFun: null
+		suspendFun: null
 		};
 		return this.each(function () {
 			var _this = $(this),
@@ -101,23 +103,23 @@
 						var cb = _option.list[l[l.length-1]].callback;
 						if(cb){
 							$('#dp').removeClass('open');
+							$('#dp ul').css("visibility","hidden");
 							cb(_this);
 						}
 					});
 			}
 			_this.on('click',function(event){
-                if(_option.suspendFun !== null
-                    && $.isFunction(_option.suspendFun)){
-                    if(!_option.suspendFun()){
-                        return false;
-                    }
-                }
+				if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
+					if(!_option.suspendFun())return false;
+				}
 				$(document).trigger("clsdp");
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
+					$('#dp ul').css("visibility","hidden");
 				}else{
 					dpw.attr('class', '').attr('style', '');
 					$('#dp ul').hide();
+					$('#'+_option.id).css("visibility","visible");
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
 
