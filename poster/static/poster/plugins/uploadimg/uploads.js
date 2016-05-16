@@ -30,7 +30,7 @@
 			}
 			var webUploader = WebUploader.create(option);
 			webUploader.on('uploadSuccess',function( file, response ){
-				console.log(123123)
+
 				if(self.success)self.success(response);
 
 			});

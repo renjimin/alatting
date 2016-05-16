@@ -83,10 +83,11 @@
 				$fileBox.removeClass('diyUploadHover');
 				$diyBar.fadeOut( 1000 ,function(){
 					$fileBox.children('.diySuccess').show();
+					$fileBox.hide();
 				});
 				if ( successCallBack ) {
 					successCallBack( response );
-				}	
+				}
 			});
 			
 			//上传失败后触发事件;
@@ -95,7 +96,7 @@
 				var $diyBar = $fileBox.find('.diyBar');	
 				showDiyProgress( 0, $diyBar , '上传失败!' );
 				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason
-				console.log('uploadError');
+				console.log('error')
 				if ( errorCallBack ) {
 					errorCallBack( err );
 				}

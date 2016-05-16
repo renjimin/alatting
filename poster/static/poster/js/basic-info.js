@@ -83,7 +83,26 @@ function submitinfo(){
 		//console.log(params);
 
 		//location.href = "/poster/select-template/?unique_name=" + postname + "&short_description=" + postdesc + "&phone=" + posttelephone + "&mobile=" + postphone + "&email=" + postemail + "&address="+postaddress;
+
 		$("#form-info").submit();
+
+
+
+		//$.ajax({
+		//cache: true,
+		//type: "POST",
+		//url:ajaxCallUrl,
+		//data:$('#form-info').serialize(),
+		//async: false,
+		//error: function(request) {
+		//	yyAlert("保存失败");
+		//},
+		//success: function(data) {
+		//	yyAlert("保存成功");
+		//}
+		//});
+
+
 
 }
 
@@ -112,8 +131,7 @@ $(function(){
 	if (result < 0) {
 	//_alertMsg.innerHTML="请输入正确格式:" + upLoadType;
 		 yyAlert("请输入正确格式:" + upLoadType);
-
-
+		 return;
 	} else{
 		_alertMsg.innerHTML="<font style='color:blue'></font>";
 	};

@@ -6,8 +6,27 @@ $(function(){
             {
                 icon: "ico-email",
                 text: "上传图片",
-                callback: function () {
-                    alert("调用上传组件!");
+                callback: function (_this) {
+                    $(".dialog").animate({top: '0px'});
+                    $('#as').diyUpload({
+                    url: '/api/v1/poster/upload/logo',
+                    success: function (data) {
+                        _this.imgslider({'data': data});
+                        $(".dialog").animate({top: '100%'});
+                        //console.info(data);
+                    },
+                    error: function (err) {
+                        //console.info(err);
+                    },
+
+                    buttonText: '选择图片上传',
+                    chunked: false,
+                    fileNumLimit: 8,
+                    fileSingleSizeLimit: 5 * 1024 * 1024,
+                    accept: 'image/jpg,image/jpeg,image/png,image/gif',
+                    threads: 1
+
+                    });
                 }
             },
             {
@@ -42,5 +61,17 @@ $(function(){
     $('.content-top').registerPopUp(topOption);
     $('.content-middle').registerPopUp(midOption);
     $('.content-bottom').registerPopUp(btmOption);
+
+
+
+
+
+
+    $(".closefile").click(function(){
+    $(".dialog").hide();
+    })
+
+
+
 });
 
