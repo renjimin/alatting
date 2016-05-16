@@ -35,10 +35,11 @@
 
 .system-item .item-system {
     width: 33.3333333%;
-    padding: 15px;
     float: left;
-    position: relative;
-    text-align: center;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80% 80%;
     opacity: .5;
 }
 
