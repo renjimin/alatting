@@ -62,6 +62,7 @@ target/
 /static/
 /media/videos/
 /media/poster/
+/media/images/
 /alatting/settings.py
 /alatting/wsgi.py
 

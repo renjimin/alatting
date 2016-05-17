@@ -1,0 +1,21 @@
+{% extends 'poster/edit/base.html' %}
+{% load static %}
+
+{% block base_header_css %}
+    {{ block.super }}
+    <style>
+        {{ posterpage.temp_css|safe }}
+    </style>
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script>
+        {{ posterpage.temp_script|safe }}
+    </script>
+{% endblock %}
+
+
+{% block poster_base_body %}
+    {{ posterpage.temp_html|safe }}
+{% endblock %}

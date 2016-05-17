@@ -1,0 +1,109 @@
+{% load static %}
+
+<section id="dp">
+    <ul id="dpw_phone">
+        <li>
+            <i class="icon ico-phone"></i>
+            <span>
+                <input type="text" value="{{ poster.phone }}"/>
+            </span>
+        </li>
+        <li>
+            <i class="icon ico-mobile"></i>
+            <span>
+                <input type="text" value="{{ poster.mobile }}"/>
+            </span>
+        </li>
+    </ul>
+    <ul id="dpw_email">
+        <li>
+            <i class="icon ico-email"></i>
+            <span>
+                <input type="text" value="{{ poster.email }}"/>
+            </span>
+        </li>
+    </ul>
+    <ul id="dpw_address">
+        <li>
+            <i class="icon ico-address"></i>
+            <span>
+                <input id="suggestId" type="text" value="{{ poster.address }}"/>
+            </span>
+        </li>
+        <div id="allmap" style="width: 100%;height: 300px;"></div>
+    </ul>
+    <ul id="dpw_clock">
+        <li><i class="text">周一</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+        <li><i class="text">周二</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+        <li><i class="text">周三</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+        <li><i class="text">周四</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+        <li><i class="text">周五</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+        <li><i class="text">周六</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+        <li><i class="text">周日</i><span><input type="time" class="col-xs-4"/><p
+                class="col-xs-1">至</p><input type="time"
+                                             class="col-xs-4"/></span></li>
+    </ul>
+    <ul id="dpw_title">
+        <li>
+            <span>
+                <input type="text" value="{{ poster.logo_title }}"/>
+            </span>
+        </li>
+    </ul>
+    <ul id="dpw_desc">
+        <div class="input-outer">
+            <textarea
+                type="text">{{ poster.short_description }}</textarea>
+            <span>海报关键词</span>
+
+            <div class="ed-content">
+                <span id="ed-con-li2" data-id="2">aabb</span>
+            </div>
+        </div>
+        <div class="input-outer autoheight">
+            <div class="ed-choose">
+                {% for cat in categorykeyword_list %}
+                    <div class="ed-choose-li col-xs-6"
+                         data-cont="{{ cat.verb }}{{ cat.noun }}" data-view="0"
+                         data-id="{{ cat.id }}">
+                        <div class="cbox-line">
+                            <span class="glyphicon glyphicon-unchecked"></span>{{ cat.verb }}+{{ cat.noun }}
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="ed-add">
+                    <div class="ed-add-li col-xs-3">
+                        <span>动词</span><br>
+                        <input type="text" class="form-control" id="newKwv"
+                               placeholder="例:招募">
+                    </div>
+                    <div class="ed-add-li col-xs-1"><span>+</span></div>
+                    <div class="ed-add-li col-xs-4">
+                        <span>名词</span><br>
+                        <input type="text" class="form-control" id="newKwn"
+                               placeholder="例:创业精英">
+                    </div>
+                    <div class="ed-add-li col-xs-2  col-xs-offset-1">
+                        <span>&nbsp;</span><br>
+                        <input type="button"
+                               class="btn btn-default form-control"
+                               id="addItem" value="新增">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ul>
+    <span class="arrow"></span>
+</section>
