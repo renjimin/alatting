@@ -3,7 +3,6 @@ from alatting_website.models import Category
 import os
 from django.conf import settings
 from django.contrib.auth.models import User
-from survey import QuestionChoices
 
 class Survey(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -39,8 +38,8 @@ class Questionnaire(models.Model):
         null=True
     )
 
-    def __unicode__(self):
-        return "{:s}".format(self.name)
+    def __str__(self):
+        return '%s' % (self.name)
 
     def questionsets(self):
         if not hasattr(self, "__qscache"):
@@ -98,14 +97,17 @@ class QuestionSet(models.Model):
             # should only occur if not yet saved
             return True
 
-    def __unicode__(self):
-        return u'(%s) %d. %s' % (self.questionnaire.name, self.sortid, self.heading)
+    def __str__(self):
+        return '%s-%d' % (self.questionnaire.name, self.sortid)
 
 
 class Question(models.Model):
     questionset = models.ForeignKey(QuestionSet)
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
+    QuestionChoices = (
+        ('choice', 'A list of choices to choose from'),
+    )
     type = models.CharField(u"Type of question", max_length=32,
         choices = QuestionChoices,
         help_text = u"Determines the means of answering the question. " \
@@ -117,8 +119,8 @@ class Question(models.Model):
     def questionnaire(self):
         return self.questionset.questionnaire
 
-    def __unicode__(self):
-        return u'%s %s' % (unicode(self.questionset), self.text)
+    def __str__(self):
+        return '%s-%s' % (self.questionset, self.text)
 
     def choices(self):
         res = Choice.objects.filter(question=self).order_by('sortid')
