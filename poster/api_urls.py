@@ -4,7 +4,8 @@ from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView,
                         PosterPublishView, SystemImageListView, SystemBackgroundListView, PosterSaveView, \
     PosterStatusView
 from poster.apiview.resource import CategoryKeywordListView, \
-    CategoryKeywordDetailView, UploadFileView, TemplateDetailView
+    CategoryKeywordDetailView, UploadFileView, TemplateDetailView, \
+    TemplateListView
 
 
 urlpatterns = [
@@ -36,6 +37,9 @@ urlpatterns = [
 
     url(r'^system/background$',
         SystemBackgroundListView.as_view(), name='system_background'),
+
+    url(r'templates$',
+        TemplateListView.as_view(), name='templates'),
 
     url(r'templates/(?P<pk>\d+)$',
         TemplateDetailView.as_view(), name='template_detail'),

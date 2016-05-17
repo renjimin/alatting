@@ -17,6 +17,7 @@ from alatting_website.model.poster import (
     AbstractPageTemplate
 )
 from utils import file
+from utils.constants import DataStatus
 from utils.db.fields import (
     OverWriteFileField, OverWriteImageField, OverWriteVideoField,
     BigAutoField, BigForeignKey, BigOneToOneField
@@ -95,9 +96,20 @@ class Address(models.Model):
         return "{:s}".format(self.address1)
 
 
-class Template(models.Model):
+class Template(models.Model, DataStatus):
     name = models.CharField(max_length=64, unique=True)
+    title = models.CharField(
+        verbose_name=u'模板标题',
+        max_length=100,
+        default='',
+        help_text=u'显示在选择模板列表页模板图片下方'
+    )
     image = models.ForeignKey(Image, default=None, null=True, blank=False)
+    data_status = models.SmallIntegerField(
+        verbose_name=u'数据状态',
+        default=DataStatus.USABLE,
+        choices=DataStatus.STATUS
+    )
 
     def __str__(self):
         return "{:s}".format(self.name)

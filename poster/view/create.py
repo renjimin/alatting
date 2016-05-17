@@ -145,7 +145,9 @@ class UpdateFormView(PosterFormViewMixin, UpdateView):
 class SelectTemplateView(ListView):
     model = Template
     template_name = 'poster/select-template.html'
-    queryset = Template.objects.all()
+    queryset = Template.objects.filter(
+        data_status=Template.USABLE
+    ).order_by('name')
 
 
 class PosterPageCreateView(View):
