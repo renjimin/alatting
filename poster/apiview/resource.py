@@ -148,7 +148,9 @@ class CategoryKeywordListView(ListCreateAPIView):
 
 class TemplateListView(ListAPIView):
     model = Template
-    queryset = Template.objects.all().order_by('name')
+    queryset = Template.objects.filter(
+        data_status=Template.USABLE
+    ).order_by('name')
     serializer_class = TemplateSerializer
 
 
