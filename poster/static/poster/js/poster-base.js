@@ -121,19 +121,12 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-<<<<<<< HEAD
-                        $.uploads(function(options){
-                            $('.yunye-template').css('background-image', 'url(' + options.file + ')');
-                            $('.yunye-template').css('background-size', 'cover');
-                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                             });                        
-=======
+
                           $.fn.uploads.showDialog(function(data){
                                 $('.yunye-template').css('background-image', 'url(' + data.file + ')');
                                 $('.yunye-template').css('background-size', 'cover');
                                 storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
                            });                     
->>>>>>> 2bef260134fd42bf7ba6ca55a357adb0252ba683
                     }},
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
