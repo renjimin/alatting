@@ -15,7 +15,10 @@
     pluginName = "teditor";
     defaults = {
         colorArr:colorArr,
-        fontFamily:fontFamily
+        fontFamily:fontFamily,
+        textDelete:true,
+        textCopy:true,
+        pluginType:'main'
     };
 
     var Plugin = function(ele,option){
@@ -25,6 +28,7 @@
     }
     Plugin.prototype.init=function(){
         var _this = this;
+        var option = _this.option;
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
         var move=false;
@@ -53,6 +57,17 @@
             var ctx=canvas.getContext("2d");
         }
 
+        if(option.textCopy){
+            $('#ted-copy').css('display','block');
+        }else{
+            $('#ted-copy').css('display','none');
+        }
+        if(option.textDelete){
+            $('#ted-delete').css('display','block');
+        }else{
+            $('#ted-delete').css('display','none');
+        }
+        
         /*------------控件操作事件-------------*/
         /*删除文本*/
         pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(){
@@ -77,10 +92,18 @@
         /*文字内容编辑*/
         pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
             $('.ted-text-content').fadeIn(200);
-            $('#tt-content').val($element.find('.element-box-contents').html());
+            if(option.pluginType == 'main'){
+                $('#tt-content').val($element.find('.element-box-contents').html());
+            }else if(option.pluginType == 'other'){
+                $('#tt-content').val($element.html());
+            }else{}
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
-            $element.find('.element-box-contents').html($('#tt-content').val());
+            if(option.pluginType == 'main'){
+                $element.find('.element-box-contents').html($('#tt-content').val());
+            }else if(option.pluginType == 'other'){
+                $element.html($('#tt-content').val());
+            }else{}
         });
         pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
             $('.ted-text-content').fadeOut(200);
