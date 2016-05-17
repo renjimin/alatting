@@ -151,11 +151,12 @@ class PosterStatusView(APIView):
         lifetime_dict = json.loads(poster.lifetime_value)
         if poster.lifetime_type in ['specific_days', 'weekly']:
             make_time = lambda x, y: datetime.strptime(x + ' ' + y, '%Y-%m-%d %H:%M:%S')
-            if poster.lifetime_type == 'specific_days' and day_now in lifetime_dict.keys():
-                start_time = make_time(day_now, lifetime_dict[day_now]['time_start'])
-                end_time = make_time(day_now, lifetime_dict[day_now]['time_end'])
-                if timezone.localize(start_time) <= now <= timezone.localize(end_time):
-                    status = 'Enable'
+            if poster.lifetime_type == 'specific_days':
+                if day_now in lifetime_dict.keys() and lifetime_dict[day_now]['enabled']:
+                    start_time = make_time(day_now, lifetime_dict[day_now]['time_start'])
+                    end_time = make_time(day_now, lifetime_dict[day_now]['time_end'])
+                    if timezone.localize(start_time) <= now <= timezone.localize(end_time):
+                        status = 'Enable'
             else:
                 weekday = now.strftime('%A')
                 if weekday in lifetime_dict.keys() and lifetime_dict[weekday]['enabled']:
