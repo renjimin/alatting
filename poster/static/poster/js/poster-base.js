@@ -182,9 +182,9 @@ $(function(){
                         });
                     }},
                 ]
-<<<<<<< HEAD
+
         });              
-=======
+
         }); 
      $('.qrcode .btn').registerPopUp({
             id:'dpw_qr',
@@ -217,7 +217,7 @@ $(function(){
                 }}],
             followMouse:true
         });                    
->>>>>>> 2bef260134fd42bf7ba6ca55a357adb0252ba683
+
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
 //        $("#teditor").hide();
