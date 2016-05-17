@@ -49,15 +49,18 @@ $(function(){
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
-
+                    $('.header-logo').empty().append('<h2>input</h2>');
+                    event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.uploads({
-                        pick:'tet',
-                        success:function(data){
-                            console.log(1);
-                        }
-                    })
+<<<<<<< HEAD
+                    
+=======
+                          $.fn.uploads.showDialog(function(data){
+                                $('.header-logo img').attr("src",data.file);
+                                storageAPI.setHead("logo_img",data.file);                            
+                           }); 
+>>>>>>> 2bef260134fd42bf7ba6ca55a357adb0252ba683
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
@@ -85,11 +88,11 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                         $.uploads(function(data){
-                            $('.header').css('background-image', 'url(' + data.file + ')');
-                            $('.header').css('background-size', 'cover');
-                            storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                           });                           
+                          $.fn.uploads.showDialog(function(data){
+                                $('.header').css('background-image', 'url(' + data.file + ')');
+                                $('.header').css('background-size', 'cover');
+                                storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           }); 
                     }}
                 ]
         });
@@ -117,11 +120,11 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                        $.uploads(function(options){
-                            $('.yunye-template').css('background-image', 'url(' + options.file + ')');
-                            $('.yunye-template').css('background-size', 'cover');
-                            storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                             });                        
+                          $.fn.uploads.showDialog(function(data){
+                                $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                                $('.yunye-template').css('background-size', 'cover');
+                                storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           });                     
                     }},
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
@@ -167,8 +170,8 @@ $(function(){
                      {icon:"glyphicon glyphicon-adjust",text:" 主体颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
-                             $('body').css('background',color);
-                             $('.bar-header,.bar-footer,.yunye-template,.header').css('background',color);
+                            $('body').css('background',color);
+                            $('.bar-header,.bar-footer,.yunye-template,.header').css('background',color);
                             storageAPI.setCss("body", {'background':color});
                             storageAPI.setCss(".bar-header", {'background':color});
                             storageAPI.setCss(".bar-footer", {'background':color});
@@ -177,23 +180,45 @@ $(function(){
                         });
                     }},
                 ]
-        });              
+        }); 
+     $('.qrcode .btn').registerPopUp({
+            id:'dpw_qr',
+            offsetYPercent:100,
+            list:[{icon:"glyphicon glyphicon-adjust",text:"颜色",callback:function(){
+                            $("#colorBox").css('top',$('.content').offset().top).show();
+                            $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                            $('.qrcode .btn,.abutton-group li a').css('background',color);
+                            storageAPI.setCss(".qrcode .btn", {'background':color});
+                            storageAPI.setCss(".abutton-group li a", {'background':color});
+                        });
+                }},
+                {icon:"icon ico-edit-pic",text:"背景图片",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + img + ')');
+                            $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                            storageAPI.setCss(".qrcode .btn", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })                    
+                }},
+                {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
+                          $.fn.uploads.showDialog(function(data){
+                                console.log(data)
+                                $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
+                                $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                                storageAPI.setCss(".qrcode .btn", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});
+                                storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                               
+                           });     
+                }}],
+            followMouse:true
+        });            
+                
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
-        $("#teditor").hide();
+//        $("#teditor").hide();
     });
 
-    //改变文字颜色
-    $('.glyphicon-text-height').on('click',function(event){
-        //$("#colorBox").css('top', $(document).height() - 160 - 93).show();
-        /*$(this).colorSelect({clbox:'colorBox'},function(ths,color){
-            ths.css('color',color);
-        });*/
-        $('#teditor').show();
-        $(this).tEditor();
-        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
-        event.stopPropagation();
-    });
+    $('.calender').manhuaDate();
 
     $('body').on('click',function(event){
         //处理点击事件
@@ -211,7 +236,7 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp","#colorBox","#teditor"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
@@ -220,51 +245,74 @@ $(function(){
         $('#dp').removeClass('open');
         $('#dp ul').css("visibility","hidden");
     });
-    /**读取缓存背景图片*/
-    var storageAPI = $.fn.yunyeStorage;
-    if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
-    if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
-    if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
-    if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));   
-    if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
+
     //数据初始化
+    var storageAPI = $.fn.yunyeStorage;
     var pageHeadData = storageAPI.getPosterHeadData();
-    if(pageHeadData.title){
-        $('.edit-bar-header .title p').html(pageHeadData.title);
-        $('#dpw_title input').val(pageHeadData.title);
+    if(!(yunyeEditorGlobal.updated_at  > pageHeadData.updated_at)){
+        $.extend(yunyeEditorGlobal,pageHeadData);
+        initData();
     }
-    if(pageHeadData.short_description){  
-        $('.header-info .desc span').html(pageHeadData.short_description);
-        $('#dpw_desc textarea').val(pageHeadData.short_description);
-    }
-    if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
-    if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
-    if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
-    if(pageHeadData.clock){
-        for(var i in pageHeadData.clock){
-            $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
+
+    function initData(){
+         //标题
+        $('.edit-bar-header .title p').html(yunyeEditorGlobal.title);
+        $('#dpw_title input').val(yunyeEditorGlobal.title);
+        //简述
+        $('.header-info .desc span').html(yunyeEditorGlobal.short_description);
+        $('#dpw_desc textarea').val(yunyeEditorGlobal.short_description);
+        //电话手机邮箱
+        $('#dpw_phone input:eq(0)').val(yunyeEditorGlobal.phone);
+        $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
+        $('#dpw_email input').val(yunyeEditorGlobal.email);
+        
+        if( !!yunyeEditorGlobal.logo_title){
+            logoTitleType = "text";
+            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_title+'</h2>');
+        }else{
+            $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image+'" >');
         }
-    }
-    if(pageHeadData.logo_img){
+        if(pageHeadData.clock){
+            for(var i in pageHeadData.clock){
+                $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
+            }
+        }
+        //logo本地存储
+        if(pageHeadData.logo_img){
             $('.header-logo img').attr("src",pageHeadData.logo_img);       
+        }
+        /**读取缓存背景图片*/
+        if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
+        if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
+        if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
+        if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));   
+        if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
+        if(storageAPI.getCss(".qrcode .btn"))$(".qrcode .btn").css(storageAPI.getCss(".qrcode .btn"));
+        if(storageAPI.getCss(".abutton-group li a"))$(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
     }
+    
+    function setHeadTimeStamp(key,value){
+        storageAPI.setHead("title",event.currentTarget.value);
+        storageAPI.setHead("updated_at", new Date().getTime());
+    }
+    
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        storageAPI.setHead("title",event.currentTarget.value);
+        setHeadTimeStamp("title",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
-        storageAPI.setHead("short_description",event.currentTarget.value);
+        setHeadTimeStamp("short_description",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(0)').on('change',function(event){
-        storageAPI.setHead("phone",event.currentTarget.value);
+        setHeadTimeStamp("phone",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(1)').on('change',function(event){
-        storageAPI.setHead("mobile",event.currentTarget.value);
+        setHeadTimeStamp("mobile",event.currentTarget.value);
     });
     $('#dpw_email input').on('change',function(event){
-        storageAPI.setHead("email",event.currentTarget.value);
+        setHeadTimeStamp("email",event.currentTarget.value);
     });
     $('#dpw_clock input').on('change',function(event){
         var inputs = $('#dpw_clock input');
@@ -282,6 +330,6 @@ $(function(){
                 break;
             }
         }
-        storageAPI.setHead("clock",arr);
+        setHeadTimeStamp("clock",arr);
     });
 });
