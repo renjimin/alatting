@@ -7,9 +7,6 @@ $(function(){
         window.location.href = url;
         });
     });
-    $(".icon-change-template").click(function(){
-        alert("更换模板");
-    });
 
     //弹出菜单
     $(".dropdown-toggle").registerDropDown();

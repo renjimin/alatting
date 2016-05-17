@@ -1,0 +1,33 @@
+.change-template-layout-icon{
+    position: absolute;
+    top: 210px;
+    left: 15px;
+    z-index: 900;
+}
+.change-template-layout-icon img{
+    width: 40px;
+}
+
+.change-template-layout{
+    z-index: 990;
+    width: 100%;
+    background-color: #222223;
+    display: none;
+}
+.change-template-layout > .change-header > h3{
+    text-align: center;
+    background-color: #ACACAC !important;
+    margin: 0;
+    font-size: 1.4em;
+    line-height: 50px;
+}
+.change-template-layout > .change-list{
+    height: 100%;
+    background-color: #0051a8;
+}
+.change-template-layout > .change-footer{
+    position: absolute;
+    bottom: 0;
+    padding: 20px 0;
+    text-align: center;
+}
