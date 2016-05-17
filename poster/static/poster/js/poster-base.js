@@ -51,8 +51,9 @@ $(function(){
             list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
                     $('.header-logo').empty().append('<h2>input</h2>');
                     $('#teditor').show();
+                    $('#bodyMask').show();
                     $('.header-logo h2').tEditor();
-                    $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
+                    $('#teditor').css('top',$(document).height() - $('#teditor').height() );
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
@@ -189,12 +190,8 @@ $(function(){
 
     //改变文字颜色
     $('.ico-text').on('click',function(event){
-        //$("#colorBox").css('top', $(document).height() - 160 - 93).show();
-        /*$(this).colorSelect({clbox:'colorBox'},function(ths,color){
-            ths.css('color',color);
-        });*/
         $('#teditor').show();
-        $(this).tEditor();
+        $(this).tEditor();  
         $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
         event.stopPropagation();
     });
@@ -224,51 +221,61 @@ $(function(){
         $('#dp').removeClass('open');
         $('#dp ul').css("visibility","hidden");
     });
-    /**读取缓存背景图片*/
-    var storageAPI = $.fn.yunyeStorage;
-    if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
-    if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
-    if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
-    if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));   
-    if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
     //数据初始化
+    var storageAPI = $.fn.yunyeStorage;
     var pageHeadData = storageAPI.getPosterHeadData();
-    if(pageHeadData.title){
-        $('.edit-bar-header .title p').html(pageHeadData.title);
-        $('#dpw_title input').val(pageHeadData.title);
-    }
-    if(pageHeadData.short_description){  
-        $('.header-info .desc span').html(pageHeadData.short_description);
-        $('#dpw_desc textarea').val(pageHeadData.short_description);
-    }
-    if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
-    if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
-    if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
-    if(pageHeadData.clock){
-        for(var i in pageHeadData.clock){
-            $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
+    if(!(yunyeEditorGlobal.updated_at  > pageHeadData.updated_at))initData();
+
+    function initData(){
+        if(pageHeadData.title){
+            $('.edit-bar-header .title p').html(pageHeadData.title);
+            $('#dpw_title input').val(pageHeadData.title);
         }
+        if(pageHeadData.short_description){  
+            $('.header-info .desc span').html(pageHeadData.short_description);
+            $('#dpw_desc textarea').val(pageHeadData.short_description);
+        }
+        if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
+        if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
+        if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
+        if(pageHeadData.clock){
+            for(var i in pageHeadData.clock){
+                $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
+            }
+        }
+        if(pageHeadData.logo_img){
+                $('.header-logo img').attr("src",pageHeadData.logo_img);       
+        }
+        /**读取缓存背景图片*/
+        if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
+        if( storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
+        if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
+        if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));   
+        if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
     }
-    if(pageHeadData.logo_img){
-            $('.header-logo img').attr("src",pageHeadData.logo_img);       
+    
+    function setHeadTimeStamp(key,value){
+        storageAPI.setHead("title",event.currentTarget.value);
+        storageAPI.setHead("updated_at", new Date().getTime());
     }
+    
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        storageAPI.setHead("title",event.currentTarget.value);
+        setHeadTimeStamp("title",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
-        storageAPI.setHead("short_description",event.currentTarget.value);
+        setHeadTimeStamp("short_description",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(0)').on('change',function(event){
-        storageAPI.setHead("phone",event.currentTarget.value);
+        setHeadTimeStamp("phone",event.currentTarget.value);
     });
     $('#dpw_phone input:eq(1)').on('change',function(event){
-        storageAPI.setHead("mobile",event.currentTarget.value);
+        setHeadTimeStamp("mobile",event.currentTarget.value);
     });
     $('#dpw_email input').on('change',function(event){
-        storageAPI.setHead("email",event.currentTarget.value);
+        setHeadTimeStamp("email",event.currentTarget.value);
     });
     $('#dpw_clock input').on('change',function(event){
         var inputs = $('#dpw_clock input');
@@ -286,6 +293,6 @@ $(function(){
                 break;
             }
         }
-        storageAPI.setHead("clock",arr);
+        setHeadTimeStamp("clock",arr);
     });
 });
