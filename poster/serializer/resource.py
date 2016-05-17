@@ -20,6 +20,10 @@ class CategoryKeywordSerializer(serializers.ModelSerializer):
 class TemplateSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
     file_exists = serializers.SerializerMethodField()
+    data_status_text = serializers.SerializerMethodField()
+
+    def get_data_status_text(self, obj):
+        return obj.get_data_status_display()
 
     def get_file_exists(self, obj):
         return obj.static_file_exists()
@@ -32,7 +36,8 @@ class TemplateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Template
-        fields = ('id', 'name', 'image_url', 'file_exists')
+        fields = ('id', 'name', 'title', 'image_url', 'file_exists',
+                  'data_status', 'data_status_text')
 
 
 class ImageSerializer(serializers.ModelSerializer):
