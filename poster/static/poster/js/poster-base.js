@@ -221,30 +221,35 @@ $(function(){
         $('#dp').removeClass('open');
         $('#dp ul').css("visibility","hidden");
     });
+
+
     //数据初始化
     var storageAPI = $.fn.yunyeStorage;
     var pageHeadData = storageAPI.getPosterHeadData();
-    if(!(yunyeEditorGlobal.updated_at  > pageHeadData.updated_at))initData();
+    if(!(yunyeEditorGlobal.updated_at  > pageHeadData.updated_at)){
+        $.extend(yunyeEditorGlobal,pageHeadData);
+        initData();
+    }
 
     function initData(){
-        if(pageHeadData.title){
-            $('.edit-bar-header .title p').html(pageHeadData.title);
-            $('#dpw_title input').val(pageHeadData.title);
-        }
-        if(pageHeadData.short_description){  
-            $('.header-info .desc span').html(pageHeadData.short_description);
-            $('#dpw_desc textarea').val(pageHeadData.short_description);
-        }
-        if(pageHeadData.phone)$('#dpw_phone input:eq(0)').val(pageHeadData.phone);
-        if(pageHeadData.mobile)$('#dpw_phone input:eq(1)').val(pageHeadData.mobile);
-        if(pageHeadData.email)$('#dpw_email input').val(pageHeadData.email);
+         //标题
+        $('.edit-bar-header .title p').html(yunyeEditorGlobal.title);
+        $('#dpw_title input').val(yunyeEditorGlobal.title);
+        //简述
+        $('.header-info .desc span').html(yunyeEditorGlobal.short_description);
+        $('#dpw_desc textarea').val(yunyeEditorGlobal.short_description);
+        //电话手机邮箱
+        $('#dpw_phone input:eq(0)').val(yunyeEditorGlobal.phone);
+        $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
+        $('#dpw_email input').val(yunyeEditorGlobal.email);
+        
         if(pageHeadData.clock){
             for(var i in pageHeadData.clock){
                 $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
             }
         }
         if(pageHeadData.logo_img){
-                $('.header-logo img').attr("src",pageHeadData.logo_img);       
+            $('.header-logo img').attr("src",pageHeadData.logo_img);       
         }
         /**读取缓存背景图片*/
         if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
