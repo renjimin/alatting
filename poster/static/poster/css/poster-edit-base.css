@@ -30,4 +30,14 @@ body, html {
 .ico-systemimgs{ background-position:-5em 0; }
 .ico-input{ background-position:-6em 0; }
 .ico-music-link{ background-position:-7em 0; }
-.ico-music-upload{ background-position:-8em 0; }
+
+.open>.ico-music-upload{ background-position:-8em -1em; }
+.open>.ico-text{ background-position:0 -1em;}
+.open>.ico-text-space{ background-position:-1em -1em;}
+.open>.ico-copy{ background-position:-2em -1em;}
+.open>.ico-recycle{ background-position:-3em -1em; }
+.open>.ico-systemimg{ background-position:-4em -1em; }
+.open>.ico-systemimgs{ background-position:-5em -1em; }
+.open > .ico-input{ background-position:-6em -1em; }
+.open > .ico-music-link{ background-position:-7em -1em; }
+.open > .ico-music-upload{ background-position:-8em -1em; }
