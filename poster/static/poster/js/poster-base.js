@@ -85,12 +85,11 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                         $.uploads(function(){
-                            console.log(22)
-                            $('.header').css('background-image', 'url(' + data.file + ')');
-                            $('.header').css('background-size', 'cover');
-                            storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
-                           });                           
+                          $.fn.uploads.showDialog(function(data){
+                                $('.header').css('background-image', 'url(' + data.file + ')');
+                                $('.header').css('background-size', 'cover');
+                                storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           }); 
                     }}
                 ]
         });
