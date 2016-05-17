@@ -38,7 +38,26 @@ class QuestionnaireDoneView(TemplateView):
 
 class QuestionnaireView(View):
 	def get(self, request, **kwargs):
-		contextdict = {'runid': self.kwargs['runid']}
+		runid = self.kwargs['runid']
+		runinfo = RunInfo.objects.get(pk=runid)
+		questionset = runinfo.questionset
+		main_cat_name = questionset.questionnaire.main_category.name
+		sub_cat_name = questionset.questionnaire.sub_category.name
+		questions = runinfo.questionset.questions()
+		qlist = []
+		for question in questions:
+			Type = question.get_type()
+			qdict = {
+				'template': 'questionnaire/%s.html' % (Type),
+				'qtype': Type,
+			}
+			qlist.append((question, qdict))
+
+		contextdict = {'runid': self.kwargs['runid'],
+						'main_cat_name': main_cat_name,
+						'sub_cat_name': sub_cat_name,
+						'questionset': questionset,
+						'qlist': qlist}
 		return render_to_response('questionset.html', contextdict)
 
 	def post(self, request, **kwargs):
