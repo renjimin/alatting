@@ -188,6 +188,7 @@
 	background-color: #44cb83;
 	border: none;
 	cursor: url(mouserotate.ico) 10 10, default;
+	transition:all .2s;
 }
 .nbar-line {
 	width: 1px;
@@ -280,6 +281,12 @@
 .nbar-edit{
 	width:18px;height:18px;line-height:18px;    text-align: center;font-size:12px;
 }
+.nbar-rotate.drag-active{
+	transform:scale(1.1,1.1);
+}
+.element-box.drag-active{
+	opacity:0.6;
+}
 .cnd-element .nbar{
 display:none;
 }
@@ -287,7 +294,7 @@ display:none;
 display:block;
 }
 .cnd-element.active .nbar.nbar-ne,.cnd-element.active .nbar.nbar-sw,.cnd-element.active .nbar.nbar-n div,.cnd-element.active .nbar.nbar-s div,.cnd-element.active .nbar.nbar-e div,.cnd-element.active .nbar.nbar-w div{
-	display:none;
+	/*display:none;*/
 }
 /**/
 .systemimg-list ul{ overflow: hidden;height:100%;margin:0;}

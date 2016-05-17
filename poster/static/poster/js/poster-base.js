@@ -50,10 +50,6 @@ $(function(){
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
                     $('.header-logo').empty().append('<h2>input</h2>');
-                    $('#teditor').show();
-                    $('#bodyMask').show();
-                    $('.header-logo h2').tEditor();
-                    $('#teditor').css('top',$(document).height() - $('#teditor').height() );
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
@@ -88,12 +84,11 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-                         $.fn.uploads.showDialog(function(data){
-                            $('.header').css('background-image', 'url(' + data.file + ')');
-                            $('.header').css('background-size', 'cover');
-                            storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});
-                         });
-
+                          $.fn.uploads.showDialog(function(data){
+                                $('.header').css('background-image', 'url(' + data.file + ')');
+                                $('.header').css('background-size', 'cover');
+                                storageAPI.setCss(".header", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           }); 
                     }}
                 ]
         });
@@ -121,7 +116,6 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
-
                           $.fn.uploads.showDialog(function(data){
                                 $('.yunye-template').css('background-image', 'url(' + data.file + ')');
                                 $('.yunye-template').css('background-size', 'cover');
@@ -172,8 +166,8 @@ $(function(){
                      {icon:"glyphicon glyphicon-adjust",text:" 主体颜色",callback:function(){
                         $("#colorBox").css('top',$('.content').offset().top).show();
                         $(this).colorSelect({clbox:'colorBox'},function(ths,color){
-                             $('body').css('background',color);
-                             $('.bar-header,.bar-footer,.yunye-template,.header').css('background',color);
+                            $('body').css('background',color);
+                            $('.bar-header,.bar-footer,.yunye-template,.header').css('background',color);
                             storageAPI.setCss("body", {'background':color});
                             storageAPI.setCss(".bar-header", {'background':color});
                             storageAPI.setCss(".bar-footer", {'background':color});
@@ -182,9 +176,6 @@ $(function(){
                         });
                     }},
                 ]
-
-        });              
-
         }); 
      $('.qrcode .btn').registerPopUp({
             id:'dpw_qr',
@@ -216,20 +207,14 @@ $(function(){
                            });     
                 }}],
             followMouse:true
-        });                    
-
+        });            
+                
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
 //        $("#teditor").hide();
     });
 
-    //改变文字颜色
-    $('.ico-text').on('click',function(event){
-        $('#teditor').show();
-        $(this).tEditor();  
-        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
-        event.stopPropagation();
-    });
+    $('.calender').manhuaDate();
 
     $('body').on('click',function(event){
         //处理点击事件
@@ -247,7 +232,7 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp","#colorBox","#teditor"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
@@ -256,7 +241,6 @@ $(function(){
         $('#dp').removeClass('open');
         $('#dp ul').css("visibility","hidden");
     });
-
 
     //数据初始化
     var storageAPI = $.fn.yunyeStorage;
@@ -278,6 +262,12 @@ $(function(){
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
         
+        if( !!yunyeEditorGlobal.logo_title){
+            logoTitleType = "text";
+            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_title+'</h2>');
+        }else{
+            $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image+'" >');
+        }
         if(pageHeadData.clock){
             for(var i in pageHeadData.clock){
                 $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
