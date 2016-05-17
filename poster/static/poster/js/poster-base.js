@@ -57,9 +57,10 @@ $(function(){
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.fn.uploads.showDialog(function(date){
-                        $(".header-logo>img").attr("src",date.file);
-                    });
+                          $.fn.uploads.showDialog(function(data){
+                                $('.header-logo img').attr("src",data.file);
+                                storageAPI.setHead("logo_img",data.file);                            
+                           }); 
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
@@ -120,11 +121,19 @@ $(function(){
                         });
                     }},
                     {icon:"glyphicon glyphicon-picture",text:"上传图片",callback:function(){
+<<<<<<< HEAD
                         $.uploads(function(options){
                             $('.yunye-template').css('background-image', 'url(' + options.file + ')');
                             $('.yunye-template').css('background-size', 'cover');
                             storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
                              });                        
+=======
+                          $.fn.uploads.showDialog(function(data){
+                                $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                                $('.yunye-template').css('background-size', 'cover');
+                                storageAPI.setCss(".yunye-template", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                             
+                           });                     
+>>>>>>> 2bef260134fd42bf7ba6ca55a357adb0252ba683
                     }},
                     {icon:"glyphicon glyphicon-camera",text:"拍照"}
                 ]
@@ -180,10 +189,45 @@ $(function(){
                         });
                     }},
                 ]
+<<<<<<< HEAD
         });              
+=======
+        }); 
+     $('.qrcode .btn').registerPopUp({
+            id:'dpw_qr',
+            offsetYPercent:100,
+            list:[{icon:"glyphicon glyphicon-adjust",text:"颜色",callback:function(){
+                            $("#colorBox").css('top',$('.content').offset().top).show();
+                            $(this).colorSelect({clbox:'colorBox'},function(ths,color){
+                            $('.qrcode .btn,.abutton-group li a').css('background',color);
+                            storageAPI.setCss(".qrcode .btn", {'background':color});
+                            storageAPI.setCss(".abutton-group li a", {'background':color});
+                        });
+                }},
+                {icon:"icon ico-edit-pic",text:"背景图片",callback:function(){
+                        $(this).bgselect({}, function (ths,img) {
+                            $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + img + ')');
+                            $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                            storageAPI.setCss(".qrcode .btn", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + img + ')', 'background-size': 'cover'});
+                            $(".system-item").fadeOut(500);
+                        })                    
+                }},
+                {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
+                          $.fn.uploads.showDialog(function(data){
+                                console.log(data)
+                                $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
+                                $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                                storageAPI.setCss(".qrcode .btn", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});
+                                storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});                               
+                           });     
+                }}],
+            followMouse:true
+        });                    
+>>>>>>> 2bef260134fd42bf7ba6ca55a357adb0252ba683
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
-        $("#teditor").hide();
+//        $("#teditor").hide();
     });
 
     //改变文字颜色
@@ -246,6 +290,7 @@ $(function(){
                 $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
             }
         }
+        //logo本地存储
         if(pageHeadData.logo_img){
             $('.header-logo img').attr("src",pageHeadData.logo_img);       
         }
