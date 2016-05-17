@@ -268,10 +268,8 @@ $(function(){
         }else{
             $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image+'" >');
         }
-        if(pageHeadData.clock){
-            for(var i in pageHeadData.clock){
-                $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);
-            }
+        if(yunyeEditorGlobal.lifetimevalue){
+            
         }
         //logo本地存储
         if(pageHeadData.logo_img){

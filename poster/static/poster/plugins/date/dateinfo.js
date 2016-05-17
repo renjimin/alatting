@@ -155,66 +155,13 @@ $(function() {
 				monthNum = LeapYear ? 29: 28;
 			}
 			return monthNum;
-		}		
-		//每一列的悬挂事件改变当前样式
-		$("#calender td:not(.tdtoday)").hover(function() {
+		}
+		$("#calender td").click(function(event) {
+			var day = parseInt(event.target.innerHTML);
+			console.log($("#year").val() + "-" + $("#month").val() + "-" + day);
+			$(".hover").removeClass("hover");
 			$(this).addClass("hover")
-		},function() {
-			$(this).removeClass("hover");
 		});		
-		/*
-		//点击时间列表事件
-		$("#calender td").die().live("click",function() {	
-			var dv = $(this).html();
-			if (dv != "&nbsp;"){
-				 var str = "";
-				 if (options.isTime){			
-					var nd = new Date();
-					str = $("#year").val() + options.fuhao + $("#month").val() + options.fuhao + dv + " "+ nd.getHours()+":"+nd.getMinutes()+":"+nd.getSeconds();
-				 }else{
-					str = $("#year").val() + options.fuhao + $("#month").val() + options.fuhao + dv;
-				}				 
-				$("input.dateVisited").val(str);
-				$("input.dateVisited").removeClass('dateVisited')
-				$(".calender").hide();
-			}
-		});
 		
-		//文本框绑定事件
-		$mhInput.live(options.Event,function(e){											
-			$(this).addClass("dateVisited");
-			if(stc){
-				clearTimeout(stc);//清除定时器
-			}
-			var iof = $(this).offset();
-			$(".calender").css({ "left" : iof.left+options.Left,"top" : iof.top+options.Top });
-			$(".calender").show();	
-		});		
-		//当鼠标离开控件上面的时候延迟3秒关闭
-		$(".calender").live("mouseleave",function(){ 
-			stc = setTimeout(function (){			
-				$(".calender").hide();
-				clearTimeout(stc);
-			},3000);	
-		});
-		//当鼠标移到控件上面的时候显示
-		$(".calender").live("mousemove",function(){     
-			if(stc){
-				clearTimeout(stc);//清除定时器
-			}
-			$(this).show();
-		});	
-		//点击年选择下拉框的时候清除定时器阻止控件层关闭
-		$("#year").die().live("click",function(){     
-			if(stc){
-				clearTimeout(stc);//清除定时器
-			}			
-		});	
-		//点击月选择下拉框的时候清除定时器阻止控件层关闭
-		$("#month").die().live("click",function(){     
-			if(stc){
-				clearTimeout(stc);//清除定时器
-			}			
-		});	*/
 	};
 });
