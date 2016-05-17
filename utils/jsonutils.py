@@ -7,7 +7,7 @@ def css2json(css):
 
     def trim(s): return s.strip()
 
-    # Remove all comments from the css-file
+    # 删除所有的注释文字
     while True:
         comment_open = css.find('/*')
         comment_close = css.find('*/')
@@ -15,8 +15,6 @@ def css2json(css):
             break
         css = css[:comment_open] + css[comment_close+2:]
 
-    # Helper method that transform an array to a object, by splitting each
-    # declaration (_font: Arial_) into key (_font_) and value(_Arial_).
     def toObject(array):
         ret = {}
         for elm in array:
@@ -26,47 +24,17 @@ def css2json(css):
 
     json = {}
 
-    # Each rule gets parsed and then removed from _css_ until all rules have been
-    # parsed.
     while len(css) > 0:
-        # Save the index of the first left bracket and first right bracket.
         lbracket = css.find('{')
         rbracket = css.find('}')
-
-        # Part 1: The declarations
-        #
-        # Transform the declarations to an object. For example, the declarations<br/>
-        #  `font: 'Times New Roman' 1em; color: #ff0000; margin-top: 1em;`<br/>
-        # result in the object<br/>
-        # `{"font": "'Times New Roman' 1em", "color": "#ff0000", "margin-top": "1em"}`.
-
-        # Split the declaration block of the first rule into an array and remove
-        # whitespace from each declaration.
         declarations = filter(None, map(trim, css[lbracket+1:rbracket].split(';')))
-
-        # _declaration_ is now an array reado to be transformed into an object.
         declarations = toObject(declarations)
-
-        # Part 2: The selectors
-        #
-        # Each selector in the selectors block will be associated with the
-        # declarations defined above. For example, `h1, p#bar {color: red}`<br/>
-        # result in the object<br/>
-        # {"h1": {color: red}, "p#bar": {color: red}}
-
-        # Split the selectors block of the first rule into an array and remove
-        # whitespace, e.g. `"h1, p#bar, span.foo"` get parsed to
-        # `["h1", "p#bar", "span.foo"]`.
         selectors = map(trim, css[:lbracket].split(','))
 
-        # Iterate through each selector from _selectors_.
         for selector in selectors:
-            # Initialize the json-object representing the declaration block of
-            # _selector_.
             if selector not in json:
                 json[selector] = {}
 
-            # Save the declarations to the right selector
             for key in declarations:
                 json[selector][key] = declarations[key]
 
@@ -77,13 +45,14 @@ def css2json(css):
 
 def json2css(json):
     """json转回css, 这个转有点弱，要求css文件书写规范"""
+    css = ""
     root = _jsonlib.loads(json)
     for selectors in root.items():
+        css = css + selectors[0] + '{'
         for k, v in selectors[1].items():
-            selectors[1][k] = v + ";"
-    handler_json = _jsonlib.dumps(root)[1:-1]  # 去头"{"去尾"}"
-    return handler_json.replace("\"", "").replace(",", "")
-
+            css = css + '{}:{};'.format(k, v)
+        css = css + '}\n'
+    return css
 
 def merge_json(old_json, new_json):
     """合并两个json，返回json,以new_json字段为准"""
@@ -92,7 +61,8 @@ def merge_json(old_json, new_json):
 
     for key, value in old_dict.items():
         if key in new_dict.keys():
-            old_dict[key].update(new_dict[key])
+            if old_dict[key] != new_dict[key]:  # 如果两个不同，则用最新的
+                old_dict[key].update(new_dict[key])
     for key, value in new_dict.items():
         if key not in old_dict.keys():
             old_dict[key] = value

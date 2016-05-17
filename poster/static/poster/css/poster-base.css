@@ -208,7 +208,7 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 /* 弹出层样式 */
 #dp{z-index: 101;width: 100%;background: #e1e1e1;box-shadow:0 0 8px #999;visibility:hidden;position: absolute;display: block;}
 #dp.open{visibility:visible;}
-#dp ul{width: 100%;visibility:hidden;margin:0;}
+#dp ul{width: 100%;visibility:hidden;margin:0;display: none;}
 #dp li{display:block;border-bottom: 1px solid #fff;height: 50px;display:block;overflow: hidden;font-size: 24px;line-height: 24px;}
 #dp li:last-child{border-bottom: none;}
 #dp i{margin:13px;float: left;line-height: 13px;}
@@ -217,7 +217,8 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 #dp span input[type="time"]{border:0;background:none;padding:10px 0;line-height:20px;font-size:16px;text-align: right;height: 49px;min-width: 120px;}
 #dp span p{padding:10px 0;line-height:25px;font-size:16px;margin:0;height: 49px;}
 #dp .text{line-height: 24px;font-weight: 100;font-size: 18px;font-style: normal;}
-#dp.clock span{left: 62px;}
+#dp.clock div span{flex: 1;width: auto;position: static;overflow: hidden;padding: 0;overflow: hidden;text-align: center;}
+#dp.clock div span:nth-child(even){background: #fff}
 #dp.title span{left: 0;}
 /* 弹出层popUp样式 */
 #dp.popUp{width: auto;}
