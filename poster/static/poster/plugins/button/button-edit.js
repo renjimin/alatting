@@ -333,6 +333,7 @@ var openSystemimg = function(){
     }
 
 }
+
 var addSystemimg = function(eleobj){
     var cnd = $('<div class="cnd-element systemimg-element">'
 				+'<div class="element-box">'
@@ -346,7 +347,7 @@ var addSystemimg = function(eleobj){
 				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit" style="display: none;"><i class="glyphicon glyphicon-pencil"></i></div>'
+				+'<div class="nbar nbar-nw nbar-radius"></div>'
 				+'<div class="nbar nbar-se nbar-radius"></div>'
 				+'<div class="nbar nbar-sw nbar-radius"></div>'
 				+'<div class="nbar nbar-ne nbar-radius"></div>'
@@ -359,7 +360,7 @@ var addSystemimg = function(eleobj){
 }
 
 var copySystemimg = function(){
-    var imgclone = $('.systemimg-element.active').clone();
+    var imgclone = $('.systemimg-element.active').clone(false);
     $('.systemimg-element').removeClass('active');
     imgclone.animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
     fullcontainer.append(imgclone);
