@@ -50,19 +50,10 @@ $(function(){
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
                     $('.header-logo').empty().append('<h2>input</h2>');
-                    $('#teditor').show();
-                    $('#bodyMask').show();
-                    $('.header-logo h2').tEditor();
-                    $('#teditor').css('top',$(document).height() - $('#teditor').height() );
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-                    $.uploads({
-                        pick:'tet',
-                        success:function(data){
-                            console.log(1);
-                        }
-                    })
+                    
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
@@ -220,19 +211,9 @@ $(function(){
                     })
                 }}],
             followMouse:true
-        });                    
-    $(document).on("clsdp",function(){
-        $("#colorBox").hide();
-        $("#teditor").hide();
-    });
+        });            
 
-    //改变文字颜色
-    $('.ico-text').on('click',function(event){
-        $('#teditor').show();
-        $(this).tEditor();  
-        $('#teditor').css('top',$(document).height() - $('#teditor').height() - 93);
-        event.stopPropagation();
-    });
+    $('.calender').manhuaDate();
 
     $('body').on('click',function(event){
         //处理点击事件
@@ -250,7 +231,7 @@ $(function(){
                 break;
         }
         //点击被保护列表中的对象返回
-        window.clickItmList = window.clickItmList || ["#dp","#colorBox","#teditor"];
+        window.clickItmList = window.clickItmList || ["#dp","#colorBox"];
         var list = window.clickItmList;
         for(var i in list){
             if($(event.target).closest(list[i]).length!=0)return;
@@ -280,6 +261,12 @@ $(function(){
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
         
+        if( !!yunyeEditorGlobal.logo_title){
+            logoTitleType = "text";
+            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_title+'</h2>');
+        }else{
+            $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image+'" >');
+        }
         if(pageHeadData.clock){
             for(var i in pageHeadData.clock){
                 $('#dpw_clock input:eq('+i+')').val(pageHeadData.clock[i]);

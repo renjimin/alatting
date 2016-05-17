@@ -33,27 +33,19 @@
         <div id="allmap" style="width: 100%;height: 300px;"></div>
     </ul>
     <ul id="dpw_clock">
-        <li><i class="text">周一</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
-        <li><i class="text">周二</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
-        <li><i class="text">周三</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
-        <li><i class="text">周四</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
-        <li><i class="text">周五</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
-        <li><i class="text">周六</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
-        <li><i class="text">周日</i><span><input type="time" class="col-xs-4"/><p
-                class="col-xs-1">至</p><input type="time"
-                                             class="col-xs-4"/></span></li>
+        <div style="width: 100%;background: #ff0000;">
+            <div class='calender'><div class='calenderContent'><div class='calenderTable'>
+            <div class='getyear'>
+                <a class='preMonth' id='preMonth'>上一月</a><select id='year'></select><select id='month'></select><a class='nextMonth' id='nextMonth'>下一月</a>
+            </div>
+            <div class='tablebg'>
+                <table id='calender' class='calendertb' cellpadding='0' cellspacing='1'><tr bgcolor='#D6D6D6'><th class='weekend'>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class='weekend noborder'>六</th></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr></table>
+            </div>
+            <div class='dayinfo'>
+                当天时间段<input type="time" style="text-align: right;">至<input type="time">
+            </div>
+            </div></div></div>
+        </div>
     </ul>
     <ul id="dpw_title">
         <li>
@@ -64,10 +56,8 @@
     </ul>
     <ul id="dpw_desc">
         <div class="input-outer">
-            <textarea
-                type="text">{{ poster.short_description }}</textarea>
+            <textarea type="text">{{ poster.short_description }}</textarea>
             <span>海报关键词</span>
-
             <div class="ed-content">
                 <span id="ed-con-li2" data-id="2">aabb</span>
             </div>
@@ -86,20 +76,16 @@
                 <div class="ed-add">
                     <div class="ed-add-li col-xs-3">
                         <span>动词</span><br>
-                        <input type="text" class="form-control" id="newKwv"
-                               placeholder="例:招募">
+                        <input type="text" class="form-control" id="newKwv" placeholder="例:招募">
                     </div>
                     <div class="ed-add-li col-xs-1"><span>+</span></div>
                     <div class="ed-add-li col-xs-4">
                         <span>名词</span><br>
-                        <input type="text" class="form-control" id="newKwn"
-                               placeholder="例:创业精英">
+                        <input type="text" class="form-control" id="newKwn" placeholder="例:创业精英">
                     </div>
                     <div class="ed-add-li col-xs-2  col-xs-offset-1">
                         <span>&nbsp;</span><br>
-                        <input type="button"
-                               class="btn btn-default form-control"
-                               id="addItem" value="新增">
+                        <input type="button" class="btn btn-default form-control" id="addItem" value="新增">
                     </div>
                 </div>
             </div>
