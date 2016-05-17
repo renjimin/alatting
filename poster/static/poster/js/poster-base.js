@@ -53,14 +53,10 @@ $(function(){
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
-<<<<<<< HEAD
-                    
-=======
                           $.fn.uploads.showDialog(function(data){
                                 $('.header-logo img').attr("src",data.file);
                                 storageAPI.setHead("logo_img",data.file);                            
                            }); 
->>>>>>> 2bef260134fd42bf7ba6ca55a357adb0252ba683
                 }},
                 {icon:"glyphicon glyphicon-camera",text:"照相"},
                 {icon:"glyphicon glyphicon-link",text:"图片链接"}],
