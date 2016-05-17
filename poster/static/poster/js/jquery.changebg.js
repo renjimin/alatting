@@ -9,10 +9,9 @@
             'background-repeat': 'no-repeat',
             'background-image': true,
             'bimg': 'bimg'
-        },
-            this.options = $.extend({}, this.defaults, opt)
-    }
-    //定义doChangeBkg的方法
+        };
+        this.options = $.extend({}, this.defaults, opt);
+    };
     doChangeBkg.prototype.init = function () {
         //var bimg = $('#'+this.options.bimg);
         var bimg = $("body");
@@ -32,13 +31,10 @@
                     }
                     cbox += '</ul></div>';
                     bimg.append(cbox);
-
                 },
                 error: function (data) {
-
                 }
             });
-
         }
         var s = this.options;
         var ele = this.$element;
@@ -50,11 +46,9 @@
             });
             callBack_Selected(img);
         });
-    }
+    };
 
-    //在插件中使用doChangeBkg对象
     $.fn.bgselect = function (opt, callBack_Selected) {
-        //创建doChangeBkg的实体
         var doChangeBk = new doChangeBkg(this, opt, callBack_Selected);
         doChangeBk.init();
     }
