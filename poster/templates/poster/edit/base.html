@@ -11,8 +11,13 @@
         var yunyeEditorGlobal = {
             posterId: "{{ poster.id }}",
             posterPageId: "{{ posterpage.id }}",
-            posterAddress: "{{ poster.address }}"
+            address: "{{ poster.address }}",
+            mobile: "{{ poster.mobile }}",
+            phone: "{{ poster.phone }}",
+            email: "{{ poster.email }}",
+            updated_at: "{{ poster.updated_at }}"
         }
+        var logoTitleType = "image",clockType = "weekly";
     </script>
 
     {{ block.super }}
