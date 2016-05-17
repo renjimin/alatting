@@ -25,7 +25,7 @@
         </header>
         <div class="qs-body">
         	<form class="form" action="{{ request.path }}" method="POST">
-			    <div class="qs-title">英文家教</div>
+			    <div class="qs-title">{{qs_title}}</div>
 			    <div class="qs-list">
 			        <div class="step">
 			            <div class="qs-list-section">
@@ -37,7 +37,7 @@
 			        <div class="qs-footer">
 			            <div>
 			                <button type="button" class="back btn btn-default">返&nbsp;回</button>
-			                <button type="button" class="next btn btn-default">确&nbsp;认</button>
+                            <input type="submit" class="next btn btn-default" value="确&nbsp;认">
 			            </div>
 			        </div>  
 			    </div>

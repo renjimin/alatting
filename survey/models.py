@@ -1,8 +1,9 @@
-from django.db import models
-from alatting_website.models import Category
 import os
+from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from alatting_website.models import Category
+from survey import QuestionChoices, QuestionProcessors
 
 class Survey(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -105,9 +106,6 @@ class Question(models.Model):
     questionset = models.ForeignKey(QuestionSet)
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
-    QuestionChoices = (
-        ('choice', 'A list of choices to choose from'),
-    )
     type = models.CharField(u"Type of question", max_length=32,
         choices = QuestionChoices,
         help_text = u"Determines the means of answering the question. " \
@@ -160,14 +158,14 @@ class Answer(models.Model):
     subject = models.ForeignKey(User, help_text = u'The user who supplied this answer')
     question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
     answer = models.TextField()
-    runinfo = models.ForeignKey(RunInfo)
+    runid = models.CharField(max_length=32)
 
 
 class RunInfoHistory(models.Model):
     subject = models.ForeignKey(User)
     completed = models.DateField()
     questionnaire = models.ForeignKey(Questionnaire)
-    runinfo = models.ForeignKey(RunInfo)
+    runid = models.CharField(max_length=32)
 
     def __unicode__(self):
         return "%s" % (self.subject, self.completed)
