@@ -206,6 +206,8 @@ class PosterSaveContentMixin(object):
             if k == "lifetime":  # 设置生存期结构体
                 for l, lv in head_json[k].items():
                     setattr(instance, l, lv)
+                    if l == 'lifetime_value':
+                        setattr(instance, l, json.dumps(lv))
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
                 for ck in head_json[k]:  # 一个个添加关键词
