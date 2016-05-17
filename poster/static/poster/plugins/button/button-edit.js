@@ -72,23 +72,24 @@ var curentOpts={};
                 if($2==null || $2 == ''){
                     $2 = 0;
                 }
-                eleopts = {
-                    'href': $(b).attr('href'),
-                    'text': $(b).text(),
-                    'color': $(b).css('color')==null?'000':$(b).css('color'),
-                    'fontSize': $(b).css('font-size'),
-                    'fontFamily': $(b).css('font-family'),
-                    'background': $(b).css('background'),
-                    'opacity': $(b).css('opacity'),
-                    'boxShadow':$(b).css('box-shadow-spread'),
-                    'borderRadius':$(b).css('border-radius'),
-                    'rotate':$2,
-                    'borderColor':$(b).css('border-color'),
-                    'borderStyle':$(b).css('border-style'),
-                    'borderWidth':$(b).css('border-width')
-                }
-                $.extend(opts,eleopts);
+            eleopts = {
+                'href': $(b).attr('href'),
+                'text': $(b).text(),
+                'color': $(b).css('color')==null?'000':$(b).css('color'),
+                'fontSize': parseInt($(b).css('font-size')),
+                'fontFamily': $(b).css('font-family').replace(/'/g,""),
+                'background': $(b).css('background'),
+                'opacity': $(b).css('opacity'),
+                'boxShadow':$(b).css('box-shadow-spread'),
+                'borderRadius':$(b).css('border-radius'),
+                'rotate':$2,
+                'borderColor':$(b).css('border-color'),
+                'borderStyle':$(b).css('border-style'),
+                'borderWidth':$(b).css('border-width')
             }
+            opts = $.extend(opts,eleopts);
+        }
+
 
 
             var href = opts.href=="javascript:void(0)"?'':opts.href
@@ -100,6 +101,7 @@ var curentOpts={};
             }
             $('.button-fontSize').val(opts.fontSize);
             $('.button-fontFamily').val(opts.fontFamily);
+            console.log(opts.fontFamily);
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
@@ -315,6 +317,7 @@ var deleteButton = function(){
 
 }
 
+
 $(function(){
     $('#systemimg-model li').click(function(){
         $('#systemimg-model').removeClass('open');
@@ -323,6 +326,14 @@ $(function(){
         addSystemimg(eleobj);
     });
 })
+var openSystemimg = function(){
+    if($('#systemimg-model').hasClass('open')){
+        $('#systemimg-model').removeClass('open')
+    }else{
+        $('#systemimg-model').addClass('open')
+    }
+
+}
 var addSystemimg = function(eleobj){
     var cnd = $('<div class="cnd-element systemimg-element">'
                 +'<div class="element-box">'

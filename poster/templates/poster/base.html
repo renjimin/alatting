@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{% static 'poster/plugins/uploadimg/diyUpload.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-edit-base.css' %}">
     <link rel="stylesheet" href="{% static 'poster/plugins/button/button-edit.css' %}">
-
+    <link rel="stylesheet" href="{% static 'poster/plugins/input/yunye-input.css' %}">
 {% endblock %}
 
 {% block base_header_js %}
@@ -36,14 +36,13 @@
     <script src="{% static 'poster/js/plugins/jquery.base64.js' %}"></script>
     <script src="{% static 'poster/js/plugins/jquery.storageapi.min.js' %}"></script>
     <script src="{% static 'poster/js/plugins/yunye-storage.js' %}"></script>
-    <script src="{% static 'poster/js/poster-base.js' %}"></script>
+    <script src="{% static 'poster/plugins/input/yunye-input.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/webuploader.html5only.min.js' %}"></script>
     <script src="{% static 'poster/plugins/uploadimg/uploads.js' %}"></script>
-
     <script src="{% static 'poster/plugins/uploadimg/diyUpload.js' %}"></script>
-
     <script src="{% static 'poster/plugins/button/jscolor.js' %}"></script>
+    <script src="{% static 'poster/js/poster-base.js' %}"></script>
 {% endblock %}
 
 {% block base_body_header %}
@@ -182,7 +181,7 @@
         </ul>
         <span class="arrow"></span>
     </section>
-   
+
     {% block poster_base_body %}
 
     {% endblock %}
@@ -202,7 +201,7 @@
         <a class="tab-item dropdown-toggle" id="export-toggle" href="javascript:void(0);" data-dropdown="export-panel">
             <i class="icon glyphicon glyphicon-music"></i>
         </a>
-        
+
         <section class="dropdown-panel" id="share-panel">
             <div class="share-group">
                 <a href="#" class="tab-item"><i class="icon ico-text"></i></a>
@@ -213,8 +212,8 @@
         </section>
         <section class="dropdown-panel" id="rate-panel">
             <div class="share-group">
-                <a href="javascript:void(0);" onclick="$('#systemimg-model').addClass('open')" class="tab-item"><i class="icon ico-systemimg"></i></a>
-                <a href="javascript:void(0);" onclick="uploadSystemimg();" class="tab-item"><i class="icon ico-systemimgs"></i></a>
+                <a href="javascript:void(0);" onclick="openSystemimg()" class="tab-item"><i class="icon ico-systemimg"></i></a>
+                <a href="javascript:void(0);" onclick="uploadSystemimg()" class="tab-item"><i class="icon ico-systemimgs"></i></a>
                 <a href="javascript:void(0);" onclick="copySystemimg()" class="tab-item"><i class="icon ico-copy"></i></a>
                 <a href="javascript:void(0);" onclick="deleteSystemimg()" class="tab-item"><i class="icon ico-recycle"></i></a>
             </div>
