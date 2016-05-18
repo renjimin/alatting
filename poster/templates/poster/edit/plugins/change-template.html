@@ -7,24 +7,25 @@
     </a>
 </div>
 
-<div class="change-template-layout">
-    <div class="change-header">
-        <h3>更换模板</h3>
-    </div>
-    <div class="change-list">
-        adfdfsf
-    </div>
-    <div class="change-footer">
-        <button class="btn">取 消</button>
-        <button class="btn">确 定</button>
-    </div>
-</div>
-
 {% verbatim %}
     <script id="changeTemplateLayoutTmpl" type="text/x-jquery-tmpl">
-
+        <div class="change-template-layout">
+            <div class="change-template-header">
+                模板更换
+            </div>
+            <ul class="change-templates-list" id="change-templates-list">
+            </ul>
+            <div class="change-template-footer">
+                <button class="btn btn-default change-template-cancel-btn">取 消</button>
+                <button class="btn btn-default change-template-confirm-btn">确 定</button>
+            </div>
+        </div>
     </script>
     <script id="changeTemplateListTmpl" type="text/x-jquery-tmpl">
-
+        <li class="template-item" data-id="${id}">
+            <a href="javascript:void(0);">
+                <img src="${image_url}"/>
+            </a>
+        </li>
     </script>
 {% endverbatim %}
