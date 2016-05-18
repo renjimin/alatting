@@ -12,6 +12,6 @@
 .zhezhao{width:100%; height:100%; position:fixed; z-index:998;	background:#fff;filter:alpha(opacity=10);opacity:0.1; display:none; }
 .calender select{border:none;}
 .dayinfo,.dayinfo input{height: 35px;line-height: 35px;background: transparent;}
-.dayinfo input{border:none;padding-left: 20px;}
+.dayinfo input{border:none;padding-left: 20px;width: 20%;}
 .calendertb td.on{background: #0080FF}
 .calendertb td.hover{border:2px solid #ff0000;}

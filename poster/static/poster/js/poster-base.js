@@ -351,7 +351,13 @@ $(function(){
     }
 
     $(".btn.btn-save").on("click",function(){
-        //console.log(1);
+        $.ajax({
+            type: "PATCH",
+            url: "/api/v1/poster/save/6/",
+            data: storageAPI.getPosterData(),
+            success: function(){console.log("success")},
+            error: function(){console.log("error")}
+        });
     });
 
 });
