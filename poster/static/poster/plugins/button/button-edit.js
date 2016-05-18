@@ -1,4 +1,4 @@
-var currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
+var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template');
 var curentOpts={};
 
 
