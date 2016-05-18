@@ -296,7 +296,7 @@ var editButtonBasic = function(){
     $("#button-basic").show();
     $("#button-border").hide();
     if(!$('#button-model').hasClass('open')){
-        $('#button-model').addClass('open');
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         addButton();
     }
     ele.addClass('open').siblings().removeClass('open');
@@ -313,7 +313,7 @@ var editButtonBorder = function(){
     $("#button-basic").hide();
     $("#button-border").show();
     if(!$('#button-model').hasClass('open')){
-        $('#button-model').addClass('open');
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         addButton();
     }
     ele.addClass('open').siblings().removeClass('open');
@@ -357,7 +357,7 @@ var openSystemimg = function(){
         $('#systemimg-model').removeClass('open');
         ele.removeClass('open');
     }else{
-        $('#systemimg-model').addClass('open');
+        $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         ele.addClass('open');
     }
 
@@ -406,18 +406,18 @@ var deleteSystemimg = function(){
 }
 
 var uploadSystemimg = function(eleobj){
-    $.fn.uploads.showDialog({
-        url:'/api/v1/poster/upload/logo',
-        success:function(data){
-           console.log(data);
-           var img = $('<img />');
-           img.attr('src',data.file);
-            if(data.width > $(window).width()){
-                img.width( $(window).width() *.6);
-            }
-           addSystemimg(img);
-        },
-        error:function(){console.log("error");}
+
+    $.fn.uploads.showDialog(function(data){
+        console.log(data);
+        var img = $('<div class="element"><img src="'+data.file+'" /></div>');
+
+         if(data.width > $(window).width()){
+             img.width( $(window).width() *.6);
+             img.height($(window).width() *.6*data.height / data.width);
+         }
+        addSystemimg(img);
+    },function(data){
+         console.log(data);
     });
 
 }
