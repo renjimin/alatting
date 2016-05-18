@@ -342,7 +342,6 @@ $(function(){
     }
 
     $(".btn.btn-save").on("click",function(){
-        storageAPI.setHtml(".container-fluid");
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
         $.ajax({
@@ -363,7 +362,6 @@ $(function(){
     });
 
     $(".btn.btn-post").on("click",function(){
-        storageAPI.setHtml(".container-fluid");
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = '/api/v1/poster/publish/'+ storageKey.replace("yunyeTemplateData","") + '/';
         $.ajax({
