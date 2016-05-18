@@ -13,3 +13,4 @@
 .calender select{border:none;}
 .dayinfo,.dayinfo input{height: 35px;line-height: 35px;background: transparent;}
 .dayinfo input{border:none;padding-left: 20px;}
+.calendertb td.on{background: #ff0000}

@@ -6,9 +6,18 @@ $(function() {
 		fuhao : "-",			//日期之间的连接符号
 		isTime : false,			//是否开启时间值默认为false
 		beginY : 2016,			//年份的开始默认为1949
-		endY : 2049				//年份的结束默认为2049
+		endY : 2049,				//年份的结束默认为2049
+		defaultsWeekly:{
+			"Monday":{time_start:"09:00",time_end:"17:00"},
+			"Tuesday":{time_start:"09:00",time_end:"17:00"},
+			"Wednesday":{time_start:"09:00",time_end:"17:00"},
+			"Thursday":{time_start:"09:00",time_end:"17:00"},
+			"Friday":{time_start:"09:00",time_end:"17:00"},
+			"Saturday":{time_start:"09:00",time_end:"17:00"},
+			"Sunday":{time_start:"09:00",time_end:"17:00"}
+		}
 	};
-	var options = $.extend(defaults,options);		
+	var options = $.extend(defaults,options);
 	var stc;
 	var $mhInput = $(this);
 	var isToday = true;//是否为今天默认为是	
@@ -89,7 +98,9 @@ $(function() {
 	 //初始化日历
 	 function ManhuaDate(year, month, week, lastday) {
 		$("#year").val(year);
-		$("#month").val(month)
+		$("#month").val(month);
+		$('#dpw_clock input').eq(0).val("");
+		$('#dpw_clock input').eq(1).val("");
 		var table = document.getElementById("calender");
 		var n = 1;
 		for (var j = 0; j < week; j++) {
@@ -100,6 +111,7 @@ $(function() {
 				table.rows[1].cells[j].className="hover";				
 			}else {
 				table.rows[1].cells[j].className="";
+				if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[1].cells[j].className="on";
 			}
 			table.rows[1].cells[j].innerHTML = n;
 			n++;
@@ -108,12 +120,12 @@ $(function() {
 			for (j = 0; j < 7; j++) {
 				if (n > lastday) {
 					table.rows[i].cells[j].innerHTML = "&nbsp;"
-				}
-				 else {
+				}else {
 					if (n == today && isToday) {						
 						table.rows[i].cells[j].className="hover";						
 					}else {
 						table.rows[i].cells[j].className="";
+						if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[i].cells[j].className="on";
 					}
 					table.rows[i].cells[j].innerHTML = n;
 					n++;
@@ -160,6 +172,13 @@ $(function() {
 			if(dateinfo){
 				$('#dpw_clock input').eq(0).val(dateinfo.time_start);
 				$('#dpw_clock input').eq(1).val(dateinfo.time_end);
+			}else{
+				var darry = specificDay.split("-"),
+					week = new Date(darry[0],parseInt(darry[1])-1,darry[2]).getDay(),
+					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+					info = options.defaultsWeekly[weekName];
+				$('#dpw_clock input').eq(0).val(info.time_start);
+				$('#dpw_clock input').eq(1).val(info.time_end);
 			}
 		}
 	}
