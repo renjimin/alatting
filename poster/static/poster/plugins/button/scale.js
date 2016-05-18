@@ -413,8 +413,11 @@ var scale = function(box,options){
 
     if(ele.hasClass('btn')){
         /*编辑按钮*/
-        editBtn.on('click',function(){
-            addButton(ele);
+        editBtn.on('click',function(e){
+            if (e.originalEvent) e = e.originalEvent;
+            console.log($(e.currentTarget).parent().attr('class'))
+            elebtn = $(e.currentTarget).parent().find('.element');
+            addButton(elebtn);
         })
     }
 
