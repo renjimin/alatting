@@ -282,6 +282,7 @@ $(function(){
         if(storageAPI.getCss(".abutton-group li a"))$(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
 
         /*读取主体部分*/
+        console.log(storageAPI.getPosterData())
         if(storageAPI.getHtml())$(".container-fluid").html(storageAPI.getHtml());
     }
 
@@ -334,11 +335,12 @@ $(function(){
                 setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
            }
 
-           storageAPI.setHtml(".container-fluid");
+
     }
 
     $(".btn.btn-save").on("click",function(){
-        //console.log(1);
+        console.log(1);
+        storageAPI.setHtml(".container-fluid");
     });
 
 });

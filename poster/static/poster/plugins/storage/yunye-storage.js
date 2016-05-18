@@ -132,7 +132,7 @@
             // base64 encode html
             var posterData = self.getPosterData(),
                 b64 = $.base64.encode($(domSelector).html());
-            posterData[self.posterPageId]['html'] = b64;
+            posterData['pages'][self.posterPageId]['html'] = b64;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);
         };
