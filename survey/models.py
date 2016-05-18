@@ -144,7 +144,8 @@ class Choice(models.Model):
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     subject = models.ForeignKey(User)
-    questionset = models.ForeignKey(QuestionSet, blank=True, null=True) # or straight int?
+    questionnaire = models.ForeignKey(Questionnaire, blank=True, null=True)
+    questionset = models.ForeignKey(QuestionSet, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
