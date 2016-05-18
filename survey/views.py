@@ -19,6 +19,18 @@ class IndexView(TemplateView):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		return context
 
+class StartView(RedirectView):
+	def get_redirect_url(self, *args, **kwargs):
+		qu = get_object_or_404(Questionnaire, id=self.kwargs['questionnaire_id'])
+		qs = qu.questionsets()[0]
+
+		su = get_object_or_404(User, pk=self.kwargs['user_id'])
+
+		run = RunInfo(subject=su, questionset=qs)
+		run.save()
+
+		kwargs = {'runid': run.id}
+		return reverse('survey:questionnaire', kwargs=kwargs)
 
 class QuestionnaireDoneView(TemplateView):
 	template_name = 'questionset_done.html'
@@ -30,23 +42,20 @@ class QuestionnaireDoneView(TemplateView):
 
 class QuestionnaireView(View):
 	def get(self, request, **kwargs):
-		user_id = self.kwargs['user_id']
-		user = get_object_or_404(User, pk=user_id)
-		questionnaire_id = self.kwargs['questionnaire_id']
-		questionnaire = get_object_or_404(Questionnaire, id=questionnaire_id)
-		
-		runinfo = RunInfo.objects.filter(subject=user, questionnaire=questionnaire).first()
-		if not runinfo:
-			questionset = questionnaire.questionsets()[0]
-			runinfo = RunInfo(subject=user, questionnaire=questionnaire, questionset=questionset)
-			runinfo.save()
-
-		runid = runinfo.pk
+		runid = self.kwargs['runid']
+		runinfo = RunInfo.objects.get(pk=runid)
 		questionset = runinfo.questionset
+		questionnaire = questionset.questionnaire
+
+		if 'qs_sortid' in self.kwargs:
+			questionset = QuestionSet.objects.filter(
+				questionnaire = questionnaire,
+				sortid = self.kwargs['qs_sortid']).first()
+
 		main_cat_name = questionset.questionnaire.main_category.name
 		sub_cat_name = questionset.questionnaire.sub_category.name
 		qs_title = questionset.heading
-		questions = runinfo.questionset.questions()
+		questions = questionset.questions()
 		qlist = []
 		for question in questions:
 			Type = question.get_type()
@@ -58,22 +67,34 @@ class QuestionnaireView(View):
 				qdict.update(QuestionProcessors[Type](request, question))
 			qlist.append((question, qdict))
 
-		contextdict = {'runid': runid,
+		prev_url = "javascript:void(0)"
+		if questionset.prev():
+			prev = questionset.prev()
+			sortid = prev.sortid
+			kwargs = {'runid': runinfo.id,
+					'qs_sortid': sortid}
+			prev_url = reverse('survey:questionset', kwargs=kwargs)
+
+		contextdict = {'runid': self.kwargs['runid'],
 						'main_cat_name': main_cat_name,
 						'sub_cat_name': sub_cat_name,
 						'qs_title': qs_title,
 						'questionset': questionset,
-						'qlist': qlist}
+						'qlist': qlist,
+						'prev_url': prev_url}
 		return render_to_response('questionset.html', contextdict)
 
 	def post(self, request, **kwargs):
-		user_id = self.kwargs['user_id']
-		user = get_object_or_404(User, pk=user_id)
-		questionnaire_id = self.kwargs['questionnaire_id']
-		questionnaire = get_object_or_404(Questionnaire, id=questionnaire_id)
+		runid = self.kwargs['runid']
+		runinfo = RunInfo.objects.get(pk=runid)
 
-		runinfo = RunInfo.objects.filter(subject=user, questionnaire=questionnaire).first()
 		questionset = runinfo.questionset
+		questionnaire = questionset.questionnaire
+
+		if 'qs_sortid' in self.kwargs:
+			questionset = QuestionSet.objects.filter(
+				questionnaire = questionnaire,
+				sortid = self.kwargs['qs_sortid']).first()
 
 		items = request.POST.items()
 		extra = {}
@@ -107,8 +128,7 @@ class QuestionnaireView(View):
 		if next:
 			runinfo.questionset = next
 			runinfo.save()
-			kwargs = {'user_id': user_id, 
-			'questionnaire_id': questionnaire_id}
+			kwargs = {'runid': runinfo.id}
 			return HttpResponseRedirect(reverse('survey:questionnaire', kwargs=kwargs))
 
 		hist = RunInfoHistory()

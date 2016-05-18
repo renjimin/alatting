@@ -144,7 +144,6 @@ class Choice(models.Model):
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     subject = models.ForeignKey(User)
-    questionnaire = models.ForeignKey(Questionnaire, blank=True, null=True)
     questionset = models.ForeignKey(QuestionSet, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
 
