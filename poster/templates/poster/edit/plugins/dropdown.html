@@ -36,7 +36,11 @@
         <div style="width: 100%;background: #ff0000;">
             <div class='calender'><div class='calenderContent'><div class='calenderTable'>
             <div class='getyear'>
-                <a class='preMonth' id='preMonth'>上一月</a><select id='year'></select><select id='month'></select><a class='nextMonth' id='nextMonth'>下一月</a>
+                <a class='preMonth' id='preMonth'>上一月</a>
+                <select id='year'></select>
+                <select id='month'></select>
+                <a class='nextMonth' id='nextMonth' style="float: right;">下一月</a>
+                <i class="glyphicon glyphicon-cog" style="font-size: 14px;border:none;float: right;background:transparent;margin:10px;width: auto;height: auto;"></i>
             </div>
             <div class='tablebg'>
                 <table id='calender' class='calendertb' cellpadding='0' cellspacing='1'><tr bgcolor='#D6D6D6'><th class='weekend'>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class='weekend noborder'>六</th></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr></table>
@@ -45,6 +49,15 @@
                 当天时间段<input type="time">至<input type="time" >
             </div>
             </div></div></div>
+            <div class="weekly">
+                <li><i>周一</i><span><input type="time">至<input type="time"></span></li>
+                <li><i>周二</i><span><input type="time">至<input type="time"></span></li>
+                <li><i>周三</i><span><input type="time">至<input type="time"></span></li>
+                <li><i>周四</i><span><input type="time">至<input type="time"></span></li>
+                <li><i>周五</i><span><input type="time">至<input type="time"></span></li>
+                <li><i>周六</i><span><input type="time">至<input type="time"></span></li>
+                <li><i>周日</i><span><input type="time">至<input type="time"></span></li>
+            </div>
         </div>
     </ul>
     <ul id="dpw_title">

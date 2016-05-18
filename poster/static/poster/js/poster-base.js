@@ -9,7 +9,7 @@ $(function(){
     });
 
     //弹出菜单
-    $(".dropdown-toggle").registerDropDown();
+    $(".dropdown-toggle:not(#share-toggle)").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
             id:'dpw_phone',
             offsetYPercent:50,
@@ -208,6 +208,7 @@ $(function(){
                                 storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});
                            });
                 }}],
+            arrowOffset:20,
             followMouse:true
         });
 
@@ -276,8 +277,8 @@ $(function(){
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
 
-        if( !!yunyeEditorGlobal.logo_title){
-            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_title+'</h2>');
+        if( !!yunyeEditorGlobal.logo_text){
+            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_text+'</h2>');
         }else{
             $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image.url+'" >');
         }
@@ -343,11 +344,11 @@ $(function(){
            setHeadTimeStamp("email",$('emailInput').val() );
 
            if( $('.header-logo h2')[0] ){
-                setHeadTimeStamp("logo_title",$('.header-logo h2').html() );
+                setHeadTimeStamp("logo_text",$('.header-logo h2').html() );
                 setHeadTimeStamp("logoTitleType","text" );
                 setHeadTimeStamp("logo_image","" );
            }else{
-                setHeadTimeStamp("logo_title","" );
+                setHeadTimeStamp("logo_text","" );
                 setHeadTimeStamp("logoTitleType","image" );
                 setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
            }

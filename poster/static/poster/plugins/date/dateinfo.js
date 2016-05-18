@@ -184,5 +184,8 @@ $(function() {
 			}
 		}
 	}
-
+	$(".glyphicon.glyphicon-cog").click(function(event) {
+		$(".calender").hide();
+		$(".weekly").show();
+	});
 });

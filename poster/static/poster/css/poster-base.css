@@ -211,7 +211,7 @@ to {-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 #dp ul{width: 100%;visibility:hidden;margin:0;display: none;}
 #dp li{display:block;border-bottom: 1px solid #fff;height: 50px;display:block;overflow: hidden;font-size: 24px;line-height: 24px;}
 #dp li:last-child{border-bottom: none;}
-#dp i{float: left;line-height: 13px;float: left;display: block;border:13px solid #f0f0f0;width:50px;height:50px;background-color: #f0f0f0;}
+#dp i{float: left;line-height: 13px;display: block;border:13px solid #f0f0f0;width:50px;height:50px;background-color: #f0f0f0;}
 #dp li span{vertical-align: top;line-height: 49px;font-size:18px;width: 100%;padding-left: 55px;float: left;margin-left: -50px;}
 #dp span input[type="text"]{border:0;background:none;width:100%;padding:10px;line-height:20px;font-size:16px;}
 #dp span p{padding:10px 0;line-height:25px;font-size:16px;margin:0;height: 49px;}
