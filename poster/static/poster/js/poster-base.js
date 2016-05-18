@@ -216,6 +216,7 @@ $(function(){
         $('#text-model').animate({bottom:'-265px'},200);
 //        $("#teditor").hide();
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
+        $('.cnd-element').removeClass('active');
     });
 
     $('body').on('click',function(event){
