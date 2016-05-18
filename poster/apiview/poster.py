@@ -279,8 +279,9 @@ class PosterSaveContentMixin(object):
             except KeyError:
                 pass
 
-    def save_json_info(self, instance, json_data):
+    def save_json_info(self, instance, request_data):
         # 存储头部基本信息
+        json_data = json.loads(request_data['data'])
         if 'head' in json_data.keys():
             self._save_head_info(instance, json_data['head'])
         if 'page' in json_data.keys():
