@@ -257,8 +257,7 @@ class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
 
     def perform_update(self, serializer):
         # 先把改动的数据保存下来
-        json_data = self.request.data['yunyeTemplateData{:d}'.format(serializer.instance.id)]
-        self.save_json_info(serializer.instance, json_data)
+        self.save_json_info(serializer.instance, self.request.data)
         # 将改动的数据写到文件发布出来
         pages = PosterPage.objects.filter(
             poster_id=serializer.instance.id
@@ -283,6 +282,5 @@ class PosterSaveView(RetrieveUpdateAPIView, PosterSaveContentMixin):
         return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
 
     def perform_update(self, serializer):
-        json_data = self.request.data['yunyeTemplateData{:d}'.format(serializer.instance.id)]
-        self.save_json_info(serializer.instance, json_data)
+        self.save_json_info(serializer.instance, self.request.data)
         serializer.save()

@@ -342,8 +342,18 @@ $(function(){
     }
 
     $(".btn.btn-save").on("click",function(){
-        console.log(1);
-        storageAPI.setHtml(".yunye-template");
+        storageAPI.setHtml(".container-fluid");
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: full_json,
+            url: url,
+            success:function(data){
+                yyAlert("保存成功");
+                console.log(data)
+            }
+        })
     });
-
 });
