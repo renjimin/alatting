@@ -2,7 +2,7 @@
 .calender{ width:100%; top:0; left:0; border:4px #D6D6D6 solid; background:#EBEBEB; z-index:999;}
 .calendertb{width:100%;}
 .calendertb td{width:35px; height:35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
-.calendertb td.hover,.calendertb td.weekendhover{background:#D6D6D6;}
+.calendertb td.weekendhover{background:#D6D6D6;}
 .calendertb th{width:35px; height:30px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; color:#979797; }
 .tdtoday{ background:#0080FF;color:#fff;width:35px; height:35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
 .getyear{ height:35px; line-height:35px; width:100%; text-align:center;}
@@ -13,4 +13,5 @@
 .calender select{border:none;}
 .dayinfo,.dayinfo input{height: 35px;line-height: 35px;background: transparent;}
 .dayinfo input{border:none;padding-left: 20px;}
-.calendertb td.on{background: #ff0000}
+.calendertb td.on{background: #0080FF}
+.calendertb td.hover{border:2px solid #ff0000;}

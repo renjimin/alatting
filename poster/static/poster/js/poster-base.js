@@ -249,9 +249,18 @@ $(function(){
     var pageHeadData = storageAPI.getPosterHeadData();
     if(!(yunyeEditorGlobal.updated_at  > pageHeadData.updated_at)){
         $.extend(yunyeEditorGlobal,pageHeadData);
-        //服务器暂时没传数据 
+        //服务器暂时没传数据 (伪造数据)
         if( !yunyeEditorGlobal.lifetime )yunyeEditorGlobal.lifetime = {};
         if( !yunyeEditorGlobal.lifetime.lifetime_value )yunyeEditorGlobal.lifetime.lifetime_value = {};
+        if( !yunyeEditorGlobal.lifetime.defaultsWeekly )yunyeEditorGlobal.lifetime.defaultsWeekly = {
+            "Monday":{time_start:"09:00",time_end:"17:00"},
+            "Tuesday":{time_start:"09:00",time_end:"17:00"},
+            "Wednesday":{time_start:"09:00",time_end:"17:00"},
+            "Thursday":{time_start:"09:00",time_end:"17:00"},
+            "Friday":{time_start:"09:00",time_end:"17:00"},
+            "Saturday":{time_start:"09:00",time_end:"17:00"},
+            "Sunday":{time_start:"09:00",time_end:"17:00"}
+        };
         initData();
     }
 
@@ -298,7 +307,7 @@ $(function(){
     });
     $('#dpw_clock input').on('change',function(event){
         var inputs = $('#dpw_clock input');
-        var start = inputs[0] ,end = inputs[1];
+        var start = inputs[0].value ,end = inputs[1].value;
         if(start && end ){
             if( end < start ){
                 $(event.target).blur();
@@ -306,10 +315,19 @@ $(function(){
                 $('#dpw_clock input').eq(1).val("");
                 yyConfirm("结束时间不能早于开始时间");
             }else{
-                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html();
-                yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
-                    "time_start": $('#dpw_clock input').eq(0).val(),
-                    "time_end": $('#dpw_clock input').eq(1).val()
+                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html(),
+                    week = new Date($("#year").val(),$("#month").val() -1,$(".hover").html()).getDay(),
+                    weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+                    info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+                if( $('#dpw_clock input').eq(0).val() == info.time_start && $('#dpw_clock input').eq(1).val() == info.time_end ){
+                    $(".calender .hover").removeClass("on");
+                    delete yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
+                }else{
+                    yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+                        "time_start": $('#dpw_clock input').eq(0).val(),
+                        "time_end": $('#dpw_clock input').eq(1).val()
+                    }
+                    $(".calender .hover").addClass("on");
                 }
                 setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
             }

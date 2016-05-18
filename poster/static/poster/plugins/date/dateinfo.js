@@ -99,8 +99,8 @@ $(function() {
 	 function ManhuaDate(year, month, week, lastday) {
 		$("#year").val(year);
 		$("#month").val(month);
-		$('#dpw_clock input').eq(0).val("");
-		$('#dpw_clock input').eq(1).val("");
+		$('#dpw_clock input').eq(0).val("").attr("disabled",true);
+		$('#dpw_clock input').eq(1).val("").attr("disabled",true);
 		var table = document.getElementById("calender");
 		var n = 1;
 		for (var j = 0; j < week; j++) {
@@ -108,7 +108,7 @@ $(function() {
 		}
 		for (var j = week; j < 7; j++) {
 			if (n == today && isToday) {				
-				table.rows[1].cells[j].className="hover";				
+				//table.rows[1].cells[j].className="hover";				
 			}else {
 				table.rows[1].cells[j].className="";
 				if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[1].cells[j].className="on";
@@ -122,7 +122,7 @@ $(function() {
 					table.rows[i].cells[j].innerHTML = "&nbsp;"
 				}else {
 					if (n == today && isToday) {						
-						table.rows[i].cells[j].className="hover";						
+						//table.rows[i].cells[j].className="hover";						
 					}else {
 						table.rows[i].cells[j].className="";
 						if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[i].cells[j].className="on";
@@ -161,6 +161,8 @@ $(function() {
 	}
 	$("#calender td").click(function(event) {
 		if( event.target.innerHTML  == "&nbsp;" )return;
+		$('#dpw_clock input').eq(0).val("").attr("disabled",false);
+		$('#dpw_clock input').eq(1).val("").attr("disabled",false);
 		$(".hover").removeClass("hover");
 		$(this).addClass("hover");
 		var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + event.target.innerHTML;
