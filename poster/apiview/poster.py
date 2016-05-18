@@ -13,11 +13,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
+from alatting_website.model.resource import Image
 from alatting_website.models import CategoryKeyword, Template
 from poster.models import SystemImage, SystemBackground
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer, SystemBackgroundListSerializer,
+    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
+    SystemBackgroundListSerializer,
     PosterSaveSerializer)
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, save_file, \
@@ -239,6 +241,12 @@ class PosterSaveContentMixin(object):
         for k, v in head_json.items():
             if k in self._head_fields():  # 存储头部其他字段
                 setattr(instance, k, v)
+            if k == "logo_image":  # 设置log照片
+                try:
+                    image = Image.objects.get(id=v['id'])
+                except Image.DoesNotExist:
+                    image = Image.objects.get(id=1)  # 设置默认logo图片
+                setattr(instance, k, image)
             if k == "address":  # 设置地理位置
                 address = instance.address
                 address.address1 = head_json[k]
@@ -262,9 +270,11 @@ class PosterSaveContentMixin(object):
         pages = PosterPage.objects.filter(poster_id=instance.id).order_by('-index')
         for page in pages:
             try:
-                static_map = pages_json['poster_page_{:d}'.format(page.id)]
-                page.temp_html = base64.b64decode(static_map['html'])
-                page.temp_css = self._css_handler(page.temp_css, static_map['css'])
+                static_map = pages_json['{:d}'.format(page.id)]
+                if 'html' in static_map.keys() and len(static_map['html']) != 0:
+                    page.temp_html = base64.b64decode(static_map['html'])
+                if 'css' in static_map.keys() and len(static_map['css']) != 0:
+                    page.temp_css = self._css_handler(page.temp_css, static_map['css'])
                 page.save()
             except KeyError:
                 pass
@@ -288,8 +298,7 @@ class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
 
     def perform_update(self, serializer):
         # 先把改动的数据保存下来
-        json_data = self.request.data['yunyeTemplateData{:d}'.format(serializer.instance.id)]
-        self.save_json_info(serializer.instance, json_data)
+        self.save_json_info(serializer.instance, self.request.data)
         # 将改动的数据写到文件发布出来
         pages = PosterPage.objects.filter(
             poster_id=serializer.instance.id
@@ -314,6 +323,5 @@ class PosterSaveView(RetrieveUpdateAPIView, PosterSaveContentMixin):
         return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
 
     def perform_update(self, serializer):
-        json_data = self.request.data['yunyeTemplateData{:d}'.format(serializer.instance.id)]
-        self.save_json_info(serializer.instance, json_data)
+        self.save_json_info(serializer.instance, self.request.data)
         serializer.save()

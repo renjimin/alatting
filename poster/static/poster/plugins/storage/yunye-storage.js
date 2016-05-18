@@ -97,8 +97,8 @@
                 storage.set(self.storageKey, self.getInitData());
             }else{
                 var datas = storage.get(key);
-                datas = $.extend(true, datas, initData);
-                storage.set(self.storageKey, datas);
+                //datas = $.extend(true, datas, initData);
+                //storage.set(self.storageKey, datas);
             }
             return self.getPosterData();
         };
@@ -131,7 +131,7 @@
             // base64 encode html
             var posterData = self.getPosterData(),
                 b64 = $.base64.encode($(domSelector).html());
-            posterData[self.posterPageId]['html'] = b64;
+            posterData['pages'][self.posterPageId]['html'] = b64;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);
         };

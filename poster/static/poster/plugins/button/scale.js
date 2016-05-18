@@ -62,12 +62,12 @@ var scale = function(box,options){
         nbare = s.o.find('.nbar-e');
         nbarw = s.o.find('.nbar-w');
 
-        s.opt.left = s.o.offset().left == 0 ? parseInt(s.o.css('left')) : s.o.offset().left;
-        s.opt.top = s.o.offset().top == 0 ? parseInt(s.o.css('top')) : s.o.offset().top;
+        s.opt.left = s.o.css('left') == null ? s.o.offset().left : parseInt(s.o.css('left'));
+        s.opt.top = s.o.css('top') == null ? s.o.offset().top : parseInt(s.o.css('top'));
+
         s.opt.width = ele.innerWidth() == 0 ? parseInt(ele.css('width')) : ele.innerWidth();
         s.opt.height = ele.innerHeight() == 0 ? parseInt(ele.css('height')) : ele.innerHeight();
         s.opt.currentAngle = s.o.data('rotate') == null ? '0': s.o.data('rotate');
-        console.log(s.opt.currentAngle);
     }
     s.initData(b);
     var touchEvents={
@@ -122,7 +122,6 @@ var scale = function(box,options){
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
-            console.log(s.opt.currentAngle);
             $(e.currentTarget).addClass('drag-active');
         },
         'touchmove':function(e){
@@ -415,8 +414,11 @@ var scale = function(box,options){
 
     if(ele.hasClass('btn')){
         /*编辑按钮*/
-        editBtn.on('click',function(){
-            addButton(ele);
+        editBtn.on('click',function(e){
+            if (e.originalEvent) e = e.originalEvent;
+            console.log($(e.currentTarget).parent().attr('class'))
+            elebtn = $(e.currentTarget).parent().find('.element');
+            addButton(elebtn);
         })
     }
 

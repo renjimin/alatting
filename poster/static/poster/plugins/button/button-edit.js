@@ -1,4 +1,4 @@
-var btn,currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
+var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template');
 var curentOpts={};
 
 
@@ -25,22 +25,28 @@ var curentOpts={};
 
         s.add = function(){
             isEdit = false;
-            btn = $('<a class="element btn btn-default">请输入文字</a>')
-            defaults.container.find('.btn-container').empty().append(btn);
+            var newbtn = null;
+            newbtn = $('<a class="element btn btn-default">请输入文字</a>')
+            defaults.container.find('.btn-container').empty().append(newbtn);
             s.controlInit();
-            s.upload(btn);
-            s.addControlListen(btn);
+            s.upload(newbtn);
+
         }
         s.edit = function(element){
             isEdit = true;
-            btn = null;
-            btn = element.clone();
-            defaults.container.find('.btn-container').empty().append(btn);
+            var editbtn = null;
+            editbtn = element.clone(false);
+            defaults.container.find('.btn-container').empty().append(editbtn);
             currentElebox = element.parent();
             //s.upload(btn);
-            s.controlInit(btn);
-            s.addControlListen(btn);
+            s.controlInit(editbtn);
         }
+        $('#buttonConfirm').unbind();
+        $('#buttonConfirm').on('click',function(){
+            var newbtn = $("#button-model").find('.element').eq(0);
+            //console.log(newbtn);
+            buttonConfirm(newbtn);
+        });
         s.upload = function(o){
             o.html(opts.text);
             o.attr({
@@ -113,44 +119,47 @@ var curentOpts={};
             $('.button-borderWidth').val(opts.borderWidth);
 
         }
-        s.addControlListen = function(o){
-            $('.button-href').on('input propertychange',function(){
+        s.addControlListen = function(){
+            var elebtn = $("#button-model").find('.element').eq(0);
+            console.log(elebtn.parent().attr('class'));
+
+            $('.button-href').off('input propertychange').on('input propertychange',function(){
                 opts.href = $(this).val();
-                o.attr({'href':opts.href})
+                elebtn.attr({'href':opts.href})
             });
-            $('.button-text').on('input propertychange',function(){
+            $('.button-text').off('input propertychange').on('input propertychange',function(){
                 opts.text = $(this).val();
-                o.html(opts.text);
+                elebtn.html(opts.text);
             });
-            $('.button-fontSize').on('change',function(){
+            $('.button-fontSize').off('change').on('change',function(){
                 opts.fontSize = $(this).val();
-                o.css('font-size',opts.fontSize+'px');
+                elebtn.css('font-size',opts.fontSize+'px');
             });
-            $('.button-fontFamily').on('change',function(){
+            $('.button-fontFamily').off('change').on('change',function(){
                 opts.fontFamily = $(this).val();
-                o.css('font-family',opts.fontFamily);
+                elebtn.css('font-family',opts.fontFamily);
             });
-            $('.button-borderStyle').on('change',function(){
+            $('.button-borderStyle').off('change').on('change',function(){
                 opts.borderStyle = $(this).val();
-                o.css('border-style',opts.borderStyle);
+                elebtn.css('border-style',opts.borderStyle);
             });
-            $('.button-borderWidth').on('change',function(){
+            $('.button-borderWidth').off('change').on('change',function(){
                 opts.borderWidth = $(this).val();
-                o.css('border-width',opts.borderWidth);
+                elebtn.css('border-width',opts.borderWidth);
             });
-            $('.button-borderColor').on('change',function(){
+            $('.button-borderColor').off('change').on('change',function(){
                 opts.borderColor = $(this).val();
-                o.css('border-color','#'+opts.borderColor);
+                elebtn.css('border-color','#'+opts.borderColor);
                 $(this).css('background','#'+opts.borderColor);
             });
-            $('.button-color').on('change',function(){
+            $('.button-color').off('change').on('change',function(){
                 opts.color = $(this).val();
-                o.css('color','#'+opts.color);
+                elebtn.css('color','#'+opts.color);
                 $(this).css('background','#'+opts.color);
             });
-            $('.button-background').on('change',function(){
+            $('.button-background').off('change').on('change',function(){
                 opts.background = $(this).val();
-                o.css('background','#'+opts.background);
+                elebtn.css('background','#'+opts.background);
                 $(this).css('background','#'+opts.background);
             });
 
@@ -175,7 +184,7 @@ var curentOpts={};
 
                     e.currentTarget.style.left = s.touches.currentX - s.touches.startX;
                     $('.button-opacity').val($(this).val());
-                    o.css('opacity',$(this).val()/100)
+                    elebtn.css('opacity',$(this).val()/100)
                 },
                 'touchend':function(event){
                     opts.opacity = $(this).val();
@@ -196,7 +205,7 @@ var curentOpts={};
                     e.currentTarget.style.left = s.touches.currentX - s.touches.startX;
 
                     $('.button-boxShadow').val($(this).val());
-                    o.css('box-shadow','0 0 '+$(this).val()+'px #444');
+                    elebtn.css('box-shadow','0 0 '+$(this).val()+'px #444');
                 },
                 'touchend':function(event){
                     opts.boxShadow = $(this).val();
@@ -217,7 +226,7 @@ var curentOpts={};
                     e.currentTarget.style.left = s.touches.currentX - s.touches.startX;
 
                     $('.button-borderRadius').val($(this).val());
-                    o.css('border-radius',$(this).val()+'px');
+                    elebtn.css('border-radius',$(this).val()+'px');
                 },
                 'touchend':function(event){
                     opts.borderRadius = $(this).val();
@@ -238,7 +247,7 @@ var curentOpts={};
                     e.currentTarget.style.left = s.touches.currentX - s.touches.startX;
 
                     $('.button-rotate').val($(this).val());
-                    o.css('transform','rotate('+$(this).val()+'deg)');
+                    elebtn.css('transform','rotate('+$(this).val()+'deg)');
                 },
                 'touchend':function(event){
                     opts.rotate = $(this).val();
@@ -253,9 +262,13 @@ var curentOpts={};
             this.edit(ele);
         }
 
+        s.addControlListen();
+
+
+
 
     }
-    function buttonConfirm(){
+    function buttonConfirm(ele){
         var cnd = $('<div class="cnd-element button-element">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
@@ -275,12 +288,13 @@ var curentOpts={};
             +'</div>');
 
         if(!isEdit){
-            cnd.find('.element-box-contents').append(btn.clone());
-            cnd.css({'top':$(window).height()/2-btn.height()/2+'px','left':$(window).width()/2-btn.width()/2+'px'})
-            fullcontainer.append(cnd);
+            cnd.find('.element-box-contents').append(ele);
+            cnd.hide();
+            fullcontainer.append(cnd);console.log(cnd.innerWidth())
+            cnd.css({'top':$(window).height()/2-cnd.innerHeight()/2+'px','left':$(window).width()/2-cnd.innerWidth()/2+'px'}).show();
             scale(cnd);
         }else{
-            currentElebox.empty().append(btn);
+            currentElebox.empty().append(ele);
         }
         $('#button-model').removeClass('open')
     }
@@ -296,7 +310,7 @@ var editButtonBasic = function(){
     $("#button-basic").show();
     $("#button-border").hide();
     if(!$('#button-model').hasClass('open')){
-        $('#button-model').addClass('open');
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         addButton();
     }
     ele.addClass('open').siblings().removeClass('open');
@@ -313,7 +327,7 @@ var editButtonBorder = function(){
     $("#button-basic").hide();
     $("#button-border").show();
     if(!$('#button-model').hasClass('open')){
-        $('#button-model').addClass('open');
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         addButton();
     }
     ele.addClass('open').siblings().removeClass('open');
@@ -357,7 +371,7 @@ var openSystemimg = function(){
         $('#systemimg-model').removeClass('open');
         ele.removeClass('open');
     }else{
-        $('#systemimg-model').addClass('open');
+        $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         ele.addClass('open');
     }
 
@@ -406,18 +420,18 @@ var deleteSystemimg = function(){
 }
 
 var uploadSystemimg = function(eleobj){
-    $.fn.uploads.showDialog({
-        url:'/api/v1/poster/upload/logo',
-        success:function(data){
-           console.log(data);
-           var img = $('<img />');
-           img.attr('src',data.file);
-            if(data.width > $(window).width()){
-                img.width( $(window).width() *.6);
-            }
-           addSystemimg(img);
-        },
-        error:function(){console.log("error");}
+
+    $.fn.uploads.showDialog(function(data){
+        console.log(data);
+        var img = $('<div class="element"><img src="'+data.file+'" /></div>');
+
+         if(data.width > $(window).width()){
+             img.width( $(window).width() *.6);
+             img.height($(window).width() *.6*data.height / data.width);
+         }
+        addSystemimg(img);
+    },function(data){
+         console.log(data);
     });
 
 }

@@ -1,9 +1,9 @@
-from django.db import models
-from alatting_website.models import Category
 import os
+from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from survey import QuestionChoices
+from alatting_website.models import Category
+from survey import QuestionChoices, QuestionProcessors
 
 class Survey(models.Model):
     name = models.CharField(max_length=64, unique=True)
@@ -39,8 +39,8 @@ class Questionnaire(models.Model):
         null=True
     )
 
-    def __unicode__(self):
-        return "{:s}".format(self.name)
+    def __str__(self):
+        return '%s' % (self.name)
 
     def questionsets(self):
         if not hasattr(self, "__qscache"):
@@ -98,8 +98,8 @@ class QuestionSet(models.Model):
             # should only occur if not yet saved
             return True
 
-    def __unicode__(self):
-        return u'(%s) %d. %s' % (self.questionnaire.name, self.sortid, self.heading)
+    def __str__(self):
+        return '%s-%d' % (self.questionnaire.name, self.sortid)
 
 
 class Question(models.Model):
@@ -117,8 +117,8 @@ class Question(models.Model):
     def questionnaire(self):
         return self.questionset.questionnaire
 
-    def __unicode__(self):
-        return u'%s %s' % (unicode(self.questionset), self.text)
+    def __str__(self):
+        return '%s-%s' % (self.questionset, self.text)
 
     def choices(self):
         res = Choice.objects.filter(question=self).order_by('sortid')
@@ -158,14 +158,14 @@ class Answer(models.Model):
     subject = models.ForeignKey(User, help_text = u'The user who supplied this answer')
     question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
     answer = models.TextField()
-    runinfo = models.ForeignKey(RunInfo)
+    runid = models.CharField(max_length=32)
 
 
 class RunInfoHistory(models.Model):
     subject = models.ForeignKey(User)
     completed = models.DateField()
     questionnaire = models.ForeignKey(Questionnaire)
-    runinfo = models.ForeignKey(RunInfo)
+    runid = models.CharField(max_length=32)
 
     def __unicode__(self):
         return "%s" % (self.subject, self.completed)
