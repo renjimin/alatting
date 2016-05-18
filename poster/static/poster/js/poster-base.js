@@ -50,6 +50,7 @@ $(function(){
                     event.stopPropagation();
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
+                          $('.header-logo').empty().append('<img></img>');
                           $.fn.uploads.showDialog(function(data){
                                 $('.header-logo img').attr("src",data.file);
                                 storageAPI.setHead("logo_img",data.file);
@@ -273,7 +274,7 @@ $(function(){
         }
         //logo本地存储
         if(pageHeadData.logo_img){
-            $('.header-logo img').attr("src",pageHeadData.logo_img);
+            $('.header-logo').empty().append('<img src="'+pageHeadData.logo_img+'" >');
         }
         /**读取缓存背景图片*/
         if( storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
