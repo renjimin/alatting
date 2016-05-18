@@ -289,6 +289,9 @@ $(function(){
         if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
         if(storageAPI.getCss(".qrcode .btn"))$(".qrcode .btn").css(storageAPI.getCss(".qrcode .btn"));
         if(storageAPI.getCss(".abutton-group li a"))$(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
+
+        /*读取主体部分*/
+        if(storageAPI.getHtml())$(".container-fluid").html(storageAPI.getHtml());
     }
 
     function setHeadTimeStamp(key,value){
@@ -348,6 +351,8 @@ $(function(){
                 setHeadTimeStamp("logoTitleType","image" );
                 setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
            }
+
+           storageAPI.setHtml(".container-fluid");
     }
 
     $(".btn.btn-save").on("click",function(){
