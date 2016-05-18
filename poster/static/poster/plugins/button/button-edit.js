@@ -129,10 +129,7 @@ var curentOpts={};
             });
             $('.button-text').off('input propertychange').on('input propertychange',function(){
                 opts.text = $(this).val();
-
                 elebtn.html(opts.text);
-                console.log(elebtn.parent().attr('class')+'      ===========');
-
             });
             $('.button-fontSize').off('change').on('change',function(){
                 opts.fontSize = $(this).val();
@@ -292,8 +289,9 @@ var curentOpts={};
 
         if(!isEdit){
             cnd.find('.element-box-contents').append(ele);
-            cnd.css({'top':$(window).height()/2-ele.height()/2+'px','left':$(window).width()/2-ele.width()/2+'px'})
-            fullcontainer.append(cnd);
+            cnd.hide();
+            fullcontainer.append(cnd);console.log(cnd.innerWidth())
+            cnd.css({'top':$(window).height()/2-cnd.innerHeight()/2+'px','left':$(window).width()/2-cnd.innerWidth()/2+'px'}).show();
             scale(cnd);
         }else{
             currentElebox.empty().append(ele);
