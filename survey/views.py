@@ -25,9 +25,7 @@ class StartView(RedirectView):
 
 		su = get_object_or_404(User, pk=self.kwargs['user_id'])
 
-		run = RunInfo()
-		run.subject = su
-		run.questionset = qs
+		run = RunInfo(subject=su, questionset=qs)
 		run.save()
 
 		kwargs = {'runid': run.id}
@@ -100,7 +98,15 @@ class QuestionnaireView(View):
 			Answer.objects.filter(subject=runinfo.subject, 
 				runid=runinfo.pk, question=question).delete()
 			answer.save()
-		
+
+		next = questionset.next()
+		runinfo.questionset = next
+		runinfo.save()
+
+		if next:
+			kwargs = {'runid': runinfo.id}
+			return HttpResponseRedirect(reverse('survey:questionnaire', kwargs=kwargs))
+
 		return HttpResponseRedirect(reverse('survey:questionnairedone'))
 
 
