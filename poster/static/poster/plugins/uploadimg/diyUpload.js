@@ -119,7 +119,7 @@
 					default : text = '未知错误!';
  					break;	
 				}
-            	alert( text );
+            	yyAlert( text );
         	});
         }
     });
