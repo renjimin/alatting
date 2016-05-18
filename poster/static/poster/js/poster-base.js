@@ -356,4 +356,20 @@ $(function(){
             }
         })
     });
+
+    $(".btn.btn-post").on("click",function(){
+        storageAPI.setHtml(".container-fluid");
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/publish/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: full_json,
+            url: url,
+            success:function(data){
+                yyAlert("发布成功");
+                console.log(data)
+            }
+        })
+    });
 });
