@@ -10,6 +10,8 @@ from alatting_website.models import (
     ExpertShow, Template, TemplateRegion, PosterFun,
     BusinessCard, PosterMoreLink,
     CategoryKeyword)
+from survey.models import (
+    Questionnaire, QuestionSet, Question, Choice)
 
 
 class AlattingAdminModelMixin(object):
@@ -168,4 +170,24 @@ class SystemImageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(SystemBackground)
 class SystemBackgroundAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Questionnaire)
+class QuestionnaireAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(QuestionSet)
+class QuestionSetAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Question)
+class QuestionAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Choice)
+class ChoiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

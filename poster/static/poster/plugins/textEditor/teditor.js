@@ -18,7 +18,8 @@ $(function(){
 */
     $('#text-slide-down').on('click',function(e){
         e.stopPropagation();
-        $('#text-model').animate({bottom:'-265px'},200);
+        var height = $('#text-model').outerHeight();
+        $('#text-model').animate({bottom:'-'+height+'px'},200);
     });
 
     fullcontainer.on('click','.text-element',function(e){

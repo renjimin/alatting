@@ -67,7 +67,7 @@
         }else{
             $('#ted-delete').css('display','none');
         }
-        
+
         /*------------控件操作事件-------------*/
         /*删除文本*/
         pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(){
@@ -77,7 +77,8 @@
                 $element = $prevElement.last();
                 $element.trigger('click');
             }else{
-                $('#text-model').animate({bottom:'-265px'},200);
+                var height = $('#text-model').outerHeight();
+                $('#text-model').animate({bottom:'-'+height+'px'},200);
             }
         });
         /*复制文本*/

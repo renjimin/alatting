@@ -72,23 +72,23 @@ var curentOpts={};
                 if($2==null || $2 == ''){
                     $2 = 0;
                 }
-            eleopts = {
-                'href': $(b).attr('href'),
-                'text': $(b).text(),
-                'color': $(b).css('color')==null?'000':$(b).css('color'),
-                'fontSize': parseInt($(b).css('font-size')),
-                'fontFamily': $(b).css('font-family').replace(/'/g,""),
-                'background': $(b).css('background'),
-                'opacity': $(b).css('opacity'),
-                'boxShadow':$(b).css('box-shadow-spread'),
-                'borderRadius':$(b).css('border-radius'),
-                'rotate':$2,
-                'borderColor':$(b).css('border-color'),
-                'borderStyle':$(b).css('border-style'),
-                'borderWidth':$(b).css('border-width')
+                eleopts = {
+                    'href': $(b).attr('href'),
+                    'text': $(b).text(),
+                    'color': $(b).css('color')==null?'000':$(b).css('color'),
+                    'fontSize': parseInt($(b).css('font-size')),
+                    'fontFamily': $(b).css('font-family').replace(/'/g,""),
+                    'background': $(b).css('background'),
+                    'opacity': $(b).css('opacity'),
+                    'boxShadow':$(b).css('box-shadow-spread'),
+                    'borderRadius':$(b).css('border-radius'),
+                    'rotate':$2,
+                    'borderColor':$(b).css('border-color'),
+                    'borderStyle':$(b).css('border-style'),
+                    'borderWidth':$(b).css('border-width')
+                }
+                opts = $.extend(opts,eleopts);
             }
-            opts = $.extend(opts,eleopts);
-        }
 
 
 
@@ -101,7 +101,6 @@ var curentOpts={};
             }
             $('.button-fontSize').val(opts.fontSize);
             $('.button-fontFamily').val(opts.fontFamily);
-            console.log(opts.fontFamily);
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
@@ -286,20 +285,38 @@ var curentOpts={};
         $('#button-model').removeClass('open')
     }
 var editButtonBasic = function(){
+    var e = window.event || event;
+    e.stopPropagation();
+    if (e.originalEvent) e = e.originalEvent;
+    var ele = $(e.target);
+    if($(ele).hasClass('icon')){
+        ele = ele.parent();
+    }
+
     $("#button-basic").show();
     $("#button-border").hide();
     if(!$('#button-model').hasClass('open')){
-        $('#button-model').addClass('open');
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         addButton();
     }
+    ele.addClass('open').siblings().removeClass('open');
 }
 var editButtonBorder = function(){
+    var e = window.event || event;
+    e.stopPropagation();
+    if (e.originalEvent) e = e.originalEvent;
+    var ele = $(e.target);
+    if($(ele).hasClass('icon')){
+        ele = ele.parent();
+    }
+
     $("#button-basic").hide();
     $("#button-border").show();
     if(!$('#button-model').hasClass('open')){
-        $('#button-model').addClass('open');
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         addButton();
     }
+    ele.addClass('open').siblings().removeClass('open');
 }
 var copyButton = function(){
     var imgclone = $('.button-element.active').clone();
@@ -319,7 +336,8 @@ var deleteButton = function(){
 
 
 $(function(){
-    $('#systemimg-model li').click(function(){
+    $('#systemimg-model li').click(function(event){
+        event.stopPropagation();
         $('#systemimg-model').removeClass('open');
         var eleobj = $('<div class="element systemimg '+$(this).attr('class')+'"></div>');
 
@@ -327,10 +345,20 @@ $(function(){
     });
 })
 var openSystemimg = function(){
+    var e = window.event || event;
+    e.stopPropagation();
+    if (e.originalEvent) e = e.originalEvent;
+    var ele = $(e.target);
+    if($(ele).hasClass('icon')){
+        ele = ele.parent();
+    }
+
     if($('#systemimg-model').hasClass('open')){
-        $('#systemimg-model').removeClass('open')
+        $('#systemimg-model').removeClass('open');
+        ele.removeClass('open');
     }else{
-        $('#systemimg-model').addClass('open')
+        $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
+        ele.addClass('open');
     }
 
 }
@@ -378,18 +406,18 @@ var deleteSystemimg = function(){
 }
 
 var uploadSystemimg = function(eleobj){
-     $.uploads({
-         url:'/api/v1/poster/upload/logo',
-         pick:'uploadSystemimg',
-         success:function(data){
-            console.log(data);
-            var img = $('<img />');
-            img.attr('src',data.file);
-             if(data.width > $(window).width()){
-                 img.width( $(window).width() *.6);
-             }
-            addSystemimg(img);
-         },
-         error:function(){console.log("error");}
+
+    $.fn.uploads.showDialog(function(data){
+        console.log(data);
+        var img = $('<div class="element"><img src="'+data.file+'" /></div>');
+
+         if(data.width > $(window).width()){
+             img.width( $(window).width() *.6);
+             img.height($(window).width() *.6*data.height / data.width);
+         }
+        addSystemimg(img);
+    },function(data){
+         console.log(data);
     });
+
 }
