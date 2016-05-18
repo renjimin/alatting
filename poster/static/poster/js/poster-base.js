@@ -283,7 +283,6 @@ $(function(){
         if(storageAPI.getCss(".abutton-group li a"))$(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
 
         /*读取主体部分*/
-        console.log(storageAPI.getPosterData());
         if(storageAPI.getHtml())$(".yunye-template").empty().html(storageAPI.getHtml());
         $(".yunye-template .cnd-element").each(function(){
             scale($(this));
