@@ -3,81 +3,39 @@
 ;(function(){
     var defaults, pluginName;
     var colorArr =
-        ['#817936','#7f7522','#80752c','#87843b','#726930','#454926','#2e3a1f','#4d4f36','#b7ba6b','#b2d235',
-        '#5c7a29','#bed742','#7fb80e','#a3cf62','#769149','#6d8346','#78a355','#abc88b','#74905d','#cde6c7',
-        '#1d953f','#77ac98','#007d65','#84bf96','#45b97c','#225a1f','#367459','#007947','#40835e','#2b6447',
-        '#005831','#006c54','#375830','#274d3d','#375830','#27342b','#65c294','#73b9a2','#72baa7','#005344',
-        '#122e29','#293047','#00ae9d','#508a88','#70a19f','#50b7c1','#00a6ac','#78cdd1','#008792','#94d6da',
-        '#afdfe4','#5e7c85','#76becc','#90d7ec','#009ad6','#145b7d','#11264f','#7bbfea','#33a3dc','#228fbd',
-        '#2468a2','#2570a1','#2585a6','#1b315e','#f7acbc','#ef5b9c','#feeeed','#f05b72','#f15b6c','#f8aba6',
-        '#f69c9f','#f58f98','#ca8687','#f391a9','#bd6758','#d71345','#d64f44','#d93a49','#b3424a','#c76968',
-        '#bb505d','#987165','#ac6767','#973c3f','#b22c46','#a7324a','#aa363d','#ed1941','#f26522','#d2553d',
-        '#b4534b','#ef4136','#c63c26','#f3715c','#a7573b','#aa2116','#b64533','#b54334','#853f04','#840228',
-        '#7a1723','#a03939','#8a2e3b','#8e453f','#8f4b4a','#892f1b','#6b2c25','#733a31','#54211d','#78331e',
-        '#53261f','#f15a22','#b4533c','#84331f','#f47a55','#f15a22','#f3704b','#da765b','#c85d44','#ae5039',
-        '#6a3427','#8f4b38','#8e3e1f','#f36c21','#b4532a','#b7704f','#de773f','#c99979','#deab8a','#fedcbd',
-        '#f47920','#905a3d','#8f4b2e','#87481f','#5f3c23','#6b473c','#faa755','#fab27b','#f58220','#843900',
-        '#905d1d','#8a5d19','#8c531b','#826858','#64492b','#ae6642','#56452d','#96582a','#705628','#4a3113',
-        '#412f1f','#845538','#8e7437','#69541b','#d5c59f','#cd9a5b','#cd9a5b','#b36d41','#df9464','#b76f40',
-        '#ad8b3d','#dea32c','#d1923f','#c88400','#c37e00','#c37e00','#e0861a','#ffce7b','#fcaf17','#ba8448',
-        '#896a45','#76624c','#6d5826','#ffc20e','#fdb933','#d3c6a6','#c7a252','#dec674','#b69968','#c1a173',
-        '#dbce8f','#ffd400','#ffd400','#ffe600','#f0dc70','#fcf16e','#decb00','#cbc547','#6e6b41','#596032',
-        '#525f42','#5f5d46','#444693','#2b4490','#2a5caa','#224b8f','#003a6c','#102b6a','#426ab3','#46485f',
-        '#4e72b8','#181d4b','#1a2933','#121a2a','#0c212b','#6a6da9','#585eaa','#494e8f','#afb4db','#9b95c9',
-        '#6950a1','#6f60aa','#867892','#918597','#6f6d85','#594c6d','#694d9f','#6f599c','#8552a1','#543044',
-        '#63434f','#7d5886','#401c44','#472d56','#45224a','#411445','#4b2f3d','#402e4c','#c77eb5','#ea66a6',
-        '#f173ac','#fffffb','#fffef9','#f6f5ec','#d9d6c3','#d1c7b7','#f2eada','#d3d7d4','#999d9c','#a1a3a6',
-        '#9d9087','#8a8c8e','#74787c','#7c8577','#72777b','#77787b','#4f5555','#6c4c49','#563624','#3e4145',
-        '#3c3645','#464547','#130c0e','#281f1d','#2f271d','#1d1626'];
-    var fontFamily= ['Consolas','微软雅黑'];
+    ['#f8aba6','#f58f98','#f391a9','#f05b72','#d93a49','#b3424a','#a7324a','#840228','#6b2c25','#54211d',
+    '#8e3e1f','#b4532a','#de773f','#f47920','#faa755','#fab27b','#dea32c','#ffc20e','#fdb933','#ffe600',
+    '#f0dc70','#fcf16e','#b2d235','#a3cf62','#7fb80e','#78a355','#769149','#817936','#87843b','#454926',
+    '#2e3a1f','#122e29','#274d3d','#225a1f','#007947','#508a88','#70a19f','#008792','#78cdd1','#afdfe4',
+    '#90d7ec','#7bbfea','#009ad6','#228fbd','#2570a1','#2468a2','#145b7d','#2a5caa','#224b8f','#2b4490',
+    '#1b315e','#11264f','#45224a','#543044','#63434f','#594c6d','#6950a1','#6f60aa','#9b95c9','#afb4db',
+    '#fffffb','#f6f5ec','#f2eada','#d3d7d4','#a1a3a6','#999d9c','#72777b','#4f5555','#3e4145','#281f1d',
+    '#130c0e'];
+    var fontFamily= ['Consolas','微软雅黑','楷体','华文新魏','华文新宋','华文彩云','华文行楷','幼圆','苹果丽黑','隶书','华康中黑字体','华康娃娃体','华康少女字体'];
     pluginName = "teditor";
     defaults = {
         colorArr:colorArr,
-        fontFamily:fontFamily
+        fontFamily:fontFamily,
+        textDelete:true,
+        textCopy:true,
+        pluginType:'main'
     };
 
-    var Plugin = function(ele,option) {
+    var Plugin = function(ele,option){
         this.$element = ele;
         this.defaults=defaults;
         this.option= $.extend({},this.defaults,option);
     }
     Plugin.prototype.init=function(){
         var _this = this;
+        var option = _this.option;
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
         var move=false;
         /*载入控件dom*/
         var ch = pluginBox.children().length;
         if(!ch){
-            var cdiv = '';
-            cdiv += '<div class="ted-ctrl"><div class="ted-ctrl-li ted-ctrl-base" id="ted-ctrl-base"><div class="ted-base-top"><div class="base-top-left">';
-            cdiv += '<ul><li class="btn btn-default" id="ted-fontweight">B</li><li class="btn btn-default" id="ted-fontstyle">/</li><li class="btn btn-default" id="ted-underline">U</li></ul></div>';
-            cdiv += '<div class="base-top-right"><ul><li class="btn btn-default" id="ted-copy"><span class="glyphicon glyphicon-duplicate"></span></li><li class="btn btn-default" id="ted-delete"><span class="glyphicon glyphicon-trash"></span></li></ul></div>';
-            cdiv += '<div class="base-top-group"><div class="base-top-font btn-group">';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizebig"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizesml"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button>';
-            cdiv += '</div><div class="base-top-align btn-group">';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-leftalign"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-centeralign"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></button>';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-rightalign"><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span></button>';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-justify"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></button>';
-            cdiv += '</div></div>';
-            cdiv += '<div class="ted-base-bot"><div class="base-bot-name">字间宽</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="wordspace"></div></div></div></div>';
-            cdiv += '<div class="ted-base-bot"><div class="base-bot-name">行高</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="lineheight"></div></div></div></div></div></div>';
-            cdiv += '<div class="ted-ctrl-li ted-ctrl-color" id="ted-ctrl-color"><div class="ted-color-top"><ul class="color-list">';
-            for(var i=0;i<this.option.colorArr.length;i++){
-                cdiv += '<li class="color-li" style="background:'+this.option.colorArr[i]+';" data-color="'+this.option.colorArr[i]+'"></li>';
-            }
-            cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
-            cdiv += '<div class="ted-ctrl-li ted-ctrl-font" id="ted-ctrl-font"><div class="font-list"><ul>';
-            for(var i=0;i<this.option.fontFamily.length;i++){
-                cdiv += '<li class="ted-font-li" style="font-family:&#39;'+this.option.fontFamily[i]+'&#39;;" data-fm="'+this.option.fontFamily[i]+'">'+this.option.fontFamily[i]+'</li>';
-            }
-            cdiv += '</ul></div></div>';
-            cdiv += '<div class="ted-ctrl-li ted-ctrl-effects" id="ted-ctrl-effects">';
-            cdiv += '<div class="ted-effects-li ted-effects-opacity"><div class="base-bot-name">透明度</div><div class="base-bot-value">100</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="opacity"></div></div></div></div>';
-            cdiv += '<div class="ted-effects-li"><div class="base-bot-name">阴影</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar ted-eff-bar" data-item="shadow"></div></div></div></div></div></div></div>';
-            cdiv += '<div class="ted-menu"><ul><li class="ted-menu-li ted-menu-base ted-menu-act" data-item="base">基本</li><li class="ted-menu-li ted-menu-color" data-item="color">颜色</li><li class="ted-menu-li ted-menu-font " data-item="font">字体</li><li class="ted-menu-li ted-menu-effects" data-item="effects">特效</li></ul></div>';
+            var cdiv = initHtml(this.option);
             pluginBox.append(cdiv);
 
             var canvas = document.getElementById("bot-cbox-canvas");
@@ -99,21 +57,65 @@
             var ctx=canvas.getContext("2d");
         }
 
+        if(option.textCopy){
+            $('#ted-copy').css('display','block');
+        }else{
+            $('#ted-copy').css('display','none');
+        }
+        if(option.textDelete){
+            $('#ted-delete').css('display','block');
+        }else{
+            $('#ted-delete').css('display','none');
+        }
+
         /*------------控件操作事件-------------*/
         /*删除文本*/
         pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(){
+            var $prevElement = $element.siblings('.text-element');
             $element.remove();
+            if($prevElement.length){
+                $element = $prevElement.last();
+                $element.trigger('click');
+            }else{
+                var height = $('#text-model').outerHeight();
+                $('#text-model').animate({bottom:'-'+height+'px'},200);
+            }
         });
         /*复制文本*/
         pluginBox.off('click','#ted-copy').on('click','#ted-copy',function(){
-            $element.css('text-align','left');
+            var $newel =$element.clone();
+            var top= parseInt($element.css('top'))+30;
+            $element.parent().append($newel);
+            $element.parent().children().css('z-index','100').removeClass('text-element-act');
+            $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
+            $element = $newel;
+        });
+        /*文字内容编辑*/
+        pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
+            $('.ted-text-content').fadeIn(200);
+            if(option.pluginType == 'main'){
+                $('#tt-content').val($element.find('.element-box-contents').html());
+            }else if(option.pluginType == 'other'){
+                $('#tt-content').val($element.html());
+            }else{}
+        });
+        pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
+            if(option.pluginType == 'main'){
+                $element.find('.element-box-contents').html($('#tt-content').val());
+            }else if(option.pluginType == 'other'){
+                $element.html($('#tt-content').val());
+            }else{}
+        });
+        pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
+            $('.ted-text-content').fadeOut(200);
         });
 
         /*设置文字字体*/
         pluginBox.off('click','.ted-font-li').on('click','.ted-font-li',function(){
             var fontfm = $(this).attr('data-fm');
-             console.log(fontfm);
             $element.css('font-family',fontfm);
+            $('.ted-font-li').css('color','#fff');
+            $(this).css('color','#00e8d4');
         });
         /*设置文字颜色*/
         pluginBox.off('click','.color-li').on('click','.color-li',function(){
@@ -148,9 +150,9 @@
                     var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
                     var pixel = imageData.data;
                     var color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
-                    var sleft = e.pageX-20;
-                    var stop = e.pageY-40;
-                    $('#bot-color-selected').css({'left':sleft+'px',top:stop+'px','background':color});
+                    var s_left = canvasX-20;
+                    var s_top = canvasY-45;
+                    $('#bot-color-selected').css({'left':s_left+'px',top:s_top+'px','background':color});
                     $element.css('color',color);
                 }
             }else{
@@ -219,11 +221,16 @@
             $element.css('text-align','justify');
         });
 
-        var _x, x,barx;
-        var blwidth=parseInt($('.slideline').width());
-        var bawidth=parseInt($('.sl-bar').width());
-        var max = blwidth-bawidth;
-        var min = 0;
+        var _x, x,barx,blwidth,bawidth,max,min = 0;
+        blwidth=parseInt($('.slideline').outerWidth());
+        bawidth=parseInt($('.sl-bar').outerWidth());
+        max = blwidth-bawidth;
+        /*阴影参数*/
+        var ef={
+            color:'#00e8d4',
+            distance:'2',
+            blur:'0'
+        };
         pluginBox.off('touchstart touchmove touchend','.sl-bar').on('touchstart touchmove touchend','.sl-bar',function(event){
             if(event.type == "touchstart" ){
                 var e = event.originalEvent.targetTouches[0];
@@ -261,15 +268,19 @@
                         var op = rate/100;
                         $element.css("opacity",op);
                     }
+                    /*滑块设置阴影*/
                     if(item == 'shadow'){
                         if(s>blwidth/2){
                             rate = Math.round(((s-max/2)*50)/(max/2));
                         }else{
                             rate = -Math.round(((max/2-s+min)*50)/(max/2));
                         }
-                        var sh = 10*rate/50;
-                        var tsh = '#00e8d4 '+sh+'px '+sh+'px 5px';
-                        $element.css("text-shadow", tsh);
+                        ef.distance = 10*rate/50;
+                        var efstyle = ef.color+' '+ef.distance+'px '+ef.distance+'px ';
+                        if(ef.blur != '0'){efstyle += '5px';}
+                        $element.css("text-shadow", efstyle)
+                        var obtog = ths.parents('.ted-effects-top').siblings('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+                        openEff(obtog);
                     }
                     ths.parents('.base-bot-slide').siblings('.base-bot-value').html(rate);
                 }
@@ -277,6 +288,57 @@
                 move=false;
             }
         });
+        /*阴影的颜色设置*/
+        pluginBox.off('click','.ef-color-li').on('click','.ef-color-li',function(){
+            var color = $(this).attr('data-color');
+            ef.color = color;
+            setEff($element,ef);
+            var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+            openEff(obtog);
+        });
+        /*阴影的关闭与打开*/
+        pluginBox.off('click','.toggle').on('click','.toggle',function(){
+            var ths = $(this);
+            var tgo = ths.children('.tog-line');
+            var open = ths.attr('data-tog');
+            if(open == '0'){
+                tgo.animate({left:'0px'},100);
+                ths.attr('data-tog','1');
+                if(ef.blur != '0'){ef.blur = '5px';}
+                setEff($element,ef);
+            }else{
+                tgo.animate({left:'-30px'},100);
+                ths.attr('data-tog','0');
+                $element.css('text-shadow','');
+            }
+        });
+        /*阴影的模糊与变硬*/
+        pluginBox.off('click','.effects-style').on('click','.effects-style',function(){
+            if($(this).hasClass('es-act')){
+                ef.blur = '0';
+                $(this).removeClass('es-act');
+            }else{
+                ef.blur = '5px';
+                $(this).addClass('es-act');
+            }
+            setEff($element,ef);
+            var obtog = $(this).siblings('.base-bot-name').children('.toggle');
+            openEff(obtog);
+        });
+        function openEff(ths){
+            var tgo = ths.children('.tog-line');
+            var open = ths.attr('data-tog');
+            if(open == '1'){return;}
+            tgo.animate({left:'0px'},100);
+            ths.attr('data-tog','1');
+        }
+        function setEff(ths,ef){
+            var efstyle =ef.color+' '+ef.distance+'px '+ef.distance+'px ';
+            if(ef.blur != '0'){
+                efstyle += ef.blur;
+            }
+            ths.css('text-shadow',efstyle);
+        }
 
         /*操作后样式控制*/
         pluginBox.off('click','.ted-menu-li').on('click','.ted-menu-li',function(){
@@ -286,11 +348,52 @@
             $('.ted-ctrl-li').fadeOut(200);
             $('#ted-ctrl-'+item).fadeIn(200);
         });
-        pluginBox.off('click','.ted-font-li').on('click','.ted-font-li',function(){
-            $('.ted-font-li').css('color','#fff');
-            $(this).css('color','#00e8d4');
-        });
+
     };
+
+    function initHtml(option){
+        var cdiv = '';
+        cdiv += '<div class="ted-ctrl"><div class="ted-ctrl-li ted-ctrl-base" id="ted-ctrl-base"><div class="ted-base-top">';
+        cdiv += '<div class="base-top-group"><div class="base-top-font btn-group">';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-copy"><span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>';
+        cdiv += '</div><div class="base-top-align btn-group">';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-fontweight">B</button><button type="button" class="btn btn-default" id="ted-fontstyle">/</button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-underline">U</button></div></div>';
+        cdiv += '<div class="base-top-group"><div class="base-top-font btn-group">';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizebig"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizesml"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button>';
+        cdiv += '</div><div class="base-top-align btn-group">';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-leftalign"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-centeralign"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-rightalign"><span class="glyphicon glyphicon-align-right" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-justify"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></button>';
+        cdiv += '</div></div></div>';
+        cdiv += '<div class="ted-base-bot"><div class="base-bot-name">字间宽</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="wordspace"></div></div></div></div>';
+        cdiv += '<div class="ted-base-bot"><div class="base-bot-name">行高</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="lineheight"></div></div></div></div></div>';
+        cdiv += '<div class="ted-ctrl-li ted-ctrl-color" id="ted-ctrl-color"><div class="ted-color-top"><ul class="color-list">';
+        for(var i=0;i<option.colorArr.length;i++){
+            cdiv += '<li class="color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
+        }
+        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
+        cdiv += '<div class="ted-ctrl-li ted-ctrl-font" id="ted-ctrl-font"><div class="font-list"><ul>';
+        for(var i=0;i<option.fontFamily.length;i++){
+            cdiv += '<li class="ted-font-li" style="font-family:\''+option.fontFamily[i]+'\';" data-fm="'+option.fontFamily[i]+'">'+option.fontFamily[i]+'</li>';
+        }
+        cdiv += '</ul></div></div>';
+        cdiv += '<div class="ted-ctrl-li ted-ctrl-effects" id="ted-ctrl-effects">';
+        cdiv += '<div class="ted-effects-li ted-effects-opacity"><div class="base-bot-name">透明度</div><div class="base-bot-value">100</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="opacity"></div></div></div></div>';
+        cdiv += '<div class="ted-effects-li"><div class="ted-effects-top"><div class="base-bot-name">阴影</div> <div class="base-bot-value">0</div> <div class="base-bot-slide"> <div class="slideline"> <div class="sl-bar ted-eff-bar" data-item="shadow"></div> </div> </div> </div>';
+        cdiv += '<div class="teb-effects-bot"> <div class="base-bot-name"> <div class="toggle" data-tog="0"> <div class="tog-line"> <div class="line-left"></div> <div class="tog-btn"></div> </div> </div> </div> <div class="base-bot-value effects-style">模糊</div> <div class="base-bot-slide"> <div class="effects-color"> <ul>';
+        for(var i=0;i<option.colorArr.length;i++){
+            cdiv += '<li class="ef-color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
+        }
+        cdiv += '</ul></div></div></div></div></div></div>';
+        cdiv += '<div class="ted-menu"><ul><li class="ted-menu-li ted-menu-base ted-menu-act" data-item="base">基本</li><li class="ted-menu-li ted-menu-color" data-item="color">颜色</li><li class="ted-menu-li ted-menu-font " data-item="font">字体</li><li class="ted-menu-li ted-menu-effects" data-item="effects">特效</li></ul></div>';
+        cdiv += '<div class="ted-text-content"><div class="tt-cont-back"></div><div class="tt-cont-main"><div class="tt-cont-confirm" id="tt-cont-confirm"><span class="glyphicon glyphicon-ok"></span></div><textarea type="text" id="tt-content"></textarea></div></div>';
+        return cdiv;
+    }
 
     $.fn.tEditor = function(option){
         var tedit = new Plugin(this,option);

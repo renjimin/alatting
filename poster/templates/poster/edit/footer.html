@@ -1,0 +1,62 @@
+{% load static %}
+
+<div class="bar-footer bar">
+    <a class="tab-item dropdown-toggle" id="share-toggle"
+       href="javascript:void(0);" data-dropdown="share-panel">
+        <i class="icon ico-edit-text"></i>
+    </a>
+    <a class="tab-item dropdown-toggle" id="rate-toggle"
+       href="javascript:void(0);" data-dropdown="rate-panel">
+        <i class="icon ico-edit-pic"></i>
+    </a>
+    <a class="tab-item dropdown-toggle" id="feedback-toggle"
+       href="javascript:void(0);" data-dropdown="feedback-panel">
+        <i class="icon ico-edit-button"></i>
+    </a>
+    <a class="tab-item dropdown-toggle" id="export-toggle"
+       href="javascript:void(0);" data-dropdown="export-panel">
+        <i class="icon glyphicon glyphicon-music"></i>
+    </a>
+
+    <section class="dropdown-panel" id="share-panel">
+        <div class="share-group">
+            <a href="javascript:void(0);" class="tab-item share-text"><i class="icon ico-text"></i></a>
+            <a href="javascript:void(0);" class="tab-item share-edit"><i
+                    class="icon ico-text-space"></i></a>
+            <a href="javascript:void(0);" class="tab-item share-copy"><i class="icon ico-copy"></i></a>
+            <a href="javascript:void(0);" class="tab-item share-delete"><i class="icon ico-recycle"></i></a>
+        </div>
+    </section>
+    <section class="dropdown-panel" id="rate-panel">
+        <div class="share-group">
+            <a href="javascript:void(0);" onclick="openSystemimg()"
+               class="tab-item"><i class="icon ico-systemimg"></i></a>
+            <a href="javascript:void(0);" onclick="uploadSystemimg()"
+               class="tab-item"><i class="icon ico-systemimgs"></i></a>
+            <a href="javascript:void(0);" onclick="copySystemimg()"
+               class="tab-item"><i class="icon ico-copy"></i></a>
+            <a href="javascript:void(0);" onclick="deleteSystemimg()"
+               class="tab-item"><i class="icon ico-recycle"></i></a>
+        </div>
+    </section>
+    <section class="dropdown-panel" id="feedback-panel">
+        <div class="share-group">
+            <a href="javascript:void(0);" class="tab-item"
+               onclick="editButtonBasic()"><i class="icon ico-text"></i></a>
+            <a href="javascript:void(0);" class="tab-item"
+               onclick="editButtonBorder()"><i class="icon ico-input"></i></a>
+            <a href="javascript:void(0);" class="tab-item"
+               onclick="copyButton()"><i class="icon ico-copy"></i></a>
+            <a href="javascript:void(0);" class="tab-item"
+               onclick="deleteButton()"><i class="icon ico-recycle"></i></a>
+        </div>
+    </section>
+    <section class="dropdown-panel" id="export-panel">
+        <div class="share-group">
+            <a href="#" class="tab-item"><i
+                    class="icon ico-music-link"></i><span>音乐链接</span></a>
+            <a href="#" class="tab-item"><i
+                    class="icon ico-music-upload"></i><span>上传音乐</span></a>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,50 @@
+{% extends 'alatting_website/base.html' %}
+{%load static %}
+{% block base_header_css %}
+    <link rel="stylesheet" href="{% static 'survey/css/survey-base.css' %}">
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'survey/js/plugins/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'survey/js/survey-base.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+    <div class="qs container-fluid">
+        <header class="qs-header">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>      
+            <div class="progress-btm"></div>
+            <div class="row qs-cat">        
+                <div class="col-xs-6 qs-cat-cat"><a href="javascript:void(0);">{{main_cat_name}}</a></div>
+                <div class="col-xs-6 qs-cat-subcat"><a href="javascript:void(0);">{{sub_cat_name}}</a></div>
+            </div>
+        </header>
+        <div class="qs-body">
+        	<form class="form" action="{{ request.path }}" method="POST">
+			    <div class="qs-title">{{qs_title}}</div>
+			    <div class="qs-list">
+			        <div class="step">
+			            <div class="qs-list-section">
+			                {% for question, qdict in qlist %}
+				            	{% include qdict.template %}
+				            {% endfor %}
+			            </div>
+			        </div>
+			        <div class="qs-footer">
+			            <div>
+			                <button type="button" class="back btn btn-default">返&nbsp;回</button>
+                            <input type="submit" class="next btn btn-default" value="确&nbsp;认">
+			            </div>
+			        </div>  
+			    </div>
+			</form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block base_body_footer %}
+{% endblock %}

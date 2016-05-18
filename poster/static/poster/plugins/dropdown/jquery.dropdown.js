@@ -19,7 +19,8 @@
 			
 			_this.on('click',function(event){
 				$(document).trigger("clsdp");
-				if(options == null){
+				if(!options){
+			  $('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
@@ -33,9 +34,11 @@
 					var dpw = $('#dp');
 					if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 						dpw.attr('class', '').removeClass('open');
+						$('#dp ul').css("visibility","hidden");
 					}else{
 						dpw.attr('class', '').attr('style', '');
 						$('#dp ul').hide();
+						$('#'+_option.id).css("visibility","visible");
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
 
@@ -49,7 +52,7 @@
 						$('#dp .arrow').css('top',-30);
 						$('#dp .arrow').css('left', arrOffset );
 						$('#dp .arrow').attr('class', 'arrow up')
-						//第一个input自动获取焦点s
+						//第一个input自动获取焦点
 						$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
 						if(_option.eval){
@@ -60,7 +63,7 @@
 				event.stopPropagation();
 			});
 		})
-	}
+	};
 	$.fn.registerPopUp = function(options){
 		var opts = {
 			list:[],
@@ -70,7 +73,8 @@
 			offsetY:0,
 			arrowOffset:0,
 			orientation:0,
-			followMouse:false
+			followMouse:false,
+			suspendFun: null
 		};
 		return this.each(function () {
 			var _this = $(this),
@@ -80,7 +84,7 @@
 				pid = _this.attr('id'),
 				dpw = $('#dp');
 
-			var str = '<ul id="'+ _option.id +'">'
+			var str = '<ul id="'+ _option.id +'">';
 			if(_option.orientation){
 				var len = _option.list.length;
 				for(var i in _option.list){
@@ -91,7 +95,7 @@
 					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[i].icon+'"></i><span>'+_option.list[i].text+'</span>'
 				}
 			}
-			str += '</ul>'
+			str += '</ul>';
 			dpw.append(str);
 			for(var i in _option.list){
 				$("#dp #" + _option.id+'_'+i ).click(function(event){
@@ -99,17 +103,23 @@
 						var cb = _option.list[l[l.length-1]].callback;
 						if(cb){
 							$('#dp').removeClass('open');
-							cb();
+							$('#dp ul').css("visibility","hidden");
+							cb(_this);
 						}
 					});
 			}
 			_this.on('click',function(event){
+				if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
+					if(!_option.suspendFun())return false;
+				}
 				$(document).trigger("clsdp");
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
+					$('#dp ul').css("visibility","hidden");
 				}else{
-					dpw.attr('class', '').attr('style', '')
+					dpw.attr('class', '').attr('style', '');
 					$('#dp ul').hide();
+					$('#'+_option.id).css("visibility","visible");
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
 
@@ -157,12 +167,12 @@
 
 (function($){
 	$.fn.setCursorPosition = function(position) {
-		if (this.lengh == 0) return this;
+		if (this.length == 0) return this;
 		return $(this).setSelection(position, position);
-	}
+	};
 	$.fn.setSelection = function(selectionStart, selectionEnd) {
-		if (this.lengh == 0) return this;
-		input = this[0];
+		if (this.length == 0) return this;
+		var input = this[0];
 		if (input.createTextRange) {
 			var range = input.createTextRange();
 			range.collapse(true);
@@ -174,9 +184,9 @@
 			input.setSelectionRange(selectionStart, selectionEnd);
 		}
 		return this;
-	}
-	$.fn.focusEnd = function() { 
+	};
+	$.fn.focusEnd = function() {
 		if (!this[0]) return this;
 		this.setCursorPosition(this.val().length);
-	}
+	};
 })(jQuery);

@@ -40,68 +40,57 @@
 			"showDialog":self.showDialog
 		}
 	}();
-
 })(jQuery)
+
+$(function(){
+	$.fn.uploads.init();
+});
+
 	/*$.fn.uploads = function(options){
 		return this.each(function(){
-
 			var option = $.extend(opps,options);
-
 			//组装参数;
 			if( option.url ) {
 				option.server = option.url;
 				delete option.url;
 			}
-
 			var webUploader = WebUploader.create( option );
-
 			//绑定文件加入队列事件;
 			webUploader.on('fileQueued', function( file ) {
 				if ( option.fileQueued ) {
 					option.fileQueued( file );
 				}
-
 			});
-
-
 			//进度条事件
 			webUploader.on('uploadProgress',function( file, percentage  ){
 				if ( option.progress ) {
 					option.progress( file );
 				}
-
 			});
-
 			//上传完成时触发，不管成功与否;
 			webUploader.on('uploadComplete', function(file ){
 				if ( option.complete ) {
 					option.complete( file );
 				}
-
 			});
-
 			//全部上传结束后触发;
 			webUploader.on('uploadFinished', function(){
 				if ( option.uploadfinish ) {
 					option.uploadfinish( file );
 				}
 			});
-
 			//上传成功后触发事件;
 			webUploader.on('uploadSuccess',function( file, response ){
 				if ( option.success ) {
 					option.success( response );
 				}
 			});
-
 			//上传失败后触发事件;
 			webUploader.on('uploadError',function( file, reason ){
 				if ( option.error ) {
 					option.error( reason );
 				}
 			});
-
-
 			//选择文件错误触发事件;
 			webUploader.on('error', function( code ) {
 				var text = '';
@@ -121,8 +110,6 @@
 				}
             	alert( text );
         	});
-
 			//webUploader.upload();
-
-		})*/
-
+		})
+	}*/

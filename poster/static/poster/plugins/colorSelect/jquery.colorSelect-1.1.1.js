@@ -91,8 +91,8 @@
                     var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
                     var pixel = imageData.data;
                     var color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
-                    var sleft = e.pageX-20;
-                    var stop = e.pageY-40;
+                    var sleft = canvasX-5;
+                    var stop = canvasY+40;
                     $('#js-color-selected').css({'left':sleft+'px',top:stop+'px','background':color});
                     fun(ele,color);
                 }

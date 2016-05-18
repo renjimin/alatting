@@ -4,7 +4,8 @@ from django.conf.urls import url
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from poster.view.create import (CategoryKeywordsView, CreateFormView,
-                                SelectTemplateView, PosterPageCreateView)
+                                SelectTemplateView, PosterPageCreateView,
+                                UpdateFormView)
 from poster.view.edit import PosterEditView
 
 
@@ -17,6 +18,10 @@ urlpatterns = [
 
     url(r'^create-form/$', login_required(CreateFormView.as_view()),
         name='create_form'),
+
+    url(r'^update-form/(?P<pk>[\d]+)/$',
+        login_required(UpdateFormView.as_view()),
+        name='update_form'),
 
     url(r'^select-template/$', login_required(SelectTemplateView.as_view()),
         name='select_template'),

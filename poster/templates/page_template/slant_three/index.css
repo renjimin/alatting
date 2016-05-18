@@ -1,0 +1,17 @@
+.content > div {
+    background: #B5B1AB;
+    overflow: hidden;
+}
+
+.content > .content-top {
+   -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 88%);
+    clip-path: url(#content-top);
+    background-color: #fff;
+    height:40%;
+}
+
+.content > .content-middle {
+    -webkit-clip-path: polygon(0 0, 100% 10%, 100% 90%,0 80%);
+    clip-path: url(#content-middle);
+    height:40%;
+}

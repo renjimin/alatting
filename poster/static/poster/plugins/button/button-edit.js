@@ -1,5 +1,5 @@
-var btn,currentElebox = null,isEdit = false;
-	var curentOpts={};
+var btn,newbtn,currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
+var curentOpts={};
 
 
     var addButton = function(ele,options){
@@ -9,6 +9,7 @@ var btn,currentElebox = null,isEdit = false;
             'text':'请输入文字',
             'color':'000',
             'fontSize':'14',
+            'fontFamily':'Microsoft YaHei',
             'background':'fff',
             'opacity':'1',
             'boxShadow':'0',
@@ -24,18 +25,18 @@ var btn,currentElebox = null,isEdit = false;
 
         s.add = function(){
             isEdit = false;
-            btn = $('<a class="element btn btn-default">请输入文字</a>')
-            defaults.container.find('.btn-container').empty().append(btn);
-            s.upload(btn);
+            newbtn = $('<a class="element btn btn-default">请输入文字</a>')
+            defaults.container.find('.btn-container').empty().append(newbtn);
             s.controlInit();
-            s.addControlListen(btn);
+            s.upload(newbtn);
+            s.addControlListen(newbtn);
         }
-		s.edit = function(element){
+        s.edit = function(element){
             isEdit = true;
             btn = null;
             btn = element.clone();
             defaults.container.find('.btn-container').empty().append(btn);
-			currentElebox = element.parent();
+            currentElebox = element.parent();
             //s.upload(btn);
             s.controlInit(btn);
             s.addControlListen(btn);
@@ -48,6 +49,7 @@ var btn,currentElebox = null,isEdit = false;
             o.css({
                 'color':'#'+opts.color,
                 'font-size':opts.fontSize+'px',
+                'font-family':opts.fontFamily,
                 'background':'#'+opts.background,
                 'opacity':opts.opacity,
                 'box-shadow':'0 0 '+opts.boxShadow+' #444',
@@ -59,43 +61,46 @@ var btn,currentElebox = null,isEdit = false;
             });
         }
         s.controlInit = function(b){
-			if(typeof(b)!='undefined'){
-				var reg = /(rotate\([\-\+]?((\d+)))/i;
-			    var wt = b.css('transform');
+            if(typeof(b)!='undefined'){
+                var reg = /(rotate\([\-\+]?((\d+)))/i;
+                var wt = b.css('transform');
                 if(wt==null){
                     wt = '';
                 }
                 var wts = wt.match (reg);
-			    var $2 = RegExp.$2;
+                var $2 = RegExp.$2;
                 if($2==null || $2 == ''){
                     $2 = 0;
                 }
-				eleopts = {
-					'href': $(b).attr('href'),
-		            'text': $(b).text(),
-		            'color': $(b).css('color'),
-		            'fontSize': $(b).css('font-size'),
-		            'background': $(b).css('background'),
-		            'opacity': $(b).css('opacity'),
-		            'boxShadow':$(b).css('box-shadow-spread'),
-		            'borderRadius':$(b).css('border-radius'),
-		            'rotate':$2,
-		            'borderColor':$(b).css('border-color'),
-		            'borderStyle':$(b).css('border-style'),
-		            'borderWidth':$(b).css('border-width')
-				}
-				$.extend(opts,eleopts);
-			}
+                eleopts = {
+                    'href': $(b).attr('href'),
+                    'text': $(b).text(),
+                    'color': $(b).css('color')==null?'000':$(b).css('color'),
+                    'fontSize': parseInt($(b).css('font-size')),
+                    'fontFamily': $(b).css('font-family').replace(/'/g,""),
+                    'background': $(b).css('background'),
+                    'opacity': $(b).css('opacity'),
+                    'boxShadow':$(b).css('box-shadow-spread'),
+                    'borderRadius':$(b).css('border-radius'),
+                    'rotate':$2,
+                    'borderColor':$(b).css('border-color'),
+                    'borderStyle':$(b).css('border-style'),
+                    'borderWidth':$(b).css('border-width')
+                }
+                opts = $.extend(opts,eleopts);
+            }
+
 
 
             var href = opts.href=="javascript:void(0)"?'':opts.href
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
-            $('.button-color').css('color',opts.color+'px');
+            $('.button-color').css('background','#'+opts.color);
             for(i=12;i<30;i++){
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
             $('.button-fontSize').val(opts.fontSize);
+            $('.button-fontFamily').val(opts.fontFamily);
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
@@ -121,6 +126,10 @@ var btn,currentElebox = null,isEdit = false;
                 opts.fontSize = $(this).val();
                 o.css('font-size',opts.fontSize+'px');
             });
+            $('.button-fontFamily').on('change',function(){
+                opts.fontFamily = $(this).val();
+                o.css('font-family',opts.fontFamily);
+            });
             $('.button-borderStyle').on('change',function(){
                 opts.borderStyle = $(this).val();
                 o.css('border-style',opts.borderStyle);
@@ -129,10 +138,20 @@ var btn,currentElebox = null,isEdit = false;
                 opts.borderWidth = $(this).val();
                 o.css('border-width',opts.borderWidth);
             });
-            $('.button-borderColor').on('input propertychange',function(){
+            $('.button-borderColor').on('change',function(){
                 opts.borderColor = $(this).val();
                 o.css('border-color','#'+opts.borderColor);
                 $(this).css('background','#'+opts.borderColor);
+            });
+            $('.button-color').on('change',function(){
+                opts.color = $(this).val();
+                o.css('color','#'+opts.color);
+                $(this).css('background','#'+opts.color);
+            });
+            $('.button-background').on('change',function(){
+                opts.background = $(this).val();
+                o.css('background','#'+opts.background);
+                $(this).css('background','#'+opts.background);
             });
 
             s.touches = {
@@ -228,54 +247,133 @@ var btn,currentElebox = null,isEdit = false;
 
 
         }
-		if(typeof(ele)=='undefined' || ele == null){
-			this.add();
-		}else{
-			this.edit(ele);
-		}
+        if(typeof(ele)=='undefined' || ele == null){
+            this.add();
+        }else{
+            this.edit(ele);
+        }
+
+        $('#buttonConfirm').on('click',function(){
+            if(!isEdit){
+                buttonConfirm();
+            }else{
+                buttonConfirm(ele);
+            }
+
+        });
 
 
     }
-	function buttonConfirm(){
-        var cnd = $('<div class="cnd-element">'
-				+'<div class="element-box">'
-				+'	<div class="element-box-contents">'
-				+'		'
-				+'	</div>'
-				+'</div>'
-				+'<div class="nbar nbar-rotate nbar-radius"></div>'
-				+'<div class="nbar nbar-line"></div>'
-				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit"></div>'
-				+'<div class="nbar nbar-se nbar-radius"></div>'
-				+'<div class="nbar nbar-sw nbar-radius"></div>'
-				+'<div class="nbar nbar-ne nbar-radius"></div>'
-			+'</div>');
+    function buttonConfirm(ele){
+        var cnd = $('<div class="cnd-element button-element">'
+                +'<div class="element-box">'
+                +'    <div class="element-box-contents">'
+                +'        '
+                +'    </div>'
+                +'</div>'
+                +'<div class="nbar nbar-rotate nbar-radius"></div>'
+                +'<div class="nbar nbar-line"></div>'
+                +'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
+                +'<div class="nbar nbar-se nbar-radius"></div>'
+                +'<div class="nbar nbar-sw nbar-radius"></div>'
+                +'<div class="nbar nbar-ne nbar-radius"></div>'
+            +'</div>');
 
-		if(!isEdit){
-			cnd.find('.element-box-contents').append(btn.clone());
-			cnd.css({'top':$(window).height()/2+btn.height()/2+'px','left':$(window).width()/2+btn.width()/2+'px'})
-			$('body').append(cnd);
+        if(!isEdit){
+            cnd.find('.element-box-contents').append(newbtn.clone());
+            cnd.css({'top':$(window).height()/2-newbtn.height()/2+'px','left':$(window).width()/2-newbtn.width()/2+'px'})
+            fullcontainer.append(cnd);
             scale(cnd);
-		}else{
-			currentElebox.empty().append(btn);
-		}
-		$('#button-model').removeClass('open')
-	}
+        }else{
+            currentElebox.empty().append(ele);
+        }
+        $('#button-model').removeClass('open')
+    }
+var editButtonBasic = function(){
+    var e = window.event || event;
+    e.stopPropagation();
+    if (e.originalEvent) e = e.originalEvent;
+    var ele = $(e.target);
+    if($(ele).hasClass('icon')){
+        ele = ele.parent();
+    }
+
+    $("#button-basic").show();
+    $("#button-border").hide();
+    if(!$('#button-model').hasClass('open')){
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
+        addButton();
+    }
+    ele.addClass('open').siblings().removeClass('open');
+}
+var editButtonBorder = function(){
+    var e = window.event || event;
+    e.stopPropagation();
+    if (e.originalEvent) e = e.originalEvent;
+    var ele = $(e.target);
+    if($(ele).hasClass('icon')){
+        ele = ele.parent();
+    }
+
+    $("#button-basic").hide();
+    $("#button-border").show();
+    if(!$('#button-model').hasClass('open')){
+        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
+        addButton();
+    }
+    ele.addClass('open').siblings().removeClass('open');
+}
+var copyButton = function(){
+    var imgclone = $('.button-element.active').clone();
+    $('.button-element').removeClass('active');
+    imgclone.animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
+    fullcontainer.append(imgclone);
+    scale(imgclone);
+}
+var deleteButton = function(){
+    var imgactive = $('.button-element.active');
+
+    imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
+        imgactive.remove();
+    });
+
+}
+
 
 $(function(){
-    $('#systemimg-model li').click(function(){
+    $('#systemimg-model li').click(function(event){
+        event.stopPropagation();
         $('#systemimg-model').removeClass('open');
         var eleobj = $('<div class="element systemimg '+$(this).attr('class')+'"></div>');
 
         addSystemimg(eleobj);
     });
 })
+var openSystemimg = function(){
+    var e = window.event || event;
+    e.stopPropagation();
+    if (e.originalEvent) e = e.originalEvent;
+    var ele = $(e.target);
+    if($(ele).hasClass('icon')){
+        ele = ele.parent();
+    }
+
+    if($('#systemimg-model').hasClass('open')){
+        $('#systemimg-model').removeClass('open');
+        ele.removeClass('open');
+    }else{
+        $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
+        ele.addClass('open');
+    }
+
+}
+
 var addSystemimg = function(eleobj){
-    var cnd = $('<div class="cnd-element">'
+    var cnd = $('<div class="cnd-element systemimg-element">'
 				+'<div class="element-box">'
 				+'	<div class="element-box-contents">'
 				+'		'
@@ -287,13 +385,48 @@ var addSystemimg = function(eleobj){
 				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius nbar-edit"></div>'
+				+'<div class="nbar nbar-nw nbar-radius"></div>'
 				+'<div class="nbar nbar-se nbar-radius"></div>'
 				+'<div class="nbar nbar-sw nbar-radius"></div>'
 				+'<div class="nbar nbar-ne nbar-radius"></div>'
 			+'</div>');
+
     cnd.find('.element-box-contents').append(eleobj);
-    cnd.css({'top':$(window).height()/2+eleobj.height()/2+'px','left':$(window).width()/2+eleobj.width()/2+'px'})
-    $('body').append(cnd);
+    cnd.hide();
+    fullcontainer.append(cnd);
+    cnd.css({'top':$(window).height()/2-eleobj.height()/2+'px','left':$(window).width()/2-eleobj.width()/2+'px'}).show();
     scale(cnd);
+}
+
+var copySystemimg = function(){
+    var imgclone = $('.systemimg-element.active').clone(false);
+    $('.systemimg-element').removeClass('active');
+    imgclone.animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
+    fullcontainer.append(imgclone);
+    scale(imgclone);
+}
+var deleteSystemimg = function(){
+    var imgactive = $('.systemimg-element.active');
+
+    imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
+        imgactive.remove();
+    });
+
+}
+
+var uploadSystemimg = function(eleobj){
+
+    $.fn.uploads.showDialog(function(data){
+        console.log(data);
+        var img = $('<div class="element"><img src="'+data.file+'" /></div>');
+
+         if(data.width > $(window).width()){
+             img.width( $(window).width() *.6);
+             img.height($(window).width() *.6*data.height / data.width);
+         }
+        addSystemimg(img);
+    },function(data){
+         console.log(data);
+    });
+
 }
