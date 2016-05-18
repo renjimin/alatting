@@ -67,7 +67,6 @@ var scale = function(box,options){
         s.opt.width = ele.innerWidth() == 0 ? parseInt(ele.css('width')) : ele.innerWidth();
         s.opt.height = ele.innerHeight() == 0 ? parseInt(ele.css('height')) : ele.innerHeight();
         s.opt.currentAngle = s.o.data('rotate') == null ? '0': s.o.data('rotate');
-        console.log(s.opt.currentAngle);
     }
     s.initData(b);
     var touchEvents={
@@ -122,7 +121,6 @@ var scale = function(box,options){
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
-            console.log(s.opt.currentAngle);
             $(e.currentTarget).addClass('drag-active');
         },
         'touchmove':function(e){
