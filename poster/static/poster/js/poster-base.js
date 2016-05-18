@@ -347,7 +347,7 @@ $(function(){
         $.ajax({
             type:'PATCH',
             dataType:'json',
-            data: full_json,
+            data: { "data": full_json },
             url: url,
             success:function(data){
                 yyAlert("保存成功");
@@ -367,7 +367,7 @@ $(function(){
         $.ajax({
             type:'PATCH',
             dataType:'json',
-            data: full_json,
+            data: { "data": full_json },
             url: url,
             success:function(data){
                 yyAlert("发布成功");
