@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView, \
                         PosterPublishView, SystemImageListView, SystemBackgroundListView, PosterSaveView, \
-    PosterStatusView
+    PosterStatusView, PosterPageDetailView
 from poster.apiview.resource import CategoryKeywordListView, \
     CategoryKeywordDetailView, UploadFileView, TemplateDetailView, \
     TemplateListView
@@ -16,6 +16,9 @@ urlpatterns = [
         name='category_keywords_detail'),
 
     url(r'^posterpages$', PosterPageListView.as_view(), name='poster_pages'),
+
+    url(r'^posterpages/(?P<pk>\d+)$',
+        PosterPageDetailView.as_view(), name='posterpage_detail'),
 
     url(r'^check/unique/$', CheckPosterUniqueNameView.as_view(),
         name='check_unique'),

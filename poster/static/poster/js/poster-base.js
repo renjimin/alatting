@@ -343,8 +343,42 @@ $(function(){
     }
 
     $(".btn.btn-save").on("click",function(){
-        console.log(1);
-        storageAPI.setHtml(".yunye-template");
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: full_json,
+            url: url,
+            success:function(data){
+                yyAlert("保存成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
+            }
+        })
     });
 
+    $(".btn.btn-post").on("click",function(){
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/publish/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: full_json,
+            url: url,
+            success:function(data){
+                yyAlert("发布成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
+            }
+        })
+    });
 });
