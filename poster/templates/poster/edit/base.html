@@ -17,9 +17,11 @@
             email: "{{ poster.email }}",
             logo_title: "{{ poster.logo_title }}",
             logo_image: "{{ poster.logo_image.file.url }}",
-            updated_at: "{{ poster.updated_at }}"
+            lifetime: "{{ poster.lifetime }}",
+            updated_at: "{{ poster.updated_at }}",
+            logoTitleType: "image",
+            clockType: "weekly"
         }
-        var logoTitleType = "image",clockType = "weekly";
     </script>
 
     {{ block.super }}

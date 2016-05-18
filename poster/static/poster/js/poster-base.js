@@ -49,8 +49,11 @@ $(function(){
             id:'dpw_menu',
             offsetYPercent:100,
             list:[{icon:"icon ico-edit-text",text:"打字",callback:function(){
-                    $('.header-logo').empty().append('<h2>input</h2>');
-                    event.stopPropagation();
+                    if( !$(".header-logo h2")[0] ){
+                       $('.header-logo').empty().append('<h2></h2>');
+                    }
+                    $('#text-model').animate({bottom:'0px'},200);
+                    $(".header-logo h2").tEditor({textDelete:false,textCopy:false,pluginType:'other'});
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
                           $.fn.uploads.showDialog(function(data){
@@ -211,10 +214,9 @@ $(function(){
                 
     $(document).on("clsdp",function(){
         $("#colorBox").hide();
+        $('#text-model').animate({bottom:'-265px'},200);
 //        $("#teditor").hide();
     });
-
-    $('.calender').manhuaDate();
 
     $('body').on('click',function(event){
         //处理点击事件
@@ -268,9 +270,6 @@ $(function(){
         }else{
             $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image+'" >');
         }
-        if(yunyeEditorGlobal.lifetimevalue){
-            
-        }
         //logo本地存储
         if(pageHeadData.logo_img){
             $('.header-logo img').attr("src",pageHeadData.logo_img);       
@@ -286,7 +285,7 @@ $(function(){
     }
     
     function setHeadTimeStamp(key,value){
-        storageAPI.setHead("title",event.currentTarget.value);
+        storageAPI.setHead(key,value);
         storageAPI.setHead("updated_at", new Date().getTime());
     }
     
@@ -299,31 +298,43 @@ $(function(){
         $('.header-info .desc span').html(event.currentTarget.value);
         setHeadTimeStamp("short_description",event.currentTarget.value);
     });
-    $('#dpw_phone input:eq(0)').on('change',function(event){
-        setHeadTimeStamp("phone",event.currentTarget.value);
-    });
-    $('#dpw_phone input:eq(1)').on('change',function(event){
-        setHeadTimeStamp("mobile",event.currentTarget.value);
-    });
-    $('#dpw_email input').on('change',function(event){
-        setHeadTimeStamp("email",event.currentTarget.value);
-    });
     $('#dpw_clock input').on('change',function(event){
         var inputs = $('#dpw_clock input');
-        var arr = [];
-        for(var i = 0 ; i < inputs.length ; i ++){
-            arr.push(inputs[i].value);
-        }
-        for(var i = 0 ; i < arr.length/2 ; i++){
-            var even = arr[ i * 2],odd = arr[ (i * 2) +1];
-            if(even && odd && (odd <= even) ){
+        var start = inputs[0] ,end = inputs[1];
+        if(start && end ){
+            if( end < start ){
                 $(event.target).blur();
-                $('#dpw_clock input').eq(i*2).val("");
-                $('#dpw_clock input').eq(i*2 + 1).val("");
+                $('#dpw_clock input').eq(0).val("");
+                $('#dpw_clock input').eq(1).val("");
                 yyConfirm("结束时间不能早于开始时间");
-                break;
+            }else{
+                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html();
+                //服务器暂时没传数据
+                if( !yunyeEditorGlobal.lifetime )yunyeEditorGlobal.lifetime = {};
+                if( !yunyeEditorGlobal.lifetime.lifetime_value )yunyeEditorGlobal.lifetime.lifetime_value = {};
+                yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+                    "time_start": $('#dpw_clock input').eq(0).val(),
+                    "time_end": $('#dpw_clock input').eq(1).val()
+                }
+                setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
             }
         }
-        setHeadTimeStamp("clock",arr);
     });
+
+    window.onunload = function(event){
+           setHeadTimeStamp("phone",$('phoneInput').val() );
+           setHeadTimeStamp("mobile",$('mobileInput').val() );
+           setHeadTimeStamp("email",$('emailInput').val() );
+
+           if( $('.header-logo h2')[0] ){
+                setHeadTimeStamp("logo_title",$('.header-logo h2').html() );
+                setHeadTimeStamp("logoTitleType","text" );
+                setHeadTimeStamp("logo_image","" );
+           }else{
+                setHeadTimeStamp("logo_title","" );
+                setHeadTimeStamp("logoTitleType","image" );
+                setHeadTimeStamp("logo_image","" );
+           }
+    }
+
 });
