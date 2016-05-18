@@ -279,6 +279,7 @@ $(function(){
         $('#text-model').animate({bottom:'-265px'},200);
 //        $("#teditor").hide();
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
+        $('.cnd-element').removeClass('active');
     });
 
     $('body').on('click',function(event){
@@ -410,7 +411,7 @@ $(function(){
         $.ajax({
             type:'PATCH',
             dataType:'json',
-            data: full_json,
+            data: { "data": full_json },
             url: url,
             success:function(data){
                 yyAlert("保存成功");
@@ -430,7 +431,7 @@ $(function(){
         $.ajax({
             type:'PATCH',
             dataType:'json',
-            data: full_json,
+            data: { "data": full_json },
             url: url,
             success:function(data){
                 yyAlert("发布成功");
