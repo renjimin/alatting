@@ -7,13 +7,12 @@
             var s = $(this),
 				_option = $.extend(opts,opations);
             var imgarray = [];
-            console.log(_option.data);
-console.log("11");
+
             $.extend(s,{'wraper':null,'swiper':null});
 
-            var imgs  =s.find('img');
+            var imgs  =s.find('img');console.log(imgs);
             for(i = 0 ; imgs.length > 0 && i<imgs.length ; i++){
-                imgarray.push({'file':imgs.attr('src')});
+                imgarray.push({'file':imgs.eq(i).attr('src')});
             }
 
             s.empty();
@@ -23,6 +22,7 @@ console.log("11");
             s.addImage = function(datas){
                 s.wraper = s.find('.swiper-wrapper');
                 for(i=0;datas.length>0 && i<datas.length;i++){
+
                     s.wraper.append('<div class="swiper-slide"><img src="'+datas[i].file+'" /></div>');
                 }
                 s.wraper.append('<div class="swiper-slide"><img src="'+_option.data.file+'" /></div>');
