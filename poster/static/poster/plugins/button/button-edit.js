@@ -1,4 +1,4 @@
-var btn,currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
+var btn,newbtn,currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
 var curentOpts={};
 
 
@@ -25,11 +25,11 @@ var curentOpts={};
 
         s.add = function(){
             isEdit = false;
-            btn = $('<a class="element btn btn-default">请输入文字</a>')
-            defaults.container.find('.btn-container').empty().append(btn);
+            newbtn = $('<a class="element btn btn-default">请输入文字</a>')
+            defaults.container.find('.btn-container').empty().append(newbtn);
             s.controlInit();
-            s.upload(btn);
-            s.addControlListen(btn);
+            s.upload(newbtn);
+            s.addControlListen(newbtn);
         }
         s.edit = function(element){
             isEdit = true;
@@ -253,9 +253,18 @@ var curentOpts={};
             this.edit(ele);
         }
 
+        $('#buttonConfirm').on('click',function(){
+            if(!isEdit){
+                buttonConfirm();
+            }else{
+                buttonConfirm(ele);
+            }
+
+        });
+
 
     }
-    function buttonConfirm(){
+    function buttonConfirm(ele){
         var cnd = $('<div class="cnd-element button-element">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
@@ -275,12 +284,12 @@ var curentOpts={};
             +'</div>');
 
         if(!isEdit){
-            cnd.find('.element-box-contents').append(btn.clone());
-            cnd.css({'top':$(window).height()/2-btn.height()/2+'px','left':$(window).width()/2-btn.width()/2+'px'})
+            cnd.find('.element-box-contents').append(newbtn.clone());
+            cnd.css({'top':$(window).height()/2-newbtn.height()/2+'px','left':$(window).width()/2-newbtn.width()/2+'px'})
             fullcontainer.append(cnd);
             scale(cnd);
         }else{
-            currentElebox.empty().append(btn);
+            currentElebox.empty().append(ele);
         }
         $('#button-model').removeClass('open')
     }
