@@ -353,6 +353,11 @@ $(function(){
             success:function(data){
                 yyAlert("保存成功");
                 console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
             }
         })
     });
@@ -369,6 +374,11 @@ $(function(){
             success:function(data){
                 yyAlert("发布成功");
                 console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
             }
         })
     });
