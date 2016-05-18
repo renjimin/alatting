@@ -37,7 +37,6 @@
 
     var methods = {
         "init": function(options){
-            var $this = $(this);
             var settings = $.extend({
             }, options);
 
@@ -60,7 +59,6 @@
             return this.each(function(){
                 $("body").append(layoutTmpl);
                 var $this = $(this);
-                console.log($this);
                 var $btn = $("#resourceLinkBtn"),
                     $destroyBtn = $(".destroy-link-layout"),
                     $confirmBtn = $(".confirm-link-input");
