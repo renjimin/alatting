@@ -5,9 +5,9 @@
 
 ;
 (function ($) {
-    var templateListAPI = "/api/v1/poster/templates",
-        updateTemplateAPI = "/api/v1/poster/posterpages/{0}",
-        createPageAPI = "/api/v1/poster/posterpages";
+    var templateListAPI = yunyeEditorGlobal.API.templates,
+        updateTemplateAPI = yunyeEditorGlobal.API.updateTemplate,
+        createPageAPI = yunyeEditorGlobal.API.createPage;
 
     var getParentLayout = function () {
         return $(".yunye-template");
@@ -25,6 +25,7 @@
         this.layoutTmpl = $("#changeTemplateLayoutTmpl");
         this.listTmpl = $("#changeTemplateListTmpl");
         this.ulListId = "#change-templates-list";
+        this.settings = options;
         this.target = options.target;
         this.posterId = yunyeEditorGlobal.posterId;
         this.posterPageId = yunyeEditorGlobal.posterPageId;
@@ -46,50 +47,55 @@
                     yyAlert("请选中一个模板");
                     return;
                 }
-                yyConfirm("更换模板会丢弃当前已编辑的模板内容，您确定要继续吗？", function () {
-                    if(self[self.target] && $.isFunction(self[self.target])){
-                        self[self.target](tmpId);
-                    }
-                    self.destroy();
-                });
+                if(self[self.target] && $.isFunction(self[self.target])){
+                    self[self.target](tmpId);
+                }
                 event.stopPropagation();
             });
         },
         update: function (templateId) {
-            //清理本地页面编辑缓存
-            $.fn.yunyeStorage.cleanPage();
-            //显示遮罩
-            $.fn.yyTools.mask(1);
+            var self = this;
+            yyConfirm("更换模板会丢弃当前已编辑的模板内容，您确定要继续吗？", function () {
+                self.destroy();
+                //清理本地页面编辑缓存
+                $.fn.yunyeStorage.cleanPage();
+                //显示遮罩
+                $.fn.yyTools.mask(1);
 
+                $.ajax({
+                    type: "PATCH",
+                    url: updateTemplateAPI.format(self.posterPageId),
+                    dataType: "json",
+                    data: {
+                        "poster_id": self.posterId,
+                        "template_id": templateId
+                    },
+                    success: function(posterPage){
+                        $.fn.yyTools.mask();
+                        yyAlert("模板更换成功, 确定后将刷新当页面！", function(){
+                            window.location.href = "/poster/{0}/edit/{1}".format(
+                                self.posterId,
+                                self.posterPageId
+                            );
+                        });
+                    },
+                    error: function () {
+                        $.fn.yyTools.mask();
+                    }
+                });
+            });
+        },
+        create: function (templateId) {
             var self = this;
             $.ajax({
-                type: "PATCH",
-                url: updateTemplateAPI.format(self.posterPageId),
+                type: "POST",
+                url: createPageAPI,
                 dataType: "json",
                 data: {
                     "poster_id": self.posterId,
                     "template_id": templateId
                 },
                 success: function(posterPage){
-                    yyAlert("模板更换成功, 确定后将刷新当页面！", function(){
-                        window.location.href = "/poster/{0}/edit/{1}".format(
-                            self.posterId,
-                            self.posterPageId
-                        );
-                    });
-                    $.fn.yyTools.mask();
-                }
-            });
-        },
-        create: function (templateId) {
-            var self = this;
-            $.post(
-                createPageAPI,
-                {
-                    "poster_id": self.posterId,
-                    "template_id": templateId
-                },
-                function(posterPage){
                     $.fn.yyTools.mask();
                     yyConfirm("新建页面成功，是否立即跳转到新页面？", function(){
                         window.location.href = "/poster/{0}/edit/{1}".format(
@@ -97,8 +103,11 @@
                             posterPage.id
                         );
                     });
+                },
+                error: function () {
+                    $.fn.yyTools.mask();
                 }
-            );
+            });
         },
 
         getSelectedTemplateId: function () {
@@ -149,6 +158,9 @@
             self.getTemplateList($container);
             self.cancel();
             self.confirm();
+            if(self.settings.initAfter && $.isFunction(self.settings.initAfter)){
+                self.settings.initAfter();
+            }
         },
         destroy: function () {
             destroy();
@@ -162,7 +174,8 @@
                 return;
             }
             var settings = {
-                target: 'update'    //update, create
+                target: 'update',    //update, create
+                initAfter: null
             };
             if(options){
                 settings = $.extend(settings, options);
