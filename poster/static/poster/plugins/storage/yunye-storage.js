@@ -98,8 +98,8 @@
                 storage.set(self.storageKey, self.getInitData());
             }else{
                 var datas = storage.get(key);
-                datas = $.extend(true, datas, initData);
-                storage.set(self.storageKey, datas);
+                //datas = $.extend(true, datas, initData);
+                //storage.set(self.storageKey, datas);
             }
             return self.getPosterData();
         };
