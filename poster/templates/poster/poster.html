@@ -1,10 +1,43 @@
 {% extends 'poster/base.html' %}
-{%load static %}
+{% load static %}
 
-{% block base_body_header %}
+{% block base_head_meta %}
+    <meta name="msapplication-TileImage" content="{% static "website/favicons/ms-icon-144x144.png" %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
 
+    <!-- favicons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static "website/favicons/apple-icon-57x57.png" %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static "website/favicons/apple-icon-60x60.png" %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static "website/favicons/apple-icon-72x72.png" %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static "website/favicons/apple-icon-76x76.png" %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static "website/favicons/apple-icon-114x114.png" %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static "website/favicons/apple-icon-120x120.png" %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static "website/favicons/apple-icon-144x144.png" %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static "website/favicons/apple-icon-152x152.png" %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "website/favicons/apple-icon-180x180.png" %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static "website/favicons/android-icon-192x192.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "website/favicons/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static "website/favicons/favicon-96x96.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "website/favicons/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "website/favicons/manifest.json" %}">
 {% endblock %}
 
-{% block base_body_inner %}
+{% block base_head_title %}
+    {{ poster.unique_name }}
+{% endblock %}
 
+{% block base_header_js %}
+    <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+{% endblock %}
+
+{% block base_body_footer %}
+{% endblock %}
+{% block base_footer_js %}
+{% endblock %}
+{% block base_foot_mask %}
 {% endblock %}
