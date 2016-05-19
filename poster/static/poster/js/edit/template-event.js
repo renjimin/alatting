@@ -29,8 +29,9 @@ $(function(){
                         buttonText: '选择图片上传',
                         chunked: false,
                         fileNumLimit: 4,
-                        fileSingleSizeLimit: 0.25 * 1024 * 1024,
+                        fileSingleSizeLimit: 5 * 1024 * 1024,
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
+                        compress:true,
                         threads: 1
                     });
                     $(".closefile").click(function(){
@@ -38,6 +39,15 @@ $(function(){
                     });
                 }
             },
+
+              {
+                icon: "glyphicon glyphicon-picture",
+                text: "轮播图",
+                callback: function(){
+                    alert("调用轮播图!");
+                }
+            },
+
             {
                 icon: "glyphicon glyphicon-facetime-video",
                 text: "上传视频",
