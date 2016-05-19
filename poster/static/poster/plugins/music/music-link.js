@@ -47,12 +47,11 @@
             };
 
             return this.each(function(){
+                $(".audiolink").remove();
                 $("body").append(layoutTmpl);
                 var $this = $(this);
                 console.log($this);
-                var $btn = $("#musicLinkBtn"),
-                    $destroyBtn = $(".destroy-link-layout"),
-                    $confirmBtn = $(".confirm-link-input");
+                var $btn = $("#musicLinkBtn");
 
                 $btn.click(function(){
                     var text = $.trim($("#musicLinkText").val());
@@ -64,6 +63,7 @@
                         yyAlert("链接地址格式不正确,应以http://开始");
                         return;
                     }
+                    //$(".audiolink").remove();
                     setResourcePreview(text);
                 });
 
