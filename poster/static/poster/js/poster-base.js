@@ -116,6 +116,7 @@ $(function(){
                     $(".header-logo h2").tEditor({textDelete:false,textCopy:false,pluginType:'other'});
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
+                          $('.header-logo').empty().append('<img></img>');
                           $.fn.uploads.showDialog(function(data){
                                 if( !$(".header-logo img")[0] ){
                                    $('.header-logo').empty().append('<img />');
