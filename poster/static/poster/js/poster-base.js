@@ -8,6 +8,69 @@ $(function(){
         });
     });
 
+    $('.btn-page').registerPopUp({
+        id: 'dpw_btn_page',
+        offsetXPercent: 50,
+        offsetYPercent: 50,
+        offsetY: 30,
+        arrowOffset: 30,
+        orientation: 0,
+        list: [
+            {
+                icon: "glyphicon glyphicon-file",
+                text: "新增页面",
+                callback: function () {
+                    if(!$.fn.yunyeStorage){
+                        yyAlert("无法继续操作，需要yunyeStorage");
+                        return false;
+                    }
+                    $("body").changeTemplate(
+                        'destroy'
+                    ).changeTemplate({
+                            "target": "create",
+                            "initAfter": function(){
+                                $("#change-templates-list").css('height', "70%");
+                            }
+                        });
+                }
+            },
+            {
+                icon: "glyphicon glyphicon-duplicate",
+                text: "复制页面",
+                callback: function () {
+                    if(!$.fn.yunyeStorage){
+                        yyAlert("无法继续操作，需要yunyeStorage");
+                        return false;
+                    }
+                    yyConfirm("您确定要复制当前页面吗？", function(){
+                        $.fn.yyTools.mask(1);
+                        $.ajax({
+                            type: "POST",
+                            url: yunyeEditorGlobal.API.createPage,
+                            dataType: "json",
+                            data: {
+                                "poster_id": yunyeEditorGlobal.posterId,
+                                "template_id": yunyeEditorGlobal.templateId
+                            },
+                            success: function(posterPage){
+                                $.fn.yyTools.mask();
+                                yyConfirm("复制页面成功, 是否立即跳转到新页面！", function(){
+                                    window.location.href = "/poster/{0}/edit/{1}".format(
+                                        yunyeEditorGlobal.posterId,
+                                        posterPage.id
+                                    );
+                                });
+                            },
+                            error: function () {
+                                $.fn.yyTools.mask();
+                            }
+                        });
+                    });
+                }
+            }
+        ]
+    });
+
     //弹出菜单
     $(".dropdown-toggle").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
@@ -217,6 +280,7 @@ $(function(){
         $('#text-model').animate({bottom:'-265px'},200);
 //        $("#teditor").hide();
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
+        $('.cnd-element').removeClass('active');
     });
 
     $('body').on('click',function(event){
@@ -283,7 +347,6 @@ $(function(){
         if(storageAPI.getCss(".abutton-group li a"))$(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
 
         /*读取主体部分*/
-        console.log(storageAPI.getPosterData());
         if(storageAPI.getHtml())$(".yunye-template").empty().html(storageAPI.getHtml());
         $(".yunye-template .cnd-element").each(function(){
             scale($(this));
@@ -348,7 +411,7 @@ $(function(){
         $.ajax({
             type:'PATCH',
             dataType:'json',
-            data: full_json,
+            data: { "data": full_json },
             url: url,
             success:function(data){
                 yyAlert("保存成功");
@@ -368,7 +431,7 @@ $(function(){
         $.ajax({
             type:'PATCH',
             dataType:'json',
-            data: full_json,
+            data: { "data": full_json },
             url: url,
             success:function(data){
                 yyAlert("发布成功");

@@ -72,11 +72,21 @@
         };
 
         this.getHtmlObj = function(){
-            return self.getPosterPageData()["html"];
+            var pageData = self.getPosterPageData();
+            if(pageData){
+                return self.getPosterPageData()["html"];
+            }else{
+                return "";
+            }
         };
 
         this.getCssObj = function(){
-            return self.getPosterPageData()["css"];
+            var pageData = self.getPosterPageData();
+            if(pageData){
+                return self.getPosterPageData()["css"];
+            }else{
+                return {};
+            }
         };
 
         this.setAttr = function (target, name, value) {

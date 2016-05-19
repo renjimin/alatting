@@ -10,9 +10,9 @@
 
             $.extend(s,{'wraper':null,'swiper':null});
 
-            var imgs  =s.find('img');console.log(imgs);
+            var imgs  =s.find('img');
             for(i = 0 ; imgs.length > 0 && i<imgs.length ; i++){
-                imgarray.push({'file':imgs.eq(i).attr('src')});
+                imgarray.push({'file':imgs.eq(i).attr('src'),'width':imgs.eq(i).attr('width'),'height':imgs.eq(i).attr('height')});
             }
 
             s.empty();
@@ -23,10 +23,18 @@
                 s.wraper = s.find('.swiper-wrapper');
                 for(i=0;datas.length>0 && i<datas.length;i++){
 
-                    s.wraper.append('<div class="swiper-slide"><img src="'+datas[i].file+'" /></div>');
+                    s.wraper.append('<div class="swiper-slide"><img src="'+datas[i].file+'" width="'+datas[i].width+'" height="'+datas[i].height+'" /></div>');
                 }
-                s.wraper.append('<div class="swiper-slide"><img src="'+_option.data.file+'" /></div>');
-
+                console.log(_option.data);
+                var imgW,imgH;
+                if(s.width()/s.height() > _option.data.width / _option.data.height){
+                    imgW = s.width();
+                    imgH = _option.data.height * imgW / _option.data.width;
+                }else{
+                    imgW = _option.data.width * imgH / _option.data.height;
+                    imgH = s.height();
+                }
+                s.wraper.append('<div class="swiper-slide"><img src="'+_option.data.file+'" width="'+imgW+'" height="'+imgH+'" ></div>');
                 s.swiper = new Swiper('.swiper-container');
 
             };
