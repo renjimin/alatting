@@ -127,7 +127,7 @@
         this.setHtml = function(domSelector){
             // base64 encode html
             var posterData = self.getPosterData(),
-                b64 = $.base64.encode($(domSelector).html());
+                b64 = $.base64.encode($(domSelector)[0].outerHTML);
             posterData['pages'][self.posterPageId]['html'] = b64;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);

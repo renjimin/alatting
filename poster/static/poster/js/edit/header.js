@@ -73,26 +73,22 @@ $(function () {
         ]
     });
 
-    var setHeadTimeStamp = function (key, value) {
-        storageAPI.setHead(key, value);
-        storageAPI.setHead("updated_at", new Date().getTime());
-    };
-
     //保存数据方法
     var saveData = function () {
+        storageAPI.setHtml(".yunye-template");
         //电话手机邮箱
-        setHeadTimeStamp("phone", $('phoneInput').val());
-        setHeadTimeStamp("mobile", $('mobileInput').val());
-        setHeadTimeStamp("email", $('emailInput').val());
+        storageAPI.setHead("phone", $('phoneInput').val());
+        storageAPI.setHead("mobile", $('mobileInput').val());
+        storageAPI.setHead("email", $('emailInput').val());
         //logo
         if ($('.header-logo h2')[0]) {
-            setHeadTimeStamp("logo_text", $('.header-logo h2').html());
-            setHeadTimeStamp("logoTitleType", "text");
-            setHeadTimeStamp("logo_image", "");
+            storageAPI.setHead("logo_text", $('.header-logo h2').html());
+            storageAPI.setHead("logoTitleType", "text");
+            storageAPI.setHead("logo_image", "");
         } else {
-            setHeadTimeStamp("logo_text", "");
-            setHeadTimeStamp("logoTitleType", "image");
-            setHeadTimeStamp("logo_image", {
+            storageAPI.setHead("logo_text", "");
+            storageAPI.setHead("logoTitleType", "image");
+            storageAPI.setHead("logo_image", {
                 url: $('.header-logo img').attr("src"),
                 id: $('.header-logo img').attr("data-src-id")
             });
@@ -107,11 +103,12 @@ $(function () {
             info.time_end = inputs.eq(i * 2 + 1).val();
             info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
         }
-        setHeadTimeStamp("lifetime", lifetime);
+        storageAPI.setHead("lifetime", lifetime);
     };
 
     $(".btn.btn-save").on("click", function () {
         saveData();
+        console.log(storageAPI.getPosterData());
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
