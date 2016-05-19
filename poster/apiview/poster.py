@@ -292,7 +292,7 @@ class PosterSaveContentMixin(object):
         json_data = json.loads(request_data['data'])
         if 'head' in json_data.keys():
             self._save_head_info(instance, json_data['head'])
-        if 'page' in json_data.keys():
+        if 'pages' in json_data.keys():
             self._save_pages_info(instance, json_data['pages'])
 
 
