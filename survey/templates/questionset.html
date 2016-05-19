@@ -33,6 +33,9 @@
                                 <div class="error">{{error}}</div>
                             {% endif %}
 			                {% for question, qdict in qlist %}
+                                <div class="qs-list-title"> 
+                                    {{question.text}}
+                                </div>
 				            	{% include qdict.template %}
 				            {% endfor %}
 			            </div>

@@ -1,5 +1,8 @@
 {% for choice in qdict.choices %}
     <div class="radio">
         <label class="radio-label"><input name="question_{{ question.sortid }}" type="radio" value="{{choice.value}}">{{choice.text}}</label>
+        {% for inp in choice.inps %}
+			<label class="radio-text-label"><input type="text" class="form-control" placeholder="{{ inp.placeholder }}"></label>
+        {% endfor %}
     </div>
 {% endfor %}
