@@ -26,10 +26,12 @@
             };
 			s.opt={};
 			var startDiagonal={'x':0,'y':0},endDiagonal={'x':0,'y':0};
+            s.css({'position':'relative','top':'0','left':'0'});
 			s.on({
                 'touchstart':function(e){
                     if (e.originalEvent) e = e.originalEvent;
-                    $(e.currentTarget).css({'transition':'none','position':'relative','top':'0','left':'0'});
+                    
+                    $(e.currentTarget).css({'transition':'none'});
 					$(e.currentTarget).addClass('drag-active');
 
 					s.opt.left = parseInt($(e.currentTarget).css('left'));
@@ -128,8 +130,9 @@
             var imgarray  = s.find('.swiper-container').find('img');
 
             s.empty();
-            var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-pagination"></div></div>';
+            var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div>';
             s.html($swipercon);
+
 
             s.addImage = function(datas){
                 s.wraper = s.find('.swiper-wrapper');
@@ -146,8 +149,14 @@
                     imgH = s.height();
                 }
                 s.wraper.append('<div class="swiper-slide"><img src="'+_option.data.file+'" width="'+imgW+'" height="'+imgH+'" ></div>');
-                s.swiper = new Swiper('.swiper-container',{pagination: '.swiper-pagination'});
+                s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
                 s.wraper.find('img').imgscale();
+                $('.swiper-button-next,.swiper-button-prev').on('touchstart',function(e){
+                    if (e.originalEvent) e = e.originalEvent;
+                    e.stopPropagation();
+                    $(e.currentTarget).click();
+                });
+
 
             };
             if(_option.data != null && _option.data != ''){
