@@ -29,6 +29,9 @@
 			    <div class="qs-list">
 			        <div class="step">
 			            <div class="qs-list-section">
+                            {% if error %}
+                                <div class="error">{{error}}</div>
+                            {% endif %}
 			                {% for question, qdict in qlist %}
 				            	{% include qdict.template %}
 				            {% endfor %}
