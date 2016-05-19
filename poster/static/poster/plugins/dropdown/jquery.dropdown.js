@@ -53,7 +53,7 @@
 						$('#dp .arrow').css('left', arrOffset );
 						$('#dp .arrow').attr('class', 'arrow up')
 						//第一个input自动获取焦点
-						$('#'+_option.id + ' input[type="text"]').focusEnd();
+						//$('#'+_option.id + ' input[type="text"]').focusEnd();
 						//执行自定义行为
 						if(_option.eval){
 							eval(_option.eval);
@@ -99,14 +99,14 @@
 			dpw.append(str);
 			for(var i in _option.list){
 				$("#dp #" + _option.id+'_'+i ).click(function(event){
-						var l = event.currentTarget.id.split('_');
-						var cb = _option.list[l[l.length-1]].callback;
-						if(cb){
-							$('#dp').removeClass('open');
-							$('#dp ul').css("visibility","hidden");
-							cb(_this);
-						}
-					});
+					var l = event.currentTarget.id.split('_');
+					var cb = _option.list[l[l.length-1]].callback;
+					if(cb){
+						$('#dp').removeClass('open');
+						$('#dp ul').css("visibility","hidden");
+						cb(_this);
+					}
+				});
 			}
 			_this.on('click',function(event){
 				if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
