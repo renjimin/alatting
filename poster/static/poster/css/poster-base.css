@@ -1443,11 +1443,9 @@ to {
 #dp.info .add-choose button {
 	height: 40px;
 	padding: 0 15px;
-
 	color: white;
 	border: none;
 	background: #717171;
-
 	font-size: 18px;
 }
 #dp.info .autoheight {

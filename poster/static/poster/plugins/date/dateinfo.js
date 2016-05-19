@@ -193,4 +193,46 @@ $(function() {
 			$(".weekly").show();
 		}
 	});
+	$(".weekly td:nth-child(5n)").click(function(event){
+		var target = $(event.currentTarget);
+		if(target.hasClass("off")){
+			target.removeClass("off");
+		}else{
+			target.addClass("off");
+		}
+	});
+	$(".weekly input").on('change',function(event){
+		var index = $('.weekly input').index($(event.target));
+		var start,end;
+		if(index%2){
+			start = $('.weekly input').eq(index);
+			end = $('.weekly input').eq(index + 1);
+		}else{
+			start = $('.weekly input').eq(index - 1 );
+			end = $('.weekly input').eq(index);
+		}
+		if(start && end ){
+			if( end < start ){
+				$(event.target).blur();
+				$('#dpw_clock input').eq(0).val("");
+				$('#dpw_clock input').eq(1).val("");
+				yyConfirm("结束时间不能早于开始时间");
+			}else{
+				var week = parseInt(index/2),
+					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+					info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+				if( $('#dpw_clock input').eq(0).val() == info.time_start && $('#dpw_clock input').eq(1).val() == info.time_end ){
+					$(".calender .hover").removeClass("on");
+					delete yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
+				}else{
+						yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+								"time_start": $('#dpw_clock input').eq(0).val(),
+								"time_end": $('#dpw_clock input').eq(1).val()
+						}
+						$(".calender .hover").addClass("on");
+				}
+				setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
+			}
+		}
+	});
 });

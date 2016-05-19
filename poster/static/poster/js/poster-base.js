@@ -318,21 +318,21 @@ $(function(){
         if( !yunyeEditorGlobal.lifetime )yunyeEditorGlobal.lifetime = {};
         if( !yunyeEditorGlobal.lifetime.lifetime_value )yunyeEditorGlobal.lifetime.lifetime_value = {};
         if( !yunyeEditorGlobal.lifetime.defaultsWeekly )yunyeEditorGlobal.lifetime.defaultsWeekly = {
-            "Monday":{time_start:"09:00",time_end:"17:00"},
-            "Tuesday":{time_start:"09:00",time_end:"17:00"},
-            "Wednesday":{time_start:"09:00",time_end:"17:00"},
-            "Thursday":{time_start:"09:00",time_end:"17:00"},
-            "Friday":{time_start:"09:00",time_end:"17:00"},
-            "Saturday":{time_start:"09:00",time_end:"17:00"},
-            "Sunday":{time_start:"09:00",time_end:"17:00"}
+            "Monday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Tuesday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Wednesday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Thursday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Friday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Saturday":{time_start:"09:00",time_end:"17:00",enabled:0},
+            "Sunday":{time_start:"09:00",time_end:"17:00",enabled:0}
         };
         initData();
     }
 
     function initData(){
          //标题
-        $('.edit-bar-header .title p').html(yunyeEditorGlobal.title);
-        $('#dpw_title input').val(yunyeEditorGlobal.title);
+        $('.edit-bar-header .title p').html(yunyeEditorGlobal.unique_name);
+        $('#dpw_title title').val(yunyeEditorGlobal.unique_name);
         //简述
         $('.header-info .desc span').html(yunyeEditorGlobal.short_description);
         $('#dpw_desc textarea').val(yunyeEditorGlobal.short_description);
@@ -341,20 +341,28 @@ $(function(){
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
         //日历
+        function toggleBtn(target,status){console.log(status);if(status){target.removeClass("off")}else{target.addClass("off")}}
         $(".weekly input:eq(0)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_start);
         $(".weekly input:eq(1)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_end);
+        toggleBtn($(".weekly td:nth-child(5)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.enabled);
         $(".weekly input:eq(2)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_start);
         $(".weekly input:eq(3)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_end);
+        toggleBtn($(".weekly td:nth-child(10)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.enabled);
         $(".weekly input:eq(4)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_start);
         $(".weekly input:eq(5)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_end);
+        toggleBtn($(".weekly td:nth-child(15)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.enabled);
         $(".weekly input:eq(6)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_start);
         $(".weekly input:eq(7)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_end);
+        toggleBtn($(".weekly td:nth-child(20)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.enabled);
         $(".weekly input:eq(8)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_start);
         $(".weekly input:eq(9)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_end);
+        toggleBtn($(".weekly td:nth-child(25)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.enabled);
         $(".weekly input:eq(10)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_start);
         $(".weekly input:eq(11)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_end);
+        toggleBtn($(".weekly td:nth-child(30)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.enabled);
         $(".weekly input:eq(12)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_start);
         $(".weekly input:eq(13)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_end);
+        toggleBtn($(".weekly td:nth-child(35)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.enabled);
 
         if( !!yunyeEditorGlobal.logo_text){
             $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_text+'</h2>');
@@ -385,13 +393,13 @@ $(function(){
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        setHeadTimeStamp("title",event.currentTarget.value);
+        setHeadTimeStamp("unique_name",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
         setHeadTimeStamp("short_description",event.currentTarget.value);
     });
-    $('#dpw_clock input').on('change',function(event){
+    $('.dayinfo input').on('change',function(event){
         var inputs = $('#dpw_clock input');
         var start = inputs[0].value ,end = inputs[1].value;
         if(start && end ){
@@ -434,8 +442,6 @@ $(function(){
                 setHeadTimeStamp("logoTitleType","image" );
                 setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
            }
-
-
     }
 
     $(".btn.btn-save").on("click",function(){
