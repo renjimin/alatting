@@ -331,6 +331,9 @@ $(function () {
                 $(".system-item").fadeOut(200);
                 break;
         }
+        $("#closesmusic").on('click',function(){
+            $(".system-music").fadeOut(200);
+        })
         //点击被保护列表中的对象返回
         window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
         var list = window.clickItmList;
