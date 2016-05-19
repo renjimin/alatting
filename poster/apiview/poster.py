@@ -293,7 +293,7 @@ class PosterSaveContentMixin(object):
         if 'head' in json_data.keys():
             self._save_head_info(instance, json_data['head'])
         if 'page' in json_data.keys():
-            self._save_pages_info(instance, json_data['page'])
+            self._save_pages_info(instance, json_data['pages'])
 
 
 class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
