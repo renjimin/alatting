@@ -396,16 +396,15 @@ $(function(){
                     weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
                     info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
                 if( $('#dpw_clock input').eq(0).val() == info.time_start && $('#dpw_clock input').eq(1).val() == info.time_end ){
-                    $(".calender .hover").removeClass("on");
+                    $(".calender .hover").removeClass("special");
                     delete yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
                 }else{
                     yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
                         "time_start": $('#dpw_clock input').eq(0).val(),
                         "time_end": $('#dpw_clock input').eq(1).val()
                     }
-                    $(".calender .hover").addClass("on");
+                    $(".calender .hover").addClass("special");
                 }
-                storageAPI.setHead("lifetime", yunyeEditorGlobal.lifetime);
             }
         }
     });
@@ -427,6 +426,7 @@ $(function(){
             storageAPI.setHead("logoTitleType","image" );
             storageAPI.setHead("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
        }
+       storageAPI.setHead("lifetime", yunyeEditorGlobal.lifetime);
     }
 
     window.onunload = function(event){
