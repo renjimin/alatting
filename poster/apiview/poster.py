@@ -228,7 +228,7 @@ class PosterSaveContentMixin(object):
     def _head_fields(self):
         "头部要保存的基本信息，不在此列表中的字段未变更"
         return ["mobile", "email", "phone", "unique_name",
-                "short_description", "category_keyword"]
+                "short_description"]
 
     def _logo_handler(self, instance, head_json):
         if head_json["logoTitleType"] == 'image':
