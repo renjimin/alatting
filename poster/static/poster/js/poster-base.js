@@ -374,7 +374,7 @@ $(function () {
         }
         //logo
         if(storageAPI.getHead('logo_title')){
-            $('.header-logo').empty().append('<h2>' + g.logo_title + '</h2>');
+            $('.header-logo').empty().append('<h2>' + storageAPI.getHead('logo_title') + '</h2>');
         }
         /**读取缓存背景图片*/
         if (storageAPI.getCss(".header")) {
