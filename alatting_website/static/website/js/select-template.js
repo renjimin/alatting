@@ -15,11 +15,14 @@ $(function () {
             yyAlert('请选择模版!');
             return false;
         }
+        $.fn.yyTools.mask(1);
         $.get(
             "/api/v1/poster/templates/" + selectTemplateId,
             function(resp){
                 if(!resp.file_exists){
+                    $.fn.yyTools.mask();
                     yyAlert("所选模板暂不可用，请重新选择");
+                    return false;
                 }else{
                     $('#selForm').submit();
                 }
