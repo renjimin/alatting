@@ -238,7 +238,7 @@ class PosterSaveContentMixin(object):
             except Exception:
                 pass # 后续加上设置默认logo图片
         if head_json["logoTitleType"] == 'text':
-            setattr(instance, "logo_title", head_json["logo_text"])
+            setattr(instance, "logo_title", head_json["logo_title"])
 
     def _css_handler(self, old_css, new_css):
         "处理一下css内容， 把最新的css更改保存到数据库中"
