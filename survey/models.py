@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from alatting_website.models import Category
-from survey import QuestionChoices, QuestionProcessors
+from survey import *
 
 class Survey(models.Model):
     name = models.CharField(max_length=64, unique=True)

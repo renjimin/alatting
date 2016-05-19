@@ -76,8 +76,6 @@ class QuestionnaireView(View):
 		return render_to_response('questionset.html', contextdict)
 
 	def add_answer(self, runinfo, question, ans):
-		if ans in [None, '']:
-			raise AnswerException("please answer the question")
 		answer = Answer()
 		answer.question = question
 		answer.subject = runinfo.subject	
@@ -148,10 +146,16 @@ class QuestionnaireView(View):
 
 		errors = {}
 		for question, ans in extra.items():
+			Type = question.type
+			exception = False
+			ans_tp = ""
 			try:
-				self.add_answer(runinfo, question, ans)
+				ans_tp = Processors[Type](question, ans)
 			except AnswerException as e:
+				exception = True
 				errors[question.sortid] = str(e)
+			if(exception==False):
+				self.add_answer(runinfo, question, ans_tp)
 		if len(errors)>0:
 			return self.show_questionnaire(request, runinfo, errors)
 
