@@ -83,7 +83,6 @@
 				$fileBox.removeClass('diyUploadHover');
 				$diyBar.fadeOut( 1000 ,function(){
 					$fileBox.children('.diySuccess').show();
-					$fileBox.hide();
 				});
 				if ( successCallBack ) {
 					successCallBack( response );
