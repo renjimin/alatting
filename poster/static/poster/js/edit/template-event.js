@@ -90,8 +90,4 @@ $(function(){
         }
         $this.registerPopUp(opt);
     });
-
-    $(".closefile").click(function(){
-        $(".dialog").hide();
-    });
 });

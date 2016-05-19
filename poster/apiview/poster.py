@@ -1,6 +1,6 @@
 # coding=utf-8
 import base64
-from _datetime import datetime
+from datetime import datetime
 import json
 
 import pytz
@@ -14,14 +14,16 @@ from rest_framework.views import APIView
 from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.model.resource import Image
-from alatting_website.models import CategoryKeyword
+from alatting_website.models import CategoryKeyword, Template
 from poster.models import SystemImage, SystemBackground
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
-    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer, SystemBackgroundListSerializer,
+    PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
+    SystemBackgroundListSerializer,
     PosterSaveSerializer)
 from poster.serializer.resource import AddressSerializer
-from utils.file import handle_uploaded_file, get_image_path, save_file
+from utils.file import handle_uploaded_file, get_image_path, save_file, \
+    read_template_file_content
 
 
 def set_dev_request_user(request):
@@ -102,6 +104,11 @@ class PosterDetailView(RetrieveUpdateAPIView):
         return qs.filter(creator=self.request.user)
 
 
+class PosterPageTemplateMixin(object):
+
+    pass
+
+
 class PosterPageListView(ListCreateAPIView):
     model = PosterPage
     queryset = PosterPage.objects.all()
@@ -114,16 +121,50 @@ class PosterPageListView(ListCreateAPIView):
         poster_id = self.request.data.get('poster_id')
         template_id = self.request.data.get('template_id')
         pages = PosterPage.objects.filter(
-            poster_id=poster_id, template_id=template_id
+            poster_id=poster_id
         ).order_by('-index')
         if pages.exists():
             index = int(pages.first().index) + 1
         else:
             index = 0
-        serializer.save(
+
+        template = get_object_or_404(Template, pk=template_id)
+        html = read_template_file_content(template.html_path())
+        css = read_template_file_content(template.css_path())
+        js = read_template_file_content(template.js_path())
+        posterpage = serializer.save(
             index=index,
-            name="p%s_t%s_i%s" % (poster_id, template_id, index)
+            name="p%s_t%s_i%s" % (poster_id, template_id, index),
+            temp_html=html,
+            temp_css=css,
+            temp_script=js
         )
+        posterpage.check_and_create_static_file_dir()
+
+
+class PosterPageDetailView(RetrieveUpdateAPIView):
+    model = PosterPage,
+    queryset = PosterPage.objects.all()
+    serializer_class = PosterPageSerializer
+
+    def perform_update(self, serializer):
+        posterpage = self.get_object()
+        poster_id = self.request.data.get('poster_id')
+        template_id = self.request.data.get('template_id')
+        template = get_object_or_404(Template, pk=template_id)
+        html = read_template_file_content(template.html_path())
+        css = read_template_file_content(template.css_path())
+        js = read_template_file_content(template.js_path())
+        posterpage = serializer.save(
+            name="p%s_t%s_i%s" % (poster_id, template_id, posterpage.index),
+            temp_html=html,
+            temp_css=css,
+            temp_script=js,
+            html=None,
+            css=None,
+            script=None
+        )
+        posterpage.check_and_create_static_file_dir()
 
 
 class CheckPosterUniqueNameView(APIView):
@@ -238,8 +279,9 @@ class PosterSaveContentMixin(object):
             except KeyError:
                 pass
 
-    def save_json_info(self, instance, json_data):
+    def save_json_info(self, instance, request_data):
         # 存储头部基本信息
+        json_data = json.loads(request_data['data'])
         if 'head' in json_data.keys():
             self._save_head_info(instance, json_data['head'])
         if 'page' in json_data.keys():
@@ -257,8 +299,7 @@ class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
 
     def perform_update(self, serializer):
         # 先把改动的数据保存下来
-        json_data = self.request.data['yunyeTemplateData{:d}'.format(serializer.instance.id)]
-        self.save_json_info(serializer.instance, json_data)
+        self.save_json_info(serializer.instance, self.request.data)
         # 将改动的数据写到文件发布出来
         pages = PosterPage.objects.filter(
             poster_id=serializer.instance.id
@@ -283,6 +324,5 @@ class PosterSaveView(RetrieveUpdateAPIView, PosterSaveContentMixin):
         return qs.filter(creator=self.request.user, pk=self.kwargs['pk'])
 
     def perform_update(self, serializer):
-        json_data = self.request.data['yunyeTemplateData{:d}'.format(serializer.instance.id)]
-        self.save_json_info(serializer.instance, json_data)
+        self.save_json_info(serializer.instance, self.request.data)
         serializer.save()

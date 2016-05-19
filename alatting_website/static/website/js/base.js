@@ -61,6 +61,14 @@ String.prototype.format = function (args) {
                 }
             });
             return name;
+        },
+        "mask": function(toggle){
+            var $m = $(".yunye-template-mask");
+            if(toggle) {
+                $m.show();
+            } else {
+                $m.hide();
+            }
         }
     }
 })(jQuery);

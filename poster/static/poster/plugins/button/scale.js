@@ -62,8 +62,12 @@ var scale = function(box,options){
         nbare = s.o.find('.nbar-e');
         nbarw = s.o.find('.nbar-w');
 
-        s.opt.left = s.o.offset().left == 0 ? parseInt(s.o.css('left')) : s.o.offset().left;
-        s.opt.top = s.o.offset().top == 0 ? parseInt(s.o.css('top')) : s.o.offset().top;
+        s.opt.left = s.o.css('left') == null ? s.o.offset().left : parseInt(s.o.css('left'));
+        s.opt.top = s.o.css('top') == null ? s.o.offset().top : parseInt(s.o.css('top'));
+
+        s.opt.cx = parseInt(s.opt.width)/2;/*计算圆心相对坐标*/
+        s.opt.cy = parseInt(s.opt.height)/2;
+
         s.opt.width = ele.innerWidth() == 0 ? parseInt(ele.css('width')) : ele.innerWidth();
         s.opt.height = ele.innerHeight() == 0 ? parseInt(ele.css('height')) : ele.innerHeight();
         s.opt.currentAngle = s.o.data('rotate') == null ? '0': s.o.data('rotate');
@@ -122,6 +126,7 @@ var scale = function(box,options){
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
             $(e.currentTarget).addClass('drag-active');
+
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
@@ -133,26 +138,26 @@ var scale = function(box,options){
             var ex = touchEvents.currentX - touchEvents.startX;
             var ey = touchEvents.currentY - touchEvents.startY;
 
-            var offsetX = s.opt.left;
-            var offsetY = s.opt.top;
-            var mouseX = touch.pageX - offsetX;//计算出鼠标相对于画布顶点的位置,无pageX时用clientY + body.scrollTop - body.clientTop代替,可视区域y+body滚动条所走的距离-body的border-top,不用offsetX等属性的原因在于，鼠标会移出画布
+            var offsetX = s.o.offset().left;
+            var offsetY = s.o.offset().top;
+            var mouseX = touch.pageX - offsetX;/*计算出鼠标相对于画布顶点的位置,无pageX时用clientY + body.scrollTop - body.clientTop代替,可视区域y+body滚动条所走的距离-body的border-top,不用offsetX等属性的原因在于，鼠标会移出画布*/
             var mouseY = touch.pageY - offsetY;
-            var ox = mouseX - s.opt.cx;//cx,cy为圆心
+            var ox = mouseX - s.opt.cx;/*cx,cy为圆心*/
             var oy = mouseY - s.opt.cy;
             var to = Math.abs( ox/oy );
-            var angle = Math.atan( to )/( 2 * Math.PI ) * 360;//鼠标相对于旋转中心的角度
-            if( ox < 0 && oy < 0)//相对在左上角，第四象限，js中坐标系是从左上角开始的，这里的象限是正常坐标系
+            var angle = Math.atan( to )/( 2 * Math.PI ) * 360;/*鼠标相对于旋转中心的角度*/
+            if( ox < 0 && oy < 0)/*相对在左上角，第四象限，js中坐标系是从左上角开始的，这里的象限是正常坐标系*/
             {
-                angle = -angle;
-            }else if( ox < 0 && oy > 0)//左下角,3象限
+                angle = 360 - angle;
+            }else if( ox < 0 && oy > 0)/*左下角,3象限*/
             {
-                angle = -( 180 - angle )
-            }else if( ox > 0 && oy < 0)//右上角，1象限
+                angle =  180 + angle;
+            }else if( ox > 0 && oy < 0)/*右上角，1象限*/
             {
                 angle = angle;
-            }else if( ox > 0 && oy > 0)//右下角，2象限
+            }else if( ox > 0 && oy > 0)/*右下角，2象限*/
             {
-                angle = 180 - angle;
+                angle = 180 -  angle;
             }
             var offsetAngle = angle - parseInt(s.opt.currentAngle);
 
@@ -162,6 +167,7 @@ var scale = function(box,options){
         'touchend':function(e){
             if (e.originalEvent) e = e.originalEvent;
             $(e.currentTarget).removeClass('drag-active');
+            s.opt.currentAngle = s.o.data('rotate');
         }
     });
     /*
@@ -415,7 +421,6 @@ var scale = function(box,options){
         /*编辑按钮*/
         editBtn.on('click',function(e){
             if (e.originalEvent) e = e.originalEvent;
-            console.log($(e.currentTarget).parent().attr('class'))
             elebtn = $(e.currentTarget).parent().find('.element');
             addButton(elebtn);
         })

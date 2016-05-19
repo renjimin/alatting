@@ -61,11 +61,8 @@ class PosterPageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PosterPage
+        exclude = ('temp_html', 'temp_css', 'temp_script')
         read_only_fields = ('id', 'poster', 'template', 'index', 'name')
-
-    def validate(self, attrs):
-        return attrs
-        # raise serializers.ValidationError('field1 with field2 already exists')
 
 
 class PosterPublishSerializer(serializers.ModelSerializer):

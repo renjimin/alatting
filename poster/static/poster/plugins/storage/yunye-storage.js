@@ -26,17 +26,20 @@
         this.posterPageId = this.getPosterPageId();
         this.storageKey = "yunyeTemplateData" + this.posterId;
 
+        this.getPageCleanData = function(){
+            return {
+                "html": "",
+                "css": {}
+            }
+        };
+
         this.getInitData = function(){
             var pages  = {},
                 posterData = {
                 "head":{},
                 "pages": {}
             };
-            pages[self.posterPageId] = {
-                "html": "",
-                "css": {},
-                "head": {}
-            };
+            pages[self.posterPageId] = self.getPageCleanData();
             posterData["pages"] = pages;
             return posterData
         };
@@ -69,15 +72,21 @@
         };
 
         this.getHtmlObj = function(){
-            return self.getPosterPageData()["html"];
-        };
-
-        this.getHeadObj = function(){
-            return self.getPosterPageData()["head"];
+            var pageData = self.getPosterPageData();
+            if(pageData){
+                return self.getPosterPageData()["html"];
+            }else{
+                return "";
+            }
         };
 
         this.getCssObj = function(){
-            return self.getPosterPageData()["css"];
+            var pageData = self.getPosterPageData();
+            if(pageData){
+                return self.getPosterPageData()["css"];
+            }else{
+                return {};
+            }
         };
 
         this.setAttr = function (target, name, value) {
@@ -98,8 +107,8 @@
                 storage.set(self.storageKey, self.getInitData());
             }else{
                 var datas = storage.get(key);
-                datas = $.extend(true, datas, initData);
-                storage.set(self.storageKey, datas);
+                //datas = $.extend(true, datas, initData);
+                //storage.set(self.storageKey, datas);
             }
             return self.getPosterData();
         };
@@ -142,6 +151,17 @@
             self.storage.remove(self.storageKey);
         };
 
+        this.cleanPage = function(){
+            var pageId = self.posterPageId;
+            if(arguments.length > 0){
+                pageId = arguments[0];
+            }
+            var posterData = self.getPosterData();
+            posterData["pages"][pageId] = self.getPageCleanData();
+            self.storage.set(self.storageKey, posterData);
+            return self.storage.get(self.storageKey);
+        };
+
         return {
             "init": self.init,
             "getPosterData": self.getPosterData,
@@ -154,7 +174,8 @@
             "getCss": self.getCss,
             "setHtml": self.setHtml,
             "getHtml": self.getHtml,
-            "remove": self.remove
+            "remove": self.remove,
+            "cleanPage": self.cleanPage
         }
     }();
 })(jQuery);

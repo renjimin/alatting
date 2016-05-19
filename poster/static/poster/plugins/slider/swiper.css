@@ -80,7 +80,7 @@
   position: relative;
   overflow: hidden;
 }
-.swiper-slide img{width:100%:}
+.swiper-slide img{width:100%;}
 /* Auto Height */
 .swiper-container-autoheight,
 .swiper-container-autoheight .swiper-slide {

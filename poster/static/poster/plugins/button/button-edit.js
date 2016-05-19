@@ -1,4 +1,4 @@
-var currentElebox = null,isEdit = false,fullcontainer=$('.container-fluid');
+var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template');
 var curentOpts={};
 
 
@@ -17,7 +17,8 @@ var curentOpts={};
             'rotate':'0',
             'borderColor':'fff',
             'borderStyle':'solid',
-            'borderWidth':'1'
+            'borderWidth':'1',
+            'height':'34'/*默认高度*/
         }
 
         defaults.container.addClass('open');
@@ -58,7 +59,7 @@ var curentOpts={};
                 'font-family':opts.fontFamily,
                 'background':'#'+opts.background,
                 'opacity':opts.opacity,
-                'box-shadow':'0 0 '+opts.boxShadow+' #444',
+                'box-shadow':'0 0 '+opts.boxShadow+' #000',
                 'border-radius':opts.borderRadius+'px',
                 'transform':'rotate('+opts.rotate+'deg)',
                 'border-color':'#'+opts.borderColor,
@@ -91,7 +92,8 @@ var curentOpts={};
                     'rotate':$2,
                     'borderColor':$(b).css('border-color'),
                     'borderStyle':$(b).css('border-style'),
-                    'borderWidth':$(b).css('border-width')
+                    'borderWidth':$(b).css('border-width'),
+                    'height':$(b).innerHeight()
                 }
                 opts = $.extend(opts,eleopts);
             }
@@ -110,7 +112,7 @@ var curentOpts={};
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
-            $('.button-borderRadius').val(opts.borderRadius);
+            $('.button-borderRadius').val(opts.borderRadius).attr('max',opts.height/2);
             $('.button-borderColor').val(opts.borderColor);
             $('.button-borderStyle').val(opts.borderStyle);
             for(i=0;i<20;i++){
@@ -121,7 +123,6 @@ var curentOpts={};
         }
         s.addControlListen = function(){
             var elebtn = $("#button-model").find('.element').eq(0);
-            console.log(elebtn.parent().attr('class'));
 
             $('.button-href').off('input propertychange').on('input propertychange',function(){
                 opts.href = $(this).val();
@@ -205,7 +206,7 @@ var curentOpts={};
                     e.currentTarget.style.left = s.touches.currentX - s.touches.startX;
 
                     $('.button-boxShadow').val($(this).val());
-                    elebtn.css('box-shadow','0 0 '+$(this).val()+'px #444');
+                    elebtn.css('box-shadow','0 0 '+$(this).val()+'px #000');
                 },
                 'touchend':function(event){
                     opts.boxShadow = $(this).val();
@@ -251,6 +252,7 @@ var curentOpts={};
                 },
                 'touchend':function(event){
                     opts.rotate = $(this).val();
+                    elebtn.attr('data-rotate',$(this).val());
                 }
             });
 
@@ -290,10 +292,18 @@ var curentOpts={};
         if(!isEdit){
             cnd.find('.element-box-contents').append(ele);
             cnd.hide();
-            fullcontainer.append(cnd);console.log(cnd.innerWidth())
+            if(ele.data('rotate') != null){
+                ele.css('transform','rotate(0)');
+                cnd.css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
+            }
+            fullcontainer.append(cnd);
             cnd.css({'top':$(window).height()/2-cnd.innerHeight()/2+'px','left':$(window).width()/2-cnd.innerWidth()/2+'px'}).show();
             scale(cnd);
         }else{
+            if(ele.data('rotate') != null){
+                ele.css('transform','rotate(0)');
+                currentElebox.parent().parent().css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
+            }
             currentElebox.empty().append(ele);
         }
         $('#button-model').removeClass('open')
@@ -435,3 +445,23 @@ var uploadSystemimg = function(eleobj){
     });
 
 }
+function deleteElement(){
+    var imgactive = $('.systemimg-element.active');
+
+    imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
+        imgactive.remove();
+    });
+}
+$(function(){
+    document.onkeyup = function (event) {
+        var e = event || window.event;
+        var keyCode = e.keyCode || e.which;
+        switch (keyCode) {
+            case 46:
+                deleteElement();
+                break;
+            default:
+                break;
+        }
+    }
+})
