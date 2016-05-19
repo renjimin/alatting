@@ -1,16 +1,29 @@
-{% extends 'alatting_website/base.html' %}
-{%load static %}
-{% block base_header_css %}
-    <link rel="stylesheet" href="{% static 'survey/css/survey-base.css' %}">
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width,user-scalable=no" >
+    <title>武汉云页移动科技有限公司</title>
+    {% block base_header_css %}
+        <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
+        <link rel="stylesheet" href="{% static 'survey/css/survey-base.css' %}">
+    {% endblock %}
+    {% block base_header_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'website/js/base.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'survey/js/plugins/jquery.validate.min.js' %}"></script>
+        <script src="{% static 'survey/js/survey-base.js' %}"></script>
+    {% endblock %}
+    {% block base_header_extra %}
+    {% endblock %}
+</head>
+<body>
+<div class="body-container">
+{% block base_body_header %}
 {% endblock %}
-
-{% block base_header_js %}
-    {{ block.super }}
-    <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'survey/js/plugins/jquery.validate.min.js' %}"></script>
-    <script src="{% static 'survey/js/survey-base.js' %}"></script>
-{% endblock %}
-
 {% block base_body %}
     <div class="qs container-fluid">
         <header class="qs-header">
@@ -24,35 +37,40 @@
             </div>
         </header>
         <div class="qs-body">
-        	<form class="form" action="{{ request.path }}" method="POST">
-			    <div class="qs-title">{{qs_title}}</div>
-			    <div class="qs-list">
-			        <div class="step">
-			            <div class="qs-list-section">
+            <form class="form" action="{{ request.path }}" method="POST">
+                <div class="qs-title">{{qs_title}}</div>
+                <div class="qs-list">
+                    <div class="step">
+                        <div class="qs-list-section">
                             {% if error %}
                                 <div class="error">{{error}}</div>
                             {% endif %}
-			                {% for question, qdict in qlist %}
+                            {% for question, qdict in qlist %}
                                 <div class="qs-list-title"> 
                                     {{question.text}}
                                 </div>
-				            	{% include qdict.template %}
-				            {% endfor %}
-			            </div>
-			        </div>
-			        <div class="qs-footer">
-			            <div>
+                                {% include qdict.template %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="qs-footer">
+                        <div>
                             {% if questionset.prev %}
                                 <a class="back btn btn-default" href="{{ prev_url }}">返&nbsp;回</a>
                             {% endif %}
                             <input type="submit" class="next btn btn-default" value="确&nbsp;认">
-			            </div>
-			        </div>  
-			    </div>
-			</form>
+                        </div>
+                    </div>  
+                </div>
+            </form>
         </div>
     </div>
 {% endblock %}
-
 {% block base_body_footer %}
 {% endblock %}
+{% block base_footer_js %}
+    <script src="{% static 'website/js/footer.js' %}"></script>
+{% endblock %}
+</div>
+</body>
+</html>
