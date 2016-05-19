@@ -1,4 +1,6 @@
 $(function () {
+    var storageAPI = $.fn.yunyeStorage;
+
     $(".back-to-home").click(function () {
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
@@ -6,70 +8,6 @@ $(function () {
             //保存操作完成后进行页面跳转
             window.location.href = url;
         });
-    });
-
-    var saveData = function () {
-        setHeadTimeStamp("phone", $('phoneInput').val());
-        setHeadTimeStamp("mobile", $('mobileInput').val());
-        setHeadTimeStamp("email", $('emailInput').val());
-
-        if ($('.header-logo h2')[0]) {
-            setHeadTimeStamp("logo_text", $('.header-logo h2').html());
-            setHeadTimeStamp("logoTitleType", "text");
-            setHeadTimeStamp("logo_image", "");
-        } else {
-            setHeadTimeStamp("logo_text", "");
-            setHeadTimeStamp("logoTitleType", "image");
-            setHeadTimeStamp("logo_image", {
-                url: $('.header-logo img').attr("src"),
-                id: $('.header-logo img').attr("data-src-id")
-            });
-        }
-    };
-
-    window.onunload = function (event) {
-        saveData();
-    };
-
-    $(".btn.btn-save").on("click", function () {
-        //saveData();
-        var full_json = JSON.stringify(storageAPI.getPosterData());
-        var url = '/api/v1/poster/save/' + storageKey.replace("yunyeTemplateData", "") + '/';
-        $.ajax({
-            type: 'PATCH',
-            dataType: 'json',
-            data: {"data": full_json},
-            url: url,
-            success: function (data) {
-                yyAlert("保存成功");
-                console.log(data)
-            },
-            error: function (xhr, status, statusText) {
-                if (xhr.status == 500) {
-                    yyAlert("服务器内部错误");
-                }
-            }
-        })
-    });
-
-    $(".btn.btn-post").on("click", function () {
-        var full_json = JSON.stringify(storageAPI.getPosterData());
-        var url = '/api/v1/poster/publish/' + storageKey.replace("yunyeTemplateData", "") + '/';
-        $.ajax({
-            type: 'PATCH',
-            dataType: 'json',
-            data: {"data": full_json},
-            url: url,
-            success: function (data) {
-                yyAlert("发布成功");
-                console.log(data)
-            },
-            error: function (xhr, status, statusText) {
-                if (xhr.status == 500) {
-                    yyAlert("服务器内部错误，请联系程序猿。");
-                }
-            }
-        })
     });
 
     $('.btn-page').registerPopUp({
@@ -134,4 +72,90 @@ $(function () {
             }
         ]
     });
+
+    var setHeadTimeStamp = function (key, value) {
+        storageAPI.setHead(key, value);
+        storageAPI.setHead("updated_at", new Date().getTime());
+    };
+
+    //保存数据方法
+    var saveData = function () {
+        //电话手机邮箱
+        setHeadTimeStamp("phone", $('phoneInput').val());
+        setHeadTimeStamp("mobile", $('mobileInput').val());
+        setHeadTimeStamp("email", $('emailInput').val());
+        //logo
+        if ($('.header-logo h2')[0]) {
+            setHeadTimeStamp("logo_text", $('.header-logo h2').html());
+            setHeadTimeStamp("logoTitleType", "text");
+            setHeadTimeStamp("logo_image", "");
+        } else {
+            setHeadTimeStamp("logo_text", "");
+            setHeadTimeStamp("logoTitleType", "image");
+            setHeadTimeStamp("logo_image", {
+                url: $('.header-logo img').attr("src"),
+                id: $('.header-logo img').attr("data-src-id")
+            });
+        }
+        //日历周期性
+        var inputs = $(".weekly input"),
+            lifetime = yunyeEditorGlobal.lifetime;
+        for (var i = 0; i < (inputs.length) / 2; i++) {
+            var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                info = lifetime.defaultsWeekly[weekName];
+            info.time_start = inputs.eq(i * 2).val();
+            info.time_end = inputs.eq(i * 2 + 1).val();
+            info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
+        }
+        setHeadTimeStamp("lifetime", lifetime);
+    };
+
+    $(".btn.btn-save").on("click", function () {
+        saveData();
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = yunyeEditorGlobal.API.save.format(
+            yunyeEditorGlobal.posterId
+        );
+        $.ajax({
+            type: 'PATCH',
+            dataType: 'json',
+            data: {"data": full_json},
+            url: url,
+            success: function (data) {
+                yyAlert("保存成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("保存失败，服务器内部错误");
+                }
+            }
+        })
+    });
+
+    $(".btn.btn-post").on("click", function () {
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = yunyeEditorGlobal.API.publish.format(
+            yunyeEditorGlobal.posterId
+        );
+        $.ajax({
+            type: 'PATCH',
+            dataType: 'json',
+            data: {"data": full_json},
+            url: url,
+            success: function (data) {
+                yyAlert("发布成功");
+                console.log(data);
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("发布失败，服务器内部错误");
+                }
+            }
+        })
+    });
+
+    window.onunload = function (event) {
+        saveData();
+    }
 });

@@ -1436,6 +1436,7 @@ to {
 	box-sizing: content-box;
 	padding: 4px;
 	font-size: 22px;
+    z-index:200;
 }
 .edit-bar-header .icon-back {
 	display: inline-block;
