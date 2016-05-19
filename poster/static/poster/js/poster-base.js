@@ -373,10 +373,8 @@ $(function () {
             }
         }
         //logo
-        if (!!g.logo_text) {
-            $('.header-logo').empty().append('<h2>' + g.logo_text + '</h2>');
-        } else {
-            $('.header-logo').empty().append('<img src="' + g.logo_image.url + '" >');
+        if(storageAPI.getHead('logo_title')){
+            $('.header-logo').empty().append('<h2>' + storageAPI.getHead('logo_title') + '</h2>');
         }
         /**读取缓存背景图片*/
         if (storageAPI.getCss(".header")) {

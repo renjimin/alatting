@@ -15,7 +15,7 @@ $(function(){
                 icon: "glyphicon glyphicon-picture",
                 text: "轮播图",
                 callback: function (_this) {
-                    $(".upload-image-dialog").animate({top: '0px'});
+                    $(".upload-image-dialog").addClass('open');
                     $('#uploaderContainer').diyUpload({
                         url: '/api/v1/poster/upload/logo',
                         success: function (data) {
@@ -100,6 +100,7 @@ $(function(){
         }
         $this.registerPopUp(opt);
     });
+
 
     $(".closefile").click(function(){
         $(".dialog").hide();

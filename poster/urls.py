@@ -33,7 +33,7 @@ urlpatterns = [
 # 显示海报
 
 urlpatterns += [
-    # url(r'^(?P<pk>[\d]+)/$', PosterView.as_view(), name='poster'),
+    url(r'^(?P<pk>[\d]+)/$', PosterView.as_view(), name='show'),
 ]
 
 # 编辑海报url
