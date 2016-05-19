@@ -38,7 +38,7 @@ $(function () {
         offsetYPercent: 100,
         list: [
             {
-                icon: "icon ico-edit-text",
+                icon: "glyphicon glyphicon-font",
                 text: "输入文字",
                 callback: function () {
                     if (!$(".header-logo h2")[0]) {
@@ -346,7 +346,7 @@ $(function () {
     var storageAPI = $.fn.yunyeStorage;
     var pageHeadData = storageAPI.getPosterHeadData();
 
-    var initData = function() {
+    var initData = function () {
         var g = yunyeEditorGlobal;
         //标题
         $('.edit-bar-header .title p').html(g.unique_name);
@@ -427,19 +427,14 @@ $(function () {
         initData();
     }
 
-    var setHeadTimeStamp = function (key, value) {
-        storageAPI.setHead(key, value);
-        storageAPI.setHead("updated_at", new Date().getTime());
-    };
-
     //数据绑定
     $('#dpw_title input').on('change', function (event) {
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        setHeadTimeStamp("unique_name", event.currentTarget.value);
+        storageAPI.setHead("unique_name", event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change', function (event) {
         $('.header-info .desc span').html(event.currentTarget.value);
-        setHeadTimeStamp("short_description", event.currentTarget.value);
+        storageAPI.setHead("short_description", event.currentTarget.value);
     });
     $('.dayinfo input').on('change', function (event) {
         var inputs = $('#dpw_clock input');
@@ -456,16 +451,16 @@ $(function () {
                     weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" : "Saturday",
                     info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
                 if ($('#dpw_clock input').eq(0).val() == info.time_start && $('#dpw_clock input').eq(1).val() == info.time_end) {
-                    $(".calender .hover").removeClass("on");
+                    $(".calender .hover").removeClass("special");
                     delete yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
                 } else {
                     yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
                         "time_start": $('#dpw_clock input').eq(0).val(),
-                        "time_end": $('#dpw_clock input').eq(1).val()
+                        "time_end": $('#dpw_clock input').eq(1).val(),
+                        "enabled": $('#dateState').hasClass("off") ? 0 : 1
                     };
-                    $(".calender .hover").addClass("on");
+                    $(".calender .hover").addClass("special");
                 }
-                setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
             }
         }
     });

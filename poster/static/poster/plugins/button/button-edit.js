@@ -297,7 +297,7 @@ var curentOpts={};
                 cnd.css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
             }
             fullcontainer.append(cnd);
-            cnd.css({'top':$(window).height()/2-cnd.innerHeight()/2+'px','left':$(window).width()/2-cnd.innerWidth()/2+'px'}).show();
+            cnd.css({'top':fullcontainer.height()/2-cnd.innerHeight()/2+'px','left':fullcontainer.width()/2-cnd.innerWidth()/2+'px'}).show();
             scale(cnd);
         }else{
             if(ele.data('rotate') != null){
@@ -360,11 +360,16 @@ var deleteButton = function(){
 
 
 $(function(){
-    $('#systemimg-model li').click(function(event){
+    $('#systemimg-model ul').click(function(event){
         event.stopPropagation();
         $('#systemimg-model').removeClass('open');
-        var eleobj = $('<div class="element systemimg '+$(this).attr('class')+'"></div>');
-
+        var eleobj = $('<div class="element systemimg"></div>');
+        var current = $(event.target);
+        if(event.target.tagName != 'IMG' && event.target.tagName != 'img'){
+            current = $(event.target).find('img');
+        }
+        eleobj.css({'width':current.width(),'height':current.height()});
+        eleobj.append(current);
         addSystemimg(eleobj);
     });
 })
@@ -381,6 +386,19 @@ var openSystemimg = function(){
         $('#systemimg-model').removeClass('open');
         ele.removeClass('open');
     }else{
+        $.ajax({
+            type: 'GET',
+            url: 'http://192.168.118.130:8000/api/v1/poster/system/images',
+            success: function(data){
+                var con = $('#systemimg-model .systemimg-list ul');
+                con.empty();
+                for(i=0;i<data.length;i++){
+                    var li = '<li><img src="'+data[i].image_url+'" /></li>';
+                    con.append(li);
+                }
+
+            },
+        });
         $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         ele.addClass('open');
     }
@@ -409,7 +427,7 @@ var addSystemimg = function(eleobj){
     cnd.find('.element-box-contents').append(eleobj);
     cnd.hide();
     fullcontainer.append(cnd);
-    cnd.css({'top':$(window).height()/2-eleobj.height()/2+'px','left':$(window).width()/2-eleobj.width()/2+'px'}).show();
+    cnd.css({'top':fullcontainer.height()/2-eleobj.height()/2+'px','left':fullcontainer.width()/2-eleobj.width()/2+'px'}).show();
     scale(cnd);
 }
 
