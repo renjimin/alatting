@@ -427,12 +427,12 @@ $(function(){
             }
         }
     });
-
-    window.onunload = function(event){
-           setHeadTimeStamp("phone",$('phoneInput').val() );
+    
+    function saveData(){
+    	setHeadTimeStamp("phone",$('phoneInput').val() );
            setHeadTimeStamp("mobile",$('mobileInput').val() );
            setHeadTimeStamp("email",$('emailInput').val() );
-
+           
            if( $('.header-logo h2')[0] ){
                 setHeadTimeStamp("logo_text",$('.header-logo h2').html() );
                 setHeadTimeStamp("logoTitleType","text" );
@@ -444,7 +444,12 @@ $(function(){
            }
     }
 
+    window.onunload = function(event){
+           saveData();
+    }
+
     $(".btn.btn-save").on("click",function(){
+    	saveData();
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
         $.ajax({
