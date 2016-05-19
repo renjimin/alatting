@@ -3,15 +3,15 @@
        data-url="{% url 'website:index' %}">
         <i class="icon-back"></i>
     </a>
-    <button class="button button-clear btn-page">
+    {% comment %}<button class="button button-clear btn-page">
         <i class="ico-pages"></i>
-    </button>
-    <div class="title" style="left: 36px; right: 36px;">
+    </button>{% endcomment %}
+    <div class="title header-bar-title">
         <p>{{ poster.logo_title }}</p>
     </div>
     <div class="top-btn">
         <button class="btn btn-bg">换肤</button>
-        <button class="btn btn-save">存储</button>
+        <button class="btn btn-save">保存</button>
         <button class="btn btn-post">发布</button>
     </div>
     <!--<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>-->
