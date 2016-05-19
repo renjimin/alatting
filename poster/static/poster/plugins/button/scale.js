@@ -62,8 +62,9 @@ var scale = function(box,options){
         nbare = s.o.find('.nbar-e');
         nbarw = s.o.find('.nbar-w');
 
-        s.opt.left = s.o.offset().left == 0 ? parseInt(s.o.css('left')) : s.o.offset().left;
-        s.opt.top = s.o.offset().top == 0 ? parseInt(s.o.css('top')) : s.o.offset().top;
+        s.opt.left = s.o.css('left') == null ? s.o.offset().left : parseInt(s.o.css('left'));
+        s.opt.top = s.o.css('top') == null ? s.o.offset().top : parseInt(s.o.css('top'));
+
         s.opt.width = ele.innerWidth() == 0 ? parseInt(ele.css('width')) : ele.innerWidth();
         s.opt.height = ele.innerHeight() == 0 ? parseInt(ele.css('height')) : ele.innerHeight();
         s.opt.currentAngle = s.o.data('rotate') == null ? '0': s.o.data('rotate');

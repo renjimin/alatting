@@ -10,14 +10,61 @@
 .nextMonth{ font-size:14px; font-weight:bold; cursor:pointer; margin-left:18px;color:#0080FF;float: right;}
 .mh_date{width:249px; height:20px; line-height:20px; padding:5px; border:2px #AA9FFF solid; cursor:pointer; background:url(dateIco.png) no-repeat right center;}
 .zhezhao{width:100%; height:100%; position:fixed; z-index:998;	background:#fff;filter:alpha(opacity=10);opacity:0.1; display:none; }
-.calender select{border:none;}
+.calender select{border:none;background: transparent;}
 .dayinfo{line-height: 35px;background: transparent;}
 .dayinfo input{height: 35px;line-height: 35px;background: transparent;}
 .dayinfo input{border:none;padding-left: 15px;}
 .calendertb td.on{background: #0080FF}
 .calendertb td.hover{border:2px solid #ff0000;}
 
-.weekly{display: none;background:#ff0000;}
-#dp .weekly li{width: 100%;height: 40px;overflow: hidden;}
-#dp .weekly li i{width: 50px;}
-#dp .weekly li span{margin-left: -50px;padding-left: 50px;float: left;}
+.weekly{
+	display: none;
+	border: 4px #D6D6D6 solid;
+	width: 100%;
+	background: #EBEBEB;
+}
+.weekly table{
+	width: 100%;
+}
+.weekly table tr{
+	height: 30px;
+	width: 100%;
+	border:1px #CCCCCC solid;
+}
+.weekly table td{
+	text-align: center;
+	position: relative;
+}
+.weekly table tr td:nth-child(1){
+	border:1px #CCCCCC solid;
+	width: 40px;
+}
+.weekly table tr td:nth-child(3){
+	padding-right: 20px;
+}
+.weekly .toggle-line{
+	width: 40px;
+	height: 18px;
+	background-color: green;
+	border-radius:20px;
+}
+.weekly .toggle-btn{
+	width: 20px;
+	height: 20px;
+	background-color: #fff;
+	border-radius:100%;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	right: auto;
+	left: -1px;
+	margin:auto;
+}
+.weekly .toggle-btn.off{
+	right: -1px;
+	left:auto;
+}
+.weekly table td input{
+	background: transparent;
+	border:none;
+}

@@ -26,17 +26,20 @@
         this.posterPageId = this.getPosterPageId();
         this.storageKey = "yunyeTemplateData" + this.posterId;
 
+        this.getPageCleanData = function(){
+            return {
+                "html": "",
+                "css": {}
+            }
+        };
+
         this.getInitData = function(){
             var pages  = {},
                 posterData = {
                 "head":{},
                 "pages": {}
             };
-            pages[self.posterPageId] = {
-                "html": "",
-                "css": {},
-                "head": {}
-            };
+            pages[self.posterPageId] = self.getPageCleanData();
             posterData["pages"] = pages;
             return posterData
         };
@@ -72,10 +75,6 @@
             return self.getPosterPageData()["html"];
         };
 
-        this.getHeadObj = function(){
-            return self.getPosterPageData()["head"];
-        };
-
         this.getCssObj = function(){
             return self.getPosterPageData()["css"];
         };
@@ -98,8 +97,8 @@
                 storage.set(self.storageKey, self.getInitData());
             }else{
                 var datas = storage.get(key);
-                datas = $.extend(true, datas, initData);
-                storage.set(self.storageKey, datas);
+                //datas = $.extend(true, datas, initData);
+                //storage.set(self.storageKey, datas);
             }
             return self.getPosterData();
         };
@@ -132,7 +131,7 @@
             // base64 encode html
             var posterData = self.getPosterData(),
                 b64 = $.base64.encode($(domSelector).html());
-            posterData[self.posterPageId]['html'] = b64;
+            posterData['pages'][self.posterPageId]['html'] = b64;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);
         };
@@ -140,6 +139,17 @@
         this.remove = function () {
             //清除local storage数据
             self.storage.remove(self.storageKey);
+        };
+
+        this.cleanPage = function(){
+            var pageId = self.posterPageId;
+            if(arguments.length > 0){
+                pageId = arguments[0];
+            }
+            var posterData = self.getPosterData();
+            posterData["pages"][pageId] = self.getPageCleanData();
+            self.storage.set(self.storageKey, posterData);
+            return self.storage.get(self.storageKey);
         };
 
         return {
@@ -154,7 +164,8 @@
             "getCss": self.getCss,
             "setHtml": self.setHtml,
             "getHtml": self.getHtml,
-            "remove": self.remove
+            "remove": self.remove,
+            "cleanPage": self.cleanPage
         }
     }();
 })(jQuery);

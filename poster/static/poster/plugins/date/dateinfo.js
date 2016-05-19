@@ -185,7 +185,12 @@ $(function() {
 		}
 	}
 	$(".glyphicon.glyphicon-cog").click(function(event) {
-		$(".calender").hide();
-		$(".weekly").show();
+		if($(".weekly").is(":visible")){
+			$(".calender").show();
+			$(".weekly").hide();
+		}else{
+			$(".calender").hide();
+			$(".weekly").show();
+		}
 	});
 });

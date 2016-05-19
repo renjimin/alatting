@@ -276,6 +276,21 @@ $(function(){
         $('#dpw_phone input:eq(0)').val(yunyeEditorGlobal.phone);
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
+        //日历
+        $(".weekly input:eq(0)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_start);
+        $(".weekly input:eq(1)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_end);
+        $(".weekly input:eq(2)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_start);
+        $(".weekly input:eq(3)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_end);
+        $(".weekly input:eq(4)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_start);
+        $(".weekly input:eq(5)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_end);
+        $(".weekly input:eq(6)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_start);
+        $(".weekly input:eq(7)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_end);
+        $(".weekly input:eq(8)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_start);
+        $(".weekly input:eq(9)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_end);
+        $(".weekly input:eq(10)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_start);
+        $(".weekly input:eq(11)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_end);
+        $(".weekly input:eq(12)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_start);
+        $(".weekly input:eq(13)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_end);
 
         if( !!yunyeEditorGlobal.logo_text){
             $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_text+'</h2>');
@@ -292,7 +307,11 @@ $(function(){
         if(storageAPI.getCss(".abutton-group li a"))$(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
 
         /*读取主体部分*/
-        if(storageAPI.getHtml())$(".container-fluid").html(storageAPI.getHtml());
+        console.log(storageAPI.getPosterData());
+        if(storageAPI.getHtml())$(".yunye-template").empty().html(storageAPI.getHtml());
+        $(".yunye-template .cnd-element").each(function(){
+            scale($(this));
+        });
     }
 
     function setHeadTimeStamp(key,value){
@@ -353,17 +372,46 @@ $(function(){
                 setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
            }
 
-           storageAPI.setHtml(".container-fluid");
+
     }
 
     $(".btn.btn-save").on("click",function(){
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
         $.ajax({
-            type: "PATCH",
-            url: "/api/v1/poster/save/6/",
-            data: storageAPI.getPosterData(),
-            success: function(){console.log("success")},
-            error: function(){console.log("error")}
-        });
+            type:'PATCH',
+            dataType:'json',
+            data: full_json,
+            url: url,
+            success:function(data){
+                yyAlert("保存成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
+            }
+        })
     });
 
+    $(".btn.btn-post").on("click",function(){
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/publish/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: full_json,
+            url: url,
+            success:function(data){
+                yyAlert("发布成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
+            }
+        })
+    });
 });
