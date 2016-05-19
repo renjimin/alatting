@@ -43,8 +43,15 @@ $(function(){
               {
                 icon: "glyphicon glyphicon-picture",
                 text: "上传图片",
-                callback: function(){
-                    alert("调用轮播图!");
+                callback: function(obj){
+                    $.fn.uploads.showDialog(function(data){
+                        if(obj){
+                            obj.empty().append('<img src="'+data.file+'"/>');
+                        }
+
+
+                    });
+
                 }
             },
 

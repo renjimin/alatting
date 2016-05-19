@@ -72,7 +72,7 @@ $(function(){
     });
 
     //弹出菜单
-    $(".dropdown-toggle").registerDropDown();
+    $(".dropdown-toggle:not(#share-toggle)").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
             id:'dpw_phone',
             offsetYPercent:50,
@@ -272,6 +272,7 @@ $(function(){
                                 storageAPI.setCss(".abutton-group li a", {'background-image': 'url(' + data.file  + ')', 'background-size': 'cover'});
                            });
                 }}],
+            arrowOffset:20,
             followMouse:true
         });
 
@@ -314,16 +315,25 @@ $(function(){
     var pageHeadData = storageAPI.getPosterHeadData();
     if(!(yunyeEditorGlobal.updated_at  > pageHeadData.updated_at)){
         $.extend(yunyeEditorGlobal,pageHeadData);
-        //服务器暂时没传数据
+        //服务器暂时没传数据 (伪造数据)
         if( !yunyeEditorGlobal.lifetime )yunyeEditorGlobal.lifetime = {};
         if( !yunyeEditorGlobal.lifetime.lifetime_value )yunyeEditorGlobal.lifetime.lifetime_value = {};
+        if( !yunyeEditorGlobal.lifetime.defaultsWeekly )yunyeEditorGlobal.lifetime.defaultsWeekly = {
+            "Monday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Tuesday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Wednesday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Thursday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Friday":{time_start:"09:00",time_end:"17:00",enabled:1},
+            "Saturday":{time_start:"09:00",time_end:"17:00",enabled:0},
+            "Sunday":{time_start:"09:00",time_end:"17:00",enabled:0}
+        };
         initData();
     }
 
     function initData(){
          //标题
-        $('.edit-bar-header .title p').html(yunyeEditorGlobal.title);
-        $('#dpw_title input').val(yunyeEditorGlobal.title);
+        $('.edit-bar-header .title p').html(yunyeEditorGlobal.unique_name);
+        $('#dpw_title title').val(yunyeEditorGlobal.unique_name);
         //简述
         $('.header-info .desc span').html(yunyeEditorGlobal.short_description);
         $('#dpw_desc textarea').val(yunyeEditorGlobal.short_description);
@@ -331,9 +341,32 @@ $(function(){
         $('#dpw_phone input:eq(0)').val(yunyeEditorGlobal.phone);
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
+        //日历
+        function toggleBtn(target,status){console.log(status);if(status){target.removeClass("off")}else{target.addClass("off")}}
+        $(".weekly input:eq(0)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_start);
+        $(".weekly input:eq(1)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_end);
+        toggleBtn($(".weekly td:nth-child(5)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.enabled);
+        $(".weekly input:eq(2)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_start);
+        $(".weekly input:eq(3)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_end);
+        toggleBtn($(".weekly td:nth-child(10)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.enabled);
+        $(".weekly input:eq(4)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_start);
+        $(".weekly input:eq(5)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_end);
+        toggleBtn($(".weekly td:nth-child(15)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.enabled);
+        $(".weekly input:eq(6)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_start);
+        $(".weekly input:eq(7)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_end);
+        toggleBtn($(".weekly td:nth-child(20)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.enabled);
+        $(".weekly input:eq(8)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_start);
+        $(".weekly input:eq(9)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_end);
+        toggleBtn($(".weekly td:nth-child(25)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.enabled);
+        $(".weekly input:eq(10)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_start);
+        $(".weekly input:eq(11)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_end);
+        toggleBtn($(".weekly td:nth-child(30)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.enabled);
+        $(".weekly input:eq(12)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_start);
+        $(".weekly input:eq(13)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_end);
+        toggleBtn($(".weekly td:nth-child(35)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.enabled);
 
-        if( !!yunyeEditorGlobal.logo_title){
-            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_title+'</h2>');
+        if( !!yunyeEditorGlobal.logo_text){
+            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_text+'</h2>');
         }else{
             $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image.url+'" >');
         }
@@ -361,15 +394,15 @@ $(function(){
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        setHeadTimeStamp("title",event.currentTarget.value);
+        setHeadTimeStamp("unique_name",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
         setHeadTimeStamp("short_description",event.currentTarget.value);
     });
-    $('#dpw_clock input').on('change',function(event){
+    $('.dayinfo input').on('change',function(event){
         var inputs = $('#dpw_clock input');
-        var start = inputs[0] ,end = inputs[1];
+        var start = inputs[0].value ,end = inputs[1].value;
         if(start && end ){
             if( end < start ){
                 $(event.target).blur();
@@ -377,10 +410,19 @@ $(function(){
                 $('#dpw_clock input').eq(1).val("");
                 yyConfirm("结束时间不能早于开始时间");
             }else{
-                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html();
-                yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
-                    "time_start": $('#dpw_clock input').eq(0).val(),
-                    "time_end": $('#dpw_clock input').eq(1).val()
+                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html(),
+                    week = new Date($("#year").val(),$("#month").val() -1,$(".hover").html()).getDay(),
+                    weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+                    info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+                if( $('#dpw_clock input').eq(0).val() == info.time_start && $('#dpw_clock input').eq(1).val() == info.time_end ){
+                    $(".calender .hover").removeClass("on");
+                    delete yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
+                }else{
+                    yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+                        "time_start": $('#dpw_clock input').eq(0).val(),
+                        "time_end": $('#dpw_clock input').eq(1).val()
+                    }
+                    $(".calender .hover").addClass("on");
                 }
                 setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
             }
@@ -393,16 +435,14 @@ $(function(){
            setHeadTimeStamp("email",$('emailInput').val() );
 
            if( $('.header-logo h2')[0] ){
-                setHeadTimeStamp("logo_title",$('.header-logo h2').html() );
+                setHeadTimeStamp("logo_text",$('.header-logo h2').html() );
                 setHeadTimeStamp("logoTitleType","text" );
                 setHeadTimeStamp("logo_image","" );
            }else{
-                setHeadTimeStamp("logo_title","" );
+                setHeadTimeStamp("logo_text","" );
                 setHeadTimeStamp("logoTitleType","image" );
                 setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
            }
-
-
     }
 
     $(".btn.btn-save").on("click",function(){

@@ -1297,6 +1297,8 @@ to {
 	font-style: normal;
 	line-height: 24px;
 }
+<<<<<<< HEAD
+=======
 #dp.clock div span {
 	position: static;
 
@@ -1313,6 +1315,7 @@ to {
 #dp.clock div span:nth-child(even) {
 	background: #fff
 }
+>>>>>>> 7f18e81571162ce2f93b5763f4d4fb81952ac4ed
 #dp.title span {
 	left: 0;
 }
@@ -1440,11 +1443,9 @@ to {
 #dp.info .add-choose button {
 	height: 40px;
 	padding: 0 15px;
-
 	color: white;
 	border: none;
 	background: #717171;
-
 	font-size: 18px;
 }
 #dp.info .autoheight {
@@ -1460,21 +1461,17 @@ to {
 }
 .edit-bar-header .btn-back {
 	display: inline-block;
-
 	box-sizing: content-box;
 	padding: 4px;
-
 	font-size: 22px;
 }
 .edit-bar-header .icon-back {
 	display: inline-block;
-
 	width: 1em;
 	height: 1em;
-
 	vertical-align: top;
-
 	color: #fff;
 	background: url(/static/account/img/arrow.png) no-repeat;
 	background-size: auto 100%;
 }
+

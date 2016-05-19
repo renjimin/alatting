@@ -14,9 +14,7 @@
 		accept: 'image/jpg,image/jpeg,image/png,image/gif',
 		threads: 1,
 		auto:true
-
 	}
-
 	$.fn.uploads = function(){
 		var self = this;
 		this.success = null;
@@ -34,16 +32,12 @@
 				if(self.success)self.success(response);
 
 			});
-
 			webUploader.on('uploadError',function( file, reason ){
 				if ( self.error ) {
 					self.error( reason );
 
 				}
 			});
-
-
-
 		};
 		this.showDialog = function(succ,error){
 			self.success = succ;
