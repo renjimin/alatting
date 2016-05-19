@@ -15,10 +15,10 @@
                     url: '/api/v1/poster/system/background',
                     success: function (data) {
                         console.log(data);
-                        var cbox= '<div class="system-item"><div ><h3>系统音乐</h3></div><ul>';
+                        var cbox= '<div class="system-item"><div ><h3>系统音乐</h3><button type = "button" class = "close"></button></div><ul>';
                         for(var i=0;i<data.length;i++){
                             var sysm = data[i].thumbnail_url;
-                            cbox += '<li class="item-system" data-img="'+data[i].image_url+'"><audio src="'+sysm+'"></audio></li>';
+                            cbox += '<li class="item-system" data-img="'+data[i].image_url+'"><i class = ""></i><audio src="'+sysm+'"></audio></li>';
                         }
                         cbox += '</ul></div>';
                         smusic.append(cbox);
