@@ -13,7 +13,7 @@ $(function(){
         list: [
             {
                 icon: "glyphicon glyphicon-picture",
-                text: "上传图片",
+                text: "轮播图",
                 callback: function (_this) {
                     $(".upload-image-dialog").animate({top: '0px'});
                     $('#uploaderContainer').diyUpload({
@@ -42,7 +42,7 @@ $(function(){
 
               {
                 icon: "glyphicon glyphicon-picture",
-                text: "轮播图",
+                text: "上传图片",
                 callback: function(){
                     alert("调用轮播图!");
                 }
