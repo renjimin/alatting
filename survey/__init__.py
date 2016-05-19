@@ -16,9 +16,11 @@ def question_choice(request, question):
 		'choices': choices,
 	}
 def process_choice(question, answer):
-	opt = answer or ''
-	if not opt:
+	if not answer:
 		raise AnswerException('You must select an option')
+	elif 'ANSWER' not in answer:
+		raise AnswerException('You must select an option')
+	opt = answer['ANSWER']
 	return opt
 
 #choice-input
@@ -32,6 +34,18 @@ def question_choice_input(request, question):
 	return {
 		'choices': choices,
 	}
+def process_choice_input(question, answer):
+	if not answer:
+		raise AnswerException('You must select an option')
+	elif 'ANSWER' not in answer:
+		raise AnswerException('You must select an option')
+	opt = answer['ANSWER']
+	if opt == "_entry_":
+		opt = answer.get('comment','')
+		if not opt:
+			raise AnswerException('Field cannot be blank')
+	return opt
+
 
 #for processing questions: supply additional information to the templates
 QuestionProcessors = {}
@@ -44,6 +58,6 @@ Processors['choice'] = process_choice
 
 #choice-input
 QuestionProcessors['choice-input'] = question_choice_input
-Processors['choice-input'] = process_choice
+Processors['choice-input'] = process_choice_input
 
 

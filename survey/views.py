@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 from survey.models import *
 from survey import *
 
-
 class IndexView(TemplateView):
 	template_name = 'survey/survey-base.html'
 
@@ -121,14 +120,21 @@ class QuestionnaireView(View):
 		for item in items:
 			key, value = item[0], item[1]
 			if key.startswith('question_'):
-				qssortid = key.split("_", 2)
+				qssortid = key.split("_", 3)
 			question = Question.objects.filter(sortid=qssortid[1], 
 				questionset=questionset, 
 				questionset__questionnaire=questionnaire).first()
 			posted_ids.append(int(qssortid[1]))
 			if not question:
 				continue
-			extra[question] = value
+			ans = {}
+			if question in extra:
+				ans = extra.get(question)
+			if len(qssortid)==2:
+				ans['ANSWER'] = value
+			elif len(qssortid)==4:
+				ans[qssortid[3]] = value
+			extra[question] = ans
 		#generate none for each empty quesiton, and place in extra
 		expected = questionset.questions()
 		empty_ids = []
