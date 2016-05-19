@@ -10,10 +10,10 @@
                 '</span>' +
             '</div>' +
         '</div></div>'+
-        '<div class=""><span class = "glyphicon glyphicon-triangle-bottom"></span></div>';
+        '<div class = "audiolink"></div>';
 
-    var audioDom = '<audio width="100%" controls>' +
-            '<source src="{0}" type="audio/mp3">' +
+    var audioDom = '<audio width="100%" autoplay>' +
+            '<source src="{0}" type="audio/mp3>' +
             '<source src="{0}" type="audio/wav">' +
             '<source src="{0}" type="audio/ogg">' +
         '</audio>';
@@ -28,19 +28,23 @@
             var settings = $.extend({
             }, options);
 
-            /*var setResourcePreview = function(url){
+            var setResourcePreview = function(url){
                 var typeName = $.fn.yyTools.getFileTypeName(url),
                     preDom = "";
-                if(typeName == "audio"){
+                if(typeName == "music"||typeName == "video"){
                     preDom = getAudioDomDom(url);
                 }else{
                     yyAlert("不支持此格式的链接");
                     preDom = false;
                     return preDom;
                 }
-                $(".link-body-inner").empty().append(preDom);
+               /* if ($(".audiolink")) {
+                    $(".audiolink").remove();
+                };*/
+               $(".audiolink").empty().append(preDom);
+               $(".music-link-layout-wrap").remove();
                 return preDom;
-            };*/
+            };
 
             return this.each(function(){
                 $("body").append(layoutTmpl);
@@ -52,7 +56,10 @@
 
                 $btn.click(function(){
                     var text = $.trim($("#musicLinkText").val());
-                    console.log(text)
+                     if(text == ""){
+                        yyAlert("请输入音频链接地址");
+                        return;
+                    }
                     if(!text.match("^http://")){
                         yyAlert("链接地址格式不正确,应以http://开始");
                         return;
@@ -60,16 +67,12 @@
                     setResourcePreview(text);
                 });
 
-                $destroyBtn.click(function(){
+                /*$destroyBtn.click(function(){
                    $this.musicLink('destroy');
                 });
 
                 $confirmBtn.click(function(){
                     var text = $.trim($("#musicLinkText").val());
-                    if(text == ""){
-                        yyAlert("请输入音频链接地址");
-                        return;
-                    }
                     if(!text.match("^http://")){
                         yyAlert("链接地址格式不正确,应以http://开始");
                         return;
@@ -79,13 +82,13 @@
                         $this.empty().append(retDom);
                         $this.musicLink('destroy');
                     }
-                });
+                });*/
             });
         },
 
         "destroy": function () {
             return this.each(function(){
-                $(".resource-link-layout-wrap").remove();
+                $(".music-arrow").remove();
             });
         }
     };
@@ -100,9 +103,3 @@
         }
     };
 })(jQuery);
-
-$(function(){
-    var musiclinkButton = function(){
-        console.log(22)
-    }
-});

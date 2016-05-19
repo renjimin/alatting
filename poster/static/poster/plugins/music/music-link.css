@@ -6,6 +6,7 @@
     left: 0;   
     padding: 10px 15px 15px; 
     background-color: #D9DADB; 
+    border-radius: 5px 5px 0 0 ;
 }
 .musiclink-input{
     padding: 10px 15px 15px;
@@ -14,5 +15,5 @@
     margin: 0 auto;
 }
 .music-arrow{
-    bottom: 89px;
+
 }
