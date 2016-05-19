@@ -246,7 +246,7 @@ $(function(){
             id:'dpw_qr',
             offsetYPercent:100,
             list:[{icon:"glyphicon glyphicon-adjust",text:"颜色",callback:function(){
-                            $("#colorBox").css('top',$('.content').offset().top).show();
+                            $("#colorBox").css('top',$('.mask').offset().top + $('.mask').height() ).show();
                             $(this).colorSelect({clbox:'colorBox'},function(ths,color){
                             $('.qrcode .btn,.abutton-group li a').css('background',color);
                             storageAPI.setCss(".qrcode .btn", {'background':color});
@@ -351,7 +351,7 @@ $(function(){
          }
         //logo
         if( !!yunyeEditorGlobal.logo_text){
-            $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_text+'</h2>');
+            $('.header-logo').empty().append(yunyeEditorGlobal.logo_text);
         }else{
             $('.header-logo').empty().append('<img src="'+yunyeEditorGlobal.logo_image.url+'" >');
         }
@@ -371,19 +371,14 @@ $(function(){
         });
     }
 
-    function setHeadTimeStamp(key,value){
-        storageAPI.setHead(key,value);
-        storageAPI.setHead("updated_at", new Date().getTime());
-    }
-
     //数据绑定
     $('#dpw_title input').on('change',function(event){
         $('.edit-bar-header .title p').html(event.currentTarget.value);
-        setHeadTimeStamp("unique_name",event.currentTarget.value);
+        storageAPI.setHead("unique_name",event.currentTarget.value);
     });
     $('#dpw_desc textarea').on('change',function(event){
         $('.header-info .desc span').html(event.currentTarget.value);
-        setHeadTimeStamp("short_description",event.currentTarget.value);
+        storageAPI.setHead("short_description",event.currentTarget.value);
     });
     $('.dayinfo input').on('change',function(event){
         var inputs = $('#dpw_clock input');
@@ -409,37 +404,28 @@ $(function(){
                     }
                     $(".calender .hover").addClass("on");
                 }
-                setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
+                storageAPI.setHead("lifetime", yunyeEditorGlobal.lifetime);
             }
         }
     });
 
     //保存数据方法
     function saveData(){
+    	storageAPI.setHead("updated_at", new Date().getTime());
       //电话手机邮箱
-      setHeadTimeStamp("phone",$('phoneInput').val() );
-       setHeadTimeStamp("mobile",$('mobileInput').val() );
-       setHeadTimeStamp("email",$('emailInput').val() );
+	storageAPI.setHead("phone",$('#phoneInput').val() );
+       storageAPI.setHead("mobile",$('#mobileInput').val() );
+       storageAPI.setHead("email",$('#emailInput').val() );
        //logo
        if( $('.header-logo h2')[0] ){
-            setHeadTimeStamp("logo_text",$('.header-logo h2').html() );
-            setHeadTimeStamp("logoTitleType","text" );
-            setHeadTimeStamp("logo_image","" );
+            storageAPI.setHead("logo_text",$('.header-logo').html() );
+            storageAPI.setHead("logoTitleType","text" );
+            storageAPI.setHead("logo_image","" );
        }else{
-            setHeadTimeStamp("logo_text","" );
-            setHeadTimeStamp("logoTitleType","image" );
-            setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
+            storageAPI.setHead("logo_text","" );
+            storageAPI.setHead("logoTitleType","image" );
+            storageAPI.setHead("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
        }
-       //日历周期性
-       var inputs = $(".weekly input");
-      for(var i = 0 ; i < (inputs.length)/2 ; i++){
-          var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ,
-          info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
-          info.time_start = inputs.eq(i *2).val();
-          info.time_end = inputs.eq(i * 2 + 1).val();
-          info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
-       }
-       setHeadTimeStamp("lifetime",yunyeEditorGlobal.lifetime );
     }
 
     window.onunload = function(event){

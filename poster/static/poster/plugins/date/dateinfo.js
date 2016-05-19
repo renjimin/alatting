@@ -107,12 +107,7 @@ $(function() {
 			table.rows[1].cells[j].innerHTML = "&nbsp;"
 		}
 		for (var j = week; j < 7; j++) {
-			if (n == today && isToday) {				
-				//table.rows[1].cells[j].className="hover";				
-			}else {
-				table.rows[1].cells[j].className="";
-				if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[1].cells[j].className="on";
-			}
+			table.rows[1].cells[j].className = calculateClass(week,n);
 			table.rows[1].cells[j].innerHTML = n;
 			n++;
 		}
@@ -121,16 +116,24 @@ $(function() {
 				if (n > lastday) {
 					table.rows[i].cells[j].innerHTML = "&nbsp;"
 				}else {
-					if (n == today && isToday) {						
-						//table.rows[i].cells[j].className="hover";						
-					}else {
-						table.rows[i].cells[j].className="";
-						if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[i].cells[j].className="on";
-					}
+					table.rows[i].cells[j].className = calculateClass(week,n);
 					table.rows[i].cells[j].innerHTML = n;
 					n++;
 				}
 			}
+		}
+		function calculateClass(weekNum,day){
+			var weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+				weekly = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+			if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day]){
+				var specificDay = yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day];
+				if(specificDay.enabled == weekly.enabled && specificDay.time_start == weekly.time_start && specificDay.time_end == weekly.time_end ){
+					delete specificDay;
+				}else{
+					return (specificDay.enabled == 0) ? "off" : "special" ;
+				}
+			}
+			return (weekly.enabled == 0) ? "off" : "normal" ;
 		}
 	}
 	//获得月份的天数
@@ -194,11 +197,15 @@ $(function() {
 		}
 	});
 	$(".weekly td:nth-child(5n)").click(function(event){
-		var target = $(event.currentTarget);
+		var target = $(event.currentTarget),
+			i = $(".weekly td:nth-child(5n)").index(target),
+			weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ;
 		if(target.hasClass("off")){
 			target.removeClass("off");
+			yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].enabled = 1;
 		}else{
 			target.addClass("off");
+			yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].enabled = 0;
 		}
 	});
 	$(".weekly input").on('change',function(event){
@@ -211,12 +218,19 @@ $(function() {
 			start = $('.weekly input').eq(index);
 			end = $('.weekly input').eq(index + 1);
 		}
-		if(start.val() && end.val() && end.val() < start.val()){
-			$(event.target).blur();
+		if(start.val() && end.val()){
 			var i = parseInt(index/2) ,
 				weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ;
-			start.val(options.defaultsWeekly[weekName].time_start),end.val(options.defaultsWeekly[weekName].time_end);
-			yyConfirm("结束时间不能早于开始时间");
+			if(end.val() < start.val()){
+				$(event.target).blur();
+				start.val(options.defaultsWeekly[weekName].time_start);
+				end.val(options.defaultsWeekly[weekName].time_end);
+				yyConfirm("结束时间不能早于开始时间");
+			}else{
+				yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].time_start = start.val();
+				yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].time_end = end.val();
+			}
+			
 		}
 	});
 });
