@@ -9,7 +9,7 @@ from django.views.generic.edit import FormView
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from survey.models import *
-from survey import QuestionProcessors
+from survey import *
 
 
 class IndexView(TemplateView):
@@ -40,7 +40,7 @@ class QuestionnaireDoneView(TemplateView):
 		
 
 class QuestionnaireView(View):
-	def show_questionnaire(self, request, runinfo, errors=None):
+	def show_questionnaire(self, request, runinfo, errors={}):
 		questionset = runinfo.questionset
 		questionnaire = questionset.questionnaire
 		main_cat_name = questionset.questionnaire.main_category.name
@@ -72,8 +72,21 @@ class QuestionnaireView(View):
 						'questionset': questionset,
 						'qlist': qlist,
 						'prev_url': prev_url,
-						'error': errors}
+						'errors': errors}
 		return render_to_response('questionset.html', contextdict)
+
+	def add_answer(self, runinfo, question, ans):
+		if ans in [None, '']:
+			raise AnswerException("please answer the question")
+		answer = Answer()
+		answer.question = question
+		answer.subject = runinfo.subject	
+		answer.runid = runinfo.pk	
+		answer.answer = ans
+		Answer.objects.filter(subject=runinfo.subject, 
+			runid=runinfo.pk, question=question).delete()
+		answer.save()
+		return True
 
 
 	def get(self, request, **kwargs):
@@ -133,19 +146,14 @@ class QuestionnaireView(View):
 				continue
 			extra[question] = None
 
-
+		errors = {}
 		for question, ans in extra.items():
-			if ans in [None, '']:
-				error = "please answer the question"
-				return self.show_questionnaire(request, runinfo, error)
-			answer = Answer()
-			answer.question = question
-			answer.subject = runinfo.subject	
-			answer.runid = runinfo.pk	
-			answer.answer = ans
-			Answer.objects.filter(subject=runinfo.subject, 
-				runid=runinfo.pk, question=question).delete()
-			answer.save()
+			try:
+				self.add_answer(runinfo, question, ans)
+			except AnswerException as e:
+				errors[question.sortid] = str(e)
+		if len(errors)>0:
+			return self.show_questionnaire(request, runinfo, errors)
 
 		next = questionset.next()
 		if next:

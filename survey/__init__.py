@@ -1,5 +1,9 @@
 from survey.qprocessors.choice import question_choice, question_choice_input
 
+class AnswerException(Exception):
+    """Thrown from an answer processor to generate an error message"""
+    pass
+    
 #define different types of questions
 QuestionChoices = [
 	('choice', 'A list of choices to choose from'),
