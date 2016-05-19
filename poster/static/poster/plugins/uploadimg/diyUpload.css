@@ -153,9 +153,9 @@
 	color:#F30;
 }
 .parentFileBox>.fileBoxUl>li:hover {
-	-moz-box-shadow: 3px 3px 4px #FF0;
+/* 	-moz-box-shadow: 3px 3px 4px #FF0;
 	-webkit-box-shadow: 3px 3px 4px #FF0;
-	box-shadow: 3px 3px 4px #FF0;
+	box-shadow: 3px 3px 4px #FF0; */
 }
 .parentFileBox>.fileBoxUl>.diyUploadHover:hover .diyCancel {
 	display:block;

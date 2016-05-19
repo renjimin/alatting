@@ -227,7 +227,7 @@ class PosterSaveContentMixin(object):
     """
     def _head_fields(self):
         "头部要保存的基本信息，不在此列表中的字段未变更"
-        return ["mobile", "email", "phone", "logo_title",
+        return ["mobile", "email", "phone", "logo_title", "unique_name",
                 "short_description", "category_keyword"]
 
     def _css_handler(self, old_css, new_css):
@@ -238,15 +238,16 @@ class PosterSaveContentMixin(object):
         return json2css(merge_json(old_json, new_json))
 
     def _save_head_info(self, instance, head_json):
+        # print(head_json)
         for k, v in head_json.items():
             if k in self._head_fields():  # 存储头部其他字段
                 setattr(instance, k, v)
-            if k == "logo_image":  # 设置log照片
-                try:
-                    image = Image.objects.get(id=v['id'])
-                except Image.DoesNotExist:
-                    image = Image.objects.get(id=1)  # 设置默认logo图片
-                setattr(instance, k, image)
+            # if k == "logo_image":  # 设置log照片
+            #     try:
+            #         image = Image.objects.get(id=v['id'])
+            #     except Image.DoesNotExist:
+            #         image = Image.objects.get(id=1)  # 设置默认logo图片
+            #     setattr(instance, k, image)
             if k == "address":  # 设置地理位置
                 address = instance.address
                 address.address1 = head_json[k]
