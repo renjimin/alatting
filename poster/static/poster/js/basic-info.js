@@ -36,61 +36,30 @@ $(function () {
         updateAction = true;
     }
 
-    var checkPosterName = function (callback) {
-        var postname = $.trim($('.post-name').val());
-        if (updateAction) {
-            if(callback){
-                callback();
-            }
-        } else {
-            var url = '/api/v1/poster/check/unique/';
-            if (postname == '') {
-                return false;
-            }
-            $.ajax({
-                url: url,
-                data: {name: encodeURIComponent(postname)},
-                type: "GET",
-                success: function (data) {
-                    if (data.exists) {
-                        yyAlert('海报名称已经存在,请更换!');
-                    } else {
-                        if (callback) {
-                            callback();
-                        }
-                    }
-                },
-                error: function () {
-                    yyAlert('网络错误,请稍后再试!');
-                    return false;
-                }
-            });
-        }
-    };
-
-    $(".post-name").blur(function () {
-        checkPosterName();
-    });
-
     var checkPosterFormValues = function () {
-        var postdesc = $.trim($('.post-desc').val()),
+        var postname = $.trim($('.post-name').val()),
+            postdesc = $.trim($('.post-desc').val()),
             posteimg = $.trim($('.post-img').val()),
             postemail = $.trim($('.post-email').val()),
             posttelephone = $.trim($('.post-telephone').val()),
             postphone = $.trim($('.post-phone').val()),
             postaddress = $.trim($('.post-address').val());
 
+        if(postname == ""){
+            yyAlert('请输入海报名称!');
+            return false;
+        }
         if (postdesc == '') {
-            yyAlert('海报简述不能为空!');
+            yyAlert('请输入海报简述!');
             return false;
         }
         if (posteimg == '' && !updateAction) {
-            yyAlert('海报logo不能为空!');
+            yyAlert('请选择海报logo图片!');
             return false;
         }
         var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         if (postemail == '') {
-            yyAlert('email不能为空!');
+            yyAlert('请输入email!');
             return false;
         } else if (!reg.test(postemail)) {
             yyAlert('email格式不正确!');
@@ -98,24 +67,25 @@ $(function () {
         }
         var reg2 = /^0\d{2,3}-?\d{7,8}$/;
         if (posttelephone == '') {
-            yyAlert('电话不能为空!');
+            yyAlert('请输入电话号码!');
             return false;
         } else if (!reg2.test(posttelephone)) {
-            yyAlert('电话格式不正确!');
+            yyAlert('电话号码格式不正确!');
             return false;
         }
         var reg3 = /^1[3|4|5|7|8][0-9]\d{4,8}$/;
         if (postphone == '') {
-            yyAlert('手机不能为空!');
+            yyAlert('请输入手机号码!');
             return false;
         } else if (!reg3.test(postphone)) {
-            yyAlert('手机格式不正确!');
+            yyAlert('手机号码格式不正确!');
             return false;
         }
         if (postaddress == '') {
-            yyAlert('地址不能为空!');
+            yyAlert('请输入地址!');
             return false;
         }
+        $.fn.yyTools.mask(1);
         $("#form-info").submit();
     };
 
@@ -127,8 +97,6 @@ $(function () {
     });
 
     $(".poster-form-submit-btn").click(function () {
-        checkPosterName(
-            checkPosterFormValues
-        );
+        checkPosterFormValues();
     });
 });

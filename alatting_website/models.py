@@ -86,6 +86,7 @@ class Address(models.Model):
     address1 = models.CharField(max_length=128)
     address2 = models.CharField(max_length=128, blank=True, default='')
     city = models.CharField(max_length=128, blank=True, default='')
+    province = models.CharField(max_length=128, blank=True, default='')
     state = models.CharField(max_length=128, blank=True, default='')
     country = models.CharField(max_length=16, blank=True, default='')
     post_code = models.CharField(max_length=16, blank=True, default='')

@@ -1,4 +1,7 @@
 @charset "utf-8";
+.header-bar-title{
+    left: 30px; right: 36px;
+}
 /* footer button */
 
 .ico-text,
