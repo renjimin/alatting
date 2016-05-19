@@ -353,10 +353,11 @@ $(function () {
     var initData = function () {
         var g = yunyeEditorGlobal;
         //标题
-        $('.edit-bar-header .title p').html(g.unique_name);
-        //$('.edit-bar-header .title p').empty().append(g.);
+        //$('.edit-bar-header .title p').html(g.unique_name);
+        $('.edit-bar-header .title p').empty().append(g.title);
         //简述
-        $('.header-info .desc span').html(g.short_description);
+        //$('.header-info .desc span').html(g.short_description);
+        $('.header-info .desc').empty().append(g.short_description);
         //电话手机邮箱
         var $phone = $('#dpw_phone');
         $phone.find('input:eq(0)').val(g.phone);
@@ -469,4 +470,74 @@ $(function () {
             }
         }
     });
+
+    //保存数据方法
+    function saveData(){
+        storageAPI.setHead("updated_at", new Date().getTime());
+        //电话手机邮箱
+        storageAPI.setHead("phone",$('#phoneInput').val() );
+        storageAPI.setHead("mobile",$('#mobileInput').val() );
+        storageAPI.setHead("email",$('#emailInput').val() );
+        //logo
+        if( $('.header-logo h2')[0] ){
+            storageAPI.setHead("logo_text",$('.header-logo').html() );
+            storageAPI.setHead("logoTitleType","text" );
+            storageAPI.setHead("logo_image","" );
+        }else{
+            storageAPI.setHead("logo_text","" );
+            storageAPI.setHead("logoTitleType","image" );
+            storageAPI.setHead("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
+        }
+        //desc title
+        storageAPI.setHead("title",$(".title.header-bar-title").html() );
+        storageAPI.setHead("short_description",$(".header-info .desc").html() );
+
+        storageAPI.setHead("lifetime", yunyeEditorGlobal.lifetime);
+    }
+
+    window.onunload = function(event){
+           saveData();
+    }
+
+    $(".btn.btn-save").on("click",function(){
+      saveData();
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: { "data": full_json },
+            url: url,
+            success:function(data){
+                yyAlert("保存成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
+            }
+        })
+    });
+
+    $(".btn.btn-post").on("click",function(){
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = '/api/v1/poster/publish/'+ storageKey.replace("yunyeTemplateData","") + '/';
+        $.ajax({
+            type:'PATCH',
+            dataType:'json',
+            data: { "data": full_json },
+            url: url,
+            success:function(data){
+                yyAlert("发布成功");
+                console.log(data)
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("服务器内部错误，请联系程序猿。");
+                }
+            }
+        })
+    });
+
 });
