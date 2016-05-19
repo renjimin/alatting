@@ -22,22 +22,26 @@ $(function () {
         offsetY: 30,
         dynamicClass: 'clock'
     });
-    $('.bar-header .title').registerDropDown({
-        id: 'dpw_title',
-        offsetYPercent: 50,
-        offsetY: 18,
-        dynamicClass: 'title'
+    $('.bar-header .title').click(function(){
+      $('#text-model').animate({bottom: '0px'}, 200);
+      $(".bar-header .title p").tEditor({
+          textDelete: false,
+          textCopy: false,
+          pluginType: 'other'
+      });
     });
-    $('.header-info').registerDropDown({
-        id: 'dpw_desc',
-        eval: '$("#dp").height($(document).height() - 113 - $(".header-bar").height()  );$("#dp textarea").focusEnd();',
-        dynamicClass: 'info'
+    $('.header-info').click(function(){
+      $('#text-model').animate({bottom: '0px'}, 200);
+      $(".header-info .desc span").tEditor({
+          textDelete: false,
+          textCopy: false,
+          pluginType: 'other'
+      });
     });
     $('.header-logo').registerPopUp({
         id: 'dpw_menu',
         offsetYPercent: 100,
-        list: [
-            {
+        list: [{
                 icon: "glyphicon glyphicon-font",
                 text: "输入文字",
                 callback: function () {
@@ -350,10 +354,9 @@ $(function () {
         var g = yunyeEditorGlobal;
         //标题
         $('.edit-bar-header .title p').html(g.unique_name);
-        $('#dpw_title').find('title').val(g.unique_name);
+        //$('.edit-bar-header .title p').empty().append(g.);
         //简述
         $('.header-info .desc span').html(g.short_description);
-        $('#dpw_desc').find('textarea').val(g.short_description);
         //电话手机邮箱
         var $phone = $('#dpw_phone');
         $phone.find('input:eq(0)').val(g.phone);
