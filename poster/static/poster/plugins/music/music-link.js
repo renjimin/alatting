@@ -42,15 +42,18 @@
                     $(".audiolink").remove();
                 };*/
                $(".audiolink").empty().append(preDom);
-               $(".music-link-layout-wrap").remove();
                 return preDom;
             };
 
             return this.each(function(){
-                $(".audiolink").remove();
+                if($(".music-link-layout-wrap")){
+                        $(".music-link-layout-wrap").remove();
+                }
+                if ($(".audiolink")) {
+                        $(".audiolink").remove();
+                };
                 $("body").append(layoutTmpl);
                 var $this = $(this);
-                console.log($this);
                 var $btn = $("#musicLinkBtn");
 
                 $btn.click(function(){
@@ -65,6 +68,7 @@
                     }
                     //$(".audiolink").remove();
                     setResourcePreview(text);
+                    $(".music-link-layout-wrap").hide();     
                 });
 
                 /*$destroyBtn.click(function(){
@@ -88,7 +92,7 @@
 
         "destroy": function () {
             return this.each(function(){
-                $(".music-arrow").remove();
+                $(".music-link-layout-wrap").remove();
             });
         }
     };
