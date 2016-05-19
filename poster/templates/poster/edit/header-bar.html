@@ -3,10 +3,10 @@
        data-url="{% url 'website:index' %}">
         <i class="icon-back"></i>
     </a>
-    <button class="button button-clear btn-page">
+    {% comment %}<button class="button button-clear btn-page">
         <i class="ico-pages"></i>
-    </button>
-    <div class="title" style="left: 36px; right: 36px;">
+    </button>{% endcomment %}
+    <div class="title header-bar-title">
         <p>{{ poster.logo_title }}</p>
     </div>
     <div class="top-btn">
