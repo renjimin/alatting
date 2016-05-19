@@ -22,11 +22,15 @@ class PosterCreateForm(forms.ModelForm):
     keywords = forms.CharField(
         widget=forms.HiddenInput
     )
+    address_text = forms.CharField(
+        max_length=64,
+        widget=forms.TextInput
+    )
 
     class Meta:
         model = Poster
         fields = [
             'unique_name', 'short_description', 'phone', 'mobile', 'email',
             'main_category_id', 'sub_category_id', 'cate', 'subcate',
-            'keywords'
+            'keywords', 'address_text'
         ]

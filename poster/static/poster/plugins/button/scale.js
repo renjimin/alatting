@@ -85,6 +85,7 @@ var scale = function(box,options){
     b.on({
         'touchstart':function(e){
             if (e.originalEvent) e = e.originalEvent;
+            e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -120,7 +121,7 @@ var scale = function(box,options){
     */
     r.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -175,7 +176,7 @@ var scale = function(box,options){
     */
     nbarse.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -208,7 +209,7 @@ var scale = function(box,options){
     */
     nbarne.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -241,7 +242,7 @@ var scale = function(box,options){
     */
     nbarsw.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -274,7 +275,7 @@ var scale = function(box,options){
     */
     nbarnw.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -305,7 +306,7 @@ var scale = function(box,options){
     */
     nbare.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -333,7 +334,7 @@ var scale = function(box,options){
     */
     nbars.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -361,7 +362,7 @@ var scale = function(box,options){
     */
     nbarw.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -391,7 +392,7 @@ var scale = function(box,options){
     */
     nbarn.on({
         'touchstart':function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             s.initData($(e.currentTarget));
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
@@ -420,7 +421,7 @@ var scale = function(box,options){
     if(ele.hasClass('btn')){
         /*编辑按钮*/
         editBtn.on('click',function(e){
-            if (e.originalEvent) e = e.originalEvent;
+            if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             elebtn = $(e.currentTarget).parent().find('.element');
             addButton(elebtn);
         })

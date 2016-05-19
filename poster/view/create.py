@@ -91,7 +91,7 @@ class CreateFormView(PosterFormViewMixin, CreateView):
 
     def form_valid(self, form):
         address = Address()
-        address.address1 = self.request.POST.get('address')
+        address.address1 = self.request.POST.get('address_text')
         address.save()
         address.refresh_from_db()
         obj = form.instance
@@ -122,6 +122,7 @@ class UpdateFormView(PosterFormViewMixin, UpdateView):
             'keywords': ','.join(str(key) for key in keywords),
             'cate': self.object.main_category.name,
             'subcate': self.object.sub_category.name,
+            'address_text': self.object.address.address1
         }
 
     def form_valid(self, form):
@@ -129,9 +130,10 @@ class UpdateFormView(PosterFormViewMixin, UpdateView):
         address = Address.objects.filter(
             address1=obj.address
         ).first()
-        if address.address1 != self.request.POST.get('address', ''):
+        address_text = self.request.POST.get('address_text', '')
+        if address.address1 != address_text:
             address = Address()
-            address.address1 = self.request.POST.get('address')
+            address.address1 = address_text
             address.save()
             address.refresh_from_db()
             obj.address = address

@@ -227,8 +227,18 @@ class PosterSaveContentMixin(object):
     """
     def _head_fields(self):
         "头部要保存的基本信息，不在此列表中的字段未变更"
-        return ["mobile", "email", "phone", "logo_title", "unique_name",
-                "short_description", "category_keyword"]
+        return ["mobile", "email", "phone", "unique_name",
+                "short_description"]
+
+    def _logo_handler(self, instance, head_json):
+        if head_json["logoTitleType"] == 'image':
+            try:
+                image = Image.objects.get(id=head_json["logo_image"]['id'])
+                setattr(instance, "logo_image", image)
+            except Exception:
+                pass # 后续加上设置默认logo图片
+        if head_json["logoTitleType"] == 'text':
+            setattr(instance, "logo_title", head_json["logo_text"])
 
     def _css_handler(self, old_css, new_css):
         "处理一下css内容， 把最新的css更改保存到数据库中"
@@ -239,18 +249,15 @@ class PosterSaveContentMixin(object):
 
     def _save_head_info(self, instance, head_json):
         # print(head_json)
+        self._logo_handler(instance, head_json)  # 存一下logo信息
         for k, v in head_json.items():
             if k in self._head_fields():  # 存储头部其他字段
                 setattr(instance, k, v)
-            # if k == "logo_image":  # 设置log照片
-            #     try:
-            #         image = Image.objects.get(id=v['id'])
-            #     except Image.DoesNotExist:
-            #         image = Image.objects.get(id=1)  # 设置默认logo图片
-            #     setattr(instance, k, image)
             if k == "address":  # 设置地理位置
                 address = instance.address
-                address.address1 = head_json[k]
+                address.address1 = head_json[k]['address']
+                address.city = head_json[k]['city']
+                address.province = head_json[k]['province']
                 address.save()
             if k == "lifetime":  # 设置生存期结构体
                 for l, lv in head_json[k].items():
@@ -285,8 +292,8 @@ class PosterSaveContentMixin(object):
         json_data = json.loads(request_data['data'])
         if 'head' in json_data.keys():
             self._save_head_info(instance, json_data['head'])
-        if 'page' in json_data.keys():
-            self._save_pages_info(instance, json_data['page'])
+        if 'pages' in json_data.keys():
+            self._save_pages_info(instance, json_data['pages'])
 
 
 class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):

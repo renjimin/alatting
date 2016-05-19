@@ -16,6 +16,17 @@ from alatting_website.model.statistics import (PosterStatistics,
                                                HistoryStatistics)
 
 
+def get_default_lifetime_value():
+    import json
+    days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+    foo = lambda x: {"time_start": "09:00:00", "time_end": "18:00:00", x: 1}
+    result = {}
+    for d in days:
+        status = "disabled" if d in ["Saturday", "Sunday"] else "enabled"
+        result[d] = foo(status)
+    return json.dumps(result)
+
+
 class Poster(models.Model):
     STATUS_DRAFT = 'Draft'
     STATUS_PUBLISHED = 'Published'
@@ -53,10 +64,10 @@ class Poster(models.Model):
         max_length=32, choices=LIFETIME_CHOICES, default=LIFETIME_WEEKLY
     )
     lifetime_timezone = models.CharField(
-        max_length=32, default='America/Los_Angeles'
+        max_length=32, default='Asia/Shanghai'
     )
     lifetime_value = models.CharField(
-        max_length=1024, default=''
+        max_length=1024, default=get_default_lifetime_value()
     )
     music = models.ForeignKey('Music', null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

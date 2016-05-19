@@ -31,9 +31,8 @@
                         海报名称
                     </label>
                     <input type="text" name="unique_name" class="post-name"
-                           {% if poster %}readonly="readonly"{% endif %}
                            placeholder="例:3551海报" maxlength="20"
-                           value="{{ poster.unique_name }}"/>
+                           value="{{ form.unique_name.value|default_if_none:'' }}"/>
                 </li>
                 <li class="big-text">
                     <label style="line-height: 10em;">
@@ -48,7 +47,7 @@
                     <textarea name="short_description"
                               class="post-desc area"
                               cols="15" maxlength="50"
-                              placeholder="例:3551光谷人才计划，武汉东湖高新区启动之引才计划">{{ poster.short_description }}</textarea>
+                              placeholder="例:3551光谷人才计划，武汉东湖高新区启动之引才计划">{{ form.short_description.value }}</textarea>
                 </li>
                 <li class="big-text">
                     <label>
@@ -78,28 +77,28 @@
                             src="{% static 'poster/images/icon4.gif' %}"></i>电子邮件</label>
                     <input type="text" name="email" class="post-email"
                            placeholder="例:152663788@qq.com"
-                           value="{{ poster.email }}"/>
+                           value="{{ form.email.value }}"/>
                 </li>
                 <li>
                     <label><i class="icon"><img
                             src="{% static 'poster/images/icon5.gif' %}"></i>电话</label>
                     <input type="text" name="phone" class="post-telephone"
                            placeholder="例:027-12345678"
-                           value="{{ poster.phone }}"/>
+                           value="{{ form.phone.value }}"/>
                 </li>
                 <li>
                     <label><i class="icon"><img
                             src="{% static 'poster/images/icon6.gif' %}"></i>手机</label>
                     <input type="text" name="mobile" class="post-phone"
                            placeholder="例:1352345678"
-                           value="{{ poster.mobile }}"/>
+                           value="{{ form.mobile.value }}"/>
                 </li>
                 <li>
                     <label><i class="icon"><img
                             src="{% static 'poster/images/icon7.gif' %}"></i>地址</label>
-                    <input type="text" name="address" class="post-address"
+                    <input type="text" name="address_text" class="post-address"
                            placeholder="例:武汉市光谷国际广场A座802"
-                           value="{{ poster.address.address1 }}"/>
+                           value="{{ form.address_text.value|default_if_none:'' }}"/>
                 </li>
             </ul>
 
