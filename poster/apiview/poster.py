@@ -227,7 +227,7 @@ class PosterSaveContentMixin(object):
     """
     def _head_fields(self):
         "头部要保存的基本信息，不在此列表中的字段未变更"
-        return ["mobile", "email", "phone", "logo_title",
+        return ["mobile", "email", "phone", "logo_title", "unique_name",
                 "short_description", "category_keyword"]
 
     def _css_handler(self, old_css, new_css):
