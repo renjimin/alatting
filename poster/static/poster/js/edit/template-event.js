@@ -48,9 +48,12 @@ $(function(){
                         if(obj){
                             obj.empty().append('<img src="'+data.file+'"/>');
                         }
+                        obj.imgoperation({'data':data});
 
 
                     });
+
+
 
                 }
             },
@@ -96,5 +99,9 @@ $(function(){
             opt = $.extend({id: id}, menuOptions);
         }
         $this.registerPopUp(opt);
+    });
+
+    $(".closefile").click(function(){
+        $(".dialog").hide();
     });
 });

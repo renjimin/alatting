@@ -6,6 +6,7 @@
     	$.fn.uploads.showDialog(function(data){
 	$('.header-info').empty().append('<audio autoplay></audio>');
 	$('.header-info audio').attr("src",data.file);
+	console.log(data.file)
     	})
     }
     var musicbankButton = function(){
