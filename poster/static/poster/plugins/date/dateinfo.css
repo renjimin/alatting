@@ -45,11 +45,11 @@
 .weekly .toggle-line{
 	width: 40px;
 	height: 18px;
-	background-color: red;
+	background-color: green;
 	border-radius:20px;
 }
 .weekly td.off .toggle-line{
-	background-color: green;
+	background-color: red;
 }
 .weekly .toggle-btn{
 	width: 20px;

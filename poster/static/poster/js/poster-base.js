@@ -116,6 +116,7 @@ $(function(){
                     $(".header-logo h2").tEditor({textDelete:false,textCopy:false,pluginType:'other'});
                 }},
                 {icon:"glyphicon glyphicon-picture",text:" 上传图片",callback:function(){
+                          $('.header-logo').empty().append('<img></img>');
                           $.fn.uploads.showDialog(function(data){
                                 if( !$(".header-logo img")[0] ){
                                    $('.header-logo').empty().append('<img />');
@@ -341,29 +342,15 @@ $(function(){
         $('#dpw_phone input:eq(1)').val(yunyeEditorGlobal.mobile);
         $('#dpw_email input').val(yunyeEditorGlobal.email);
         //日历
-        function toggleBtn(target,status){console.log(status);if(status){target.removeClass("off")}else{target.addClass("off")}}
-        $(".weekly input:eq(0)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_start);
-        $(".weekly input:eq(1)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.time_end);
-        toggleBtn($(".weekly td:nth-child(5)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Monday.enabled);
-        $(".weekly input:eq(2)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_start);
-        $(".weekly input:eq(3)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.time_end);
-        toggleBtn($(".weekly td:nth-child(10)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Tuesday.enabled);
-        $(".weekly input:eq(4)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_start);
-        $(".weekly input:eq(5)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.time_end);
-        toggleBtn($(".weekly td:nth-child(15)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Wednesday.enabled);
-        $(".weekly input:eq(6)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_start);
-        $(".weekly input:eq(7)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.time_end);
-        toggleBtn($(".weekly td:nth-child(20)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Thursday.enabled);
-        $(".weekly input:eq(8)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_start);
-        $(".weekly input:eq(9)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.time_end);
-        toggleBtn($(".weekly td:nth-child(25)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Friday.enabled);
-        $(".weekly input:eq(10)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_start);
-        $(".weekly input:eq(11)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.time_end);
-        toggleBtn($(".weekly td:nth-child(30)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Saturday.enabled);
-        $(".weekly input:eq(12)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_start);
-        $(".weekly input:eq(13)").val(yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.time_end);
-        toggleBtn($(".weekly td:nth-child(35)"), yunyeEditorGlobal.lifetime.defaultsWeekly.Sunday.enabled);
-
+         var inputs = $(".weekly input");
+        for(var i = 0 ; i < (inputs.length)/2 ; i++){
+            var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ,
+            info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+            inputs.eq(i * 2).val(info.time_start);
+            inputs.eq(i * 2 + 1).val(info.time_end);
+            if(info.enabled){$(".weekly td:eq(" + (i * 5 + 4) + ")").removeClass("off")}else{$(".weekly td:eq(" + (i * 5 + 4) + ")").addClass("off")}
+         }
+        //logo
         if( !!yunyeEditorGlobal.logo_text){
             $('.header-logo').empty().append('<h2>'+yunyeEditorGlobal.logo_text+'</h2>');
         }else{
@@ -427,21 +414,33 @@ $(function(){
             }
         }
     });
-    
+
+    //保存数据方法
     function saveData(){
-    	setHeadTimeStamp("phone",$('phoneInput').val() );
-           setHeadTimeStamp("mobile",$('mobileInput').val() );
-           setHeadTimeStamp("email",$('emailInput').val() );
-           
-           if( $('.header-logo h2')[0] ){
-                setHeadTimeStamp("logo_text",$('.header-logo h2').html() );
-                setHeadTimeStamp("logoTitleType","text" );
-                setHeadTimeStamp("logo_image","" );
-           }else{
-                setHeadTimeStamp("logo_text","" );
-                setHeadTimeStamp("logoTitleType","image" );
-                setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
-           }
+      //电话手机邮箱
+      setHeadTimeStamp("phone",$('phoneInput').val() );
+       setHeadTimeStamp("mobile",$('mobileInput').val() );
+       setHeadTimeStamp("email",$('emailInput').val() );
+       //logo
+       if( $('.header-logo h2')[0] ){
+            setHeadTimeStamp("logo_text",$('.header-logo h2').html() );
+            setHeadTimeStamp("logoTitleType","text" );
+            setHeadTimeStamp("logo_image","" );
+       }else{
+            setHeadTimeStamp("logo_text","" );
+            setHeadTimeStamp("logoTitleType","image" );
+            setHeadTimeStamp("logo_image",{url:$('.header-logo img').attr("src"),id:$('.header-logo img').attr("data-src-id")} );
+       }
+       //日历周期性
+       var inputs = $(".weekly input");
+      for(var i = 0 ; i < (inputs.length)/2 ; i++){
+          var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ,
+          info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+          info.time_start = inputs.eq(i *2).val();
+          info.time_end = inputs.eq(i * 2 + 1).val();
+          info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
+       }
+       setHeadTimeStamp("lifetime",yunyeEditorGlobal.lifetime );
     }
 
     window.onunload = function(event){
@@ -449,7 +448,7 @@ $(function(){
     }
 
     $(".btn.btn-save").on("click",function(){
-    	saveData();
+      saveData();
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = '/api/v1/poster/save/'+ storageKey.replace("yunyeTemplateData","") + '/';
         $.ajax({

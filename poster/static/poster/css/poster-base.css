@@ -1204,7 +1204,6 @@ to {
 .bar-header .btn-page i {
 	position: absolute;
 	top: 50%;
-
 	margin-top: -10px;
 }
 .edit-bar-header .title {
@@ -1214,14 +1213,11 @@ to {
 
 #dp {
 	position: absolute;
-	z-index: 101;
-
+	z-index: 5000;
 	display: block;
 	visibility: hidden;
-
 	width: 100%;
 	max-width: 600px;
-
 	background: #e1e1e1;
 	box-shadow: 0 0 8px #999;
 }
@@ -1237,13 +1233,9 @@ to {
 }
 #dp li {
 	display: block;
-	display: block;
 	overflow: hidden;
-
 	height: 50px;
-
 	border-bottom: 1px solid #fff;
-
 	font-size: 24px;
 	line-height: 24px;
 }

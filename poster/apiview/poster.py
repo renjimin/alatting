@@ -245,12 +245,15 @@ class PosterSaveContentMixin(object):
             # if k == "logo_image":  # 设置log照片
             #     try:
             #         image = Image.objects.get(id=v['id'])
+            #         setattr(instance, k, image)
             #     except Image.DoesNotExist:
-            #         image = Image.objects.get(id=1)  # 设置默认logo图片
-            #     setattr(instance, k, image)
+            #         pass # 后续加上设置默认logo图片
             if k == "address":  # 设置地理位置
+                print(head_json[k])
                 address = instance.address
-                address.address1 = head_json[k]
+                address.address1 = head_json[k]['address']
+                address.city = head_json[k]['city']
+                address.province = head_json[k]['province']
                 address.save()
             if k == "lifetime":  # 设置生存期结构体
                 for l, lv in head_json[k].items():
