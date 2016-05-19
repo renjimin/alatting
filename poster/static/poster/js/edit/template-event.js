@@ -13,7 +13,7 @@ $(function(){
         list: [
             {
                 icon: "glyphicon glyphicon-picture",
-                text: "上传图片",
+                text: "轮播图",
                 callback: function (_this) {
                     $(".upload-image-dialog").animate({top: '0px'});
                     $('#uploaderContainer').diyUpload({
@@ -29,8 +29,9 @@ $(function(){
                         buttonText: '选择图片上传',
                         chunked: false,
                         fileNumLimit: 4,
-                        fileSingleSizeLimit: 0.25 * 1024 * 1024,
+                        fileSingleSizeLimit: 5 * 1024 * 1024,
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
+                        compress:true,
                         threads: 1
                     });
                     $(".closefile").click(function(){
@@ -38,6 +39,22 @@ $(function(){
                     });
                 }
             },
+
+              {
+                icon: "glyphicon glyphicon-picture",
+                text: "上传图片",
+                callback: function(obj){
+                    $.fn.uploads.showDialog(function(data){
+                        if(obj){
+                            obj.empty().append('<img src="'+data.file+'"/>');
+                        }
+
+
+                    });
+
+                }
+            },
+
             {
                 icon: "glyphicon glyphicon-facetime-video",
                 text: "上传视频",

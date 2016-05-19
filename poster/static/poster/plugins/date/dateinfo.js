@@ -99,8 +99,8 @@ $(function() {
 	 function ManhuaDate(year, month, week, lastday) {
 		$("#year").val(year);
 		$("#month").val(month);
-		$('#dpw_clock input').eq(0).val("");
-		$('#dpw_clock input').eq(1).val("");
+		$('#dpw_clock input').eq(0).val("").attr("disabled",true);
+		$('#dpw_clock input').eq(1).val("").attr("disabled",true);
 		var table = document.getElementById("calender");
 		var n = 1;
 		for (var j = 0; j < week; j++) {
@@ -108,7 +108,7 @@ $(function() {
 		}
 		for (var j = week; j < 7; j++) {
 			if (n == today && isToday) {				
-				table.rows[1].cells[j].className="hover";				
+				//table.rows[1].cells[j].className="hover";				
 			}else {
 				table.rows[1].cells[j].className="";
 				if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[1].cells[j].className="on";
@@ -122,7 +122,7 @@ $(function() {
 					table.rows[i].cells[j].innerHTML = "&nbsp;"
 				}else {
 					if (n == today && isToday) {						
-						table.rows[i].cells[j].className="hover";						
+						//table.rows[i].cells[j].className="hover";						
 					}else {
 						table.rows[i].cells[j].className="";
 						if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+n])table.rows[i].cells[j].className="on";
@@ -161,6 +161,8 @@ $(function() {
 	}
 	$("#calender td").click(function(event) {
 		if( event.target.innerHTML  == "&nbsp;" )return;
+		$('#dpw_clock input').eq(0).val("").attr("disabled",false);
+		$('#dpw_clock input').eq(1).val("").attr("disabled",false);
 		$(".hover").removeClass("hover");
 		$(this).addClass("hover");
 		var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + event.target.innerHTML;
@@ -182,5 +184,50 @@ $(function() {
 			}
 		}
 	}
-
+	$(".glyphicon.glyphicon-cog").click(function(event) {
+		if($(".weekly").is(":visible")){
+			$(".calender").show();
+			$(".weekly").hide();
+		}else{
+			$(".calender").hide();
+			$(".weekly").show();
+		}
+	});
+	$(".weekly td:nth-child(5n)").click(function(event){
+		var target = $(event.currentTarget),
+			week = $('.weekly td:nth-child(5n)').index(target),
+			weekName = (week == 6) ? "Sunday" : (week == 0) ? "Monday" : (week == 1) ? "Tuesday" : (week == 2) ? "Wednesday" : (week == 3) ? "Thursday" : (week == 4) ? "Friday" :  "Saturday" ,
+			info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+		if(target.hasClass("off")){
+			target.removeClass("off");
+		}else{
+			target.addClass("off");
+		}
+	});
+	$(".weekly input").on('change',function(event){
+		var index = $('.weekly input').index($(event.target));
+		var start,end;
+		if(index%2){
+			start = $('.weekly input').eq(index);
+			end = $('.weekly input').eq(index + 1);
+		}else{
+			start = $('.weekly input').eq(index - 1 );
+			end = $('.weekly input').eq(index);
+		}
+		if(start && end ){
+			if( end < start ){
+				$(event.target).blur();
+				start.val("");
+				end.val("");
+				yyConfirm("结束时间不能早于开始时间");
+			}else{
+				var week = parseInt(index/2),
+					weekName = (week == 6) ? "Sunday" : (week == 0) ? "Monday" : (week == 1) ? "Tuesday" : (week == 2) ? "Wednesday" : (week == 3) ? "Thursday" : (week == 4) ? "Friday" :  "Saturday" ,
+					info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+				yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].time_start = start.val();
+				yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].time_end = end.val();
+				setHeadTimeStamp("lifetime", yunyeEditorGlobal.lifetime);
+			}
+		}
+	});
 });
