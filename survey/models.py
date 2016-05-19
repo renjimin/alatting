@@ -157,7 +157,7 @@ class RunInfo(models.Model):
 class Answer(models.Model):
     subject = models.ForeignKey(User, help_text = u'The user who supplied this answer')
     question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
-    answer = models.TextField(blank=True, null=True)
+    answer = models.TextField()
     runid = models.CharField(max_length=32)
 
 
