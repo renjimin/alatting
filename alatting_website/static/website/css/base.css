@@ -96,8 +96,8 @@ textarea {
 	height: 100%;
 	position: fixed;
 	z-index: 8000;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	overflow: hidden;
 	opacity: 0;
 	-webkit-transition: all 0.15s ease;
@@ -126,7 +126,7 @@ textarea {
 	border-radius: 8px;
 	overflow: hidden;
 	text-align: center;
-	font-family: 'Microsoft YaHei';
+    font-family: 'Microsoft YaHei', serif;
 	-webkit-transform: scale(0.90);
 	-ms-transform: scale(0.90);
 	transform: scale(0.90);
@@ -221,55 +221,58 @@ textarea {
 	-o-animation: yymessageshow 0.3s ease forwards;
 	animation: yymessageshow 0.3s ease forwards;
 }
+
 @-webkit-keyframes yymessageshow {
- 0 {
- -webkit-transform:translateY(0);
-opacity: 0;
+    0% {
+        -webkit-transform:translateY(0);
+        opacity: 0;
+    }
+    60% {
+        -webkit-transform:translateY(-50px);
+        opacity: 0.6;
+    }
+    100% {
+        -webkit-transform:translateY(-40px);
+        opacity: 1;
+    }
 }
- 60% {
- -webkit-transform:translateY(-50px);
-opacity: 0.6;
-}
- 100% {
- -webkit-transform:translateY(-40px);
-opacity: 1;
-}
-}
+
 @keyframes yymessageshow {
- 0 {
- transform:translateY(0);
-opacity: 0;
+    0% {
+        transform:translateY(0);
+        opacity: 0;
+    }
+    60% {
+        transform:translateY(-50px);
+        opacity: 0.6;
+    }
+    100% {
+        transform:translateY(-40px);
+        opacity: 1;
+    }
 }
- 60% {
- transform:translateY(-50px);
-opacity: 0.6;
-}
- 100% {
- transform:translateY(-40px);
-opacity: 1;
-}
-}
+
 @-moz-keyframes yymessageshow {
- 0 {
- -moz-transform:translateY(0);
-opacity: 0;
-}
- 60% {
- -moz-transform:translateY(-50px);
-opacity: 0.6;
-}
- 100% {
- -moz-transform:translateY(-40px);
-opacity: 1;
-}
+    0% {
+        -moz-transform:translateY(0);
+        opacity: 0;
+    }
+    60% {
+        -moz-transform:translateY(-50px);
+        opacity: 0.6;
+    }
+    100% {
+        -moz-transform:translateY(-40px);
+        opacity: 1;
+    }
 }
 
 
 /*适配*/
 @media (min-width: 600px) {
-.footer {
-	width: 600px;
-	left: 50%;
-	margin-left: -300px;
-}
+    .footer {
+        width: 600px;
+        left: 50%;
+        margin-left: -300px;
+    }
 }
