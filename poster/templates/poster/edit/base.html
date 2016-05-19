@@ -11,6 +11,7 @@
         var yunyeEditorGlobal = {
             posterId: "{{ poster.id }}",
             posterPageId: "{{ posterpage.id }}",
+            templateId: "{{ posterpage.template.id }}",
             address: "{{ poster.address }}",
             mobile: "{{ poster.mobile }}",
             phone: "{{ poster.phone }}",
@@ -22,7 +23,12 @@
             updated_at: "{{ poster.updated_at }}",
             short_description:"{{ poster.short_description }}",
             logoTitleType: "image",
-            clockType: "weekly"
+            clockType: "weekly",
+            API: {
+                templates: "/api/v1/poster/templates",
+                updateTemplate: "/api/v1/poster/posterpages/{0}",
+                createPage: "/api/v1/poster/posterpages"
+            }
         }
     </script>
 

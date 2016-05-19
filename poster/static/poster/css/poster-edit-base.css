@@ -10,12 +10,15 @@
 .ico-input,
 .ico-music-link,
 .ico-music-upload {
+	display: inline-block;
+
 	width: 1em;
 	height: 1em;
-	display: inline-block;
+
+	vertical-align: top;
+
 	background: url(../images/sprites-subtools.png) no-repeat;
 	background-size: auto 2em;
-	vertical-align: top;
 }
 .ico-text {
 	background-position: 0 0;
@@ -74,10 +77,10 @@
 .ico-music-upload {
 	background-position: -8em 0;
 }
-
 /* template css */
-.yunye-template{
-	padding: 20px 30px 70px;
+.yunye-template {
+	padding: 20px;
+
     background-color: #fff;
     position: relative;
 }
