@@ -9,7 +9,8 @@
                     '</button>' +
                 '</span>' +
             '</div>' +
-        '</div><div class= "music-arrow"><span class = "glyphicon glyphicon-triangle-bottom"></span></div></div>';
+        '</div></div>'+
+        '<div class=""><span class = "glyphicon glyphicon-triangle-bottom"></span></div>';
 
     var audioDom = '<audio width="100%" controls>' +
             '<source src="{0}" type="audio/mp3">' +
@@ -27,7 +28,7 @@
             var settings = $.extend({
             }, options);
 
-            var setResourcePreview = function(url){
+            /*var setResourcePreview = function(url){
                 var typeName = $.fn.yyTools.getFileTypeName(url),
                     preDom = "";
                 if(typeName == "audio"){
@@ -39,7 +40,7 @@
                 }
                 $(".link-body-inner").empty().append(preDom);
                 return preDom;
-            };
+            };*/
 
             return this.each(function(){
                 $("body").append(layoutTmpl);
@@ -99,3 +100,9 @@
         }
     };
 })(jQuery);
+
+$(function(){
+    var musiclinkButton = function(){
+        console.log(22)
+    }
+});
