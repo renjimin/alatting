@@ -4,6 +4,6 @@
     }
     var musicuploadButton = function(){
     	$.fn.uploads.showDialog(function(data){
-    		console.log("1")
+    		console.log(data.file)
     	})
     }
