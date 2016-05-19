@@ -223,16 +223,24 @@ $(function() {
 			weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
 			info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName],
 			enabled;
-		//$("td .hover").html()
 		if(target.hasClass("off")){
 			target.removeClass("off");
+			$("td.hover").removeClass("off");
 			enabled = 1;
 			if($('.calenderTable input').eq(0).val() == info.time_start && $('.calenderTable input').eq(1).val() == info.time_end && info.enabled == enabled){
-			
+				$("td.hover").removeClass("special");
+			}else{
+				$("td.hover").addClass("special");
+				var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html();
+				yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+					time_start:$('.calenderTable input').eq(0).val(),
+					time_end:$('.calenderTable input').eq(1).val(),
+					enabled:1
+				}
 			}
 		}else{
 			target.addClass("off");
-			$("td .hover").addClass("off");
+			$("td.hover").addClass("off");
 		}
 		
 	});

@@ -401,7 +401,8 @@ $(function(){
                 }else{
                     yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
                         "time_start": $('#dpw_clock input').eq(0).val(),
-                        "time_end": $('#dpw_clock input').eq(1).val()
+                        "time_end": $('#dpw_clock input').eq(1).val(),
+                        "enabled":$('#dateState').hasClass("off") ? 0 : 1
                     }
                     $(".calender .hover").addClass("special");
                 }
