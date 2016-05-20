@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView, \
                         PosterPublishView, SystemImageListView, SystemBackgroundListView, PosterSaveView, \
-    PosterStatusView, PosterPageDetailView
+    PosterStatusView, PosterPageDetailView, SystemMusicListView
 from poster.apiview.resource import CategoryKeywordListView, \
     CategoryKeywordDetailView, UploadFileView, TemplateDetailView, \
     TemplateListView
@@ -37,6 +37,9 @@ urlpatterns = [
 
     url(r'^system/images$',
         SystemImageListView.as_view(), name='system_images'),
+
+    url(r'^system/music$',
+        SystemMusicListView.as_view(), name='system_music'),
 
     url(r'^system/background$',
         SystemBackgroundListView.as_view(), name='system_background'),

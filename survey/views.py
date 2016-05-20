@@ -132,7 +132,10 @@ class QuestionnaireView(View):
 			if question in extra:
 				ans = extra.get(question)
 			if len(qssortid)==2:
-				ans['ANSWER'] = value
+				if value:
+					ans['ANSWER'] = value
+			elif len(qssortid)==3:
+				ans[qssortid[2]] = value
 			elif len(qssortid)==4 and qssortid[3]=='comment':
 				if value:
 					ans['COMMENT'] = value

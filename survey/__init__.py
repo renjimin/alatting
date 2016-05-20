@@ -6,7 +6,9 @@ class AnswerException(Exception):
 QuestionChoices = [
 	('choice', 'A list of choices to choose from'),
 	('choice-input', 'A list of choices with input text to choose from'),
-	('checkbox', 'A list of checkboxes to choose from')
+	('checkbox', 'A list of checkboxes to choose from'),
+	('text', 'simple text input'),
+	('textarea', 'textarea input')
 ]
 #choice
 def question_choice(request, question):
@@ -18,9 +20,9 @@ def question_choice(request, question):
 	}
 def process_choice(question, answer):
 	if not answer:
-		raise AnswerException('You must select an option')
+		raise AnswerException('必须选择一个选项')
 	elif 'ANSWER' not in answer:
-		raise AnswerException('You must select an option')
+		raise AnswerException('必须选择一个选项')
 	opt = answer['ANSWER']
 	return opt
 #choice-input
@@ -36,16 +38,16 @@ def question_choice_input(request, question):
 	}
 def process_choice_input(question, answer):
 	if not answer:
-		raise AnswerException('You must select an option')
+		raise AnswerException('必须选择一个选项')
 	elif 'ANSWER' not in answer:
-		raise AnswerException('You must select an option')
+		raise AnswerException('必须选择一个选项')
 	opt = answer['ANSWER']
 	if opt == "_entry_":
 		if 'COMMENT' not in answer:
-			raise AnswerException('Field cannot be blank')
+			raise AnswerException('请输入文本框')
 		opt = answer['COMMENT']
 		if not opt:
-			raise AnswerException('Field cannot be blank')
+			raise AnswerException('请输入文本框')
 	return opt
 #checkbox
 def question_checkbox(request, question):
@@ -57,9 +59,20 @@ def question_checkbox(request, question):
 	}
 def process_checkbox(question, answer):
 	if not answer:
-		raise AnswerException('You must select an option')
+		raise AnswerException('必须选择一个选项')
+	multiple = []
+	for key, value in answer.items():
+		multiple.append(value)
+	return multiple
+#text, textarea
+def question_text(request, question):
+	return []
+	
+def process_text(question, answer):
+	if not answer:
+		raise AnswerException('请输入文本框')
 	elif 'ANSWER' not in answer:
-		raise AnswerException('You must select an option')
+		raise AnswerException('请输入文本框')
 	opt = answer['ANSWER']
 	return opt
 
@@ -77,6 +90,9 @@ Processors['choice-input'] = process_choice_input
 #checkbox
 QuestionProcessors['checkbox'] = question_checkbox
 Processors['checkbox'] = process_checkbox
-
-
+#text, textarea
+QuestionProcessors['text'] = question_text
+Processors['text'] = process_text
+QuestionProcessors['textarea'] = question_text
+Processors['textarea'] = process_text
 
