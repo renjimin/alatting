@@ -11,8 +11,7 @@ $(function(){
 
     $('#text-slide-down').on('click',function(e){
         e.stopPropagation();
-        var height = $('#text-model').outerHeight();
-        $('#text-model').animate({bottom:'-'+height+'px'},200);
+        $('#text-model').fadeOut(200);
     });
 
 
@@ -41,13 +40,7 @@ $(function(){
 
     fullcontainer.on('click','.el-editor',function(e){
         e.stopPropagation();
-        var bot = parseInt($('#text-model').css('bottom'));
-        if(bot<0){
-            $('#text-model').animate({bottom:'0px'},200);
-        }else{
-            var height = $('#text-model').outerHeight();
-            $('#text-model').animate({bottom:'-'+height+'px'},200);
-        }
+        $('#text-model').fadeToggle(200);
     });
 
 
