@@ -6,18 +6,25 @@
 
         return this.each(function(){
             _option = $.extend(opts,options);
-            var s = $(this),i = s.find('img');
+            var s = $(this),i = s.find('img'),v = s.find('video');
 
         var imgW,imgH;
-        if(s.width()/s.height() > _option.data.width / _option.data.height){
+            var ow = _option.data.width == undefined ? s.width():_option.data.width,
+                oh = _option.data.height == undefined ? s.height():_option.data.height;
+        if(s.width()/s.height() >= ow / oh){
             imgW = s.width();
-            imgH = _option.data.height * imgW / _option.data.width;
+            imgH = oh * imgW / ow;
         }else{
-            imgW = _option.data.width * imgH / _option.data.height;
             imgH = s.height();
+            imgW = ow * imgH / oh;
         }
+
+
         i.attr("width",imgW);
         i.attr("height",imgH);
+
+        v.attr("width",imgW);
+        v.attr("height",imgH);
 
         var touchEvents={
             'startX':0,
