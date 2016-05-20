@@ -1449,6 +1449,12 @@ to {
 	background-size: auto 100%;
 }
 
+#short_description{
+	position: relative;
+	z-index: 20;
+}
+
+
 .header-bar-title{
     left: 30px; right: 36px;
 }
