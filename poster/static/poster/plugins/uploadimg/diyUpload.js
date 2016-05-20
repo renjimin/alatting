@@ -166,7 +166,7 @@
 			// 分片大小
 			chunkSize: 5 * 1024 * 1024,
 			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-			fileNumLimit: 50,
+			fileNumLimit: 4,
 			fileSingleSizeLimit: 5 * 1024 * 1024
 		};
 	}
