@@ -130,7 +130,7 @@
             var imgarray  = s.find('.swiper-container').find('img');
 
             s.empty();
-            if(_option.data.lenght <= 0 && imgarray.length <= 0){
+            if(_option.data.length <= 0 && imgarray.length <= 0){
                 return;
             }
 
