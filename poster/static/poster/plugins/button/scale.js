@@ -422,7 +422,7 @@ var scale = function(box,options){
 
     if(ele.hasClass('btn')){
         /*编辑按钮*/
-        editBtn.on('click',function(e){
+        editBtn.on('touchstart',function(e){
             if (e.originalEvent) e = e.originalEvent;e.preventDefault();
             elebtn = $(e.currentTarget).parent().find('.element');
             addButton(elebtn);
