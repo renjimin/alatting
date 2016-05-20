@@ -77,8 +77,7 @@
                 $element = $prevElement.last();
                 $element.trigger('click');
             }else{
-                var height = $('#text-model').outerHeight();
-                $('#text-model').animate({bottom:'-'+height+'px'},200);
+                $('#text-model').fadeOut(200);
                 $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
@@ -191,22 +190,26 @@
                 $element.css('text-decoration','underline');
             }
         });
-        /*增大文字字号
-        pluginBox.off('click','#ted-fontsizebig').on('click','#ted-fontsizebig',function(){
-            var size = parseInt($element.css('font-size'));
-            if(size<72){
-                size +=1;
-                $element.css('font-size',size+'px');
-            }
-        });*/
-        /*增大文字字号
-        pluginBox.off('click','#ted-fontsizesml').on('click','#ted-fontsizesml',function(){
-            var size = parseInt($element.css('font-size'));
-            if(size>12){
-                size -=1;
-                $element.css('font-size',size+'px');
-            }
-        });*/
+
+        if(option.pluginType == 'other'){
+            /*增大文字字号*/
+            pluginBox.off('click','#ted-fontsizebig').on('click','#ted-fontsizebig',function(){
+                var size = parseInt($element.css('font-size'));
+                if(size<72){
+                    size +=1;
+                    $element.css('font-size',size+'px');
+                }
+            });
+            /*增大文字字号*/
+            pluginBox.off('click','#ted-fontsizesml').on('click','#ted-fontsizesml',function(){
+                var size = parseInt($element.css('font-size'));
+                if(size>12){
+                    size -=1;
+                    $element.css('font-size',size+'px');
+                }
+            });
+        }
+
         /*设置文字左对齐*/
         pluginBox.off('click','#ted-leftalign').on('click','#ted-leftalign',function(){
             $element.css('text-align','left');
@@ -373,10 +376,11 @@
         cdiv += '<button type="button" class="btn btn-default" id="ted-fontweight">B</button><button type="button" class="btn btn-default" id="ted-fontstyle">/</button>';
         cdiv += '<button type="button" class="btn btn-default" id="ted-underline">U</button></div></div>';
         cdiv += '<div class="base-top-group">';
-        /*文字加大/减小按钮
-        cdiv += '<div class="base-top-font btn-group"><button type="button" class="btn btn-default" id="ted-fontsizebig"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>';
-        cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizesml"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button></div>';
-        */
+        if(option.pluginType == 'other'){
+            /*文字加大/减小按钮*/
+            cdiv += '<div class="base-top-font btn-group"><button type="button" class="btn btn-default" id="ted-fontsizebig"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>';
+            cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizesml"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button></div>';
+        }
         cdiv += '<div class="base-top-align btn-group">';
         cdiv += '<button type="button" class="btn btn-default" id="ted-leftalign"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>';
         cdiv += '<button type="button" class="btn btn-default" id="ted-centeralign"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></button>';

@@ -1,0 +1,35 @@
+.content{
+    padding: 10px;
+    position: relative;
+    height:100%;
+}
+
+.content > div {
+    background: #B5B1AB;
+    overflow: hidden;
+}
+
+
+.content > .content-top {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 50%,0 100%);
+    clip-path: url(#content-top);
+    width: 49%;
+    position: absolute;
+    left: 0;
+    height: 400px;
+    }
+
+.content > .content-bottom-left {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
+    clip-path: url(#content-bottom-left);
+    width: 49%;
+    position: absolute;
+    right: 0;
+    height: 200px;
+    }
+.content > .content-bottom-right {
+    -webkit-clip-path: polygon(48% 0, 100% 0, 100% 100%,0 100%);
+    clip-path: url(#content-bottom-right);
+    position: absolute;
+    top: 215px;
+    }
