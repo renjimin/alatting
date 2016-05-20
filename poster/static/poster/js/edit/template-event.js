@@ -15,12 +15,14 @@ $(function(){
                 icon: "glyphicon glyphicon-picture",
                 text: "轮播图",
                 callback: function (_this) {
-                    $(".upload-image-dialog").addClass('open');
+                    _this.openSliderUpload();
+
                     $('#uploaderContainer').diyUpload({
                         url: '/api/v1/poster/upload/logo',
-                        success: function (data) {
+                        success: function (data,file) {
+                            data.imgid = file.id;
                             _this.imgslider({'data': data});
-                            $(".upload-image-dialog").animate({top: '100%'});
+                            $(".upload-image-dialog").removeClass('open');
                             //console.info(data);
                         },
                         error: function (err) {
@@ -32,10 +34,11 @@ $(function(){
                         fileSingleSizeLimit: 5 * 1024 * 1024,
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
                         compress:true,
-                        threads: 1
+                        threads: 1,
+                        sliderContainer:_this
                     });
                     $(".closefile").click(function(){
-                        $(".upload-image-dialog").animate({top: '100%'});
+                        $(".upload-image-dialog").removeClass('open');
                     });
                 }
             },
@@ -61,8 +64,17 @@ $(function(){
             {
                 icon: "glyphicon glyphicon-facetime-video",
                 text: "上传视频",
-                callback: function(){
-                    alert("还是调用上传组件!");
+                callback: function(obj){
+                    //alert("还是调用上传组件!");
+                    $.fn.uploads.showDialog(function(data){
+                       if(obj){
+                           obj.empty().append('<video autoplay src="'+data.file+'"></video>');
+                        }
+
+                    },function(){
+                        console.log('error')
+                    })
+
                 }
             },
             {

@@ -79,21 +79,12 @@
 		return this.each(function () {
 			var _this = $(this),
 				_option = $.extend(opts,options),
-				id = _this.data('dropdown'),
-				a=$('#'+id),
 				pid = _this.attr('id'),
 				dpw = $('#dp');
 
 			var str = '<ul id="'+ _option.id +'">';
-			if(_option.orientation){
-				var len = _option.list.length;
-				for(var i in _option.list){
-					str += '<li id="'+ (_option.id+'_'+(len - i -1)) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
-				}
-			}else{
-				for(var i in _option.list){
-					str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[i].icon+'"></i><span>'+_option.list[i].text+'</span>'
-				}
+			for(var i in _option.list){
+				str += '<li id="'+ (_option.id+'_'+i) +'"><i class="'+_option.list[i].icon+'"></i><span>'+_option.list[i].text+'</span>'
 			}
 			str += '</ul>';
 			dpw.append(str);
@@ -122,21 +113,19 @@
 					$('#'+_option.id).css("visibility","visible");
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
-
-					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width();
-
+					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width(),documentH = $(document.body).height();
 					if(_option.followMouse){
 						originX = event.pageX,originY = event.pageY,diffY = 10,diffX = 0;
 						left = originX - dpw.width()/2;
 					}else{
 						originX = _this.offset().left,
 						originY = _this.offset().top,
-						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) + (_option.orientation ? dpw.height() : 0),
+						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) ,
 						diffX =  (_this.width() * _option.offsetXPercent )/100 + _option.offsetX;
 						left = originX + diffX - dpw.width()/2;
 					}
 					right = left + dpw.width();
-					offsetY = _option.orientation ? (_this.height() - diffY) :  diffY;
+					offsetY =  diffY;
 					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
 					if( right > documentW ){
 						left = documentW - dpw.width() -5;
@@ -149,12 +138,18 @@
 					if(_option.arrowOffset){
 						$('#dp .arrow').css('left', (dpw.width() * _option.arrowOffset)/100 -15  );
 					}else{
-						//$('#dp .arrow').css('left', _this.offset().left - dpw.offset().left + _this.width()/2 -15  );
 						$('#dp .arrow').css('left', dpw.width()/2 -15  );
 					}
-					
-					if(_option.orientation){
+					if( $("#dp").height() + $("#dp").offset().top > documentH){
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
+						offsetY = _this.height() - diffY - dpw.height();
+						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
+						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down');
+						var str="",len = _option.list.length;
+						for(var i in _option.list){
+							str += '<li id="'+ (_option.id+'_'+(len - i -1)) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
+						}
+						$("#dp #"+_option.id).empty().append(str);
 					}else{
 						$('#dp .arrow').css('top',-30).attr('class', 'arrow up')
 					}
