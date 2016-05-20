@@ -9,8 +9,7 @@ from django.views.generic.edit import FormView
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from survey.models import *
-from survey import QuestionProcessors
-
+from survey import *
 
 class IndexView(TemplateView):
 	template_name = 'survey/survey-base.html'
@@ -40,7 +39,7 @@ class QuestionnaireDoneView(TemplateView):
 		
 
 class QuestionnaireView(View):
-	def show_questionnaire(self, request, runinfo, errors=None):
+	def show_questionnaire(self, request, runinfo, errors={}):
 		questionset = runinfo.questionset
 		questionnaire = questionset.questionnaire
 		main_cat_name = questionset.questionnaire.main_category.name
@@ -72,8 +71,19 @@ class QuestionnaireView(View):
 						'questionset': questionset,
 						'qlist': qlist,
 						'prev_url': prev_url,
-						'error': errors}
+						'errors': errors}
 		return render_to_response('questionset.html', contextdict)
+
+	def add_answer(self, runinfo, question, ans):
+		answer = Answer()
+		answer.question = question
+		answer.subject = runinfo.subject	
+		answer.runid = runinfo.pk	
+		answer.answer = ans
+		Answer.objects.filter(subject=runinfo.subject, 
+			runid=runinfo.pk, question=question).delete()
+		answer.save()
+		return True
 
 
 	def get(self, request, **kwargs):
@@ -109,15 +119,24 @@ class QuestionnaireView(View):
 		posted_ids = []
 		for item in items:
 			key, value = item[0], item[1]
+
 			if key.startswith('question_'):
-				qssortid = key.split("_", 2)
+				qssortid = key.split("_", 3)
 			question = Question.objects.filter(sortid=qssortid[1], 
 				questionset=questionset, 
 				questionset__questionnaire=questionnaire).first()
 			posted_ids.append(int(qssortid[1]))
 			if not question:
 				continue
-			extra[question] = value
+			ans = {}
+			if question in extra:
+				ans = extra.get(question)
+			if len(qssortid)==2:
+				ans['ANSWER'] = value
+			elif len(qssortid)==4 and qssortid[3]=='comment':
+				if value:
+					ans['COMMENT'] = value
+			extra[question] = ans
 		#generate none for each empty quesiton, and place in extra
 		expected = questionset.questions()
 		empty_ids = []
@@ -133,19 +152,20 @@ class QuestionnaireView(View):
 				continue
 			extra[question] = None
 
-
+		errors = {}
 		for question, ans in extra.items():
-			if ans in [None, '']:
-				error = "please answer the question"
-				return self.show_questionnaire(request, runinfo, error)
-			answer = Answer()
-			answer.question = question
-			answer.subject = runinfo.subject	
-			answer.runid = runinfo.pk	
-			answer.answer = ans
-			Answer.objects.filter(subject=runinfo.subject, 
-				runid=runinfo.pk, question=question).delete()
-			answer.save()
+			Type = question.type
+			exception = False
+			ans_tp = ""
+			try:
+				ans_tp = Processors[Type](question, ans)
+			except AnswerException as e:
+				exception = True
+				errors[question.sortid] = str(e)
+			if(exception==False):
+				self.add_answer(runinfo, question, ans_tp)
+		if len(errors)>0:
+			return self.show_questionnaire(request, runinfo, errors)
 
 		next = questionset.next()
 		if next:

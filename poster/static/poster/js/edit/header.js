@@ -82,11 +82,11 @@ $(function () {
         storageAPI.setHead("email", $('emailInput').val());
         //logo
         if ($('.header-logo h2')[0]) {
-            storageAPI.setHead("logo_text", $('.header-logo h2').html());
+            storageAPI.setHead("logo_title", $('.header-logo h2').html());
             storageAPI.setHead("logoTitleType", "text");
             storageAPI.setHead("logo_image", "");
         } else {
-            storageAPI.setHead("logo_text", "");
+            storageAPI.setHead("logo_title", "");
             storageAPI.setHead("logoTitleType", "image");
             storageAPI.setHead("logo_image", {
                 url: $('.header-logo img').attr("src"),

@@ -11,7 +11,7 @@ from alatting_website.models import (
     BusinessCard, PosterMoreLink,
     CategoryKeyword)
 from survey.models import (
-    Questionnaire, QuestionSet, Question, Choice)
+    Questionnaire, QuestionSet, Question, Choice, Input)
 
 
 class AlattingAdminModelMixin(object):
@@ -190,4 +190,9 @@ class QuestionAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(Choice)
 class ChoiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Input)
+class Inputdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
