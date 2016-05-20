@@ -72,7 +72,7 @@ $(function(){
                        if(obj){
                            obj.empty().append('<video autoplay src="'+data.file+'"></video>');
                         }
-console.log(data)
+
                         obj.imgoperation({'data':data});
 
                     },function(data){
