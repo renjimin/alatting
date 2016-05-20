@@ -93,7 +93,7 @@ class PosterView(DetailView):
     def get_queryset(self):
         queryset = super(PosterView, self).get_queryset()
         queryset = queryset.select_related(
-            'music', 'creator__person',
+            'creator__person',
             'poster_statistics', 'history_statistics'
         ).prefetch_related(
             'poster_images__image', 'poster_videos__video',

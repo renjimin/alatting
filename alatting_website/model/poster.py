@@ -111,9 +111,9 @@ class Poster(models.Model):
         default='',
         blank=True
     )
-    snapshot = models.CharField(
+    snapshot = OverWriteFileField(
         verbose_name=u'首页截屏',
-        max_length=500,
+        upload_to=file.get_snapshot_path,
         default='',
         blank=True
     )

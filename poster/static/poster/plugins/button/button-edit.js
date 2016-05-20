@@ -5,6 +5,7 @@ var curentOpts={};
     var addButton = function(ele,options){
         var defaults = {
             'container':$("#button-model"),
+            'buttonAction':'1',
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
@@ -52,6 +53,7 @@ var curentOpts={};
             o.html(opts.text);
             o.attr({
                 'href':opts.href,
+                'data-action':opts.buttonAction
             })
             o.css({
                 'color':'#'+opts.color,
@@ -80,6 +82,7 @@ var curentOpts={};
                     $2 = 0;
                 }
                 eleopts = {
+                    'buttonAction':$(b).attr('data-action'),
                     'href': $(b).attr('href'),
                     'text': $(b).text(),
                     'color': $(b).css('color')==null?'000':$(b).css('color'),
@@ -100,7 +103,8 @@ var curentOpts={};
 
 
 
-            var href = opts.href=="javascript:void(0)"?'':opts.href
+            var href = opts.href=="javascript:void(0)"?'':opts.href;
+            $('.button-action').val(opts.buttonAction);
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
             $('.button-color').css('background','#'+opts.color);
@@ -131,6 +135,10 @@ var curentOpts={};
             $('.button-text').off('input propertychange').on('input propertychange',function(){
                 opts.text = $(this).val();
                 elebtn.html(opts.text);
+            });
+            $('.button-action').off('change').on('change',function(){
+                opts.buttonAction = $(this).val();
+                elebtn.attr('data-action',opts.buttonAction);
             });
             $('.button-fontSize').off('change').on('change',function(){
                 opts.fontSize = $(this).val();
@@ -297,7 +305,7 @@ var curentOpts={};
                 cnd.css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
             }
             fullcontainer.append(cnd);
-            cnd.css({'top':fullcontainer.height()/2-cnd.innerHeight()/2+'px','left':fullcontainer.width()/2-cnd.innerWidth()/2+'px'}).show();
+            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.height()/2-cnd.innerHeight()/2+'px','left':fullcontainer.width()/2-cnd.innerWidth()/2+'px'}).show();
             scale(cnd);
         }else{
             if(ele.data('rotate') != null){
@@ -371,13 +379,26 @@ $(function(){
         eleobj.append(current);
         addSystemimg(eleobj);
     });*/
+    /*页面第一次加载就开始加载系统图案*/
+    $.ajax({
+        type: 'GET',
+        url: 'http://www.yunye123.com:8000/api/v1/poster/system/images',
+        success: function(data){
+            var con = $('#systemimg-model .systemimg-list ul');
+            con.empty();
+            for(i=0;i<data.length;i++){
+                var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
+                con.append(li);
+            }
 
+        },
+    });
 })
 var selectSysImg = function(obj){
     $('#systemimg-model').removeClass('open');
     var eleobj = $('<div class="element systemimg"></div>');
     eleobj.css({'width':$(obj).find('svg').width(),'height':$(obj).find('svg').height()});
-    eleobj.append($(obj).find('svg'));
+    eleobj.append($(obj).find('svg').clone());
     addSystemimg(eleobj);
 
 }
@@ -395,19 +416,21 @@ var openSystemimg = function(){
         $('#systemimg-model').removeClass('open');
         ele.removeClass('open');
     }else{
-        $.ajax({
-            type: 'GET',
-            url: 'http://192.168.118.130:8000/api/v1/poster/system/images',
-            success: function(data){
-                var con = $('#systemimg-model .systemimg-list ul');
-                con.empty();
-                for(i=0;i<data.length;i++){
-                    var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
-                    con.append(li);
-                }
+        if($('#systemimg-model .systemimg-list ul li').lenght <= 0){
+            $.ajax({
+                type: 'GET',
+                url: 'http://www.yunye123.com:8000/api/v1/poster/system/images',
+                success: function(data){
+                    var con = $('#systemimg-model .systemimg-list ul');
+                    con.empty();
+                    for(i=0;i<data.length;i++){
+                        var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
+                        con.append(li);
+                    }
 
-            },
-        });
+                },
+            });
+        }
         $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         ele.addClass('open');
     }
@@ -436,7 +459,7 @@ var addSystemimg = function(eleobj){
     cnd.find('.element-box-contents').append(eleobj);
     cnd.hide();
     fullcontainer.append(cnd);
-    cnd.css({'top':fullcontainer.height()/2-eleobj.height()/2+'px','left':fullcontainer.width()/2-eleobj.width()/2+'px'}).show();
+    cnd.css({'z-index':scaleIndex++,'top':fullcontainer.height()/2-eleobj.height()/2+'px','left':fullcontainer.width()/2-eleobj.width()/2+'px'}).show();
     scale(cnd);
 }
 

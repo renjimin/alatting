@@ -141,6 +141,7 @@ $(function () {
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
         );
+        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -148,7 +149,6 @@ $(function () {
             url: url,
             success: function (data) {
                 yyAlert("保存成功");
-                console.log(data)
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
@@ -177,6 +177,7 @@ $(function () {
         var url = yunyeEditorGlobal.API.publish.format(
             yunyeEditorGlobal.posterId
         );
+        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -184,7 +185,6 @@ $(function () {
             url: url,
             success: function (data) {
                 yyAlert("发布成功");
-                console.log(data);
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {

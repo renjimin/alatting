@@ -134,7 +134,6 @@ html {
 .ico-edit-text,
 .ico-edit-pic,
 .ico-edit-button,
-.ico-system-pic,
 .ico-edit-music {
 	display: inline-block;
 
@@ -144,10 +143,7 @@ html {
 	background: url(../../poster/images/edit-tool-text.png) no-repeat;
 	background-size: auto 100%;
 }
-.ico-system-pic {
-	background-image: url(../../poster/images/system-tool-pic.png);
-}
-.ico-edit-pic{
+.ico-edit-pic {
 	background-image: url(../../poster/images/edit-tool-pic.png);
 }
 .ico-edit-button {
@@ -1206,9 +1202,6 @@ to {
 	position: absolute;
 	top: 50%;
 	margin-top: -10px;
-}
-.edit-bar-header .title {
-	margin: 0 70px 0 0;
 }
 /* 弹出层样式 */
 
