@@ -30,7 +30,7 @@
 			s.on({
                 'touchstart':function(e){
                     if (e.originalEvent) e = e.originalEvent;
-                    
+
                     $(e.currentTarget).css({'transition':'none'});
 					$(e.currentTarget).addClass('drag-active');
 
@@ -137,9 +137,8 @@
             s.addImage = function(datas){
                 s.wraper = s.find('.swiper-wrapper');
                 for(i=0;datas.length>0 && i<datas.length;i++){
-                    s.wraper.append('<div class="swiper-slide"><img src="'+datas.eq(i).attr('src')+'" width="'+datas.eq(i).attr('width')+'" height="'+datas.eq(i).attr('height')+'" /></div>');
+                    s.wraper.append('<div class="swiper-slide" id="slideImg'+datas.eq(i).attr('data-id')+'"><img src="'+datas.eq(i).attr('src')+'" width="'+datas.eq(i).attr('width')+'" height="'+datas.eq(i).attr('height')+'" data-id="'+datas.eq(i).attr('data-id')+'" /></div>');
                 }
-                console.log(_option.data);
                 var imgW,imgH;
                 if(s.width()/s.height() > _option.data.width / _option.data.height){
                     imgW = s.width();
@@ -148,19 +147,35 @@
                     imgW = _option.data.width * imgH / _option.data.height;
                     imgH = s.height();
                 }
-                s.wraper.append('<div class="swiper-slide"><img src="'+_option.data.file+'" width="'+imgW+'" height="'+imgH+'" ></div>');
+                s.wraper.append('<div class="swiper-slide" id="slideImg'+_option.data.imgid+'"><img src="'+_option.data.file+'" width="'+imgW+'" height="'+imgH+'" data-id="'+_option.data.imgid+'" ></div>');
                 s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
                 s.wraper.find('img').imgscale();
-                $('.swiper-button-next,.swiper-button-prev').on('touchstart',function(e){
+                $('.swiper-button-next,.swiper-button-prev').off('touchstart').on('touchstart',function(e){
                     if (e.originalEvent) e = e.originalEvent;
                     e.stopPropagation();
-                    $(e.currentTarget).click();
+                    $(e.currentTarget).click(function(e){e.stopPropagation();});
                 });
 
 
             };
+            s.updateSlider = function(datas){
+                s.wraper = s.find('.swiper-wrapper');
+                for(i=0;datas.length>0 && i<datas.length;i++){
+                    s.wraper.append('<div class="swiper-slide" id="slideImg'+datas.eq(i).attr('data-id')+'"><img src="'+datas.eq(i).attr('src')+'" width="'+datas.eq(i).attr('width')+'" height="'+datas.eq(i).attr('height')+'" data-id="'+datas.eq(i).attr('data-id')+'" /></div>');
+                }
+                s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
+                s.wraper.find('img').imgscale();
+                $('.swiper-button-next,.swiper-button-prev').off('touchstart').on('touchstart',function(e){
+                    if (e.originalEvent) e = e.originalEvent;
+                    e.stopPropagation();
+                    $(e.currentTarget).click(function(e){e.stopPropagation();});
+                });
+
+            }
             if(_option.data != null && _option.data != ''){
                 s.addImage(imgarray);
+            }else{
+                s.updateSlider(imgarray);
             }
         })
 
