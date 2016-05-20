@@ -48,6 +48,7 @@ $(function(){
                 text: "上传图片",
                 callback: function(obj){
                     $.fn.uploads.showDialog(function(data){
+                        console.log(data);
                         if(obj){
                             obj.empty().append('<img src="'+data.file+'"/>');
                         }
@@ -55,6 +56,7 @@ $(function(){
 
 
                     });
+
 
 
 
@@ -70,9 +72,11 @@ $(function(){
                        if(obj){
                            obj.empty().append('<video autoplay src="'+data.file+'"></video>');
                         }
+console.log(data)
+                        obj.imgoperation({'data':data});
 
-                    },function(){
-                        console.log('error')
+                    },function(data){
+                       yyAlert("上传失败");
                     })
 
                 }
@@ -89,6 +93,7 @@ $(function(){
                 text: "图片链接",
                 callback: function (obj) {
                     obj.resourceLink();
+                    obj.imgoperation({'data':data});
                 }
             }]
     };

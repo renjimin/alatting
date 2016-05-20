@@ -32,7 +32,7 @@
                 <div class="wraper">
                     <div class="img">
                         <a href="{% url 'website:poster' poster.id %}" title="{{ poster.logo_title }}">
-                            <img src="{{ poster.snapshot }}" />
+                            <img src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %}" width="100%" />
                         </a>
                     </div>
                     <div class="det">
