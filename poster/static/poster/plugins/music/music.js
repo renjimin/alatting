@@ -12,6 +12,7 @@
     }
     var musicbankButton = function(){
     	$(this).changeMusic({}, function (ths,img) {
-    		console.log(img);
+	$('.audiolink').empty().append('<audio autoplay loop="loop"></audio>');
+	$('.audiolink audio').attr("src",img);
     	})
     }
