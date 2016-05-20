@@ -144,6 +144,20 @@ $(function () {
     });
 
     $(".btn.btn-post").on("click", function () {
+        saveData();
+        yunyeEditorGlobal.lifetime = {
+            lifetime_type : "weekly",
+            lifetime_timezone : "Asia/Shanghai",
+            lifetime_value : {
+                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
+                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
+            }
+        }
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.publish.format(
             yunyeEditorGlobal.posterId
