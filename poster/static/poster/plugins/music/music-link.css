@@ -27,7 +27,7 @@
     text-align: center;
     line-height: 50px;
     margin: 0;
-    font-size: 1.4em;
+    font-size: 1.3em;
     background: #ACACAC;
 }
 
@@ -54,9 +54,10 @@
 
 .system-music .music-system {
     width: 100%;
-    height: 40px;
+    height: 60px;
     float: left;
     padding: 10px;
+    line-height: 40px;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 80% 80%;
@@ -68,14 +69,19 @@
 .system-music  .musiclisten{
     float: right;
     border-radius: 8px;
-    background: black;
+    background: #CCC;
+    line-height: 25px;
+    height: 25px;
+    margin-top: 6px; 
 }
 .system-music  .musicapp{
     float: right;
-    margin-right: 2%;
+    margin-right: 10px;
     border-radius: 8px;
-    background: black;
-
+    background: #CCC;
+    line-height: 25px;
+    height: 25px;
+    margin-top: 6px;    
 }
 #okmusic{
     height: 23px;

@@ -13,5 +13,6 @@
     var musicbankButton = function(){
     	$(this).changeMusic({}, function (ths,img) {
     		console.log(img);
+    		yyAlert("222")
     	})
     }
