@@ -159,6 +159,9 @@
 
             };
             s.updateSlider = function(datas){
+                if(datas.lenght <= 0){
+                    s.empty();return;
+                }
                 s.wraper = s.find('.swiper-wrapper');
                 for(i=0;datas.length>0 && i<datas.length;i++){
                     s.wraper.append('<div class="swiper-slide" id="slideImg'+datas.eq(i).attr('data-id')+'"><img src="'+datas.eq(i).attr('src')+'" width="'+datas.eq(i).attr('width')+'" height="'+datas.eq(i).attr('height')+'" data-id="'+datas.eq(i).attr('data-id')+'" /></div>');
