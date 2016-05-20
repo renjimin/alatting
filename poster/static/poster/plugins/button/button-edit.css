@@ -377,11 +377,12 @@ display:block;
 .systemimg-list ul{
 	overflow: hidden;
 	margin:0;
+	text-align: center;
 }
 .systemimg-list li{
-	float:left;
+	display:inline-block;
 
-	width:33.3333333%;
+	width:120px;
 	height:120px;
 	padding:20px;
 

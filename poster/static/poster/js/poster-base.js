@@ -81,7 +81,7 @@ $(function () {
         arrowOffset: 80,
         list: [
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "系统背景",
                 callback: function () {
                     $('.header').bgselect({}, function (ths, img) {
@@ -133,7 +133,7 @@ $(function () {
         orientation: 1,
         list: [
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "系统背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -184,7 +184,7 @@ $(function () {
         orientation: 0,
         list: [
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "顶/底背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -215,7 +215,7 @@ $(function () {
                 }
             },
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "主体背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -272,7 +272,7 @@ $(function () {
                 }
             },
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "背景图片",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -358,17 +358,13 @@ $(function () {
         var g = yunyeEditorGlobal;
         //标题
         if(g.unique_name)$("#logo_title").html(g.unique_name);
-        if(storageAPI.getCss("logo_title"))$("#logo_title").attr("style",storageAPI.getCss("logo_title"));
+        if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
         //简述
         if(g.short_description)$("#short_description").html(g.short_description);
         if(storageAPI.getCss("short_description"))$("#short_description").attr("style",storageAPI.getCss("short_description"));
         //logo
-        if(storageAPI.getHead('logo_title')){
-            $('.header-logo').empty().append(storageAPI.getHead('logo_title'));
-        }
-        if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url){
-            $('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
-        }
+        if(storageAPI.getHead('logo_title'))$('.header-logo').empty().append(storageAPI.getHead('logo_title'));
+        if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
         //电话手机邮箱
         var $phone = $('#dpw_phone');
         $phone.find('input:eq(0)').val(g.phone);

@@ -75,6 +75,16 @@ $(function () {
 
     //保存数据方法
     var saveData = function () {
+        function parseStyle(string){
+            var atrributes = string.split(";") ;
+            var returns = {} ;
+            for(var i in atrributes){
+                if(i == atrributes.length-1 )return returns;
+                var key = $.trim(atrributes[i].split(":")[0]),
+                        value = $.trim(atrributes[i].split(":")[1]);
+                returns[key] = value ;
+            }
+        }
         storageAPI.setHtml(".yunye-template");
         //电话手机邮箱
         storageAPI.setHead("phone", $('#phoneInput').val());
@@ -93,9 +103,9 @@ $(function () {
                 id: $('.header-logo img').attr("data-src-id")
             });
         }
-        if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",$('#logo_title').attr("style"));
+        if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",parseStyle($('#logo_title').attr("style")));
         storageAPI.setHead("unique_name", $('#logo_title').html());
-        if($('#short_description').attr("style"))storageAPI.setCss("short_description",$('#short_description').attr("style"));
+        if($('#short_description').attr("style"))storageAPI.setCss("short_description",parseStyle($('#short_description').attr("style")));
         storageAPI.setHead("short_description", $('#short_description').html());
         //日历周期性
         var lifetime = yunyeEditorGlobal.lifetime;
