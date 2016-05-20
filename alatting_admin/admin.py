@@ -50,7 +50,10 @@ class CategoryAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(Poster)
 class PosterAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
+    list_display = ('id', 'unique_name', 'creator', 'url', 'logo_title',
+                    'short_description', 'phone', 'mobile', 'email', 'address',
+                    'lifetime_type', 'lifetime_timezone', 'created_at')
+    list_display_links = ('id', 'unique_name')
 
 
 @admin.register(PosterImage)
@@ -199,5 +202,5 @@ class ChoiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 
 @admin.register(Input)
-class Inputdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+class InputAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

@@ -52,15 +52,9 @@ $(function(){
                             obj.empty().append('<img src="'+data.file+'"/>');
                         }
                         obj.imgoperation({'data':data});
-
-
                     });
-
-
-
                 }
             },
-
             {
                 icon: "glyphicon glyphicon-facetime-video",
                 text: "上传视频",
@@ -70,11 +64,9 @@ $(function(){
                        if(obj){
                            obj.empty().append('<video autoplay src="'+data.file+'"></video>');
                         }
-
                     },function(){
-                        console.log('error')
-                    })
-
+                        console.log('error');
+                    });
                 }
             },
             {
@@ -93,28 +85,20 @@ $(function(){
             }]
     };
 
-    var options = $.extend({id: 'content_top_menu'}, menuOptions),
-        lastOptions = $.extend(
-            {id: 'content_btm_menu', orientation: 1},
-            menuOptions
-        ),
-        selector = $(".yunye-template > .content > div");
+    var selector = $(".yunye-template > .content > div");
 
     // 注册上下文菜单
     $.each(selector, function(i, div){
         var opt,
             $this = $(div),
             id = 'div_dropdown_menu' + i;
-        if(i == (selector.length - 1)){
-            opt = $.extend({id: id, orientation: 1}, menuOptions);
-        }else{
-            opt = $.extend({id: id}, menuOptions);
-        }
+        console.log(id);
+        //if(i == (selector.length - 1)){
+        //    opt = $.extend({id: id, orientation: 1}, menuOptions);
+        //}else{
+        //
+        //}
+        opt = $.extend({id: id}, menuOptions);
         $this.registerPopUp(opt);
-    });
-
-
-    $(".closefile").click(function(){
-        $(".dialog").hide();
     });
 });

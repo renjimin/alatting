@@ -140,6 +140,7 @@
 
             var self = this;
             $.getJSON(templateListAPI, function (json) {
+                $(self.ulListId).empty();
                 self.listTmpl.tmpl(json).appendTo(self.ulListId);
 
                 $(self.ulListId).find("li").click(function (event) {
