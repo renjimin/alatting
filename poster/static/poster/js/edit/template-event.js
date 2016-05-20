@@ -22,7 +22,7 @@ $(function () {
                         success: function (data, file) {
                             data.imgid = file.id;
                             _this.imgslider({'data': data});
-                            $(".upload-image-dialog").removeClass('open');
+                            //$(".upload-image-dialog").removeClass('open');
                             //console.info(data);
                         },
                         error: function (err) {
