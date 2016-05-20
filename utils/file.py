@@ -60,6 +60,12 @@ def get_image_path(instance, filename):
     return get_file_path(instance, field_name, path, filename)
 
 
+def get_snapshot_path(instance, filename):
+    path = 'images/snapshot/%Y/%m/%d'
+    field_name = 'snapshot'
+    return get_file_path(instance, field_name, path, filename)
+
+
 def get_video_path(instance, filename):
     path = 'videos/%Y/%m/%d'
     field_name = 'file'
@@ -133,7 +139,7 @@ def spilt_string(string, width):
 
 
 def save_file(file_full_path, content):
-    with open(file_full_path, 'w') as destination:
+    with codecs.open(file_full_path, 'w', 'utf-8') as destination:
         if len(content) < MAX_BUFF_SIZE:
             destination.write(content)
         else:

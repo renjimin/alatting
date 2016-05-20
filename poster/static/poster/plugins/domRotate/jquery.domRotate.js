@@ -62,11 +62,11 @@
                 bary = parseInt($element.css('top'));
                 _bx = e.pageX;
                 _by = e.pageY;
+                var ewidth = parseInt($element.outerWidth());
+                var eheight = parseInt($element.outerHeight());
                 if($.isEmptyObject($element.data('botp'))){
                     var eleft = parseInt($element.css('left'));
                     var etop = parseInt($element.css('top'));
-                    var ewidth = parseInt($element.outerWidth());
-                    var eheight = parseInt($element.outerHeight());
                     midp.left = eleft+ewidth/2;
                     midp.top = etop+eheight/2;
                     botp.left = eleft+ewidth;
@@ -80,8 +80,8 @@
                     $element.data('dlength',dlength);
                 }else{
                     botp = $element.data('botp');
-                    midp = $element.data('midp');
                     rbotp = $element.data('rbotp');
+                    midp = $element.data('midp');
                 }
             }else if(event.type == "touchmove"){
                 move = true;

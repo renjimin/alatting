@@ -318,6 +318,7 @@ $(function () {
 //        $("#teditor").hide();
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
         $('.cnd-element').removeClass('active');
+        $(".music-link-layout-wrap").remove();
     });
 
     $('body').on('click', function (event) {
@@ -356,11 +357,18 @@ $(function () {
     var initData = function () {
         var g = yunyeEditorGlobal;
         //标题
-        //$('.edit-bar-header .title p').html(g.unique_name);
-        $('.edit-bar-header .title p').empty().append(g.title);
+        if(g.unique_name)$("#logo_title").html(g.unique_name);
+        if(storageAPI.getCss("logo_title"))$("#logo_title").attr("style",storageAPI.getCss("logo_title"));
         //简述
-        //$('.header-info .desc span').html(g.short_description);
-        $('.header-info .desc').empty().append(g.short_description);
+        if(g.short_description)$("#short_description").html(g.short_description);
+        if(storageAPI.getCss("short_description"))$("#short_description").attr("style",storageAPI.getCss("short_description"));
+        //logo
+        if(storageAPI.getHead('logo_title')){
+            $('.header-logo').empty().append(storageAPI.getHead('logo_title'));
+        }
+        if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url){
+            $('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
+        }
         //电话手机邮箱
         var $phone = $('#dpw_phone');
         $phone.find('input:eq(0)').val(g.phone);
@@ -387,10 +395,6 @@ $(function () {
             $(".weekly").hide();
         }
         
-        //logo
-        if(storageAPI.getHead('logo_title')){
-            $('.header-logo').empty().append('<h2>' + storageAPI.getHead('logo_title') + '</h2>');
-        }
         /**读取缓存背景图片*/
         if (storageAPI.getCss(".header")) {
             $('.header').css(storageAPI.getCss(".header"));
@@ -430,17 +434,6 @@ $(function () {
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
         $.extend(yunyeEditorGlobal, pageHeadData);
         //服务器暂时没传数据 (伪造数据)
-        /*if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {};
-        if (!yunyeEditorGlobal.lifetime.lifetime_value)yunyeEditorGlobal.lifetime.lifetime_value = {};
-        if (!yunyeEditorGlobal.lifetime.defaultsWeekly)yunyeEditorGlobal.lifetime.defaultsWeekly = {
-            "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-            "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-            "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-            "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-            "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-            "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-            "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-        };*/
         if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {
             lifetime_type : "weekly",
             lifetime_timezone : "Asia/Shanghai",
@@ -476,21 +469,13 @@ $(function () {
                 $('#dpw_clock input').eq(1).val("");
                 yyConfirm("结束时间不能早于开始时间");
             } else {
-                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html(),
-                    week = new Date($("#year").val(), $("#month").val() - 1, $(".hover").html()).getDay(),
-                    weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" : "Saturday",
-                    info = yunyeEditorGlobal.lifetime.lifetime_value[weekName];
-                if ($('#dpw_clock input').eq(0).val() == info.time_start && $('#dpw_clock input').eq(1).val() == info.time_end) {
-                    $(".calender .hover").removeClass("special");
-                    delete yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
-                } else {
-                    yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
-                        "time_start": $('#dpw_clock input').eq(0).val(),
-                        "time_end": $('#dpw_clock input').eq(1).val(),
-                        "enabled": $('#dateState').hasClass("off") ? 0 : 1
-                    };
-                    $(".calender .hover").addClass("special");
-                }
+                var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html();
+                yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+                    "time_start": $('#dpw_clock input').eq(0).val(),
+                    "time_end": $('#dpw_clock input').eq(1).val(),
+                    "enabled": $('#dateState').hasClass("off") ? 0 : 1
+                };
+                $(".calender .hover").addClass("special");
             }
         }
     });

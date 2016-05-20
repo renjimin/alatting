@@ -9,7 +9,7 @@
 .text-element{
     position: absolute;
     z-index: 100;
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
     border: 2px dashed transparent;
     -ms-word-break:keep-all;

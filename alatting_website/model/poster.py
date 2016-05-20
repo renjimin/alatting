@@ -69,7 +69,8 @@ class Poster(models.Model):
     lifetime_value = models.CharField(
         max_length=1024, default=get_default_lifetime_value
     )
-    music = models.ForeignKey('Music', null=True, blank=True)
+    # music = models.ForeignKey('Music', null=True, blank=True)
+    music = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     main_category = models.ForeignKey(
@@ -110,9 +111,9 @@ class Poster(models.Model):
         default='',
         blank=True
     )
-    snapshot = models.CharField(
+    snapshot = OverWriteFileField(
         verbose_name=u'首页截屏',
-        max_length=500,
+        upload_to=file.get_snapshot_path,
         default='',
         blank=True
     )

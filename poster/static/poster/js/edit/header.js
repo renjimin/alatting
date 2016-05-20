@@ -77,12 +77,12 @@ $(function () {
     var saveData = function () {
         storageAPI.setHtml(".yunye-template");
         //电话手机邮箱
-        storageAPI.setHead("phone", $('phoneInput').val());
-        storageAPI.setHead("mobile", $('mobileInput').val());
-        storageAPI.setHead("email", $('emailInput').val());
+        storageAPI.setHead("phone", $('#phoneInput').val());
+        storageAPI.setHead("mobile", $('#mobileInput').val());
+        storageAPI.setHead("email", $('#emailInput').val());
         //logo
         if ($('.header-logo h2')[0]) {
-            storageAPI.setHead("logo_title", $('.header-logo h2').html());
+            storageAPI.setHead("logo_title", $('.header-logo').html());
             storageAPI.setHead("logoTitleType", "text");
             storageAPI.setHead("logo_image", "");
         } else {
@@ -93,20 +93,62 @@ $(function () {
                 id: $('.header-logo img').attr("data-src-id")
             });
         }
+        if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",$('#logo_title').attr("style"));
+        storageAPI.setHead("unique_name", $('#logo_title').html());
+        if($('#short_description').attr("style"))storageAPI.setCss("short_description",$('#short_description').attr("style"));
+        storageAPI.setHead("short_description", $('#short_description').html());
         //日历周期性
-        var inputs = $(".weekly input"),
-            lifetime = yunyeEditorGlobal.lifetime;
-        for (var i = 0; i < (inputs.length) / 2; i++) {
-            var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                info = lifetime.lifetime_value[weekName];
-            info.time_start = inputs.eq(i * 2).val();
-            info.time_end = inputs.eq(i * 2 + 1).val();
-            info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
+        var lifetime = yunyeEditorGlobal.lifetime;
+        if(lifetime.lifetime_type == "weekly" ){
+             var inputs = $(".weekly input");
+             for (var i = 0; i < (inputs.length) / 2; i++) {
+                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                    info = lifetime.lifetime_value[weekName];
+                info.time_start = inputs.eq(i * 2).val();
+                info.time_end = inputs.eq(i * 2 + 1).val();
+                info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
+            }
         }
         storageAPI.setHead("lifetime", lifetime);
     };
 
     $(".btn.btn-save").on("click", function () {
+        saveData();
+        /*yunyeEditorGlobal.lifetime = {
+            lifetime_type : "weekly",
+            lifetime_timezone : "Asia/Shanghai",
+            lifetime_value : {
+                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
+                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
+            }
+        }*/
+        var full_json = JSON.stringify(storageAPI.getPosterData());
+        var url = yunyeEditorGlobal.API.save.format(
+            yunyeEditorGlobal.posterId
+        );
+        console.log(full_json);
+        $.ajax({
+            type: 'PATCH',
+            dataType: 'json',
+            data: {"data": full_json},
+            url: url,
+            success: function (data) {
+                yyAlert("保存成功");
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 500) {
+                    yyAlert("保存失败，服务器内部错误");
+                }
+            }
+        })
+    });
+
+    $(".btn.btn-post").on("click", function () {
         saveData();
         yunyeEditorGlobal.lifetime = {
             lifetime_type : "weekly",
@@ -122,32 +164,10 @@ $(function () {
             }
         }
         var full_json = JSON.stringify(storageAPI.getPosterData());
-        console.log(storageAPI.getPosterData());
-        var url = yunyeEditorGlobal.API.save.format(
-            yunyeEditorGlobal.posterId
-        );
-        $.ajax({
-            type: 'PATCH',
-            dataType: 'json',
-            data: {"data": full_json},
-            url: url,
-            success: function (data) {
-                yyAlert("保存成功");
-                console.log(data)
-            },
-            error: function (xhr, status, statusText) {
-                if (xhr.status == 500) {
-                    yyAlert("保存失败，服务器内部错误");
-                }
-            }
-        })
-    });
-
-    $(".btn.btn-post").on("click", function () {
-        var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.publish.format(
             yunyeEditorGlobal.posterId
         );
+        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -155,7 +175,6 @@ $(function () {
             url: url,
             success: function (data) {
                 yyAlert("发布成功");
-                console.log(data);
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {

@@ -16,9 +16,22 @@ $(function(){
 		ac.show();
 		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
 			onSearchComplete: function(){
-				var pp = local.getResults().getPoi(0).point;	//获取第一个智能搜索的结果
-				baiduMap.centerAndZoom(pp, 14);
-				baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
+				if( pp = local.getResults().getPoi(0) ){
+					var pp = local.getResults().getPoi(0).point;	//获取第一个智能搜索的结果
+					baiduMap.centerAndZoom(pp, 14);
+					baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
+				}else{
+					var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(r){
+						if(this.getStatus() == BMAP_STATUS_SUCCESS){
+							var mk = new BMap.Marker(r.point);
+							baiduMap.addOverlay(mk);
+							baiduMap.centerAndZoom(r.point, 14);
+						}else {
+							local.search("光谷");
+						}        
+					},{enableHighAccuracy: true})
+				}
 			}
 		});
 		ac.setInputValue(_localAdress);
@@ -35,7 +48,7 @@ $(function(){
 				baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
 			}
 			var local = new BMap.LocalSearch(baiduMap, { //智能搜索
-			  onSearchComplete: myFun
+				onSearchComplete: myFun
 			});
 			local.search(myValue);
 		});
