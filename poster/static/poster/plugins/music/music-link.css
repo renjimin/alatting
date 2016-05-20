@@ -73,6 +73,7 @@
     line-height: 25px;
     height: 25px;
     margin-top: 6px; 
+    padding: 0 10px; 
 }
 .system-music  .musicapp{
     float: right;
@@ -81,7 +82,8 @@
     background: #CCC;
     line-height: 25px;
     height: 25px;
-    margin-top: 6px;    
+    margin-top: 6px;   
+    padding: 0 10px; 
 }
 #okmusic{
     height: 23px;

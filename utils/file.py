@@ -133,7 +133,7 @@ def spilt_string(string, width):
 
 
 def save_file(file_full_path, content):
-    with open(file_full_path, 'w') as destination:
+    with codecs.open(file_full_path, 'w', 'utf-8') as destination:
         if len(content) < MAX_BUFF_SIZE:
             destination.write(content)
         else:

@@ -69,7 +69,8 @@ class Poster(models.Model):
     lifetime_value = models.CharField(
         max_length=1024, default=get_default_lifetime_value
     )
-    music = models.ForeignKey('Music', null=True, blank=True)
+    # music = models.ForeignKey('Music', null=True, blank=True)
+    music = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     main_category = models.ForeignKey(
