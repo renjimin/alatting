@@ -98,7 +98,7 @@ $(function () {
             lifetime = yunyeEditorGlobal.lifetime;
         for (var i = 0; i < (inputs.length) / 2; i++) {
             var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                info = lifetime.defaultsWeekly[weekName];
+                info = lifetime.lifetime_value[weekName];
             info.time_start = inputs.eq(i * 2).val();
             info.time_end = inputs.eq(i * 2 + 1).val();
             info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
@@ -108,8 +108,21 @@ $(function () {
 
     $(".btn.btn-save").on("click", function () {
         saveData();
-        console.log(storageAPI.getPosterData());
+        yunyeEditorGlobal.lifetime = {
+            lifetime_type : "weekly",
+            lifetime_timezone : "Asia/Shanghai",
+            lifetime_value : {
+                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
+                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
+                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
+            }
+        }
         var full_json = JSON.stringify(storageAPI.getPosterData());
+        console.log(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
         );
