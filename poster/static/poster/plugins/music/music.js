@@ -4,8 +4,8 @@
     }
     var musicuploadButton = function(){
     	$.fn.uploads.showDialog(function(data){
-	$('.header-info').empty().append('<audio autoplay></audio>');
-	$('.header-info audio').attr("src",data.file);
+	$('.audiolink').empty().append('<audio autoplay></audio>');
+	$('.audiolink audio').attr("src",data.file);
 	console.log(data.file)
     	})
     }

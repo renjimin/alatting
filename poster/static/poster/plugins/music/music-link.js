@@ -9,8 +9,7 @@
                     '</button>' +
                 '</span>' +
             '</div>' +
-        '</div></div>'+
-        '<div class = "audiolink"></div>';
+        '</div></div>';
 
     var audioDom = '<audio width="100%" autoplay>' +
             '<source src="{0}" type="audio/mp3>' +
@@ -49,9 +48,9 @@
                 if($(".music-link-layout-wrap")){
                         $(".music-link-layout-wrap").remove();
                 }
-                if ($(".audiolink")) {
+                /*if ($(".audiolink")) {
                         $(".audiolink").remove();
-                };
+                };*/
                 $("body").append(layoutTmpl);
                 var $this = $(this);
                 var $btn = $("#musicLinkBtn");

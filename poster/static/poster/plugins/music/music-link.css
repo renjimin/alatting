@@ -14,6 +14,64 @@
 .musiclink-input .input-group{
     margin: 0 auto;
 }
-.music-arrow{
 
+
+.system-music{
+    position: fixed;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 999;
+}
+.system-music h3 {
+    text-align: center;
+    line-height: 50px;
+    margin: 0;
+    font-size: 1.4em;
+    background: #ACACAC;
+}
+
+.system-music .system-bgk {
+    position: absolute;
+    background: #ACACAC;
+}
+
+.system-music ul {
+    height: 100%;
+    background: #FFF;
+    overflow-y: auto
+}
+
+.system-music .glyphicon{
+    height: 23px;
+    width: 23px;
+    position: absolute;
+    margin-left: 90%;
+    margin-top: 3%;
+    font-size: 28px;
+}
+
+.system-music .music-system {
+    width: 100%;
+    height: 40px;
+    float: left;
+    padding: 10px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 80% 80%;
+    border-bottom: 1px solid #FFF;
+}
+.system-music .music-system:nth-child(even){
+    background: #eee;
+}
+.system-music  .musiclisten{
+    float: right;
+}
+#okmusic{
+    height: 23px;
+    width: 23px;
+    position: absolute;
+    margin-left: 3%;
+    margin-top: 3%;
+    font-size: 28px;    
 }

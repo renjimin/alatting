@@ -198,17 +198,21 @@
 .upload-image-dialog{
 	z-index: 999;
 	position: fixed;
-	top:100%;
+	top:0;
+	left:100%;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(255,255,255,0.98);
 	filter: Alpha(opacity=90);
 	font-family: 'Microsoft YaHei';
 	overflow: hidden;
-	left: 0;
+	transition: all .2s;
+	-webkit-transition: all .2s;
 	/*display: none;*/
 }
-
+.upload-image-dialog.open{
+	left:0;
+}
 
 .upload-image-header{
 	text-align: center;
@@ -225,5 +229,3 @@
 	line-height: 50px;
 	padding-right: 9px;
 }
-
-
