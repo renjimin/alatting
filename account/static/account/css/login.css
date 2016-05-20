@@ -9,7 +9,9 @@ body {
 input {
     outline: none;
 }
-
+.body-container{
+    height: 100%;
+}
 .login {
     background-image: url("../img/platform_mobile_yunye.png");
     background-size: cover;
