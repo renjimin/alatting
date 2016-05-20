@@ -77,12 +77,12 @@ $(function () {
     var saveData = function () {
         storageAPI.setHtml(".yunye-template");
         //电话手机邮箱
-        storageAPI.setHead("phone", $('phoneInput').val());
-        storageAPI.setHead("mobile", $('mobileInput').val());
-        storageAPI.setHead("email", $('emailInput').val());
+        storageAPI.setHead("phone", $('#phoneInput').val());
+        storageAPI.setHead("mobile", $('#mobileInput').val());
+        storageAPI.setHead("email", $('#emailInput').val());
         //logo
         if ($('.header-logo h2')[0]) {
-            storageAPI.setHead("logo_title", $('.header-logo h2').html());
+            storageAPI.setHead("logo_title", $('.header-logo').html());
             storageAPI.setHead("logoTitleType", "text");
             storageAPI.setHead("logo_image", "");
         } else {
@@ -93,15 +93,19 @@ $(function () {
                 id: $('.header-logo img').attr("data-src-id")
             });
         }
+        storageAPI.setHead("title", $('.title.header-bar-title').html());
+        storageAPI.setHead("desc", $('.header-info .desc').html());
         //日历周期性
-        var inputs = $(".weekly input"),
-            lifetime = yunyeEditorGlobal.lifetime;
-        for (var i = 0; i < (inputs.length) / 2; i++) {
-            var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                info = lifetime.lifetime_value[weekName];
-            info.time_start = inputs.eq(i * 2).val();
-            info.time_end = inputs.eq(i * 2 + 1).val();
-            info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
+        var lifetime = yunyeEditorGlobal.lifetime;
+        if(lifetime.lifetime_type == "weekly" ){
+             var inputs = $(".weekly input");
+             for (var i = 0; i < (inputs.length) / 2; i++) {
+                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                    info = lifetime.lifetime_value[weekName];
+                info.time_start = inputs.eq(i * 2).val();
+                info.time_end = inputs.eq(i * 2 + 1).val();
+                info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
+            }
         }
         storageAPI.setHead("lifetime", lifetime);
     };
@@ -122,7 +126,6 @@ $(function () {
             }
         }
         var full_json = JSON.stringify(storageAPI.getPosterData());
-        console.log(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
         );
