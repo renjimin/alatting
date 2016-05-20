@@ -125,8 +125,8 @@ $(function() {
 			}
 		}
 		function calculateClass(wk,day){
-			var weekName = (wk == 0) ? "Sunday" : (wk == 1) ? "Monday" : (wk == 2) ? "Tuesday" : (wk == 3) ? "Wednesday" : (wk == 4) ? "Thursday" : (wk == 5) ? "Friday" :  "Saturday" ,
-				weekly = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+			/*var weekName = (wk == 0) ? "Sunday" : (wk == 1) ? "Monday" : (wk == 2) ? "Tuesday" : (wk == 3) ? "Wednesday" : (wk == 4) ? "Thursday" : (wk == 5) ? "Friday" :  "Saturday" ,
+				weekly = yunyeEditorGlobal.lifetime.lifetime_value[weekName];
 			if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day]){
 				var specificDay = yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day];
 				if(specificDay.enabled == weekly.enabled && specificDay.time_start == weekly.time_start && specificDay.time_end == weekly.time_end ){
@@ -135,7 +135,12 @@ $(function() {
 					return (specificDay.enabled == 0) ? "off" : "special" ;
 				}
 			}
-			return (weekly.enabled == 0) ? "off" : "" ;
+			return (weekly.enabled == 0) ? "off" : "" ;*/
+			if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day]){
+				var specificDay = yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day];
+				return (specificDay.enabled == 0) ? "" : "special" ;
+			}
+			return "";
 		}
 	}
 	//获得月份的天数
@@ -183,7 +188,7 @@ $(function() {
 			var darry = specificDay.split("-"),
 				week = new Date(darry[0],parseInt(darry[1])-1,darry[2]).getDay(),
 				weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
-				info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName];
+				info = yunyeEditorGlobal.lifetime.lifetime_value[weekName];
 			$('.calenderTable input').eq(0).val(info.time_start);
 			$('.calenderTable input').eq(1).val(info.time_end);
 			if(info.enabled){$('#dateState').removeClass("off")}else{$('#dateState').addClass("off")}
@@ -193,6 +198,7 @@ $(function() {
 		if($(".weekly").is(":visible")){
 			$(".calender").show();
 			$(".weekly").hide();
+			yunyeEditorGlobal.lifetime.lifetime_type = "specific_days";
 
 			var year = parseInt($("#year").val()),
 				month = parseInt($("#month").val()),
@@ -202,30 +208,46 @@ $(function() {
 		}else{
 			$(".calender").hide();
 			$(".weekly").show();
+			yunyeEditorGlobal.lifetime.lifetime_type = "weekly"
 		}
 	});
 	$(".weekly td:nth-child(5n)").click(function(event){
 		var target = $(event.currentTarget),
 			i = $(".weekly td:nth-child(5n)").index(target),
 			weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ;
-		if(target.hasClass("off")){
+		/*if(target.hasClass("off")){
 			target.removeClass("off");
 			yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].enabled = 1;
 		}else{
 			target.addClass("off");
 			yunyeEditorGlobal.lifetime.defaultsWeekly[weekName].enabled = 0;
+		}*/
+		if(target.hasClass("off")){
+			target.removeClass("off");
+			yunyeEditorGlobal.lifetime.lifetime_value[weekName].enabled = 1;
+		}else{
+			target.addClass("off");
+			yunyeEditorGlobal.lifetime.lifetime_value[weekName].enabled = 0;
 		}
 	});
 	$('#dateState').click(function(event){
 		var target = $('#dateState'),
-			index = $("#calender td").index($("td.hover")),
+			index = $("#calender td").index($("td.hover"))/*,
 			week = index%7,
 			weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
 			info = yunyeEditorGlobal.lifetime.defaultsWeekly[weekName],
-			enabled;
+			enabled;*/
 		if(target.hasClass("off")){
 			target.removeClass("off");
-			$("td.hover").removeClass("off");
+			$("td.hover").addClass("special");
+			var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html();
+			yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+				time_start:$('.calenderTable input').eq(0).val(),
+				time_end:$('.calenderTable input').eq(1).val(),
+				enabled:1
+			}
+			/*$("td.hover").removeClass("off");
+
 			enabled = 1;
 			if($('.calenderTable input').eq(0).val() == info.time_start && $('.calenderTable input').eq(1).val() == info.time_end && info.enabled == enabled){
 				$("td.hover").removeClass("special");
@@ -237,10 +259,17 @@ $(function() {
 					time_end:$('.calenderTable input').eq(1).val(),
 					enabled:1
 				}
-			}
+			}*/
 		}else{
 			target.addClass("off");
-			$("td.hover").addClass("off");
+			$("td.hover").removeClass("special");
+			var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html();
+			yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
+				time_start:$('.calenderTable input').eq(0).val(),
+				time_end:$('.calenderTable input').eq(1).val(),
+				enabled:0
+			}
+			//$("td.hover").addClass("off");
 		}
 		
 	});
