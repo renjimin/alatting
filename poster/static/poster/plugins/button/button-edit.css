@@ -408,7 +408,8 @@ display:block;
 .tangram-suggestion-main{z-index: 3000;}
 .systemimg-model .systemimg-list{overflow: auto;height:350px;}
 .systemimg-list li.empty{padding:0;width:56px;height:43px; position: absolute;top:50%;left:50%;margin-top:-21px;margin-left:-28px;}
-
+.systemimg-model-top{ background: rgb(230,230,230);position:absolute;top:0;left:0;width:100%;line-height:36px; text-align: center;color:#444;}
+.systemimg-model .type-model-inner{padding-top:36px;}
 /**
  * Lines
  */
