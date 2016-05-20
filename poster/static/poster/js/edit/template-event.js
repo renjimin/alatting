@@ -64,8 +64,17 @@ $(function(){
             {
                 icon: "glyphicon glyphicon-facetime-video",
                 text: "上传视频",
-                callback: function(){
-                    alert("还是调用上传组件!");
+                callback: function(obj){
+                    //alert("还是调用上传组件!");
+                    $.fn.uploads.showDialog(function(data){
+                       if(obj){
+                           obj.empty().append('<video autoplay src="'+data.file+'"></video>');
+                        }
+
+                    },function(){
+                        console.log('error')
+                    })
+
                 }
             },
             {

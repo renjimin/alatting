@@ -3,7 +3,7 @@ import os
 from django.db import models
 from alatting import settings
 from utils.db.fields import BigAutoField
-from alatting_website.model.resource import Image
+from alatting_website.model.resource import Image, Music
 from PIL import Image as pilimage
 
 
@@ -45,3 +45,12 @@ class SystemBackground(models.Model):
         full_path = '{}{}'.format(settings.BASE_DIR, self.image.file.url)
         self.thumbnail_img = self._thumbnail_save(full_path)
         super(SystemBackground, self).save(*args, **kwargs)
+
+
+class SystemMusic(models.Model):
+    id = BigAutoField(primary_key=True)
+    music = models.ForeignKey(Music, related_name='system_music')
+    name = models.CharField(max_length=64)
+
+    def __str__(self):
+        return "{:d}".format(self.pk)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from poster.models import SystemImage, SystemBackground
+from poster.models import SystemImage, SystemBackground, SystemMusic
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -165,6 +165,11 @@ class PosterKeywordAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(SystemImage)
 class SystemImageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(SystemMusic)
+class SystemMusicAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
 
 
