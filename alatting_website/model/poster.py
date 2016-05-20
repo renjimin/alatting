@@ -14,6 +14,7 @@ from model_utils.managers import InheritanceManager
 from utils import file
 from alatting_website.model.statistics import (PosterStatistics,
                                                HistoryStatistics)
+from utils.file import read_template_file_content
 
 
 def get_default_lifetime_value():
@@ -240,6 +241,9 @@ class PosterPage(AbstractPageTemplate):
         if not os.path.exists(full_dir_path):
             os.makedirs(full_dir_path)
         return full_dir_path
+
+    def render_html_to_string(self):
+        return read_template_file_content(self.html.url)
 
 
 class PageText(models.Model):

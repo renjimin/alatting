@@ -1449,3 +1449,96 @@ to {
 	background-size: auto 100%;
 }
 
+.header-bar-title{
+    left: 30px; right: 36px;
+}
+/* footer button */
+
+.ico-text,
+.ico-text-space,
+.ico-copy,
+.ico-recycle,
+.ico-systemimg,
+.ico-systemimgs,
+.ico-input,
+.ico-music-link,
+.ico-music-upload {
+	display: inline-block;
+
+	width: 1em;
+	height: 1em;
+
+	vertical-align: top;
+
+	background: url(../images/sprites-subtools.png) no-repeat;
+	background-size: auto 2em;
+}
+.ico-text {
+	background-position: 0 0;
+}
+.ico-text-space {
+	background-position: -1em 0;
+}
+.ico-copy {
+	background-position: -2em 0;
+}
+.ico-recycle {
+	background-position: -3em 0;
+}
+.ico-systemimg {
+	background-position: -4em 0;
+}
+.ico-systemimgs {
+	background-position: -5em 0;
+}
+.ico-input {
+	background-position: -6em 0;
+}
+.ico-music-link {
+	background-position: -7em 0;
+}
+.open>.ico-music-upload {
+	background-position: -8em -1em;
+}
+.open>.ico-text {
+	background-position: 0 -1em;
+}
+.open>.ico-text-space {
+	background-position: -1em -1em;
+}
+.open>.ico-copy {
+	background-position: -2em -1em;
+}
+.open>.ico-recycle {
+	background-position: -3em -1em;
+}
+.open>.ico-systemimg {
+	background-position: -4em -1em;
+}
+.open>.ico-systemimgs {
+	background-position: -5em -1em;
+}
+.open > .ico-input {
+	background-position: -6em -1em;
+}
+.open > .ico-music-link {
+	background-position: -7em -1em;
+}
+.open > .ico-music-upload {
+	background-position: -8em -1em;
+}
+.ico-music-upload {
+	background-position: -8em 0;
+}
+/* template css */
+.yunye-template {
+	padding: 20px;
+
+    background-color: #fff;
+    position: relative;
+}
+
+.yunye-template > .content{
+	width: 100%;
+	height: 400px;
+}

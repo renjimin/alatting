@@ -30,19 +30,54 @@
 {% block base_head_title %}{{ poster.unique_name }}{% endblock %}
 
 {% block base_header_css %}
-    <link rel="stylesheet" href="{% static 'poster/css/show/base.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/common/video-js5.0.0.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/full-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/poster-bottom.css' %}">
+    <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
 {% endblock %}
 
 {% block base_header_js %}
+    <script>
+        var isCapturing = {% if object.capture %}true{% else %}false{% endif %};
+        var loginURL = "{% url 'account:login' %}?next={{request.path}}";
+        var ratingURL = "{% url 'api:rating-rate' poster_id=object.id %}";
+        var sharedURL = "{% url 'api:statistics-shared' poster_id=object.id  %}";
+        var contactedURL = "{% url 'api:statistics-contacted' poster_id=object.id  %}";
+        var likedURL = "{% url 'api:like-like' poster_id=object.id  %}";
+        var bookmarkURL =  "{% url 'api:favorite-bookmark' poster_id=object.id  %}";
+        var favoredURL = "{% url 'api:statistics-favored' poster_id=object.id  %}";
+        var subscribedURL = "{% url 'api:subscribe-subscribe' poster_id=object.id  %}";
+        var funURL = "{% url 'api:fun-fun' poster_id=object.id  %}";
+        var auth_user_id = {% firstof request.user.id "null"%};
+        var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
+        var createScreenShotURL =  "{% url 'website:posterCapture' object.id%}";
+    </script>
     <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     <script src="{% static 'libs/common/angular1.3.0.min.js' %}"></script>
     <script src="{% static 'libs/common/angular-route1.3.0.min.js' %}"></script>
     <script src="{% static 'libs/common/angular-touch1.2.15.min.js' %}"></script>
+    <script src="{% static 'libs/mobile/js/mobile-angular-ui.min.js' %}"></script>
+    <script src="{% static 'libs/mobile/js/tooltip.js' %}"></script>
+    <script src="{% static 'libs/mobile/js/popover.js' %}"></script>
+    <script src="{% static 'website/js/init.js' %}"></script>
+    <script src="{% static 'website/js/js.cookie-2.0.4.min.js' %}"></script>
+    <script src="{% static 'website/js/poster.js' %}"></script>
 {% endblock %}
 
 {% block base_header_extra %}
     <style>
+        {{ index_page.temp_css|safe }}
 
+        .yunye-template{
+            padding: 0;
+            overflow: hidden;
+        }
+        .navbar{
+            margin-bottom: 0;
+            min-height: auto;
+        }
     </style>
 {% endblock %}
 
@@ -52,20 +87,24 @@
 
 {% block base_body_inner %}
     {% include "poster/show/header.html" %}
-    {{ index_page.html }}
+    {{ index_page.temp_html|safe }}
 {% endblock %}
-
-
-
-
-
-
-
-
 
 {% block base_body_footer %}
+    {% include 'website/poster_bottom.html' %}
 {% endblock %}
 {% block base_footer_js %}
+    <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
+    <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
+    <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
+    <script src="{% static 'libs/common/video5.0.0.js' %}"></script>
+    <script src="{% static 'libs/video/video.js' %}"></script>
+    <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
+    <script src="{% static 'website/js/menu.js' %}"></script>
+    <script src="{% static 'website/js/poster-header.js' %}"></script>
+    <script src="{% static 'website/js/full-slider.js' %}"></script>
+    <script src="{% static 'website/js/jquery.magnific-popup.js' %}"></script>
+    <script src="{% static 'website/js/image_slider_init.js' %}"></script>
 {% endblock %}
 {% block base_foot_mask %}
 {% endblock %}
