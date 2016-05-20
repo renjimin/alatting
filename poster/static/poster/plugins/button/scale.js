@@ -1,3 +1,4 @@
+var scaleIndex = 20;
 var scale = function(box,options){
     var defaults = {
         'box':'.cnd-element',
@@ -91,8 +92,9 @@ var scale = function(box,options){
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
             $('.cnd-element').removeClass('active');
-            s.o.addClass('active');
+            s.o.addClass('active').css('z-index',scaleIndex++);
             $(e.currentTarget).addClass('drag-active');
+
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
