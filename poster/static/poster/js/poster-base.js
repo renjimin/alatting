@@ -23,7 +23,7 @@ $(function () {
         dynamicClass: 'clock'
     });
     $('.bar-header .title').click(function(){
-      $('#text-model').animate({bottom: '0px'}, 200);
+      $('#text-model').fadeIn(200);
       $(".bar-header .title p").tEditor({
           textDelete: false,
           textCopy: false,
@@ -31,8 +31,8 @@ $(function () {
       });
     });
     $('.header-info').click(function(){
-      $('#text-model').animate({bottom: '0px'}, 200);
-      $(".header-info .desc span").tEditor({
+      $('#text-model').fadeIn(200);
+      $("#short_description").tEditor({
           textDelete: false,
           textCopy: false,
           pluginType: 'other'
@@ -48,7 +48,7 @@ $(function () {
                     if (!$(".header-logo h2")[0]) {
                         $('.header-logo').empty().append('<h2></h2>');
                     }
-                    $('#text-model').animate({bottom: '0px'}, 200);
+                    $('#text-model').fadeIn(200);
                     $(".header-logo h2").tEditor({
                         textDelete: false,
                         textCopy: false,
@@ -314,7 +314,7 @@ $(function () {
 
     $(document).on("clsdp", function () {
         $("#colorBox").hide();
-        $('#text-model').animate({bottom: '-265px'}, 200);
+        $('#text-model').fadeOut(200);
 //        $("#teditor").hide();
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
         $('.cnd-element').removeClass('active');
@@ -361,7 +361,7 @@ $(function () {
         if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
         //简述
         if(g.short_description)$("#short_description").html(g.short_description);
-        if(storageAPI.getCss("short_description"))$("#short_description").attr("style",storageAPI.getCss("short_description"));
+        if(storageAPI.getCss("short_description"))$("#short_description").css(storageAPI.getCss("short_description"));
         //logo
         if(storageAPI.getHead('logo_title'))$('.header-logo').empty().append(storageAPI.getHead('logo_title'));
         if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
