@@ -15,18 +15,29 @@ $(function(){
         $('#text-model').animate({bottom:'-'+height+'px'},200);
     });
 
+
     fullcontainer.on('click','.text-element',function(e){
         e.stopPropagation();
+        var ths = $(this);
         $('.text-element').removeClass('text-element-act').css('z-index','100');
-        $(this).addClass('text-element-act').css('z-index','110');
-//        $(this).children('.el-editor').show();
-//        var bot = parseInt($('#text-model').css('bottom'));
-//        if(bot<0){
-//            $('#text-model').animate({bottom:'0px'},200);
-//        }
-        $(this).tEditor({});
-        $(this).domRotate({ebox:fullcontainer});
+        ths.addClass('text-element-act').css('z-index','110');
+        ths.tEditor({});
+        ths.domRotate({ebox:fullcontainer});
     });
+    /*
+    var hidtime = 3;
+    function hideAct(obj){
+        setTimeout(function(){
+            hidtime--;
+            if(hidtime<=0){
+                obj.removeClass('text-element-act');
+                $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+            }else{
+                hideAct(obj);
+            }
+        },1000);
+    }
+    */
 
     fullcontainer.on('click','.el-editor',function(e){
         e.stopPropagation();
