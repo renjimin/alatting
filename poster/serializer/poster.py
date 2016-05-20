@@ -1,7 +1,7 @@
 # coding=utf-8
 from rest_framework import serializers
 from alatting_website.model.poster import Poster, PosterPage
-from poster.models import SystemImage
+from poster.models import SystemImage, SystemMusic
 from poster.serializer.resource import CategorySerializer, ImageSerializer, \
     AddressSerializer, CategoryKeywordSerializer, TemplateSerializer
 
@@ -81,7 +81,19 @@ class SystemImageListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SystemImage
-        fields = ('image', 'name', 'image_url')
+        fields = ('image', 'name', 'image_url', 'text')
+
+
+class SystemMusicListSerializer(serializers.ModelSerializer):
+    music_url = serializers.SerializerMethodField()
+
+    def get_music_url(self, obj):
+        print(obj.music.file.url)
+        return obj.music.file.url if obj.music else ''
+
+    class Meta:
+        model = SystemMusic
+        fields = ('music', 'name', 'music_url')
 
 
 class SystemBackgroundListSerializer(serializers.ModelSerializer):

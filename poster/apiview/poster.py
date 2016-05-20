@@ -15,12 +15,12 @@ from alatting import settings
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.model.resource import Image
 from alatting_website.models import CategoryKeyword, Template
-from poster.models import SystemImage, SystemBackground
+from poster.models import SystemImage, SystemBackground, SystemMusic
 from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
-    PosterSaveSerializer)
+    PosterSaveSerializer, SystemMusicListSerializer)
 from poster.serializer.resource import AddressSerializer
 from utils.file import handle_uploaded_file, get_image_path, save_file, \
     read_template_file_content
@@ -221,6 +221,12 @@ class SystemBackgroundListView(ListAPIView):
     queryset = SystemBackground.objects.all()
 
 
+class SystemMusicListView(ListAPIView):
+    model = SystemMusic
+    serializer_class = SystemMusicListSerializer
+    queryset = SystemMusic.objects.all()
+
+
 class PosterSaveContentMixin(object):
     """
     保存编辑修改的海报内容
@@ -258,11 +264,12 @@ class PosterSaveContentMixin(object):
                 address.city = head_json[k]['city']
                 address.province = head_json[k]['province']
                 address.save()
-            # if k == "lifetime":  # 设置生存期结构体
-            #     for l, lv in head_json[k].items():
-            #         setattr(instance, l, lv)
-            #         if l == 'lifetime_value':
-            #             setattr(instance, l, json.dumps(lv))
+            if k == "lifetime":  # 设置生存期结构体
+                print('{}_{}'.format(k, v))
+                # for l, lv in head_json[k].items():
+                #     setattr(instance, l, lv)
+                #     if l == 'lifetime_value':
+                #         setattr(instance, l, json.dumps(lv))
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
                 for ck in head_json[k]:  # 一个个添加关键词

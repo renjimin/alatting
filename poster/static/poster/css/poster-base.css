@@ -1210,7 +1210,7 @@ to {
 
 #dp {
 	position: absolute;
-	z-index: 5000;
+	z-index: 2999;
 	display: block;
 	visibility: hidden;
 	width: 100%;
@@ -1231,10 +1231,10 @@ to {
 #dp li {
 	display: block;
 	overflow: hidden;
-	height: 50px;
+	height: 40px;
 	border-bottom: 1px solid #fff;
-	font-size: 24px;
-	line-height: 24px;
+	font-size: 16px;
+	line-height: 16px;
 }
 #dp li:last-child {
 	border-bottom: none;
@@ -1242,13 +1242,13 @@ to {
 #dp i {
 	float: left;
 
-	margin: 13px;
+	margin: 12px;
 
-	line-height: 13px;
+	line-height: 12px;
 }
 #dp span {
 	position: absolute;
-	left: 50px;
+	left: 40px;
 
 	width: 100%;
 	padding-left: 5px;
@@ -1257,8 +1257,8 @@ to {
 
 	background: #f0f0f0;
 
-	font-size: 18px;
-	line-height: 49px;
+	font-size: 15px;
+	line-height: 40px;
 }
 #dp span input[type="text"] {
 	width: 100%;

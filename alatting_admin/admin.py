@@ -1,5 +1,5 @@
 from django.contrib import admin
-from poster.models import SystemImage, SystemBackground
+from poster.models import SystemImage, SystemBackground, SystemMusic
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -11,7 +11,7 @@ from alatting_website.models import (
     BusinessCard, PosterMoreLink,
     CategoryKeyword)
 from survey.models import (
-    Questionnaire, QuestionSet, Question, Choice)
+    Questionnaire, QuestionSet, Question, Choice, Input)
 
 
 class AlattingAdminModelMixin(object):
@@ -168,6 +168,11 @@ class SystemImageAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
 
 
+@admin.register(SystemMusic)
+class SystemMusicAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
 @admin.register(SystemBackground)
 class SystemBackgroundAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
@@ -190,4 +195,9 @@ class QuestionAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(Choice)
 class ChoiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Input)
+class Inputdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
