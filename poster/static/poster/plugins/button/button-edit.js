@@ -360,19 +360,28 @@ var deleteButton = function(){
 
 
 $(function(){
-    $('#systemimg-model ul').click(function(event){
+    /*$('#systemimg-model ul').click(function(event){
         event.stopPropagation();
+        var _this = $(this);
         $('#systemimg-model').removeClass('open');
         var eleobj = $('<div class="element systemimg"></div>');
         var current = $(event.target);
-        if(event.target.tagName != 'IMG' && event.target.tagName != 'img'){
-            current = $(event.target).find('img');
-        }
+        console.log(current.tagName);
         eleobj.css({'width':current.width(),'height':current.height()});
         eleobj.append(current);
         addSystemimg(eleobj);
-    });
+    });*/
+
 })
+var selectSysImg = function(obj){
+    $('#systemimg-model').removeClass('open');
+    var eleobj = $('<div class="element systemimg"></div>');
+    eleobj.css({'width':$(obj).find('svg').width(),'height':$(obj).find('svg').height()});
+    eleobj.append($(obj).find('svg'));
+    addSystemimg(eleobj);
+
+}
+
 var openSystemimg = function(){
     var e = window.event || event;
     e.stopPropagation();
@@ -393,7 +402,7 @@ var openSystemimg = function(){
                 var con = $('#systemimg-model .systemimg-list ul');
                 con.empty();
                 for(i=0;i<data.length;i++){
-                    var li = '<li><img src="'+data[i].image_url+'" /></li>';
+                    var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
                     con.append(li);
                 }
 
