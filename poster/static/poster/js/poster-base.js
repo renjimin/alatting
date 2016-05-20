@@ -318,6 +318,7 @@ $(function () {
 //        $("#teditor").hide();
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
         $('.cnd-element').removeClass('active');
+        $(".music-link-layout-wrap").remove();
     });
 
     $('body').on('click', function (event) {
