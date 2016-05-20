@@ -45,13 +45,18 @@
             };
 
             return this.each(function(){
-                if($(".music-link-layout-wrap")){
-                        $(".music-link-layout-wrap").remove();
-                }
                 /*if ($(".audiolink")) {
                         $(".audiolink").remove();
                 };*/
-                $("body").append(layoutTmpl);
+                var le =$('body').children('.music-link-layout-wrap').length;
+                if( le== 0){
+                    console.log(le);
+                    $("body").append($(layoutTmpl));
+                    $('.music-link-layout-wrap').show();
+                }else{
+                    console.log('212');
+                    $('.music-link-layout-wrap').toggle();
+                }
                 var $this = $(this);
                 var $btn = $("#musicLinkBtn");
 
