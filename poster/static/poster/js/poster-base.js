@@ -86,10 +86,10 @@ $(function () {
                 callback: function () {
                     $('.header').bgselect({}, function (ths, img) {
                         ths.css('background-image', 'url(' + img + ')');
-                        ths.css('background-size', 'cover');
+                        ths.css('background-size', '100% 100%');
                         storageAPI.setCss(".header", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
                     })
@@ -112,10 +112,10 @@ $(function () {
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
                         $('.header').css('background-image', 'url(' + data.file + ')');
-                        $('.header').css('background-size', 'cover');
+                        $('.header').css('background-size', '100% 100%');
                         storageAPI.setCss(".header", {
                             'background-image': 'url(' + data.file + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                     });
                 }
@@ -138,10 +138,10 @@ $(function () {
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
                         $('.yunye-template').css('background-image', 'url(' + img + ')');
-                        $('.yunye-template').css('background-size', 'cover');
+                        $('.yunye-template').css('background-size', '100% 100%');
                         storageAPI.setCss(".yunye-template", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
                     })
@@ -163,11 +163,12 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
+                        console.log(22)
                         $('.yunye-template').css('background-image', 'url(' + data.file + ')');
-                        $('.yunye-template').css('background-size', 'cover');
+                        $('.yunye-template').css('background-size', '100% 100%');
                         storageAPI.setCss(".yunye-template", {
                             'background-image': 'url(' + data.file + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                     });
                 }
@@ -189,14 +190,14 @@ $(function () {
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
                         $('.bar-header,.bar-footer').css('background-image', 'url(' + img + ')');
-                        $('.bar-header,.bar-footer').css('background-size', 'cover');
+                        $('.bar-header,.bar-footer').css('background-size', '100% 100%');
                         storageAPI.setCss(".bar-header", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".bar-footer", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
                     })
@@ -220,11 +221,11 @@ $(function () {
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
                         $('body').css('background-image', 'url(' + img + ')');
-                        $('body').css('background-size', 'cover');
+                        $('body').css('background-size', '100% 100%');
                         $('.yunye-template,.header').css('background-image', 'url()')
                         storageAPI.setCss("body", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         $('.header,.yunye-template,.bar-header,.bar-footer').css('background', 'none');
                         storageAPI.setCss(".header", {'background': 'none'});
@@ -277,14 +278,14 @@ $(function () {
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
                         $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + img + ')');
-                        $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                        $('.qrcode .btn,.abutton-group li a').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode .btn", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".abutton-group li a", {
                             'background-image': 'url(' + img + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
                     })
@@ -297,14 +298,14 @@ $(function () {
                     $.fn.uploads.showDialog(function (data) {
                         console.log(data)
                         $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
-                        $('.qrcode .btn,.abutton-group li a').css('background-size', 'cover');
+                        $('.qrcode .btn,.abutton-group li a').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode .btn", {
                             'background-image': 'url(' + data.file + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".abutton-group li a", {
                             'background-image': 'url(' + data.file + ')',
-                            'background-size': 'cover'
+                            'background-size': '100% 100%'
                         });
                     });
                 }
