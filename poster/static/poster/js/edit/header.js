@@ -105,7 +105,7 @@ $(function () {
         }
         if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",parseStyle($('#logo_title').attr("style")));
         storageAPI.setHead("unique_name", $('#logo_title').html());
-        if($('#short_description').attr("style"))storageAPI.setCss("logo_title",parseStyle($('#short_description').attr("style")));
+        if($('#short_description').attr("style"))storageAPI.setCss("short_description",parseStyle($('#short_description').attr("style")));
         storageAPI.setHead("short_description", $('#short_description').html());
         //日历周期性
         var lifetime = yunyeEditorGlobal.lifetime;

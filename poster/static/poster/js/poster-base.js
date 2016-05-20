@@ -358,7 +358,6 @@ $(function () {
         var g = yunyeEditorGlobal;
         //标题
         if(g.unique_name)$("#logo_title").html(g.unique_name);
-        console.log(storageAPI.getCss("logo_title"));
         if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
         //简述
         if(g.short_description)$("#short_description").html(g.short_description);
