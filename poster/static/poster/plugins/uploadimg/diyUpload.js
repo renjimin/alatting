@@ -94,7 +94,7 @@
 				var $fileBox = $('#fileBox_'+file.id);
 				var $diyBar = $fileBox.find('.diyBar');
 				showDiyProgress( 0, $diyBar , '上传失败!' );
-				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason
+				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
 				console.log('error')
 				if ( errorCallBack ) {
 					errorCallBack( err );
