@@ -6,7 +6,9 @@ class AnswerException(Exception):
 QuestionChoices = [
 	('choice', 'A list of choices to choose from'),
 	('choice-input', 'A list of choices with input text to choose from'),
-	('checkbox', 'A list of checkboxes to choose from')
+	('checkbox', 'A list of checkboxes to choose from'),
+	('text', 'simple text input'),
+	('textarea', 'textarea input')
 ]
 #choice
 def question_choice(request, question):
@@ -62,6 +64,17 @@ def process_checkbox(question, answer):
 	for key, value in answer.items():
 		multiple.append(value)
 	return multiple
+#text, textarea
+def question_text(request, question):
+	return []
+	
+def process_text(question, answer):
+	if not answer:
+		raise AnswerException('请输入文本框')
+	elif 'ANSWER' not in answer:
+		raise AnswerException('请输入文本框')
+	opt = answer['ANSWER']
+	return opt
 
 #for processing questions: supply additional information to the templates
 QuestionProcessors = {}
@@ -77,6 +90,9 @@ Processors['choice-input'] = process_choice_input
 #checkbox
 QuestionProcessors['checkbox'] = question_checkbox
 Processors['checkbox'] = process_checkbox
-
-
+#text, textarea
+QuestionProcessors['text'] = question_text
+Processors['text'] = process_text
+QuestionProcessors['textarea'] = question_text
+Processors['textarea'] = process_text
 
