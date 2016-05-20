@@ -60,6 +60,12 @@ def get_image_path(instance, filename):
     return get_file_path(instance, field_name, path, filename)
 
 
+def get_snapshot_path(instance, filename):
+    path = 'images/snapshot/%Y/%m/%d'
+    field_name = 'snapshot'
+    return get_file_path(instance, field_name, path, filename)
+
+
 def get_video_path(instance, filename):
     path = 'videos/%Y/%m/%d'
     field_name = 'file'
