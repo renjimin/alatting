@@ -81,7 +81,7 @@ $(function () {
         arrowOffset: 80,
         list: [
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "系统背景",
                 callback: function () {
                     $('.header').bgselect({}, function (ths, img) {
@@ -133,7 +133,7 @@ $(function () {
         orientation: 1,
         list: [
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "系统背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -184,7 +184,7 @@ $(function () {
         orientation: 0,
         list: [
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "顶/底背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -215,7 +215,7 @@ $(function () {
                 }
             },
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "主体背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
@@ -272,7 +272,7 @@ $(function () {
                 }
             },
             {
-                icon: "icon ico-edit-pic",
+                icon: "icon ico-system-pic",
                 text: "背景图片",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
