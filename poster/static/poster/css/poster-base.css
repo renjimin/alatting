@@ -134,6 +134,7 @@ html {
 .ico-edit-text,
 .ico-edit-pic,
 .ico-edit-button,
+.ico-system-pic,
 .ico-edit-music {
 	display: inline-block;
 
@@ -143,7 +144,10 @@ html {
 	background: url(../../poster/images/edit-tool-text.png) no-repeat;
 	background-size: auto 100%;
 }
-.ico-edit-pic {
+.ico-system-pic {
+	background-image: url(../../poster/images/system-tool-pic.png);
+}
+.ico-edit-pic{
 	background-image: url(../../poster/images/edit-tool-pic.png);
 }
 .ico-edit-button {

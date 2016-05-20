@@ -150,6 +150,17 @@
 							str += '<li id="'+ (_option.id+'_'+(len - i -1)) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>'
 						}
 						$("#dp #"+_option.id).empty().append(str);
+						for(var i in _option.list){
+							$("#dp #" + _option.id+'_'+i ).click(function(event){
+								var l = event.currentTarget.id.split('_');
+								var cb = _option.list[l[l.length-1]].callback;
+								if(cb){
+									$('#dp').removeClass('open');
+									$('#dp ul').css("visibility","hidden");
+									cb(_this);
+								}
+							});
+						}
 					}else{
 						$('#dp .arrow').css('top',-30).attr('class', 'arrow up')
 					}
