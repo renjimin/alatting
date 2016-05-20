@@ -4,6 +4,12 @@
     }
     var musicuploadButton = function(){
     	$.fn.uploads.showDialog(function(data){
+               var filename = data.file.split(".")[1];
+               if (filename !="mp3") {
+                    yyAlert("格式不正确");
+                    return false;
+               };
+               console.log(filename)
 	$('.audiolink').empty().append('<audio autoplay loop="loop"></audio>');
 	$('.audiolink audio').attr("src",data.file);
 	yyAlert("上传音乐成功");

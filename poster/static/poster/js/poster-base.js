@@ -70,7 +70,9 @@ $(function () {
                 }
             },
             {icon: "glyphicon glyphicon-camera", text: "照相"},
-            {icon: "glyphicon glyphicon-link", text: "图片链接"}],
+            {icon: "glyphicon glyphicon-link", text: "图片链接",callback:function(obj){
+                obj.resourceLink();
+            }}],
         followMouse: true
     });
     $('.mask').registerPopUp({
