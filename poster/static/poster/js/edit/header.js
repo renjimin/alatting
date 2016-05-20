@@ -93,8 +93,10 @@ $(function () {
                 id: $('.header-logo img').attr("data-src-id")
             });
         }
-        storageAPI.setHead("title", $('.title.header-bar-title').html());
-        storageAPI.setHead("desc", $('.header-info .desc').html());
+        if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",$('#logo_title').attr("style"));
+        storageAPI.setHead("unique_name", $('#logo_title').html());
+        if($('#short_description').attr("style"))storageAPI.setCss("short_description",$('#short_description').attr("style"));
+        storageAPI.setHead("short_description", $('#short_description').html());
         //日历周期性
         var lifetime = yunyeEditorGlobal.lifetime;
         if(lifetime.lifetime_type == "weekly" ){
@@ -112,7 +114,7 @@ $(function () {
 
     $(".btn.btn-save").on("click", function () {
         saveData();
-        yunyeEditorGlobal.lifetime = {
+        /*yunyeEditorGlobal.lifetime = {
             lifetime_type : "weekly",
             lifetime_timezone : "Asia/Shanghai",
             lifetime_value : {
@@ -124,11 +126,12 @@ $(function () {
                 "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
                 "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
             }
-        }
+        }*/
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
         );
+        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -136,7 +139,6 @@ $(function () {
             url: url,
             success: function (data) {
                 yyAlert("保存成功");
-                console.log(data)
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
@@ -165,6 +167,7 @@ $(function () {
         var url = yunyeEditorGlobal.API.publish.format(
             yunyeEditorGlobal.posterId
         );
+        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -172,7 +175,6 @@ $(function () {
             url: url,
             success: function (data) {
                 yyAlert("发布成功");
-                console.log(data);
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
