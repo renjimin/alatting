@@ -6,22 +6,38 @@
     height: 265px;
     width: 100%;
 }
-
 .text-element{
     position: absolute;
     z-index: 100;
-    max-width: 200px;
-    height: auto;
-    padding: 15px;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 40px;
     text-align: center;
     border: 2px dashed transparent;
-    -ms-word-break: break-all;
-    word-break: break-all;
+    -ms-word-break:keep-all;
+    word-break: keep-all;
+    white-space: nowrap;
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.el-content{
+    padding: 15px;
+}
+.el-editor{
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    position: absolute;
+    left: -10px;
+    text-align: center;
+    bottom: -10px;
+    background: #03ad52;
+    color: #fff;
+    display: none;
+    padding: 2px;
 }
 .text-element-act{
-    border-color: #1a0605;
+    border-color: #03ad52;
+}
+.text-element-act .el-editor{
+    display: block;
 }
 #text-slide-down{
     height: 30px;

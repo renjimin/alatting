@@ -81,7 +81,7 @@ class SystemImageListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = SystemImage
-        fields = ('image', 'name', 'image_url')
+        fields = ('image', 'name', 'image_url', 'text')
 
 
 class SystemMusicListSerializer(serializers.ModelSerializer):

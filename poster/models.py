@@ -9,8 +9,13 @@ from PIL import Image as pilimage
 
 class SystemImage(models.Model):
     id = BigAutoField(primary_key=True)
-    image = models.ForeignKey(Image, related_name='system_images')
+    image = models.ForeignKey(Image, related_name='system_images', blank=True, null=True)
     name = models.CharField(max_length=64, unique=True)
+    text = models.TextField(
+        default='',
+        blank=True,
+        help_text=u'保存svg图片格式'
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)

@@ -42,9 +42,13 @@
                 <div class="qs-title">{{qs_title}}</div>
                 <div class="qs-list">
                     <div class="step">
-                        <div class="qs-list-section">
-                            {% for question, qdict in qlist %}
-                            {% with errors|dictget:question.sortid as error %}
+                        {% for question, qdict in qlist %}
+                        {% with errors|dictget:question.sortid as error %}
+                            <div class="qs-list-section 
+                            {% if forloop.last or qlist.count == 1 %}
+                            {% else %}
+                                qs-list-section-pre
+                            {% endif %}">
                                 <div class="qs-list-title"> 
                                     {{question.text}}
                                 </div>
@@ -52,9 +56,9 @@
                                     <div class="error">{{error}}</div>
                                 {% endif %}
                                 {% include qdict.template %}
-                            {% endwith %}
-                            {% endfor %}
-                        </div>
+                            </div>
+                        {% endwith %}
+                        {% endfor %}
                     </div>
                     <div class="qs-footer">
                         <div>

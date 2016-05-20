@@ -12,8 +12,9 @@
     <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
     {% block base_header_css %}
     {% endblock %}
+
+    <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     {% block base_header_js %}
-        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
         <script src="{% static 'libs/common/jquery.base64.js' %}"></script>
         <script src="{% static 'libs/common/jquery.storageapi.min.js' %}"></script>
         <script src="{% static 'libs/common/jquery.tmpl.min.js' %}"></script>

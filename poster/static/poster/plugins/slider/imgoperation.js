@@ -85,6 +85,7 @@
 
                  i.css('top',endY+'px');
                  i.css('left',endX+'px');
+                 i.css({'transition':'all .2s ease-in'});
 
             }
 
