@@ -357,11 +357,18 @@ $(function () {
     var initData = function () {
         var g = yunyeEditorGlobal;
         //标题
-        //$('.edit-bar-header .title p').html(g.unique_name);
-        if(g.title)$('.edit-bar-header .title p').empty().append(g.title);
+        if(g.unique_name)$("#logo_title").html(g.unique_name);
+        if(storageAPI.getCss("logo_title"))$("#logo_title").attr("style",storageAPI.getCss("logo_title"));
         //简述
-        //$('.header-info .desc span').html(g.short_description);
-        if(g.desc)$('.header-info .desc').empty().append(g.desc);
+        if(g.short_description)$("#short_description").html(g.short_description);
+        if(storageAPI.getCss("short_description"))$("#short_description").attr("style",storageAPI.getCss("short_description"));
+        //logo
+        if(storageAPI.getHead('logo_title')){
+            $('.header-logo').empty().append(storageAPI.getHead('logo_title'));
+        }
+        if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url){
+            $('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
+        }
         //电话手机邮箱
         var $phone = $('#dpw_phone');
         $phone.find('input:eq(0)').val(g.phone);
@@ -388,10 +395,6 @@ $(function () {
             $(".weekly").hide();
         }
         
-        //logo
-        if(storageAPI.getHead('logo_title')){
-            $('.header-logo').empty().append(storageAPI.getHead('logo_title'));
-        }
         /**读取缓存背景图片*/
         if (storageAPI.getCss(".header")) {
             $('.header').css(storageAPI.getCss(".header"));

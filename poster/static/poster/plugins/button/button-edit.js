@@ -371,7 +371,20 @@ $(function(){
         eleobj.append(current);
         addSystemimg(eleobj);
     });*/
+    /*页面第一次加载就开始加载系统图案*/
+    $.ajax({
+        type: 'GET',
+        url: 'http://www.yunye123.com:8000/api/v1/poster/system/images',
+        success: function(data){
+            var con = $('#systemimg-model .systemimg-list ul');
+            con.empty();
+            for(i=0;i<data.length;i++){
+                var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
+                con.append(li);
+            }
 
+        },
+    });
 })
 var selectSysImg = function(obj){
     $('#systemimg-model').removeClass('open');
@@ -395,19 +408,7 @@ var openSystemimg = function(){
         $('#systemimg-model').removeClass('open');
         ele.removeClass('open');
     }else{
-        $.ajax({
-            type: 'GET',
-            url: 'http://192.168.118.130:8000/api/v1/poster/system/images',
-            success: function(data){
-                var con = $('#systemimg-model .systemimg-list ul');
-                con.empty();
-                for(i=0;i<data.length;i++){
-                    var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
-                    con.append(li);
-                }
 
-            },
-        });
         $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
         ele.addClass('open');
     }
