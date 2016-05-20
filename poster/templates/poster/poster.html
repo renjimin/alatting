@@ -29,12 +29,39 @@
 
 {% block base_head_title %}{{ poster.unique_name }}{% endblock %}
 
+{% block base_header_css %}
+    <link rel="stylesheet" href="{% static 'poster/css/show/base.css' %}">
+{% endblock %}
+
 {% block base_header_js %}
     <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     <script src="{% static 'libs/common/angular1.3.0.min.js' %}"></script>
     <script src="{% static 'libs/common/angular-route1.3.0.min.js' %}"></script>
     <script src="{% static 'libs/common/angular-touch1.2.15.min.js' %}"></script>
 {% endblock %}
+
+{% block base_header_extra %}
+    <style>
+
+    </style>
+{% endblock %}
+
+{% block base_body_header %}
+    {% include "poster/show/header-bar.html" %}
+{% endblock %}
+
+{% block base_body_inner %}
+    {% include "poster/show/header.html" %}
+    {{ index_page.html }}
+{% endblock %}
+
+
+
+
+
+
+
+
 
 {% block base_body_footer %}
 {% endblock %}
