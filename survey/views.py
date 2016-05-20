@@ -119,6 +119,7 @@ class QuestionnaireView(View):
 		posted_ids = []
 		for item in items:
 			key, value = item[0], item[1]
+
 			if key.startswith('question_'):
 				qssortid = key.split("_", 3)
 			question = Question.objects.filter(sortid=qssortid[1], 
@@ -132,8 +133,9 @@ class QuestionnaireView(View):
 				ans = extra.get(question)
 			if len(qssortid)==2:
 				ans['ANSWER'] = value
-			elif len(qssortid)==4:
-				ans[qssortid[3]] = value
+			elif len(qssortid)==4 and qssortid[3]=='comment':
+				if value:
+					ans['COMMENT'] = value
 			extra[question] = ans
 		#generate none for each empty quesiton, and place in extra
 		expected = questionset.questions()

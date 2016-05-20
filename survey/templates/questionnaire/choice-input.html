@@ -3,7 +3,7 @@
     	{% if choice.inps%}
     		<label class="radio-label"><input name="question_{{ question.sortid }}" type="radio" value="_entry_">{{choice.text}}</label>
 	        {% for inp in choice.inps %}
-				<label class="radio-text-label"><input name="question_{{ question.sortid }}_{{ choice_sortid}}_comment" type="text" class="form-control" placeholder="{{ inp.placeholder }}"></label>
+				<label class="radio-text-label"><input name="question_{{ question.sortid }}_{{ choice.sortid}}_comment" type="text" class="form-control" placeholder="{{ inp.placeholder }}"></label>
 	        {% endfor %}
     	{% else %}
     		<label class="radio-label"><input name="question_{{ question.sortid }}" type="radio" value="{{choice.value}}">{{choice.text}}</label>
