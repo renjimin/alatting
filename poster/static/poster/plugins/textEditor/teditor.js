@@ -2,7 +2,7 @@
 $(function(){
     $('#text-element-act').tEditor({});
 
-    $('#share-toggle').on('touchend',function(e){
+    $('#share-toggle').on('click',function(e){
         e.stopPropagation();
         var cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-editor"></div></div>');
         fullcontainer.append(cnd);

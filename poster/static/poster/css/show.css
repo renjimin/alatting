@@ -1,0 +1,11 @@
+.yunye-template{
+    padding: 0;
+    overflow: hidden;
+}
+.navbar{
+    margin-bottom: 0;
+    min-height: auto;
+}
+.edit-bar-header .title {
+    margin: 0
+}

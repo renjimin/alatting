@@ -11,7 +11,7 @@ $(function () {
         if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
         //简述
         if(g.short_description)$("#short_description").html(g.short_description);
-        if(storageAPI.getCss("short_description"))$("#short_description").css(storageAPI.getCss("short_description"));
+        if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
         //logo
         if(storageAPI.getHead('logo_title'))$('.header-logo').empty().append(storageAPI.getHead('logo_title'));
         if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
@@ -123,6 +123,7 @@ $(function () {
           textCopy: false,
           pluginType: 'other'
       });
+      $('#ted-edit').trigger('click');
     });
     $('.header-info').click(function(){
       $('#text-model').animate({'bottom':'0px'},200);
@@ -131,6 +132,7 @@ $(function () {
           textCopy: false,
           pluginType: 'other'
       });
+      $('#ted-edit').trigger('click');
     });
     $('.header-logo').registerPopUp({
         id: 'dpw_menu',
@@ -148,6 +150,7 @@ $(function () {
                         textCopy: false,
                         pluginType: 'other'
                     });
+                    $('#ted-edit').trigger('click');
                 }
             },
             {
@@ -156,7 +159,7 @@ $(function () {
                 callback: function () {
                     $('.header-logo').empty().append('<img></img>');
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }                        
@@ -211,7 +214,7 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }
@@ -267,7 +270,7 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }
@@ -410,7 +413,7 @@ $(function () {
                 text: " 上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }
@@ -471,99 +474,6 @@ $(function () {
         $('#dp').removeClass('open');
         $('#dp ul').css("visibility", "hidden");
     });
-
-    //数据初始化
-    var storageAPI = $.fn.yunyeStorage;
-    var pageHeadData = storageAPI.getPosterHeadData();
-
-    var initData = function () {
-        var g = yunyeEditorGlobal;
-        //标题
-        if(g.unique_name)$("#logo_title").html(g.unique_name);
-        if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
-        //简述
-        if(g.short_description)$("#short_description").html(g.short_description);
-        if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
-        //logo
-        if(storageAPI.getHead('logo_title'))$('.header-logo').empty().append(storageAPI.getHead('logo_title'));
-        if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
-        //电话手机邮箱
-        var $phone = $('#dpw_phone');
-        $phone.find('input:eq(0)').val(g.phone);
-        $phone.find('input:eq(1)').val(g.mobile);
-        $('#dpw_email').find('input').val(g.email);
-        //日历
-        if(yunyeEditorGlobal.lifetime.lifetime_type == "weekly"){
-            $(".calender").hide();
-            $(".weekly").show();
-            var inputs = $(".weekly input");
-            for (var i = 0; i < (inputs.length) / 2; i++) {
-                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                    info = yunyeEditorGlobal.lifetime.lifetime_value[weekName];
-                inputs.eq(i * 2).val(info.time_start);
-                inputs.eq(i * 2 + 1).val(info.time_end);
-                if (info.enabled) {
-                    $(".weekly td:eq(" + (i * 5 + 4) + ")").removeClass("off")
-                } else {
-                    $(".weekly td:eq(" + (i * 5 + 4) + ")").addClass("off")
-                }
-            }
-        }else{
-            $(".calender").show();
-            $(".weekly").hide();
-        }
-        
-        /**读取缓存背景图片*/
-        if (storageAPI.getCss(".header")) {
-            $('.header').css(storageAPI.getCss(".header"));
-        }
-        if (storageAPI.getCss(".yunye-template")) {
-            $('.yunye-template').css(storageAPI.getCss(".yunye-template"));
-        }
-        if (storageAPI.getCss(".bar-header")) {
-            $(".bar-header").css(storageAPI.getCss(".bar-header"));
-        }
-        if (storageAPI.getCss(".bar-footer")) {
-            $(".bar-footer").css(storageAPI.getCss(".bar-footer"));
-        }
-        if (storageAPI.getCss("body")) {
-            $("body").css(storageAPI.getCss("body"));
-        }
-        if (storageAPI.getCss(".qrcode .btn")) {
-            $(".qrcode .btn").css(storageAPI.getCss(".qrcode .btn"));
-        }
-        if (storageAPI.getCss(".abutton-group li a")) {
-            $(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
-        }
-
-        /*读取主体部分*/
-        if (storageAPI.getHtml()) {
-            $(".yunye-template").remove();
-            $(".container-fluid").append(storageAPI.getHtml());
-        }
-        $(".yunye-template .cnd-element").each(function () {
-            scale($(this));
-        });
-    };
-
-    if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
-        $.extend(yunyeEditorGlobal, pageHeadData);
-        //服务器暂时没传数据 (伪造数据)
-        if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
-                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-            }
-        }
-        initData();
-    }
 
     //数据绑定
     $('#dpw_title input').on('change', function (event) {

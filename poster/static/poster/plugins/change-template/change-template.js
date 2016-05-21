@@ -59,6 +59,7 @@
                 self.destroy();
                 //清理本地页面编辑缓存
                 $.fn.yunyeStorage.cleanPage();
+                window.onunload = function(){};
                 //显示遮罩
                 $.fn.yyTools.mask(1);
 
