@@ -391,9 +391,9 @@ $(function () {
                 text: "背景图片",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
-                        $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + img + ')');
-                        $('.qrcode .btn,.abutton-group li a').css('background-size', '100% 100%');
-                        storageAPI.setCss(".qrcode .btn", {
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-image', 'url(' + img + ')');
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-size', '100% 100%');
+                        storageAPI.setCss(".qrcode-inner .qrcode", {
                             'background-image': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
