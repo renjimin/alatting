@@ -320,6 +320,8 @@ $(function () {
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
         $('.cnd-element').removeClass('active');
         $(".music-link-layout-wrap").remove();
+        $('.dropdown-panel').removeClass('open');
+        $('.dropdown-toggle').removeClass('open');
     });
 
     $('body').on('click', function (event) {
