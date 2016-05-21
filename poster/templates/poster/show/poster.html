@@ -78,6 +78,12 @@
             margin-bottom: 0;
             min-height: auto;
         }
+        .bottom-container .bottom-menu{
+            background: none;
+        }
+        .edit-bar-header .title {
+            margin: 0
+        }
     </style>
 {% endblock %}
 
@@ -91,7 +97,7 @@
 {% endblock %}
 
 {% block base_body_footer %}
-    {% include 'website/poster_bottom.html' %}
+    {% include 'poster/show/footer.html' %}
 {% endblock %}
 {% block base_footer_js %}
     <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
