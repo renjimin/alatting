@@ -4,7 +4,7 @@ $(function(){
 
     $('#share-toggle').on('touchend',function(e){
         e.stopPropagation();
-        var cnd = $('<div class="cnd-element text-element"><div class="el-content">请修改文字</div><div class="el-editor"><span class="glyphicon glyphicon-pencil"></span></div></div>');
+        var cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-editor"></div></div>');
         fullcontainer.append(cnd);
         cnd.css({'top':fullcontainer.height()/2-cnd.height()/2+'px','left':fullcontainer.width()/2-cnd.width()/2+'px'});
     });
@@ -13,8 +13,7 @@ $(function(){
         e.stopPropagation();
         $('#text-model').animate({'bottom':'-300px'},200);
     });
-
-
+    
     fullcontainer.on('click','.text-element',function(e){
         e.stopPropagation();
         var ths = $(this);
@@ -38,6 +37,7 @@ $(function(){
     }
     */
 
+
     fullcontainer.on('click','.el-editor',function(e){
         e.stopPropagation();
         $(document).trigger("clsdp");
@@ -48,8 +48,6 @@ $(function(){
             $('#text-model').animate({'bottom':'-300px'},200);
         }
     });
-
-
 
     fullcontainer.on('dblclick','.text-element',function(e){
         e.stopPropagation();

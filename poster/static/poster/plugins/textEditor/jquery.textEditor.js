@@ -410,7 +410,7 @@
         function clearTransform($obj){
             $obj.css('transform','').removeData('botp rbotp midp dlength').removeClass('text-element-act');
             $obj.children('.el-editor').css('transform','');
-            $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
         }
 
     };
