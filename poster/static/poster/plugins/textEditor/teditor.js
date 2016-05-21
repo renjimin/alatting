@@ -7,7 +7,6 @@ $(function(){
         var cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-editor"></div></div>');
         fullcontainer.append(cnd);
         cnd.css({'top':fullcontainer.height()/2-cnd.height()/2+'px','left':fullcontainer.width()/2-cnd.width()/2+'px'});
-        console.log(fullcontainer);
     });
 
     $('#text-slide-down').on('click',function(e){
