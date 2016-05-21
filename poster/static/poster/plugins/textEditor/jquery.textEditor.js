@@ -271,12 +271,20 @@
                     if(item == 'wordspace'){
                         clearTransform($element);
                         var size = Math.floor(20*rate/100);
-                        $element.children('.el-content').css("letter-spacing", size+'px');
+                        if(option.pluginType == 'other'){
+                            $element.css("letter-spacing", size+'px');
+                        }else{
+                            $element.children('.el-content').css("letter-spacing", size+'px');
+                        }
                     }
                     if(item == 'lineheight'){
                         clearTransform($element);
                         var lh= 1+rate/100;
-                        $element.children('.el-content').css("line-height", lh+'em');
+                        if(option.pluginType == 'other'){
+                            $element.css("line-height", lh+'em');
+                        }else{
+                            $element.children('.el-content').css("line-height", lh+'em');
+                        }
                     }
                     if(item == 'opacity'){
                         rate = 100 - rate;
