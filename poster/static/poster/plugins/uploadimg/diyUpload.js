@@ -2,7 +2,7 @@
 *	jQuery文件上传插件,封装UI,上传处理操作采用Baidu WebUploader;
 */
 (function( $ ) {
-	var webUploader;
+	var webUploader,uploadfiles = {'success':[],'error':[]};
     $.fn.extend({
 		/*
 		*	上传方法 opt为参数配置;
@@ -38,6 +38,7 @@
 			$.each( getOption( '#'+$fileInputId ),function( key, value ){
 				opt[ key ] == undefined ? opt[ key ] = value : opt[ key ] = opt[ key ];
 			});
+
 
 			if ( opt.buttonText ) {
 				opt['pick']['label'] = opt.buttonText;
@@ -85,6 +86,7 @@
 				$diyBar.fadeOut( 1000 ,function(){
 					//$fileBox.children('.diySuccess').show();
 				});
+				uploadfiles['success'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( successCallBack ) {
 					successCallBack( response, file );
 				}
@@ -96,6 +98,7 @@
 				var $diyBar = $fileBox.find('.diyBar');
 				showDiyProgress( 0, $diyBar , '上传失败!' );
 				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
+				uploadfiles['error'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( errorCallBack ) {
 					errorCallBack( err );
 				}
@@ -204,7 +207,10 @@
 			$li.remove();
 		}
 		$("#slideImg"+file_id).remove();
-		container.imgslider();
+		if(container.find('.swiper-container').length > 0){
+			container.imgslider();
+		}
+
 	}
 
 	//创建文件操作div;
@@ -280,10 +286,10 @@
 		$parentFileBox.width( $width );
 
 		var $fileBox = $parentFileBox.find('#fileBox_'+file_id);
-
 		//绑定取消事件;
-		var $diyCancel = $fileBox.children('.diyCancel').one('click',function(){
+		var $diyCancel = $fileBox.children('.diyCancel').on('click',function(){
 			removeLi( $(this).parent('li'), file_id, webUploader ,sliderContainer);
+			console.log(uploadfiles.error.length)
 		});
 
 		if ( file.type.split("/")[0] != 'image' ) {
@@ -322,6 +328,17 @@
 			var s = $(this);
 			$(".upload-image-dialog").addClass('open');
 			$(".upload-image-dialog .parentFileBox .fileBoxUl li").hide();
+			for(i=0;i<uploadfiles.success.length;i++){
+				if(uploadfiles.success[i].sliderContainer.is(s)){
+					$('#fileBox_'+uploadfiles.success[i].file.id).show();
+				}
+			}
+			for(i=0;i<uploadfiles.error.length;i++){
+				if(uploadfiles.error[i].sliderContainer.is(s)){
+					$('#fileBox_'+uploadfiles.error[i].file.id).show();
+				}
+			}
+
 			if(s.find('.swiper-slide').length > 0){
 				s.find('.swiper-slide').each(function(){
 					var file_id = $(this).find('img').attr('data-id');
