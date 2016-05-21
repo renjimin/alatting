@@ -39,21 +39,11 @@
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="searCat">
+                        {% for category in categorys %}
                         <li>
-                            <a href="#">工作</a>
+                            <a href="#">{{ category.name }}</a>
                         </li>
-                        <li>
-                            <a href="#">商务</a>
-                        </li>
-                        <li>
-                            <a href="#">服务</a>
-                        </li>
-                        <li>
-                            <a href="#">产品</a>
-                        </li>
-                        <li>
-                            <a href="#">教育</a>
-                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
