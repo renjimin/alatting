@@ -69,22 +69,8 @@
 {% block base_header_extra %}
     <style>
         {{ index_page.temp_css|safe }}
-
-        .yunye-template{
-            padding: 0;
-            overflow: hidden;
-        }
-        .navbar{
-            margin-bottom: 0;
-            min-height: auto;
-        }
-        .bottom-container .bottom-menu{
-            background: none;
-        }
-        .edit-bar-header .title {
-            margin: 0
-        }
     </style>
+    <link rel="stylesheet" href="{% static 'poster/css/show.css' %}"/>
 {% endblock %}
 
 {% block base_body_header %}
