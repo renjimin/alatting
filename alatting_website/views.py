@@ -51,6 +51,7 @@ class IndexView(TemplateView):
         ctx['categorys'] = get_first_category_list()
         return ctx
 
+
 class IndexCategoryView(TemplateView):
     template_name = 'alatting_website/index-category.html'
 
@@ -84,6 +85,7 @@ class IndexCategoryView(TemplateView):
         ctx['posters'] = self.get_poster_list()
         ctx['categorys'] = get_first_category_list()
         return ctx
+
 
 class PosterView(DetailView):
     template_name = 'website/poster.html'
@@ -373,6 +375,7 @@ class TestView(TemplateView):
 class DemoView(TemplateView):
     template_name = 'demo/ng_repeat.html'
 
+
 from utils.capture.screen_shot import ScreenShot
 
 
@@ -386,6 +389,7 @@ class CaptureView(FormView):
         with open(path, "rb") as f:
             return HttpResponse(f.read(), content_type="image/jpeg")
 
+
 class PosterCaptureView(View):
     def get(self, request, pk):
         current_poster = Poster.objects.get(pk=pk)
@@ -397,6 +401,7 @@ class PosterCaptureView(View):
         data['pdf_url'] = pdf_url
         response = HttpResponse(json.dumps(data), content_type = "application/json")
         return response
+
 
 class PosterCodeView(View):
     def get(self, request, pk):
@@ -416,3 +421,30 @@ class SvgClipView(View):
         else:
             response = HttpResponse(xml, content_type='image/svg+xml')
         return response
+
+
+class PosterListView(ListView):
+    model = Poster
+    template_name = 'web/posters.html'
+    queryset = Poster.objects.filter(
+        status=Poster.STATUS_PUBLISHED
+    )
+
+    def get_poster_sort_keys(self):
+        req_sort = self.request.GET.get('sort', '')
+        sort_key = ''
+        if req_sort in ['hot', 'new', 'recommend']:
+            if req_sort == 'hot':
+                sort_key = '-poster_statistics__views_count'
+            elif req_sort == 'new':
+                sort_key = '-created_at'
+        return sort_key
+
+    def get_queryset(self):
+        qs = Poster.objects.filter(
+            status=Poster.STATUS_PUBLISHED
+        ).order_by('-created_at')
+        sort_key = self.get_poster_sort_keys()
+        if sort_key:
+            qs = qs.order_by(sort_key)
+        return qs
