@@ -70,8 +70,12 @@
 
 			//全部上传结束后触发;
 			webUploader.on('uploadFinished', function(){
-				$fileInput.next('.parentFileBox').children('.diyButton').remove();
-
+				$fileInput.next('.parentFileBox').children('.diyButton').empty();
+				$fileInput.next('.parentFileBox').children('.diyButton').append('<a href="javascript:;" class="confirmBtn">确定</a>');
+				$fileInput.next('.parentFileBox').children('.diyButton').find('.confirmBtn').click(function(){
+					$('.upload-image-dialog').removeClass('open');
+					$(this).remove();
+				});
 			});
 			//绑定发送至服务端返回后触发事件;
 			webUploader.on('uploadAccept', function( object ,data ){
