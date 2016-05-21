@@ -122,55 +122,6 @@ $(function () {
     });
 
 
-    //保存数据方法
-    var saveData = function () {
-        function parseStyle(string){
-            var atrributes = string.split(";") ;
-            var returns = {} ;
-            for(var i in atrributes){
-                if(i == atrributes.length-1 )return returns;
-                var key = $.trim(atrributes[i].split(":")[0]),
-                        value = $.trim(atrributes[i].split(":")[1]);
-                returns[key] = value ;
-            }
-        }
-        storageAPI.setHtml(".yunye-template");
-        //电话手机邮箱
-        storageAPI.setHead("phone", $('#phoneInput').val());
-        storageAPI.setHead("mobile", $('#mobileInput').val());
-        storageAPI.setHead("email", $('#emailInput').val());
-        //logo
-        if ($('.header-logo h2')[0]) {
-            storageAPI.setHead("logo_title", $('.header-logo').html());
-            storageAPI.setHead("logoTitleType", "text");
-            storageAPI.setHead("logo_image", "");
-        } else {
-            storageAPI.setHead("logo_title", "");
-            storageAPI.setHead("logoTitleType", "image");
-            storageAPI.setHead("logo_image", {
-                url: $('.header-logo img').attr("src"),
-                id: $('.header-logo img').attr("data-src-id")
-            });
-        }
-        if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",parseStyle($('#logo_title').attr("style")));
-        storageAPI.setHead("unique_name", $('#logo_title').html());
-        if($('#short_description').attr("style"))storageAPI.setCss("#short_description",parseStyle($('#short_description').attr("style")));
-        storageAPI.setHead("short_description", $('#short_description').html());
-        //日历周期性
-        var lifetime = yunyeEditorGlobal.lifetime;
-        if(lifetime.lifetime_type == "weekly" ){
-             var inputs = $(".weekly input");
-             for (var i = 0; i < (inputs.length) / 2; i++) {
-                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                    info = lifetime.lifetime_value[weekName];
-                info.time_start = inputs.eq(i * 2).val();
-                info.time_end = inputs.eq(i * 2 + 1).val();
-                info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
-            }
-        }
-        storageAPI.setHead("lifetime", lifetime);
-    };
-
 
     $(".btn.btn-save").on("click", function () {
         saveData();
