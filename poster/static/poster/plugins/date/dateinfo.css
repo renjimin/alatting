@@ -49,6 +49,7 @@
 	background-color: green;
 	border-radius:20px;
 	margin: auto;
+	transition: background-color .2s;
 }
 #dpw_clock td.off .toggle-line,#dateState.off .toggle-line{
 	background-color: red;
@@ -61,13 +62,14 @@
 	position: absolute;
 	top:0;
 	bottom: 0;
-	right: -1px;
-	left:auto;
+	left:100%;
 	margin:auto;
+	margin-left: -20px;
+	transition: margin-left .2s ,left .2s;
 }
 #dpw_clock td.off .toggle-btn,#dateState.off .toggle-btn{
-	right: auto;
 	left: -1px;
+	margin-left: 0px;
 }
 .weekly table td input{
 	background: transparent;

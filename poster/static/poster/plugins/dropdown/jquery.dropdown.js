@@ -25,7 +25,6 @@
 						_this.removeClass('open');
 						a.removeClass('open');
 					}else{
-						$('.dropdown-panel').css("visibility","visible");
 						$('.dropdown-panel').removeClass('open');
 						$('.dropdown-toggle').removeClass('open');
 						_this.addClass('open');
@@ -144,7 +143,7 @@
 					}
 					if( $("#dp").height() + $("#dp").offset().top > documentH - 43){
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
-						offsetY = _this.height() - diffY - dpw.height();
+						offsetY = ((_option.followMouse) ? 0 : _this.height()) - diffY - dpw.height();
 						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down');
 						var str="",len = _option.list.length;
