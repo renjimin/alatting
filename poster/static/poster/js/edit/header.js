@@ -14,9 +14,9 @@ $(function () {
 
             storageAPI.setHtml(".yunye-template");
             //电话手机邮箱
-            storageAPI.setHead("phone", $('#phoneInput').val());
-            storageAPI.setHead("mobile", $('#mobileInput').val());
-            storageAPI.setHead("email", $('#emailInput').val());
+            if(!!$('#phoneInput').val())storageAPI.setHead("phone", $('#phoneInput').val());
+            if(!!$('#mobileInput').val())storageAPI.setHead("mobile", $('#mobileInput').val());
+            if(!!$('#emailInput').val())storageAPI.setHead("email", $('#emailInput').val());
             //logo
             if ($('.header-logo h2')[0]) {
                 storageAPI.setHead("logo_title", $('.header-logo').html());
