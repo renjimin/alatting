@@ -177,7 +177,6 @@ $(function () {
         var url = yunyeEditorGlobal.API.publish.format(
             yunyeEditorGlobal.posterId
         );
-        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -195,6 +194,6 @@ $(function () {
     });
 
     window.onunload = function (event) {
-        saveData();
+        //saveData();
     }
 });

@@ -12,7 +12,11 @@
             </div>
         </div>
         <div class="header-logo">
-            <img src="{{ poster.logo_image.file.url }}">
+            {% if poster.logo_title %}
+                {{ poster.logo_title|safe }}
+            {% else %}
+                <img src="{{ poster.logo_image.file.url }}">
+            {% endif %}
         </div>
         <div class="header-abutton">
             <div class="abutton-inner" id="abutton">

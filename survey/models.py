@@ -104,6 +104,7 @@ class Question(models.Model):
     questionset = models.ForeignKey(QuestionSet)
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
+    required = models.BooleanField(default=False)
     type = models.CharField(u"Type of question", max_length=32,
         choices = QuestionChoices,
         help_text = u"Determines the means of answering the question. " \
