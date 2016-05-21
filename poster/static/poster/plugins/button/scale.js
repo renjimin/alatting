@@ -63,8 +63,13 @@ var scale = function(box,options){
         nbare = s.o.find('.nbar-e');
         nbarw = s.o.find('.nbar-w');
 
-        s.opt.left = s.o.position().left == undefined ? 0 : s.o.position().left;
-        s.opt.top = s.o.position().top == undefined ? 0 : s.o.position().left;
+        if(s.o.position() == undefined){
+            s.opt.left = 0;
+            s.opt.top = 0
+        }else{
+            s.opt = s.o.position().left;
+            s.opt.top = s.o.position().top
+        }
 
         s.opt.cx = parseInt(s.opt.width)/2;/*计算圆心相对坐标*/
         s.opt.cy = parseInt(s.opt.height)/2;
