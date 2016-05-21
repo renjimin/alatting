@@ -19,7 +19,7 @@ $(function () {
             if(!!$('#emailInput').val())storageAPI.setHead("email", $('#emailInput').val());
             //logo
             if ($('.header-logo h2')[0]) {
-                if( !!$('.header-logo').html() ){
+                if( !!$('.header-logo h2').html() ){
                     storageAPI.setHead("logo_title", $('.header-logo').html());
                 }else{
                     storageAPI.setHead("logo_title", "");
