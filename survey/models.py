@@ -105,6 +105,8 @@ class Question(models.Model):
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
     required = models.BooleanField(default=False)
+    regex = models.CharField(max_length=256, blank=True, null=True)
+    errmsg = models.CharField(max_length=256, blank=True, null=True)
     type = models.CharField(u"Type of question", max_length=32,
         choices = QuestionChoices,
         help_text = u"Determines the means of answering the question. " \
