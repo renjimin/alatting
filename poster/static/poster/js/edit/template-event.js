@@ -74,7 +74,7 @@ $(function () {
                         }
                         obj.imgoperation({'data': data});
                         }, function (data) {
-                        yyAlert("上传失败");
+                            yyAlert("上传失败");
                         });
                 }
             },
