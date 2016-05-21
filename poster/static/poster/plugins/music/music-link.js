@@ -72,6 +72,8 @@
                     }
                     //$(".audiolink").remove();
                     setResourcePreview(text);
+                    $.fn.yunyeStorage.setHead('music',text);
+                    console.log($.fn.yunyeStorage.setHead('music',text))
                     $(".music-link-layout-wrap").hide();     
                 });
 

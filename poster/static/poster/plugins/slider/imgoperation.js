@@ -8,9 +8,18 @@
             _option = $.extend(opts,options);
             var s = $(this),i = s.find('img'),v = s.find('video');
 
-        var imgW,imgH;
-            var ow = _option.data.width == undefined ? s.width():_option.data.width,
-                oh = _option.data.height == undefined ? s.height():_option.data.height;
+        var imgW,imgH,ow,oh;
+        if(_option.data == null){
+            ow = i.width()
+            oh = i.height();
+        }else if(_option.data.width == undefined){
+            ow = s.width();
+            oh = s.height();
+        }else{
+            ow = _option.data.width;
+            oh = _option.data.height;
+        }
+
         if(s.width()/s.height() >= ow / oh){
             imgW = s.width();
             imgH = oh * imgW / ow;

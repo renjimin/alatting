@@ -286,7 +286,7 @@ html {
 	height: 100%;
 
 	border-radius: 50%;
-	
+
 }
 .qrcode-inner .qrcode {
 	position: absolute;
@@ -1550,4 +1550,7 @@ to {
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+.body-container{
+	height:100%;
 }

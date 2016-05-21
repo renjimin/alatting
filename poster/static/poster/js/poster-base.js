@@ -69,9 +69,7 @@ $(function () {
             $(".yunye-template").remove();
             $(".container-fluid").append(storageAPI.getHtml());
         }
-        $(".yunye-template .cnd-element").each(function () {
-            scale($(this));
-        });
+        
     };
 
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
@@ -162,7 +160,7 @@ $(function () {
                         if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
-                        }                        
+                        }
                         if (!$(".header-logo img")[0]) {
                             $('.header-logo').empty().append('<img />');
                         }
@@ -368,7 +366,7 @@ $(function () {
                 callback: function () {
                         $(".yunye-template").changeTemplate('destroy').changeTemplate();
                 }
-            }           
+            }
         ]
     });
     $('.qrcode .btn').registerPopUp({
