@@ -321,9 +321,10 @@ $(function () {
                 callback: function () {
                     $("#colorBox").css('top', $('.content').offset().top).show();
                     $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.bar-header,.bar-footer').css('background', color);
-                        storageAPI.setCss(".bar-header", {'background': color});
-                        storageAPI.setCss(".bar-footer", {'background': color});
+                        $('.bar-header,.bar-footer').css('background-color', color);
+                        storageAPI.setCss(".bar-header", {'background-color': color});
+                        storageAPI.setCss(".bar-footer", {'background-color': color});
+                        storageAPI.setCss(".bottom-container > .bottom-menu", {'background-color': color})
                     });
                 }
             },
