@@ -448,3 +448,10 @@ class PosterListView(ListView):
         if sort_key:
             qs = qs.order_by(sort_key)
         return qs
+
+    def get_context_data(self, **kwargs):
+        ctx = super(PosterListView, self).get_context_data(**kwargs)
+        ctx['categorys'] = Category.objects.filter(
+            parent__isnull=True
+        ).order_by('name')
+        return ctx
