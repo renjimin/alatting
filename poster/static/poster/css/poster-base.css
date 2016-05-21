@@ -1108,8 +1108,8 @@ to {
 .container-fluid {
 	position: relative;
 
-	overflow: auto;
-
+	overflow-y: auto;
+	overflow-x:hidden;
 	width: 100%;
 	max-width: 600px;
 	height: 100%;

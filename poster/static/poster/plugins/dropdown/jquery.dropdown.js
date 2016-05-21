@@ -20,7 +20,7 @@
 			_this.on('click',function(event){
 				$(document).trigger("clsdp");
 				if(!options){
-			  $('#dp').hide();
+			  		$('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
