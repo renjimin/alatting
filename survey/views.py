@@ -12,7 +12,7 @@ from survey.models import *
 from survey import *
 
 class IndexView(TemplateView):
-	template_name = 'survey/survey-base.html'
+	template_name = 'questionset.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
@@ -39,6 +39,19 @@ class QuestionnaireDoneView(TemplateView):
 		
 
 class QuestionnaireView(View):
+	def get_progress(self, runinfo):
+		position = 0
+		total = 0
+		qs = runinfo.questionset
+		qs_sets = qs.questionnaire.questionsets()
+
+		for q in qs_sets:
+			total = total + 1
+			if q.pk == qs.pk:
+				position = total
+		progress = float(position) / float(total) * 100.00
+		return int(progress)
+
 	def show_questionnaire(self, request, runinfo, errors={}):
 		questionset = runinfo.questionset
 		questionnaire = questionset.questionnaire
@@ -65,12 +78,15 @@ class QuestionnaireView(View):
 					'qs_sortid': sortid}
 			prev_url = reverse('survey:questionset', kwargs=kwargs)
 
+		progress = self.get_progress(runinfo)
+
 		contextdict = {'main_cat_name': main_cat_name,
 						'sub_cat_name': sub_cat_name,
 						'qs_title': qs_title,
 						'questionset': questionset,
 						'qlist': qlist,
 						'prev_url': prev_url,
+						'progress': progress,
 						'errors': errors}
 		return render_to_response('questionset.html', contextdict)
 

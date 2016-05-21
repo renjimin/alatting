@@ -174,8 +174,8 @@ $(function() {
 			$('.calenderTable input').eq(1).val(dateinfo.time_end);
 			if(dateinfo.enabled){$('#dateState').removeClass("off")}else{$('#dateState').addClass("off")}
 		}else{
-			$('.calenderTable input').eq(0).val("");
-			$('.calenderTable input').eq(1).val("");
+			$('.calenderTable input').eq(0).val("09:00");
+			$('.calenderTable input').eq(1).val("17:00");
 			$('#dateState').addClass("off");
 		}
 	}

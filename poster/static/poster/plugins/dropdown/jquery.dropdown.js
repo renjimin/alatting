@@ -93,7 +93,7 @@
 					var l = event.currentTarget.id.split('_');
 					var cb = _option.list[l[l.length-1]].callback;
 					if(cb){
-						$('#dp').removeClass('open');
+						dpw.attr('class', '').removeClass('open');
 						$('#dp ul').css("visibility","hidden");
 						cb(_this);
 					}
@@ -140,7 +140,7 @@
 					}else{
 						$('#dp .arrow').css('left', dpw.width()/2 -15  );
 					}
-					if( $("#dp").height() + $("#dp").offset().top > documentH){
+					if( $("#dp").height() + $("#dp").offset().top > documentH - 43){
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
 						offsetY = _this.height() - diffY - dpw.height();
 						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);

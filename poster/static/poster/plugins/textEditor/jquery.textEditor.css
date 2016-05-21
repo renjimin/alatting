@@ -157,10 +157,10 @@
 .color-act{
     border: 2px solid #000000;
 }
-#bot-color-selected{
+.ted-color-selected{
     display: none;
     position: absolute;
-    z-index: 499;
+    z-index: 700;
     left:50px;
     top:10px;
     width: 30px;

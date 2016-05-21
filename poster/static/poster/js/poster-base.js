@@ -23,7 +23,7 @@ $(function () {
         dynamicClass: 'clock'
     });
     $('.bar-header .title').click(function(){
-      $('#text-model').fadeIn(200);
+      $('#text-model').animate({'bottom':'0px'},200);
       $(".bar-header .title p").tEditor({
           textDelete: false,
           textCopy: false,
@@ -31,7 +31,7 @@ $(function () {
       });
     });
     $('.header-info').click(function(){
-      $('#text-model').fadeIn(200);
+      $('#text-model').animate({'bottom':'0px'},200);
       $("#short_description").tEditor({
           textDelete: false,
           textCopy: false,
@@ -48,7 +48,7 @@ $(function () {
                     if (!$(".header-logo h2")[0]) {
                         $('.header-logo').empty().append('<h2></h2>');
                     }
-                    $('#text-model').fadeIn(200);
+                    $('#text-model').animate({'bottom':'0px'},200);
                     $(".header-logo h2").tEditor({
                         textDelete: false,
                         textCopy: false,
@@ -62,6 +62,10 @@ $(function () {
                 callback: function () {
                     $('.header-logo').empty().append('<img></img>');
                     $.fn.uploads.showDialog(function (data) {
+                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }                        
                         if (!$(".header-logo img")[0]) {
                             $('.header-logo').empty().append('<img />');
                         }
@@ -70,7 +74,9 @@ $(function () {
                 }
             },
             {icon: "glyphicon glyphicon-camera", text: "照相"},
-            {icon: "glyphicon glyphicon-link", text: "图片链接"}],
+            {icon: "glyphicon glyphicon-link", text: "图片链接",callback:function(obj){
+                obj.resourceLink();
+            }}],
         followMouse: true
     });
     $('.mask').registerPopUp({
@@ -111,6 +117,10 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
+                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }
                         $('.header').css('background-image', 'url(' + data.file + ')');
                         $('.header').css('background-size', '100% 100%');
                         storageAPI.setCss(".header", {
@@ -163,7 +173,10 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        console.log(22)
+                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }
                         $('.yunye-template').css('background-image', 'url(' + data.file + ')');
                         $('.yunye-template').css('background-size', '100% 100%');
                         storageAPI.setCss(".yunye-template", {
@@ -296,7 +309,10 @@ $(function () {
                 text: " 上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        console.log(data)
+                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }
                         $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
                         $('.qrcode .btn,.abutton-group li a').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode .btn", {
@@ -315,11 +331,13 @@ $(function () {
 
     $(document).on("clsdp", function () {
         $("#colorBox").hide();
-        $('#text-model').fadeOut(200);
-//        $("#teditor").hide();
+        $('#text-model').animate({'bottom':'-265px'},200);
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
         $('.cnd-element').removeClass('active');
         $(".music-link-layout-wrap").remove();
+        $('.dropdown-panel').removeClass('open');
+        $('.dropdown-toggle').removeClass('open');
+        $('#dp ul').css("visibility","hidden");
     });
 
     $('body').on('click', function (event) {

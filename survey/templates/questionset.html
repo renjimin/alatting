@@ -15,8 +15,6 @@
         <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
         <script src="{% static 'website/js/base.js' %}"></script>
         <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
-        <script src="{% static 'survey/js/plugins/jquery.validate.min.js' %}"></script>
-        <script src="{% static 'survey/js/survey-base.js' %}"></script>
     {% endblock %}
     {% block base_header_extra %}
     {% endblock %}
@@ -29,7 +27,8 @@
     <div class="qs container-fluid">
         <header class="qs-header">
             <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                style="width: {{progress}}%;"></div>
             </div>      
             <div class="progress-btm"></div>
             <div class="row qs-cat">        

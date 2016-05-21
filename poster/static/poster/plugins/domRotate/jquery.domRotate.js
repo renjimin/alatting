@@ -17,16 +17,21 @@
         var _this = this;
         var $element = $(_this.$element);
         var box = _this.option.ebox;
+        var boxpx= box.offset();
         var ch = box.find('#ele-rotate-ctrl').length;
         if(!ch){
             var cdiv = '<div id="ele-rotate-ctrl" class="ele-rotate-ctrl"><span class="glyphicon glyphicon-refresh"></span></div>';
+            cdiv += '<div id="ele-editor-ctrl" class="ele-rotate-ctrl"><span class="glyphicon glyphicon-pencil"></span></div>';
             box.append($(cdiv));
         }
+        var $etrl = $('#ele-editor-ctrl');
         var $ctrl = $('#ele-rotate-ctrl');
-        $ctrl.css({width:'20px',height:'20px',background:'#03ad52',color:'#ffffff',position:'absolute',top:'-20px',left:'-20px','z-index':400,'margin-left':'-10px','margin-top':'-10px','border-radius':'3px','text-align':'center'});
+//        $ctrl.css({width:'20px',height:'20px',background:'#03ad52',color:'#ffffff',position:'absolute',top:'-20px',left:'-20px','z-index':400,'margin-left':'-10px','margin-top':'-10px','border-radius':'3px','text-align':'center'});
 
         var bx, by, _bx, _by, barx, bary,move=false;
         var midp={},botp={},rbotp={},movp={},deg,rotate={},ddl;
+        var eed = $element.children('.el-editor');
+        var editorp = eed.offset();
         barx = parseInt($element.css('left'));
         bary = parseInt($element.css('top'));
         if($.isEmptyObject($element.data('botp'))){
@@ -51,7 +56,7 @@
             rbotp = $element.data('rbotp');
         }
         $ctrl.css({left:rbotp.left+'px',top:rbotp.top+'px'});
-
+        $etrl.css({left:keepTwoValid(editorp.left-boxpx.left)+'px',top:keepTwoValid(editorp.top-boxpx.top)+'px'});
 
         /*element 移动*/
         $element.off('touchstart touchmove touchend','.el-content').on('touchstart touchmove touchend','.el-content',function(event){
@@ -95,6 +100,8 @@
                     sx = bx - _bx + rbotp.left;
                     sy = by - _by + rbotp.top;
                     $ctrl.css({left:sx+'px',top:sy+'px'});
+                    editorp = eed.offset();
+                    $etrl.css({left:keepTwoValid(editorp.left-boxpx.left)+'px',top:keepTwoValid(editorp.top-boxpx.top)+'px'});
                 }
             }else{
                 if(move){
@@ -144,10 +151,10 @@
                     ndeg = keepTwoValid(ndeg);
                     nrate = keepTwoValid(nrate);
                     var tranf = 'rotate('+ndeg+'deg) scale('+nrate+')';
-                    var trans = 'rotate(-'+ndeg+'deg) scale('+(1/nrate)+')';
                     $element.css({'transform':tranf});
-                    $element.children('.el-editor').css({'transform':trans});
                     $ctrl.css({left:movp.left+'px',top:movp.top+'px'});
+                    editorp = eed.offset();
+                    $etrl.css({left:keepTwoValid(editorp.left-boxpx.left)+'px',top:keepTwoValid(editorp.top-boxpx.top)+'px'});
                 }
             }else{
                 if(move){
@@ -175,6 +182,7 @@
             num=parseFloat(num);
             return num.toFixed(2);
         }
+
 
     }
 

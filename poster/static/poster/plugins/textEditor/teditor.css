@@ -1,18 +1,17 @@
 .text-model{
-    position: absolute;
+    position: fixed;
     left:0px;
-    bottom: 0px;
+    bottom: -300px;
     z-index: 699;
     height: 265px;
     width: 100%;
-    display: none;
 }
 .text-element{
     position: absolute;
     z-index: 100;
     font-size: 30px;
     text-align: center;
-    border: 2px dashed transparent;
+    border: 1px dashed transparent;
     -ms-word-break:keep-all;
     word-break: keep-all;
     white-space: nowrap;
@@ -22,17 +21,12 @@
     padding: 15px;
 }
 .el-editor{
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
+    width: 1px;
+    height: 1px;
     position: absolute;
-    left: -10px;
-    text-align: center;
-    bottom: -10px;
-    background: #03ad52;
-    color: #fff;
-    display: none;
-    padding: 2px;
+    left: -0.5px;
+    bottom: -0.5px;
+    background: transparent;
 }
 .text-element-act{
     border-color: #03ad52;
@@ -46,4 +40,18 @@
     text-align: center;
     color:#00e8d4;
     font-size: 24px;
+}
+.ele-rotate-ctrl{
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    border-radius: 3px;
+    color: #ffffff;
+    background: #03ad52;
+    text-align: center;
+    position: absolute;
+    top: 20px;
+    left:120px;
+    z-index: 400;
 }
