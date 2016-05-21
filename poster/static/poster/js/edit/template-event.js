@@ -28,7 +28,7 @@ $(function () {
                         error: function (err) {
                             console.info(err);
                         },
-                        buttonText: '选择图片上传',
+                        buttonText: '添加图片',
                         chunked: false,
                         fileNumLimit: 4,
                         fileSingleSizeLimit: 5 * 1024 * 1024,
@@ -51,7 +51,7 @@ $(function () {
                         if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
-                        }                             
+                        }
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
@@ -70,7 +70,7 @@ $(function () {
                         if(!/\.(mp4|ogg|webm)$/.test(data.file)){
                             yyAlert("上传视频格式错误");
                             return false;
-                        }                             
+                        }
                         if (obj) {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
@@ -110,5 +110,16 @@ $(function () {
             opt = $.extend({id: id}, menuOptions);
         }
         $this.registerPopUp(opt);
+        if($this.find('.swiper-container').length > 0){
+            $(this).imgslider();
+        }else if($this.find('img').length > 0){
+            $(this).imgoperation();
+        }
+
     });
+    $(".yunye-template .cnd-element").each(function () {
+        scale($(this));
+    });
+
+
 });
