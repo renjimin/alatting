@@ -37,6 +37,18 @@ $(function(){
     }
     */
 
+
+    fullcontainer.on('click','.el-editor',function(e){
+        e.stopPropagation();
+        $(document).trigger("clsdp");
+        var bot = parseInt($('#text-model').css('bottom'));
+        if(bot<0){
+            $('#text-model').animate({'bottom':'0px'},200);
+        }else{
+            $('#text-model').animate({'bottom':'-300px'},200);
+        }
+    });
+
     fullcontainer.on('dblclick','.text-element',function(e){
         e.stopPropagation();
         $('.text-element').removeClass('text-element-act').css('z-index','100');
