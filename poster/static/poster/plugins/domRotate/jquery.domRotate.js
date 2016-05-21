@@ -58,16 +58,6 @@
         $ctrl.css({left:rbotp.left+'px',top:rbotp.top+'px'});
         $etrl.css({left:keepTwoValid(editorp.left-boxpx.left)+'px',top:keepTwoValid(editorp.top-boxpx.top)+'px'});
 
-        $etrl.off('click').on('click',function(e){
-            e.stopPropagation();
-            var bot = parseInt($('#text-model').css('bottom'));
-            if(bot<0){
-                $('#text-model').animate({'bottom':'0px'},200);
-            }else{
-                $('#text-model').animate({'bottom':'-300px'},200);
-            }
-        });
-
         /*element 移动*/
         $element.off('touchstart touchmove touchend','.el-content').on('touchstart touchmove touchend','.el-content',function(event){
             event.stopPropagation();

@@ -67,7 +67,7 @@ var scale = function(box,options){
             s.opt.left = 0;
             s.opt.top = 0
         }else{
-            s.opt = s.o.position().left;
+            s.opt.left = s.o.position().left;
             s.opt.top = s.o.position().top
         }
 

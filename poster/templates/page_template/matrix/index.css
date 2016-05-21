@@ -1,0 +1,49 @@
+.content {
+    width: 100%;
+    height: 400px;
+    padding: 10px;
+    position: relative;
+}
+
+.content > div{
+    background: #B5B1AB;
+    overflow: hidden;
+}
+
+.content-top {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
+    clip-path: url(#content-top);
+    position: absolute;
+    left: 0;
+    width:100%;
+    height:46%;
+}
+
+.content-bottom-left {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0% 100%);
+    clip-path: url(#content-bottom-left);
+    width: 32%;
+    position: absolute;
+    top:50%;
+    left: 0;
+    width: 32%;
+    height: 49%;
+    }
+.content-bottom-center {
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%,0 100%);
+    clip-path: url(#content-bottom-center);
+    width: 32%;
+    height: 49%;
+    position: absolute;
+    top: 50%;
+    left: 34%;
+}
+.content-bottom-right{
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%,0 100%);
+    clip-path: url(#content-bottom-right);
+    position: absolute;
+    width: 32%;
+    height: 49%;
+    top: 50%;
+    right: 0;
+}

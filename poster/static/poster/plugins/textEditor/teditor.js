@@ -13,7 +13,7 @@ $(function(){
         e.stopPropagation();
         $('#text-model').animate({'bottom':'-300px'},200);
     });
-    
+
     fullcontainer.on('click','.text-element',function(e){
         e.stopPropagation();
         var ths = $(this);
@@ -36,11 +36,9 @@ $(function(){
         },1000);
     }
     */
-
-
-    fullcontainer.on('click','.el-editor',function(e){
+    fullcontainer.on('click','#ele-editor-ctrl',function(e){
         e.stopPropagation();
-        $(document).trigger("clsdp");
+        $(document).trigger('clsdp');
         var bot = parseInt($('#text-model').css('bottom'));
         if(bot<0){
             $('#text-model').animate({'bottom':'0px'},200);
@@ -48,14 +46,6 @@ $(function(){
             $('#text-model').animate({'bottom':'-300px'},200);
         }
     });
-
-    fullcontainer.on('dblclick','.text-element',function(e){
-        e.stopPropagation();
-        $('.text-element').removeClass('text-element-act').css('z-index','100');
-        $(this).addClass('text-element-act').css('z-index','110');
-        $(this).domRotate({ebox:fullcontainer});
-    });
-
 
 
 });
