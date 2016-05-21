@@ -1,11 +1,26 @@
-.yunye-template{
-    padding: 0;
-    overflow: hidden;
-}
 .navbar{
     margin-bottom: 0;
     min-height: auto;
 }
 .edit-bar-header .title {
     margin: 0
+}
+.popover,
+.popover-content{
+    padding: 0;
+    border-radius: 0;
+}
+.popover-title{
+    border-bottom: none;
+}
+.stats-graph .right-btn img,
+.stats-overall .left-btn img{
+    width: 100%
+}
+.stats-overall .left-btn {
+    top: 0;
+}
+.star-rating .clear-rating,
+.star-rating-rtl .clear-rating {
+    display: none;
 }
