@@ -15,15 +15,18 @@
 	position: relative;
 	display: inline-block;
 	cursor: pointer;
-	background: #00b7ee;
+	background:url(../../images/addimg.png) no-repeat;
 	padding: 10px 15px;
 	color: #fff;
 	text-align: center;
 	border-radius: 3px;
 	overflow: hidden;
+	width: 90px;
+	height: 100px;
+	text-indent: -9999px;
 }
 .webuploader-pick-hover {
-	background: #00a2d4;
+	/* background: #00a2d4; */
 }
 
 .webuploader-pick-disable {
@@ -135,19 +138,19 @@
 }
 .parentFileBox>.diyButton {
 	width:100%;
-	margin-top:5px;
+	margin-top: 12px;
 	margin-bottom:5px;
-	height:20px;
-	line-height:20px;
+	line-height: 27px;
 	text-align:center;
 }
 .parentFileBox>.diyButton>a {
-	padding:5px 10px 5px 10px;
+	padding: 10px 13px 10px 13px;
 	background-color:#09C;
 	color:#FFF;
-	font-size:12px;
+	font-size: 13px;
 	text-decoration:none;
 	border-radius:3px;
+	margin-right: 5px;
 }
 .parentFileBox>.diyButton>a:hover {
 	background-color:#0CC;
