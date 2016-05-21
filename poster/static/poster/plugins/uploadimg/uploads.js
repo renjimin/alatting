@@ -30,6 +30,7 @@
 			webUploader.on('uploadSuccess',function( file, response ){
 				console.log(123123)
 				if(self.success)self.success(response);
+				webUploader.removeFile(file.id);
 
 			});
 			webUploader.on('uploadError',function( file, reason ){
