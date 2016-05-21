@@ -435,11 +435,8 @@ $(function () {
 
         /*读取主体部分*/
         if (storageAPI.getHtml()) {
-            $(".container-fluid").remove(
-                ".yunye-template"
-            ).append(
-                storageAPI.getHtml()
-            );
+            $(".yunye-template").remove();
+            $(".container-fluid").append(storageAPI.getHtml());
         }
         $(".yunye-template .cnd-element").each(function () {
             scale($(this));

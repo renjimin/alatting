@@ -19,9 +19,10 @@
 <script src="{% static 'poster/plugins/music/music-link.js' %}"></script>
 <script src="{% static 'poster/plugins/music/music.js' %}"></script>
 <script src="{% static 'poster/plugins/music/sysmusic.js' %}"></script>
-<script src="{% static 'poster/js/edit/template-event.js' %}"></script>
 <script src="{% static 'poster/js/edit/header.js' %}"></script>
 <script src="{% static 'poster/js/poster-base.js' %}"></script>
 <script src="{% static 'poster/plugins/date/dateinfo.js' %}"></script>
+{% comment %}template-event.js 顺序不能变，必须放在最后{% endcomment %}
+<script src="{% static 'poster/js/edit/template-event.js' %}"></script>
 
 
