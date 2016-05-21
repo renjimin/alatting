@@ -84,7 +84,7 @@
                 $element = $prevElement.last();
                 $element.trigger('click');
             }else{
-                $('#text-model').fadeOut(200);
+                $('#text-model').animate({'bottom':'-300px'},200);
                 $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
@@ -303,14 +303,15 @@
                 move=false;
             }
         });
-        /*阴影的颜色设置*/
-        pluginBox.off('click','.ef-color-li').on('click','.ef-color-li',function(){
-            var color = $(this).attr('data-color');
-            ef.color = color;
-            setEff($element,ef);
-            var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
-            openEff(obtog);
-        });
+
+//        pluginBox.off('click','.ef-color-li').on('click','.ef-color-li',function(e){
+//            e.stopPropagation();
+//            var color = $(this).attr('data-color');
+//            ef.color = color;
+//            setEff($element,ef);
+//            var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+//            openEff(obtog);
+//        });
         /*阴影的关闭与打开*/
         pluginBox.off('click','.toggle').on('click','.toggle',function(){
             var ths = $(this);
@@ -340,21 +341,28 @@
             var obtog = $(this).siblings('.base-bot-name').children('.toggle');
             openEff(obtog);
         });
+        /*阴影的颜色设置*/
         pluginBox.off('touchstart touchmove touchend','#effects-color-list').on('touchstart touchmove touchend','#effects-color-list',function(event){
             event.preventDefault();
             event.stopPropagation();
+            var e = event.originalEvent.targetTouches[0];
             if(event.type == "touchstart" ){
-                move=true;
+                var targ=$(event.target);
+                ef.color = targ.attr('data-color');
+                var tbox= $('#teditor').offset();
+                var tX = Math.floor(e.pageX-tbox.left)-20;
+                var tY = Math.floor(e.pageY-tbox.top)-45;
+                $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':ef.color});
+                setEff($element,ef);
+                var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+                openEff(obtog);
             }else if(event.type == "touchmove" ){
-                var e = event.originalEvent.targetTouches[0];
+                move=true;
                 if(move){
                     $('#eff-color-selected').show();
-                    var color = $(e.target).attr('data-color');
                     var tbox= $('#teditor').offset();
-                    var tX = Math.floor(e.pageX-tbox.left);
-                    var tY = Math.floor(e.pageY-tbox.top);
-                    tX = tX-20;
-                    tY = tY-45;
+                    var tX = Math.floor(e.pageX-tbox.left)-20;
+                    var tY = Math.floor(e.pageY-tbox.top)-45;
                     var uleft = $('#effects-color-list').offset().left;
                     var utop = $('#effects-color-list').offset().top;
                     var uwidth = $('#effects-color-list').parent().outerWidth();
@@ -362,10 +370,13 @@
                         var distance = Math.floor(e.pageX-uleft);
                         var num = Math.floor(distance/5);
                         ef.color = $('#effects-color-list').children().eq(num).attr('data-color');
+                        $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':ef.color});
                         setEff($element,ef);
                     }else{
                         $('#eff-color-selected').hide();
                     }
+                    var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+                    openEff(obtog);
                 }
             }else{
                 move=false;
