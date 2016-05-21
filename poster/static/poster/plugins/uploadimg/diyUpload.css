@@ -15,15 +15,26 @@
 	position: relative;
 	display: inline-block;
 	cursor: pointer;
-	background:url(../../images/addimg.png) no-repeat;
-	padding: 10px 15px;
+	background-image:url(../../images/addimg.png);
+	background-repeat:  no-repeat;
+	background-size:auto 80%;
+	background-position:left center;
+	padding: 0 20px;
 	color: #fff;
 	text-align: center;
 	border-radius: 3px;
 	overflow: hidden;
+<<<<<<< HEAD
 	width: 88px;
 	height: 75px;
 	text-indent: -999px;
+=======
+	line-height:45px;
+	height: 45px;
+	padding-left:50px;
+	background-color: #00a2d4;
+	font-size:16px;
+>>>>>>> 4f92a89683ded89eb25497d78d79a1c6404e4232
 }
 .webuploader-pick-hover {
 	/* background: #00a2d4; */

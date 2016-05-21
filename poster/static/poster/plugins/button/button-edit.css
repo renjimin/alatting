@@ -198,6 +198,9 @@
 .model-header .btn-back {
 	position: static;
 }
+.model-header .btn-back:active{
+	background-color:rgba(0,0,0,.1);
+}
 .button-model {
 	top: auto;
 	bottom:87px;
@@ -462,3 +465,7 @@ display:block;
   -webkit-animation-fill-mode: both;
           animation-fill-mode: both;
   display: inline-block; }
+
+@media (min-width: 600px){
+	.type-model{width:600px;left:50%;margin-left:-300px;}
+}
