@@ -176,10 +176,8 @@ $(function () {
     });
     $('.mask').registerPopUp({
         id: 'dpw_header',
-        offsetXPercent: 80,
-        offsetYPercent: 90,
-        offsetY: 30,
-        arrowOffset: 80,
+        offsetY: 50,
+        arrowOffset: 30,
         list: [
             {
                 icon: "icon ico-system-pic",
