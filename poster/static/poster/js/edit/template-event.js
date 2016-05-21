@@ -48,6 +48,10 @@ $(function () {
                 text: "上传图片",
                 callback: function (obj) {
                     $.fn.uploads.showDialog(function (data) {
+                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }                             
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
@@ -61,15 +65,17 @@ $(function () {
                 callback: function (obj) {
                     //alert("还是调用上传组件!");
                     $.fn.uploads.showDialog(function (data) {
+                        if(!/\.(mp4|ogg|webm)$/.test(data.file)){
+                            yyAlert("上传视频格式错误");
+                            return false;
+                        }                             
                         if (obj) {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
-
                         obj.imgoperation({'data': data});
                         }, function (data) {
                         yyAlert("上传失败");
                         });
-
                 }
             },
             {

@@ -28,7 +28,7 @@
     padding: 0;
 }
 .qs .progress {
-	margin: 0 -15px;
+	margin: 0;
 	height: 10px;
 }
 .qs.container-fluid {
@@ -37,9 +37,9 @@
 .qs-header {
     position: fixed;
     top: 0;
-    left: 0;
     width: 100%;
     z-index: 9;
+    max-width: 600px;
 }
 .qs-body {
     padding-top: 90px;

@@ -43,10 +43,8 @@ class Questionnaire(models.Model):
         return '%s' % (self.name)
 
     def questionsets(self):
-        if not hasattr(self, "__qscache"):
-            self.__qscache = \
-              QuestionSet.objects.filter(questionnaire=self).order_by('sortid')
-        return self.__qscache
+        qs_set = QuestionSet.objects.filter(questionnaire=self).order_by('sortid')
+        return qs_set
 
     def questions(self):
         questions = []
