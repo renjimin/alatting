@@ -382,7 +382,7 @@ $(function () {
         if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
         //简述
         if(g.short_description)$("#short_description").html(g.short_description);
-        if(storageAPI.getCss("short_description"))$("#short_description").css(storageAPI.getCss("short_description"));
+        if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
         //logo
         if(storageAPI.getHead('logo_title'))$('.header-logo').empty().append(storageAPI.getHead('logo_title'));
         if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
