@@ -10,6 +10,7 @@ $(function () {
         //},
         offsetYPercent: 50,
         offsetY: 30,
+        followMouse:true,
         list: [
             {
                 icon: "glyphicon glyphicon-picture",
