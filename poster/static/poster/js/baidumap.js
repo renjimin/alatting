@@ -21,6 +21,8 @@ $(function(){
 					baiduMap.centerAndZoom(pp, 14);
 					baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
 				}else{
+					ac.setInputValue("");
+					$("#suggestId").attr('placeholder','未搜索到您所填的位置');
 					var geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r){
 						if(this.getStatus() == BMAP_STATUS_SUCCESS){
