@@ -5,7 +5,7 @@ from alatting_website.model.poster import Poster, PosterPage
 
 class PosterView(DetailView):
     model = Poster
-    template_name = 'poster/poster.html'
+    template_name = 'poster/show/poster.html'
     queryset = Poster.objects.filter(
         status=Poster.STATUS_PUBLISHED
     )

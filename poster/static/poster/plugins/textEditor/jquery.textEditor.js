@@ -85,7 +85,7 @@
                 $element.trigger('click');
             }else{
                 $('#text-model').animate({'bottom':'-300px'},200);
-                $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+                $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
         /*复制文本*/
@@ -93,7 +93,7 @@
             var $newel =$element.clone();
             var top= parseInt($element.css('top'))+30;
             $element.parent().append($newel);
-            $element.parent().children().css('z-index','100').removeClass('text-element-act');
+            $element.parent().children('.text-element').css('z-index','100').removeClass('text-element-act');
             $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
             $newel.domRotate({ebox:fullcontainer});
             $element = $newel;

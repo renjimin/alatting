@@ -5,9 +5,9 @@
 
 $(function () {
     var menuOptions = {
-        suspendFun: function () {
-            return $("section[class='dropdown-panel open']").length <= 0;
-        },
+        //suspendFun: function () {
+        //    return $("section[class='dropdown-panel open']").length <= 0;
+        //},
         offsetYPercent: 50,
         offsetY: 30,
         list: [
