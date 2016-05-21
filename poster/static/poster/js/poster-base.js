@@ -156,7 +156,7 @@ $(function () {
                 callback: function () {
                     $('.header-logo').empty().append('<img></img>');
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }                        
@@ -211,7 +211,7 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }
@@ -267,7 +267,7 @@ $(function () {
                 text: "上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }
@@ -410,7 +410,7 @@ $(function () {
                 text: " 上传图片",
                 callback: function () {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }

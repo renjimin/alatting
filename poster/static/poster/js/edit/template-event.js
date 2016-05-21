@@ -49,7 +49,7 @@ $(function () {
                 text: "上传图片",
                 callback: function (obj) {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
                             yyAlert("上传图片格式错误");
                             return false;
                         }
