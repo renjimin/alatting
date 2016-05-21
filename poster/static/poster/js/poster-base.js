@@ -57,8 +57,8 @@ $(function () {
         if (storageAPI.getCss("body")) {
             $("body").css(storageAPI.getCss("body"));
         }
-        if (storageAPI.getCss(".qrcode .btn")) {
-            $(".qrcode .btn").css(storageAPI.getCss(".qrcode .btn"));
+        if (storageAPI.getCss(".qrcode-inner .qrcode")) {
+            $(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
         }
         if (storageAPI.getCss(".abutton-group li a")) {
             $(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
@@ -358,7 +358,14 @@ $(function () {
                         storageAPI.setCss(".header", {'background': color});
                     });
                 }
-            }
+            },
+            {
+                icon: "glyphicon glyphicon-transfer",
+                text: "更换模版",
+                callback: function () {
+                        $(".yunye-template").changeTemplate('destroy').changeTemplate();
+                }
+            }           
         ]
     });
     $('.qrcode .btn').registerPopUp({
@@ -373,8 +380,8 @@ $(function () {
                 callback: function () {
                     $("#colorBox").css('top', $('.content').offset().top).show();
                     $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.qrcode .btn,.abutton-group li a').css('background', color);
-                        storageAPI.setCss(".qrcode .btn", {'background': color});
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background', color);
+                        storageAPI.setCss(".qrcode-inner .qrcode", {'background': color});
                         storageAPI.setCss(".abutton-group li a", {'background': color});
                     });
                 }
@@ -407,9 +414,9 @@ $(function () {
                             yyAlert("上传图片格式错误");
                             return false;
                         }
-                        $('.qrcode .btn,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
-                        $('.qrcode .btn,.abutton-group li a').css('background-size', '100% 100%');
-                        storageAPI.setCss(".qrcode .btn", {
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-size', '100% 100%');
+                        storageAPI.setCss(".qrcode-inner .qrcode", {
                             'background-image': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
