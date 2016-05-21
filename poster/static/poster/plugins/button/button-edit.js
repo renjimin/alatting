@@ -419,7 +419,7 @@ var openSystemimg = function(){
         if($('#systemimg-model .systemimg-list ul li').lenght <= 0){
             $.ajax({
                 type: 'GET',
-                url: 'http://www.yunye123.com:8000/api/v1/poster/system/images',
+                url: '/api/v1/poster/system/images',
                 success: function(data){
                     var con = $('#systemimg-model .systemimg-list ul');
                     con.empty();

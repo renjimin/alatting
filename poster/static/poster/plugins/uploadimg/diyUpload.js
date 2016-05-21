@@ -70,6 +70,7 @@
 			//全部上传结束后触发;
 			webUploader.on('uploadFinished', function(){
 				$fileInput.next('.parentFileBox').children('.diyButton').remove();
+
 			});
 			//绑定发送至服务端返回后触发事件;
 			webUploader.on('uploadAccept', function( object ,data ){
@@ -94,8 +95,7 @@
 				var $fileBox = $('#fileBox_'+file.id);
 				var $diyBar = $fileBox.find('.diyBar');
 				showDiyProgress( 0, $diyBar , '上传失败!' );
-				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason
-				console.log('error')
+				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
 				if ( errorCallBack ) {
 					errorCallBack( err );
 				}
@@ -166,7 +166,7 @@
 			// 分片大小
 			chunkSize: 5 * 1024 * 1024,
 			//最大上传的文件数量, 总文件大小,单个文件大小(单位字节);
-			fileNumLimit: 50,
+			fileNumLimit: 4,
 			fileSingleSizeLimit: 5 * 1024 * 1024
 		};
 	}

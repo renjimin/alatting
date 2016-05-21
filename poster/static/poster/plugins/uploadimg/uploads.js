@@ -9,7 +9,7 @@
 		progress:null,
 		buttonText: '选择图片上传',
 		chunked: false,
-		fileNumLimit: 8,
+		fileNumLimit: 4,
 		fileSingleSizeLimit: 5 * 1024 * 1024,
 		accept: 'image/jpg,image/jpeg,image/png,image/gif',
 		threads: 1,

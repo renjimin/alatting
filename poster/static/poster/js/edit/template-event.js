@@ -22,18 +22,18 @@ $(function () {
                         success: function (data, file) {
                             data.imgid = file.id;
                             _this.imgslider({'data': data});
-                            $(".upload-image-dialog").removeClass('open');
+                            //$(".upload-image-dialog").removeClass('open');
                             //console.info(data);
                         },
                         error: function (err) {
-                            //console.info(err);
+                            console.info(err);
                         },
                         buttonText: '选择图片上传',
                         chunked: false,
                         fileNumLimit: 4,
                         fileSingleSizeLimit: 5 * 1024 * 1024,
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
-                        compress: true,
+                        compress: false,
                         threads: 1,
                         sliderContainer: _this
                     });
@@ -48,7 +48,10 @@ $(function () {
                 text: "上传图片",
                 callback: function (obj) {
                     $.fn.uploads.showDialog(function (data) {
-                        console.log(data);
+                        if(!/\.(gif|jpg|jpeg|bmp)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }                             
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
@@ -62,6 +65,10 @@ $(function () {
                 callback: function (obj) {
                     //alert("还是调用上传组件!");
                     $.fn.uploads.showDialog(function (data) {
+                        if(!/\.(mp4|ogg|webm)$/.test(data.file)){
+                            yyAlert("上传视频格式错误");
+                            return false;
+                        }                             
                         if (obj) {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
