@@ -40,6 +40,7 @@ $(function(){
 
     fullcontainer.on('click','.el-editor',function(e){
         e.stopPropagation();
+        $(document).trigger("clsdp");
         var bot = parseInt($('#text-model').css('bottom'));
         if(bot<0){
             $('#text-model').animate({'bottom':'0px'},200);
