@@ -18,9 +18,9 @@
 				pid = _this.attr('id');
 			
 			_this.on('click',function(event){
-				$(document).trigger("clsdp");
+				$(document).trigger("clsdp",event.currentTarget);
 				if(!options){
-			  $('#dp').hide();
+			  		//$('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
@@ -100,10 +100,11 @@
 				});
 			}
 			_this.on('click',function(event){
-				if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
+				/*if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
 					if(!_option.suspendFun())return false;
-				}
+				}*/
 				$(document).trigger("clsdp");
+
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
 					$('#dp ul').css("visibility","hidden");
@@ -142,7 +143,7 @@
 					}
 					if( $("#dp").height() + $("#dp").offset().top > documentH - 43){
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
-						offsetY = _this.height() - diffY - dpw.height();
+						offsetY = ((_option.followMouse) ? 0 : _this.height()) - diffY - dpw.height();
 						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down');
 						var str="",len = _option.list.length;
