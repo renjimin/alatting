@@ -18,13 +18,14 @@
 				pid = _this.attr('id');
 			
 			_this.on('click',function(event){
-				$(document).trigger("clsdp");
+				$(document).trigger("clsdp",event.currentTarget);
 				if(!options){
-			  		$('#dp').hide();
+			  		//$('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
 					}else{
+						$('.dropdown-panel').css("visibility","visible");
 						$('.dropdown-panel').removeClass('open');
 						$('.dropdown-toggle').removeClass('open');
 						_this.addClass('open');
@@ -100,10 +101,11 @@
 				});
 			}
 			_this.on('click',function(event){
-				if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
+				/*if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
 					if(!_option.suspendFun())return false;
-				}
+				}*/
 				$(document).trigger("clsdp");
+
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
 					$('#dp ul').css("visibility","hidden");

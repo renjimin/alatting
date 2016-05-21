@@ -329,15 +329,17 @@ $(function () {
         ]
     });
 
-    $(document).on("clsdp", function () {
+    $(document).on("clsdp", function (e,target) {
         $("#colorBox").hide();
         $('#text-model').animate({'bottom':'-265px'},200);
         $('#systemimg-model,#button-model,.tab-item').removeClass('open');
         $('.cnd-element').removeClass('active');
         $(".music-link-layout-wrap").remove();
-        $('.dropdown-panel').removeClass('open');
-        $('.dropdown-toggle').removeClass('open');
-        $('#dp ul').css("visibility","hidden");
+        if(!$(target).hasClass("dropdown-toggle"))$('.dropdown-panel').removeClass("open");
+        if($(target).hasClass("dropdown-toggle")){
+            $("#dp").removeClass("open");
+            $('#dp ul').css("visibility","hidden");
+        }
     });
 
     $('body').on('click', function (event) {
