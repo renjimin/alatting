@@ -1,0 +1,38 @@
+.content {
+    width: 100%;
+    height: 400px;
+    padding: 10px;
+    position: relative;
+}
+
+.content > div{
+    background: #B5B1AB;
+    overflow: hidden;
+}
+
+.content-left-top {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
+    clip-path: url(#qy4);
+    width:50%;
+    height: 50%;
+    position: absolute;
+    left: 0;
+}
+
+.content-right-top {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
+    clip-path: url(#qy5);
+    width: 49%;
+    height: 50%;
+    position: absolute;
+    right: 0;
+}
+.content-bottom {
+    -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%,0 100%);
+    clip-path: url(#qy6);
+    position: absolute;
+    top: 215px;
+    left: 0;
+    width: 100%;
+    height: 50%;
+}
