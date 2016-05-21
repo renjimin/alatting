@@ -7,13 +7,16 @@ $(function () {
     var initData = function () {
         var g = yunyeEditorGlobal;
         //标题
-        if(g.unique_name)$("#logo_title").html(g.unique_name);
+        //if(g.unique_name)$("#logo_title").html(g.unique_name);
         if(storageAPI.getCss("logo_title"))$("#logo_title").css(storageAPI.getCss("logo_title"));
         //简述
         if(g.short_description)$("#short_description").html(g.short_description);
         if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
         //logo
-        if( !!storageAPI.getHead('logo_title'))$('.header-logo').empty().append(storageAPI.getHead('logo_title'));
+        var logo_title = storageAPI.getHead('logo_title');
+        if(logo_title && $.trim(logo_title) !== ""){
+            $('.header-logo').empty().append(logo_title);
+        }
         if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
         //电话手机邮箱
         var $phone = $('#dpw_phone');
@@ -165,6 +168,7 @@ $(function () {
                             $('.header-logo').empty().append('<img />');
                         }
                         $('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
+                        storageAPI.setHead("logo_title", "");
                     });
                 }
             },
@@ -317,9 +321,10 @@ $(function () {
                 callback: function () {
                     $("#colorBox").css('top', $('.content').offset().top).show();
                     $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.bar-header,.bar-footer').css('background', color);
-                        storageAPI.setCss(".bar-header", {'background': color});
-                        storageAPI.setCss(".bar-footer", {'background': color});
+                        $('.bar-header,.bar-footer').css('background-color', color);
+                        storageAPI.setCss(".bar-header", {'background-color': color});
+                        storageAPI.setCss(".bar-footer", {'background-color': color});
+                        storageAPI.setCss(".bottom-container > .bottom-menu", {'background-color': color})
                     });
                 }
             },

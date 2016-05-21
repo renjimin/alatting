@@ -128,6 +128,7 @@ $(function () {
 
 
     $(".btn.btn-save").on("click", function () {
+        $.fn.yyTools.mask(1);
         saveData();
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
@@ -139,10 +140,12 @@ $(function () {
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("保存成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("保存失败，服务器内部错误");
                 }
             }
@@ -150,6 +153,7 @@ $(function () {
     });
 
     $(".btn.btn-post").on("click", function () {
+        $.fn.yyTools.mask(1);
         saveData();
         yunyeEditorGlobal.lifetime = {
             lifetime_type : "weekly",
@@ -174,10 +178,12 @@ $(function () {
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("发布成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("发布失败，服务器内部错误");
                 }
             }
