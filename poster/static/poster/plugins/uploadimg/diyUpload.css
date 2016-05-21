@@ -81,6 +81,7 @@
 
 .parentFileBox>.fileBoxUl>li>.diyCancel{
 	display:block;
+	z-index:100;
 }
 
 .parentFileBox>.fileBoxUl>li>.diyCancel {
@@ -209,6 +210,7 @@
 	transition: all .2s;
 	-webkit-transition: all .2s;
 	/*display: none;*/
+	padding-top:40px;
 }
 .upload-image-dialog.open{
 	left:0;
@@ -216,16 +218,26 @@
 
 .upload-image-header{
 	text-align: center;
-	line-height: 50px;
+	height:40px;
+	line-height: 40px;
 	margin: 0;
-	font-size: 1.4em;
-	background: #ACACAC;
+	font-size: 1.2em;
+	background: #fff;
 	overflow: hidden;
+	position: absolute;
+	width:100%;
+	top:0;
+	left:0;
+	color:#666;
+	border-bottom:1px solid #eee;
 }
 
 .closefile{
 	font-size: 20px;
-	float: right;
-	line-height: 50px;
-	padding-right: 9px;
+	position:absolute;
+	min-width: 40px;
+    left: 0;
+	color:#999;
+	height:40px;
+	line-height:40px;
 }
