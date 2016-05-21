@@ -55,7 +55,10 @@ class Poster(models.Model):
         'Image', related_name='poster_logo_images', null=True,
         on_delete=SET_NULL
     )
-    logo_title = models.CharField(max_length=255, default='')
+    logo_title = models.CharField(
+        max_length=255, default='',
+        blank=True
+    )
     short_description = models.CharField(max_length=255, default='')
     phone = models.CharField(max_length=16, default='')
     mobile = models.CharField(max_length=16, blank=True, default='')

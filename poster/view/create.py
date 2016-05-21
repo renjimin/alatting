@@ -100,7 +100,6 @@ class CreateFormView(PosterFormViewMixin, CreateView):
         obj.creator = self.request.user
         obj.status = Poster.STATUS_DRAFT
         obj.address = address
-        obj.logo_title = ""
         return super(CreateFormView, self).form_valid(form)
 
     def post(self, request, *args, **kwargs):
