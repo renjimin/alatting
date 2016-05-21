@@ -2,7 +2,8 @@
 
 from django.conf.urls import include, url
 from alatting_website.views import PosterView, IndexView, IndexCategoryView, \
-    PosterCodeView, SvgClipView, DemoView, CaptureView, TestView, PosterCaptureView
+    PosterCodeView, SvgClipView, DemoView, CaptureView, TestView, PosterCaptureView, \
+    PosterListView
 from alatting_website.view.edit_view import EditView, CreatePosterView
 from alatting_website.feeds import PosterUpdateFeed
 
@@ -24,4 +25,8 @@ urlpatterns = [
     url(r'^search$', DemoView.as_view(), name='search'),
     url(r'^category$', IndexCategoryView.as_view(), name='category'),
 
+]
+
+urlpatterns += [
+    url(r'^posters.html$', PosterListView.as_view(), name='posters'),
 ]

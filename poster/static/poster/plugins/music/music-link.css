@@ -43,13 +43,14 @@
     padding:5px;
 }
 
-.system-music .glyphicon{
-    height: 23px;
-    width: 23px;
+.system-music .btnremove{
+    height: 24px;
+    width: 24px;
     position: absolute;
     margin-left: 90%;
-    margin-top: 3%;
+    margin-top: -36px;
     font-size: 28px;
+    background-image: url(../../images/btnremove.png);
 }
 
 .system-music .music-system {
