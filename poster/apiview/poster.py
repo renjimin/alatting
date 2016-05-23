@@ -279,8 +279,8 @@ class PosterSaveContentMixin(object):
             if k == "lifetime":  # 设置生存期结构体
                 setattr(instance, 'lifetime_timezone', 'Asia/Shanghai')
                 lifetime = head_json[k]
-                special = json.dumps(lifetime.get('lifetime_special', '{}'))
-                weekly = json.dumps(lifetime.get('lifetime_weekly', '{}'))
+                special = lifetime.get('lifetime_special', {})
+                weekly = lifetime.get('lifetime_weekly', {})
                 if special:
                     life_type = Poster.LIFETIME_SPECIFIC_DAYS
                     life_value = special
@@ -288,7 +288,8 @@ class PosterSaveContentMixin(object):
                     life_type = Poster.LIFETIME_WEEKLY
                     life_value = weekly
                 setattr(instance, 'lifetime_type', life_type)
-                setattr(instance, 'lifetime_value', life_value)
+                setattr(instance, 'lifetime_value', json.dumps(life_value))
+
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
                 for ck in head_json[k]:  # 一个个添加关键词

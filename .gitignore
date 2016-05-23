@@ -61,6 +61,7 @@ target/
 
 #deploy
 /static/
+/media/screenshot/
 /media/videos/
 /media/poster/
 /media/images/
