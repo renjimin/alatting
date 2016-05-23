@@ -24,24 +24,17 @@ $(function () {
         if(g.mobile)$phone.find('input:eq(1)').val(g.mobile);
         if(g.email)$('#dpw_email').find('input').val(g.email);
         //日历
-        if(yunyeEditorGlobal.lifetime.lifetime_type == "weekly"){
-            $(".calender").hide();
-            $(".weekly").show();
-            var inputs = $(".weekly input");
-            for (var i = 0; i < (inputs.length) / 2; i++) {
-                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                    info = yunyeEditorGlobal.lifetime.lifetime_value[weekName];
-                inputs.eq(i * 2).val(info.time_start);
-                inputs.eq(i * 2 + 1).val(info.time_end);
-                if (info.enabled) {
-                    $(".weekly td:eq(" + (i * 5 + 4) + ")").removeClass("off")
-                } else {
-                    $(".weekly td:eq(" + (i * 5 + 4) + ")").addClass("off")
-                }
+        var inputs = $(".weekly input");
+        for (var i = 0; i < (inputs.length) / 2; i++) {
+            var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
+            inputs.eq(i * 2).val(info.start);
+            inputs.eq(i * 2 + 1).val(info.end);
+            if (info.enabled) {
+                $(".weekly td:eq(" + (i * 6 + 4) + ")").removeClass("off")
+            } else {
+                $(".weekly td:eq(" + (i * 6 + 4) + ")").addClass("off")
             }
-        }else{
-            $(".calender").show();
-            $(".weekly").hide();
         }
 
         /**读取缓存背景图片*/
@@ -77,22 +70,21 @@ $(function () {
 
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
         $.extend(yunyeEditorGlobal, pageHeadData);
-        //服务器暂时没传数据 (伪造数据)
+        //服务器暂时没传数据 (默认时间)
         if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
-                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-            }
+            lifetime_weekly : {
+                "Monday": {start: "09:00", end: "17:00", enabled: 1},
+                "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
+                "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
+                "Thursday": {start: "09:00", end: "17:00", enabled: 1},
+                "Friday": {start: "09:00", end: "17:00", enabled: 1},
+                "Saturday": {start: "09:00", end: "17:00", enabled: 0},
+                "Sunday": {start: "09:00", end: "17:00", enabled: 0}
+            },
+            lifetime_special : {}
         };
         initData();
-    };
+    }
 
     //弹出菜单
     $(".dropdown-toggle:not(#share-toggle)").registerDropDown();
@@ -184,8 +176,6 @@ $(function () {
         offsetYPercent: 90,
         offsetY: 30,
         followMouse: true,
-        followMouse: true,
-
         list: [
             {
                 icon: "icon ico-system-pic",
@@ -447,7 +437,6 @@ $(function () {
         if(!$(target).hasClass("dropdown-toggle"))$('.dropdown-panel').removeClass("open");
         if($(target).hasClass("dropdown-toggle")){
             $("#dp").removeClass("open");
-            $('#dp ul').css("visibility","hidden");
         }
     });
 
@@ -468,7 +457,7 @@ $(function () {
         }
         $("#closesmusic").on('click',function(){
             $(".system-music").fadeOut(200);
-        })
+        });
         //点击被保护列表中的对象返回
         window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
         var list = window.clickItmList;
@@ -477,7 +466,6 @@ $(function () {
         }
         //点击页面空白区域行为
         $('#dp').removeClass('open');
-        $('#dp ul').css("visibility", "hidden");
     });
 
     //数据绑定
@@ -500,12 +488,23 @@ $(function () {
                 yyConfirm("结束时间不能早于开始时间");
             } else {
                 var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $(".hover").html();
-                yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
-                    "time_start": $('#dpw_clock input').eq(0).val(),
-                    "time_end": $('#dpw_clock input').eq(1).val(),
-                    "enabled": $('#dateState').hasClass("off") ? 0 : 1
-                };
-                $(".calender .hover").addClass("special");
+                var enabled = $('#dateState').hasClass("off") ? 0 : 1,
+                    year = parseInt($("#year").val()),
+                    month = parseInt($("#month").val()),
+                    week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
+                    weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+                    info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
+                if( start==info.start && end==info.end && enabled==info.enabled){
+                    $(".calender .hover").removeClass("special");
+                    delete yunyeEditorGlobal.lifetime.lifetime_special[specificDay];
+                }else{
+                    if(enabled){
+                        $("td.hover").removeClass("off").addClass("special");
+                    }else{
+                        $("td.hover").removeClass("special").addClass("off");
+                    }
+                    yunyeEditorGlobal.lifetime.lifetime_special[specificDay] = {start:start,end:end,enabled:enabled};
+                }
             }
         }
     });
