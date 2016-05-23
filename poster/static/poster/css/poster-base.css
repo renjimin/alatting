@@ -251,6 +251,7 @@ html {
 	float: left;
 
 	width: 25%;
+	pointer-events: auto;
 }
 .header-logo {
 	position: absolute;
