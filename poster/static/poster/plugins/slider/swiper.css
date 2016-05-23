@@ -83,7 +83,7 @@
   overflow: hidden;
 }
 .swiper-slide img{
-
+    min-width:100%;
 }
 /* Auto Height */
 .swiper-container-autoheight,
