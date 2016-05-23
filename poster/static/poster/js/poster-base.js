@@ -79,9 +79,7 @@ $(function () {
         $.extend(yunyeEditorGlobal, pageHeadData);
         //服务器暂时没传数据 (伪造数据)
         if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
+            lifetime_weekly : {
                 "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
                 "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
                 "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
@@ -89,7 +87,8 @@ $(function () {
                 "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
                 "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
                 "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-            }
+            },
+            lifetime_special:{}
         };
         initData();
     };
