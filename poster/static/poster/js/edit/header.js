@@ -40,15 +40,13 @@ $(function () {
             storageAPI.setHead("short_description", $('#short_description').html());
             //日历周期性
             var lifetime = yunyeEditorGlobal.lifetime;
-            if (lifetime.lifetime_type == "weekly") {
-                var inputs = $(".weekly input");
-                for (var i = 0; i < (inputs.length) / 2; i++) {
-                    var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                        info = lifetime.lifetime_value[weekName];
-                    info.time_start = inputs.eq(i * 2).val();
-                    info.time_end = inputs.eq(i * 2 + 1).val();
-                    info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
-                }
+            var inputs = $(".weekly input");
+            for (var i = 0; i < (inputs.length) / 2; i++) {
+                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                    info = lifetime.lifetime_weekly[weekName];
+                info.start = inputs.eq(i * 2).val();
+                info.end = inputs.eq(i * 2 + 1).val();
+                info.enabled = $(".weekly td:eq(" + (i * 6 + 4) + ")").hasClass("off") ? 0 : 1;
             }
             storageAPI.setHead("lifetime", lifetime);
         };
@@ -160,13 +158,13 @@ $(function () {
             lifetime_type : "weekly",
             lifetime_timezone : "Asia/Shanghai",
             lifetime_value : {
-                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
+                "Monday": {start: "09:00", end: "17:00", enabled: 1},
+                "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
+                "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
+                "Thursday": {start: "09:00", end: "17:00", enabled: 1},
+                "Friday": {start: "09:00", end: "17:00", enabled: 1},
+                "Saturday": {start: "09:00", end: "17:00", enabled: 0},
+                "Sunday": {start: "09:00", end: "17:00", enabled: 0}
             }
         };
         var full_json = JSON.stringify(storageAPI.getPosterData());

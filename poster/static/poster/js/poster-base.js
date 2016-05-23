@@ -180,9 +180,12 @@ $(function () {
     });
     $('.mask').registerPopUp({
         id: 'dpw_header',
-        offsetY: 50,
-        arrowOffset: 30,
+        offsetXPercent: 80,
+        offsetYPercent: 90,
+        offsetY: 30,
         followMouse: true,
+        followMouse: true,
+
         list: [
             {
                 icon: "icon ico-system-pic",
