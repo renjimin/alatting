@@ -287,9 +287,8 @@ class PosterSaveContentMixin(object):
                 else:
                     life_type = Poster.LIFETIME_WEEKLY
                     life_value = weekly
-                life_value = json.dumps(life_value) if life_value else ''
-                setattr(instance, 'lifetime_value', life_value)
                 setattr(instance, 'lifetime_type', life_type)
+                setattr(instance, 'lifetime_value', json.dumps(life_value))
 
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
