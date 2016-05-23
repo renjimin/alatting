@@ -54,8 +54,9 @@ $(function () {
     $(".back-to-home").click(function () {
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
-            //todo:lyh:异步调用保存方法，将本地缓存数据保存至数据库,
-            //保存操作完成后进行页面跳转
+            try{
+                saveData();
+            }catch(e){}
             window.location.href = url;
         });
     });
@@ -126,6 +127,7 @@ $(function () {
 
 
     $(".btn.btn-save").on("click", function () {
+        $.fn.yyTools.mask(1);
         saveData();
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
@@ -137,10 +139,12 @@ $(function () {
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("保存成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("保存失败，服务器内部错误");
                 }
             }
@@ -148,6 +152,7 @@ $(function () {
     });
 
     $(".btn.btn-post").on("click", function () {
+        $.fn.yyTools.mask(1);
         saveData();
         yunyeEditorGlobal.lifetime = {
             lifetime_type : "weekly",
@@ -172,10 +177,12 @@ $(function () {
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("发布成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("发布失败，服务器内部错误");
                 }
             }

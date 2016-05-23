@@ -1193,11 +1193,18 @@ to {
 	min-height: 20px;
 	margin: 0 3px;
 
-	color: #808080;
-	border: 1px solid #808080;
+	color: #fff;
+	border: 1px solid #fff;
 	background: none;
 
 	line-height: 24px;
+	-webkit-box-shadow:1px 1px 1px #666;
+	   -moz-box-shadow:1px 1px 1px #666;
+			box-shadow:1px 1px 1px #666;
+	-webkit-text-shadow:1px 1px 1px #666;
+	   -moz-text-shadow:1px 1px 1px #666;
+	        text-shadow:1px 1px 1px #666;
+			outline:none;
 }
 .bar-header .btn-save {
 }

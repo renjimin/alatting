@@ -13,26 +13,27 @@
 .content-left-top {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
     clip-path: url(#content-left-top);
-    width:50%;
+    width: 47%;
     height: 50%;
     position: absolute;
-    left: 0;
+    left: 2%;
 }
 
 .content-right-top {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 100%);
     clip-path: url(#content-right-top);
-    width: 49%;
+    width: 47%;
     height: 50%;
     position: absolute;
-    right: 0;
+    right: 2%;
 }
 .content-bottom {
     -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%,0 100%);
     clip-path: url(#content-bottom);
     position: absolute;
-    top: 215px;
+    top: 54%;
     left: 0;
-    width: 100%;
+    width: 96%;
     height: 50%;
+    left: 2%;
 }

@@ -191,20 +191,32 @@ class PosterStatusView(APIView):
         day_now = now.strftime('%Y-%m-%d')
         status = 'Disable'
         lifetime_dict = json.loads(poster.lifetime_value)
-        if poster.lifetime_type in ['specific_days', 'weekly']:
-            make_time = lambda x, y: datetime.strptime(x + ' ' + y, '%Y-%m-%d %H:%M:%S')
-            if poster.lifetime_type == 'specific_days':
-                if day_now in lifetime_dict.keys() and lifetime_dict[day_now]['enabled']:
-                    start_time = make_time(day_now, lifetime_dict[day_now]['time_start'])
-                    end_time = make_time(day_now, lifetime_dict[day_now]['time_end'])
-                    if timezone.localize(start_time) <= now <= timezone.localize(end_time):
+        if poster.lifetime_type in [Poster.LIFETIME_SPECIFIC_DAYS,
+                                    Poster.LIFETIME_WEEKLY]:
+            make_time = lambda x, y: datetime.strptime(x + ' ' + y,
+                                                       '%Y-%m-%d %H:%M:%S')
+
+            time_keys = lifetime_dict.keys()
+            if poster.lifetime_type == Poster.LIFETIME_SPECIFIC_DAYS:
+                if day_now in time_keys and lifetime_dict[day_now]['enabled']:
+                    start_time = make_time(day_now,
+                                           lifetime_dict[day_now]['start'])
+                    end_time = make_time(day_now,
+                                         lifetime_dict[day_now]['end'])
+                    start_time = timezone.localize(start_time)
+                    end_time = timezone.localize(end_time)
+                    if start_time <= now <= end_time:
                         status = 'Enable'
             else:
                 weekday = now.strftime('%A')
-                if weekday in lifetime_dict.keys() and lifetime_dict[weekday]['enabled']:
-                    start_time = make_time(day_now, lifetime_dict[weekday]['time_start'])
-                    end_time = make_time(day_now, lifetime_dict[weekday]['time_end'])
-                    if timezone.localize(start_time) <= now <= timezone.localize(end_time):
+                if weekday in time_keys and lifetime_dict[weekday]['enabled']:
+                    start_time = make_time(day_now,
+                                           lifetime_dict[weekday]['start'])
+                    end_time = make_time(day_now,
+                                         lifetime_dict[weekday]['end'])
+                    start_time = timezone.localize(start_time)
+                    end_time = timezone.localize(end_time)
+                    if start_time <= now <= end_time:
                         status = 'Enable'
         return Response({'detail': status})
 
@@ -265,10 +277,18 @@ class PosterSaveContentMixin(object):
                 address.province = head_json[k]['province']
                 address.save()
             if k == "lifetime":  # 设置生存期结构体
-                for l, lv in head_json[k].items():
-                    setattr(instance, l, lv)
-                    if l == 'lifetime_value':
-                        setattr(instance, l, json.dumps(lv))
+                setattr(instance, 'lifetime_timezone', 'Asia/Shanghai')
+                lifetime = head_json[k]
+                special = json.dumps(lifetime.get('lifetime_special', '{}'))
+                weekly = json.dumps(lifetime.get('lifetime_weekly', '{}'))
+                if special:
+                    life_type = Poster.LIFETIME_SPECIFIC_DAYS
+                    life_value = special
+                else:
+                    life_type = Poster.LIFETIME_WEEKLY
+                    life_value = weekly
+                setattr(instance, 'lifetime_type', life_type)
+                setattr(instance, 'lifetime_value', life_value)
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
                 for ck in head_json[k]:  # 一个个添加关键词

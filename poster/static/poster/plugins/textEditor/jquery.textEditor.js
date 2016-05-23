@@ -31,6 +31,7 @@
         var option = _this.option;
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
+        var postcontainer = $('.container-fluid').children('.yunye-template');
         var move=false;
         /*载入控件dom*/
         var ch = pluginBox.children().length;
@@ -95,7 +96,7 @@
             $element.parent().append($newel);
             $element.parent().children('.text-element').css('z-index','100').removeClass('text-element-act');
             $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
-            $newel.domRotate({ebox:fullcontainer});
+            $newel.domRotate({ebox:postcontainer});
             $element = $newel;
         });
         /*文字内容编辑*/
@@ -103,16 +104,20 @@
             clearTransform($element);
             $('.ted-text-content').fadeIn(200);
             if(option.pluginType == 'main'){
-                $('#tt-content').val($element.find('.el-content').html());
+                var cont = $element.find('.el-content').html();
             }else if(option.pluginType == 'other'){
-                $('#tt-content').val($element.html());
+                var cont = $element.html();
             }else{}
+            cont = cont.replace('<br>','\n');
+            $('#tt-content').val(cont);
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
+            var cont = $('#tt-content').val();
+            cont = cont.replace('\n','<br>');
             if(option.pluginType == 'main'){
-                $element.find('.el-content').html($('#tt-content').val());
+                $element.find('.el-content').html(cont);
             }else if(option.pluginType == 'other'){
-                $element.html($('#tt-content').val());
+                $element.html(cont);
             }else{}
         });
         pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
@@ -463,7 +468,7 @@
         }
         cdiv += '</ul></div></div></div></div></div></div>';
         cdiv += '<div class="ted-menu"><ul><li class="ted-menu-li ted-menu-base ted-menu-act" data-item="base">基本</li><li class="ted-menu-li ted-menu-color" data-item="color">颜色</li><li class="ted-menu-li ted-menu-font " data-item="font">字体</li><li class="ted-menu-li ted-menu-effects" data-item="effects">特效</li></ul></div>';
-        cdiv += '<div class="ted-text-content"><div class="tt-cont-back"></div><div class="tt-cont-main"><div class="tt-cont-confirm" id="tt-cont-confirm"><span class="glyphicon glyphicon-ok"></span></div><textarea type="text" id="tt-content" placeholder="点击输入文字"></textarea></div></div>';
+        cdiv += '<div class="ted-text-content"><div class="tt-cont-back"></div><div class="tt-cont-main"><div class="tt-cont-confirm" id="tt-cont-confirm"><span class="glyphicon glyphicon-chevron-left"></span></div><textarea type="text" id="tt-content" placeholder="点击输入文字"></textarea></div></div>';
         return cdiv;
     }
 
