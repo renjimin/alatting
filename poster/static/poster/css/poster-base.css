@@ -1561,3 +1561,9 @@ to {
 .body-container{
 	height:100%;
 }
+
+.cnd-element {
+	position: absolute;
+	z-index: 100;
+}
+.cnd-element.active{height:auto;}
