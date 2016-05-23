@@ -212,7 +212,7 @@ $(function() {
 			specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html(),
 			darry = specificDay.split("-"),
 			i = new Date(parseInt(darry[0]), parseInt(darry[1]) - 1, parseInt(darry[2])).getDay(),
-			weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ,
+			weekName = (i == 0) ? "Sunday" : (i == 1) ? "Monday" : (i == 2) ? "Tuesday" : (i == 3) ? "Wednesday" : (i == 4) ? "Thursday" : (i == 5) ? "Friday" :  "Saturday" ,
 			info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 		if(target.hasClass("off")){
 			target.removeClass("off");
@@ -221,10 +221,11 @@ $(function() {
 			target.addClass("off");
 			enabled = 0;
 		}
-		if(start==info.start && end==info.end && enabled== info.enabled){
+		if(start==info.start && end==info.end && enabled==info.enabled){
 			$("td.hover").removeClass("special");
 			delete yunyeEditorGlobal.lifetime.lifetime_special[specificDay];
 		}else{
+			console.log(enabled);
 			if(enabled){
 				$("td.hover").removeClass("off").addClass("special");
 			}else{
