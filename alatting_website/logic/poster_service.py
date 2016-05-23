@@ -39,8 +39,11 @@ class PosterService:
     def poster_paths(cls, poster, ext):
         file = ('screen_shot_%s' % poster.id) + ext
         # file = os.path.splitext(poster.html.name)[0] + ext
-        url_path = settings.MEDIA_URL + file
-        path = os.path.join(settings.MEDIA_ROOT, file)
+        url_path = settings.MEDIA_URL + 'screenshot' + file
+        dir_path = os.path.join(settings.MEDIA_ROOT, 'screenshot')
+        if not os.path.exists(dir_path):
+            os.makedirs(dir_path)
+        path = os.path.join(dir_path, file)
         return path, url_path
 
     @classmethod
