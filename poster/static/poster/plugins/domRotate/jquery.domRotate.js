@@ -17,7 +17,7 @@
         var _this = this;
         var $element = $(_this.$element);
         var box = _this.option.ebox;
-        var ch = box.find('#ele-rotate-ctrl').length;
+        var ch = box.find('.ele-rotate-ctrl').length;
         if(!ch){
             var cdiv = '<div id="ele-rotate-ctrl" class="ele-rotate-ctrl"><span class="glyphicon glyphicon-refresh"></span></div>';
             cdiv += '<div id="ele-editor-ctrl" class="ele-rotate-ctrl"><span class="glyphicon glyphicon-pencil"></span></div>';
