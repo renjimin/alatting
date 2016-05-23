@@ -16,6 +16,7 @@ $(function(){
     });
     postcontainer.on('click','.text-element',function(event){
         event.stopPropagation();
+        $(document).trigger('clsdp');
         var ths = $(this);
         $('.cnd-element').removeClass('active');
         $('.text-element').removeClass('text-element-act').css('z-index','100');

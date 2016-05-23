@@ -31,7 +31,6 @@
         var option = _this.option;
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
-        var postcontainer = $('.container-fluid').children('.yunye-template');
         var move=false;
         /*载入控件dom*/
         var ch = pluginBox.children().length;
@@ -99,7 +98,6 @@
         });
         /*文字内容编辑*/
         pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
-            clearTransform($element);
             $('.ted-text-content').fadeIn(200);
             if(option.pluginType == 'main'){
                 var cont = $element.find('.el-content').html();
@@ -117,6 +115,7 @@
             }else if(option.pluginType == 'other'){
                 $element.html(cont);
             }else{}
+            moveCtrlPos($element);
         });
         pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
             $('.ted-text-content').fadeOut(200);
@@ -181,6 +180,7 @@
             }else{
                 $element.css('font-weight',600);
             }
+            moveCtrlPos($element);
         });
         /*设置文字倾斜*/
         pluginBox.off('click','#ted-fontstyle').on('click','#ted-fontstyle',function(){
@@ -272,7 +272,7 @@
 
                     /*设置元素属性效果*/
                     if(item == 'wordspace'){
-                        clearTransform($element);
+                        moveCtrlPos($element);
                         var size = Math.floor(20*rate/100);
                         if(option.pluginType == 'other'){
                             $element.css("letter-spacing", size+'px');
@@ -281,7 +281,7 @@
                         }
                     }
                     if(item == 'lineheight'){
-                        clearTransform($element);
+                        moveCtrlPos($element);
                         var lh= 1+rate/100;
                         if(option.pluginType == 'other'){
                             $element.css("line-height", lh+'em');
@@ -418,10 +418,18 @@
             $('#ted-ctrl-'+item).fadeIn(200);
         });
 
-        function clearTransform($obj){
-            $obj.css('transform','').removeData('botp rbotp midp dlength').removeClass('text-element-act');
-            $obj.children('.el-editor').css('transform','');
-            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+        function moveCtrlPos($ele){
+            var $etrl = $('#ele-editor-ctrl');
+            var $ctrl = $('#ele-rotate-ctrl');
+            moveCtrlBtn($ele.children('.el-rotate'),$ele.parent(),$ctrl);
+            moveCtrlBtn($ele.children('.el-editor'),$ele.parent(),$etrl);
+        }
+        function moveCtrlBtn($pos,$fbox,$ctrol){
+            var pos = $pos.offset();
+            var fbox = $fbox.offset();
+            var sx = pos.left-fbox.left;
+            var sy = pos.top-fbox.top;
+            $ctrol.css({left:sx+'px',top:sy+'px'});
         }
 
     };
