@@ -99,7 +99,9 @@ var scale = function(box,options){
             $('.cnd-element').removeClass('active');
             s.o.addClass('active').css('z-index',scaleIndex++);
             $(e.currentTarget).addClass('drag-active');
-
+            /* 移除文字编辑焦点 */
+            $('.text-element').removeClass('text-element-act');
+            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
