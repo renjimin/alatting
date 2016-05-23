@@ -1,257 +1,353 @@
-@charset "utf-8";
+@charset 'utf-8';
 /* CSS Document*/
 
 /*webuploader css*/
-.webuploader-container {
-	position: relative;
-	padding: 31px 4px 10px 4px;
+.webuploader-container
+{
+    position: relative;
+
+    padding: 31px 4px 10px 4px;
 }
-.webuploader-element-invisible {
-	position: absolute !important;
-	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+.webuploader-element-invisible
+{
+    position: absolute !important;
+
+    clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px,1px,1px,1px);
 }
-.webuploader-pick {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
-	background-image:url(../../images/addimg.png);
-	background-repeat:  no-repeat;
-	background-size:auto 80%;
-	background-position:left center;
-	padding: 0 20px;
-	color: #fff;
-	text-align: center;
-	border-radius: 3px;
-	overflow: hidden;
-<<<<<<< HEAD
-	width: 88px;
-	height: 75px;
-	text-indent: -999px;
-=======
-	line-height:45px;
-	height: 45px;
-	padding-left:50px;
-	background-color: #00a2d4;
-	font-size:16px;
->>>>>>> 4f92a89683ded89eb25497d78d79a1c6404e4232
+.webuploader-pick
+{
+    font-size: 16px;
+    line-height: 45px;
+
+    position: relative;
+
+    display: inline-block;
+    overflow: hidden;
+
+    height: 45px;
+    padding: 0 20px;
+    padding-left: 50px;
+
+    cursor: pointer;
+    text-align: center;
+
+    color: #fff;
+    border-radius: 3px;
+    background-color: #00a2d4;
+    background-image: url(../../images/addimg.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: auto 80%;
 }
-.webuploader-pick-hover {
-	/* background: #00a2d4; */
+.webuploader-pick-hover
+{
+    /* background: #00a2d4; */
 }
 
-.webuploader-pick-disable {
-	opacity: 0.6;
-	pointer-events:none;
+.webuploader-pick-disable
+{
+    pointer-events: none;
+
+    opacity: .6;
 }
 /*end*/
 
 
-.parentFileBox {
-	width:auto;
-	height:auto;
-	position:relative;
+.parentFileBox
+{
+    position: relative;
+
+    width: auto;
+    height: auto;
 }
-.parentFileBox>.fileBoxUl {
-	position:relative;
-	width:100%;
-	height:auto;
-	overflow:hidden;
-	padding-bottom:5px;
+.parentFileBox > .fileBoxUl
+{
+    position: relative;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: auto;
+    padding-bottom: 5px;
 }
-.parentFileBox>.fileBoxUl>li {
-	float:left;
-	border:1px solid #09F;
-	border-radius:5px;
-	width: 130px;
-	height: 130px;
-	margin-top:5px;
-	margin-left: 5px;
-	overflow:hidden;
-	position:relative;
-	background-color:#099;
+.parentFileBox > .fileBoxUl > li
+{
+    position: relative;
+
+    float: left;
+    overflow: hidden;
+
+    width: 130px;
+    height: 130px;
+    margin-top: 5px;
+    margin-left: 5px;
+
+    border: 1px solid #09f;
+    border-radius: 5px;
+    background-color: #099;
 }
-.parentFileBox>.fileBoxUl>li>.viewThumb {
-	position:absolute;
-	top:0;
-	left:0;
-	width: 130px;
-	height: 130px;
-	overflow:hidden;
+.parentFileBox > .fileBoxUl > li > .viewThumb
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+
+    width: 130px;
+    height: 130px;
 }
-.parentFileBox>.fileBoxUl>li>.viewThumb>img {
-	width:100%;
-	height:100%;
+.parentFileBox > .fileBoxUl > li > .viewThumb>img
+{
+    width: 100%;
+    height: 100%;
 }
-.parentFileBox>.fileBoxUl>li>.diyCancel,.parentFileBox>.fileBoxUl>li>.diySuccess {
-	position:absolute;
-	width:32px;
-	height:32px;
-	top:2px;
-	right:2px;
-	cursor:pointer;
-	display:none;
+.parentFileBox > .fileBoxUl > li>.diyCancel,
+.parentFileBox > .fileBoxUl > li > .diySuccess
+{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+
+    display: none;
+
+    width: 32px;
+    height: 32px;
+
+    cursor: pointer;
 }
 
-.parentFileBox>.fileBoxUl>li>.diyCancel{
-	display:block;
-	z-index:100;
+.parentFileBox > .fileBoxUl > li>.diyCancel
+{
+    z-index: 100;
+
+    display: block;
 }
 
-.parentFileBox>.fileBoxUl>li>.diyCancel {
-	background:url(../../images/x_alt.png) no-repeat;
+.parentFileBox > .fileBoxUl > li > .diyCancel
+{
+    background: url(../../images/x_alt.png) no-repeat;
 }
-.parentFileBox>.fileBoxUl>li>.diySuccess {
-	background:url(../../images/check_alt.png) no-repeat;
-	cursor:default;
+.parentFileBox > .fileBoxUl > li > .diySuccess
+{
+    cursor: default;
+
+    background: url(../../images/check_alt.png) no-repeat;
 }
-.parentFileBox>.fileBoxUl>li>.diyFileName {
-	position:absolute;
-	bottom:0px;
-	left:0px;
-	width:100%;
-	height:20px;
-	line-height:20px;
-	text-align:center;
-	color:#fff;
-	font-size:12px;
-	display:none;
-	background:url(../../images/bgblack.png);
+.parentFileBox > .fileBoxUl > li > .diyFileName
+{
+    font-size: 12px;
+    line-height: 20px;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: none;
+
+    width: 100%;
+    height: 20px;
+
+    text-align: center;
+
+    color: #fff;
+    background: url(../../images/bgblack.png);
 }
-.parentFileBox>.fileBoxUl>li>.diyBar {
-	top:0;
-	left:0;
-	position: absolute;
-	width: 170px;
-	height: 150px;
-	line-height:150px;
-	background:url(../../images/bgblack.png);
-	display:none;
+.parentFileBox > .fileBoxUl > li > .diyBar
+{
+    line-height: 150px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: none;
+
+    width: 170px;
+    height: 150px;
+
+    background: url(../../images/bgblack.png);
 }
-.parentFileBox>.fileBoxUl>li>.diyBar>.diyProgressText {
-	font-size:14px;
-	text-align:center;
-	color:#FFF;
-	position:relative;
-	z-index:99;
+.parentFileBox > .fileBoxUl > li > .diyBar>.diyProgressText
+{
+    font-size: 14px;
+
+    position: relative;
+    z-index: 99;
+
+    text-align: center;
+
+    color: #fff;
 }
-.parentFileBox>.fileBoxUl>li>.diyBar>.diyProgress {
-	position:absolute;
-	left:0;
-	top:42%;
-	height:24px;
-	width:100%;
-	background-color:#09F;
-	filter:alpha(opacity=70);
-	-moz-opacity:0.7;
-	opacity:0.7;
-	z-index:97;
+.parentFileBox > .fileBoxUl > li > .diyBar>.diyProgress
+{
+    position: absolute;
+    z-index: 97;
+    top: 42%;
+    left: 0;
+
+    width: 100%;
+    height: 24px;
+
+         opacity: .7;
+    background-color: #09f;
+
+    filter: alpha(opacity=70);
+    -moz-opacity: .7;
 }
-.parentFileBox>.diyButton {
-	width:100%;
-	margin-top: 12px;
-	margin-bottom:5px;
-	line-height: 27px;
-	text-align:center;
+.parentFileBox > .diyButton
+{
+    line-height: 27px;
+
+    width: 100%;
+    margin-top: 12px;
+    margin-bottom: 5px;
+
+    text-align: center;
 }
-.parentFileBox>.diyButton>a {
-	padding: 10px 13px 10px 13px;
-	background-color:#09C;
-	color:#FFF;
-	font-size: 13px;
-	text-decoration:none;
-	border-radius:3px;
-	margin-right: 5px;
+.parentFileBox > .diyButton > a
+{
+    font-size: 13px;
+
+    margin-right: 5px;
+    padding: 10px 13px 10px 13px;
+
+    text-decoration: none;
+
+    color: #fff;
+    border-radius: 3px;
+    background-color: #09c;
 }
-.parentFileBox>.diyButton>a:hover {
-	background-color:#0CC;
-	color:#F30;
+.parentFileBox > .diyButton > a:hover
+{
+    color: #f30;
+    background-color: #0cc;
 }
-.parentFileBox>.fileBoxUl>li:hover {
-/* 	-moz-box-shadow: 3px 3px 4px #FF0;
+.parentFileBox > .fileBoxUl > li:hover
+{
+    /* 	-moz-box-shadow: 3px 3px 4px #FF0;
 	-webkit-box-shadow: 3px 3px 4px #FF0;
 	box-shadow: 3px 3px 4px #FF0; */
 }
-.parentFileBox>.fileBoxUl>.diyUploadHover:hover .diyCancel {
-	display:block;
+.parentFileBox > .fileBoxUl > .diyUploadHover:hover .diyCancel
+{
+    display: block;
 }
-.parentFileBox>.fileBoxUl>li:hover .diyFileName {
-	display:block;
+.parentFileBox > .fileBoxUl > li:hover .diyFileName
+{
+    display: block;
 }
-.avi_diy_bg,.txt_diy_bg,.doc_diy_bg,.zip_diy_bg,.csv_diy_bg,.xls_diy_bg,.mp3_diy_bg,.pdf_diy_bg,.rar_diy_bg {
-	background-position:center;
-	background-repeat:no-repeat;
+.avi_diy_bg,
+.txt_diy_bg,
+.doc_diy_bg,
+.zip_diy_bg,
+.csv_diy_bg,
+.xls_diy_bg,
+.mp3_diy_bg,
+.pdf_diy_bg,
+.rar_diy_bg
+{
+    background-repeat: no-repeat;
+    background-position: center;
 }
-.avi_diy_bg {
-	background-image:url(../images/avi.png);
+.avi_diy_bg
+{
+    background-image: url(../images/avi.png);
 }
-.txt_diy_bg {
-	background-image:url(../images/txt.png);
+.txt_diy_bg
+{
+    background-image: url(../images/txt.png);
 }
-.doc_diy_bg {
-	background-image:url(../images/doc.png);
+.doc_diy_bg
+{
+    background-image: url(../images/doc.png);
 }
-.zip_diy_bg {
-	background-image:url(../images/filebg/zip.png);
+.zip_diy_bg
+{
+    background-image: url(../images/filebg/zip.png);
 }
-.csv_diy_bg {
-	background-image:url(../images/filebg/csv.png);
+.csv_diy_bg
+{
+    background-image: url(../images/filebg/csv.png);
 }
-.xls_diy_bg {
-	background-image:url(../images/filebg/xls.png);
+.xls_diy_bg
+{
+    background-image: url(../images/filebg/xls.png);
 }
-.mp3_diy_bg {
-	background-image:url(../images/filebg/mp3.png);
+.mp3_diy_bg
+{
+    background-image: url(../images/filebg/mp3.png);
 }
-.pdf_diy_bg {
-	background-image:url(../images/filebg/pdf.png);
+.pdf_diy_bg
+{
+    background-image: url(../images/filebg/pdf.png);
 }
-.rar_diy_bg {
-	background-image:url(../images/filebg/rar.png);
-}
-
-.upload-image-dialog{
-	z-index: 999;
-	position: fixed;
-	top:0;
-	left:100%;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255,255,255,0.98);
-	filter: Alpha(opacity=90);
-	font-family: 'Microsoft YaHei';
-	overflow: hidden;
-	transition: all .2s;
-	-webkit-transition: all .2s;
-	/*display: none;*/
-	padding-top:40px;
-}
-.upload-image-dialog.open{
-	left:0;
-}
-
-.upload-image-header{
-	text-align: center;
-	height:40px;
-	line-height: 40px;
-	margin: 0;
-	font-size: 1.2em;
-	background: #fff;
-	overflow: hidden;
-	position: absolute;
-	width:100%;
-	top:0;
-	left:0;
-	color:#666;
-	border-bottom:1px solid #eee;
+.rar_diy_bg
+{
+    background-image: url(../images/filebg/rar.png);
 }
 
-.closefile{
-	font-size: 20px;
-	position:absolute;
-	min-width: 40px;
+.upload-image-dialog
+{
+    font-family: 'Microsoft YaHei';
+
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 100%;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 100%;
+    /*display: none;*/
+    padding-top: 40px;
+
+    -webkit-transition: all .2s;
+            transition: all .2s;
+
+    background-color: rgba(255,255,255,.98);
+
+    filter: Alpha(opacity=90);
+}
+.upload-image-dialog.open
+{
     left: 0;
-	color:#999;
-	height:40px;
-	line-height:40px;
+}
+
+.upload-image-header
+{
+    font-size: 1.2em;
+    line-height: 40px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    overflow: hidden;
+
+    width: 100%;
+    height: 40px;
+    margin: 0;
+
+    text-align: center;
+
+    color: #666;
+    border-bottom: 1px solid #eee;
+    background: #fff;
+}
+
+.closefile
+{
+    font-size: 20px;
+    line-height: 40px;
+
+    position: absolute;
+    left: 0;
+
+    min-width: 40px;
+    height: 40px;
+
+    color: #999;
 }

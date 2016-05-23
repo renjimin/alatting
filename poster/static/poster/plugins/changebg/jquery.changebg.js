@@ -24,7 +24,7 @@
                     success: function (data) {
                         // ss= data;
                         console.log(data);
-                        var cbox= '<div class="system-item"><div ><h3>系统背景</h3><i id = "closebg" class="btnremove"></i></div><ul>';
+                        var cbox= '<div class="system-item"><div ><h3>系统背景</h3><i id = "closebg" class="glyphicon glyphicon-remove-circle"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
                             var img = data[i].thumbnail_url;
                             cbox += '<li class="item-system" data-img="'+data[i].image_url+'"><img src="'+img+'"></li>';

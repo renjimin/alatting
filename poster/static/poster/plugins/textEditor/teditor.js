@@ -1,11 +1,11 @@
 
 $(function(){
     $('#text-element-act').tEditor({});
-
+    var postcontainer = $('.container-fluid').children('.yunye-template');
     $('#share-toggle').on('click',function(e){
         e.stopPropagation();
-        var cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-editor"></div></div>');
-        fullcontainer.append(cnd);
+        var cnd = $('<div class="cnd-element text-element"><div class="el-content">请修改文字</div><div class="el-editor"></div></div>');
+        postcontainer.append(cnd);
         cnd.css({'top':'20px','left':'100px'});
     });
 
@@ -13,15 +13,17 @@ $(function(){
         e.stopPropagation();
         $('#text-model').animate({'bottom':'-300px'},200);
     });
-
-    fullcontainer.on('click','.text-element',function(e){
-        e.stopPropagation();
+    postcontainer.on('click','.text-element',function(event){
+        event.stopPropagation();
         var ths = $(this);
+        $('.cnd-element').removeClass('active');
         $('.text-element').removeClass('text-element-act').css('z-index','100');
         ths.addClass('text-element-act').css('z-index','110');
         ths.tEditor({});
-        ths.domRotate({ebox:fullcontainer});
+        ths.domRotate({ebox:postcontainer});
     });
+    $('.text-element').removeClass('text-element-act');
+    $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
     /*
     var hidtime = 3;
     function hideAct(obj){
@@ -36,7 +38,7 @@ $(function(){
         },1000);
     }
     */
-    fullcontainer.on('click','#ele-editor-ctrl',function(e){
+    postcontainer.on('click','#ele-editor-ctrl',function(e){
         e.stopPropagation();
         $(document).trigger('clsdp');
         var bot = parseInt($('#text-model').css('bottom'));

@@ -394,12 +394,11 @@ class PosterCaptureView(View):
     def get(self, request, pk):
         current_poster = Poster.objects.get(pk=pk)
         image_url, pdf_url = PosterService.capture(
-                self.request, current_poster, force='force' in self.request.GET
+            self.request, current_poster, force='force' in self.request.GET
         )
-        data = {}
-        data['image_url'] = image_url
-        data['pdf_url'] = pdf_url
-        response = HttpResponse(json.dumps(data), content_type = "application/json")
+        data = {'image_url': image_url, 'pdf_url': pdf_url}
+        response = HttpResponse(json.dumps(data),
+                                content_type="application/json")
         return response
 
 

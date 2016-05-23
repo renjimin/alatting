@@ -15,17 +15,17 @@ $(document).ready(function () {
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
     var deviceH = document.documentElement.clientHeight + "px";
 
-    if ($("#checkout").attr("checked") == "checked") {
-        var username = $("#id_username").val();
-        var password = $("#id_password").val();
-        if (username != null && password != null) {
-            localStorage.setItem("username", username);
-            localStorage.setItem("password", password);
+    function isLocalStorageSupported() {
+        var testKey = 'test',
+            storage = window.localStorage;
+        try {
+            storage.setItem(testKey, 'testValue');
+            storage.removeItem(testKey);
+            return true;
+        } catch (error) {
+            return false;
         }
-    } else {
-        //localStorage.clear();
     }
-
     var checkUsername = function(username){
         if(!username){
             var text = "邮箱";
@@ -46,7 +46,9 @@ $(document).ready(function () {
         return true;
     };
 
-    $("#btnok").click(function () {
+    $("#btnok").click(function (e) {
+        e.preventDefault();
+
         var username = $.trim($("#id_username").val());
         var password = $.trim($("#id_password").val());
 
@@ -61,10 +63,10 @@ $(document).ready(function () {
             yyAlert("密码长度应不小于5位");
             return false;
         }
-        if ($("#btnchk").is(':checked')) {
+        if ($("#btnchk").is(':checked') && isLocalStorageSupported()) {
             if (username != null && password != null) {
-                localStorage.setItem("username", username);
-                localStorage.setItem("password", password);
+                localStorage.username= username;
+                localStorage.password=password;
             }
         } else {
             localStorage.clear();

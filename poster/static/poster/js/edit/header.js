@@ -12,6 +12,7 @@ $(function () {
                 }
             }
 
+            $(".change-template-layout").remove();
             storageAPI.setHtml(".yunye-template");
             //电话手机邮箱
             if(!!$('#phoneInput').val())storageAPI.setHead("phone", $('#phoneInput').val());
@@ -40,15 +41,13 @@ $(function () {
             storageAPI.setHead("short_description", $('#short_description').html());
             //日历周期性
             var lifetime = yunyeEditorGlobal.lifetime;
-            if (lifetime.lifetime_type == "weekly") {
-                var inputs = $(".weekly input");
-                for (var i = 0; i < (inputs.length) / 2; i++) {
-                    var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                        info = lifetime.lifetime_value[weekName];
-                    info.time_start = inputs.eq(i * 2).val();
-                    info.time_end = inputs.eq(i * 2 + 1).val();
-                    info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
-                }
+            var inputs = $(".weekly input");
+            for (var i = 0; i < (inputs.length) / 2; i++) {
+                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                    info = lifetime.lifetime_weekly[weekName];
+                info.start = inputs.eq(i * 2).val();
+                info.end = inputs.eq(i * 2 + 1).val();
+                info.enabled = $(".weekly td:eq(" + (i * 6 + 4) + ")").hasClass("off") ? 0 : 1;
             }
             storageAPI.setHead("lifetime", lifetime);
         };
@@ -56,8 +55,9 @@ $(function () {
     $(".back-to-home").click(function () {
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
-            //todo:lyh:异步调用保存方法，将本地缓存数据保存至数据库,
-            //保存操作完成后进行页面跳转
+            try{
+                saveData();
+            }catch(e){}
             window.location.href = url;
         });
     });
@@ -128,6 +128,7 @@ $(function () {
 
 
     $(".btn.btn-save").on("click", function () {
+        $.fn.yyTools.mask(1);
         saveData();
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
@@ -139,10 +140,12 @@ $(function () {
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("保存成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("保存失败，服务器内部错误");
                 }
             }
@@ -150,18 +153,19 @@ $(function () {
     });
 
     $(".btn.btn-post").on("click", function () {
+        $.fn.yyTools.mask(1);
         saveData();
         yunyeEditorGlobal.lifetime = {
             lifetime_type : "weekly",
             lifetime_timezone : "Asia/Shanghai",
             lifetime_value : {
-                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
+                "Monday": {start: "09:00", end: "17:00", enabled: 1},
+                "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
+                "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
+                "Thursday": {start: "09:00", end: "17:00", enabled: 1},
+                "Friday": {start: "09:00", end: "17:00", enabled: 1},
+                "Saturday": {start: "09:00", end: "17:00", enabled: 0},
+                "Sunday": {start: "09:00", end: "17:00", enabled: 0}
             }
         };
         var full_json = JSON.stringify(storageAPI.getPosterData());
@@ -174,10 +178,12 @@ $(function () {
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("发布成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("发布失败，服务器内部错误");
                 }
             }

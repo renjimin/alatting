@@ -34,11 +34,10 @@
 					var dpw = $('#dp');
 					if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 						dpw.attr('class', '').removeClass('open');
-						$('#dp ul').css("visibility","hidden");
+						$('#dp ul').hide();
 					}else{
 						dpw.attr('class', '').attr('style', '');
 						$('#dp ul').hide();
-						$('#'+_option.id).css("visibility","visible");
 						$('#'+_option.id).show();
 						dpw.addClass(_option.dynamicClass).addClass('open');
 
@@ -94,7 +93,6 @@
 					var cb = _option.list[l[l.length-1]].callback;
 					if(cb){
 						dpw.attr('class', '').removeClass('open');
-						$('#dp ul').css("visibility","hidden");
 						cb(_this);
 					}
 				});
@@ -107,11 +105,9 @@
 
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
-					$('#dp ul').css("visibility","hidden");
 				}else{
 					dpw.attr('class', '').attr('style', '');
 					$('#dp ul').hide();
-					$('#'+_option.id).css("visibility","visible");
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
 					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width(),documentH = $(document.body).height();
@@ -157,7 +153,6 @@
 								var cb = _option.list[l[l.length-1]].callback;
 								if(cb){
 									$('#dp').removeClass('open');
-									$('#dp ul').css("visibility","hidden");
 									cb(_this);
 								}
 							});
