@@ -1230,11 +1230,11 @@ to {
 	visibility: visible;
 }
 #dp ul {
-	display: none;
-	visibility: hidden;
-
 	width: 100%;
 	margin: 0;
+}
+#dpw_clock{
+	display: block;
 }
 #dp li {
 	display: block;
