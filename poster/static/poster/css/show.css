@@ -12,6 +12,7 @@
 }
 .popover-title{
     border-bottom: none;
+    border-radius: 0;
 }
 .stats-graph .right-btn img,
 .stats-overall .left-btn img{
