@@ -20,9 +20,9 @@ $(function () {
         if(storageAPI.getHead('logo_image') && storageAPI.getHead('logo_image').url)$('.header-logo').empty().append("<img src="+ storageAPI.getHead('logo_image').url+">"  );
         //电话手机邮箱
         var $phone = $('#dpw_phone');
-        $phone.find('input:eq(0)').val(g.phone);
-        $phone.find('input:eq(1)').val(g.mobile);
-        $('#dpw_email').find('input').val(g.email);
+        if(g.phone)$phone.find('input:eq(0)').val(g.phone);
+        if(g.mobile)$phone.find('input:eq(1)').val(g.mobile);
+        if(g.email)$('#dpw_email').find('input').val(g.email);
         //日历
         if(yunyeEditorGlobal.lifetime.lifetime_type == "weekly"){
             $(".calender").hide();
