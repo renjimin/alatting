@@ -131,11 +131,12 @@
 
             s.empty();
             if(_option.data == null && imgarray.length <= 0){
+                s.html($swipercon).removeClass('slider-content');
                 return;
             }
 
-            var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div>';
-            s.html($swipercon);
+            var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-button-next swiper-button-white"></div><div class="swiper-button-prev swiper-button-white"></div></div>';
+            s.html($swipercon).addClass('slider-content');
 
 
             s.addImage = function(datas){
