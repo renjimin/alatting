@@ -31,7 +31,9 @@ class ScreenShot(object):
             if view_height is None:
                 view_height = height
             parameters = dict(url=url, width=width, height=height, path=path, view_width=view_width, view_height=view_height)
-            cmd = 'webkit2png {url} -x {view_width} {view_height} -g {view_width} {view_height} --scale {width} {height} ' \
+            # cmd = 'webkit2png {url} -x {view_width} {view_height} -g {view_width} {view_height} --scale {width} {height} ' \
+            #       '--aspect-ratio crop -o {path} -F javascript -F plugins -w 1 -f jpeg'.format(**parameters)
+            cmd = '/usr/local/bin/webkit2png {url} -x {view_width} {view_height} -g {view_width} {view_height} --scale {width} {height} ' \
                   '--aspect-ratio crop -o {path} -F javascript -F plugins -w 1 -f jpeg'.format(**parameters)
             print(cmd)
             status = os.system(cmd)
