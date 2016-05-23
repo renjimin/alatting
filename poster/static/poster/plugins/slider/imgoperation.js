@@ -87,10 +87,8 @@
                  i.css('top',oy+'px');
                  i.css('left',ox+'px');
 
-                if(e.touches.length <= 1){
-                     i.css('top',oy+'px');
-                     i.css('left',ox+'px');
-                }else{
+                if(e.touches.length>1){
+           
                     var touch1 = e.touches[1];
                     endDiagonal.x = Math.abs(touch.pageX - touch1.pageX);
                     endDiagonal.y = Math.abs(touch.pageY - touch1.pageY);
@@ -142,9 +140,12 @@
                  }
 				 
 			
-                 i.css({'top':endY+'px','left':endX+'px'});
-
-				 i.css({'width':endW+'px','height':endH+'px'});
+                 i.css('top',endY+'px');
+                 i.css('left',endX+'px');
+				 
+				 
+				 i.css('width',endW+'px');
+                 i.css('height',endH+'px');
 				 
                  i.css({'transition':'all .2s ease-in'});
 
@@ -159,3 +160,5 @@
     }
 
 })(jQuery)
+
+
