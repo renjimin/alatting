@@ -5,27 +5,9 @@ from django.contrib.auth.models import User
 from alatting_website.models import Category
 from survey import *
 
-class Survey(models.Model):
-    name = models.CharField(max_length=64, unique=True)
-    main_category = models.ForeignKey(
-        Category,
-        related_name='main_cat_surveys',
-        limit_choices_to={'parent__isnull': True},
-        null=True
-    )
-    sub_category = models.ForeignKey(
-        Category,
-        related_name='sub_cat_surveys',
-        limit_choices_to={'parent__isnull': False},
-        null=True
-    )
-    
-    def __str__(self):
-        return "{:s}".format(self.name)
-
 
 class Questionnaire(models.Model):
-    name = models.CharField(max_length=128)
+    name = models.CharField(max_length=128, unique=True)
     main_category = models.ForeignKey(
         Category,
         related_name='main_cat_qs',
