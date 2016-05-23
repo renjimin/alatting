@@ -99,6 +99,9 @@
                     $element.css({'left': sx + 'px', top: sy + 'px'});
                     sx = bx - _bx + rbotp.left;
                     sy = by - _by + rbotp.top;
+                    $('.cnd-element').removeClass('active');
+                    $element.siblings('.text-element').removeClass('text-element-act').css('z-index','100');
+                    $element.addClass('text-element-act').css('z-index','110');
                     $ctrl.css({left:sx+'px',top:sy+'px'});
                     editorp = eed.offset();
                     $etrl.css({left:keepTwoValid(editorp.left-boxpx.left)+'px',top:keepTwoValid(editorp.top-boxpx.top)+'px'});

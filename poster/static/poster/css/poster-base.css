@@ -1237,11 +1237,11 @@ to {
 	visibility: visible;
 }
 #dp ul {
-	display: none;
-	visibility: hidden;
-
 	width: 100%;
 	margin: 0;
+}
+#dpw_clock{
+	display: block;
 }
 #dp li {
 	display: block;
@@ -1561,3 +1561,9 @@ to {
 .body-container{
 	height:100%;
 }
+
+.cnd-element {
+	position: absolute;
+	z-index: 100;
+}
+.cnd-element.active{height:auto;}
