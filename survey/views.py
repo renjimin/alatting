@@ -180,10 +180,11 @@ class QuestionnaireView(View):
 					choice_selected_sortid = choice_selected.sortid
 					if choice_selected_sortid not in ans:
 						ans[choice_selected_sortid] = {}
-					if value.startswith("_entry_"):
-						ans[choice_selected_sortid]['ANSWER'] = "_entry_"
-					else:
-						ans[choice_selected_sortid]['ANSWER'] = value
+					# if value.startswith("_entry_"):
+					# 	ans[choice_selected_sortid]['ANSWER'] = "_entry_"
+					# else:
+					# 	ans[choice_selected_sortid]['ANSWER'] = value
+					ans[choice_selected_sortid]['ANSWER'] = value
 				elif qssortid[3]=='comment':
 					choice_sortid = int(qssortid[2])
 					if choice_sortid not in ans:
