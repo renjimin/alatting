@@ -52,6 +52,14 @@ class QuestionnaireView(View):
 		progress = float(position) / float(total) * 100.00
 		return int(progress)
 
+	def get_pre_ans(self, runinfo, question):
+		ans = Answer.objects.filter(subject=runinfo.subject, 
+			runid=runinfo.pk, question=question).first()
+		if ans:
+			return ans.answer
+		else:
+			return None
+
 	def show_questionnaire(self, request, runinfo, errors={}):
 		questionset = runinfo.questionset
 		questionnaire = questionset.questionnaire
@@ -62,9 +70,11 @@ class QuestionnaireView(View):
 		qlist = []
 		for question in questions:
 			Type = question.get_type()
+			prev_ans = self.get_pre_ans(runinfo, question)
 			qdict = {
 				'template': 'questionnaire/%s.html' % (Type),
 				'qtype': Type,
+				'prev_ans': prev_ans,
 			}
 			if Type in QuestionProcessors:
 				qdict.update(QuestionProcessors[Type](request, question))
