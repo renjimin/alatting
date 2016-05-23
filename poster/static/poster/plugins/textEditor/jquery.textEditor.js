@@ -282,7 +282,7 @@
                         }
                     }
                     if(item == 'lineheight'){
-                        var lh= 1+rate/100;
+                        var lh= 1+rate/25;
                         if(option.pluginType == 'other'){
                             $element.css("line-height", lh+'em');
                         }else{
