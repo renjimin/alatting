@@ -153,6 +153,12 @@ class TemplateListView(ListAPIView):
     ).order_by('name')
     serializer_class = TemplateSerializer
 
+    def get_queryset(self):
+        qs = super(TemplateListView, self).get_queryset()
+        if self.request.GET.get('exclude', ''):
+            qs = qs.exclude(pk__in=self.request.GET.get('exclude'))
+        return qs
+
 
 class CategoryKeywordDetailView(RetrieveUpdateDestroyAPIView):
     model = CategoryKeyword

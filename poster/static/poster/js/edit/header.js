@@ -12,6 +12,7 @@ $(function () {
                 }
             }
 
+            $(".change-template-layout").remove();
             storageAPI.setHtml(".yunye-template");
             //电话手机邮箱
             if(!!$('#phoneInput').val())storageAPI.setHead("phone", $('#phoneInput').val());

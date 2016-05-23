@@ -37,7 +37,8 @@ class PosterService:
 
     @classmethod
     def poster_paths(cls, poster, ext):
-        file = os.path.splitext(poster.html.name)[0] + ext
+        file = ('screen_shot_%s' % poster.id) + ext
+        # file = os.path.splitext(poster.html.name)[0] + ext
         url_path = settings.MEDIA_URL + file
         path = os.path.join(settings.MEDIA_ROOT, file)
         return path, url_path
@@ -67,11 +68,11 @@ class PosterService:
 
         url = request.scheme + '://' + request.get_host()
         url = url + reverse(
-            'website:poster',
+            'posters:show',
             kwargs={'pk': poster.id}
         ) + '?capture=true'
         res = ScreenShot.capture(url, image_path, width,
-                                height, view_height=view_height)
+                                 height, view_height=view_height)
         if res:
             ScreenShot.image_to_pdf(image_path, pdf_path)
         else:

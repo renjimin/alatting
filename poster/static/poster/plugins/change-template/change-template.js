@@ -29,6 +29,7 @@
         this.target = options.target;
         this.posterId = yunyeEditorGlobal.posterId;
         this.posterPageId = yunyeEditorGlobal.posterPageId;
+        this.templateId = yunyeEditorGlobal.templateId;
     };
 
     ChangeTemplate.prototype = $.extend(ChangeTemplate.prototype, {
@@ -139,8 +140,12 @@
                 event.stopPropagation();
             });
 
-            var self = this;
-            $.getJSON(templateListAPI, function (json) {
+            var self = this,
+                url = templateListAPI;
+            if(self.target == "update"){
+                url += "?exclude=" + self.templateId
+            }
+            $.getJSON(url, function (json) {
                 $(self.ulListId).empty();
                 self.listTmpl.tmpl(json).appendTo(self.ulListId);
 
@@ -205,9 +210,3 @@
         }
     }
 })(jQuery);
-
-$(function () {
-    $(".icon-change-template").click(function () {
-        $(".yunye-template").changeTemplate('destroy').changeTemplate();
-    });
-});
