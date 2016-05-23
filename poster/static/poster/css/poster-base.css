@@ -245,7 +245,7 @@ html {
 	z-index: 20;
 
 	padding: 15px 0 0;
-
+	pointer-events:none;
 }
 .header-qrcode {
 	float: left;
