@@ -120,7 +120,6 @@
 					endH = imgH;
 				}
 
-				 
                  if(parseInt(moveEndX)> 0){
                      endX = 0;
                  }
@@ -129,7 +128,6 @@
                     endX = - endW + $(e.currentTarget).parent().width();	
 
                 }
-				
 
                  if(parseInt(moveEndY)> 0){
                      endY = 0;
