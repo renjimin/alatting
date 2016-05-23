@@ -182,6 +182,7 @@ $(function () {
         id: 'dpw_header',
         offsetY: 50,
         arrowOffset: 30,
+        followMouse: true,
         list: [
             {
                 icon: "icon ico-system-pic",
