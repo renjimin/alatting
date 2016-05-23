@@ -398,7 +398,7 @@ class PosterCaptureView(View):
         )
         data = {'image_url': image_url, 'pdf_url': pdf_url}
         if image_url:
-            current_poster.snapshot.url = image_url
+            current_poster.snapshot = image_url
         response = HttpResponse(json.dumps(data),
                                 content_type="application/json")
         return response
