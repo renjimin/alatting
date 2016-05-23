@@ -505,4 +505,6 @@ $(function () {
             }
         }
     });
+
+    $(".change-template-layout").hide();
 });
