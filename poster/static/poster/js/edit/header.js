@@ -11,6 +11,10 @@ $(function () {
                     returns[key] = value;
                 }
             }
+            /*去掉海报元素的编辑控件-zj*/
+            $('.cnd-element').removeClass('active');
+            $('.text-element').removeClass('text-element-act');
+            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
 
             $(".change-template-layout").remove();
             storageAPI.setHtml(".yunye-template");
