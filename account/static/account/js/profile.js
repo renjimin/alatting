@@ -7,13 +7,14 @@ $(document).ready(function () {
 	$('.footer-tab').find("li").eq(3).addClass("active");
 	/*add*/
 	$(".ac-add .ac-list-item-ctrl").click(function(){
-	    window.document
+	    window.location.href='/';
 	});
 	/*edit*/
 	$(".ac-item-back").click(function(){
 		var state_id = $(this).attr('id')
 	    var poster_id = state_id.substr(state_id.lastIndexOf('-') + 1);
 	    alert("删除 poster_id: " + poster_id);
+		window.location.href='/poster/10/edit/3';
 	});
 	$(".ac-item-edit").click(function(){
 	    var state_id = $(this).attr('id')
