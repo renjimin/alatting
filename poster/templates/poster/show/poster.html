@@ -30,6 +30,7 @@
 {% block base_head_title %}{{ poster.unique_name }}{% endblock %}
 
 {% block base_header_css %}
+    <link rel="stylesheet" href="{% static 'poster/plugins/slider/swiper.css' %}">
     <link rel="stylesheet" href="{% static 'libs/common/video-js5.0.0.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/full-slider.css' %}">
@@ -76,6 +77,7 @@
     <script src="{% static 'website/js/init.js' %}"></script>
     <script src="{% static 'website/js/js.cookie-2.0.4.min.js' %}"></script>
     <script src="{% static 'website/js/poster.js' %}"></script>
+    <script src="{% static 'poster/js/show/headerbtn.js' %}"></script>
 {% endblock %}
 
 {% block base_header_extra %}
@@ -101,6 +103,7 @@
     {% include 'poster/show/footer.html' %}
 {% endblock %}
 {% block base_footer_js %}
+    {% include 'poster/show/comment.html' %}
     <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
@@ -108,10 +111,13 @@
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>
-    <script src="{% static 'website/js/poster-header.js' %}"></script>
     <script src="{% static 'website/js/full-slider.js' %}"></script>
     <script src="{% static 'website/js/jquery.magnific-popup.js' %}"></script>
     <script src="{% static 'website/js/image_slider_init.js' %}"></script>
+
+    <script src="{% static 'poster/plugins/slider/swiper.js' %}"></script>
+    <script src="{% static 'poster/plugins/slider/imgslider.js' %}"></script>
+    <script src="{% static 'poster/js/show/poster.js' %}"></script>
 {% endblock %}
 {% block base_foot_mask %}
 {% endblock %}

@@ -1,5 +1,5 @@
+{% load static %}
 <header class="header">
-    <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
     <div class="header-bar">
         <div class="header-qrcode">
             <div class="qrcode-inner">
@@ -21,27 +21,38 @@
         <div class="header-abutton">
             <div class="abutton-inner" id="abutton">
                 <div class="abutton-internal">
-                    <a class="abtn" href="javascript:void(0);"><i
-                            class="icon ico-menu"></i></a>
+                    <a class="abtn abutton-trigger" href="javascript:void(0); "  expressed="false"><i class="icon ico-menu"></i></a>
                 </div>
                 <ul class="abutton-group abutton-contact">
-                    <li><a href="#"><i class="icon ico-phone"></i></a></li>
-                    <li><a href="#"><i class="icon ico-email"></i></a></li>
-                    <li><a href="#"><i class="icon ico-address"></i></a></li>
-                    <li><a href="#"><i class="icon ico-clock"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="phone"><i class="icon ico-phone"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="email"><i class="icon ico-email"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="location"><i class="icon ico-address"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="hour"><i class="icon ico-clock"></i></a></li>
                 </ul>
-                <ul class="abutton-group abutton-express">
-                    <li><a href="#"><i class="icon ico-like"></i></a></li>
-                    <li><a href="#"><i class="icon ico-bookmark"></i></a></li>
-                    <li><a href="#"><i class="icon ico-subscribe"></i></a></li>
-                    <li><a href="#"><i class="icon ico-fun"></i></a></li>
+                <ul class="abutton-group abutton-express" >
+                    <li><a href="#" class="abutton-like"><i class="icon ico-like"></i></a></li>
+                    <li><a href="#" class="abutton-bookmark"><i class="icon ico-bookmark"></i></a></li>
+                    <li><a href="#" class="abutton-subscribe"><i class="icon ico-subscribe"></i></a></li>
+                    <li><a href="#" class="abutton-fun"><i class="icon ico-fun"></i></a></li>
                 </ul>
             </div>
         </div>
     </div>
     <div class="header-info">
-        <div class="desc">
+        <div class="desc header-description">
             <span id="short_description" style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
+        </div>
+        <div class="contact-info phone">
+            {{ poster.phone }}<i class="icon ico-phone"></i>
+        </div>
+        <div class="contact-info email">
+            {{ poster.email }}<i class="icon ico-email"></i>
+        </div>
+        <div class="contact-info hour">
+            {{ poster.lifetime }}<i class="icon ico-clock"></i>
+        </div>
+        <div class="contact-info location">
+            {{ poster.address }}<i class="icon ico-address"></i>
         </div>
     </div>
 </header>
