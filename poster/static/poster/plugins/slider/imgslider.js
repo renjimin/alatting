@@ -18,7 +18,7 @@
                 imgW = sw * ph / sh;
                 imgH = ph;
             }
-            
+
 			s.attr({'width':imgW,'height':imgH}).css({'left':sl,'top':st});
 			var touchEvents={
                 'startX':0,
@@ -130,10 +130,9 @@
 
             if(_option.data == null && imgarray.length <= 0){
                 s.removeClass('slider-content');
+                s.empty();
                 return;
             }
-
-
 
             s.addImage = function(datas){
                 s.empty();

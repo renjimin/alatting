@@ -36,9 +36,10 @@ $(function () {
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
                         compress: false,
                         threads: 1,
+                        auto:true,
                         sliderContainer: _this
                     });
-                    $(".closefile").click(function () {
+                    $(".closefile,.file-bottom .btn").click(function () {
                         $(".upload-image-dialog").removeClass('open');
                     });
                 }
@@ -130,4 +131,5 @@ $(function () {
     $(".yunye-template .cnd-element").each(function () {
         scale($(this));
     });
+
 });

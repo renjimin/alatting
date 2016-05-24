@@ -5,9 +5,6 @@ from .settings_base import *
 
 DEBUG = True
 
-# 前端开发人员测试环境时，需设置为True, 直到启用JWT
-IS_FRONTEND_DEV = False
-
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 if DEBUG:
