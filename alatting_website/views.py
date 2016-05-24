@@ -409,7 +409,7 @@ class PosterCodeView(View):
     def get(self, request, pk):
         response = HttpResponse(content_type='image/png')
         url = request.scheme + '://' + request.get_host()
-        url += reverse('website:poster', kwargs={'pk': pk})
+        url += reverse('posters:show', kwargs={'pk': pk})
         # url += '?scan=1'
         QrCode.save_png(url, response)
         return response

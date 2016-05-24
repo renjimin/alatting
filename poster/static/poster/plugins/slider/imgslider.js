@@ -10,6 +10,7 @@
 				st = parseInt(s.css('top')),
 				imgW,
 				imgH;
+
 			if(pw/ph > sw / sh){
                 imgW = pw;
                 imgH = sh * imgW / sw;
@@ -17,7 +18,7 @@
                 imgW = sw * ph / sh;
                 imgH = ph;
             }
-
+            
 			s.attr({'width':imgW,'height':imgH}).css({'left':sl,'top':st});
 			var touchEvents={
                 'startX':0,
