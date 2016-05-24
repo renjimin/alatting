@@ -65,7 +65,7 @@ $(function () {
             $(".yunye-template").remove();
             $(".container-fluid").append(storageAPI.getHtml());
         }
-        
+
     };
 
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
