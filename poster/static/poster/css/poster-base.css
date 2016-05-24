@@ -535,11 +535,10 @@ to {
 	z-index: 20;
 	top: 33%;
 	left: 33%;
-
 	width: 34%;
 	padding-top: 34%;
-
 	font-size: 18px;
+	pointer-events: auto;
 }
 .abutton-internal .abtn {
 	position: absolute;
