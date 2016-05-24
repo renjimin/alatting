@@ -6,7 +6,8 @@
 
         return this.each(function(){
             _option = $.extend(opts,options);
-            var s = $(this),i = s.find('img').eq(0),v = s.find('video').eq(0);
+            var s = $(this),i = s.find('img').eq(0),v = s.find('video');
+            var vv = document.getElementById('video');
 
         var imgW,imgH,ow,oh;
         if(_option.data == null){
@@ -46,7 +47,7 @@
         s.opt={};
         var startDiagonal={'x':0,'y':0},endDiagonal={'x':0,'y':0};
 
-        i.css({'position':'relative','top':'0','left':'0'});
+        i.css({'position':'relative'});
         i.on({
             'touchstart':function(e){
                 if(e.originalEvent) e = e.originalEvent;
@@ -59,7 +60,7 @@
                 touchEvents.startX = touch.pageX;
                 touchEvents.startY = touch.pageY;
                 $(e.currentTarget).addClass('drag-active');
-                console.log(imgl);
+
 				
 				s.opt.width = $(e.currentTarget).width();
 				s.opt.height = $(e.currentTarget).height();
