@@ -304,7 +304,6 @@ class PosterSaveContentMixin(object):
     def save_json_info(self, instance, request_data):
         # 存储头部基本信息
         try:
-            x = 1 / 0
             json_data = json.loads(request_data['data'])
             if 'head' in json_data.keys():
                 self._save_head_info(instance, json_data['head'])
