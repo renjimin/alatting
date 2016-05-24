@@ -46,7 +46,7 @@
         s.opt={};
         var startDiagonal={'x':0,'y':0},endDiagonal={'x':0,'y':0};
 
-        i.css({'position':'relative','top':'0','left':'0'});
+        i.css({'position':'relative'});
         i.on({
             'touchstart':function(e){
                 if(e.originalEvent) e = e.originalEvent;
