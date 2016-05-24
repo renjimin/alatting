@@ -102,9 +102,8 @@
 					if(!_option.suspendFun())return false;
 				}*/
 				$(document).trigger("clsdp");
-
-				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
-					dpw.attr('class', '').removeClass('open');
+				if(dpw.hasClass('open')){
+					dpw.attr('class', '');
 				}else{
 					dpw.attr('class', '').attr('style', '');
 					$('#dp ul').hide();

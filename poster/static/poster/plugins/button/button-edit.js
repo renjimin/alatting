@@ -11,12 +11,13 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
             'color':'000',
             'fontSize':'14',
             'fontFamily':'Microsoft YaHei',
-            'background':'fff',
+            'background':'ffffff',
+            'backgroundOpacity':'1',
             'opacity':'1',
             'boxShadow':'0',
             'borderRadius':'3',
             'rotate':'0',
-            'borderColor':'fff',
+            'borderColor':'ffffff',
             'borderStyle':'solid',
             'borderWidth':'1',
             'height':'34'/*默认高度*/
@@ -40,8 +41,8 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
             editbtn = element.clone(false);
             defaults.container.find('.btn-container').empty().append(editbtn);
             currentElebox = element.parent();
-            //s.upload(btn);
             s.controlInit(editbtn);
+            s.upload(editbtn);
         }
         $('#buttonConfirm').unbind();
         $('#buttonConfirm').on('click',function(){
@@ -55,11 +56,13 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
                 'href':opts.href,
                 'data-action':opts.buttonAction
             })
+            var rgb = colorRgb(opts.background);
+            var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opts.backgroundOpacity+')';
             o.css({
                 'color':'#'+opts.color,
                 'font-size':opts.fontSize+'px',
                 'font-family':opts.fontFamily,
-                'background':'#'+opts.background,
+                'background':back,
                 'opacity':opts.opacity,
                 'box-shadow':'0 0 '+opts.boxShadow+' #000',
                 'border-radius':opts.borderRadius+'px',
@@ -85,10 +88,11 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
                     'buttonAction':$(b).attr('data-action'),
                     'href': $(b).attr('href'),
                     'text': $(b).text(),
-                    'color': $(b).css('color')==null?'000':$(b).css('color'),
+                    'color': $(b).css('color')==null?'000000':$(b).css('color'),
                     'fontSize': parseInt($(b).css('font-size')),
                     'fontFamily': $(b).css('font-family').replace(/'/g,""),
-                    'background': $(b).css('background'),
+                    'background': $(b).attr('data-background'),
+                    'backgroundOpacity': $(b).attr('data-backgroundOpacity'),
                     'opacity': $(b).css('opacity'),
                     'boxShadow':$(b).css('box-shadow-spread'),
                     'borderRadius':$(b).css('border-radius'),
@@ -115,6 +119,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
             $('.button-fontFamily').val(opts.fontFamily);
             $('.button-background').css('background','#'+opts.background).attr('data-backgorund',opts.background);
             $('.button-opacity').val(opts.opacity*100);
+            $('.button-background-opacity').val(opts.backgroundOpacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
             $('.button-borderRadius').val(opts.borderRadius).attr('max',opts.height/2);
             $('.button-borderColor').val(opts.borderColor);
@@ -122,7 +127,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
             for(i=0;i<20;i++){
                 $('.button-borderWidth').append('<option value="'+i+'">'+i+'px</option>')
             }
-            $('.button-borderWidth').val(opts.borderWidth);
+            $('.button-borderWidth').val(parseInt(opts.borderWidth));
 
         }
         s.addControlListen = function(){
@@ -168,7 +173,10 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
             });
             $('.button-background').off('change').on('change',function(){
                 opts.background = $(this).val();
-                elebtn.css('background','#'+opts.background);
+                var rgb = colorRgb(opts.background);
+                var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opts.backgroundOpacity+')';
+
+                elebtn.css('background',back).attr('data-background',$(this).val());
                 $(this).css('background','#'+opts.background);
             });
 
@@ -197,6 +205,30 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
                 },
                 'touchend':function(event){
                     opts.opacity = $(this).val();
+                }
+            });
+            $('.button-background-opacity').on({
+                'touchstart':function(e){
+                    if (e.originalEvent) e = e.originalEvent;
+                    var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
+                    var startY = s.touches.startY = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+                },
+                'touchmove':function(e){
+                    if (e.originalEvent) e = e.originalEvent;
+
+                    s.touches.currentX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+                    s.touches.currentY = e.type === 'touchmove' ? e.targetTouches[0].pageY : e.pageY;
+
+                    e.currentTarget.style.left = s.touches.currentX - s.touches.startX;
+                    $('.button-background-opacity').val($(this).val());
+
+                    var rgb = colorRgb(opts.background);
+                    var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+$(this).val()/100+')';
+                    elebtn.css('background',back);
+                },
+                'touchend':function(event){
+                    opts.backgroundOpacity = $(this).val()/100;
+                    elebtn.attr('data-backgroundOpacity',$(this).val()/100);
                 }
             });
             $('.button-boxShadow').on({
@@ -479,7 +511,6 @@ var deleteSystemimg = function(){
 
 var uploadSystemimg = function(eleobj){
     $.fn.uploads.showDialog(function(data){
-        console.log(data);
         var img = $('<div class="element"><img src="'+data.file+'" /></div>');
         if(data.width > $(window).width()){
              img.width( $(window).width() *.6);
@@ -515,3 +546,27 @@ $(function(){
         }
     }
 })
+//十六进制颜色值的正则表达式
+var reg = /^([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
+/*16进制颜色转为RGB格式*/
+function colorRgb(str){
+	var sColor = str.toLowerCase();
+	if(sColor && reg.test(sColor)){
+		if(sColor.length === 4){
+			var sColorNew = "#";
+			for(var i=0; i<6; i+=2){
+				sColorNew += sColor.slice(i,i+1).concat(sColor.slice(i,i+1));
+			}
+			sColor = sColorNew;
+		}
+		//处理六位的颜色值
+		var sColorChange = [];
+		for(var i=0; i<6; i+=2){
+			sColorChange.push(parseInt("0x"+sColor.slice(i,i+2)));
+		}
+
+		return {'r':sColorChange[0],'g':sColorChange[1],'b':sColorChange[2]};
+	}else{
+		return sColor;
+	}
+}

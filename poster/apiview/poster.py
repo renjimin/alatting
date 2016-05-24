@@ -254,6 +254,7 @@ class PosterSaveContentMixin(object):
             try:
                 image = Image.objects.get(file=head_json["logo_image"]['url'].replace('/media/', ''))
                 setattr(instance, "logo_image", image)
+                setattr(instance, "logo_title", '')
             except Exception:
                 pass # 后续加上设置默认logo图片
         if head_json["logoTitleType"] == 'text':

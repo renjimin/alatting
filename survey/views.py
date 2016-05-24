@@ -9,6 +9,7 @@ from django.views.generic.edit import FormView
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from survey.models import *
+from alatting_website.model.poster import Poster
 from survey import *
 
 class IndexView(TemplateView):
@@ -20,11 +21,14 @@ class IndexView(TemplateView):
 
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
-		qu = get_object_or_404(Questionnaire, id=self.kwargs['questionnaire_id'])
+		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
+		role = self.request.GET.get('role', '')
+		qu = get_object_or_404(Questionnaire, main_category=poster.main_category, 
+			sub_category=poster.sub_category, role=role)
 		qs = qu.questionsets()[0]
-		su = get_object_or_404(User, pk=self.kwargs['user_id'])
 
-		run = RunInfo(subject=su, questionset=qs)
+		su = self.request.user
+		run = RunInfo(subject=su, questionset=qs, poster=poster)
 		run.save()
 
 		kwargs = {'runid': run.id}
@@ -54,9 +58,9 @@ class QuestionnaireView(View):
 
 	def get_pre_ans(self, runinfo, question):
 		ans = Answer.objects.filter(subject=runinfo.subject, 
-			runid=runinfo.pk, question=question).first()
+			question=question, poster=runinfo.poster).order_by("-id")
 		if ans:
-			return ans.answer
+			return ans[0].answer
 		else:
 			return None
 
@@ -104,6 +108,7 @@ class QuestionnaireView(View):
 		answer = Answer()
 		answer.question = question
 		answer.subject = runinfo.subject	
+		answer.poster = runinfo.poster
 		answer.runid = runinfo.pk	
 		answer.answer = ans
 		Answer.objects.filter(subject=runinfo.subject, 
@@ -230,6 +235,7 @@ class QuestionnaireView(View):
 
 		hist = RunInfoHistory()
 		hist.subject = runinfo.subject
+		hist.poster = runinfo.poster
 		hist.runid = runinfo.pk
 		hist.completed = datetime.datetime.now()
 		hist.questionnaire = questionnaire

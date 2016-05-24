@@ -63,10 +63,19 @@ $(function () {
         /*读取主体部分*/
         if (storageAPI.getHtml()) {
             $(".yunye-template").remove();
-            $(".container-fluid").append(storageAPI.getHtml());
+            $(".container-fluid").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
         }
         var templateScale = $('body').width()/$('.yunye-template').width();
-        $('.yunye-template').css({'transform':'scale('+templateScale+','+templateScale+')'});
+        var templateScaleOpt =
+            '-webkit-transform:scale('+templateScale+','+templateScale+');'
+           +   '-moz-transform:scale('+templateScale+','+templateScale+');'
+           +     '-o-transform:scale('+templateScale+','+templateScale+');'
+           +    '-ms-transform:scale('+templateScale+','+templateScale+');'
+           +        'transform:scale('+templateScale+','+templateScale+');'
+
+        $('.yunye-template').attr('style',templateScaleOpt);
+        $('.template-box').height($('.yunye-template').height()*templateScale);
+
 
     };
 
@@ -180,8 +189,19 @@ $(function () {
         followMouse: true,
         list: [
             {
+                icon: "glyphicon glyphicon-adjust",
+                text: " 颜色",
+                callback: function () {
+                    $("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
+                    $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
+                        $('.header').css('background', color);
+                        storageAPI.setCss(".header", {'background': color});
+                    });
+                }
+            },
+            {
                 icon: "icon ico-system-pic",
-                text: "系统背景",
+                text: "背景图片",
                 callback: function () {
                     $('.header').bgselect({}, function (ths, img) {
                         ths.css('background-image', 'url(' + img + ')');
@@ -192,17 +212,6 @@ $(function () {
                         });
                         $(".system-item").fadeOut(500);
                     })
-                }
-            },
-            {
-                icon: "glyphicon glyphicon-adjust",
-                text: " 颜色",
-                callback: function () {
-                    $("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
-                    $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.header').css('background', color);
-                        storageAPI.setCss(".header", {'background': color});
-                    });
                 }
             },
             {
