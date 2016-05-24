@@ -15,6 +15,23 @@ $(function () {
             $('.cnd-element').removeClass('active');
             $('.text-element').removeClass('text-element-act');
             $('.ele-rotate-ctrl').remove();
+            /*为海报模板上的所有元素添加transform兼容-zj*/
+            $('.cnd-element').each(function(){
+                var _this = $(this);
+                var rotate = _this.attr('data-rotate');
+                var scale = _this.attr('data-scale');
+                var tranf = '';
+                if(rotate){
+                    rotate = parseFloat(rotate).toFixed(2);
+                    tranf += 'rotate('+rotate+') ';
+                }
+                if(scale){
+                    tranf += 'scale('+scale+')';
+                }
+                if(tranf){
+                    setDomTranStyle(_this,tranf);
+                }
+            });
 
             $(".change-template-layout").remove();
             storageAPI.setHtml(".yunye-template");
@@ -56,6 +73,28 @@ $(function () {
             storageAPI.setHead("lifetime", lifetime);
             storageAPI.setHead("updated_at", yunyeEditorGlobal.updated_at);
         };
+
+    var setDomTranStyle = function(ele,value){
+            var csobj={};
+            var csss = ele.attr('style');
+            csss = csss.substr(0,csss.length-1);
+            csss = csss.split(';');
+            for(var i=0;i<csss.length;i++){
+                var sa= csss[i].split(':');
+                csobj[sa[0]]=sa[1];
+            }
+            csobj['transform']=value;
+            csobj['-webkit-transform']=value;
+            csobj['-moz-transform']=value;
+            csobj['-ms-transform']=value;
+            csobj['-o-transform']=value;
+            csss = JSON.stringify(csobj);
+            csss = csss.replace(/,/g,';');
+            csss = csss.substr(1,csss.length-2);
+            csss = csss.replace(/"/g,'');
+            csss += ';';
+            ele.attr('style',csss);
+        }
 
     $(".back-to-home").click(function () {
         var url = $(this).data("url");

@@ -321,15 +321,6 @@
                 move=false;
             }
         });
-
-//        pluginBox.off('click','.ef-color-li').on('click','.ef-color-li',function(e){
-//            e.stopPropagation();
-//            var color = $(this).attr('data-color');
-//            ef.color = color;
-//            setEff($element,ef);
-//            var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
-//            openEff(obtog);
-//        });
         /*阴影的关闭与打开*/
         pluginBox.off('click','.toggle').on('click','.toggle',function(){
             var ths = $(this);
