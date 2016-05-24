@@ -294,9 +294,12 @@ class PosterSaveContentMixin(object):
             try:
                 static_map = pages_json['{:d}'.format(page.id)]
                 if 'html' in static_map.keys() and len(static_map['html']) != 0:
-                    page.temp_html = base64.b64decode(static_map['html'])
+                    html = str(base64.b64decode(static_map['html']),
+                               encoding='utf-8', errors='ignore')
+                    page.temp_html = html
                 if 'css' in static_map.keys() and len(static_map['css']) != 0:
-                    page.temp_css = self._css_handler(page.temp_css, static_map['css'])
+                    page.temp_css = self._css_handler(page.temp_css,
+                                                      static_map['css'])
                 page.save()
             except KeyError:
                 pass

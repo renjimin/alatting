@@ -3,7 +3,7 @@
        	 $("body").musicLink();
     }
     var musicuploadButton = function(){
-    	$.fn.uploads.showDialog(function(data){
+    	$.fn.uploadsaudio.showDialog(function(data){
                var filename = data.file.split(".")[1];
               if(!/\.(mp3)$/.test(data.file)){
                     yyAlert("上传音频格式错误");
