@@ -238,7 +238,9 @@ class PosterSaveContentMixin(object):
     def _logo_handler(self, instance, head_json):
         if head_json["logoTitleType"] == 'image':
             try:
-                image = Image.objects.get(file=head_json["logo_image"]['url'].replace('/media/', ''))
+                image = Image.objects.get(
+                    file=head_json["logo_image"]['url'].replace('/media/', '')
+                )
                 setattr(instance, "logo_image", image)
                 setattr(instance, "logo_title", '')
             except Exception:
@@ -258,17 +260,20 @@ class PosterSaveContentMixin(object):
         for k, v in head_json.items():
             if k in self._head_fields():  # 存储头部其他字段
                 setattr(instance, k, v)
+
+            obj = head_json.get(k, {})
             if k == "address":  # 设置地理位置
                 address = instance.address
-                address.address1 = head_json[k]['address']
-                address.city = head_json[k]['city']
-                address.province = head_json[k]['province']
+                address.address1 = obj.get('address', '')
+                if obj.get('city', ''):
+                    address.city = obj.get('city')
+                if obj.get('province', ''):
+                    address.province = obj.get('province')
                 address.save()
             if k == "lifetime":  # 设置生存期结构体
                 setattr(instance, 'lifetime_timezone', 'Asia/Shanghai')
-                lifetime = head_json[k]
-                special = lifetime.get('lifetime_special', {})
-                weekly = lifetime.get('lifetime_weekly', {})
+                special = obj.get('lifetime_special', {})
+                weekly = obj.get('lifetime_weekly', {})
                 if special:
                     life_type = Poster.LIFETIME_SPECIFIC_DAYS
                     life_value = special
@@ -280,24 +285,30 @@ class PosterSaveContentMixin(object):
 
             if k == "category_keyword":
                 PosterKeyword.objects.filter(poster=instance).delete()  # 先移除所有的关键词字段
-                for ck in head_json[k]:  # 一个个添加关键词
+                for ck in obj:  # 一个个添加关键词
                     try:
                         ck_obj = CategoryKeyword.objects.get(id=int(ck))
                         if ck_obj is not None:
-                            PosterKeyword.objects.create(poster=instance, category_keyword=ck_obj)
+                            PosterKeyword.objects.create(
+                                poster=instance, category_keyword=ck_obj
+                            )
                     except CategoryKeyword.DoesNotExist:
-                        pass  # 写error log
+                        pass
 
     def _save_pages_info(self, instance, pages_json):
-        pages = PosterPage.objects.filter(poster_id=instance.id).order_by('-index')
+        pages = PosterPage.objects.filter(
+            poster_id=instance.id
+        ).order_by('-index')
         for page in pages:
             try:
                 static_map = pages_json['{:d}'.format(page.id)]
-                if 'html' in static_map.keys() and len(static_map['html']) != 0:
+                if 'html' in static_map.keys() \
+                        and len(static_map['html']) != 0:
                     html = str(base64.b64decode(static_map['html']),
                                encoding='utf-8', errors='ignore')
                     page.temp_html = html
-                if 'css' in static_map.keys() and len(static_map['css']) != 0:
+                if 'css' in static_map.keys() \
+                        and len(static_map['css']) != 0:
                     page.temp_css = self._css_handler(page.temp_css,
                                                       static_map['css'])
                 page.save()
