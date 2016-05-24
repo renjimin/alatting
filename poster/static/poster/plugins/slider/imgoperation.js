@@ -7,7 +7,6 @@
         return this.each(function(){
             _option = $.extend(opts,options);
             var s = $(this),i = s.find('img').eq(0),v = s.find('video');
-            var vv = document.getElementById('video');
 
         var imgW,imgH,ow,oh;
         if(_option.data == null){
@@ -54,6 +53,7 @@
                 $(e.currentTarget).css({'transition':'none'});
                 var imgl = i.css('left') == undefined ? 0 : i.css('left');
                 var imgt = i.css('top') == undefined ? 0 : i.css('top');
+                console.log(imgl)
                 moveX = parseInt(imgl);
                 moveY = parseInt(imgt);
                 var touch = e.touches[0];
