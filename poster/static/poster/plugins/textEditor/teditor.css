@@ -72,3 +72,7 @@
     left:-200px;
     z-index: 400;
 }
+.ele-rotate-ctrl .glyphicon{
+    top:5px;
+    left:0px;
+}
