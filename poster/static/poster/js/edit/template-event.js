@@ -128,6 +128,6 @@ $(function () {
     $(".yunye-template .cnd-element").each(function () {
         scale($(this));
     });
-
+    
 
 });

@@ -66,7 +66,14 @@ $(function () {
             $(".container-fluid").append(storageAPI.getHtml());
         }
         var templateScale = $('body').width()/$('.yunye-template').width();
-        $('.yunye-template').css({'transform':'scale('+templateScale+','+templateScale+')'});
+        var templateScaleOpt =
+            '-webkit-transform:scale('+templateScale+','+templateScale+');'
+           +   '-moz-transform:scale('+templateScale+','+templateScale+');'
+           +     '-o-transform:scale('+templateScale+','+templateScale+');'
+           +    '-ms-transform:scale('+templateScale+','+templateScale+');'
+           +        'transform:scale('+templateScale+','+templateScale+');'
+
+        $('.yunye-template').attr('style',templateScaleOpt);
 
     };
 
