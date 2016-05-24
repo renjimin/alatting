@@ -14,7 +14,7 @@ $(function () {
             /*去掉海报元素的编辑控件-zj*/
             $('.cnd-element').removeClass('active');
             $('.text-element').removeClass('text-element-act');
-            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+            $('.ele-rotate-ctrl').remove();
 
             $(".change-template-layout").remove();
             storageAPI.setHtml(".yunye-template");
@@ -131,7 +131,14 @@ $(function () {
 
     $(".btn.btn-save").on("click", function () {
         $.fn.yyTools.mask(1);
-        saveData();
+        try{
+            saveData();
+        }catch (e){
+            $.fn.yyTools.mask();
+            yyAlert("待保存数据处理失败，暂时无法提交！");
+            console.log(e);
+            return;
+        }
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
@@ -156,11 +163,18 @@ $(function () {
 
     $(".btn.btn-post").on("click", function () {
         $.fn.yyTools.mask(1);
-        saveData();
-        var full_json = JSON.stringify(storageAPI.getPosterData());
-        var url = yunyeEditorGlobal.API.publish.format(
-            yunyeEditorGlobal.posterId
-        );
+        try{
+            saveData();
+        }catch (e){
+            $.fn.yyTools.mask();
+            yyAlert("待保存数据处理失败，暂时无法发布！");
+            console.log(e);
+            return;
+        }
+
+        var full_json = JSON.stringify(storageAPI.getPosterData()),
+            api = yunyeEditorGlobal.API;
+        var url = api.publish.format(yunyeEditorGlobal.posterId);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -171,7 +185,9 @@ $(function () {
                 yyConfirm(
                     "发布成功！<br>您需要查看发布的海报吗？",
                     function(){
-                        window.location.href = yunyeEditorGlobal.API.show.format(yunyeEditorGlobal.posterId);
+                        window.location.href = api.show.format(
+                            yunyeEditorGlobal.posterId
+                        );
                     },
                     {
                         'okText':'查看',

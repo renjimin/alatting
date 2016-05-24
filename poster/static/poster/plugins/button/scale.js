@@ -66,9 +66,12 @@ var scale = function(box,options){
         if(s.o.position() == undefined){
             s.opt.left = 0;
             s.opt.top = 0
+        }else if(s.opt.left != undefined){
+            s.opt.left = parseInt(s.o.css('left'));
+            s.opt.top = parseInt(s.o.css('top'));
         }else{
             s.opt.left = s.o.position().left;
-            s.opt.top = s.o.position().top
+            s.opt.top = s.o.position().top;
         }
 
         s.opt.cx = parseInt(s.opt.width)/2;/*计算圆心相对坐标*/

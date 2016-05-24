@@ -17,7 +17,8 @@
                 imgW = sw * ph / sh;
                 imgH = ph;
             }
-			s.attr({'width':imgW,'height':imgH});
+
+			s.attr({'width':imgW,'height':imgH}).css({'left':sl,'top':st});
 			var touchEvents={
                 'startX':0,
                 'startY':0,
@@ -26,7 +27,7 @@
             };
 			s.opt={};
 			var startDiagonal={'x':0,'y':0},endDiagonal={'x':0,'y':0};
-            s.css({'position':'relative','top':'0','left':'0'});
+            s.css({'position':'relative'});
 			s.on({
                 'touchstart':function(e){
                     if (e.originalEvent) e = e.originalEvent;
@@ -121,22 +122,23 @@
         return this.each(function () {
             var s = $(this),
 				_option = $.extend(opts,options);
-            //var imgarray = [];
 
             $.extend(s,{'wraper':null,'swiper':null});
 
             var imgarray  = s.find('.swiper-container').find('img');
-            s.empty();
+
             if(_option.data == null && imgarray.length <= 0){
                 s.removeClass('slider-content');
                 return;
             }
 
-            var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div>';
-            s.html($swipercon).addClass('slider-content');
 
 
             s.addImage = function(datas){
+                s.empty();
+                var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div>';
+                s.html($swipercon).addClass('slider-content');
+
                 s.wraper = s.find('.swiper-wrapper');
                 for(i=0;datas.length>0 && i<datas.length;i++){
                     s.wraper.append('<div class="swiper-slide" id="slideImg'+datas.eq(i).attr('data-id')+'"><img src="'+datas.eq(i).attr('src')+'" width="'+datas.eq(i).attr('width')+'" height="'+datas.eq(i).attr('height')+'" data-id="'+datas.eq(i).attr('data-id')+'" /></div>');
@@ -160,16 +162,11 @@
 
 
             };
-            s.updateSlider = function(datas){
-                if(datas.lenght <= 0){
-                    s.empty();return;
-                }
-                s.wraper = s.find('.swiper-wrapper');
-                for(i=0;datas.length>0 && i<datas.length;i++){
-                    s.wraper.append('<div class="swiper-slide" id="slideImg'+datas.eq(i).attr('data-id')+'"><img src="'+datas.eq(i).attr('src')+'" width="'+datas.eq(i).attr('width')+'" height="'+datas.eq(i).attr('height')+'" data-id="'+datas.eq(i).attr('data-id')+'" /></div>');
-                }
+            s.updateSlider = function(){
+
                 s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
-                s.wraper.find('img').imgscale();
+
+                s.find('.swiper-container').find('img').imgscale();
                 $('.swiper-button-next,.swiper-button-prev').off('touchstart').on('touchstart',function(e){
                     if (e.originalEvent) e = e.originalEvent;
                     e.stopPropagation();
@@ -177,11 +174,13 @@
                 });
 
             }
+
             if(_option.data != null && _option.data != ''){
                 s.addImage(imgarray);
             }else{
-                s.updateSlider(imgarray);
+                s.updateSlider();
             }
+
         })
 
     }
@@ -196,25 +195,6 @@
                 s.removeClass('slider-content');
                 return;
             }
-
-            s.find('.swiper-container').find('img').each(function(){
-                var _this = $(this);
-                var imgW = _this.width(),
-                    imgH = _this.height(),
-                    imgL = _this.position().left,
-                    imgT = _this.position().top;
-
-                if(imgW + imgL < s.width()){
-                    imgW = s.width();
-                    imgL = 0;
-                }
-                if(imgH + imgT < s.height()){
-                    imgT = s.height() - imgH;
-                }
-
-                _this.attr({'width':imgW,'height':imgH});
-                _this.css({'left':imgL,'top':imgT});
-            })
 
             s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
 
