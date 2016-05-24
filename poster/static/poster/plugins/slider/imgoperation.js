@@ -46,14 +46,14 @@
         s.opt={};
         var startDiagonal={'x':0,'y':0},endDiagonal={'x':0,'y':0};
 
-        i.css({'position':'relative'});
+        i.css({'position':'relative','top':0,'left':0});
         i.on({
             'touchstart':function(e){
                 if(e.originalEvent) e = e.originalEvent;
                 $(e.currentTarget).css({'transition':'none'});
                 var imgl = i.css('left') == undefined ? 0 : i.css('left');
                 var imgt = i.css('top') == undefined ? 0 : i.css('top');
-                console.log(imgl)
+                console.log(imgl);
                 moveX = parseInt(imgl);
                 moveY = parseInt(imgt);
                 var touch = e.touches[0];
