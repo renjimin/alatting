@@ -44,15 +44,28 @@
 	padding-right: 20px;
 }
 #dpw_clock .toggle-line{
-	width: 40px;
+	width: 45px;
 	height: 18px;
-	background-color: green;
+	background-color: #fff;
 	border-radius:20px;
 	margin: auto;
 	transition: background-color .2s;
+	box-shadow: 1px 1px 1px #999 inset;
 }
 #dpw_clock td.off .toggle-line,#dateState.off .toggle-line{
-	background-color: red;
+	background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+}
+#dpw_clock td.off .toggle-line:after, #dateState.off .toggle-line:after {
+    content: "off";
+    left: 20px;
+    position: absolute;
+    line-height: 18px;
+}
+#dpw_clock .toggle-line:after {
+    content: "on";
+    position: absolute;
+    left: 4px;
+    line-height: 18px;
 }
 #dpw_clock .toggle-btn{
 	width: 20px;
@@ -66,6 +79,7 @@
 	margin:auto;
 	margin-left: -20px;
 	transition: margin-left .2s ,left .2s;
+	box-shadow: 1px 1px 1px #999;
 }
 #dpw_clock td.off .toggle-btn,#dateState.off .toggle-btn{
 	left: -1px;

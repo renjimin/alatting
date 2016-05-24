@@ -24,7 +24,7 @@ $(function(){
         ths.domRotate({ebox:postcontainer});
     });
     $('.text-element').removeClass('text-element-act');
-    $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+    $('.ele-rotate-ctrl').remove();
     /*
     var hidtime = 3;
     function hideAct(obj){

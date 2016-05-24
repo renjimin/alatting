@@ -63,9 +63,9 @@
 
 				var $fileBox = $('#fileBox_'+file.id);
 				var $diyBar = $fileBox.find('.diyBar');
-				$diyBar.show();
+				//$diyBar.show();
 				percentage = percentage*100;
-				showDiyProgress( percentage.toFixed(2), $diyBar);
+				//showDiyProgress( percentage.toFixed(2), $diyBar);
 
 			});
 
@@ -109,14 +109,7 @@
 				var $diyBar = $fileBox.find('.diyBar');
 				showDiyProgress( 0, $diyBar , '上传失败!' );
 				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
-				if(opt['sliderContainer'].find('.swiper-slide').length > 0){
-					opt['sliderContainer'].find('.swiper-slide').each(function(){
-						var fileid = $(this).find('img').attr('data-id');
-						if(file_id == file.id){
-							file.id = 'slide_img_'+(slideImgNum++);
-						}
-					});
-				}
+
 				uploadfiles['error'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( errorCallBack ) {
 					errorCallBack( err );
