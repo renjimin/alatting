@@ -11,7 +11,7 @@
     <button class="button button-clear btn-music header-music rotate" id="music">
         <i class="ico-music "></i>
         <audio id="background_music" hidden autoplay="true" loop="true">
-          <source src="{{ object.music }}" type="audio/mpeg">
+          <source src="{{ object.music|default_if_none:'' }}" type="audio/mpeg">
           您的浏览器不支持音频资源
         </audio>
     </button>
