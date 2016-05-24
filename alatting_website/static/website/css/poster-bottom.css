@@ -703,7 +703,7 @@ textarea.ng-invalid {
 /*align app-body and bottom menu in the center*/
 @media only screen and (min-width: 768px) {
     .scrollable-content {
-        width: 45%;
+        width: 100%;
         min-width: 600px;
         margin-left: auto;
         margin-right: auto;
@@ -712,8 +712,8 @@ textarea.ng-invalid {
         overflow-x: hidden;
     }
     .navbar-absolute-bottom {
-        width: 45%;
-        min-width: 600px;
+        width: 100%;
+        max-width: 600px;
         margin-left: auto;
         margin-right: auto;
     }
