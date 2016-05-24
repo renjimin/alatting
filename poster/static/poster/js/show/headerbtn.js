@@ -4,6 +4,10 @@ $(function(){
 		$('.header-info .contact-info').hide();
 		hideMap();
 	});
+	if (bg_music.paused == true) {
+		bg_music.play();
+		$(".header-music").addClass('rotate');
+	}
 	//4 abuttons in the first layer
 	////contact (phone & email & hours)
 	$('a.abutton-contact').click(function(e){
@@ -68,14 +72,14 @@ $(function(){
 	});
 	//music
 	$('#music').click(function() {
-			var bg_music = document.getElementById("background_music"); 
-			if (bg_music.paused == false) {
-					bg_music.pause();
-					$(".header-music").removeClass('rotate');
-			} else {
-					bg_music.play();
-					$(".header-music").addClass('rotate');
-			}
+		var bg_music = document.getElementById("background_music"); 
+		if (bg_music.paused == false) {
+			bg_music.pause();
+			$(".header-music").removeClass('rotate');
+		} else {
+			bg_music.play();
+			$(".header-music").addClass('rotate');
+		}
 	});
 });
 function togleMap(){
@@ -84,11 +88,10 @@ function togleMap(){
 	if(mapState){
 		hideMap();
 	}else{
-		showMap();
+		showMap(mapDiv);
 	}
 }
-function showMap(){
-	var mapDiv = $("#allmap").parents("div").eq(0);
+function showMap(mapDiv){
 	mapDiv.css("top",$("header.header").offset().top + $("header.header").height());
 	mapDiv.css("visibility","visible");
 	$("header.header").height($("header.header").height() + 300);
@@ -98,7 +101,6 @@ function hideMap(){
 		mapState = (mapDiv.css("visibility") == "visible")?true:false;
 	if(mapState)$("header.header").height($("header.header").height() - 300);
 	mapDiv.css("visibility","hidden");
-	
 }
 function liked(){
 	$.post(likedURL).done(function(object){
@@ -149,3 +151,4 @@ function subscribed(){
 		}
 	})
 }
+
