@@ -78,10 +78,20 @@ $(function () {
                         if (obj) {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
+<<<<<<< HEAD
+
+                        console.log(data);
+                        obj.imgoperation({'data': data});
+                    }, function (data) {
+                        yyAlert("上传失败");
+                    });
+
+=======
                         obj.imgoperation({'data': data});
                         }, function (data) {
                             yyAlert("上传失败");
                         });
+>>>>>>> b90cc82b9fd4f80d019bd9f9619f41d8625b5345
                 }
             },
             {
