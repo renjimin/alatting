@@ -30,6 +30,7 @@
 {% block base_head_title %}{{ poster.unique_name }}{% endblock %}
 
 {% block base_header_css %}
+    <link rel="stylesheet" href="{% static 'poster/plugins/slider/swiper.css' %}">
     <link rel="stylesheet" href="{% static 'libs/common/video-js5.0.0.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/font-awesome4.5.0.min.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/full-slider.css' %}">
@@ -53,6 +54,18 @@
         var auth_user_id = {% firstof request.user.id "null"%};
         var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
         var createScreenShotURL =  "{% url 'website:posterCapture' object.id%}";
+        var yunyeEditorGlobal = {
+            posterId: "{{ poster.id }}",
+            address: "{{ poster.address }}",
+            mobile: "{{ poster.mobile }}",
+            phone: "{{ poster.phone }}",
+            email: "{{ poster.email }}",
+            unique_name: "{{ poster.unique_name }}",
+            logo_title: "{{ poster.logo_title }}",
+            logo_image: "{{ poster.logo_image.file.url }}",
+            lifetime: "{{ poster.lifetime }}",
+            updated_at: "{{ poster.updated_at }}"
+        }
     </script>
     <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     <script src="{% static 'libs/common/angular1.3.0.min.js' %}"></script>
@@ -64,11 +77,15 @@
     <script src="{% static 'website/js/init.js' %}"></script>
     <script src="{% static 'website/js/js.cookie-2.0.4.min.js' %}"></script>
     <script src="{% static 'website/js/poster.js' %}"></script>
+    <script src="{% static 'poster/js/show/headerbtn.js' %}"></script>
 {% endblock %}
 
 {% block base_header_extra %}
     <style>
-        {{ index_page.temp_css|safe }}
+        .bottom-container .bottom-menu {
+            background: #000;
+        }
+        {{ index_page.render_css_to_string|safe }}
     </style>
     <link rel="stylesheet" href="{% static 'poster/css/show.css' %}"/>
 {% endblock %}
@@ -79,13 +96,16 @@
 
 {% block base_body_inner %}
     {% include "poster/show/header.html" %}
-    {{ index_page.temp_html|safe }}
+    {{ index_page.render_html_to_string|safe }}
 {% endblock %}
 
 {% block base_body_footer %}
     {% include 'poster/show/footer.html' %}
 {% endblock %}
 {% block base_footer_js %}
+    {% if not request.GET.capture %}
+        {% include 'poster/show/comment.html' %}
+    {% endif %}
     <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
@@ -93,10 +113,13 @@
     <script src="{% static 'libs/video/video.js' %}"></script>
     <script src="{% static 'libs/flex_slider/jquery.flexslider-min.js' %}"></script>
     <script src="{% static 'website/js/menu.js' %}"></script>
-    <script src="{% static 'website/js/poster-header.js' %}"></script>
     <script src="{% static 'website/js/full-slider.js' %}"></script>
     <script src="{% static 'website/js/jquery.magnific-popup.js' %}"></script>
     <script src="{% static 'website/js/image_slider_init.js' %}"></script>
+
+    <script src="{% static 'poster/plugins/slider/swiper.js' %}"></script>
+    <script src="{% static 'poster/plugins/slider/imgslider.js' %}"></script>
+    <script src="{% static 'poster/js/show/poster.js' %}"></script>
 {% endblock %}
 {% block base_foot_mask %}
 {% endblock %}

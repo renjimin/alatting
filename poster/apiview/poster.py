@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from alatting import settings
+from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.model.resource import Image
 from alatting_website.models import CategoryKeyword, Template
@@ -346,6 +347,19 @@ class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
             page.script = save_file(foo(full_path, 'js'), page.temp_script)
             page.save()
         serializer.save(status=Poster.STATUS_PUBLISHED)
+        try:
+            image_url, pdf_url = PosterService.capture(
+                self.request, serializer.instance,
+                force='force' in self.request.GET
+            )
+            if image_url:
+                serializer.instance.snapshot = image_url
+                serializer.instance.save(update_fields=['snapshot'])
+            print(image_url)
+            print(pdf_url)
+        except Exception as e:
+            # todo lyh: 记录日志并提示
+            pass
 
 
 class PosterSaveView(RetrieveUpdateAPIView, PosterSaveContentMixin):

@@ -397,6 +397,9 @@ class PosterCaptureView(View):
             self.request, current_poster, force='force' in self.request.GET
         )
         data = {'image_url': image_url, 'pdf_url': pdf_url}
+        if image_url:
+            current_poster.snapshot = image_url
+            current_poster.save(update_fields=['snapshot'])
         response = HttpResponse(json.dumps(data),
                                 content_type="application/json")
         return response
@@ -406,7 +409,7 @@ class PosterCodeView(View):
     def get(self, request, pk):
         response = HttpResponse(content_type='image/png')
         url = request.scheme + '://' + request.get_host()
-        url += reverse('website:poster', kwargs={'pk': pk})
+        url += reverse('posters:show', kwargs={'pk': pk})
         # url += '?scan=1'
         QrCode.save_png(url, response)
         return response

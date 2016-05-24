@@ -1,0 +1,105 @@
+{% load static %}
+
+<div id="comments-submenu" hidden class="scrollable comments-submenu" ng-controller="commentsController"
+     ng-init="init('{% url 'api:comment-list' poster_id=object.id %}')">
+    <div class="scrollable-content" ui-scroll-bottom="loadMore()">
+        <div class="poster-frame center-block">
+            <div>
+                <form novalidate class="justified comment has-error" name="form"
+                     onclick="var event = arguments[0] || window.event; event.stopPropagation();">
+                    <div class="comment-person">
+                        {% if request.user.person.avatar.url %}
+                            <img ng-src="{{ request.user.person.avatar.url|default_if_none:'/static/website/images/icons/user.png' }}" class="img-circle">
+                        {% else %}
+                            <img src="{% static 'website/images/icons/user.png' %}" class="img-circle">
+                        {% endif %}
+                    </div>
+
+                    <div class="comment-text">
+                        <div class="bubble">
+                            <div class="bubble-wrapper">
+                                <div class="justified bubble-header">
+                                    <div class="bubble-title editing">
+                                        <input ng-model="comment.title" ng-maxlength="127" class="title-edit" name="title" required
+                                               placeholder="请输入标题">
+                                    </div>
+                                    <div class="bubble-time" style="display: none;">now</div>
+                                </div>
+
+                                <div class="bubble-content editing">
+                                    <textarea name="content" ng-model="comment.content" ng-maxlength="511" required
+                                              class="content-edit" placeholder="请输入评论内容"></textarea>
+
+                                    <div ng-click="create(form)"
+                                         class="icon-btn"
+                                         ng-disabled="form._creating">
+                                        <img src="{% static 'website/images/icons/save.png' %}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- dynamic comments -->
+                {%verbatim%}
+                <form novalidate class="justified comment" ng-repeat="comment in comments" name="form"
+                     ng-click="comment._edit == 'editing' && $event.stopPropagation()" ng-init="comment._form = $scope.$element">
+                    <div class="comment-person">
+                        <img ng-src="{{ comment.creator.person.avatar || '/static/website/images/icons/user.png' }}" class="img-circle">
+                    </div>
+
+                    <div class="comment-text">
+                        <div class="bubble">
+                            <div class="bubble-wrapper">
+                                <div class="justified bubble-header">
+                                    <div class="bubble-title" ng-class="{editing: comment._edit == 'editing'}"><span ng-if="comment._edit != 'editing'">{{ comment.title }}</span>
+                                        <input ng-if="comment._edit == 'editing'" ng-maxlength="127" ng-class=""
+                                               ng-model="comment.title" class="title-edit" name="title" required
+                                           placeholder="Please input the title">
+                                        </div>
+                                    <div ng-if="comment._edit != 'editing'" class="bubble-time">{{ comment.created_at }}</div>
+                                </div>
+
+                                <div class="bubble-content" ng-class="{editing: comment._edit == 'editing'}">
+                                    <div style="clear: right" ng-if="comment._edit != 'editing'"
+                                                                  class="content-display">{{ comment.content }}</div>
+                                    <textarea ng-if="comment._edit == 'editing'"  ng-maxlength="511"
+                                              ng-model="comment.content" name="content" required class="content-edit"
+                                              placeholder="please input the content"></textarea>
+
+                                    <div ng-if="comment._edit == 'editable'"
+                                         ng-click="startEdit(comment)"
+                                         ng-disabled="comment._deleting"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/edit.png">
+                                    </div>
+                                    <div ng-if="comment._edit == 'editable'" ng-click="delete(comment)"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._deleting"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/delete.png">
+                                    </div>
+                                    <div ng-if="comment._edit == 'editing'" ng-click="cancelEdit(comment)"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._updating"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/cancel.png">
+                                    </div>
+                                    <div ng-if="comment._edit == 'editing'" ng-click="update(this)"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._updating"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/save.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                {% endverbatim %}
+
+            </div>
+        </div>
+    </div>
+</div>

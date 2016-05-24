@@ -65,7 +65,9 @@ $(function () {
             $(".yunye-template").remove();
             $(".container-fluid").append(storageAPI.getHtml());
         }
-        
+        /*var templateScale = $('body').width()/$('.yunye-template').width();
+        $('.yunye-template').css({'transform':'scale('+templateScale+','+templateScale+')'});*/
+
     };
 
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
@@ -293,10 +295,10 @@ $(function () {
                 text: "顶/底背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
-                        $('.bar-header,.bar-footer').css('background-image', 'url(' + img + ')');
+                        $('.bar-header,.bar-footer').css('background', 'url(' + img + ')');
                         $('.bar-header,.bar-footer').css('background-size', '100% 100%');
                         storageAPI.setCss(".bar-header", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".bar-footer", {
@@ -313,10 +315,10 @@ $(function () {
                 callback: function () {
                     $("#colorBox").css('top', $('.content').offset().top).show();
                     $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.bar-header,.bar-footer').css('background-color', color);
-                        storageAPI.setCss(".bar-header", {'background-color': color});
-                        storageAPI.setCss(".bar-footer", {'background-color': color});
-                        storageAPI.setCss(".bottom-container > .bottom-menu", {'background-color': color})
+                        $('.bar-header,.bar-footer').css('background', color);
+                        storageAPI.setCss(".bar-header", {'background': color});
+                        storageAPI.setCss(".bar-footer", {'background': color});
+                        storageAPI.setCss(".bottom-container > .bottom-menu", {'background': color})
                     });
                 }
             },

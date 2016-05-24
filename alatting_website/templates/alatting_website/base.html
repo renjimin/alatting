@@ -1,7 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
+{% if request.GET.capture %}
 <html>
-<head lang="en">
+{% else %}
+<html lang="en" ng-app="PosterApp" ng-controller="MainController">
+{% endif %}
+<head>
     <meta charset="UTF-8">
     {% block base_head_meta %}
     <meta name="viewport" content="width=device-width,user-scalable=no">

@@ -14,7 +14,7 @@ $(function () {
             /*去掉海报元素的编辑控件-zj*/
             $('.cnd-element').removeClass('active');
             $('.text-element').removeClass('text-element-act');
-            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+            $('.ele-rotate-ctrl').remove();
 
             $(".change-template-layout").remove();
             storageAPI.setHtml(".yunye-template");
@@ -41,7 +41,7 @@ $(function () {
             }
             if ($('#logo_title').attr("style"))storageAPI.setCss("logo_title", parseStyle($('#logo_title').attr("style")));
             storageAPI.setHead("unique_name", $('#logo_title').html());
-            if ($('#short_description').attr("style"))storageAPI.setCss("short_description", parseStyle($('#short_description').attr("style")));
+            if ($('#short_description').attr("style"))storageAPI.setCss("#short_description", parseStyle($('#short_description').attr("style")));
             storageAPI.setHead("short_description", $('#short_description').html());
             //日历周期性
             var lifetime = yunyeEditorGlobal.lifetime;
@@ -60,7 +60,7 @@ $(function () {
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
             try{
-                saveData();
+                //saveData();
             }catch(e){}
             window.location.href = url;
         });
@@ -129,11 +129,16 @@ $(function () {
         ]
     });
 
-
-
     $(".btn.btn-save").on("click", function () {
         $.fn.yyTools.mask(1);
-        saveData();
+        try{
+            saveData();
+        }catch (e){
+            $.fn.yyTools.mask();
+            yyAlert("待保存数据处理失败，暂时无法提交！");
+            console.log(e);
+            return;
+        }
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
@@ -158,24 +163,18 @@ $(function () {
 
     $(".btn.btn-post").on("click", function () {
         $.fn.yyTools.mask(1);
-        saveData();
-        yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
-                "Monday": {start: "09:00", end: "17:00", enabled: 1},
-                "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
-                "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
-                "Thursday": {start: "09:00", end: "17:00", enabled: 1},
-                "Friday": {start: "09:00", end: "17:00", enabled: 1},
-                "Saturday": {start: "09:00", end: "17:00", enabled: 0},
-                "Sunday": {start: "09:00", end: "17:00", enabled: 0}
-            }
-        };
-        var full_json = JSON.stringify(storageAPI.getPosterData());
-        var url = yunyeEditorGlobal.API.publish.format(
-            yunyeEditorGlobal.posterId
-        );
+        try{
+            saveData();
+        }catch (e){
+            $.fn.yyTools.mask();
+            yyAlert("待保存数据处理失败，暂时无法发布！");
+            console.log(e);
+            return;
+        }
+
+        var full_json = JSON.stringify(storageAPI.getPosterData()),
+            api = yunyeEditorGlobal.API;
+        var url = api.publish.format(yunyeEditorGlobal.posterId);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
@@ -183,7 +182,18 @@ $(function () {
             url: url,
             success: function (data) {
                 $.fn.yyTools.mask();
-                yyAlert("发布成功");
+                yyConfirm(
+                    "发布成功！<br>您需要查看发布的海报吗？",
+                    function(){
+                        window.location.href = api.show.format(
+                            yunyeEditorGlobal.posterId
+                        );
+                    },
+                    {
+                        'okText':'查看',
+			            'cancelText':'不查看'
+                    }
+                );
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {

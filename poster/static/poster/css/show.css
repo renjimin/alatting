@@ -12,6 +12,7 @@
 }
 .popover-title{
     border-bottom: none;
+    border-radius: 0;
 }
 .stats-graph .right-btn img,
 .stats-overall .left-btn img{
@@ -23,4 +24,58 @@
 .star-rating .clear-rating,
 .star-rating-rtl .clear-rating {
     display: none;
+}
+.scrollable {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.icon-btn img{
+    max-width: 100%;
+    vertical-align: middle;
+    padding-bottom: 10px;
+}
+/*--文字预置样式---start-*/
+.text-element{
+    position: absolute;
+    z-index: 100;
+    font-size: 30px;
+    text-align: center;
+    border: 1px dashed transparent;
+    -ms-word-break:keep-all;
+    word-break: keep-all;
+    white-space: nowrap;
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.el-content{
+    padding: 15px;
+}
+.el-rotate{
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+}
+.el-editor{
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
+}
+/*--文字预置样式---end-*/
+
+@media only screen and (max-width: 767px) and (min-width: 360px){
+    .comments-submenu {
+        padding-bottom: 2em;
+    }
+    .comment {
+        font-size: 0.8em;
+        padding-top: 4%;
+    }
 }

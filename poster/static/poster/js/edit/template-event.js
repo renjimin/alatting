@@ -115,6 +115,7 @@ $(function () {
         }
         $this.registerPopUp(opt);
         if($this.find('.swiper-container').length > 0){
+            //$(this).imgslidershow();
             $(this).imgslider();
         }else if($this.find('img').length > 0){
             $(this).imgoperation();
@@ -124,6 +125,7 @@ $(function () {
     $(".yunye-template .cnd-element").each(function () {
         scale($(this));
     });
+
 
 
 });
