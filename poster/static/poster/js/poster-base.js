@@ -180,8 +180,19 @@ $(function () {
         followMouse: true,
         list: [
             {
+                icon: "glyphicon glyphicon-adjust",
+                text: " 颜色",
+                callback: function () {
+                    $("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
+                    $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
+                        $('.header').css('background', color);
+                        storageAPI.setCss(".header", {'background': color});
+                    });
+                }
+            },       
+            {
                 icon: "icon ico-system-pic",
-                text: "系统背景",
+                text: "背景图片",
                 callback: function () {
                     $('.header').bgselect({}, function (ths, img) {
                         ths.css('background-image', 'url(' + img + ')');
@@ -192,17 +203,6 @@ $(function () {
                         });
                         $(".system-item").fadeOut(500);
                     })
-                }
-            },
-            {
-                icon: "glyphicon glyphicon-adjust",
-                text: " 颜色",
-                callback: function () {
-                    $("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
-                    $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.header').css('background', color);
-                        storageAPI.setCss(".header", {'background': color});
-                    });
                 }
             },
             {
