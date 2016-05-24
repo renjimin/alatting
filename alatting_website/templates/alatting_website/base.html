@@ -1,6 +1,10 @@
 {% load static %}
 <!DOCTYPE html>
+{% if request.GET.capture %}
+<html>
+{% else %}
 <html lang="en" ng-app="PosterApp" ng-controller="MainController">
+{% endif %}
 <head>
     <meta charset="UTF-8">
     {% block base_head_meta %}

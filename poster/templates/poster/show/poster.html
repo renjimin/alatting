@@ -103,7 +103,9 @@
     {% include 'poster/show/footer.html' %}
 {% endblock %}
 {% block base_footer_js %}
-    {% include 'poster/show/comment.html' %}
+    {% if not request.GET.capture %}
+        {% include 'poster/show/comment.html' %}
+    {% endif %}
     <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>
