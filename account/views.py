@@ -111,25 +111,28 @@ class ProfileView(DetailView):
     template_name = 'account/profile.html'
     model = User
 
-    def get_object(self):
+    def get_object(self, queryset=None):
         user = self.request.user
         if user.is_authenticated():
             obj = self.request.user
             posters_created = []
-            for poster_created in Poster.objects.filter(creator=self.request.user):
+            posters = Poster.objects.filter(creator=self.request.user)
+            for poster_created in posters:
                 posters_created.append(poster_created)
             obj.posters_created = posters_created
-            obj.poster_count = Poster.objects.filter(creator=self.request.user).count()
-            obj.poster_likes_count = PosterLike.objects.filter(creator=self.request.user).count()
-            obj.poster_subscriptions_count = PosterSubscribe.objects.filter(follower=self.request.user).count()
+            obj.poster_count = Poster.objects.filter(
+                creator=self.request.user
+            ).count()
+            obj.poster_likes_count = PosterLike.objects.filter(
+                creator=self.request.user
+            ).count()
+            obj.poster_subscriptions_count = PosterSubscribe.objects.filter(
+                follower=self.request.user
+            ).count()
             obj.money = 340
             return obj
         else:
             return None
-
-    def get_context_data(self, **kwargs):
-        context = super(ProfileView, self).get_context_data(**kwargs)
-        return context
 
 
 class FriendsView(ListAPIView):
