@@ -66,11 +66,12 @@ $(function () {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
 
-                        obj.imgoperation({'data':data});
-
-                    },function(data){
-                       yyAlert("上传失败");
+                        console.log(data);
+                        obj.imgoperation({'data': data});
+                    }, function (data) {
+                        yyAlert("上传失败");
                     });
+
                 }
             },
             {
