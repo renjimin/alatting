@@ -53,6 +53,18 @@
         var auth_user_id = {% firstof request.user.id "null"%};
         var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
         var createScreenShotURL =  "{% url 'website:posterCapture' object.id%}";
+        var yunyeEditorGlobal = {
+            posterId: "{{ poster.id }}",
+            address: "{{ poster.address }}",
+            mobile: "{{ poster.mobile }}",
+            phone: "{{ poster.phone }}",
+            email: "{{ poster.email }}",
+            unique_name: "{{ poster.unique_name }}",
+            logo_title: "{{ poster.logo_title }}",
+            logo_image: "{{ poster.logo_image.file.url }}",
+            lifetime: "{{ poster.lifetime }}",
+            updated_at: "{{ poster.updated_at }}"
+        }
     </script>
     <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     <script src="{% static 'libs/common/angular1.3.0.min.js' %}"></script>
@@ -68,7 +80,7 @@
 
 {% block base_header_extra %}
     <style>
-        {{ index_page.temp_css|safe }}
+        {{ index_page.render_css_to_string|safe }}
     </style>
     <link rel="stylesheet" href="{% static 'poster/css/show.css' %}"/>
 {% endblock %}
@@ -79,7 +91,7 @@
 
 {% block base_body_inner %}
     {% include "poster/show/header.html" %}
-    {{ index_page.temp_html|safe }}
+    {{ index_page.render_html_to_string|safe }}
 {% endblock %}
 
 {% block base_body_footer %}

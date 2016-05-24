@@ -10,3 +10,8 @@ register = template.Library()
 def dictget(thedict, key):
     "{{ dictionary|dictget:variableholdingkey }}"
     return thedict.get(key, None)
+
+@register.filter(name="choicesplit")
+def choicesplit(value, sep = ":"):
+    parts = value.split(sep)
+    return (parts[0], sep.join(parts[1:]))

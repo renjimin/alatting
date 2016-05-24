@@ -170,7 +170,7 @@ class Poster(models.Model):
         return "{:d}".format(self.pk)
 
     def get_absolute_url(self):
-        return reverse('website:poster', kwargs={'pk': self.id})
+        return reverse('posters:show', kwargs={'pk': self.id})
 
 
 class AbstractPageTemplate(models.Model):
@@ -247,6 +247,12 @@ class PosterPage(AbstractPageTemplate):
 
     def render_html_to_string(self):
         return read_template_file_content(self.html.url)
+
+    def render_css_to_string(self):
+        return read_template_file_content(self.css.url)
+
+    def render_script_to_string(self):
+        return read_template_file_content(self.script.url)
 
 
 class PageText(models.Model):

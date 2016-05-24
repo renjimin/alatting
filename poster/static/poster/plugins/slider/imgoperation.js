@@ -6,7 +6,7 @@
 
         return this.each(function(){
             _option = $.extend(opts,options);
-            var s = $(this),i = s.find('img').eq(0),v = s.find('video');
+            var s = $(this),i = s.find('img').eq(0),v = s.find('video').eq(0);
 
         var imgW,imgH,ow,oh;
         if(_option.data == null){
@@ -120,7 +120,6 @@
 					endH = imgH;
 				}
 
-				 
                  if(parseInt(moveEndX)> 0){
                      endX = 0;
                  }
@@ -129,7 +128,6 @@
                     endX = - endW + $(e.currentTarget).parent().width();	
 
                 }
-				
 
                  if(parseInt(moveEndY)> 0){
                      endY = 0;

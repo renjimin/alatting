@@ -20,13 +20,19 @@
 .el-content{
     padding: 15px;
 }
+.el-rotate{
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+}
 .el-editor{
     width: 1px;
     height: 1px;
     position: absolute;
-    left: -0.5px;
-    bottom: -0.5px;
-    background: transparent;
+    bottom: -1px;
+    left: -1px;
 }
 .text-element-act{
     border-color: #373737;

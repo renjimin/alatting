@@ -60,7 +60,7 @@ $(function () {
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
             try{
-                saveData();
+                //saveData();
             }catch(e){}
             window.location.href = url;
         });
@@ -129,8 +129,6 @@ $(function () {
         ]
     });
 
-
-
     $(".btn.btn-save").on("click", function () {
         $.fn.yyTools.mask(1);
         saveData();
@@ -159,19 +157,6 @@ $(function () {
     $(".btn.btn-post").on("click", function () {
         $.fn.yyTools.mask(1);
         saveData();
-        yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
-                "Monday": {start: "09:00", end: "17:00", enabled: 1},
-                "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
-                "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
-                "Thursday": {start: "09:00", end: "17:00", enabled: 1},
-                "Friday": {start: "09:00", end: "17:00", enabled: 1},
-                "Saturday": {start: "09:00", end: "17:00", enabled: 0},
-                "Sunday": {start: "09:00", end: "17:00", enabled: 0}
-            }
-        };
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.publish.format(
             yunyeEditorGlobal.posterId

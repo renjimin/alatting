@@ -31,12 +31,12 @@
             <li>
                 <div class="wraper">
                     <div class="img">
-                        <a href="{% url 'website:poster' poster.id %}" title="{{ poster.logo_title }}">
+                        <a href="{{ poster.get_absolute_url }}" title="{{ poster.unique_name }}">
                             <img src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %}" width="100%" />
                         </a>
                     </div>
                     <div class="det">
-                        <a href="{{ poster.url }}">
+                        <a href="{{ poster.get_absolute_url }}">
                             <span class="title">{{ poster.unique_name }} </span>
                             <span class="view-num">
                                 <i class="glyphicon glyphicon-eye-open"></i>
