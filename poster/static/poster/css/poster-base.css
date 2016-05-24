@@ -1567,7 +1567,10 @@ to {
 	width:600px;
 	height:720px;
 	transform-origin: top left;
-	-webki-transform-origin: top left;
+	-webkit-transform-origin: top left;
+	-moz-transform-origin: top left;
+	-o-transform-origin: top left;
+	-ms-transform-origin: top left;
 }
 
 .yunye-template > .content{
@@ -1599,7 +1602,4 @@ to {
 	margin-top: 2px;
 	font-size: 22px;
 	vertical-align: middle;
-}
-@media (min-width: 600px){
-	.yunye-template{ transform: scale(1.875, 1.875)!important;}
 }
