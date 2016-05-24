@@ -245,12 +245,13 @@ html {
 	z-index: 20;
 
 	padding: 15px 0 0;
-
+	pointer-events:none;
 }
 .header-qrcode {
 	float: left;
 
 	width: 25%;
+	pointer-events: auto;
 }
 .header-logo {
 	position: absolute;
@@ -1119,7 +1120,6 @@ to {
 	overflow-x:hidden;
 	width: 100%;
 	max-width: 600px;
-	height: 100%;
 	padding: 40px 0 45px 0;
 }
 .bar-header,

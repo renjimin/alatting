@@ -86,7 +86,6 @@
                     var moveEndX = parseInt($(e.currentTarget).css('left'));
                     var moveEndY = parseInt($(e.currentTarget).css('top'));
                     var endX = moveEndX,endY = moveEndY,endW = $(e.currentTarget).width(),endH = $(e.currentTarget).height();
-					$('.ele3').html('moveEndY:'+moveEndY);
 					if(endW < imgW){
 						endW = imgW;
 					}
@@ -104,7 +103,6 @@
                     }
                     if( $(e.currentTarget).height() + parseInt(moveEndY) < $(e.currentTarget).parent().height()){
                         endY = - endH + $(e.currentTarget).parent().height();
-						$('.ele4').html('endY:'+endY);
                     }
 
 					$(e.currentTarget).css({'transition':'all .2s ease-in'});
@@ -116,26 +114,26 @@
 			});
 		})
 	}
-    $.fn.imgslider = function(opations){
+    $.fn.imgslider = function(options){
         var opts = {
             'data':null
         };
         return this.each(function () {
             var s = $(this),
-				_option = $.extend(opts,opations);
+				_option = $.extend(opts,options);
             //var imgarray = [];
 
             $.extend(s,{'wraper':null,'swiper':null});
 
             var imgarray  = s.find('.swiper-container').find('img');
-
             s.empty();
             if(_option.data == null && imgarray.length <= 0){
+                s.removeClass('slider-content');
                 return;
             }
 
             var $swipercon = '<div class="swiper-container"><div class="swiper-wrapper"></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div></div>';
-            s.html($swipercon);
+            s.html($swipercon).addClass('slider-content');
 
 
             s.addImage = function(datas){
@@ -184,6 +182,42 @@
             }else{
                 s.updateSlider(imgarray);
             }
+        })
+
+    }
+    $.fn.imgslidershow = function(){
+
+        return this.each(function () {
+            var s = $(this);
+
+            var imgarray  = s.find('.swiper-container').find('img');
+
+            if(imgarray.length <= 0){
+                s.removeClass('slider-content');
+                return;
+            }
+
+            s.find('.swiper-container').find('img').each(function(){
+                var _this = $(this);
+                var imgW = _this.width(),
+                    imgH = _this.height(),
+                    imgL = _this.position().left,
+                    imgT = _this.position().top;
+
+                if(imgW + imgL < s.width()){
+                    imgW = s.width();
+                    imgL = 0;
+                }
+                if(imgH + imgT < s.height()){
+                    imgT = s.height() - imgH;
+                }
+
+                _this.attr({'width':imgW,'height':imgH});
+                _this.css({'left':imgL,'top':imgT});
+            })
+
+            s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
+
         })
 
     }

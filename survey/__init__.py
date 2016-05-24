@@ -57,11 +57,12 @@ def process_choice_input(question, answer):
 		if answer_selected:
 			for k, v in answer.items():
 				if 'ANSWER' in v:
-					if v['ANSWER'] == "_entry_":
+					if v['ANSWER'].startswith("_entry_"):
 						if not answer[k]['COMMENT']:
 							raise AnswerException('请输入文本框')
 						else: 
-							opt = v['COMMENT']
+							radio_val = v['ANSWER'].replace("_entry_", "")
+							opt = radio_val + ":" + v['COMMENT']
 					else:
 						opt = v['ANSWER']
 	if question.required and not opt:

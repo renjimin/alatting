@@ -170,7 +170,24 @@ class Poster(models.Model):
         return "{:d}".format(self.pk)
 
     def get_absolute_url(self):
-        return reverse('website:poster', kwargs={'pk': self.id})
+        return reverse('posters:show', kwargs={'pk': self.id})
+
+    def get_first_poster_page_id(self):
+        pages = self.poster_pages.all().order_by('index')
+        if pages.exists():
+            return pages.first().id
+        else:
+            return ''
+
+    def get_edit_url(self):
+        page_id = self.get_first_poster_page_id()
+        if page_id:
+            return reverse('posters:edit', kwargs={
+                'poster_pk': self.id,
+                'pk': page_id
+            })
+        else:
+            return ''
 
 
 class AbstractPageTemplate(models.Model):
@@ -247,6 +264,12 @@ class PosterPage(AbstractPageTemplate):
 
     def render_html_to_string(self):
         return read_template_file_content(self.html.url)
+
+    def render_css_to_string(self):
+        return read_template_file_content(self.css.url)
+
+    def render_script_to_string(self):
+        return read_template_file_content(self.script.url)
 
 
 class PageText(models.Model):

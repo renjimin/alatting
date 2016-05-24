@@ -46,20 +46,21 @@
 			}
 
 			webUploader = getUploader( opt );
-
 			if ( !WebUploader.Uploader.support() ) {
 				alert( ' 上传组件不支持您的浏览器！');
 				return false;
        		}
-
+			var endFileId;
 			//绑定文件加入队列事件;
 			webUploader.on('fileQueued', function( file ) {
 				createBox( $fileInput, file ,webUploader,opt.sliderContainer);
-
+				endFileId = file.id;
 			});
 
 			//进度条事件
 			webUploader.on('uploadProgress',function( file, percentage  ){
+				file.id = endFileId;
+
 				var $fileBox = $('#fileBox_'+file.id);
 				var $diyBar = $fileBox.find('.diyBar');
 				$diyBar.show();
@@ -74,7 +75,7 @@
 				$fileInput.next('.parentFileBox').children('.diyButton').append('<a href="javascript:;" class="confirmBtn">确定</a>');
 				$fileInput.next('.parentFileBox').children('.diyButton').find('.confirmBtn').click(function(){
 					$('.upload-image-dialog').removeClass('open');
-					$(this).remove();
+					$(this).parent().remove();
 				});
 			});
 			//绑定发送至服务端返回后触发事件;
@@ -87,9 +88,15 @@
 				var $fileBox = $('#fileBox_'+file.id);
 				var $diyBar = $fileBox.find('.diyBar');
 				$fileBox.removeClass('diyUploadHover');
-				$diyBar.fadeOut( 1000 ,function(){
-					//$fileBox.children('.diySuccess').show();
-				});
+
+				if(opt['sliderContainer'].find('.swiper-slide').length > 0){
+					opt['sliderContainer'].find('.swiper-slide').each(function(){
+						var fileid = $(this).find('img').attr('data-id');
+						if(fileid == file.id){
+							file.id = 'slide_img_'+(slideImgNum++);
+						}
+					});
+				}
 				uploadfiles['success'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( successCallBack ) {
 					successCallBack( response, file );
@@ -102,6 +109,14 @@
 				var $diyBar = $fileBox.find('.diyBar');
 				showDiyProgress( 0, $diyBar , '上传失败!' );
 				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
+				if(opt['sliderContainer'].find('.swiper-slide').length > 0){
+					opt['sliderContainer'].find('.swiper-slide').each(function(){
+						var fileid = $(this).find('img').attr('data-id');
+						if(file_id == file.id){
+							file.id = 'slide_img_'+(slideImgNum++);
+						}
+					});
+				}
 				uploadfiles['error'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( errorCallBack ) {
 					errorCallBack( err );
@@ -216,11 +231,20 @@
 		}
 
 	}
-
+	var slideImgNum = 0;
 	//创建文件操作div;
 	function createBox( $fileInput, file, webUploader, sliderContainer ) {
 
 		var file_id = file.id;
+		if(sliderContainer.find('.swiper-slide').length > 0){
+			sliderContainer.find('.swiper-slide').each(function(){
+				var fileid = $(this).find('img').attr('data-id');
+				if(file_id == fileid){
+					file_id = 'slide_img_'+(slideImgNum++);
+				}
+			});
+		}
+
 		var $parentFileBox = $fileInput.next('.parentFileBox');
 
 		//添加父系容器;
@@ -325,7 +349,68 @@
 		fileType = fileType[type] || 'txt';
 		return 	fileType+suffix;
 	}
+	//取消事件;
+	function removeLi ( $li ,file_id ,webUploader,container) {
+		if(webUploader != null)webUploader.removeFile( file_id );
+		if ( $li.siblings('li').length <= 0 ) {
+			$li.parents('.parentFileBox').remove();
+		} else {
+			$li.remove();
+		}
+		$("#slideImg"+file_id).remove();
+		if(container.find('.swiper-container').length > 0){
+			container.imgslider();
+		}
 
+	}
+
+	//创建文件操作div;
+	function updateBox( $fileInput, file ,sliderContainer) {
+		var file_id = file.id;
+		var $parentFileBox = $fileInput.next('.parentFileBox');
+
+		//添加父系容器;
+		if ( $parentFileBox.length <= 0 ) {
+
+			var div = '<div class="parentFileBox"> \
+						<ul class="fileBoxUl"></ul>\
+					</div>';
+			$fileInput.after( div );
+			$parentFileBox = $fileInput.next('.parentFileBox');
+
+		}
+
+
+		//添加子容器;
+		var li = '<li id="fileBox_'+file_id+'" class="diyUploadHover"> \
+					<div class="viewThumb"></div> \
+					<div class="diyCancel"></div> \
+					<div class="diySuccess" style="display:none;"></div> \
+					<div class="diyFileName"></div>\
+					<div class="diyBar"> \
+							<div class="diyProgress"></div> \
+							<div class="diyProgressText">0%</div> \
+					</div> \
+				</li>';
+
+		$parentFileBox.children('.fileBoxUl').append( li );
+
+		//父容器宽度;
+		var $width = $('.fileBoxUl>li').length * 180;
+		var $maxWidth = $fileInput.parent().width();
+		$width = $maxWidth > $width ? $width : $maxWidth;
+		$parentFileBox.width( $width );
+
+		var $fileBox = $parentFileBox.find('#fileBox_'+file_id);
+		//绑定取消事件
+		var $diyCancel = $fileBox.children('.diyCancel').on('click',function(){
+			removeLi( $(this).parent('li'), file_id, null ,sliderContainer);
+
+		});
+
+		$fileBox.find('.viewThumb').append('<img src="'+file.src+'" >');
+
+	}
 
 	$.fn.openSliderUpload = function(){
 		return this.each(function(){
@@ -346,9 +431,14 @@
 			if(s.find('.swiper-slide').length > 0){
 				s.find('.swiper-slide').each(function(){
 					var file_id = $(this).find('img').attr('data-id');
-					$('#fileBox_'+file_id).show();
+					if($('#fileBox_'+file_id).length > 0){
+						$('#fileBox_'+file_id).show();
+					}else{
+						updateBox( $('#uploaderContainer'), {'id':file_id,'src':$(this).find('img').attr('src')}, s);
+					}
 				});
 			}
+
 		});
 	}
 
