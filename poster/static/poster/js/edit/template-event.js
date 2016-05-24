@@ -100,7 +100,7 @@ $(function () {
                 text: "图片链接",
                 callback: function (obj) {
                     obj.resourceLink();
-                    obj.imgoperation({'data': data});
+                    /*obj.imgoperation({'data': data});*/
                 }
             }]
     };
