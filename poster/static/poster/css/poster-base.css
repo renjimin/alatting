@@ -1558,11 +1558,11 @@ to {
 .yunye-template {
     background-color: #fff;
     position: relative;
-	/*padding-bottom: 120%;*/
-	width:320px;
+	padding-bottom: 120%;
+	/*width:320px;
 	height:384px;
 	transform-origin: top left;
-	-webki-transform-origin: top left;
+	-webki-transform-origin: top left;*/
 }
 
 .yunye-template > .content{
@@ -1595,6 +1595,6 @@ to {
 	font-size: 22px;
 	vertical-align: middle;
 }
-@media (max-width: 600px){
-	.yunye-template{ transform: scale(1.875, 1.875);}
+@media (min-width: 600px){
+	/*.yunye-template{ transform: scale(1.875, 1.875)!important;}*/
 }
