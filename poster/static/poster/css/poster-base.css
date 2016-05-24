@@ -87,16 +87,16 @@ html {
 .ico-clock:before {
 	background-position: -3em 0;
 }
-.ico-like:before {
+.ico-fun:before {
 	background-position: -4em 0;
 }
-.ico-bookmark:before {
+.ico-like:before {
 	background-position: -5em 0;
 }
 .ico-subscribe:before {
 	background-position: -6em 0;
 }
-.ico-fun:before {
+.ico-bookmark:before {
 	background-position: -7em 0;
 }
 .ico-alogo:before {
@@ -569,7 +569,6 @@ to {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-
 	margin-top: -0.5em;
 	margin-left: -0.5em;
 }
@@ -1466,6 +1465,10 @@ to {
 #short_description{
 	position: relative;
 	z-index: 20;
+	display: block;
+	width: 80%;
+	min-height: 20px;
+	margin: auto;
 }
 
 
@@ -1573,3 +1576,17 @@ to {
 	z-index: 100;
 }
 .cnd-element.active{height:auto;}
+
+.contact-info {
+	display: none;
+	vertical-align: middle;
+	text-align: center;
+	margin-left: 3%;
+	margin-right: 1%;
+}
+.contact-info .icon{
+	margin-left: 10px;
+	margin-top: 2px;
+	font-size: 22px;
+	vertical-align: middle;
+}
