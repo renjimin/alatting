@@ -53,10 +53,10 @@ $(function () {
             yyAlert('请输入海报简述!');
             return false;
         }
-        if (posteimg == '' && !updateAction) {
+        /*if (posteimg == '' && !updateAction) {
             yyAlert('请选择海报logo图片!');
             return false;
-        }
+        }*/
         var reg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
         if (postemail == '') {
             yyAlert('请输入email!');
