@@ -1595,6 +1595,6 @@ to {
 	font-size: 22px;
 	vertical-align: middle;
 }
-@media (max-width: 600px){
+@media (min-width: 600px){
 	.yunye-template{ transform: scale(1.875, 1.875);}
 }
