@@ -15,7 +15,7 @@ from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     ImageSerializer, VideoSerializer, MusicSerializer)
 from utils.file import get_file_ext_name, get_image_path, get_video_path, \
-    get_music_path, rotate_image
+    get_music_path, rotate_image, get_video_preview_image_url
 
 
 UPLOAD_FILE_MODEL_CLASS_MAPPING = {
@@ -89,10 +89,15 @@ class UploadFileView(APIView):
         save_path = path_method(instance, upload_file.name)
         full_path = self.storage_file(upload_file, save_path)
         instance.file = save_path
+
+        if model.__name__ == 'Video':
+            preview_url = get_video_preview_image_url(instance.file)
+            instance.preview = preview_url
+        elif model.__name__ == 'Image':
+            rotate_image(full_path)
+
         instance.save()
         serializer = serializer_model(instance)
-        if model.__name__ == 'Image':
-            rotate_image(full_path)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
