@@ -468,7 +468,6 @@ $(function () {
         if(!$(target).hasClass("dropdown-toggle"))$('.dropdown-panel').removeClass("open");
         if($(target).hasClass("dropdown-toggle"))$("#dp").removeClass("open");
         if(!target)$("#dp").removeClass("open");
-        console.log(target);
         if(!$(target).hasClass('ele-rotate-ctrl')){
             $('.text-element').removeClass('text-element-act');
             $('.ele-rotate-ctrl').remove();
