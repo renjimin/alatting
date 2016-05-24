@@ -11,7 +11,7 @@
     '#1b315e','#11264f','#45224a','#543044','#63434f','#594c6d','#6950a1','#6f60aa','#9b95c9','#afb4db',
     '#fffffb','#f6f5ec','#f2eada','#d3d7d4','#a1a3a6','#999d9c','#72777b','#4f5555','#3e4145','#281f1d',
     '#130c0e'];
-    var fontFamily= ['Consolas','微软雅黑','楷体','华文新魏','华文新宋','华文彩云','华文行楷','幼圆','苹果丽黑','隶书','华康中黑字体','华康娃娃体','华康少女字体'];
+    var fontFamily= ['Helvetica','Microsoft YaHei','楷体','幼圆','隶书','华文新宋','华文彩云','华文行楷','苹果丽黑','华康中黑字体','华康娃娃体','华康少女字体'];
     pluginName = "teditor";
     defaults = {
         colorArr:colorArr,
@@ -77,12 +77,13 @@
 
         /*------------控件操作事件-------------*/
         /*删除文本*/
-        pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(){
+        pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(e){
+            e.stopPropagation();
             var $prevElement = $element.siblings('.text-element');
             $element.remove();
             if($prevElement.length){
-                $element = $prevElement.last();
-                $element.trigger('click');
+                var $ele = $prevElement.last();
+                $ele.trigger('click');
             }else{
                 $('#text-model').animate({'bottom':'-300px'},200);
                 $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
@@ -272,20 +273,20 @@
 
                     /*设置元素属性效果*/
                     if(item == 'wordspace'){
-                        moveCtrlPos($element);
                         var size = Math.floor(20*rate/100);
                         if(option.pluginType == 'other'){
                             $element.css("letter-spacing", size+'px');
                         }else{
+                            moveCtrlPos($element);
                             $element.children('.el-content').css("letter-spacing", size+'px');
                         }
                     }
                     if(item == 'lineheight'){
-                        moveCtrlPos($element);
                         var lh= 1+rate/100;
                         if(option.pluginType == 'other'){
                             $element.css("line-height", lh+'em');
                         }else{
+                            moveCtrlPos($element);
                             $element.children('.el-content').css("line-height", lh+'em');
                         }
                     }
