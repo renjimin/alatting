@@ -80,6 +80,9 @@
 
 {% block base_header_extra %}
     <style>
+        .bottom-container .bottom-menu {
+            background: #000;
+        }
         {{ index_page.render_css_to_string|safe }}
     </style>
     <link rel="stylesheet" href="{% static 'poster/css/show.css' %}"/>

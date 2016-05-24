@@ -41,7 +41,7 @@ $(function () {
             }
             if ($('#logo_title').attr("style"))storageAPI.setCss("logo_title", parseStyle($('#logo_title').attr("style")));
             storageAPI.setHead("unique_name", $('#logo_title').html());
-            if ($('#short_description').attr("style"))storageAPI.setCss("short_description", parseStyle($('#short_description').attr("style")));
+            if ($('#short_description').attr("style"))storageAPI.setCss("#short_description", parseStyle($('#short_description').attr("style")));
             storageAPI.setHead("short_description", $('#short_description').html());
             //日历周期性
             var lifetime = yunyeEditorGlobal.lifetime;
@@ -168,7 +168,16 @@ $(function () {
             url: url,
             success: function (data) {
                 $.fn.yyTools.mask();
-                yyAlert("发布成功");
+                yyConfirm(
+                    "发布成功！<br>您需要查看发布的海报吗？",
+                    function(){
+                        window.location.href = yunyeEditorGlobal.API.show.format(yunyeEditorGlobal.posterId);
+                    },
+                    {
+                        'okText':'查看',
+			            'cancelText':'不查看'
+                    }
+                );
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {

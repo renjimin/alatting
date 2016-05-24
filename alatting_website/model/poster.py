@@ -172,6 +172,23 @@ class Poster(models.Model):
     def get_absolute_url(self):
         return reverse('posters:show', kwargs={'pk': self.id})
 
+    def get_first_poster_page_id(self):
+        pages = self.poster_pages.all().order_by('index')
+        if pages.exists():
+            return pages.first().id
+        else:
+            return ''
+
+    def get_edit_url(self):
+        page_id = self.get_first_poster_page_id()
+        if page_id:
+            return reverse('posters:edit', kwargs={
+                'poster_pk': self.id,
+                'pk': page_id
+            })
+        else:
+            return ''
+
 
 class AbstractPageTemplate(models.Model):
     html = OverWriteFileField(
