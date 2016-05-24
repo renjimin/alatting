@@ -262,7 +262,7 @@ html {
 	width: 100%;
 	height: 100%;
 	margin-top: -15px;
-	padding: 15px 95px 0 95px;
+	padding: 15px 100px 0 100px;
 
 	text-align: center;
 	pointer-events:none;
@@ -270,8 +270,8 @@ html {
 .header-abutton {
 	float: right;
 
-	width: 75px;
-    height: 75px;
+	width: 80px;
+    height: 80px;
 	margin:0 10px;
 	position: relative;
 	z-index: 10;
@@ -314,8 +314,8 @@ html {
 .qrcode-inner .qrcode a.btn {
 	display: block;
 	overflow: hidden;
-	width: 75px;
-	height: 75px;
+	width: 80px;
+	height: 80px;
 	padding: 20%;
 	text-align: center;
 	border-radius: 50%;
@@ -1563,11 +1563,11 @@ to {
 .yunye-template {
     background-color: #fff;
     position: relative;
-	padding-bottom: 120%;
-	/*width:320px;
-	height:384px;
+	/*padding-bottom: 120%;*/
+	width:600px;
+	height:720px;
 	transform-origin: top left;
-	-webki-transform-origin: top left;*/
+	-webki-transform-origin: top left;
 }
 
 .yunye-template > .content{
@@ -1601,5 +1601,5 @@ to {
 	vertical-align: middle;
 }
 @media (min-width: 600px){
-	/*.yunye-template{ transform: scale(1.875, 1.875)!important;}*/
+	.yunye-template{ transform: scale(1.875, 1.875)!important;}
 }

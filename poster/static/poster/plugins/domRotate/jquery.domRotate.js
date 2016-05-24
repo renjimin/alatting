@@ -105,7 +105,7 @@
                         ndeg = keepTwoValid(ndeg);
                         nrate = keepTwoValid(nrate);
                         var tranf = 'rotate('+ndeg+'deg) scale('+nrate+')';
-                        $element.css({'transform':tranf});
+                        $element.css({'transform':tranf,'-webkit-transform':tranf,'-moz-transform':tranf,'-ms-transform':tranf,'-o-transform':tranf});
                         moveCtrlBtn($element.children('.el-rotate'),$element.parent(),$ctrl);
                         moveCtrlBtn($element.children('.el-editor'),$element.parent(),$etrl);
                     }
