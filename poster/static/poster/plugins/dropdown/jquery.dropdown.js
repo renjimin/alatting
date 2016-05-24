@@ -109,7 +109,7 @@
 					$('#dp ul').hide();
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
-					var diffY,offsetY,left,right,originX,originY,documentW = $(document).width(),documentH = $(document).height();
+					var diffY,offsetY,left,right,originX,originY;
 					if(_option.followMouse){
 						originX = event.pageX,originY = event.pageY,diffY = 10,diffX = 0;
 						left = originX - dpw.width()/2;
@@ -123,11 +123,11 @@
 					right = left + dpw.width();
 					offsetY =  diffY;
 					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
-					if( right > documentW ){
-						left = documentW - dpw.width() -5;
+					if( right > $(document.body).offset().left + $(document.body).width() ){
+						left = $(document.body).offset().left + $(document.body).width() - dpw.width() -5;
 						dpw.css('left',left);
-					}else if( left < 0){
-						dpw.css('left',5);
+					}else if( left < $(document.body).offset().left ){
+						dpw.css('left', $(document.body).offset().left + 5);
 					}else{
 						dpw.css('left',left);
 					}
@@ -136,7 +136,7 @@
 					}else{
 						$('#dp .arrow').css('left', dpw.width()/2 -15  );
 					}
-					if( $("#dp").height() + $("#dp").offset().top > documentH - 43){
+					if( $("#dp").height() + $("#dp").offset().top > $(document.body).height() - 43){
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down')
 						offsetY = ((_option.followMouse) ? 0 : _this.height()) - diffY - dpw.height();
 						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
