@@ -65,8 +65,8 @@ $(function () {
             $(".yunye-template").remove();
             $(".container-fluid").append(storageAPI.getHtml());
         }
-        var templateScale = $('body').width()/$('.yunye-template').width();
-        $('.yunye-template').css({'transform':'scale('+templateScale+','+templateScale+')'});
+        /*var templateScale = $('body').width()/$('.yunye-template').width();
+        $('.yunye-template').css({'transform':'scale('+templateScale+','+templateScale+')'});*/
 
     };
 
