@@ -1603,3 +1603,7 @@ to {
 @media (min-width: 600px){
 	.yunye-template{ transform: scale(1.875, 1.875)!important;}
 }
+
+.content > img{
+	min-width: 100%;
+}
