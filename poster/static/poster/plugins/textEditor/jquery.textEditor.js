@@ -85,7 +85,7 @@
             $element.remove();
             if($prevElement.length){
                 var $ele = $prevElement.last();
-                $ele.trigger('click');
+                $ele.children('.el-content').trigger('click');
             }else{
                 $('#text-model').animate({'bottom':'-300px'},200);
                 $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});

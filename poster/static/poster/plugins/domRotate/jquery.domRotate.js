@@ -117,11 +117,8 @@
                         nrate = keepTwoValid(nrate);
                         var tranf = 'rotate('+ndeg+'deg) scale('+nrate+')';
                         $element.css({"transform":tranf});
-
-                        /*
-                        var tranforms = 'transform:'+tranf+';-webkit-transform:'+tranf+';-moz-transform:'+tranf+';-ms-transform:'+tranf+';-o-transform:'+tranf;
-                        $element.attr('style',tranforms);
-                        */
+                        $element.attr('data-rotate',ndeg);
+                        $element.attr('data-scale',nrate);
                         moveCtrlBtn($element.children('.el-rotate'),$element.parent(),$ctrl);
                         moveCtrlBtn($element.children('.el-editor'),$element.parent(),$etrl);
                     }
