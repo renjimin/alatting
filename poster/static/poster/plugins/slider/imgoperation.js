@@ -7,7 +7,6 @@
         return this.each(function(){
             _option = $.extend(opts,options);
             var s = $(this),i = s.find('img').eq(0),v = s.find('video');
-            var vv = document.getElementById('video');
 
         var imgW,imgH,ow,oh;
         if(_option.data == null){
@@ -47,7 +46,7 @@
         s.opt={};
         var startDiagonal={'x':0,'y':0},endDiagonal={'x':0,'y':0};
 
-        i.css({'position':'relative'});
+        i.css({'position':'relative','top':'0','left':'0'});
         i.on({
             'touchstart':function(e){
                 if(e.originalEvent) e = e.originalEvent;
@@ -61,7 +60,6 @@
                 touchEvents.startY = touch.pageY;
                 $(e.currentTarget).addClass('drag-active');
 
-				
 				s.opt.width = $(e.currentTarget).width();
 				s.opt.height = $(e.currentTarget).height();
 				
@@ -121,6 +119,7 @@
 					endH = imgH;
 				}
 
+				 
                  if(parseInt(moveEndX)> 0){
                      endX = 0;
                  }
@@ -129,6 +128,7 @@
                     endX = - endW + $(e.currentTarget).parent().width();	
 
                 }
+				
 
                  if(parseInt(moveEndY)> 0){
                      endY = 0;
@@ -158,6 +158,7 @@
 
     }
 
-})(jQuery)
+
+	})(jQuery)
 
 

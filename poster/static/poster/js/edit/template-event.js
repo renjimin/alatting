@@ -78,10 +78,14 @@ $(function () {
                         if (obj) {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
+
+                        console.log(data);
                         obj.imgoperation({'data': data});
-                        }, function (data) {
-                            yyAlert("上传失败");
-                        });
+                    }, function (data) {
+                        yyAlert("上传失败");
+                    });
+
+
                 }
             },
             {
@@ -96,7 +100,7 @@ $(function () {
                 text: "图片链接",
                 callback: function (obj) {
                     obj.resourceLink();
-                    obj.imgoperation({'data': data});
+                    /*obj.imgoperation({'data': data});*/
                 }
             }]
     };
@@ -115,7 +119,6 @@ $(function () {
         }
         $this.registerPopUp(opt);
         if($this.find('.swiper-container').length > 0){
-            //$(this).imgslidershow();
             $(this).imgslider();
         }else if($this.find('img').length > 0){
             $(this).imgoperation();
@@ -126,6 +129,5 @@ $(function () {
         scale($(this));
     });
     
-
 
 });
