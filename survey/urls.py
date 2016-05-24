@@ -7,7 +7,7 @@ QuestionnaireDoneView
 
 urlpatterns = [
 	url(r'^$', IndexView.as_view(), name='index'),
-	url(r'^start/(?P<user_id>\d+)/(?P<questionnaire_id>\d+)/$', 
+	url(r'^start/(?P<user_id>\d+)/(?P<poster_id>\d+)/(?P<questionnaire_id>\d+)/$', 
 		StartView.as_view(permanent=False), name='start'),
 	url(r'^questionnaire/(?P<runid>\d+)/$', QuestionnaireView.as_view(), 
 		name='questionnaire'),
