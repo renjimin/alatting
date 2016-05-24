@@ -14,6 +14,7 @@ from model_utils.managers import InheritanceManager
 from utils import file
 from alatting_website.model.statistics import (PosterStatistics,
                                                HistoryStatistics)
+from utils.file import read_template_file_content
 
 
 def get_default_lifetime_value():
@@ -54,7 +55,10 @@ class Poster(models.Model):
         'Image', related_name='poster_logo_images', null=True,
         on_delete=SET_NULL
     )
-    logo_title = models.CharField(max_length=255, default='')
+    logo_title = models.CharField(
+        max_length=255, default='',
+        blank=True
+    )
     short_description = models.CharField(max_length=255, default='')
     phone = models.CharField(max_length=16, default='')
     mobile = models.CharField(max_length=16, blank=True, default='')
@@ -166,7 +170,24 @@ class Poster(models.Model):
         return "{:d}".format(self.pk)
 
     def get_absolute_url(self):
-        return reverse('website:poster', kwargs={'pk': self.id})
+        return reverse('posters:show', kwargs={'pk': self.id})
+
+    def get_first_poster_page_id(self):
+        pages = self.poster_pages.all().order_by('index')
+        if pages.exists():
+            return pages.first().id
+        else:
+            return ''
+
+    def get_edit_url(self):
+        page_id = self.get_first_poster_page_id()
+        if page_id:
+            return reverse('posters:edit', kwargs={
+                'poster_pk': self.id,
+                'pk': page_id
+            })
+        else:
+            return ''
 
 
 class AbstractPageTemplate(models.Model):
@@ -240,6 +261,15 @@ class PosterPage(AbstractPageTemplate):
         if not os.path.exists(full_dir_path):
             os.makedirs(full_dir_path)
         return full_dir_path
+
+    def render_html_to_string(self):
+        return read_template_file_content(self.html.url)
+
+    def render_css_to_string(self):
+        return read_template_file_content(self.css.url)
+
+    def render_script_to_string(self):
+        return read_template_file_content(self.script.url)
 
 
 class PageText(models.Model):

@@ -1,5 +1,4 @@
 $(function(){
-	var storageAPI = $.fn.yunyeStorage;
 	var script = document.createElement("script");
 	script.type = "text/javascript";
 	script.src = "http://api.map.baidu.com/api?v=2.0&ak=C5LOoqZmix3NyQn11w5z8IEzh1M57Rry&callback=init";
@@ -21,6 +20,8 @@ $(function(){
 					baiduMap.centerAndZoom(pp, 14);
 					baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
 				}else{
+					ac.setInputValue("");
+					$("#suggestId").attr('placeholder','未搜索到您所填的位置');
 					var geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r){
 						if(this.getStatus() == BMAP_STATUS_SUCCESS){
@@ -43,7 +44,7 @@ $(function(){
 			baiduMap.clearOverlays();	//清除地图上所有覆盖物
 			function myFun(){
 				var pp = local.getResults().getPoi(0).point;	//获取第一个智能搜索的结果
-				storageAPI.setHead("address",myValue);
+				$.fn.yunyeStorage.setHead("address",myValue);
 				baiduMap.centerAndZoom(pp, 14);
 				baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
 			}

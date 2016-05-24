@@ -41,7 +41,7 @@ urlpatterns += [
     url(r'^api/v1/poster/', include('poster.api_urls',
                                     namespace='poster_api')),
 
-    url(r'^api/.*', 'account.views.not_found'),
+    # url(r'^api/.*', 'account.views.not_found'),
 ]
 
 

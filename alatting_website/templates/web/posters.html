@@ -1,0 +1,105 @@
+{% extends 'web/base.html' %}
+{% load static %}
+
+{% block base_head_titl %}服务邦 - {% endblock %}
+
+
+{% block base_body_header %}
+    <!-- header start -->
+    <div class="header">
+        <div class="container header-top">
+            <div class="logo">
+                <a href="javascript:;" title="武汉云页移动科技">
+                    <img src="{% static 'web/images/logo.png' %}"/>
+                </a>
+            </div>
+            <div class="search-bar" id="searchBar">
+                <div class="search-input clearfix">
+                    <i class="icon ico-search"></i>
+                    <input type="text" placeholder="搜索"/>
+                </div>
+                <div class="dropdown">
+                    <button class="btn" id="seartype" data-toggle="dropdown">
+                        <i class="icon ico-menu"></i>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="seartype">
+                        <li>
+                            <a href="#">最新</a>
+                        </li>
+                        <li>
+                            <a href="#">已发布</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-last" id="searCat"
+                            data-toggle="dropdown">
+                        <i class="icon ico-pagers"></i>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="searCat">
+                        {% for category in categorys %}
+                        <li>
+                            <a href="#">{{ category.name }}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% if request.user.is_authenticated %}
+                <div class="head-user">
+                    <button class="btn mobsearch-btn" id="searchBtn">
+                        <i class="icon ico-search"></i>
+                    </button>
+                    <a href="#">
+                        <img class="lazy"
+                             scr="{{ request.user.person.avatar.url }}"
+                             data-src="{{ request.user.person.avatar.url }}"/>
+                        <span class="name">{{ request.user }}</span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="nav-bar">
+            <div class="container">
+                <ul class="nav nav-list">
+                    <li>
+                        <a href="?sort=new" {% if not request.GET.sort or request.GET.sort == 'new' %}class="active"{% endif %}>
+                            最新
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?sort=hot" {% if request.GET.sort == 'hot' %}class="active"{% endif %}>热门</a>
+                    </li>
+                    <li>
+                        <a href="?sort=recommend" {% if request.GET.sort == 'recommend' %}class="active"{% endif %}>推荐</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- header end -->
+{% endblock %}
+
+{% block base_body_container_inner %}
+    {% if request.user.is_authenticated %}
+        <div class="main-plus">
+            <a href="javascript:;" class="plus-button"></a>
+        </div>
+    {% endif %}
+    <ul class="poster-list">
+        {% for poster in poster_list %}
+            <li class="poster-item">
+                <div class="poster-wraper">
+                    <div class="img">
+                        <a href="javascript:;">
+                            <img class="lazy"
+                                 data-src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %} "/>
+                        </a>
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

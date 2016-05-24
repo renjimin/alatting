@@ -1,6 +1,12 @@
+import re
+
 class AnswerException(Exception):
 	"""Thrown from an answer processor to generate an error message"""
 	pass
+
+def regex_check(pattern, answer):
+	return re.match(pattern, answer)
+
 	
 #define different types of questions
 QuestionChoices = [
@@ -19,11 +25,16 @@ def question_choice(request, question):
 		'choices': choices,
 	}
 def process_choice(question, answer):
-	if not answer:
+	opt = ""
+	if answer and 'ANSWER' in answer:
+		opt = answer['ANSWER']
+	if question.required and not opt:
 		raise AnswerException('必须选择一个选项')
-	elif 'ANSWER' not in answer:
-		raise AnswerException('必须选择一个选项')
-	opt = answer['ANSWER']
+	if question.regex:
+		if regex_check(question.regex, opt):
+			pass
+		else:
+			raise AnswerException(question.errmsg)
 	return opt
 #choice-input
 def question_choice_input(request, question):
@@ -37,17 +48,30 @@ def question_choice_input(request, question):
 		'choices': choices,
 	}
 def process_choice_input(question, answer):
-	if not answer:
+	opt = ""
+	if answer:
+		answer_selected = False
+		for k, v in answer.items():
+			if 'ANSWER' in v:
+				answer_selected = True
+		if answer_selected:
+			for k, v in answer.items():
+				if 'ANSWER' in v:
+					if v['ANSWER'].startswith("_entry_"):
+						if not answer[k]['COMMENT']:
+							raise AnswerException('请输入文本框')
+						else: 
+							radio_val = v['ANSWER'].replace("_entry_", "")
+							opt = radio_val + ":" + v['COMMENT']
+					else:
+						opt = v['ANSWER']
+	if question.required and not opt:
 		raise AnswerException('必须选择一个选项')
-	elif 'ANSWER' not in answer:
-		raise AnswerException('必须选择一个选项')
-	opt = answer['ANSWER']
-	if opt == "_entry_":
-		if 'COMMENT' not in answer:
-			raise AnswerException('请输入文本框')
-		opt = answer['COMMENT']
-		if not opt:
-			raise AnswerException('请输入文本框')
+	if question.regex:
+		if regex_check(question.regex, opt):
+			pass
+		else:
+			raise AnswerException(question.errmsg)
 	return opt
 #checkbox
 def question_checkbox(request, question):
@@ -58,22 +82,35 @@ def question_checkbox(request, question):
 		'choices': choices,
 	}
 def process_checkbox(question, answer):
-	if not answer:
-		raise AnswerException('必须选择一个选项')
 	multiple = []
-	for key, value in answer.items():
-		multiple.append(value)
+	if answer:
+		for key, value in answer.items():
+			multiple.append(value)
+	if question.required and not multiple:
+		raise AnswerException('必须选择一个选项')
+	if question.regex:
+		for opt in multiple:
+			if regex_check(question.regex, opt):
+				pass
+			else:
+				raise AnswerException(question.errmsg)
 	return multiple
+
 #text, textarea
 def question_text(request, question):
 	return []
 	
 def process_text(question, answer):
-	if not answer:
-		raise AnswerException('请输入文本框')
-	elif 'ANSWER' not in answer:
-		raise AnswerException('请输入文本框')
-	opt = answer['ANSWER']
+	opt = ""
+	if answer and 'ANSWER' in answer:
+		opt = answer['ANSWER']
+	if question.required and not opt:
+		raise AnswerException('请输入文本')
+	if question.regex:
+		if regex_check(question.regex, opt):
+			pass
+		else:
+			raise AnswerException(question.errmsg)
 	return opt
 
 #for processing questions: supply additional information to the templates

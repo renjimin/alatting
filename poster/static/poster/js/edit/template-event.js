@@ -5,11 +5,12 @@
 
 $(function () {
     var menuOptions = {
-        suspendFun: function () {
-            return $("section[class='dropdown-panel open']").length <= 0;
-        },
+        //suspendFun: function () {
+        //    return $("section[class='dropdown-panel open']").length <= 0;
+        //},
         offsetYPercent: 50,
         offsetY: 30,
+        followMouse:true,
         list: [
             {
                 icon: "glyphicon glyphicon-picture",
@@ -22,18 +23,18 @@ $(function () {
                         success: function (data, file) {
                             data.imgid = file.id;
                             _this.imgslider({'data': data});
-                            $(".upload-image-dialog").removeClass('open');
+                            //$(".upload-image-dialog").removeClass('open');
                             //console.info(data);
                         },
                         error: function (err) {
-                            //console.info(err);
+                            console.info(err);
                         },
-                        buttonText: '选择图片上传',
+                        buttonText: '添加图片',
                         chunked: false,
                         fileNumLimit: 4,
                         fileSingleSizeLimit: 5 * 1024 * 1024,
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
-                        compress: true,
+                        compress: false,
                         threads: 1,
                         sliderContainer: _this
                     });
@@ -48,12 +49,20 @@ $(function () {
                 text: "上传图片",
                 callback: function (obj) {
                     $.fn.uploads.showDialog(function (data) {
-                        console.log(data);
+                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
+                            yyAlert("上传图片格式错误");
+                            return false;
+                        }
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
                         obj.imgoperation({'data': data});
+
+
                     });
+
+
+
                 }
             },
             {
@@ -62,9 +71,14 @@ $(function () {
                 callback: function (obj) {
                     //alert("还是调用上传组件!");
                     $.fn.uploads.showDialog(function (data) {
+                        if(!/\.(mp4|ogg|webm)$/.test(data.file)){
+                            yyAlert("上传视频格式错误");
+                            return false;
+                        }
                         if (obj) {
                             obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                         }
+<<<<<<< HEAD
 
                         console.log(data);
                         obj.imgoperation({'data': data});
@@ -72,6 +86,12 @@ $(function () {
                         yyAlert("上传失败");
                     });
 
+=======
+                        obj.imgoperation({'data': data});
+                        }, function (data) {
+                            yyAlert("上传失败");
+                        });
+>>>>>>> b90cc82b9fd4f80d019bd9f9619f41d8625b5345
                 }
             },
             {
@@ -104,5 +124,16 @@ $(function () {
             opt = $.extend({id: id}, menuOptions);
         }
         $this.registerPopUp(opt);
+        if($this.find('.swiper-container').length > 0){
+            $(this).imgslider();
+        }else if($this.find('img').length > 0){
+            $(this).imgoperation();
+        }
+
     });
+    $(".yunye-template .cnd-element").each(function () {
+        scale($(this));
+    });
+
+
 });

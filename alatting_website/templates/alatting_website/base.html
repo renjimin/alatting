@@ -1,10 +1,18 @@
 {% load static %}
 <!DOCTYPE html>
+{% if request.GET.capture %}
 <html>
-<head lang="en">
+{% else %}
+<html lang="en" ng-app="PosterApp" ng-controller="MainController">
+{% endif %}
+<head>
     <meta charset="UTF-8">
     {% block base_head_meta %}
     <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge|EmulateIE7,chrome=1">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
     {% endblock %}
     <title>{% block base_head_title %}武汉云页移动科技有限公司{% endblock %}</title>
     <link rel="stylesheet"
@@ -13,8 +21,8 @@
     {% block base_header_css %}
     {% endblock %}
 
-    <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     {% block base_header_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
         <script src="{% static 'libs/common/jquery.base64.js' %}"></script>
         <script src="{% static 'libs/common/jquery.storageapi.min.js' %}"></script>
         <script src="{% static 'libs/common/jquery.tmpl.min.js' %}"></script>
@@ -36,14 +44,14 @@
     {% block base_body_footer %}
         {% include 'alatting_website/footer.html' %}
     {% endblock %}
-    {% block base_footer_js %}
-        <script src="{% static 'website/js/footer.js' %}"></script>
-    {% endblock %}
 </div>
 {% block base_foot_mask %}
     <div class="yunye-template-mask">
         <img src="{% static "poster/images/loading.gif" %}" alt="loading"/>
     </div>
+{% endblock %}
+{% block base_footer_js %}
+    <script src="{% static 'website/js/footer.js' %}"></script>
 {% endblock %}
 </body>
 </html>

@@ -1,6 +1,6 @@
-var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template');
+var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template').eq(0);
 var curentOpts={};
-
+setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
 
     var addButton = function(ele,options){
         var defaults = {
@@ -305,7 +305,7 @@ var curentOpts={};
                 cnd.css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
             }
             fullcontainer.append(cnd);
-            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.height()/2-cnd.innerHeight()/2+'px','left':fullcontainer.width()/2-cnd.innerWidth()/2+'px'}).show();
+            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
             scale(cnd);
         }else{
             if(ele.data('rotate') != null){
@@ -400,7 +400,6 @@ var selectSysImg = function(obj){
     eleobj.css({'width':$(obj).find('svg').width(),'height':$(obj).find('svg').height()});
     eleobj.append($(obj).find('svg').clone());
     addSystemimg(eleobj);
-
 }
 
 var openSystemimg = function(){
@@ -416,10 +415,10 @@ var openSystemimg = function(){
         $('#systemimg-model').removeClass('open');
         ele.removeClass('open');
     }else{
-        if($('#systemimg-model .systemimg-list ul li').lenght <= 0){
+        if($('#systemimg-model .systemimg-list ul li').length <= 0){
             $.ajax({
                 type: 'GET',
-                url: 'http://www.yunye123.com:8000/api/v1/poster/system/images',
+                url: '/api/v1/poster/system/images',
                 success: function(data){
                     var con = $('#systemimg-model .systemimg-list ul');
                     con.empty();
@@ -459,7 +458,7 @@ var addSystemimg = function(eleobj){
     cnd.find('.element-box-contents').append(eleobj);
     cnd.hide();
     fullcontainer.append(cnd);
-    cnd.css({'z-index':scaleIndex++,'top':fullcontainer.height()/2-eleobj.height()/2+'px','left':fullcontainer.width()/2-eleobj.width()/2+'px'}).show();
+    cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-eleobj.height()/2+'px','left':fullcontainer.innerWidth()/2-eleobj.width()/2+'px'}).show();
     scale(cnd);
 }
 
@@ -472,7 +471,6 @@ var copySystemimg = function(){
 }
 var deleteSystemimg = function(){
     var imgactive = $('.systemimg-element.active');
-
     imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
         imgactive.remove();
     });
@@ -480,18 +478,17 @@ var deleteSystemimg = function(){
 }
 
 var uploadSystemimg = function(eleobj){
-
     $.fn.uploads.showDialog(function(data){
         console.log(data);
         var img = $('<div class="element"><img src="'+data.file+'" /></div>');
-
-         if(data.width > $(window).width()){
+        if(data.width > $(window).width()){
              img.width( $(window).width() *.6);
              img.height($(window).width() *.6*data.height / data.width);
-         }
+        }
         addSystemimg(img);
     },function(data){
-         console.log(data);
+        yyAlert('上传失败，请稍后重试！');
+        console.log(data);
     });
 
 }
@@ -507,7 +504,10 @@ $(function(){
         var e = event || window.event;
         var keyCode = e.keyCode || e.which;
         switch (keyCode) {
-            case 46:
+            case 8: /* 回退键 */
+                deleteElement();
+                break;
+            case 46: /* 删除键 */
                 deleteElement();
                 break;
             default:

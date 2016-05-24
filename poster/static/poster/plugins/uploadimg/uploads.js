@@ -9,7 +9,7 @@
 		progress:null,
 		buttonText: '选择图片上传',
 		chunked: false,
-		fileNumLimit: 8,
+		fileNumLimit: 1,
 		fileSingleSizeLimit: 5 * 1024 * 1024,
 		accept: 'image/jpg,image/jpeg,image/png,image/gif',
 		threads: 1,
@@ -19,17 +19,16 @@
 		var self = this;
 		this.success = null;
 		this.init = function(){
-			var option = $.extend(opps,{pick: '#test',
-										url: '/api/v1/poster/upload/logo',
-										});
+			var option = $.extend(opps,{pick: {'id':'#test','multiple':false},url: '/api/v1/poster/upload/logo'});
 			if( option.url ) {
 				option.server = option.url;
 				delete option.url;
 			}
 			var webUploader = WebUploader.create(option);
 			webUploader.on('uploadSuccess',function( file, response ){
-				console.log(123123)
+				//console.log(123123)
 				if(self.success)self.success(response);
+				webUploader.removeFile(file.id);
 
 			});
 			webUploader.on('uploadError',function( file, reason ){

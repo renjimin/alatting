@@ -11,7 +11,7 @@
     '#1b315e','#11264f','#45224a','#543044','#63434f','#594c6d','#6950a1','#6f60aa','#9b95c9','#afb4db',
     '#fffffb','#f6f5ec','#f2eada','#d3d7d4','#a1a3a6','#999d9c','#72777b','#4f5555','#3e4145','#281f1d',
     '#130c0e'];
-    var fontFamily= ['Consolas','微软雅黑','楷体','华文新魏','华文新宋','华文彩云','华文行楷','幼圆','苹果丽黑','隶书','华康中黑字体','华康娃娃体','华康少女字体'];
+    var fontFamily= ['Helvetica','Microsoft YaHei','楷体','幼圆','隶书','华文新宋','华文彩云','华文行楷','苹果丽黑','华康中黑字体','华康娃娃体','华康少女字体'];
     pluginName = "teditor";
     defaults = {
         colorArr:colorArr,
@@ -35,7 +35,7 @@
         /*载入控件dom*/
         var ch = pluginBox.children().length;
         if(!ch){
-            var cdiv = initHtml(this.option);
+            var cdiv = initHtml(option);
             pluginBox.append(cdiv);
 
             var canvas = document.getElementById("bot-cbox-canvas");
@@ -67,19 +67,26 @@
         }else{
             $('#ted-delete').css('display','none');
         }
+        if(option.pluginType == 'main'){
+            $('#ted-fontsizebig').css('display','none');
+            $('#ted-fontsizesml').css('display','none');
+        }else if(option.pluginType == 'other'){
+            $('#ted-fontsizebig').css('display','block');
+            $('#ted-fontsizesml').css('display','block');
+        }else{}
 
         /*------------控件操作事件-------------*/
         /*删除文本*/
-        pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(){
+        pluginBox.off('click','#ted-delete').on('click','#ted-delete',function(e){
+            e.stopPropagation();
             var $prevElement = $element.siblings('.text-element');
             $element.remove();
             if($prevElement.length){
-                $element = $prevElement.last();
-                $element.trigger('click');
+                var $ele = $prevElement.last();
+                $ele.trigger('click');
             }else{
-                var height = $('#text-model').outerHeight();
-                $('#text-model').animate({bottom:'-'+height+'px'},200);
-                $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+                $('#text-model').animate({'bottom':'-300px'},200);
+                $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
             }
         });
         /*复制文本*/
@@ -87,27 +94,29 @@
             var $newel =$element.clone();
             var top= parseInt($element.css('top'))+30;
             $element.parent().append($newel);
-            $element.parent().children().css('z-index','100').removeClass('text-element-act');
-            $newel.css({'top':top+'px','z-index':'110'}).addClass('text-element-act');
-            $newel.domRotate({ebox:fullcontainer});
-            $element = $newel;
+            $newel.css({'top':top+'px'});
+            $newel.trigger('click');
         });
         /*文字内容编辑*/
         pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
-            clearTransform($element);
             $('.ted-text-content').fadeIn(200);
             if(option.pluginType == 'main'){
-                $('#tt-content').val($element.find('.el-content').html());
+                var cont = $element.find('.el-content').html();
             }else if(option.pluginType == 'other'){
-                $('#tt-content').val($element.html());
+                var cont = $element.html();
             }else{}
+            cont = cont.replace('<br>','\n');
+            $('#tt-content').val(cont);
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
+            var cont = $('#tt-content').val();
+            cont = cont.replace('\n','<br>');
             if(option.pluginType == 'main'){
-                $element.find('.el-content').html($('#tt-content').val());
+                $element.find('.el-content').html(cont);
             }else if(option.pluginType == 'other'){
-                $element.html($('#tt-content').val());
+                $element.html(cont);
             }else{}
+            moveCtrlPos($element);
         });
         pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
             $('.ted-text-content').fadeOut(200);
@@ -172,6 +181,7 @@
             }else{
                 $element.css('font-weight',600);
             }
+            moveCtrlPos($element);
         });
         /*设置文字倾斜*/
         pluginBox.off('click','#ted-fontstyle').on('click','#ted-fontstyle',function(){
@@ -263,14 +273,22 @@
 
                     /*设置元素属性效果*/
                     if(item == 'wordspace'){
-                        clearTransform($element);
                         var size = Math.floor(20*rate/100);
-                        $element.children('.el-content').css("letter-spacing", size+'px');
+                        if(option.pluginType == 'other'){
+                            $element.css("letter-spacing", size+'px');
+                        }else{
+                            moveCtrlPos($element);
+                            $element.children('.el-content').css("letter-spacing", size+'px');
+                        }
                     }
                     if(item == 'lineheight'){
-                        clearTransform($element);
-                        var lh= 1+rate/100;
-                        $element.children('.el-content').css("line-height", lh+'em');
+                        var lh= 1+rate/25;
+                        if(option.pluginType == 'other'){
+                            $element.css("line-height", lh+'em');
+                        }else{
+                            moveCtrlPos($element);
+                            $element.children('.el-content').css("line-height", lh+'em');
+                        }
                     }
                     if(item == 'opacity'){
                         rate = 100 - rate;
@@ -297,14 +315,15 @@
                 move=false;
             }
         });
-        /*阴影的颜色设置*/
-        pluginBox.off('click','.ef-color-li').on('click','.ef-color-li',function(){
-            var color = $(this).attr('data-color');
-            ef.color = color;
-            setEff($element,ef);
-            var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
-            openEff(obtog);
-        });
+
+//        pluginBox.off('click','.ef-color-li').on('click','.ef-color-li',function(e){
+//            e.stopPropagation();
+//            var color = $(this).attr('data-color');
+//            ef.color = color;
+//            setEff($element,ef);
+//            var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+//            openEff(obtog);
+//        });
         /*阴影的关闭与打开*/
         pluginBox.off('click','.toggle').on('click','.toggle',function(){
             var ths = $(this);
@@ -334,6 +353,48 @@
             var obtog = $(this).siblings('.base-bot-name').children('.toggle');
             openEff(obtog);
         });
+        /*阴影的颜色设置*/
+        pluginBox.off('touchstart touchmove touchend','#effects-color-list').on('touchstart touchmove touchend','#effects-color-list',function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            var e = event.originalEvent.targetTouches[0];
+            if(event.type == "touchstart" ){
+                var targ=$(event.target);
+                ef.color = targ.attr('data-color');
+                var tbox= $('#teditor').offset();
+                var tX = Math.floor(e.pageX-tbox.left)-20;
+                var tY = Math.floor(e.pageY-tbox.top)-45;
+                $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':ef.color});
+                setEff($element,ef);
+                var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+                openEff(obtog);
+            }else if(event.type == "touchmove" ){
+                move=true;
+                if(move){
+                    $('#eff-color-selected').show();
+                    var tbox= $('#teditor').offset();
+                    var tX = Math.floor(e.pageX-tbox.left)-20;
+                    var tY = Math.floor(e.pageY-tbox.top)-45;
+                    var uleft = $('#effects-color-list').offset().left;
+                    var utop = $('#effects-color-list').offset().top;
+                    var uwidth = $('#effects-color-list').parent().outerWidth();
+                    if(utop+20>e.pageY && e.pageY>utop && uleft+uwidth>e.pageX && e.pageX>uleft ){
+                        var distance = Math.floor(e.pageX-uleft);
+                        var num = Math.floor(distance/5);
+                        ef.color = $('#effects-color-list').children().eq(num).attr('data-color');
+                        $('#eff-color-selected').show().css({'left':tX+'px',top:tY+'px','background':ef.color});
+                        setEff($element,ef);
+                    }else{
+                        $('#eff-color-selected').hide();
+                    }
+                    var obtog = $(this).parents('.teb-effects-bot').children('.base-bot-name').children('.toggle');
+                    openEff(obtog);
+                }
+            }else{
+                move=false;
+                $('#eff-color-selected').hide();
+            }
+        });
         function openEff(ths){
             var tgo = ths.children('.tog-line');
             var open = ths.attr('data-tog');
@@ -358,10 +419,18 @@
             $('#ted-ctrl-'+item).fadeIn(200);
         });
 
-        function clearTransform($obj){
-            $obj.css('transform','').removeData('botp rbotp midp dlength').removeClass('text-element-act');
-            $obj.children('.el-editor').css('transform','');
-            $('#ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+        function moveCtrlPos($ele){
+            var $etrl = $('#ele-editor-ctrl');
+            var $ctrl = $('#ele-rotate-ctrl');
+            moveCtrlBtn($ele.children('.el-rotate'),$ele.parent(),$ctrl);
+            moveCtrlBtn($ele.children('.el-editor'),$ele.parent(),$etrl);
+        }
+        function moveCtrlBtn($pos,$fbox,$ctrol){
+            var pos = $pos.offset();
+            var fbox = $fbox.offset();
+            var sx = pos.left-fbox.left;
+            var sy = pos.top-fbox.top;
+            $ctrol.css({left:sx+'px',top:sy+'px'});
         }
 
     };
@@ -377,11 +446,8 @@
         cdiv += '<button type="button" class="btn btn-default" id="ted-fontweight">B</button><button type="button" class="btn btn-default" id="ted-fontstyle">/</button>';
         cdiv += '<button type="button" class="btn btn-default" id="ted-underline">U</button></div></div>';
         cdiv += '<div class="base-top-group">';
-        if(option.pluginType == 'other'){
-            /*文字加大/减小按钮*/
-            cdiv += '<div class="base-top-font btn-group"><button type="button" class="btn btn-default" id="ted-fontsizebig"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>';
-            cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizesml"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button></div>';
-        }
+        cdiv += '<div class="base-top-font btn-group"><button type="button" class="btn btn-default" id="ted-fontsizebig"><span class="glyphicon glyphicon-zoom-in" aria-hidden="true"></span></button>';
+        cdiv += '<button type="button" class="btn btn-default" id="ted-fontsizesml"><span class="glyphicon glyphicon-zoom-out" aria-hidden="true"></span></button></div>';
         cdiv += '<div class="base-top-align btn-group">';
         cdiv += '<button type="button" class="btn btn-default" id="ted-leftalign"><span class="glyphicon glyphicon-align-left" aria-hidden="true"></span></button>';
         cdiv += '<button type="button" class="btn btn-default" id="ted-centeralign"><span class="glyphicon glyphicon-align-center" aria-hidden="true"></span></button>';
@@ -394,7 +460,7 @@
         for(var i=0;i<option.colorArr.length;i++){
             cdiv += '<li class="color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
         }
-        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
+        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected" class="ted-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
         cdiv += '<div class="ted-ctrl-li ted-ctrl-font" id="ted-ctrl-font"><div class="font-list"><ul>';
         for(var i=0;i<option.fontFamily.length;i++){
             cdiv += '<li class="ted-font-li" style="font-family:\''+option.fontFamily[i]+'\';" data-fm="'+option.fontFamily[i]+'">'+option.fontFamily[i]+'</li>';
@@ -403,13 +469,13 @@
         cdiv += '<div class="ted-ctrl-li ted-ctrl-effects" id="ted-ctrl-effects">';
         cdiv += '<div class="ted-effects-li ted-effects-opacity"><div class="base-bot-name">透明度</div><div class="base-bot-value">100</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="opacity"></div></div></div></div>';
         cdiv += '<div class="ted-effects-li"><div class="ted-effects-top"><div class="base-bot-name">阴影</div> <div class="base-bot-value">0</div> <div class="base-bot-slide"> <div class="slideline"> <div class="sl-bar ted-eff-bar" data-item="shadow"></div> </div> </div> </div>';
-        cdiv += '<div class="teb-effects-bot"> <div class="base-bot-name"> <div class="toggle" data-tog="0"> <div class="tog-line"> <div class="line-left"></div> <div class="tog-btn"></div> </div> </div> </div> <div class="base-bot-value effects-style">模糊</div> <div class="base-bot-slide"> <div class="effects-color"> <ul>';
+        cdiv += '<div class="teb-effects-bot"> <div class="base-bot-name"> <div class="toggle" data-tog="0"> <div class="tog-line"> <div class="line-left"></div> <div class="tog-btn"></div> </div> </div> </div> <div class="base-bot-value effects-style">模糊</div> <div class="base-bot-slide"><div id="eff-color-selected" class="ted-color-selected"></div><div class="effects-color"><ul id="effects-color-list">';
         for(var i=0;i<option.colorArr.length;i++){
             cdiv += '<li class="ef-color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
         }
         cdiv += '</ul></div></div></div></div></div></div>';
         cdiv += '<div class="ted-menu"><ul><li class="ted-menu-li ted-menu-base ted-menu-act" data-item="base">基本</li><li class="ted-menu-li ted-menu-color" data-item="color">颜色</li><li class="ted-menu-li ted-menu-font " data-item="font">字体</li><li class="ted-menu-li ted-menu-effects" data-item="effects">特效</li></ul></div>';
-        cdiv += '<div class="ted-text-content"><div class="tt-cont-back"></div><div class="tt-cont-main"><div class="tt-cont-confirm" id="tt-cont-confirm"><span class="glyphicon glyphicon-ok"></span></div><textarea type="text" id="tt-content" placeholder="点击输入文字"></textarea></div></div>';
+        cdiv += '<div class="ted-text-content"><div class="tt-cont-back"></div><div class="tt-cont-main"><div class="tt-cont-confirm" id="tt-cont-confirm"><span class="glyphicon glyphicon-chevron-left"></span></div><textarea type="text" id="tt-content" placeholder="点击输入文字"></textarea></div></div>';
         return cdiv;
     }
 

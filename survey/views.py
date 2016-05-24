@@ -12,7 +12,7 @@ from survey.models import *
 from survey import *
 
 class IndexView(TemplateView):
-	template_name = 'survey/survey-base.html'
+	template_name = 'questionset.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
@@ -39,6 +39,27 @@ class QuestionnaireDoneView(TemplateView):
 		
 
 class QuestionnaireView(View):
+	def get_progress(self, runinfo):
+		position = 0
+		total = 0
+		qs = runinfo.questionset
+		qs_sets = qs.questionnaire.questionsets()
+
+		for q in qs_sets:
+			total = total + 1
+			if q.pk == qs.pk:
+				position = total
+		progress = float(position) / float(total) * 100.00
+		return int(progress)
+
+	def get_pre_ans(self, runinfo, question):
+		ans = Answer.objects.filter(subject=runinfo.subject, 
+			runid=runinfo.pk, question=question).first()
+		if ans:
+			return ans.answer
+		else:
+			return None
+
 	def show_questionnaire(self, request, runinfo, errors={}):
 		questionset = runinfo.questionset
 		questionnaire = questionset.questionnaire
@@ -49,9 +70,11 @@ class QuestionnaireView(View):
 		qlist = []
 		for question in questions:
 			Type = question.get_type()
+			prev_ans = self.get_pre_ans(runinfo, question)
 			qdict = {
 				'template': 'questionnaire/%s.html' % (Type),
 				'qtype': Type,
+				'prev_ans': prev_ans,
 			}
 			if Type in QuestionProcessors:
 				qdict.update(QuestionProcessors[Type](request, question))
@@ -65,12 +88,15 @@ class QuestionnaireView(View):
 					'qs_sortid': sortid}
 			prev_url = reverse('survey:questionset', kwargs=kwargs)
 
+		progress = self.get_progress(runinfo)
+
 		contextdict = {'main_cat_name': main_cat_name,
 						'sub_cat_name': sub_cat_name,
 						'qs_title': qs_title,
 						'questionset': questionset,
 						'qlist': qlist,
 						'prev_url': prev_url,
+						'progress': progress,
 						'errors': errors}
 		return render_to_response('questionset.html', contextdict)
 
@@ -131,14 +157,39 @@ class QuestionnaireView(View):
 			ans = {}
 			if question in extra:
 				ans = extra.get(question)
+		#choice-radio: name="question_{{ question.sortid }}"
+		#text/textarea: "question_{{ question.sortid }}"
+		#ans: {'ANSWER': ...}
 			if len(qssortid)==2:
-				if value:
-					ans['ANSWER'] = value
+				ans['ANSWER'] = value
+		#checkbox: name="question_{{ question.sortid }}_{{choice.sortid}}"
+		#ans: {choice.sortid: ..., choice.sortid: ... }
 			elif len(qssortid)==3:
 				ans[qssortid[2]] = value
-			elif len(qssortid)==4 and qssortid[3]=='comment':
-				if value:
-					ans['COMMENT'] = value
+		#input in choice-radio: name="question_{{ question.sortid }}_choice_radio"
+		#input in choice-radio: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
+		#ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
+			elif len(qssortid)==4 and qssortid[3] in ['radio', 'comment']:				
+				if qssortid[3]=='radio':
+					if value.startswith("_entry_"):
+						choice_selected_value = value.replace("_entry_", "")
+					else:
+						choice_selected_value = value
+					choice_selected = Choice.objects.filter(question = question,
+						value = choice_selected_value).first()
+					choice_selected_sortid = choice_selected.sortid
+					if choice_selected_sortid not in ans:
+						ans[choice_selected_sortid] = {}
+					# if value.startswith("_entry_"):
+					# 	ans[choice_selected_sortid]['ANSWER'] = "_entry_"
+					# else:
+					# 	ans[choice_selected_sortid]['ANSWER'] = value
+					ans[choice_selected_sortid]['ANSWER'] = value
+				elif qssortid[3]=='comment':
+					choice_sortid = int(qssortid[2])
+					if choice_sortid not in ans:
+						ans[choice_sortid] = {}
+					ans[choice_sortid]['COMMENT'] = value
 			extra[question] = ans
 		#generate none for each empty quesiton, and place in extra
 		expected = questionset.questions()

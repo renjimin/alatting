@@ -6,16 +6,7 @@ $(function() {
 		fuhao : "-",			//日期之间的连接符号
 		isTime : false,			//是否开启时间值默认为false
 		beginY : 2016,			//年份的开始默认为1949
-		endY : 2049,				//年份的结束默认为2049
-		defaultsWeekly:{
-			"Monday":{time_start:"09:00",time_end:"17:00"},
-			"Tuesday":{time_start:"09:00",time_end:"17:00"},
-			"Wednesday":{time_start:"09:00",time_end:"17:00"},
-			"Thursday":{time_start:"09:00",time_end:"17:00"},
-			"Friday":{time_start:"09:00",time_end:"17:00"},
-			"Saturday":{time_start:"09:00",time_end:"17:00"},
-			"Sunday":{time_start:"09:00",time_end:"17:00"}
-		}
+		endY : 2049				//年份的结束默认为2049
 	};
 	var options = $.extend(defaults,options);
 	var stc;
@@ -125,9 +116,12 @@ $(function() {
 			}
 		}
 		function calculateClass(wk,day){
-			if(yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day]){
-				var specificDay = yunyeEditorGlobal.lifetime.lifetime_value[year+"-"+month+"-"+day];
-				return (specificDay.enabled == 0) ? "" : "special" ;
+			if(yunyeEditorGlobal.lifetime.lifetime_special[year+"-"+month+"-"+day]){
+				var specificDay = yunyeEditorGlobal.lifetime.lifetime_special[year+"-"+month+"-"+day];
+				return (specificDay.enabled == 0) ? "off" : "special" ;
+			}else{
+				var weekName = (wk == 0) ? "Sunday" : (wk == 1) ? "Monday" : (wk == 2) ? "Tuesday" : (wk == 3) ? "Wednesday" : (wk == 4) ? "Thursday" : (wk == 5) ? "Friday" :  "Saturday" ;
+				return (yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].enabled == 0) ? "off" : "" ;
 			}
 			return "";
 		}
@@ -168,23 +162,25 @@ $(function() {
 		setInput(specificDay);
 	});
 	function setInput(specificDay){
-		var dateinfo= yunyeEditorGlobal.lifetime.lifetime_value[specificDay];
+		var dateinfo= yunyeEditorGlobal.lifetime.lifetime_special[specificDay];
 		if(dateinfo){
-			$('.calenderTable input').eq(0).val(dateinfo.time_start);
-			$('.calenderTable input').eq(1).val(dateinfo.time_end);
+			$('.calenderTable input').eq(0).val(dateinfo.start);
+			$('.calenderTable input').eq(1).val(dateinfo.end);
 			if(dateinfo.enabled){$('#dateState').removeClass("off")}else{$('#dateState').addClass("off")}
 		}else{
-			$('.calenderTable input').eq(0).val("");
-			$('.calenderTable input').eq(1).val("");
-			$('#dateState').addClass("off");
+			var darry = specificDay.split("-"),
+				week = new Date(parseInt(darry[0]), parseInt(darry[1]) - 1, parseInt(darry[2])).getDay(),
+				weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
+			$('.calenderTable input').eq(0).val(info.start);
+			$('.calenderTable input').eq(1).val(info.end);
+			if(info.enabled){$('#dateState').removeClass("off")}else{$('#dateState').addClass("off")}
 		}
 	}
 	$(".glyphicon.glyphicon-cog").click(function(event) {
 		if($(".weekly").is(":visible")){
 			$(".calender").show();
 			$(".weekly").hide();
-			yunyeEditorGlobal.lifetime.lifetime_type = "specific_days";
-			yunyeEditorGlobal.lifetime.lifetime_value = {};
 			var year = parseInt($("#year").val()),
 				month = parseInt($("#month").val()),
 				week = new Date(year, month - 1, 1).getDay(),
@@ -193,30 +189,7 @@ $(function() {
 		}else{
 			$(".calender").hide();
 			$(".weekly").show();
-			yunyeEditorGlobal.lifetime.lifetime_type = "weekly";
-			yunyeEditorGlobal.lifetime.lifetime_value = {
-				"Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-				"Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-				"Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-				"Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-				"Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-				"Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-				"Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-			};
-			var inputs = $(".weekly input");
-			for (var i = 0; i < (inputs.length) / 2; i++) {
-				var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-				info = yunyeEditorGlobal.lifetime.lifetime_value[weekName];
-				inputs.eq(i * 2).val(info.time_start);
-				inputs.eq(i * 2 + 1).val(info.time_end);
-				if (info.enabled) {
-					$(".weekly td:eq(" + (i * 5 + 4) + ")").removeClass("off")
-				} else {
-					$(".weekly td:eq(" + (i * 5 + 4) + ")").addClass("off")
-				}
-			}
 		}
-
 	});
 	$(".weekly td:nth-child(5n)").click(function(event){
 		var target = $(event.currentTarget),
@@ -224,33 +197,41 @@ $(function() {
 			weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ;
 		if(target.hasClass("off")){
 			target.removeClass("off");
-			yunyeEditorGlobal.lifetime.lifetime_value[weekName].enabled = 1;
+			yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].enabled = 1;
 		}else{
 			target.addClass("off");
-			yunyeEditorGlobal.lifetime.lifetime_value[weekName].enabled = 0;
+			yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].enabled = 0;
 		}
 	});
 	$('#dateState').click(function(event){
 		var target = $('#dateState'),
-			index = $("#calender td").index($("td.hover"));
+			index = $("#calender td").index($("td.hover")),
+			start = $('.calenderTable input').eq(0).val(),
+			end = $('.calenderTable input').eq(1).val(),
+			enabled,
+			specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html(),
+			darry = specificDay.split("-"),
+			i = new Date(parseInt(darry[0]), parseInt(darry[1]) - 1, parseInt(darry[2])).getDay(),
+			weekName = (i == 0) ? "Sunday" : (i == 1) ? "Monday" : (i == 2) ? "Tuesday" : (i == 3) ? "Wednesday" : (i == 4) ? "Thursday" : (i == 5) ? "Friday" :  "Saturday" ,
+			info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 		if(target.hasClass("off")){
 			target.removeClass("off");
-			$("td.hover").addClass("special");
-			var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html();
-			yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
-				time_start:$('.calenderTable input').eq(0).val(),
-				time_end:$('.calenderTable input').eq(1).val(),
-				enabled:1
-			}
+			enabled = 1;
 		}else{
 			target.addClass("off");
+			enabled = 0;
+		}
+		if(start==info.start && end==info.end && enabled==info.enabled){
 			$("td.hover").removeClass("special");
-			var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html();
-			yunyeEditorGlobal.lifetime.lifetime_value[specificDay] = {
-				time_start:$('.calenderTable input').eq(0).val(),
-				time_end:$('.calenderTable input').eq(1).val(),
-				enabled:0
+			delete yunyeEditorGlobal.lifetime.lifetime_special[specificDay];
+		}else{
+			console.log(enabled);
+			if(enabled){
+				$("td.hover").removeClass("off").addClass("special");
+			}else{
+				$("td.hover").removeClass("special").addClass("off");
 			}
+			yunyeEditorGlobal.lifetime.lifetime_special[specificDay] = {start:start,end:end,enabled:enabled};
 		}
 	});
 	$(".weekly input").on('change',function(event){
@@ -268,12 +249,12 @@ $(function() {
 				weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ;
 			if(end.val() < start.val()){
 				$(event.target).blur();
-				start.val(options.lifetime_value[weekName].time_start);
-				end.val(options.lifetime_value[weekName].time_end);
+				start.val(options.lifetime_special[weekName].start);
+				end.val(options.lifetime_special[weekName].end);
 				yyConfirm("结束时间不能早于开始时间");
 			}else{
-				yunyeEditorGlobal.lifetime.lifetime_value[weekName].time_start = start.val();
-				yunyeEditorGlobal.lifetime.lifetime_value[weekName].time_end = end.val();
+				yunyeEditorGlobal.lifetime.lifetime_special[weekName].start = start.val();
+				yunyeEditorGlobal.lifetime.lifetime_special[weekName].end = end.val();
 			}
 		}
 	});

@@ -1,0 +1,170 @@
+{% load static %}
+<div class="bottom-nav navbar navbar-app navbar-absolute-bottom">
+    <div class="bottom-ratio-frame center-block">
+        <div class="bottom-ratio-wrapper">
+            <div class="bottom-container">
+                <div class="bottom-menu btn-group equal-justified">
+                    <div class="bottom-btn btn btn-navbar btn-icon-only"
+                         data-content='<div class="btn-group justified">
+                            <a href="mailto:?{{ object.share.email | safe }}" onclick=&#39;shared("email")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/mail.jpg' %}"></a>
+                            <a href="#" onclick=&#39;shared("wechat", "{{ object.unique_name }}", "{{ object.short_description }}")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/wechat.jpg' %}"></a>
+                            <a href="#" onclick=&#39;shared("qq", "{{ object.unique_name }}", "{{ object.short_description }}")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/qq.jpg' %}"></a>
+                            <a href="#" onclick=&#39;shared("qzone", "{{ object.unique_name }}", "{{ object.short_description }}")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/qzone.jpg' %}"></a>
+                            <a href="#" onclick=&#39;shared("weibo", "{{ object.unique_name }}", "{{ object.short_description }}")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/weibo.jpg' %}"></a>
+                        </div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="{% static 'website/images/icons/share.png' %}">
+                    </div>
+                    <!-- rating -->
+                    <div href="#"
+                         class="bottom-btn btn btn-navbar btn-icon-only"
+                         data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                         data-title='<div class="equal-justified rate-info">
+                             <div class="rate-totals">
+                                 <div class="rate-rating">{{ object.poster_statistics.ratings_average|floatformat:1 }}</div>
+                                 <input class="rating rating-average" type="number" readonly value="{{ object.poster_statistics.ratings_average }}" data-glyphicon="false" data-show-caption="false"
+                                 min=0 max=5 step=0.1>
+                                 <div class="rate-total"><img src="{% static 'website/images/icons/person_count.png' %}"> &nbsp;
+                                 <span class="rating-count">{{ object.poster_statistics.ratings_count }}</span></div>
+                             </div>
+                             <div class="rate-levels">
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 5</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-five" style="width:{{ object.poster_statistics.five_percent }}%;">
+                                        {{ object.poster_statistics.five_count }}
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 4</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-four" style="width:{{ object.poster_statistics.four_percent }}%;">
+                                        {{ object.poster_statistics.four_count }}
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 3</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-three" style="width:{{ object.poster_statistics.three_percent }}%;">
+                                        {{ object.poster_statistics.three_count }}
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 2</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-two" style="width:{{ object.poster_statistics.two_percent }}%;">
+                                        {{ object.poster_statistics.two_count }}
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 1</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-one" style="width:{{ object.poster_statistics.one_percent }}%;">
+                                        {{ object.poster_statistics.one_count }}
+                                        </div>
+                                    </div>
+                                 </div>
+                             </div>
+                         </div>'
+                         data-content='<div class="rate-action">
+                            <input class="rating rate-rate" value="{{ object.my_rating.rate }}" type="number" data-glyphicon="false" data-show-caption="false"
+                             min=0 max=5 step=1>
+                        </div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="{% static 'website/images/icons/rate.png' %}">
+                    </div>
+                    <!-- comments -->
+                    <div class="comments-btn bottom-btn btn btn-navbar btn-icon-only"
+                         data-template='<div class="popover" role="tooltip"><div style="display:none" class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                         data-content='<div></div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="{% static 'website/images/icons/feedback.png' %}">
+                    </div>
+                    <!-- print -->
+                    <div class="bottom-btn btn btn-navbar btn-icon-only"
+                         data-content='<div class="btn-group justified">
+                            <a onclick=&#39;createScreenShotPDF()&#39
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/pdf.png' %}"></a>
+                            <a onclick=&#39;createScreenShot()&#39
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/camera_roll.png' %}"></a>
+                            <a onclick=&#39;printScreenShot()&#39 
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="{% static 'website/images/icons/print_sub.png' %}"></a>
+                        </div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="{% static 'website/images/icons/export.png' %}">
+                    </div>
+                    <!-- stats -->
+                    <div class="stats-btn bottom-btn btn btn-navbar btn-icon-only"
+                         data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                         data-title='<div class="stats-title">
+                             <img src="{% static 'website/images/icons/stats_small.png' %}">
+                             <span class="stats-title-0"> 数据分析</span>
+                             <span class="stats-title-1" style="display:none"> 分数</span>
+                        </div>'
+                         data-content='{% include "website/bottom_widget/stats.html" %}'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="{% static 'website/images/icons/stats.png' %}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function statsSwitchPage(event, index){
+            $('.stats-title-' + index).show();
+            $('.stats-page-' + index).css('visibility', 'visible');
+            $('.stats-title-' + (1 - index)).hide();
+            $('.stats-page-' + (1 - index)).css('visibility', 'hidden');
+            event.stopPropagation();
+        }
+    </script>
+    <!-- preload images -->
+    <div style="display: none;">
+        <img src="{% static 'website/images/icons/favorite.png' %}">
+        <img src="{% static 'website/images/icons/fun.png' %}">
+        <img src="{% static 'website/images/icons/like.png' %}">
+        <img src="{% static 'website/images/icons/pdf.png' %}">
+        <img src="{% static 'website/images/icons/email.png' %}">
+        <img class="medal" src="{% static 'website/images/icons/medal_bronze.png' %}">
+        <img class="medal" src="{% static 'website/images/icons/medal_silver.png' %}">
+        <img class="medal" src="{% static 'website/images/icons/medal_gold.png' %}">
+        <img class="medal" src="{% static 'website/images/icons/medal_diamond.png' %}">
+    </div>
+</div>

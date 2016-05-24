@@ -31,18 +31,24 @@
             <li>
                 <div class="wraper">
                     <div class="img">
-                        <a href="{% url 'website:poster' poster.id %}" title="{{ poster.logo_title }}">
+                        <a href="{{ poster.get_absolute_url }}" title="{{ poster.unique_name }}">
                             <img src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %}" width="100%" />
                         </a>
                     </div>
                     <div class="det">
-                        <a href="{{ poster.url }}">
-                            <span class="title">{{ poster.logo_title }} </span>
+                        <a href="{{ poster.get_absolute_url }}">
+                            <span class="title">{{ poster.unique_name }} </span>
                             <span class="view-num">
                                 <i class="glyphicon glyphicon-eye-open"></i>
                                 <span>
                                     {{ poster.poster_statistics.views_count }}
                                 </span>
+
+                                {% if poster.creator == request.user %}
+                                    <a href="{{ poster.get_edit_url }}">
+                                        <i class="glyphicon glyphicon-pencil pull-right"></i>
+                                    </a>
+                                {% endif %}
                             </span>
                         </a>
                     </div>

@@ -47,7 +47,7 @@
             </div>
             <div class='dayinfo'>
                 <input type="time">至<input type="time" >
-                <div id="dateState" style="position: relative;width: 40px;display: inline-block;height: 35px;vertical-align: bottom;">
+                <div id="dateState" style="position: relative;width: 45px;display: inline-block;height: 35px;vertical-align: bottom;">
                     <div class="toggle-line"></div><div class="toggle-btn"></div>
                 </div>
             </div>
@@ -57,58 +57,14 @@
                     <i class="glyphicon glyphicon-cog" style="font-size: 14px;border:none;float: right;background:transparent;margin:10px;width: auto;height: auto;"></i>
                 </div>
                 <table>
-                    <tr><td>周一</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
-                    <tr><td>周二</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
-                    <tr><td>周三</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
-                    <tr><td>周四</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
-                    <tr><td>周五</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
-                    <tr><td>周六</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
-                    <tr><td>周日</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td><div class="toggle-line"></div><div class="toggle-btn"></div></td></tr>
+                    <tr><td>周一</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    <tr><td>周二</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    <tr><td>周三</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    <tr><td>周四</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    <tr><td>周五</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    <tr><td>周六</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    <tr><td>周日</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
                 </table>
-            </div>
-        </div>
-    </ul>
-    <ul id="dpw_title">
-        <li>
-            <span>
-                <input type="text" value="{{ poster.logo_title }}"/>
-            </span>
-        </li>
-    </ul>
-    <ul id="dpw_desc">
-        <div class="input-outer">
-            <textarea type="text">{{ poster.short_description }}</textarea>
-            <span>海报关键词</span>
-            <div class="ed-content">
-                <span id="ed-con-li2" data-id="2">aabb</span>
-            </div>
-        </div>
-        <div class="input-outer autoheight">
-            <div class="ed-choose">
-                {% for cat in categorykeyword_list %}
-                    <div class="ed-choose-li col-xs-6"
-                         data-cont="{{ cat.verb }}{{ cat.noun }}" data-view="0"
-                         data-id="{{ cat.id }}">
-                        <div class="cbox-line">
-                            <span class="glyphicon glyphicon-unchecked"></span>{{ cat.verb }}+{{ cat.noun }}
-                        </div>
-                    </div>
-                {% endfor %}
-                <div class="ed-add">
-                    <div class="ed-add-li col-xs-3">
-                        <span>动词</span><br>
-                        <input type="text" class="form-control" id="newKwv" placeholder="例:招募">
-                    </div>
-                    <div class="ed-add-li col-xs-1"><span>+</span></div>
-                    <div class="ed-add-li col-xs-4">
-                        <span>名词</span><br>
-                        <input type="text" class="form-control" id="newKwn" placeholder="例:创业精英">
-                    </div>
-                    <div class="ed-add-li col-xs-2  col-xs-offset-1">
-                        <span>&nbsp;</span><br>
-                        <input type="button" class="btn btn-default form-control" id="addItem" value="新增">
-                    </div>
-                </div>
             </div>
         </div>
     </ul>

@@ -133,6 +133,12 @@ body,html {
 .image-list li .det .view-num {
 	color: #a6a7ac;
 }
+.image-list li .det a,
+.image-list li .det a:hover,
+.image-list li .det a:visited,
+.image-list li .det a:focus{
+    color: #a6a7ac;
+}
 .view-num i {
 	margin-right: 5px;
 }

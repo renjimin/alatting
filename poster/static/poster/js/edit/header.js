@@ -1,11 +1,67 @@
 $(function () {
-    var storageAPI = $.fn.yunyeStorage;
+    var storageAPI = $.fn.yunyeStorage,
+        saveData = function () {
+            function parseStyle(string) {
+                var atrributes = string.split(";");
+                var returns = {};
+                for (var i in atrributes) {
+                    if (i == atrributes.length - 1)return returns;
+                    var key = $.trim(atrributes[i].split(":")[0]),
+                        value = $.trim(atrributes[i].split(":")[1]);
+                    returns[key] = value;
+                }
+            }
+            /*去掉海报元素的编辑控件-zj*/
+            $('.cnd-element').removeClass('active');
+            $('.text-element').removeClass('text-element-act');
+            $('.ele-rotate-ctrl').remove();
+
+            $(".change-template-layout").remove();
+            storageAPI.setHtml(".yunye-template");
+            //电话手机邮箱
+            if(!!$('#phoneInput').val())storageAPI.setHead("phone", $('#phoneInput').val());
+            if(!!$('#mobileInput').val())storageAPI.setHead("mobile", $('#mobileInput').val());
+            if(!!$('#emailInput').val())storageAPI.setHead("email", $('#emailInput').val());
+            //logo
+            if ($('.header-logo h2')[0]) {
+                if( !!$('.header-logo h2').html() ){
+                    storageAPI.setHead("logo_title", $('.header-logo').html());
+                }else{
+                    storageAPI.setHead("logo_title", "");
+                }
+                storageAPI.setHead("logoTitleType", "text");
+                storageAPI.setHead("logo_image", "");
+            } else {
+                storageAPI.setHead("logo_title", "");
+                storageAPI.setHead("logoTitleType", "image");
+                storageAPI.setHead("logo_image", {
+                    url: $('.header-logo img').attr("src"),
+                    id: $('.header-logo img').attr("data-src-id")
+                });
+            }
+            if ($('#logo_title').attr("style"))storageAPI.setCss("logo_title", parseStyle($('#logo_title').attr("style")));
+            storageAPI.setHead("unique_name", $('#logo_title').html());
+            if ($('#short_description').attr("style"))storageAPI.setCss("#short_description", parseStyle($('#short_description').attr("style")));
+            storageAPI.setHead("short_description", $('#short_description').html());
+            //日历周期性
+            var lifetime = yunyeEditorGlobal.lifetime;
+            var inputs = $(".weekly input");
+            for (var i = 0; i < (inputs.length) / 2; i++) {
+                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+                    info = lifetime.lifetime_weekly[weekName];
+                info.start = inputs.eq(i * 2).val();
+                info.end = inputs.eq(i * 2 + 1).val();
+                info.enabled = $(".weekly td:eq(" + (i * 6 + 4) + ")").hasClass("off") ? 0 : 1;
+            }
+            storageAPI.setHead("lifetime", lifetime);
+        };
 
     $(".back-to-home").click(function () {
         var url = $(this).data("url");
         yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
-            //todo:lyh:异步调用保存方法，将本地缓存数据保存至数据库,
-            //保存操作完成后进行页面跳转
+            try{
+                //saveData();
+            }catch(e){}
             window.location.href = url;
         });
     });
@@ -73,85 +129,32 @@ $(function () {
         ]
     });
 
-    //保存数据方法
-    var saveData = function () {
-        function parseStyle(string){
-            var atrributes = string.split(";") ;
-            var returns = {} ;
-            for(var i in atrributes){
-                if(i == atrributes.length-1 )return returns;
-                var key = $.trim(atrributes[i].split(":")[0]),
-                        value = $.trim(atrributes[i].split(":")[1]);
-                returns[key] = value ;
-            }
-        }
-        storageAPI.setHtml(".yunye-template");
-        //电话手机邮箱
-        storageAPI.setHead("phone", $('#phoneInput').val());
-        storageAPI.setHead("mobile", $('#mobileInput').val());
-        storageAPI.setHead("email", $('#emailInput').val());
-        //logo
-        if ($('.header-logo h2')[0]) {
-            storageAPI.setHead("logo_title", $('.header-logo').html());
-            storageAPI.setHead("logoTitleType", "text");
-            storageAPI.setHead("logo_image", "");
-        } else {
-            storageAPI.setHead("logo_title", "");
-            storageAPI.setHead("logoTitleType", "image");
-            storageAPI.setHead("logo_image", {
-                url: $('.header-logo img').attr("src"),
-                id: $('.header-logo img').attr("data-src-id")
-            });
-        }
-        if($('#logo_title').attr("style"))storageAPI.setCss("logo_title",parseStyle($('#logo_title').attr("style")));
-        storageAPI.setHead("unique_name", $('#logo_title').html());
-        if($('#short_description').attr("style"))storageAPI.setCss("short_description",parseStyle($('#short_description').attr("style")));
-        storageAPI.setHead("short_description", $('#short_description').html());
-        //日历周期性
-        var lifetime = yunyeEditorGlobal.lifetime;
-        if(lifetime.lifetime_type == "weekly" ){
-             var inputs = $(".weekly input");
-             for (var i = 0; i < (inputs.length) / 2; i++) {
-                var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
-                    info = lifetime.lifetime_value[weekName];
-                info.time_start = inputs.eq(i * 2).val();
-                info.time_end = inputs.eq(i * 2 + 1).val();
-                info.enabled = $(".weekly td:eq(" + (i * 5 + 4) + ")").hasClass("off") ? 0 : 1;
-            }
-        }
-        storageAPI.setHead("lifetime", lifetime);
-    };
-
     $(".btn.btn-save").on("click", function () {
-        saveData();
-        /*yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
-                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-            }
-        }*/
+        $.fn.yyTools.mask(1);
+        try{
+            saveData();
+        }catch (e){
+            $.fn.yyTools.mask();
+            yyAlert("待保存数据处理失败，暂时无法提交！");
+            console.log(e);
+            return;
+        }
         var full_json = JSON.stringify(storageAPI.getPosterData());
         var url = yunyeEditorGlobal.API.save.format(
             yunyeEditorGlobal.posterId
         );
-        console.log(full_json);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
             data: {"data": full_json},
             url: url,
             success: function (data) {
+                $.fn.yyTools.mask();
                 yyAlert("保存成功");
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("保存失败，服务器内部错误");
                 }
             }
@@ -159,35 +162,42 @@ $(function () {
     });
 
     $(".btn.btn-post").on("click", function () {
-        saveData();
-        yunyeEditorGlobal.lifetime = {
-            lifetime_type : "weekly",
-            lifetime_timezone : "Asia/Shanghai",
-            lifetime_value : {
-                "Monday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Tuesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Wednesday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Thursday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Friday": {time_start: "09:00", time_end: "17:00", enabled: 1},
-                "Saturday": {time_start: "09:00", time_end: "17:00", enabled: 0},
-                "Sunday": {time_start: "09:00", time_end: "17:00", enabled: 0}
-            }
+        $.fn.yyTools.mask(1);
+        try{
+            saveData();
+        }catch (e){
+            $.fn.yyTools.mask();
+            yyAlert("待保存数据处理失败，暂时无法发布！");
+            console.log(e);
+            return;
         }
-        var full_json = JSON.stringify(storageAPI.getPosterData());
-        var url = yunyeEditorGlobal.API.publish.format(
-            yunyeEditorGlobal.posterId
-        );
-        console.log(full_json);
+
+        var full_json = JSON.stringify(storageAPI.getPosterData()),
+            api = yunyeEditorGlobal.API;
+        var url = api.publish.format(yunyeEditorGlobal.posterId);
         $.ajax({
             type: 'PATCH',
             dataType: 'json',
             data: {"data": full_json},
             url: url,
             success: function (data) {
-                yyAlert("发布成功");
+                $.fn.yyTools.mask();
+                yyConfirm(
+                    "发布成功！<br>您需要查看发布的海报吗？",
+                    function(){
+                        window.location.href = api.show.format(
+                            yunyeEditorGlobal.posterId
+                        );
+                    },
+                    {
+                        'okText':'查看',
+			            'cancelText':'不查看'
+                    }
+                );
             },
             error: function (xhr, status, statusText) {
                 if (xhr.status == 500) {
+                    $.fn.yyTools.mask();
                     yyAlert("发布失败，服务器内部错误");
                 }
             }
@@ -197,4 +207,5 @@ $(function () {
     window.onunload = function (event) {
         saveData();
     }
+
 });

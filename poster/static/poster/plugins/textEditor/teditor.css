@@ -1,7 +1,7 @@
 .text-model{
-    position: absolute;
-    left: 0;
-    bottom: -265px;
+    position: fixed;
+    left:0px;
+    bottom: -300px;
     z-index: 699;
     height: 265px;
     width: 100%;
@@ -11,7 +11,7 @@
     z-index: 100;
     font-size: 30px;
     text-align: center;
-    border: 2px dashed transparent;
+    border: 1px dashed transparent;
     -ms-word-break:keep-all;
     word-break: keep-all;
     white-space: nowrap;
@@ -20,29 +20,52 @@
 .el-content{
     padding: 15px;
 }
-.el-editor{
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
+.el-rotate{
+    width: 1px;
+    height: 1px;
     position: absolute;
-    left: -10px;
-    text-align: center;
-    bottom: -10px;
-    background: #03ad52;
-    color: #fff;
-    display: none;
-    padding: 2px;
+    bottom: -1px;
+    right: -1px;
+}
+.el-editor{
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
 }
 .text-element-act{
-    border-color: #03ad52;
+    border-color: #373737;
 }
 .text-element-act .el-editor{
     display: block;
 }
 #text-slide-down{
     height: 30px;
+    background: #4b4b4b;
+    text-align: center;
+    color: #c9c9c9;
+    font-size: 15px;
+    line-height: 30px;
+}
+#text-slide-down .glyphicon{
+    float: right;
+    display: block;
+    color:#fff;
+    margin:3px 5px 3px auto;
+    font-size: 20px;
+}
+.ele-rotate-ctrl{
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    margin-top: -10px;
+    border-radius: 3px;
+    color: #ffffff;
     background: #373737;
     text-align: center;
-    color:#00e8d4;
-    font-size: 24px;
+    position: absolute;
+    top: -200px;
+    left:-200px;
+    z-index: 400;
 }

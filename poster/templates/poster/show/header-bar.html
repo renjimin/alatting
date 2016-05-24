@@ -2,11 +2,17 @@
     <a href="{% url 'website:index' %}"  class="btn-back back-to-home">
         <i class="icon-back"></i>
     </a>
-    <button class="button button-clear btn-page">
+    {% comment %}<button class="button button-clear btn-page">
         <i class="ico-pages"></i>
-    </button>
+    </button>{% endcomment %}
     <div class="title header-bar-title">
-        <p>{{ poster.logo_title }}</p>
+        <p>{{ poster.unique_name }}</p>
     </div>
-    <button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>
+    <button class="button button-clear btn-music header-music rotate" id="music">
+        <i class="ico-music "></i>
+        <audio id="background_music" hidden autoplay="true" loop="true">
+          <source src="{{ object.music|default_if_none:'' }}" type="audio/mpeg">
+          您的浏览器不支持音频资源
+        </audio>
+    </button>
 </div>

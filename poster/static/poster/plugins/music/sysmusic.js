@@ -16,7 +16,7 @@
                     success: function (data) {
                         console.log(data);
                         var cbox= '<div class="system-music"><div >'+
-                      '<h3>系统音乐</h3><i id = "closesmusic" class="glyphicon glyphicon-remove"></i></div><ul>';
+                      '<h3>系统音乐</h3><i id = "closesmusic" class="glyphicon glyphicon-remove-circle"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
                             var sysm = data[i].thumbnail_url;
                             cbox += '<li class="music-system" data-img="'+data[i].music_url+'"><span class = "musictext">'+data[i].name+'</span><span data-img="'+data[i].music_url+'" class = "musiclisten" title = "试听">试听</span><span data-img="'+data[i].music_url+'" class = "musicapp" title = "应用">应用</span></li>';

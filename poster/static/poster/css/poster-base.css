@@ -6,6 +6,7 @@ html {
 	overflow: hidden;
 
 	height: 100%;
+	background: #fff;
 }
 * {
 	margin: 0;
@@ -86,16 +87,16 @@ html {
 .ico-clock:before {
 	background-position: -3em 0;
 }
-.ico-like:before {
+.ico-fun:before {
 	background-position: -4em 0;
 }
-.ico-bookmark:before {
+.ico-like:before {
 	background-position: -5em 0;
 }
 .ico-subscribe:before {
 	background-position: -6em 0;
 }
-.ico-fun:before {
+.ico-bookmark:before {
 	background-position: -7em 0;
 }
 .ico-alogo:before {
@@ -243,36 +244,43 @@ html {
 	position: relative;
 	z-index: 20;
 
-	padding: 15px 0;
+	padding: 15px 0 0;
+	pointer-events:none;
 }
 .header-qrcode {
 	float: left;
-
-	width: 25%;
+	margin:0 10px;
+	pointer-events: auto;
+	position: relative;
+	z-index: 10;
 }
 .header-logo {
 	position: absolute;
-	left: 25%;
+	left: 0;
+	overflow: hidden;
 
-	width: 50%;
+	width: 100%;
 	height: 100%;
 	margin-top: -15px;
-	padding: 15px 0;
+	padding: 15px 100px 0 100px;
 
 	text-align: center;
+	pointer-events:none;
 }
 .header-abutton {
 	float: right;
 
-	width: 25%;
+	width: 80px;
+    height: 80px;
+	margin:0 10px;
+	position: relative;
+	z-index: 10;
 }
 .qrcode-inner,
 .abutton-inner {
 	position: relative;
-
-	width: 90%;
+	height: 100%;
 	margin: 0 auto;
-	padding-top: 90%;
 }
 .qrcode-inner .circle {
 	position: absolute;
@@ -284,25 +292,30 @@ html {
 	height: 100%;
 
 	border-radius: 50%;
-	background: #8d8d8d;
+
 }
 .qrcode-inner .qrcode {
-	position: absolute;
+
 	z-index: 15;
 	top: 0;
 	left: 0;
 
 	width: 100%;
 	height: 100%;
+	background: #8d8d8d;
+	border-radius: 50%;
 }
 .qrcode-inner .qrcode img {
 	width: 100%;
+	width: 45px;
+    height: 45px;
+    display: block;
 }
 .qrcode-inner .qrcode a.btn {
 	display: block;
 	overflow: hidden;
-	width: 100%;
-	height: 100%;
+	width: 80px;
+	height: 80px;
 	padding: 20%;
 	text-align: center;
 	border-radius: 50%;
@@ -313,16 +326,18 @@ html {
 .header-logo img {
 	max-width: 100%;
 	height: 100%;
+	pointer-events:auto;
 }
 .header-logo h2 {
+	display: inline-block;
 	overflow: hidden;
-
-	max-width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 10% 0;
-
+	min-height: 50%;
+	min-width: 50%;
+	margin: 10% 0;
+	padding: 0;
 	text-align: center;
+	word-break: break-all;
+	pointer-events:auto;
 }
 .abutton-group {
 	position: absolute;
@@ -526,11 +541,10 @@ to {
 	z-index: 20;
 	top: 33%;
 	left: 33%;
-
 	width: 34%;
 	padding-top: 34%;
-
 	font-size: 18px;
+	pointer-events: auto;
 }
 .abutton-internal .abtn {
 	position: absolute;
@@ -561,7 +575,6 @@ to {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-
 	margin-top: -0.5em;
 	margin-left: -0.5em;
 }
@@ -1108,11 +1121,11 @@ to {
 .container-fluid {
 	position: relative;
 
-	overflow: auto;
-
+	overflow-y: auto;
+	overflow-x:hidden;
 	width: 100%;
-	max-width: 600px;
 	height: 100%;
+	max-width: 600px;
 	padding: 40px 0 45px 0;
 }
 .bar-header,
@@ -1189,11 +1202,20 @@ to {
 	min-height: 20px;
 	margin: 0 3px;
 
-	color: #808080;
-	border: 1px solid #808080;
-	background: none;
+	color: #333;
+	border: 1px solid #ccc;
+	text-shadow: 0 1px 0 #fff;
+	background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
 
+	border: 1px solid transparent;
 	line-height: 24px;
+	-webkit-box-shadow:1px 1px 1px #666;
+	   -moz-box-shadow:1px 1px 1px #666;
+			box-shadow:1px 1px 1px #666;
+	-webkit-text-shadow:0 1px 0 #fff;
+	   -moz-text-shadow:0 1px 0 #fff;
+	        text-shadow: 0 1px 0 #fff;
+			outline:none;
 }
 .bar-header .btn-save {
 }
@@ -1226,11 +1248,11 @@ to {
 	visibility: visible;
 }
 #dp ul {
-	display: none;
-	visibility: hidden;
-
 	width: 100%;
 	margin: 0;
+}
+#dpw_clock{
+	display: block;
 }
 #dp li {
 	display: block;
@@ -1253,14 +1275,11 @@ to {
 #dp span {
 	position: absolute;
 	left: 40px;
-
 	width: 100%;
+	width: calc(100% -  40px);
 	padding-left: 5px;
-
 	vertical-align: top;
-
 	background: #f0f0f0;
-
 	font-size: 15px;
 	line-height: 40px;
 }
@@ -1449,3 +1468,138 @@ to {
 	background-size: auto 100%;
 }
 
+#short_description{
+	position: relative;
+	z-index: 20;
+	display: block;
+	width: 80%;
+	min-height: 20px;
+	margin: auto;
+}
+
+
+.header-bar-title{
+    left: 30px; right: 36px;
+}
+/* footer button */
+
+.ico-text,
+.ico-text-space,
+.ico-copy,
+.ico-recycle,
+.ico-systemimg,
+.ico-systemimgs,
+.ico-input,
+.ico-music-link,
+.ico-music-upload {
+	display: inline-block;
+
+	width: 1em;
+	height: 1em;
+
+	vertical-align: top;
+
+	background: url(../images/sprites-subtools.png) no-repeat;
+	background-size: auto 2em;
+}
+.ico-text {
+	background-position: 0 0;
+}
+.ico-text-space {
+	background-position: -1em 0;
+}
+.ico-copy {
+	background-position: -2em 0;
+}
+.ico-recycle {
+	background-position: -3em 0;
+}
+.ico-systemimg {
+	background-position: -4em 0;
+}
+.ico-systemimgs {
+	background-position: -5em 0;
+}
+.ico-input {
+	background-position: -6em 0;
+}
+.ico-music-link {
+	background-position: -7em 0;
+}
+.open>.ico-music-upload {
+	background-position: -8em -1em;
+}
+.open>.ico-text {
+	background-position: 0 -1em;
+}
+.open>.ico-text-space {
+	background-position: -1em -1em;
+}
+.open>.ico-copy {
+	background-position: -2em -1em;
+}
+.open>.ico-recycle {
+	background-position: -3em -1em;
+}
+.open>.ico-systemimg {
+	background-position: -4em -1em;
+}
+.open>.ico-systemimgs {
+	background-position: -5em -1em;
+}
+.open > .ico-input {
+	background-position: -6em -1em;
+}
+.open > .ico-music-link {
+	background-position: -7em -1em;
+}
+.open > .ico-music-upload {
+	background-position: -8em -1em;
+}
+.ico-music-upload {
+	background-position: -8em 0;
+}
+/* template css */
+.yunye-template {
+    background-color: #fff;
+    position: relative;
+	/*padding-bottom: 120%;*/
+	width:600px;
+	height:720px;
+	transform-origin: top left;
+	-webki-transform-origin: top left;
+}
+
+.yunye-template > .content{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.body-container{
+	height:100%;
+}
+
+.cnd-element {
+	position: absolute;
+	z-index: 100;
+}
+.cnd-element.active{height:auto;}
+
+.contact-info {
+	display: none;
+	vertical-align: middle;
+	text-align: center;
+	margin-left: 3%;
+	margin-right: 1%;
+}
+.contact-info .icon{
+	margin-left: 10px;
+	margin-top: 2px;
+	font-size: 22px;
+	vertical-align: middle;
+}
+@media (min-width: 600px){
+	.yunye-template{ transform: scale(1.875, 1.875)!important;}
+}

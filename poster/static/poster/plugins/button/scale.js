@@ -63,8 +63,16 @@ var scale = function(box,options){
         nbare = s.o.find('.nbar-e');
         nbarw = s.o.find('.nbar-w');
 
-        s.opt.left = s.o.position().left;
-        s.opt.top = s.o.position().top;
+        if(s.o.position() == undefined){
+            s.opt.left = 0;
+            s.opt.top = 0
+        }else if(s.opt.left != undefined){
+            s.opt.left = parseInt(s.o.css('left'));
+            s.opt.top = parseInt(s.o.css('top'));
+        }else{
+            s.opt.left = s.o.position().left;
+            s.opt.top = s.o.position().top;
+        }
 
         s.opt.cx = parseInt(s.opt.width)/2;/*计算圆心相对坐标*/
         s.opt.cy = parseInt(s.opt.height)/2;
@@ -94,7 +102,9 @@ var scale = function(box,options){
             $('.cnd-element').removeClass('active');
             s.o.addClass('active').css('z-index',scaleIndex++);
             $(e.currentTarget).addClass('drag-active');
-
+            /* 移除文字编辑焦点 */
+            $('.text-element').removeClass('text-element-act');
+            $('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
