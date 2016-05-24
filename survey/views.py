@@ -54,7 +54,7 @@ class QuestionnaireView(View):
 
 	def get_pre_ans(self, runinfo, question):
 		ans = Answer.objects.filter(subject=runinfo.subject, 
-			runid=runinfo.pk, question=question).first()
+			question=question).order_by("-id")[0]
 		if ans:
 			return ans.answer
 		else:

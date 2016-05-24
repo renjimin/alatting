@@ -3,6 +3,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from alatting_website.models import Category
+from utils.db.fields import BigAutoField
 from survey import *
 
 
@@ -155,6 +156,7 @@ class RunInfo(models.Model):
 
 
 class Answer(models.Model):
+    id = BigAutoField(primary_key=True)
     subject = models.ForeignKey(User, help_text = u'The user who supplied this answer')
     question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
     answer = models.TextField(blank=True, null=True)
