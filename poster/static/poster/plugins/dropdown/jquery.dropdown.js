@@ -102,11 +102,14 @@
 					if(!_option.suspendFun())return false;
 				}*/
 				$(document).trigger("clsdp");
-
 				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
 					dpw.attr('class', '').removeClass('open');
 				}else{
 					dpw.attr('class', '').attr('style', '');
+					
+					if(dpw.addClass('popUp').hasClass("open")){
+
+					}
 					$('#dp ul').hide();
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
