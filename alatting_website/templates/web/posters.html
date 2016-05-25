@@ -114,13 +114,19 @@
         						<img src="{% static 'web/images/avatar.jpg' %}" />
         					</div>
         					<div class="uname">
-        						<span>Jry</span>
+        						<span>{{ poster.creator }}</span>
         					</div>
         					<div class="type">
         						Business
         					</div>
         				</div>
         			</div>
+                    <div class="info">
+    					<span class="phone">027-88888888</span>
+    					<span class="email">779311998@qq.com</span>
+    					<span class="address">武汉市洪山区光谷国际广场A座802</span>
+    					<span class="worktime">上午9点 - 下午6点</span>
+    				</div>
                 </div>
             </li>
         {% endfor %}
