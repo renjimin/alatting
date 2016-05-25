@@ -64,14 +64,15 @@ html {
 .ico-fun:before,
 .ico-alogo:before,
 .ico-mobile:before,
-.ico-menu:before {
+.ico-menu:before,
+.clicked .ico-like:before,
+.clicked .ico-bookmark:before,
+.clicked .ico-subscribe:before,
+.clicked .ico-fun:before{
 	display: inline-block;
-
 	width: 1em;
 	height: 1em;
-
 	content: "";
-
 	background: url(/static/website/images/icons/sprits_tools.png) center center no-repeat;
 	background-size: auto 100%;
 }
@@ -111,6 +112,19 @@ html {
 .ico-mobile:before {
 	background-position: -10em 0;
 }
+.clicked .ico-like:before{
+	background-position: -12em 0;
+}
+.clicked .ico-bookmark:before{
+	background-position: -14em 0;
+}
+.clicked .ico-subscribe:before{
+	background-position: -13em 0;
+}
+.clicked .ico-fun:before{
+	background-position: -11em 0;
+}
+
 .ico-share-email,
 .ico-share-wechat,
 .ico-share-qq,
