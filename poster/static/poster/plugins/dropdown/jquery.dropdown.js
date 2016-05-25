@@ -101,7 +101,7 @@
 				/*if(_option.suspendFun !== null && $.isFunction(_option.suspendFun)){
 					if(!_option.suspendFun())return false;
 				}*/
-				$(document).trigger("clsdp");
+				$(document).trigger("clsdp",event.currentTarget);
 				if(dpw.hasClass('open')){
 					dpw.attr('class', '');
 				}else{

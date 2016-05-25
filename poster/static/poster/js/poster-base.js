@@ -446,9 +446,8 @@ $(function () {
         $('.cnd-element').removeClass('active');
         $(".music-link-layout-wrap").remove();
         if(!$(target).hasClass("dropdown-toggle"))$('.dropdown-panel').removeClass("open");
-        if($(target).hasClass("dropdown-toggle")){
-            $("#dp").removeClass("open");
-        }
+        if($(target).hasClass("dropdown-toggle"))$("#dp").removeClass("open");
+        if(!target)$("#dp").removeClass("open");
     });
 
     $('body').on('click', function (event) {
