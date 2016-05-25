@@ -14,6 +14,13 @@ bottom-menu
 .bottom-container .bottom-menu {
     width: 100%;
     background: #1a486a;
+
+}
+.bottom-container .bottom-menu .btn{
+    height:44px;
+    line-height: 44px;
+    padding: 0;
+    border:0;
 }
 
 .justified {

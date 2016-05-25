@@ -402,13 +402,31 @@ img[src=""] {
     padding: 0 20px;
     color: #868686;
 }
+.main-dropdown-menu>li>a .icon{
+    font-size:24px;
+    float: right;
+    margin-top:6px;
+    display: none;
+}
 
 .main-dropdown-menu>li>a:hover {
     background: #fff;
     color: #222;
     font-weight: bold;
 }
-
+.main-dropdown-menu li.active a ,.main-dropdown-menu li.active a:hover{
+    background:#fff;
+    color:#000; 
+}
+.main-dropdown-menu li.active a .icon{
+    display:inline-block;
+}
+.ico-right{
+    width: 1em;
+    height:1em;
+    display: inline-block;
+    background:url(../images/ico-right.png) center center no-repeat;
+}
 .mobsearch-btn {
     display: none;
 }
@@ -526,6 +544,9 @@ img[src=""] {
     line-height: 30px;
     padding: 10px 10px 10px 100px;
     background: rgba(255, 255, 255, 0.96);
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
 .poster-item .det .bottom .type {

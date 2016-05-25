@@ -229,8 +229,9 @@
 .nbar-rotate {
 	top: -30px;
 	left: 50%;
-
-	margin-left: -6px;
+	width:20px;
+	height:20px;
+	margin-left: -10px;
 
 	cursor: url(mouserotate.ico) 10 10, default;
 	transition:all .2s;
@@ -359,10 +360,16 @@
 	opacity:0.6;
 }
 .cnd-element .nbar{
-display:none;
+	display:none;
+}
+.cnd-element .nbar .icon{
+	display:none;
 }
 .cnd-element.active .nbar{
-display:block;
+	display:block;
+}
+.cnd-element.active .nbar .icon{
+	display:block;
 }
 .cnd-element.active .nbar.nbar-ne,
 .cnd-element.active .nbar.nbar-sw,

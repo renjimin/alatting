@@ -27,6 +27,10 @@ class ServiceIndexListView(ListView):
         qs = Poster.objects.filter(
             status=Poster.STATUS_PUBLISHED
         ).order_by('-created_at')
+        if self.request.GET.get('q'):
+            qs = qs.filter(
+                unique_name__contains=self.request.GET.get('q')
+            )
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)

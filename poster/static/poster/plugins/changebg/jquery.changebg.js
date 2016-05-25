@@ -24,7 +24,7 @@
                     success: function (data) {
                         // ss= data;
                         console.log(data);
-                        var cbox= '<div class="system-item"><div ><h3>系统背景</h3><i id = "closebg" class="glyphicon glyphicon-remove-circle"></i></div><ul>';
+                        var cbox= '<div class="system-item"><div><h3>系统背景</h3><i id = "closebg" class="glyphicon glyphicon-remove-circle"></i></div><ul>';
                         for(var i=0;i<data.length;i++){
                             var img = data[i].thumbnail_url;
                             cbox += '<li class="item-system" data-img="'+data[i].image_url+'"><img src="'+img+'"></li>';
@@ -42,10 +42,10 @@
                 bimg.children('.system-item').fadeIn(200);
             }
             var s  = this.options;
-                var ele = this.$element;
-                var callBack_Selected =this.callBack;
-                bimg.off('click','.item-system').on('click','.item-system',function(){
-                var img = $(this).attr('data-img');
+            var ele = this.$element;
+            var callBack_Selected =this.callBack;
+            bimg.off('click','.item-system').on('click','.item-system',function(){
+                    var img = $(this).attr('data-img');
                     $('.item-system').css({ 
                         'opacity':'.5',
                         'border': '0px solid #01a1ef'
@@ -56,6 +56,10 @@
                     })
                 callBack_Selected(ele,img);
             });
+            bimg.on('touchstart', '#closebg',function(){
+                    alert('12');
+                    $(".system-item").fadeOut(200);
+            });               
         }
 
     //在插件中使用doChangeBkg对象

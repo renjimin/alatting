@@ -377,6 +377,8 @@ html {
 	transform-origin: 100% 100%;
 	pointer-events: none;
 	border: 1px solid transparent;
+	transform: translate3d(0,0,0);
+	-webkit-transform: translate3d(0,0,0);
 }
 .abutton-group li a {
 	position: absolute;
@@ -389,17 +391,15 @@ html {
 	box-sizing: border-box;
 	width: 100%;
 	height: 100%;
-
-	-webkit-transition: all 0.2s ease;
-	transition: all 0.2s ease;
-	-webkit-transform: skew(0) rotate(-45deg) scale(1);
-	transform: skew(0) rotate(-45deg) scale(1);
+	-webkit-transform: rotate(-45deg) scale(1);
+	transform: rotate(-45deg) scale(1);
 	text-align: center;
 	text-decoration: none;
 	pointer-events: fill;
 
 	color: #fff;
 	border-radius: 50%;
+	/*background: #8d8d8d;*/
 }
 .abutton-group li a span {
 	opacity: 0.7;
@@ -410,20 +410,20 @@ html {
 	font-size: 20px;
 }
 .abutton-group li:first-child {
-	-webkit-transform: rotate(-45deg) skew(0);
-	transform: rotate(-45deg) skew(0);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg) ;
 }
 .abutton-group li:nth-child(2) {
-	-webkit-transform: rotate(45deg) skew(0);
-	transform: rotate(45deg) skew(0);
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 .abutton-group li:nth-child(3) {
-	-webkit-transform: rotate(135deg) skew(0);
-	transform: rotate(135deg) skew(0);
+	-webkit-transform: rotate(135deg);
+	transform: rotate(135deg);
 }
 .abutton-group li:nth-child(4) {
-	-webkit-transform: rotate(225deg) skew(0);
-	transform: rotate(225deg) skew(0);
+	-webkit-transform: rotate(225deg);
+	transform: rotate(225deg);
 }
 .abutton-group li:first-child a {
 	padding-right: 67%;
@@ -432,19 +432,19 @@ html {
 }
 .abutton-group li:nth-child(2) a {
 	padding-bottom: 67%;
-	-webkit-transform: rotate(-45deg) skew(0);
-	transform: rotate(-45deg) skew(0);
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
 }
 .abutton-group li:nth-child(3) a {
 	padding-left: 67%;
-	-webkit-transform: rotate(-135deg) skew(0);
-	transform: rotate(-135deg) skew(0);
+	-webkit-transform: rotate(-135deg);
+	transform: rotate(-135deg);
 }
 .abutton-group li:nth-child(4) a {
 	padding-top: 67%;
 
-	-webkit-transform: rotate(-225deg) skew(0);
-	transform: rotate(-225deg) skew(0);
+	-webkit-transform: rotate(-225deg);
+	transform: rotate(-225deg) ;
 }
 .abutton-group li:first-child a .icon,
 .abutton-group li:nth-child(3) a .icon {
@@ -1120,7 +1120,7 @@ to {
 	width: 100%;
 	height: 100%;
 	max-width: 600px;
-	padding: 40px 0 45px 0;
+	padding: 40px 0 44px 0;
 }
 .bar-header,
 .bar-footer {
@@ -1559,7 +1559,7 @@ to {
     position: relative;
 	/*padding-bottom: 120%;*/
 	width:600px;
-	height:720px;
+	height:747px;
 	transform-origin: top left;
 	-webkit-transform-origin: top left;
 	-moz-transform-origin: top left;
@@ -1638,6 +1638,7 @@ to {
 
 @media (min-width: 600px)  and (max-width:769px){
 	.bar-header, .tabs,.scroll-content, .bar-footer,.container-fluid,body{max-width:768px;}
+	.type-model,#dp{max-width:768px;width:100%;left:0;margin-left:0;}
 }
 
 #dpw_address{

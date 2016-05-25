@@ -1,14 +1,21 @@
 # coding=utf-8
 from django.conf.urls import url
-from poster.apiview.poster import PosterPageListView, CheckPosterUniqueNameView, \
-                        PosterPublishView, SystemImageListView, SystemBackgroundListView, PosterSaveView, \
-    PosterStatusView, PosterPageDetailView, SystemMusicListView
-from poster.apiview.resource import CategoryKeywordListView, \
-    CategoryKeywordDetailView, UploadFileView, TemplateDetailView, \
-    TemplateListView
+from poster.apiview.poster import (
+    PosterPageListView, CheckPosterUniqueNameView,
+    PosterPublishView, SystemImageListView, SystemBackgroundListView,
+    PosterSaveView, PosterStatusView, PosterPageDetailView,
+    SystemMusicListView, PosterDetailView
+)
+from poster.apiview.resource import (
+    CategoryKeywordListView, CategoryKeywordDetailView,
+    UploadFileView, TemplateDetailView, TemplateListView
+)
 
 
 urlpatterns = [
+    url(r'^(?P<pk>\d+)/$', PosterDetailView.as_view(),
+        name='poster_detail'),
+
     url(r'^category/(?P<pk>\d+)/keywords$', CategoryKeywordListView.as_view(),
         name='category_keywords'),
 

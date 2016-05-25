@@ -6,22 +6,27 @@
 .content > .content-top {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 82%);
     clip-path: url(#content-top);
-    margin-bottom: -26px;
+    margin-bottom: -52px;
+    margin-top: 2%;
+    width: 96%;
+    margin-left:2%;
     height:55%;
 }
 
 .content > .content-bottom-left {
     -webkit-clip-path: polygon(0 0, 100% 12%, 95% 100%, 0 100%);
     clip-path: url(#content-bottom-left);
-    width: 60%;
+    width: 58%;
     float: left;
-    height:45%;
+    height:48%;
+    margin-left:2%;
 }
 
 .content > .content-bottom-right {
     -webkit-clip-path: polygon(8% 13%, 100% 21%, 100% 100%, 0% 100%);
     clip-path: url(#content-bottom-right);
-    width: 40%;
+    width: 38%;
     float: right;
-    height:45%;
+    height:48%;
+    margin-right:2%;
 }

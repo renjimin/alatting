@@ -1,4 +1,4 @@
-{% extends 'core/layout/pc/base.html' %}
+{% extends 'website/pc/base.html' %}
 {% load static %}
 
 {% block base_head_title %}服务邦 - {% endblock %}
@@ -14,38 +14,46 @@
                 </a>
             </div>
             <div class="search-bar" id="searchBar">
-                <div class="search-input clearfix">
-                    <i class="icon ico-search"></i>
-                    <input type="text" placeholder="搜索"/>
-                </div>
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle" id="seartype" data-toggle="dropdown">
-                        <i class="icon ico-menu"></i>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="seartype">
-                        <li>
-                            <a href="javascript:void(0);">最新</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">已发布</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="dropdown">
-                    <button class="btn btn-last dropdown-toggle" id="searCat"
-                            data-toggle="dropdown">
-                        <i class="icon ico-pagers"></i>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="searCat">
-                        {% for category in categorys %}
-                        <li>
-                            <a href="javascript:void(0);">{{ category.name }}</a>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <form action="{% url 'service_pc:index' %}" method="get"
+                      name="search_form" id="search_form">
+                    <div class="search-input clearfix">
+                        <i class="icon ico-search"></i>
+                        <input type="text" placeholder="搜索" name="q" id="q" value="{{ request.GET.q }}"/>
+                    </div>
+                    <div class="dropdown" style="display:none;">
+                        <button class="btn dropdown-toggle" id="seartype" data-toggle="dropdown">
+                            <i class="icon ico-menu"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu main-dropdown-menu" aria-labelledby="seartype">
+                            <li>
+                                <a href="javascript:void(0);">最新<i class="icon ico-right"></i></a>
+                            </li>
+                            <li class="active">
+                                <a href="javascript:void(0);">已发布<i class="icon ico-right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-last dropdown-toggle" id="searCat"
+                                data-toggle="dropdown">
+                            <i class="icon ico-pagers"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu main-dropdown-menu" aria-labelledby="searCat" id="searCatoBody">
+                            {% for category in categorys %}
+                            <li>
+                                <a href="javascript:void(0);" data-id="{{ category.id }}">{{ category.name }}<i class="icon ico-right"></i></a>                                
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% for k, v in request.GET.dict.items %}
+                        <input type="hidden" name="{{ k }}" value="{{ v }}" >
+                    {% endfor %}
+                    <input type="hidden" name="catId" id="catId" value="" >
+
+                </form>
             </div>
             {% if request.user.is_authenticated %}
                 <div class="head-user">
@@ -65,15 +73,15 @@
             <div class="container">
                 <ul class="nav nav-list">
                     <li>
-                        <a href="?sort=new" {% if not request.GET.sort or request.GET.sort == 'new' %}class="active"{% endif %}>
+                        <a href="?sort=new&q={{ request.GET.q }}" {% if not request.GET.sort or request.GET.sort == 'new' %}class="active"{% endif %}>
                             最新
                         </a>
                     </li>
                     <li>
-                        <a href="?sort=hot" {% if request.GET.sort == 'hot' %}class="active"{% endif %}>热门</a>
+                        <a href="?sort=hot&q={{ request.GET.q }}" {% if request.GET.sort == 'hot' %}class="active"{% endif %}>热门</a>
                     </li>
                     <li>
-                        <a href="?sort=recommend" {% if request.GET.sort == 'recommend' %}class="active"{% endif %}>推荐</a>
+                        <a href="?sort=recommend&q={{ request.GET.q }}" {% if request.GET.sort == 'recommend' %}class="active"{% endif %}>推荐</a>
                     </li>
                 </ul>
             </div>
@@ -132,4 +140,17 @@
             </li>
         {% endfor %}
     </ul>
+{% endblock %}
+
+
+{% block base_foot_js %}
+    <script>
+        $(function(){
+            $("#q").keyup(function (event) {
+                if(event.keyCode == 13){
+                    $("#search_form").submit();
+                }
+            });
+        });
+    </script>
 {% endblock %}

@@ -86,31 +86,29 @@ $(function () {
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
         initData();
     }
-
-    var templateScale = $('body').width()/$('.yunye-template').width();
-    var templateScaleOpt =
-        '-webkit-transform:scale('+templateScale+','+templateScale+');'
-       +   '-moz-transform:scale('+templateScale+','+templateScale+');'
-       +     '-o-transform:scale('+templateScale+','+templateScale+');'
-       +    '-ms-transform:scale('+templateScale+','+templateScale+');'
-       +        'transform:scale('+templateScale+','+templateScale+');';
-
-    $('.yunye-template').attr('style',templateScaleOpt);
-    $('.template-box').height($('.yunye-template').height()*templateScale);
+    templateScaleFun();
+    
 
     window.onresize = function(){
+       templateScaleFun();
+    };
+    
+    function templateScaleFun(){
         var templateScale = $('body').width()/$('.yunye-template').width();
-        var templateScaleOpt =
-            '-webkit-transform:scale('+templateScale+','+templateScale+');'
+         var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
            +   '-moz-transform:scale('+templateScale+','+templateScale+');'
            +     '-o-transform:scale('+templateScale+','+templateScale+');'
            +    '-ms-transform:scale('+templateScale+','+templateScale+');'
            +        'transform:scale('+templateScale+','+templateScale+');';
-
+           if($('.template-box').length <= 0){
+                var templateBox = $('<div class="template-box"></div>');
+                $('.yunye-template').parent().append(templateBox);
+                templateBox.append($('.yunye-template'));
+           }
+        
         $('.yunye-template').attr('style',templateScaleOpt);
-        $('.template-box').height($('.yunye-template').height()*templateScale);
-    };
-
+        $('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
+    }
     //弹出菜单
     $(".dropdown-toggle:not(#share-toggle)").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
@@ -476,22 +474,19 @@ $(function () {
 
     $('body').on('click', function (event) {
         //处理点击事件
-        var click_list = ['#closebg'];
-        var item = '';
-        for (var i in click_list) {
-            if ($(event.target).closest(click_list[i]).length != 0) {
-                item = click_list[i];
-                break;
-            }
-        }
-        switch (item) {
-            case "#closebg":
-                $(".system-item").fadeOut(200);
-                break;
-        }
-        $("#closesmusic").on('click',function(){
-            $(".system-music").fadeOut(200);
-        });
+        // var click_list = ['#closebg'];
+        // var item = '';
+        // for (var i in click_list) {
+        //     if ($(event.target).closest(click_list[i]).length != 0) {
+        //         item = click_list[i];
+        //         break;
+        //     }
+        // }
+        // switch (item) {
+        //     case "#closebg":
+        //         //$(".system-item").fadeOut(200);
+        //         break;
+        // }
         //点击被保护列表中的对象返回
         window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
         var list = window.clickItmList;

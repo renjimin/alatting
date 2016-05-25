@@ -66,7 +66,7 @@
 
                 $.ajax({
                     type: "PATCH",
-                    url: updateTemplateAPI.format(self.posterPageId),
+                    url: updateTemplateAPI,
                     dataType: "json",
                     data: {
                         "poster_id": self.posterId,
@@ -75,10 +75,7 @@
                     success: function(posterPage){
                         $.fn.yyTools.mask();
                         yyAlert("模板更换成功, 确定后将刷新当页面！", function(){
-                            window.location.href = "/poster/{0}/edit/{1}".format(
-                                self.posterId,
-                                self.posterPageId
-                            );
+                            window.location.reload();
                         });
                     },
                     error: function () {
