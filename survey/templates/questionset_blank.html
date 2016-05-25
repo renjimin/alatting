@@ -1,0 +1,26 @@
+{% extends 'questionset.html' %}
+{% load static %}
+{% load questionnaire %}
+{% block base_body %}
+    <div class="qs container-fluid">
+        <header class="qs-header">   
+            <div class="progress-btm"></div>
+            <div class="row qs-cat">        
+                <div class="col-xs-6 qs-cat-cat"><a href="javascript:void(0);">{{main_cat_name}}</a></div>
+                <div class="col-xs-6 qs-cat-subcat"><a href="javascript:void(0);">{{sub_cat_name}}</a></div>
+            </div>
+        </header>
+        <div class="qs-body">
+            <form class="form" action="{{ request.path }}" method="POST">
+                <div class="qs-title">{{qs_title}}</div>
+                    <div class="qs-footer">
+                        <div>
+                            <a class="back btn btn-default" href="{% url 'poster:update_form' pk=poster_id %}">返&nbsp;回</a>
+                            <input type="submit" class="next btn btn-default" value="确&nbsp;认">
+                        </div>
+                    </div>  
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
