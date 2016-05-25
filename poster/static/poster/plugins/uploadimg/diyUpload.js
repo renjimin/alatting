@@ -50,22 +50,16 @@
 				alert( ' 上传组件不支持您的浏览器！');
 				return false;
        		}
-			var endFileId;
+
 			//绑定文件加入队列事件;
 			webUploader.on('fileQueued', function( file ) {
 				createBox( $fileInput, file ,webUploader,opt.sliderContainer);
-				endFileId = file.id;
 			});
 
 			//进度条事件
 			webUploader.on('uploadProgress',function( file, percentage  ){
-				file.id = endFileId;
-
-				var $fileBox = $('#fileBox_'+file.id);
-				var $diyBar = $fileBox.find('.diyBar');
-				//$diyBar.show();
 				percentage = percentage*100;
-				//showDiyProgress( percentage.toFixed(2), $diyBar);
+				showDiyProgress( percentage.toFixed(2), $('.fileBar'));
 
 			});
 
@@ -86,17 +80,12 @@
 			//上传成功后触发事件;
 			webUploader.on('uploadSuccess',function( file, response ){
 				var $fileBox = $('#fileBox_'+file.id);
-				var $diyBar = $fileBox.find('.diyBar');
+				$('.fileBar .fileProgress').width(0);
 				$fileBox.removeClass('diyUploadHover');
-
-				if(opt['sliderContainer'].find('.swiper-slide').length > 0){
-					opt['sliderContainer'].find('.swiper-slide').each(function(){
-						var fileid = $(this).find('img').attr('data-id');
-						if(fileid == file.id){
-							file.id = 'slide_img_'+(slideImgNum++);
-						}
-					});
-				}
+				$fileBox.find('.status').addClass('success').html('上传成功');
+				setTimeout(function(){
+					$fileBox.find('.status').removeClass('success');
+				},2000);
 				uploadfiles['success'].push({'sliderContainer':opt.sliderContainer,'file':file});
 				if ( successCallBack ) {
 					successCallBack( response, file );
@@ -106,11 +95,12 @@
 			//上传失败后触发事件;
 			webUploader.on('uploadError',function( file, reason ){
 				var $fileBox = $('#fileBox_'+file.id);
-				var $diyBar = $fileBox.find('.diyBar');
-				showDiyProgress( 0, $diyBar , '上传失败!' );
+				var $diyBar = $fileBox.find('.status').addClass('error').html('上传失败');
+
 				var err = '上传失败! 文件:'+file.name+' 错误码:'+reason;
 
 				uploadfiles['error'].push({'sliderContainer':opt.sliderContainer,'file':file});
+
 				if ( errorCallBack ) {
 					errorCallBack( err );
 				}
@@ -188,38 +178,38 @@
 
 	//实例化Web Uploader
 	function getUploader( opt ) {
-
 		return new WebUploader.Uploader( opt );
 	}
 
 	//操作进度条;
 	function showDiyProgress( progress, $diyBar, text ) {
-
+		$diyBar.find('.fileProgress').width(0);
 		if ( progress >= 100 ) {
 			progress = progress + '%';
 			text = text || '上传完成';
+
 		} else {
 			progress = progress + '%';
 			text = text || progress;
 		}
 
-		var $diyProgress = $diyBar.find('.diyProgress');
-		var $diyProgressText = $diyBar.find('.diyProgressText');
+		var $diyProgress = $diyBar.find('.fileProgress');
 		$diyProgress.width( progress );
-		$diyProgressText.text( text );
 
 	}
 
 	//取消事件;
-	function removeLi ( $li ,file_id ,webUploader,container) {
-		webUploader.removeFile( file_id );
-		if ( $li.siblings('li').length <= 0 ) {
-			$li.parents('.parentFileBox').remove();
-		} else {
+	function removeLi( $li ,file_id ,webUploader,container) {
+
+		if(webUploader) webUploader.removeFile( file_id );
+		$li.animate({'width':'0'},200,function(){
 			$li.remove();
-		}
+		});
+
+
 		$("#slideImg"+file_id).remove();
-		if(container.find('.swiper-container').length > 0){
+
+		if(container){
 			container.imgslider();
 		}
 
@@ -229,88 +219,25 @@
 	function createBox( $fileInput, file, webUploader, sliderContainer ) {
 
 		var file_id = file.id;
-		if(sliderContainer.find('.swiper-slide').length > 0){
-			sliderContainer.find('.swiper-slide').each(function(){
-				var fileid = $(this).find('img').attr('data-id');
-				if(file_id == fileid){
-					file_id = 'slide_img_'+(slideImgNum++);
-				}
-			});
-		}
-
-		var $parentFileBox = $fileInput.next('.parentFileBox');
-
-		//添加父系容器;
-		if ( $parentFileBox.length <= 0 ) {
-
-			var div = '<div class="parentFileBox"> \
-						<ul class="fileBoxUl"></ul>\
-					</div>';
-			$fileInput.after( div );
-			$parentFileBox = $fileInput.next('.parentFileBox');
-
-		}
-		//创建按钮
-		if ( $parentFileBox.find('.diyButton').length <= 0 ) {
-
-			var div = '<div class="diyButton"> \
-						<a class="diyStart" href="javascript:void(0)">开始上传</a> \
-						<a class="diyCancelAll" href="javascript:void(0)">全部取消</a> \
-					</div>';
-			$parentFileBox.append( div );
-			var $startButton = $parentFileBox.find('.diyStart');
-			var $cancelButton = $parentFileBox.find('.diyCancelAll');
-
-			//开始上传,暂停上传,重新上传事件;
-			var uploadStart = function (){
-				webUploader.upload();
-				$startButton.text('暂停上传').one('click',function(){
-						webUploader.stop();
-						$(this).text('继续上传').one('click',function(){
-								uploadStart();
-						});
-				});
-			}
-
-			//绑定开始上传按钮;
-			$startButton.one('click',uploadStart);
-
-			//绑定取消全部按钮;
-			$cancelButton.bind('click',function(){
-				var fileArr = webUploader.getFiles( 'queued' );
-				$.each( fileArr ,function( i, v ){
-					removeLi( $('#fileBox_'+v.id), v.id, webUploader ,sliderContainer);
-				});
-			});
-
-		}
-
 		//添加子容器;
-		var li = '<li id="fileBox_'+file_id+'" class="diyUploadHover"> \
-					<div class="viewThumb"></div> \
-					<div class="diyCancel"></div> \
-					<div class="diySuccess" style="display:none;"></div> \
-					<div class="diyFileName">'+file.name+'</div>\
-					<div class="diyBar"> \
-							<div class="diyProgress"></div> \
-							<div class="diyProgressText">0%</div> \
-					</div> \
-				</li>';
+		var fileitem = '<div class="file-item" id="fileBox_'+file_id+'" style="width:0;">\
+					        <div class="file-item-wraper">\
+					            <div class="viewThumb">\
+					            </div>\
+					            <div class="status">\
+					            </div>\
+					            <a href="javascript:void(0);" class="close"></a>\
+					        </div>\
+					    </div>';
 
-		$parentFileBox.children('.fileBoxUl').append( li );
+		$fileInput.before( fileitem );
 
+		var $fileBox = $('#fileBox_'+file_id);
+		$fileBox.animate({'width':'33.3333333%'},200);
 
-		//父容器宽度;
-		var $width = $('.fileBoxUl>li').length * 180;
-		var $maxWidth = $fileInput.parent().width();
-		$width = $maxWidth > $width ? $width : $maxWidth;
-		$parentFileBox.width( $width );
-
-		var $fileBox = $parentFileBox.find('#fileBox_'+file_id);
 		//绑定取消事件;
-		var $diyCancel = $fileBox.children('.diyCancel').on('click',function(){
-			removeLi( $(this).parent('li'), file_id, webUploader ,sliderContainer);
-			console.log(uploadfiles.error.length)
+		$fileBox.find('.close').on('click',function(){
+			removeLi( $fileBox, file_id, webUploader ,sliderContainer);
 		});
 
 		if ( file.type.split("/")[0] != 'image' ) {
@@ -342,63 +269,35 @@
 		fileType = fileType[type] || 'txt';
 		return 	fileType+suffix;
 	}
-	//取消事件;
-	function removeLi ( $li ,file_id ,webUploader,container) {
-		if(webUploader != null)webUploader.removeFile( file_id );
-		if ( $li.siblings('li').length <= 0 ) {
-			$li.parents('.parentFileBox').remove();
-		} else {
-			$li.remove();
-		}
-		$("#slideImg"+file_id).remove();
-		if(container.find('.swiper-container').length > 0){
-			container.imgslider();
-		}
 
-	}
 
 	//创建文件操作div;
 	function updateBox( $fileInput, file ,sliderContainer) {
 		var file_id = file.id;
-		var $parentFileBox = $fileInput.next('.parentFileBox');
-
-		//添加父系容器;
-		if ( $parentFileBox.length <= 0 ) {
-
-			var div = '<div class="parentFileBox"> \
-						<ul class="fileBoxUl"></ul>\
-					</div>';
-			$fileInput.after( div );
-			$parentFileBox = $fileInput.next('.parentFileBox');
-
-		}
-
-
 		//添加子容器;
-		var li = '<li id="fileBox_'+file_id+'" class="diyUploadHover"> \
-					<div class="viewThumb"></div> \
-					<div class="diyCancel"></div> \
-					<div class="diySuccess" style="display:none;"></div> \
-					<div class="diyFileName"></div>\
-					<div class="diyBar"> \
-							<div class="diyProgress"></div> \
-							<div class="diyProgressText">0%</div> \
-					</div> \
-				</li>';
+		var fileitem = '<div class="file-item" id="fileBox_'+file_id+'">\
+					        <div class="file-item-wraper">\
+					            <div class="viewThumb">\
+					            </div>\
+					            <div class="status">\
+					            </div>\
+					            <a href="javascript:void(0);" class="close"></a>\
+					        </div>\
+					    </div>';
 
-		$parentFileBox.children('.fileBoxUl').append( li );
+		$fileInput.before( fileitem );
 
-		//父容器宽度;
-		var $width = $('.fileBoxUl>li').length * 180;
-		var $maxWidth = $fileInput.parent().width();
-		$width = $maxWidth > $width ? $width : $maxWidth;
-		$parentFileBox.width( $width );
+		var $fileBox = $('#fileBox_'+file_id);
+		//绑定取消事件;
+		$fileBox.find('.close').on('click',function(){
+			$fileBox.animate({'width':'0'},200,function(){
+				$fileBox.remove();
+			});
+			$("#slideImg"+file_id).remove();
 
-		var $fileBox = $parentFileBox.find('#fileBox_'+file_id);
-		//绑定取消事件
-		var $diyCancel = $fileBox.children('.diyCancel').on('click',function(){
-			removeLi( $(this).parent('li'), file_id, null ,sliderContainer);
-
+			if(sliderContainer){
+				sliderContainer.imgslider();
+			}
 		});
 
 		$fileBox.find('.viewThumb').append('<img src="'+file.src+'" >');
@@ -409,7 +308,7 @@
 		return this.each(function(){
 			var s = $(this);
 			$(".upload-image-dialog").addClass('open');
-			$(".upload-image-dialog .parentFileBox .fileBoxUl li").hide();
+			$(".upload-image-dialog .file-item").hide();
 			for(i=0;i<uploadfiles.success.length;i++){
 				if(uploadfiles.success[i].sliderContainer.is(s)){
 					$('#fileBox_'+uploadfiles.success[i].file.id).show();
