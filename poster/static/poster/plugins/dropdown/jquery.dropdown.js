@@ -109,7 +109,7 @@
 					$('#dp ul').hide();
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
-					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width(),documentH = $(document.body).height();
+					var diffY,offsetY,left,right,originX,originY,documentW = $(document).width(),documentH = $(document).height();
 					if(_option.followMouse){
 						originX = event.pageX,originY = event.pageY,diffY = 10,diffX = 0;
 						left = originX - dpw.width()/2;
