@@ -6,7 +6,7 @@
 
         return this.each(function(){
             _option = $.extend(opts,options);
-            var s = $(this),i = s.find('img').eq(0),v = s.find('video');
+            var s = $(this),i = s.find("img[class!='video-play']").eq(0),v = s.find('video');
             var vv = document.getElementById('video');
 
         var imgW,imgH,ow,oh;

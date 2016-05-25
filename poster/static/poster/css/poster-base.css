@@ -1603,3 +1603,28 @@ to {
 @media (min-width: 600px){
 	.yunye-template{ transform: scale(1.875, 1.875)!important;}
 }
+
+
+.video-js {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.poster-video-widget{
+    -webkit-clip-path: inherit;
+    clip-path: inherit;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.poster-video-widget .video-play {
+    position: absolute !important;
+    left: 33%;
+    top: 30%;
+    width: auto;
+    height: 30%;
+}
+.vjs-controls-disabled .vjs-poster {
+    display: inline-block;
+}
