@@ -4,12 +4,14 @@ $(function(){
 		$('.header-info .contact-info').hide();
 		hideMap();
 	});
+	$(document.body).on("touchstart",function(){
+		var bg_music = document.getElementById("background_music"); 
+		bg_music.play();
+		$(".header-music").addClass('rotate');
+		$(document.body).off("touchstart");
+	});
 	//4 abuttons in the first layer
 	////contact (phone & email & hours)
-                $('body').on('click tap swipeUp', function(){
-                            var bg_music = document.getElementById("background_music"); 
-                            bg_music.play();
-                });
 	$('a.abutton-contact').click(function(e){
 		hideMap();
 		var target_element = 'div.' + $(this).attr('for');
