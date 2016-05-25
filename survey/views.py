@@ -19,14 +19,37 @@ class IndexView(TemplateView):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		return context
 
+
+class QuestionnaireBlankView(View):
+	def get(self, request, **kwargs):
+		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
+		main_cat_name = poster.main_category.name
+		sub_cat_name = poster.sub_category.name
+		qs_title = "没有此类别的调查问卷"
+
+		contextdict = {'main_cat_name': main_cat_name,
+						'sub_cat_name': sub_cat_name,
+						'qs_title': qs_title,
+						'poster_id': poster.pk}
+		return render_to_response('questionset_blank.html', contextdict)
+
+	def post(self, request, **kwargs):
+		return HttpResponseRedirect('%s?poster_id=%s' % (
+			reverse('poster:select_template'),
+			self.kwargs['poster_id']))
+
+		
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
 		role = self.request.GET.get('role', '')
-		qu = get_object_or_404(Questionnaire, main_category=poster.main_category, 
-			sub_category=poster.sub_category, role=role)
-		qs = qu.questionsets()[0]
+		qu = Questionnaire.objects.filter(main_category=poster.main_category, 
+			sub_category=poster.sub_category, role=role).first()
+		if not qu:
+			kwargs = {'poster_id': poster.pk}
+			return reverse('survey:questionnaireblank', kwargs=kwargs)
 
+		qs = qu.questionsets()[0]
 		su = self.request.user
 		run = RunInfo(subject=su, questionset=qs, poster=poster)
 		run.save()
@@ -91,6 +114,9 @@ class QuestionnaireView(View):
 			kwargs = {'runid': runinfo.id,
 					'qs_sortid': sortid}
 			prev_url = reverse('survey:questionset', kwargs=kwargs)
+		else:
+			kwargs = {'pk': runinfo.poster.pk}
+			prev_url = reverse('poster:update_form', kwargs=kwargs)
 
 		progress = self.get_progress(runinfo)
 
@@ -241,4 +267,4 @@ class QuestionnaireView(View):
 		hist.questionnaire = questionnaire
 		hist.save()
 		runinfo.delete()
-		return HttpResponseRedirect(reverse('survey:questionnairedone'))
+		return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
