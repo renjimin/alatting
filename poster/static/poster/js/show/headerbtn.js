@@ -2,6 +2,10 @@ $(function(){
 
 	//4 abuttons in the first layer
 	////contact (phone & email & hours)
+                $('body').on('click tap swipeUp', function(){
+                            var bg_music = document.getElementById("background_music"); 
+                            bg_music.play();
+                });
 	$('a.abutton-contact').click(function(){
 		var target_element = 'div.' + $(this).attr('for');
 		var target_container = $('.header-info');
@@ -56,7 +60,7 @@ $(function(){
 			alert("You already subscribed it!");
 		}
 	});
-            //music
+              //music
             $('#music').click(function() {
                 var bg_music = document.getElementById("background_music"); 
                 if (bg_music.paused == false) {
@@ -118,7 +122,6 @@ function subscribed(){
 		}
 	})
 }
-
 /*$(document).ready(function () {
     //
     $('.header-music').click(function() {
