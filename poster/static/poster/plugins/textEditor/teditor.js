@@ -14,9 +14,9 @@ $(function(){
         e.stopPropagation();
         $('#text-model').animate({'bottom':'-300px'},200);
     });
-    postcontainer.on('click','.text-element',function(event){
+    postcontainer.on('click','.el-content',function(event){
         event.stopPropagation();
-        var ths = $(this);
+        var ths = $(this).parent();
         $('.cnd-element').removeClass('active');
         $('.text-element').removeClass('text-element-act').css('z-index','100');
         ths.addClass('text-element-act').css('z-index','110');
