@@ -98,6 +98,29 @@
                                  data-src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %} "/>
                         </a>
                     </div>
+                    <div class="det">
+        				<div class="head">
+        					<span class="time">11-3-2016</span>
+        					<a href="#" class="btn-share"><i class="icon ico-share"></i></a>
+        					<a href="#" class="btn-fav"><i class="icon ico-fav"></i></a>
+        				</div>
+        				<div class="middle">
+        					<div class="qrcode">
+        						<img src="{% static 'web/images/qrcode.jpg' %}" />
+        					</div>
+        				</div>
+        				<div class="bottom">
+        					<div class="uimg">
+        						<img src="{% static 'web/images/avatar.jpg' %}" />
+        					</div>
+        					<div class="uname">
+        						<span>Jry</span>
+        					</div>
+        					<div class="type">
+        						Business
+        					</div>
+        				</div>
+        			</div>
                 </div>
             </li>
         {% endfor %}

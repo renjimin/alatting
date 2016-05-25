@@ -3,6 +3,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from alatting_website.models import Category
+from utils.db.fields import BigAutoField, \
+    BigForeignKey
+from alatting_website.model.poster import Poster
 from survey import *
 
 
@@ -19,6 +22,13 @@ class Questionnaire(models.Model):
         related_name='sub_cat_qs',
         limit_choices_to={'parent__isnull': False},
         null=True
+    )
+    ROLE_CHOICES = (
+        ('creator', 'creator who creates the poster'),
+        ('consumer', 'consumer who wants to contact the poster creator')
+    )
+    role = models.CharField(
+        max_length=32, choices=ROLE_CHOICES, default='creator'
     )
 
     def __str__(self):
@@ -144,6 +154,7 @@ class Input(models.Model):
 class RunInfo(models.Model):
     "Store the active/waiting questionnaire runs here"
     subject = models.ForeignKey(User)
+    poster = BigForeignKey(Poster,blank=True, null=True)
     questionset = models.ForeignKey(QuestionSet, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
 
@@ -155,7 +166,9 @@ class RunInfo(models.Model):
 
 
 class Answer(models.Model):
+    id = BigAutoField(primary_key=True)
     subject = models.ForeignKey(User, help_text = u'The user who supplied this answer')
+    poster = BigForeignKey(Poster,blank=True, null=True)
     question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
     answer = models.TextField(blank=True, null=True)
     runid = models.CharField(max_length=32)
@@ -163,6 +176,7 @@ class Answer(models.Model):
 
 class RunInfoHistory(models.Model):
     subject = models.ForeignKey(User)
+    poster = BigForeignKey(Poster,blank=True, null=True)
     completed = models.DateField()
     questionnaire = models.ForeignKey(Questionnaire)
     runid = models.CharField(max_length=32)

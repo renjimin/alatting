@@ -116,6 +116,7 @@
 .qs-list .form-control{
     padding:0 6px;
     font-size: 18px;
+    display: inline-block;
 }
 .qs-list .sm-input-label {
     width: 50px;

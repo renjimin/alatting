@@ -56,6 +56,18 @@ $(function(){
 			alert("You already subscribed it!");
 		}
 	});
+            //music
+            $('#music').click(function() {
+                var bg_music = document.getElementById("background_music"); 
+                if (bg_music.paused == false) {
+                    bg_music.pause();
+                    $(".header-music").removeClass('rotate');
+                } else {
+                    bg_music.play();
+                    $(".header-music").addClass('rotate');
+                }
+            });
+
 });
 function liked(){
     $.post(likedURL).done(function(object){
