@@ -174,7 +174,7 @@ var scale = function(box,options){
             }
             var offsetAngle = angle - parseInt(s.opt.currentAngle);
 
-            s.o.css('transform', 'rotate('+offsetAngle+'deg)');
+            s.o.css({'transform': 'rotate('+offsetAngle+'deg)','-webkit-transform': 'rotate('+offsetAngle+'deg)','-moz-transform': 'rotate('+offsetAngle+'deg)','-o-transform': 'rotate('+offsetAngle+'deg)','-ms-transform': 'rotate('+offsetAngle+'deg)'});
             s.o.attr('data-rotate',offsetAngle);
         },
         'touchend':function(e){
@@ -434,6 +434,9 @@ var scale = function(box,options){
         /*编辑按钮*/
         editBtn.on('touchstart',function(e){
             if (e.originalEvent) e = e.originalEvent;e.preventDefault();
+            if(!$('#feedback-toggle').hasClass('open')){
+                $('#feedback-toggle').click();
+            }
             elebtn = $(e.currentTarget).parent().find('.element');
             addButton(elebtn);
         })

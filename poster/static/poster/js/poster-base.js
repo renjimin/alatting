@@ -63,10 +63,19 @@ $(function () {
         /*读取主体部分*/
         if (storageAPI.getHtml()) {
             $(".yunye-template").remove();
-            $(".container-fluid").append(storageAPI.getHtml());
+            $(".container-fluid").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
         }
         var templateScale = $('body').width()/$('.yunye-template').width();
-        $('.yunye-template').css({'transform':'scale('+templateScale+','+templateScale+')'});
+        var templateScaleOpt =
+            '-webkit-transform:scale('+templateScale+','+templateScale+');'
+           +   '-moz-transform:scale('+templateScale+','+templateScale+');'
+           +     '-o-transform:scale('+templateScale+','+templateScale+');'
+           +    '-ms-transform:scale('+templateScale+','+templateScale+');'
+           +        'transform:scale('+templateScale+','+templateScale+');'
+
+        $('.yunye-template').attr('style',templateScaleOpt);
+        $('.template-box').height($('.yunye-template').height()*templateScale);
+
 
     };
 
@@ -189,7 +198,7 @@ $(function () {
                         storageAPI.setCss(".header", {'background': color});
                     });
                 }
-            },       
+            },
             {
                 icon: "icon ico-system-pic",
                 text: "背景图片",
