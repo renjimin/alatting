@@ -1600,12 +1600,34 @@ to {
 	display: none;
 	vertical-align: middle;
 	text-align: center;
-	margin-left: 3%;
-	margin-right: 1%;
 }
 .contact-info .icon{
 	margin-left: 10px;
 	margin-top: 2px;
 	font-size: 22px;
 	vertical-align: middle;
+}
+
+.video-js {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.poster-video-widget{
+    -webkit-clip-path: inherit;
+    clip-path: inherit;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.poster-video-widget .video-play {
+    position: absolute !important;
+    left: 35%;
+    top: 30%;
+    width: auto;
+    height: 30%;
+}
+.vjs-controls-disabled .vjs-poster {
+    display: inline-block;
 }

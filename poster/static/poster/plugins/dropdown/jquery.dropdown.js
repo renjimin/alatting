@@ -102,18 +102,14 @@
 					if(!_option.suspendFun())return false;
 				}*/
 				$(document).trigger("clsdp");
-				if(dpw.hasClass('open') && $('#'+_option.id).is(':visible') ){
-					dpw.attr('class', '').removeClass('open');
+				if(dpw.hasClass('open')){
+					dpw.attr('class', '');
 				}else{
 					dpw.attr('class', '').attr('style', '');
-					
-					if(dpw.addClass('popUp').hasClass("open")){
-
-					}
 					$('#dp ul').hide();
 					$('#'+_option.id).show();
 					dpw.addClass('popUp').addClass('open');
-					var diffY,offsetY,left,right,originX,originY,documentW = $(document.body).width(),documentH = $(document.body).height();
+					var diffY,offsetY,left,right,originX,originY,documentW = $(document).width(),documentH = $(document).height();
 					if(_option.followMouse){
 						originX = event.pageX,originY = event.pageY,diffY = 10,diffX = 0;
 						left = originX - dpw.width()/2;

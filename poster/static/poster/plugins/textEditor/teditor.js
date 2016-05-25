@@ -1,11 +1,11 @@
 $(function(){
     $('#text-element-act').tEditor({});
-    var postcontainer = $('.container-fluid').children('.yunye-template');
+    var postcontainer = $('.container-fluid').find('.yunye-template');
     $('#share-toggle').on('click',function(e){
         e.stopPropagation();
         $('.dropdown-panel').removeClass('open');
         $('.dropdown-toggle').removeClass('open');
-        var cnd = $('<div class="cnd-element text-element"><div class="el-content">请修改文字</div><div class="el-rotate"></div><div class="el-editor"></div></div>');
+        var cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-rotate"></div><div class="el-editor"></div></div>');
         postcontainer.append(cnd);
         cnd.css({'top':'20px','left':'100px'});
     });

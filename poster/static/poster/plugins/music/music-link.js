@@ -11,10 +11,7 @@
             '</div>' +
         '</div></div>';
 
-    var audioDom = '<audio width="100%" autoplay>' +
-            '<source src="{0}" type="audio/mp3>' +
-            '<source src="{0}" type="audio/wav">' +
-            '<source src="{0}" type="audio/ogg">' +
+    var audioDom = '<audio  id = "background_music" width="100%" autoplay src="{0}">' +
         '</audio>';
 
     var getAudioDomDom = function(url){
@@ -72,6 +69,14 @@
                     }
                     //$(".audiolink").remove();
                     setResourcePreview(text);
+                    var bg_music = document.getElementById("background_music"); 
+                    if (bg_music.paused == false) {
+                        bg_music.pause();
+                        $(".header-music").removeClass('rotate');
+                    } else {
+                        bg_music.play();
+                        $(".header-music").addClass('rotate');
+                   }                      
                     $.fn.yunyeStorage.setHead('music',text);
                     console.log($.fn.yunyeStorage.setHead('music',text))
                     $(".music-link-layout-wrap").hide();     
