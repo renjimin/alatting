@@ -23,6 +23,13 @@ class Questionnaire(models.Model):
         limit_choices_to={'parent__isnull': False},
         null=True
     )
+    ROLE_CHOICES = (
+        ('creator', 'creator who creates the poster'),
+        ('consumer', 'consumer who wants to contact the poster creator')
+    )
+    role = models.CharField(
+        max_length=32, choices=ROLE_CHOICES, default='creator'
+    )
 
     def __str__(self):
         return '%s' % (self.name)
