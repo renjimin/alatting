@@ -125,6 +125,13 @@ class PosterView(DetailView):
         obj = super(PosterView, self).get_object(queryset)
         self.set_life_time(obj)
 
+        # tailor mobile format, if no mobile then copy phone
+        if not obj.mobile and obj.phone:
+            obj.mobile = obj.phone
+        if len(obj.mobile) <= 10:
+            obj.mobile = '%s-%s-%s' % (
+                obj.mobile[:3], obj.mobile[3:6], obj.mobile[6:]
+            )
         # prepare email content to send
         url_detail = '\nquote:\n"%s\n%s\n"' % (
             obj.short_description,
