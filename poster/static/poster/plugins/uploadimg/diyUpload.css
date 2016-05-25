@@ -5,8 +5,11 @@
 .webuploader-container
 {
     position: relative;
-
-    padding: 31px 4px 10px 4px;
+    margin:15px 0 0;
+    padding:0 10px;
+    width:33.3333333%;
+    height:140px;
+    float:left;
 }
 .webuploader-element-invisible
 {
@@ -15,30 +18,43 @@
     clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
     clip: rect(1px,1px,1px,1px);
 }
+
+
 .webuploader-pick
 {
-    font-size: 16px;
-    line-height: 45px;
-
     position: relative;
-
-    display: inline-block;
+    width:100%;
+    height:100%;
+    left: 0;
+    top:0;
+    display: block;
     overflow: hidden;
-
-    height: 45px;
-    padding: 0 20px;
-    padding-left: 50px;
-
+    text-indent: -9999px;
+    overflow: hidden;
     cursor: pointer;
     text-align: center;
+    background: #eee;
+}
+.webuploader-pick:before{
+    content:"";
+    display:block;
+    position: absolute;
+    top:50%;
+    left:50%;
+    margin-left:-30px;
+    margin-top:-30px;
+    width:60px;
+    height: 60px;
+    border-radius: 50%;
+    background: url(../../images/file-plus.png) center center no-repeat;
+    background-size:100% 100%;
+}
 
-    color: #fff;
-    border-radius: 3px;
-    background-color: #00a2d4;
-    background-image: url(../../images/addimg.png);
-    background-repeat: no-repeat;
-    background-position: left center;
-    background-size: auto 80%;
+.webuploader-container:active .webuploader-pick{
+    background:#e1e1e1;
+}
+.webuploader-container:active .webuploader-pick:before{
+    box-shadow:0 0 3px #666;
 }
 .webuploader-pick-hover
 {
@@ -51,8 +67,88 @@
 
     opacity: .6;
 }
+.file-item-wraper{
+    position:relative;
+    width:100%;
+    height:100%;
+}
+.file-item{
+    width:33.3333333%;
+    height:140px;
+    float:left;
+    margin:15px 0 0;
+    padding:0 8px;
+    position: relative;
+}
+.file-item .viewThumb{
+    width:100%;
+    height:140px;
+    background: #eee;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+}
+.file-item .viewThumb img{
+    width:100%;
+}
+.file-item .close{
+    width: 24px;
+    height: 24px;
+    display: block;
+    background: url(../../images/x_alt.png) center center no-repeat;
+    background-size:100% 100%;
+    opacity:0.6;
+    position: absolute;
+    top:-5px;
+    right:-5px;
+}
+.file-item .status{
+    position:absolute;
+    height:30px;
+    line-height: 30px;
+    background: rgba(0,0,0,0.6);
+    color:#fff;
+    text-align: center;
+    width:100%;
+    top:50%;
+    margin-top:-15px;
+    opacity:0;
+    transition: all .2s;
+}
+.file-item .status.success{
+    background:rgba(0,140,230,.6);
+    opacity:1;
+}
+.file-item .status.error{
+    background: rgba(0,0,0,0.6);
+    opacity:1;
+}
+.file-bottom{
+    clear:both;
+    text-align: center;
+    padding:30px 0 0;
+}
+.file-bottom .btn{
+    line-height:26px;
+    color:#fff;
+    background:#008de6;
+    min-width:100px;
+}
 /*end*/
-
+.fileBar{
+    position: absolute;
+    z-index:20;
+    width:100%;
+    height:2px;
+    top:40px;
+    left: 0;
+}
+.fileProgress{
+    position:relative;
+    width: 0;
+    height:100%;
+    background: rgba(0,140,230,.9);
+}
 
 .parentFileBox
 {
@@ -303,7 +399,7 @@
     width: 100%;
     height: 100%;
     /*display: none;*/
-    padding-top: 40px;
+    padding: 50px 5px 0 5px;
 
     -webkit-transition: all .2s;
             transition: all .2s;

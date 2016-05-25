@@ -51,9 +51,10 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
             buttonConfirm(newbtn);
         });
         s.upload = function(o){
+
             o.html(opts.text);
             o.attr({
-                'href':opts.href,
+                'href':opts.href.replace(/^http:\/\//i, ''),
                 'data-action':opts.buttonAction
             })
             var rgb = colorRgb(opts.background);
