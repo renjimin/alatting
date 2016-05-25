@@ -1580,6 +1580,9 @@ to {
 	top: 0;
 	left: 0;
 }
+.template-box{
+	overflow:hidden;
+}
 .body-container{
 	height:100%;
 }
