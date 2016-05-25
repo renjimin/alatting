@@ -6,6 +6,10 @@ $(function(){
 	});
 	//4 abuttons in the first layer
 	////contact (phone & email & hours)
+                $('body').on('click tap swipeUp', function(){
+                            var bg_music = document.getElementById("background_music"); 
+                            bg_music.play();
+                });
 	$('a.abutton-contact').click(function(e){
 		hideMap();
 		var target_element = 'div.' + $(this).attr('for');
@@ -147,3 +151,4 @@ function subscribed(){
 		}
 	})
 }
+
