@@ -113,7 +113,8 @@
     display: inline-block;
 }
 .qs-list .sm-input-label {
-    width: 50px;
+    width: 40px;
+    font-weight: normal;
 }
 .qs-list-input-group.row {
     padding-top: 10px;
