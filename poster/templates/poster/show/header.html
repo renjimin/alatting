@@ -30,10 +30,42 @@
                     <li><a href="#" class="abutton-contact" extended="false" for="hour"><i class="icon ico-clock"></i></a></li>
                 </ul>
                 <ul class="abutton-group abutton-express" >
-                    <li><a href="#" class="abutton-like"><i class="icon ico-like"></i></a></li>
-                    <li><a href="#" class="abutton-bookmark"><i class="icon ico-bookmark"></i></a></li>
-                    <li><a href="#" class="abutton-subscribe"><i class="icon ico-subscribe"></i></a></li>
-                    <li><a href="#" class="abutton-fun"><i class="icon ico-fun"></i></a></li>
+                    <li>
+                        <a href="#" class="abutton-like">
+                            {% if poster.abutton_like_enabled == 1 %}
+                                <i class="icon ico-like"></i>
+                            {% else %}
+                                <i class="icon ico-like abutton-disabled"></i>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="abutton-bookmark">
+                            {% if object.abutton_bookmark_enabled == 1 %}
+                                <i class="icon ico-bookmark"></i>
+                            {% else %}
+                                <i class="icon ico-bookmark abutton-disabled"></i>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="abutton-subscribe">
+                            {% if object.abutton_subscribe_enabled == 1 %}
+                                <i class="icon ico-subscribe"></i>
+                            {% else %}
+                                <i class="icon ico-subscribe abutton-disabled"></i>
+                            {% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="abutton-fun">
+                            {% if object.abutton_fun_enabled == 1 %}
+                                <i class="icon ico-fun"></i>
+                            {% else %}
+                                <i class="icon ico-fun abutton-disabled"></i>
+                            {% endif %}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -43,13 +75,32 @@
             <span id="short_description" style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
         </div>
         <div class="contact-info phone">
-            {{ poster.phone }}<i class="icon ico-phone"></i>
+            {{ poster.mobile }}
+            <a class="abutton-contact-info" href="tel: {{poster.mobile}}">
+                <i class="icon ico-phone"></i>
+            </a>
         </div>
         <div class="contact-info email">
-            {{ poster.email }}<i class="icon ico-email"></i>
+            {{ poster.email }}
+            <a class="abutton-contact-info" href="mailto:{{ poster.email }}?{{ poster.email_content|safe }}">
+                <i class="icon ico-email"></i>
+            </a>
         </div>
         <div class="contact-info hour">
-            {{ poster.lifetime }}<i class="icon ico-clock"></i>
+            {{ poster.hours }}
+            <span class="poster-lifetime-status"> {{ poster.hours_status }} </span>
+            <a href="#" class="more-info">
+                <img src="{% static 'website/images/icons/more_icon.png' %}">
+            </a>
+            <div class="poster-top-inform-more">
+                <table class="hours-more-details">
+                 {% for day, day_hours in poster.hours_details.items %}
+                    <tr>
+                        <th>{{ day }}</th><td>{{ day_hours|safe }}</td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
         </div>
         <div class="contact-info location">
             {{ poster.address }}<i class="icon ico-address"></i>

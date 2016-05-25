@@ -34,7 +34,7 @@ class PosterView(DetailView):
         day_now = now.strftime('%Y-%m-%d')
         obj.day_now = day_now
         hours_available = False
-        hours_info = 'Hours Today: Disabled'
+        hours_info = u'营业时间：'
         hours_details = OrderedDict()
         try:
             hours_all = json.loads(obj.lifetime_value,
@@ -92,7 +92,7 @@ class PosterView(DetailView):
             for day, day_hours in hours_all.items():
                 if 'enabled' in day_hours and day_hours['enabled']:
                     if 'time_start' in day_hours and day_hours['time_start']:
-                        hours_detail = '%s - %s' % (
+                        hours_detail = u'%s - %s' % (
                             day_hours['time_start'], day_hours['time_end']
                         )
                     else:
@@ -101,16 +101,16 @@ class PosterView(DetailView):
                         hours_detail += '<br/>' + day_hours['message']
                 else:
                     if 'time_start' in day_hours and day_hours['time_start']:
-                        hours_detail = '%s - %s (closed temporarily)' % (
+                        hours_detail = u'%s - %s (暂停营业)' % (
                             day_hours['time_start'],
                             day_hours['time_end']
                         )
                     else:
-                        hours_detail = 'closed'
+                        hours_detail = u'休息'
                 hours_details[day] = hours_detail
         except ValueError:
                 pass
-        obj.hours_status = 'Open' if hours_available else 'Closed'
+        obj.hours_status = u'营业中' if hours_available else '休息'
         obj.hours = hours_info
         obj.hours_details = hours_details
 
