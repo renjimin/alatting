@@ -1,6 +1,7 @@
 import codecs
 from PIL import Image
 from django.conf import settings
+from utils.capture.video import Video
 
 __author__ = 'tiger'
 import uuid
@@ -181,3 +182,19 @@ def rotate_image(image_path):
         except:
             # todo:lyh:写入错误日志
             pass
+
+
+def get_video_preview_image_url(file):
+    url = ''
+    try:
+        preview_format = ".jpg"
+        src = file.path
+        dst = os.path.splitext(src)
+        dst = "%s%s" % (dst[0], preview_format)
+        if Video.extract_frame(src, dst):
+            dst = os.path.splitext(file.url)
+            url = dst[0] + preview_format
+    except Exception as e:
+        # todo:写入错误日志
+        pass
+    return url

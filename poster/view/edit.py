@@ -1,5 +1,6 @@
 # coding=utf-8
-from django.http import Http404
+from django.core.exceptions import PermissionDenied
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404
 from django.views.generic import DetailView
 from alatting_website.model.poster import Poster, PosterPage
@@ -11,9 +12,17 @@ class PosterEditView(DetailView):
     template_name = 'poster/edit/edit.html'
 
     def get_object(self, queryset=None):
-        return get_object_or_404(PosterPage,
-                                 pk=self.kwargs.get('pk'),
-                                 poster_id=self.kwargs.get('poster_pk'))
+        poster = Poster.objects.filter(
+            pk=self.kwargs.get('poster_pk'),
+            creator=self.request.user
+        ).first()
+        if not poster:
+            raise PermissionDenied
+        return get_object_or_404(
+            PosterPage,
+            pk=self.kwargs.get('pk'),
+            poster=poster
+        )
 
     def get_context_data(self, **kwargs):
         ctx = super(PosterEditView, self).get_context_data(**kwargs)

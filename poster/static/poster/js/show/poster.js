@@ -9,6 +9,9 @@ $(function(){
        +     '-o-transform:scale('+templateScale+','+templateScale+');'
        +    '-ms-transform:scale('+templateScale+','+templateScale+');'
        +        'transform:scale('+templateScale+','+templateScale+');'
-
+    var templateBox = $('<div class="template-box"></div>')
+    $('.yunye-template').parent().append(templateBox);
+    templateBox.append($('.yunye-template'));
     $('.yunye-template').attr('style',templateScaleOpt);
+    $('.template-box').height($('.yunye-template').height()*templateScale);
 });

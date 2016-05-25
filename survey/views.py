@@ -22,12 +22,10 @@ class IndexView(TemplateView):
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
-		qu = Questionnaire.objects.filter(main_category=poster.main_category, 
-			sub_category=poster.sub_category).first()
-		try:
-			qs = qu.questionsets()[0]
-		except:
-			pass
+		role = self.request.GET.get('role', '')
+		qu = get_object_or_404(Questionnaire, main_category=poster.main_category, 
+			sub_category=poster.sub_category, role=role)
+		qs = qu.questionsets()[0]
 
 		su = self.request.user
 		run = RunInfo(subject=su, questionset=qs, poster=poster)

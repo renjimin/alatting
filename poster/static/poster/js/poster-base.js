@@ -63,7 +63,7 @@ $(function () {
         /*读取主体部分*/
         if (storageAPI.getHtml()) {
             $(".yunye-template").remove();
-            $(".container-fluid").append(storageAPI.getHtml());
+            $(".container-fluid").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
         }
         var templateScale = $('body').width()/$('.yunye-template').width();
         var templateScaleOpt =
@@ -74,6 +74,8 @@ $(function () {
            +        'transform:scale('+templateScale+','+templateScale+');'
 
         $('.yunye-template').attr('style',templateScaleOpt);
+        $('.template-box').height($('.yunye-template').height()*templateScale);
+
 
     };
 
@@ -196,7 +198,7 @@ $(function () {
                         storageAPI.setCss(".header", {'background': color});
                     });
                 }
-            },       
+            },
             {
                 icon: "icon ico-system-pic",
                 text: "背景图片",
