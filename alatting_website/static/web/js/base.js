@@ -23,7 +23,7 @@ $(document).ready(function(){
         event.stopPropagation();
     });
     /* 海报列表hover效果 */
-    $('.poster-list .poster-item').hover(function(){
+    $('#posters .poster-item').hover(function(){
         $(this).addClass('hover');
     },function(){
         $(this).removeClass('hover');
@@ -34,11 +34,13 @@ $(document).ready(function(){
         $('#searchBar').removeClass('open');
     });
 
+    $('.poster-list .poster-item').imgshow();
+
 });
 
 
 
-/*返回顶部*/
+//返回顶部
 var $backToTopTxt="", $backToTopEle = $('.gotop')
         .click(function() {
             $("html, body").animate({ scrollTop:0 }, 300);
