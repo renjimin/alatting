@@ -56,6 +56,7 @@ $(function(){
 			alert("You already subscribed it!");
 		}
 	});
+            //music
             $('#music').click(function() {
                 var bg_music = document.getElementById("background_music"); 
                 if (bg_music.paused == false) {
