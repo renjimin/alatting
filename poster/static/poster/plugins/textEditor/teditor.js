@@ -39,9 +39,9 @@ $(function(){
         },1000);
     }
     */
-    postcontainer.on('click','#ele-editor-ctrl',function(e){
-        e.stopPropagation();
+    postcontainer.on('click','#ele-editor-ctrl',function(event){
         $(document).trigger('clsdp');
+        event.stopPropagation();
         var bot = parseInt($('#text-model').css('bottom'));
         if(bot<0){
             $('#text-model').animate({'bottom':'0px'},200);
