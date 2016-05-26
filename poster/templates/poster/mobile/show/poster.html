@@ -30,6 +30,7 @@
 {% block base_head_title %}{{ poster.unique_name }}{% endblock %}
 
 {% block base_header_css %}
+    {{ block.super }}
     <link rel="stylesheet" href="{% static 'poster/plugins/slider/swiper.css' %}">
     <link rel="stylesheet" href="{% static 'libs/common/video-js5.0.0.css' %}">
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/font-awesome4.5.0.min.css' %}">
