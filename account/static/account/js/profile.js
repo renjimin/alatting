@@ -3,70 +3,33 @@
  */
 $(function(){
 
+    var wh = $(window).height();
+    var bh = $('.body-header').height();
+    $('#body-vip').css({'height':(wh-bh)+'px','top':bh+'px'});
+
     var serverProvideTmpl = $('#serverProvideTmpl').html();
     $.template('serverProvideTmpl',serverProvideTmpl);
     var serverNeedTmpl = $('#serverNeedTmpl').html();
     $.template('serverNeedTmpl',serverNeedTmpl);
+    var defImg = '/static/account/img/hb001.png';
+
+    ///*
+    // 静态数据
     var data = [
         {
             posterid:1,
             snapshot:'/static/account/img/hb001.png',
             postername:'yigehaibao2'
-        },
-        {
-            posterid:2,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao3'
-        },
-        {
-            posterid:3,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao4'
-        },
-        {
-            posterid:4,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao5'
-        },
-        {
-            posterid:3,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao4'
-        },
-        {
-            posterid:4,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao5'
-        },
-        {
-            posterid:3,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao4'
-        },
-        {
-            posterid:4,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao5'
         }
     ];
-    for(var i=0;i<data.length;i++){
-        $.tmpl('serverProvideTmpl',data[i]).appendTo('#main-provide');
-        $.tmpl('serverNeedTmpl',data[i]).appendTo('#main-need');
+    for(var i=0;i<8;i++){
+        $.tmpl('serverProvideTmpl',data[0]).appendTo('#main-provide');
+        $.tmpl('serverNeedTmpl',data[0]).appendTo('#main-need');
     }
-    $(document).scroll(function(){
-        var h = $('.body-header').outerHeight();
-        var sh = $('body').scrollTop();
-        if(sh>h){
-            $('#main-head').css('position','fixed');
-        }else{
-            $('#main-head').css('position','absolute');
-        }
-        if(sh>h){
-            $('#ctrl-add').css({'position':'fixed','top':'50px'});
-        }else{
-            $('#ctrl-add').css({'position':'absolute','top':'10px'});
-        }
-    });
+    showLoading(false);
+    //*/
+
+
     /*
     $.ajax({
         type: 'GET',
@@ -81,9 +44,9 @@ $(function(){
             yyAlert("data error");
         }
     });
+    */
 
-    var serverProvideTmpl = $('#serverProvideTmpl').html();
-    $.template('serverProvideTmpl',serverProvideTmpl);
+    /*
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/server',
@@ -91,25 +54,19 @@ $(function(){
             for(var i=0;i<data.length;i++){
                 var pd = {
                     posterid:data[i].id,
-                    snapshot:data[i].snapshot,
+                    snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
                     postername:data[i]['unique_name']
                 };
                 $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
             }
         },
         error: function(xhr, status, statusText){
-            if(xhr.status == 403) {
-                yyAlert("用户名已经存在,请更换");
-            }else if(xhr.status == 401) {
-                yyAlert("请使用"+text+"注册");
-            }
-            else{
-                yyAlert("参数错误");
-            }
+            yyAlert("服务超时,请稍候再试!");
         }
     });
-    var serverNeedTmpl = $('#serverNeedTmpl').html();
-    $.template('serverNeedTmpl',serverNeedTmpl);
+    */
+
+    /*
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/consumer',
@@ -117,25 +74,52 @@ $(function(){
             for(var i=0;i<data.length;i++){
                 var pd = {
                     posterid:data[i].id,
-                    snapshot:data[i].snapshot,
+                    snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
                     postername:data[i]['unique_name']
                 };
                 $.tmpl('serverNeedTmpl',pd).appendTo('#main-need');
             }
         },
         error: function(xhr, status, statusText){
-            if(xhr.status == 403) {
-                yyAlert("用户名已经存在,请更换");
-            }else if(xhr.status == 401) {
-                yyAlert("请使用"+text+"注册");
-            }
-            else{
-                yyAlert("参数错误");
-            }
+            yyAlert("服务超时,请稍候再试!");
         }
     });
-*/
-    $('.p-cont').on('click',function(event){
+    */
+
+    /*fix main-head*/
+    $(document).scroll(function(){
+        var h = $('.body-header').outerHeight();
+        var sh = $('body').scrollTop();
+        if(sh>h){
+            $('#main-head').css('position','fixed');
+            $('#ctrl-add').css({'position':'fixed','top':'50px'});
+        }else{
+            $('#main-head').css('position','absolute');
+            $('#ctrl-add').css({'position':'absolute','top':'10px'});
+        }
+    });
+    /* create new poster */
+    $('#ctrl-add').on('click',function(){
+        location.href='/?main_category_id=1';
+    });
+    /* user-level */
+    $('.user-level').on('click',function(event){
+        event.stopPropagation();
+        var tur = $('#body-vip');
+        var view = tur.css('display');
+        if(view == 'block'){
+            $('.body-container').css({'overflow':'auto','height':'auto'});
+            tur.css('display','none');
+        }else{
+            $('.body-container').css({'overflow':'hidden','height':wh+'px'});
+            tur.css('display','block');
+            showProcess(50);
+        }
+    });
+
+
+    /* show the current poster controller */
+    $('.body-main').on('click','.p-cont',function(event){
         event.stopPropagation();
         var ths = $(this);
         var obj = ths.next();
@@ -151,68 +135,72 @@ $(function(){
             moveCtrl(obj,true);
         }
     });
-    $('.p-ctrl').on('click',function(){
+    /* hide the current poster controller */
+    $('.body-main').on('click','.p-ctrl',function(){
         $(this).parent().parent().removeClass('main-li-act');
         moveCtrl($(this),false);
     });
-    /*user-level*/
-    $('.user-level').on('click',function(event){
-        event.stopPropagation();
-        $('#body-vip').toggle();
-        showProcess(50);
-    })
-    /*view*/
-    $('.ctrl-view').on('click',function(event){
+    /* view */
+    $('.body-main').on('click','.ctrl-view',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         var pageType= $('#pageType').val();
         if(pageType == 'provide'){
-            console.log('view:provide:'+id);
+            //console.log('view:provide:'+id);
+            location.href = '/mobile/account/posters/'+id+'/server.html';
         }else{
             location.href = '/mobile/account/posters/'+id+'/consumer.html';
         }
     });
-    /*favorite*/
-    $('.ctrl-favorite').on('click',function(event){
+    /* favorite */
+    $('.body-main').on('click','.ctrl-favorite',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         console.log('favorite:'+id);
+        var status = $(this).attr('data-fav');
+        if(status == 0){
+            $(this).find('.fa').css('color','#feba01');
+            $(this).attr('data-fav','1');
+        }else{
+            $(this).find('.fa').css('color','#808080');
+            $(this).attr('data-fav','0');
+        }
     });
-    /*statistics*/
-    $('.ctrl-statistics').on('click',function(event){
+    /* statistics */
+    $('.body-main').on('click','.ctrl-statistics',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         console.log('statistics:'+id);
 
     });
-    /*share*/
-    $('.ctrl-share').on('click',function(event){
+    /* share */
+    $('.body-main').on('click','.ctrl-share',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         $('#shareId').val(id);
+        $('.main-li').removeClass('main-li-act');
         moveCtrl($(this).parent(),false);
         moveShareBtn(true);
         console.log('share:'+id);
     });
-    /*edit*/
-    $('.ctrl-edit').on('click',function(event){
+    /* edit */
+    $('.body-main').on('click','.ctrl-edit',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         console.log('edit:'+id);
-
     });
-    /*delete*/
-    $('.ctrl-delete').on('click',function(event){
+    /* delete */
+    $('.body-main').on('click','.ctrl-delete',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         console.log('delete:'+id);
 
     });
-    /*quit share*/
+    /* quit share */
     $('#body-share').on('click',function(){
         moveShareBtn(false);
     });
-    /*poster-list switchover*/
+    /* poster-list switchover */
     $('.head-bot-li').on('click',function(){
         var ths =$(this);
         var item = ths.attr('data-item');
@@ -287,7 +275,6 @@ $(function(){
             var ths=$(this);
             setTimeout(function(){
                 if(hold){
-                    ths.next().fadeIn(200);
                     moveCtrl(ths.next(),true);
                 }
             },1000);
@@ -300,14 +287,12 @@ $(function(){
     var ptm=0;
     function showProcess(percent){
         var rate=2;
-        var t= setTimeout(function(){
+        setTimeout(function(){
             if(ptm<percent*rate){
                 ptm++;
                 $('#vip-process').text(ptm/rate);
                 drawProcess();
                 showProcess(percent);
-            }else{
-                clearTimeout(t);
             }
         },10);
     }
@@ -338,6 +323,13 @@ $(function(){
             context.fillStyle = 'rgba(51,51,51,1)';
             context.fill();
         });
+    }
+    function showLoading(type){
+        if(type){
+            $('#body-loading').show();
+        }else{
+            $('#body-loading').hide();
+        }
     }
 })
 

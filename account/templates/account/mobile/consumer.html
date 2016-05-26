@@ -32,6 +32,7 @@
             </div>
         </div>
         <div class="header-right">
+            <div class="hd-close" id="page-close"><i class="fa fa-times"></i></div>
             <div class="hd-left-img">
                 {% if poster.snapshot %}
                     <img src="{{ poster.snapshot.url }}">
@@ -220,6 +221,9 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="body-loading" id="body-loading">
+        <img src="{% static 'poster/images/loading.gif' %}" alt="loading">
     </div>
 {% endblock %}
 

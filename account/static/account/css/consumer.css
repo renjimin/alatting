@@ -42,7 +42,27 @@
     height: 100%;
     display: block;
 }
+.hd-close{
+    position: absolute;
+    right: 10px;
+    z-index: 9;
+    width: 30px;
+    height: 30px;
+    background: #ffffff;
+    color: #5e5e5e;
+    text-align: center;
+    padding: 5px 0;
 
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-box-shadow: 0 0 10px #5e5e5e;
+    -moz-box-shadow: 0 0 10px #5e5e5e;
+    box-shadow:  0 0 10px #5e5e5e;
+}
+.hd-close .fa{
+    font-size: 20px;
+}
 /*body-main*/
 .body-main{
     background: #ffffff;

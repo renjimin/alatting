@@ -54,7 +54,6 @@
                 <div class="ctrl-icon"><i class="fa fa-plus"></i></div>
             </div>
         </div>
-
         <div class="main-list main-need" id="main-need"></div>
     </div>
     <div class="body-share" id="body-share">
@@ -87,6 +86,7 @@
             </ul>
         </div>
     </div>
+    <div class="body-loading" id="body-loading"><img src="{% static 'poster/images/loading.gif' %}" alt="loading"></div>
     <script id="serverProvideTmpl" type="text/x-jquery-tmpl">
         <div class="main-li">
             <div class="mli-cont">
@@ -153,7 +153,7 @@
                         <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
                         <span class="ctrl-name">查看</span>
                     </div>
-                    <div class="p-ctrl-li ctrl-righttop ctrl-favorite">
+                    <div class="p-ctrl-li ctrl-righttop ctrl-favorite" data-fav="0">
                         <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
                         <span class="ctrl-name">收藏</span>
                     </div>
