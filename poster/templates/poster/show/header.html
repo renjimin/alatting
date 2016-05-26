@@ -90,9 +90,9 @@
             {{ poster.hours }}
             <span class="poster-lifetime-status"> {{ poster.hours_status }} </span>
             <a href="#" class="more-info">
-                <img src="{% static 'website/images/icons/more_icon.png' %}">
+                <img src="{% static 'website/images/icons/more_icon.png' %}" style="width: 30px;height: 30px;">
             </a>
-            <div class="poster-top-inform-more">
+            <div class="poster-top-inform-more" style="display: none;">
                 <table class="hours-more-details">
                  {% for day, day_hours in poster.hours_details.items %}
                     <tr>
@@ -107,7 +107,7 @@
         </div>
     </div>
 </header>
-<div style="position:absolute;padding: 10px;width: 100%;height: 300px;visibility: hidden;z-index: 20;">
+<div style="position:absolute;padding: 0 10px 10px 10px;width: 100%;height: 300px;visibility: hidden;z-index: 20;">
     <div id="allmap" style="width: 100%;height: 100%;"></div>
 </div>
 <div class = "audiolink"></div>

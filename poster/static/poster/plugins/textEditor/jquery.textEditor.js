@@ -112,6 +112,8 @@
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
             var cont = $('#tt-content').val();
+            cont = cont.replace(/<\/?.+?>/g,"");
+            cont = cont.replace(/&nbsp;/g,"")
             cont = cont.replace('\n','<br>');
             if(option.pluginType == 'main'){
                 $element.find('.el-content').html(cont);

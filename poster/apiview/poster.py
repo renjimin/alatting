@@ -27,12 +27,6 @@ from utils.file import handle_uploaded_file, get_image_path, save_file, \
     read_template_file_content
 
 
-def set_dev_request_user(request):
-    if settings.IS_FRONTEND_DEV and isinstance(request.user, AnonymousUser):
-        setattr(request, 'user', User.objects.filter(username='admin').first())
-        pass
-
-
 class PosterSimpleInfoListView(ListAPIView):
     model = Poster
     serializer_class = PosterSimpleInfoSerializer
@@ -74,10 +68,6 @@ class PosterListView(ListCreateAPIView):
         status=Poster.STATUS_PUBLISHED
     ).order_by('-created_at')
     permission_classes = (IsAuthenticated, )
-
-    def post(self, request, *args, **kwargs):
-        set_dev_request_user(request)
-        return super(PosterListView, self).post(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         address = self.request.data.get('address', None)

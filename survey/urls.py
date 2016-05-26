@@ -3,7 +3,7 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from survey.views import IndexView, StartView, QuestionnaireView, \
-QuestionnaireDoneView
+QuestionnaireDoneView, QuestionnaireBlankView
 
 
 urlpatterns = [
@@ -16,4 +16,6 @@ urlpatterns = [
 		QuestionnaireView.as_view(), name='questionset'),
 	url(r'^questionnairedone/', QuestionnaireDoneView.as_view(), 
 		name='questionnairedone'),
+	url(r'^questionnaireblank/(?P<poster_id>\d+)/', QuestionnaireBlankView.as_view(), 
+		name='questionnaireblank'),
 ]
