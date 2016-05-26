@@ -1645,3 +1645,7 @@ to {
 .vjs-controls-disabled .vjs-poster {
     display: inline-block;
 }
+
+@media (min-width: 600px)  and (max-width:769px){
+	.bar-header, .tabs,.scroll-content, .bar-footer,.container-fluid,body{max-width:768px;}
+}
