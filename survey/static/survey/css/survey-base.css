@@ -26,7 +26,7 @@
 }
 .qs .progress {
 	margin: 0;
-	height: 10px;
+	height: 5px;
 }
 .qs.container-fluid {
     padding-left: 0;
@@ -46,8 +46,11 @@
     background-color: #d0d0d0;
 }
 .progress-btm {
-    height: 15px;
-    background: #434343;
+    background: #363636;;
+    line-height: 60px;
+    color: #e1e1e1;
+    font-size: 1.5em;
+    margin-bottom: 0;
 }
 .qs-cat{
     background: #ffffff;
@@ -87,9 +90,9 @@
 }
 .qs-list .radio {
     background: #fff;
-    border-radius: 10px;
+    border-radius: 5px;
     text-align: left;
-    margin: 10px 30px;
+    margin: 10px 0;
     padding: 0 0 0 20px;
 }
 .qs-list .radio-label{
@@ -100,7 +103,7 @@
     height: 40px;
     line-height: 40px;
     margin-right: 20px;
-    padding-left: 0;
+    padding-left: 5px;
 }
 .qs-list input[type=radio] {
     vertical-align: middle;
@@ -116,8 +119,15 @@
     width: 40px;
     font-weight: normal;
 }
+.qs-list .checkbox-inline {
+    height: 30px;
+}
 .qs-list-input-group.row {
     padding-top: 10px;
+}
+.qs-list-section {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 .qs-list-section.qs-list-section-pre {
     padding-bottom: 20px;
