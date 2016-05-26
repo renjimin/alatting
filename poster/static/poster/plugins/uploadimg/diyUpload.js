@@ -123,7 +123,9 @@
 					default : text = '未知错误!';
  					break;
 				}
-            	yyAlert( text );
+
+            		yyAlert( text );
+
         	});
         }
     });
