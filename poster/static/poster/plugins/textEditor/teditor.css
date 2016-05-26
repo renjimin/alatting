@@ -5,6 +5,13 @@
     z-index: 699;
     height: 265px;
     width: 100%;
+    max-width: 600px;
+}
+@media (min-width:600px) {
+    .text-model{
+        left: 50%;
+        margin-left:-300px;
+    }
 }
 .text-element{
     position: absolute;
