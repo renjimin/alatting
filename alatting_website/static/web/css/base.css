@@ -97,8 +97,22 @@ img["src"=""]{opacity:0;}
 .poster-item .det .middle{padding:25px 0 75px; height: 100%;text-align: center;}
 .poster-item .det .bottom{ position: absolute;bottom:10px;width:100%;left:0;opacity:0;filter:Alpha(oapcity=0);transition: all .2s;-webkit-transition: all .2s; -webkit-transition-delay: .1s;transition-delay: .1s;}
 .poster-item .det .head .time{margin:0 15px;}
-.poster-item .det .bottom .uimg{position: absolute;bottom:13px;left:10px;width:80px;height:80px;border:2px solid #fff;border-radius:50%;overflow: hidden;}
-.poster-item .det .bottom .uimg img{width:100%;}
+
+.poster-item .det .bottom .uimg {
+    position: absolute;
+    bottom: 13px;
+    left: 10px;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.poster-item .det .bottom .uimg img {
+    width: 100%;
+}
 .poster-item .det .bottom .uname{font-size: 24px;color:#444;line-height: 30px;padding:10px 10px 10px 100px; background: rgba(255,255,255,0.96);}
 .poster-item .det .bottom .type{height:25px;line-height:25px;padding-left:100px;background: #fff;}
 .poster-item .det .middle .qrcode{height:100%;overflow:hidden;padding:12% 0;}
