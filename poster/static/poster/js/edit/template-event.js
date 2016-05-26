@@ -50,10 +50,10 @@ $(function () {
                 text: "上传图片",
                 callback: function (obj) {
                     $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
-                            yyAlert("上传图片格式错误");
-                            return false;
-                        }
+                        //if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
+                        //    yyAlert("上传图片格式错误");
+                        //    return false;
+                        //}
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
@@ -66,11 +66,7 @@ $(function () {
                 text: "上传视频",
                 callback: function (obj) {
                     //alert("还是调用上传组件!");
-                    $.fn.uploads.showDialog(function (data) {
-                        if(!/\.(mp4|ogg|webm)$/.test(data.file)){
-                            yyAlert("上传视频格式错误");
-                            return false;
-                        }
+                    $.fn.uploadsvideo.showDialog(function (data) {
                         if (obj) {
                             //obj.empty().append('<video autoplay src="' + data.file + '"></video>');
                             obj.empty();
@@ -79,17 +75,19 @@ $(function () {
                                     "class_name": "video_content",
                                     "video_dom_id": data.id,
                                     "video_id": data.id,
-                                    "video_preview_img": data.preview,
+                                    "video_preview_img": data.  preview,
                                     "video_url": data.file
                                 }
                             ).appendTo(obj);
                             //videojs.initialize('video_' + data.id);
                         }
-                        console.log(data);
                         obj.imgoperation({'data': data});
-                    }, function (data) {
-                        yyAlert("上传失败");
-                    });
+
+                        $.fn.yyTools.mask(0);
+
+                        }, function (data) {
+                            yyAlert("上传失败");
+                        });
                 }
             },
             {
