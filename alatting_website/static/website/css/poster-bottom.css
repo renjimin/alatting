@@ -701,10 +701,9 @@ textarea.ng-invalid {
 
 
 /*align app-body and bottom menu in the center*/
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 769px) {
     .scrollable-content {
-        width: 100%;
-        min-width: 600px;
+        width: 600px;
         margin-left: auto;
         margin-right: auto;
         height: 100%;
@@ -712,14 +711,13 @@ textarea.ng-invalid {
         overflow-x: hidden;
     }
     .navbar-absolute-bottom {
-        width: 100%;
-        max-width: 600px;
+        width: 600px;
         margin-left: auto;
         margin-right: auto;
     }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
     .scrollable-content {
         width: 100%;
         max-width: 600px;
@@ -729,12 +727,7 @@ textarea.ng-invalid {
         overflow-y: auto;
         overflow-x: hidden;
     }
-    .navbar-absolute-bottom {
-        width: 100%;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-    }
+
 }
 
 /*set the height of bottom-menu and sub-menu, as well as the width of button images in menus*/
