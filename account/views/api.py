@@ -13,7 +13,11 @@ from account.models import Person, UserFriends, LoginMessage, UserCategory
 from account.serializers import AccountProfileSerializer, \
     AccountFriendsListSerializer
 from alatting_website.model.poster import Poster
+from alatting_website.model.resource import Image, Video, Music
+from alatting_website.serializer.edit_serializer import ImageSerializer, \
+    VideoSerializer, MusicSerializer
 from poster.serializer.poster import PosterSerializer
+from utils.file import get_image_path, get_video_path, get_music_path
 from utils.message import get_message
 from utils.userinput import what
 
@@ -152,3 +156,27 @@ class FriendsView(ListAPIView):
         else:
             queryset = queryset.none()
         return queryset
+
+
+FILE_MODEL_CLASS_MAPPING = {
+    'image': (Image, ImageSerializer, get_image_path),
+    'video': (Video, VideoSerializer, get_video_path),
+    'audio': (Music, MusicSerializer, get_music_path)
+}
+
+
+class FilesListView(ListAPIView):
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        if q and q in FILE_MODEL_CLASS_MAPPING.keys():
+            models = FILE_MODEL_CLASS_MAPPING.get(q)
+            self.model = models[0]
+            self.serializer_class = models[1]
+            self.queryset = self.model.objects.filter(
+                creator=self.request.user
+            ).order_by("-created_at")
+        else:
+            self.model = Image
+            self.serializer_class = ImageSerializer
+            self.queryset = Image.objects.none()
+        return super(FilesListView, self).get(request, *args, **kwargs)

@@ -13,6 +13,7 @@
     padding: 40px 0 44px;
     overflow-x: hidden;
     overflow-y: auto;
+    position: relative;
 }
 
 
@@ -541,22 +542,6 @@
     background-size: 100% auto;
 }
 /******************************/
-.header-qrcode:hover,
-.header-logo:hover,
-.header-abutton:hover,
-.header-info:hover,
-.header .mask:hover,
-.yunye-template > .content > div:hover,
-.header-qrcode.active,
-.header-logo.active,
-.header-abutton.active,
-.header-info.active,
-.header .mask.active,
-.yunye-template > .content > div.active{
-    -webkit-transition: background .3s;
-    transition: background .3s;
-    background: #989898;
-}
 
 .header-qrcode:hover .qrcode-inner .qrcode,
 .header-abutton:hover .abutton-group li,
@@ -593,21 +578,13 @@
 
 /************template***********/
 
-
-
-
-.vitrul-body{
-    position: absolute;
-    z-index: 100;
-    pointer-events: none;
-    top: 0;
-    left: 0;
-    width:100%;
-    height: 100%;
-}
-.vitrul-body .hightlight{
-    border:2px solid #01FFFF;
+.hightlight{
+    border:2px solid #000108;
     display: none;
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
     transform-origin: left top;
+    pointer-events: none;
 }

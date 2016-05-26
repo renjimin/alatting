@@ -1,5 +1,6 @@
 <div class="m-container">
     <div class="edit-body">
+        <div class="hightlight"></div>
         <!-- top -->
         <div class="bar-header edit-bar-header" data-pannel="unique_name_pannel">
             <a href="javascript:void(0)"  class="btn-back"
@@ -17,7 +18,7 @@
 
         <!-- header -->
         <header class="header">
-            <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
+            <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;" data-pannel="header_background_pannel"></div>
             <div class="header-bar">
                 <div class="header-qrcode">
                     <div class="qrcode-inner">
@@ -73,9 +74,6 @@
         <!--           template           -->
         {{ posterpage.temp_html|safe }}
         <!--                     -->
-    </div>
-    <div class="vitrul-body">
-        <div class="hightlight"></div>
     </div>
 </div>
 <style type="text/css">

@@ -61,14 +61,196 @@ input[type="range"]::-webkit-slider-thumb {
     box-shadow: 0 0 1px 1px #ccc;
 }
 
-.btn-normal{
-	display: block;
-	background-color: #cacaca;
-	text-align: center;
-	color: #6e6e6e;
-	padding-top: 10px;
-	padding-bottom:10px;
+.btn-normal {
+    display: block;
+    background-color: #cacaca;
+    text-align: center;
+    color: #6e6e6e;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
-.btn-normal:hover{
-	background-color: #bbb;
+
+.btn-normal:hover {
+    background-color: #bbb;
 }
+
+
+/**/
+
+.cnd-element {
+    position: absolute;
+    z-index: 100;
+}
+
+.cnd-element .nbar {
+    position: absolute;
+    z-index: 998;
+}
+
+.nbar-radius {
+    width: 12px;
+    height: 12px;
+    border: 1px solid #08a1ef;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+.nbar-rotate {
+    top: -30px;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin-left: -10px;
+    cursor: url(mouserotate.ico) 10 10, default;
+    transition: all .2s;
+    border: none;
+    background-color: #44cb83;
+}
+
+.nbar-line {
+    top: -18px;
+    left: 50%;
+    width: 1px;
+    height: 18px;
+    background-color: #44cb83;
+}
+
+.nbar-n {
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 5px;
+    cursor: n-resize;
+    background: url(bar-1px.png) repeat-x;
+}
+
+.nbar-n div {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    margin-left: -6px;
+}
+
+.nbar-s {
+    bottom: 0;
+    width: 100%;
+    height: 5px;
+    cursor: s-resize;
+    background: url(bar-1px.png) repeat-x bottom;
+}
+
+.nbar-s div {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -6px;
+}
+
+.nbar-e {
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%;
+    cursor: e-resize;
+    background: url(bar-1px.png) right repeat-y;
+}
+
+.nbar-e div {
+    position: absolute;
+    top: 50%;
+    right: -6px;
+    margin-top: -6px;
+}
+
+.nbar-w {
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    cursor: w-resize;
+    background: url(bar-1px.png) repeat-y;
+}
+
+.nbar-w div {
+    position: absolute;
+    top: 50%;
+    left: -6px;
+    margin-top: -6px;
+}
+
+.nbar-nw {
+    top: -6px;
+    left: -6px;
+    cursor: nw-resize;
+}
+
+.nbar-se {
+    right: -6px;
+    bottom: -6px;
+    cursor: se-resize;
+}
+
+.nbar-sw {
+    bottom: -6px;
+    left: -6px;
+    cursor: sw-resize;
+}
+
+.nbar-ne {
+    top: -6px;
+    right: -6px;
+    cursor: ne-resize;
+}
+
+.nbar-edit {
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 18px;
+}
+
+.nbar-rotate.drag-active {
+    transform: scale(1.1, 1.1);
+}
+
+.drag-active {
+    opacity: 0.6;
+}
+
+.cnd-element .nbar {
+    display: none;
+}
+
+.cnd-element .nbar .icon {
+    display: none;
+}
+
+.cnd-element.active .nbar {
+    display: block;
+}
+
+.cnd-element.active .nbar .icon {
+    display: block;
+}
+
+.cnd-element.active .nbar.nbar-ne,
+.cnd-element.active .nbar.nbar-sw,
+.cnd-element.active .nbar.nbar-n div,
+.cnd-element.active .nbar.nbar-s div,
+.cnd-element.active .nbar.nbar-e div,
+.cnd-element.active .nbar.nbar-w div {
+    /*display:none;*/
+}
+
+.cnd-element .element img {
+    width: 100%;
+    height: 100%;
+}
+
+.element-box {
+    cursor: default;
+}
+
+
+/**/

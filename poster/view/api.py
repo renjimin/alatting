@@ -21,6 +21,9 @@ from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.models import Category, CategoryKeyword, Template
+from alatting_website.serializer.edit_serializer import ImageSerializer, \
+    MusicSerializer
+from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic
 from utils.file import (
     save_file, read_template_file_content,
@@ -34,15 +37,16 @@ from poster.serializer.poster import (
     PosterSaveSerializer, SystemMusicListSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
-    ImageSerializer, VideoSerializer, MusicSerializer, AddressSerializer
+    AddressSerializer
 )
-
+from survey.models import RunInfoHistory
+from survey.serializer.survey import RunInfoHistorySerializer
 
 logger = logging.getLogger('common')
 
 
-UPLOAD_FILE_MODEL_CLASS_MAPPING = {
-    'image': (Image,  ImageSerializer, get_image_path),
+FILE_MODEL_CLASS_MAPPING = {
+    'image': (Image, ImageSerializer, get_image_path),
     'video': (Video, VideoSerializer, get_video_path),
     'audio': (Music, MusicSerializer, get_music_path)
 }
@@ -418,7 +422,7 @@ class UploadFileView(APIView):
         for key in file_keys:
             if file_type in settings.UPLOAD_ACCEPT_FILE_TYPES[key]:
                 (model, serializer_model,
-                 path_method) = UPLOAD_FILE_MODEL_CLASS_MAPPING[key]
+                 path_method) = FILE_MODEL_CLASS_MAPPING[key]
         return model, serializer_model, path_method
 
     @staticmethod
@@ -472,6 +476,7 @@ class UploadFileView(APIView):
         elif model.__name__ == 'Image':
             rotate_image(full_path)
 
+        instance.creator = self.request.user
         instance.save()
         serializer = serializer_model(instance)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -553,3 +558,29 @@ class TemplateDetailView(RetrieveAPIView):
     model = Template
     queryset = Template.objects.all()
     serializer_class = TemplateSerializer
+
+
+class SurveyConsumerAnswersView(ListAPIView):
+    model = RunInfoHistory
+    queryset = RunInfoHistory.objects.all()
+    serializer_class = RunInfoHistorySerializer
+
+    def get_queryset(self):
+        qs = super(SurveyConsumerAnswersView, self).get_queryset()
+        return qs.filter(
+            poster_id=self.kwargs['pk'], questionnaire__role = 'consumer', 
+            isactive = True
+        )
+    
+
+class SurveyConsumerAnsView(ListAPIView):
+    model = RunInfoHistory
+    queryset = RunInfoHistory.objects.all()
+    serializer_class = RunInfoHistorySerializer
+
+    def get_queryset(self):
+        qs = super(SurveyConsumerAnsView, self).get_queryset()
+        return qs.filter(
+            poster_id=self.kwargs['pk'], subject_id=self.request.user.id, 
+            questionnaire__role = 'consumer', isactive = True
+        )
