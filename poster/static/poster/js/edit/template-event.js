@@ -20,6 +20,18 @@ $(function () {
 
                     $('#uploaderContainer').diyUpload({
                         url: '/api/v1/poster/upload/logo',
+                        buttonText: '添加图片',
+                        chunked: false,
+                        fileNumLimit: 4,
+                        fileSingleSizeLimit: 5 * 1024 * 1024,
+                        accept: {
+                            title: 'Images',
+                            extensions: 'gif,jpg,jpeg,png',
+                            mimeTypes: 'image/*'
+                         },
+                        compress: false,
+                        threads: 1,
+                        auto:true,
                         success: function (data, file) {
                             data.imgid = file.id;
                             _this.imgslider({'data': data});
@@ -29,14 +41,7 @@ $(function () {
                         error: function (err) {
                             console.info(err);
                         },
-                        buttonText: '添加图片',
-                        chunked: false,
-                        fileNumLimit: 4,
-                        fileSingleSizeLimit: 5 * 1024 * 1024,
-                        accept: 'image/jpg,image/jpeg,image/png,image/gif',
-                        compress: false,
-                        threads: 1,
-                        auto:true,
+
                         sliderContainer: _this
                     });
                     $(".closefile,.file-bottom .btn").click(function () {
