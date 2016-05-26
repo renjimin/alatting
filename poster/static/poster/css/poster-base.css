@@ -1646,6 +1646,19 @@ to {
     display: inline-block;
 }
 
+
 @media (min-width: 600px)  and (max-width:769px){
 	.bar-header, .tabs,.scroll-content, .bar-footer,.container-fluid,body{max-width:768px;}
 }
+
+#dpw_address{
+	padding: 5px;
+}
+#dpw_address li{
+	border-bottom: 5px solid #e1e1e1;
+	margin-bottom: 5px;
+}
+#dpw_address li span{
+	width: calc(100% - 44px);
+}
+

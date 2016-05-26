@@ -1,113 +1,116 @@
 {% load static %}
 <header class="header">
-    <div class="header-bar">
-        <div class="header-qrcode">
-            <div class="qrcode-inner">
-                <div class="circle"></div>
-                <div class="qrcode">
-                    <a href="javascript:void(0);" class="btn">
-                        <img src="{% url 'website:code_poster' poster.id %}"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="header-logo">
-            {% if poster.logo_title %}
-                {{ poster.logo_title|safe }}
-            {% else %}
-                <img src="{{ poster.logo_image.file.url }}">
-            {% endif %}
-        </div>
-        <div class="header-abutton">
-            <div class="abutton-inner" id="abutton">
-                <div class="abutton-internal">
-                    <a class="abtn abutton-trigger" href="javascript:void(0); "  expressed="false"><i class="icon ico-menu"></i></a>
-                </div>
-                <ul class="abutton-group abutton-contact">
-                    <li><a href="#" class="abutton-contact" extended="false" for="phone"><i class="icon ico-phone"></i></a></li>
-                    <li><a href="#" class="abutton-contact" extended="false" for="email"><i class="icon ico-email"></i></a></li>
-                    <li><a href="#" class="abutton-contact" extended="false" for="location"><i class="icon ico-address"></i></a></li>
-                    <li><a href="#" class="abutton-contact" extended="false" for="hour"><i class="icon ico-clock"></i></a></li>
-                </ul>
-                <ul class="abutton-group abutton-express" >
-                    <li>
-                        <a href="#" class="abutton-like">
-                            {% if poster.abutton_like_enabled == 1 %}
-                                <i class="icon ico-like"></i>
-                            {% else %}
-                                <i class="icon ico-like abutton-disabled"></i>
-                            {% endif %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="abutton-bookmark">
-                            {% if object.abutton_bookmark_enabled == 1 %}
-                                <i class="icon ico-bookmark"></i>
-                            {% else %}
-                                <i class="icon ico-bookmark abutton-disabled"></i>
-                            {% endif %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="abutton-subscribe">
-                            {% if object.abutton_subscribe_enabled == 1 %}
-                                <i class="icon ico-subscribe"></i>
-                            {% else %}
-                                <i class="icon ico-subscribe abutton-disabled"></i>
-                            {% endif %}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="abutton-fun">
-                            {% if object.abutton_fun_enabled == 1 %}
-                                <i class="icon ico-fun"></i>
-                            {% else %}
-                                <i class="icon ico-fun abutton-disabled"></i>
-                            {% endif %}
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="header-info">
-        <div class="desc header-description">
-            <span id="short_description" style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
-        </div>
-        <div class="contact-info phone">
-            {{ poster.mobile }}
-            <a class="abutton-contact-info" href="tel: {{poster.mobile}}">
-                <i class="icon ico-phone"></i>
-            </a>
-        </div>
-        <div class="contact-info email">
-            {{ poster.email }}
-            <a class="abutton-contact-info" href="mailto:{{ poster.email }}?{{ poster.email_content|safe }}">
-                <i class="icon ico-email"></i>
-            </a>
-        </div>
-        <div class="contact-info hour">
-            {{ poster.hours }}
-            <span class="poster-lifetime-status"> {{ poster.hours_status }} </span>
-            <a href="#" class="more-info">
-                <img src="{% static 'website/images/icons/more_icon.png' %}" style="width: 30px;height: 30px;">
-            </a>
-            <div class="poster-top-inform-more" style="display: none;">
-                <table class="hours-more-details">
-                 {% for day, day_hours in poster.hours_details.items %}
-                    <tr>
-                        <th>{{ day }}</th><td>{{ day_hours|safe }}</td>
-                    </tr>
-                {% endfor %}
-                </table>
-            </div>
-        </div>
-        <div class="contact-info location">
-            {{ poster.address }}<i class="icon ico-address"></i>
-        </div>
-    </div>
+	<div class="header-bar">
+		<div class="header-qrcode">
+			<div class="qrcode-inner">
+				<div class="circle"></div>
+				<div class="qrcode">
+					<a href="javascript:void(0);" class="btn">
+						<img src="{% url 'website:code_poster' poster.id %}"/>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="header-logo">
+			{% if poster.logo_title %}
+				{{ poster.logo_title|safe }}
+			{% else %}
+				<img src="{{ poster.logo_image.file.url }}">
+			{% endif %}
+		</div>
+		<div class="header-abutton">
+			<div class="abutton-inner" id="abutton">
+				<div class="abutton-internal">
+					<a class="abtn abutton-trigger" href="javascript:void(0); "  expressed="false"><i class="icon ico-menu"></i></a>
+				</div>
+				<ul class="abutton-group abutton-contact">
+					<li><a href="#" class="abutton-contact" extended="false" for="phone"><i class="icon ico-phone"></i></a></li>
+					<li><a href="#" class="abutton-contact" extended="false" for="email"><i class="icon ico-email"></i></a></li>
+					<li><a href="#" class="abutton-contact" extended="false" for="location"><i class="icon ico-address"></i></a></li>
+					<li><a href="#" class="abutton-contact" extended="false" for="hour"><i class="icon ico-clock"></i></a></li>
+				</ul>
+				<ul class="abutton-group abutton-express" >
+					<li>
+						<a href="#" class="abutton-like">
+							{% if poster.abutton_like_enabled == 1 %}
+								<i class="icon ico-like"></i>
+							{% else %}
+								<i class="icon ico-like abutton-disabled"></i>
+							{% endif %}
+						</a>
+					</li>
+					<li>
+						<a href="#" class="abutton-bookmark">
+							{% if object.abutton_bookmark_enabled == 1 %}
+								<i class="icon ico-bookmark"></i>
+							{% else %}
+								<i class="icon ico-bookmark abutton-disabled"></i>
+							{% endif %}
+						</a>
+					</li>
+					<li>
+						<a href="#" class="abutton-subscribe">
+							{% if object.abutton_subscribe_enabled == 1 %}
+								<i class="icon ico-subscribe"></i>
+							{% else %}
+								<i class="icon ico-subscribe abutton-disabled"></i>
+							{% endif %}
+						</a>
+					</li>
+					<li>
+						<a href="#" class="abutton-fun">
+							{% if object.abutton_fun_enabled == 1 %}
+								<i class="icon ico-fun"></i>
+							{% else %}
+								<i class="icon ico-fun abutton-disabled"></i>
+							{% endif %}
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="header-info">
+		<div class="desc header-description">
+			<span id="short_description" style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
+		</div>
+		
+	</div>
 </header>
+<div class="contact-info phone">
+	{{ poster.mobile }}
+	<a class="abutton-contact-info" href="tel: {{poster.mobile}}">
+		<i class="icon ico-phone"></i>
+	</a>
+</div>
+<div class="contact-info email">
+	{{ poster.email }}
+	<a class="abutton-contact-info" href="mailto:{{ poster.email }}?{{ poster.email_content|safe }}">
+		<i class="icon ico-email"></i>
+	</a>
+</div>
+<div class="contact-info hour">
+	{{ poster.hours }}
+	<span class="poster-lifetime-status"> {{ poster.hours_status }} </span>
+	<a href="#" class="more-info">
+		<img src="{% static 'website/images/icons/more_icon.png' %}" style="width: 30px;height: 30px;">
+	</a>
+<div class="poster-top-inform-more" style="display: none;">
+	<table class="hours-more-details">
+		{% for day, day_hours in poster.hours_details.items %}
+		<tr>
+			<th>{{ day }}</th>
+			<td>{{ day_hours|safe }}</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
+</div>
+<div class="contact-info location">
+	{{ poster.address }}
+	<i class="icon ico-address"></i>
+</div>
 <div style="position:absolute;padding: 0 10px 10px 10px;width: 100%;height: 300px;visibility: hidden;z-index: 20;">
-    <div id="allmap" style="width: 100%;height: 100%;"></div>
+	<div id="allmap" style="width: 100%;height: 100%;"></div>
 </div>
 <div class = "audiolink"></div>
