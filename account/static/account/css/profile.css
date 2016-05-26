@@ -56,7 +56,6 @@ header {
 }
 .head-top{
     height: 150px;
-    /*border-top: 1px solid #cccccc;*/
     border-bottom: 1px solid #cccccc;
 }
 .head-top-right{
@@ -137,8 +136,21 @@ header {
     max-width: 100px;
     overflow: hidden;
 }
-.head-bot{
+
+/*body-main*/
+.body-main{
+    position: relative;
+    overflow: hidden;
+}
+.main-head{
+    background: #ffffff;
     height: 40px;
+    width: 100%;
+    z-index: 99;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    box-shadow: 0 0 10px #7c7c7c;
 }
 .head-bot-li{
     float: left;
@@ -163,16 +175,14 @@ header {
     color:#191919;
     background: #e3e3e3;
 }
-
-/*body-main*/
-.body-main{
-    min-height: 600px;
+/*main-list*/
+.main-list{
+    overflow: hidden;
+    margin-top: 40px;
+    min-height: 700px;
     padding: 10px 5px 70px;
     box-shadow: 0 3px 10px #7c7c7c inset;
     position: relative;
-}
-.main-list{
-    overflow: hidden;
 }
 .main-li{
     width: 50%;
@@ -348,7 +358,7 @@ header {
     position: fixed;
     z-index: 1000;
     background: rgba(255,255,255,0.8);
-    display: block;
+    display: none;
 }
 .body-vip .vip-h3{
     line-height: 40px;
