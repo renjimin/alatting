@@ -10,10 +10,7 @@ $(function(){
 	                var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
 	                con.append(li);
 	            }
-	            for(j=0;j<=20;j++){
-	            		var li = '<li onclick="selectSysImg(this)">'+data[0].text+'</li>';
-	              	con.append(li);
-	            }
+	            
 
 	        },
    	});
@@ -44,22 +41,21 @@ function addSystemimg(eleobj){
 			+'</div>');
 
     cnd.find('.element-box-contents').append(eleobj);
-    cnd.hide();
+    cnd.css('opacity','0');
     fullcontainer.append(cnd);
-    cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-eleobj.height()/2+'px','left':fullcontainer.innerWidth()/2-eleobj.width()/2+'px'}).show();
-    //scale(cnd);
+    cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-eleobj.height()/2+'px','left':fullcontainer.innerWidth()/2-eleobj.width()/2+'px'}).css('opacity','1');
     cnd.scaleable();
 }
 
 function copySystemimg(){
-    var imgclone = $('.systemimg-element.active').clone(false);
-    $('.systemimg-element').removeClass('active');
+    var imgclone = $('.systemimg-element.actived').clone(false);
+    $('.systemimg-element').removeClass('actived');
     imgclone.stop(true,false).animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
     fullcontainer.append(imgclone);
     imgclone.scaleable();
 }
 function deleteSystemimg(){
-    var imgactive = $('.systemimg-element.active');
+    var imgactive = $('.systemimg-element.actived');
     imgactive.stop(true,false).animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
         imgactive.remove();
     });
@@ -108,4 +104,14 @@ $(function(){
 		}
 
 	})
+
+	$(document).on('mousedown',function(e){
+		if($(e.target).closest('.edit-center').length > 0){
+			$('.cnd-element').removeClass('actived');
+		}else{
+			return;
+		}
+	});
+	
+	
 })

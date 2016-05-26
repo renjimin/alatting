@@ -65,12 +65,13 @@ var templateScale = $('.edit-body').width()/$('.yunye-template').width();
 				'dragElement':o,
 				'scaling':templateScale,
 				'start':function(){
-					$('.cnd-element').removeClass('active');
-					b.parent().addClass('active').css('z-index',scaleIndex++);
+					$('.cnd-element').removeClass('actived');
+					o.addClass('actived').css('z-index',scaleIndex++);
 					var pannle = "";
 					switch(o.data('type')){
 						case 'systemimg': pannle = "sysimg_pannel";break;
 						case 'button': pannle = "button_pannel";break;
+						case 'text': pannle = "text_pannel";break;
 						default:break;
 					}
 					Editor.require("hightClick").removeHighLigh();
@@ -329,11 +330,12 @@ var templateScale = $('.edit-body').width()/$('.yunye-template').width();
 					}
 				}
 			});
-
+			
 
 		})	
 		
 		
+
 	}	
 
 })(jQuery);
