@@ -1,4 +1,5 @@
-__author__ = 'tianhuyang'
+# coding=utf-8
+
 # sudo apt-get install python3-pyqt4 libqt4-webkit xvfb
 # use webkit2png to capture web pages
 # webkit2png for python2 must be installed globally via "setup.py install" to import PyQt4 library
@@ -16,32 +17,36 @@ __author__ = 'tianhuyang'
 # sudo chmod -R 777 /var/www
 #################################################### Installation Check ################################################
 # type command "webkit2png -h"  to check if it is installed
+import logging
+
+__author__ = 'tianhuyang'
 
 import os
+import subprocess
 from PIL import Image
+
+
+logger = logging.getLogger('common')
 
 
 class ScreenShot(object):
 
     @classmethod
-    def capture(cls, url, path, width, height, view_width=None, view_height=None):
+    def capture(cls, url, path, width, height,
+                view_width=None, view_height=None):
         try:
             if view_width is None:
                 view_width = width
             if view_height is None:
                 view_height = height
-            parameters = dict(url=url, width=width, height=height, path=path, view_width=view_width, view_height=view_height)
-            # cmd = 'webkit2png {url} -x {view_width} {view_height} -g {view_width} {view_height} --scale {width} {height} ' \
-            #       '--aspect-ratio crop -o {path} -F javascript -F plugins -w 1 -f jpeg'.format(**parameters)
+            parameters = dict(url=url, width=width, height=height, path=path,
+                              view_width=view_width, view_height=view_height)
             cmd = '/usr/local/bin/webkit2png {url} -x {view_width} {view_height} -g {view_width} {view_height} --scale {width} {height} ' \
                   '--aspect-ratio crop -o {path} -F javascript -F plugins -w 1 -f jpeg'.format(**parameters)
-            print(cmd)
-            import subprocess
             status = subprocess.call(cmd, shell=True)
-            print(status)
         except Exception as e:
             status = 1
-            print(e)
+            logger.exception(e)
         return status == 0
 
     @classmethod
@@ -58,7 +63,7 @@ class ScreenShot(object):
     def test(cls, url):
         path = os.path.dirname(__file__)
         path = os.path.join(path, 'test.jpg')
-        cls.capture(url + '?capture=true', path, 1000, 1280, view_height=2048)
+        cls.capture(url + '?capture=true', path, 414, 736)
         return path
 
 # ScreenShot.test()

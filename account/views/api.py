@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, \
-    ListAPIView, get_object_or_404, GenericAPIView
+    ListAPIView, get_object_or_404, \
+    RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from account.email import send_verify_email
@@ -158,25 +159,76 @@ class FriendsView(ListAPIView):
         return queryset
 
 
-FILE_MODEL_CLASS_MAPPING = {
-    'image': (Image, ImageSerializer, get_image_path),
-    'video': (Video, VideoSerializer, get_video_path),
-    'audio': (Music, MusicSerializer, get_music_path)
-}
-
-
-class FilesListView(ListAPIView):
+class ImageListView(ListAPIView):
     model = Image
     serializer_class = ImageSerializer
-    queryset = Image.objects.none()
+    queryset = Image.objects.all()
 
-    def get(self, request, *args, **kwargs):
-        q = request.GET.get('q', '')
-        if q and q in FILE_MODEL_CLASS_MAPPING.keys():
-            models = FILE_MODEL_CLASS_MAPPING.get(q)
-            self.model = models[0]
-            self.serializer_class = models[1]
-            self.queryset = self.model.objects.filter(
-                creator=self.request.user
-            ).order_by("-created_at")
-        return super(FilesListView, self).get(request, *args, **kwargs)
+    def get_queryset(self):
+        qs = super(ImageListView, self).get_queryset()
+        return qs.filter(
+            creator=self.request.user
+        ).order_by("-created_at")
+
+
+class ImageDetailView(RetrieveUpdateDestroyAPIView):
+    model = Image
+    serializer_class = ImageSerializer
+    queryset = Image.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(
+            Image,
+            creator=self.request.user,
+            id=self.kwargs.get('pk')
+        )
+
+
+class VideoListView(ListAPIView):
+    model = Video
+    serializer_class = VideoSerializer
+    queryset = Video.objects.all()
+
+    def get_queryset(self):
+        qs = super(VideoListView, self).get_queryset()
+        return qs.filter(
+            creator=self.request.user
+        ).order_by("-created_at")
+
+
+class VideoDetailView(RetrieveUpdateDestroyAPIView):
+    model = Video
+    serializer_class = VideoSerializer
+    queryset = Video.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(
+            Video,
+            creator=self.request.user,
+            id=self.kwargs.get('pk')
+        )
+
+
+class AudioListView(ListAPIView):
+    model = Music
+    serializer_class = MusicSerializer
+    queryset = Music.objects.all()
+
+    def get_queryset(self):
+        qs = super(AudioListView, self).get_queryset()
+        return qs.filter(
+            creator=self.request.user
+        ).order_by("-created_at")
+
+
+class AudioDetailView(RetrieveUpdateDestroyAPIView):
+    model = Music
+    serializer_class = MusicSerializer
+    queryset = Music.objects.all()
+
+    def get_object(self):
+        return get_object_or_404(
+            Music,
+            creator=self.request.user,
+            id=self.kwargs.get('pk')
+        )

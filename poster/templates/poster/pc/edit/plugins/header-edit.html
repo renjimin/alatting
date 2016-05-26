@@ -6,7 +6,7 @@
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-font"></i><span>文字</span></a>
 			<div class="subnav">
-				<textarea class="text-textarea"></textarea>
+				<textarea class="text-textarea" cols="30" rows="5" style="resize:none;margin-bottom:10px;"></textarea>
 				<div class="textEditor"></div>
 			</div>
 		</li>
@@ -112,6 +112,20 @@
 		<textarea  id="descInput" maxlength="50" cols="30" rows="10" style="border:none;resize: none;width:90%;margin:10% 5%;display:block;outline: 0;"></textarea>
 		<p style="text-align: center;border-bottom: 1px solid #ccc;color: #999;padding-bottom: 10px;">还剩<span id="descLastLength"></span>个字</p>
 	</ul>
+	<div class="poster-keywords">
+		<h4 class="title">海报关键词</h4>
+		<div class="kewords-wraper">
+			<a href="#">专家</a><a href="#">个人</a><a href="#">医疗</a>
+		</div>
+		<div class="kewords-container">
+			<div class="keywords-list">
+				<a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a><a href="#">互联网</a>
+			</div>
+			<div class="keywords-form">
+				<input type="text" class="text"><input type="submit" class="btn">
+			</div>
+		</div>
+	</div>
 </section>
 
 <section class="edit-section" id="header_background_pannel">
@@ -124,12 +138,40 @@
 			<div class="subnav palette"></div>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="javascript:void(0);"><i class="fa fa-image"></i><span>系统图案</span></a>
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-image"></i><span>系统图案</span></a>
+			<div class="subnav system_context"></div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-chain"></i><span>上传图片</span></a>
+			<div class="subnav"></div>
+		</li>
+	</ul>
+</section>
+<section class = "edit-section" id="QR_pannel">
+	<ul class="navbar">
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-font"></i><span>QR编辑</span></a>
 			<div class="subnav"></div>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="javascript:void(0);"><i class="fa fa-chain"></i><span>上传图片</span></a>
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-image"></i><span>QR生成</span></a>
 			<div class="subnav"></div>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-upload"></i><span>QR上传</span></a>
+			<div class="subnav"></div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-th"></i><span>纯色</span></a>
+			<div class="subnav palette"></div>
+		</li>			
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-image"></i><span>改变背景</span></a>
+			<div class="subnav system_context"></div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-upload"></i><span>上传图片</span></a>
+			<div class="subnav"></div>
+		</li>					
 	</ul>
 </section>

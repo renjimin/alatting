@@ -80,7 +80,7 @@ class Person(models.Model):
                         main_cate.id, sub_id
                     )
 
-        if input_category and isinstance(str, input_category):
+        if input_category and isinstance(input_category, str):
             input_category = input_category.strip()
             qs = Category.objects.filter(name=input_category)
             if qs.exists():

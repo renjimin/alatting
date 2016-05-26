@@ -433,27 +433,26 @@ function deleteElement(){
 			imgactive = $(this);
 		}
 	});
-
-	console.log(imgactive.length)
+	if(imgactive == null) return;
 	imgactive.stop(true,false).animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
 			imgactive.remove();
 	});
 }
 $(function(){
-		document.onkeyup = function (event) {
-				var e = event || window.event;
-				var keyCode = e.keyCode || e.which;
-				switch (keyCode) {
-						case 8: /* 回退键 */
-								deleteElement();
-								break;
-						case 46: /* 删除键 */
-								deleteElement();
-								break;
-						default:
-								break;
-				}
+	document.onkeyup = function (event) {
+		var e = event || window.event;
+		var keyCode = e.keyCode || e.which;
+		switch (keyCode) {
+				case 8: /* 回退键 */
+						deleteElement();
+						break;
+				case 46: /* 删除键 */
+						deleteElement();
+						break;
+				default:
+						break;
 		}
+	}
 })
 //十六进制颜色值的正则表达式
 var reg = /^([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;

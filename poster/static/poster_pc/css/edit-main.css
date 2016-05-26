@@ -21,8 +21,11 @@
 
 
 /*defaut style*/
+
+
 /*top*/
-.bar-header{
+
+.bar-header {
     position: absolute;
     z-index: 100;
     right: 0;
@@ -36,7 +39,6 @@
     box-sizing: border-box;
     width: 100%;
     height: 40px;
-    padding: 5px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -45,9 +47,9 @@
     transform: translate3d(0, 0, 0);
     background-color: #000;
 }
+
 .bar-header .title {
-    position: absolute;
-    z-index: 0;
+    width: 100%;
     top: 0;
     right: 0;
     left: 0;
@@ -55,7 +57,7 @@
     overflow: hidden;
     min-width: 30px;
     height: 40px;
-    margin: 0 10px;
+    padding: 0 10px;
     text-align: center;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -65,36 +67,42 @@
     font-weight: 500;
     line-height: 40px;
 }
-.bar-header .title p{
-    margin:0;
+
+.bar-header .title p {
+    margin: 0;
 }
+
 .ico-pages {
     display: inline-block;
-
     width: 1em;
     height: 1em;
-
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 100% 100%;
 }
+
 .ico-pages {
     background-image: url(/static/website/images/icons/ico-pages.png);
 }
-.btn-back{
-    width:40px;
+
+.btn-back {
+    width: 40px;
     height: 40px;
     line-height: 40px;
     position: absolute;
     top: 0;
     left: 0;
     text-align: center;
+    z-index: 10;
 }
-.btn-back .icon{
+
+.btn-back .icon {
     vertical-align: top;
     font-size: 24px;
-    margin-top:8px;
+    margin-top: 8px;
 }
+
+
 /*header*/
 
 .header {
@@ -127,13 +135,14 @@
     overflow: hidden;
     height: 95px;
     padding: 7.5px 0;
-    margin:0 98px;
+    margin: 0 98px;
     text-align: center;
     pointer-events: auto;
 }
+
 .header-logo:before,
-.header-logo:after{
-    content:"";
+.header-logo:after {
+    content: "";
     display: block;
     width: 1px;
     height: 100%;
@@ -142,8 +151,9 @@
     left: 0;
     top: 0;
 }
-.header-logo:after{
-    left:auto;
+
+.header-logo:after {
+    left: auto;
     right: 0;
 }
 
@@ -163,7 +173,6 @@
     margin: 0 auto;
     border-radius: 50%;
     overflow: hidden;
-
     width: 80px;
     height: 80px;
 }
@@ -210,7 +219,7 @@
 }
 
 .header-logo img {
-    margin:auto;
+    margin: auto;
     max-width: 100%;
     height: 100%;
     pointer-events: auto;
@@ -227,6 +236,7 @@
     word-break: break-all;
     pointer-events: auto;
 }
+
 .ico-phone:before,
 .ico-email:before,
 .ico-address:before,
@@ -241,7 +251,7 @@
 .clicked .ico-like:before,
 .clicked .ico-bookmark:before,
 .clicked .ico-subscribe:before,
-.clicked .ico-fun:before{
+.clicked .ico-fun:before {
     display: inline-block;
     width: 1em;
     height: 1em;
@@ -249,54 +259,71 @@
     background: url(/static/website/images/icons/sprits_tools.png) center center no-repeat;
     background-size: auto 100%;
 }
+
 .ico-phone:before {
     background-position: 0 0;
 }
+
 .ico-email:before {
     background-position: -1em 0;
 }
+
 .ico-address:before {
     background-position: -2em 0;
 }
+
 .ico-clock:before {
     background-position: -3em 0;
 }
+
 .ico-fun:before {
     background-position: -4em 0;
 }
+
 .ico-like:before {
     background-position: -5em 0;
 }
+
 .ico-subscribe:before {
     background-position: -6em 0;
 }
+
 .ico-bookmark:before {
     background-position: -7em 0;
 }
+
 .ico-alogo:before {
     background-position: -8em 0;
 }
+
 .ico-mobile:before {
     background-position: -9em 0;
 }
+
 .ico-menu:before {
     background-position: -9em 0;
 }
+
 .ico-mobile:before {
     background-position: -10em 0;
 }
-.clicked .ico-like:before{
+
+.clicked .ico-like:before {
     background-position: -12em 0;
 }
-.clicked .ico-bookmark:before{
+
+.clicked .ico-bookmark:before {
     background-position: -14em 0;
 }
-.clicked .ico-subscribe:before{
+
+.clicked .ico-subscribe:before {
     background-position: -13em 0;
 }
-.clicked .ico-fun:before{
+
+.clicked .ico-fun:before {
     background-position: -11em 0;
 }
+
 .abutton-group {
     position: absolute;
     z-index: 10;
@@ -447,7 +474,6 @@
     margin-left: -0.5em;
 }
 
-
 .abutton-internal {
     position: absolute;
     z-index: 20;
@@ -514,7 +540,8 @@
     font-size: 1.1em;
     position: relative;
 }
-.header-info:before{
+
+.header-info:before {
     content: "";
     display: block;
     width: 100%;
@@ -526,50 +553,62 @@
     z-index: 20;
 }
 
+
 /***********************/
-.change-template-button{
+
+.change-template-button {
     position: absolute;
     z-index: 300;
     left: 10px;
     font-size: 30px;
     margin-top: 10px;
 }
-.ico-edit-template{
+
+.ico-edit-template {
     width: 1em;
     height: 1em;
     display: inline-block;
     background: url(../images/icon-change-template.png) no-repeat;
     background-size: 100% auto;
 }
+
+
 /******************************/
 
 .header-qrcode:hover,
 .header-abutton:hover,
 .header-logo:hover,
-.header-info:hover{
-     background: rgba(0,0,0,.1);
+.header-info:hover {
+    background: rgba(0, 0, 0, .1);
 }
-.yunye-template>.content>div{
-    position: relative;
+
+.yunye-template>.content>div {
+    /*position: relative;*/
 }
-.yunye-template>.content>div:hover:before{
-    content:"";
+
+.yunye-template>.content>div:hover:before {
+    content: "";
     display: block;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background-color: rgba(0,0,0,.1);
+    background-color: rgba(0, 0, 0, .1);
     position: absolute;
 }
+
+
 /************template***********/
+
+
 /* template css */
+
 .yunye-template {
     background-color: #fff;
     position: relative;
     /*padding-bottom: 120%;*/
-    width:600px;
-    height:747px;
+    width: 600px;
+    height: 747px;
     transform-origin: top left;
     -webkit-transform-origin: top left;
     -moz-transform-origin: top left;
@@ -577,21 +616,23 @@
     -ms-transform-origin: top left;
 }
 
-.yunye-template > .content{
+.yunye-template > .content {
     width: 100%;
     height: 100%;
     position: absolute;
     top: 0;
     left: 0;
 }
-.template-box{
-    overflow:hidden;
+
+.template-box {
+    overflow: hidden;
 }
+
 
 /************template***********/
 
-.hightlight{
-    border:2px solid #000108;
+.hightlight {
+    border: 2px solid #000108;
     display: none;
     position: absolute;
     top: 0;

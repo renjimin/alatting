@@ -45,10 +45,12 @@ class QuestionSet(models.Model):
     heading = models.CharField(max_length=64)
    
     def questions(self):
-        if not hasattr(self, "__qcache"):
-            self.__qcache = \
-                questions_ = Question.objects.filter(questionset=self.id).order_by('sortid')
-        return self.__qcache
+        res = Question.objects.filter(questionset=self.id).order_by('sortid')
+        return res
+
+    def questions_count(self):
+        res = Question.objects.filter(questionset=self.id).order_by('sortid').count()
+        return res
 
     def next(self):
         qs = self.questionnaire.questionsets()
@@ -91,7 +93,7 @@ class Question(models.Model):
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
     short_text = models.TextField(blank=True, verbose_name="shortText")
-    required = models.BooleanField(default=False)
+    required = models.BooleanField(default=True)
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)
     type = models.CharField(u"Type of question", max_length=32,
@@ -110,6 +112,10 @@ class Question(models.Model):
 
     def choices(self):
         res = Choice.objects.filter(question=self).order_by('sortid')
+        return res
+
+    def choices_count(self):
+        res = Choice.objects.filter(question=self).order_by('sortid').count()
         return res
 
     def get_type(self):
@@ -142,7 +148,7 @@ class Input(models.Model):
         ('textarea', 'input type[textarea]')
     ]
     type = models.CharField(
-        max_length=32, choices=InputChoices
+        max_length=32, choices=InputChoices, default='text'
     )
 
 
