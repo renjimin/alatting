@@ -13,6 +13,13 @@ $(function(){
 		$(".header-music").addClass('rotate');
 		$(document.body).off("touchstart");
 	});
+ 	$('#background_music').trigger('click',function(){
+ 		var bg_music = document.getElementById("background_music"); 
+	       if (bg_music.paused) { //判读是否播放
+	              bg_music.play();//没有就播放
+	       }
+		$(".header-music").addClass('rotate');		
+ 	});
 	//4 abuttons in the first layer
 	////contact (phone & email & hours)
 	$('a.abutton-contact').click(function(e){
