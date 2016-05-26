@@ -18,6 +18,7 @@
 	$.fn.uploads = function(){
 		var self = this;
 		this.success = null;
+		this.progress = null;
 		this.init = function(){
 			var option = $.extend(opps,{pick: {'id':'#test','multiple':false},url: '/api/v1/poster/upload/logo'});
 			if( option.url ) {
@@ -37,10 +38,18 @@
 
 				}
 			});
+			webUploader.on('uploadProgress',function( file, percentage  ){
+				//console.log(percentage);
+				if ( self.progress ) {
+					console.log(percentage);
+					//option.progress( file );
+				}
+			});
 		};
-		this.showDialog = function(succ,error){
+		this.showDialog = function(succ,error,progress){
 			self.success = succ;
 			self.error = error;
+			self.progress = progress;
 			$('#test input').trigger('click');
 		}
 		return{
