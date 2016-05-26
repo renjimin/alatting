@@ -9,7 +9,7 @@
     <div class="header">
         <div class="container header-top">
             <div class="logo">
-                <a href="javascript:;" title="武汉云页移动科技">
+                <a href="javascript:;" title="武汉云页移动科技有限公司">
                     <img src="{% static 'web/images/logo.png' %}"/>
                 </a>
             </div>
@@ -19,7 +19,7 @@
                     <input type="text" placeholder="搜索"/>
                 </div>
                 <div class="dropdown">
-                    <button class="btn" id="seartype" data-toggle="dropdown">
+                    <button class="btn dropdown-toggle" id="seartype" data-toggle="dropdown">
                         <i class="icon ico-menu"></i>
                         <span class="caret"></span>
                     </button>
@@ -33,7 +33,7 @@
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-last" id="searCat"
+                    <button class="btn btn-last dropdown-toggle" id="searCat"
                             data-toggle="dropdown">
                         <i class="icon ico-pagers"></i>
                         <span class="caret"></span>
@@ -54,7 +54,7 @@
                     </button>
                     <a href="#">
                         <img class="lazy"
-                             scr="{{ request.user.person.avatar.url }}"
+                             src="{% static 'web/images/avatar-default.png' %}"
                              data-src="{{ request.user.person.avatar.url }}"/>
                         <span class="name">{{ request.user }}</span>
                     </a>
