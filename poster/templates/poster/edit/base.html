@@ -19,8 +19,8 @@
             unique_name:"{{ poster.unique_name }}",
             logo_title: "{{ poster.logo_title }}",
             logo_image: "{{ poster.logo_image.file.url }}",
-            lifetime: "{{ poster.lifetime }}",
-            updated_at: "{{ poster.updated_at }}",
+            lifetime: "{{ poster.lifetime|default_if_none:'' }}",
+            updated_at: "{{ poster.updated_at|date:'Y-m-d H:i:s' }}",
             short_description:"{{ poster.short_description }}",
             API: {
                 templates: "/api/v1/poster/templates",
