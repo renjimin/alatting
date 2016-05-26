@@ -76,6 +76,18 @@ $(function () {
         $('.yunye-template').attr('style',templateScaleOpt);
         $('.template-box').height($('.yunye-template').height()*templateScale);
 
+        window.onresize = function(){
+            var templateScale = $('body').width()/$('.yunye-template').width();
+            var templateScaleOpt =
+                '-webkit-transform:scale('+templateScale+','+templateScale+');'
+               +   '-moz-transform:scale('+templateScale+','+templateScale+');'
+               +     '-o-transform:scale('+templateScale+','+templateScale+');'
+               +    '-ms-transform:scale('+templateScale+','+templateScale+');'
+               +        'transform:scale('+templateScale+','+templateScale+');'
+
+            $('.yunye-template').attr('style',templateScaleOpt);
+            $('.template-box').height($('.yunye-template').height()*templateScale);
+        }
 
     };
 
@@ -204,10 +216,10 @@ $(function () {
                 text: "背景图片",
                 callback: function () {
                     $('.header').bgselect({}, function (ths, img) {
-                        ths.css('background-image', 'url(' + img + ')');
+                        ths.css('background', 'url(' + img + ')');
                         ths.css('background-size', '100% 100%');
                         storageAPI.setCss(".header", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
@@ -223,10 +235,10 @@ $(function () {
                             yyAlert("上传图片格式错误");
                             return false;
                         }
-                        $('.header').css('background-image', 'url(' + data.file + ')');
+                        $('.header').css('background', 'url(' + data.file + ')');
                         $('.header').css('background-size', '100% 100%');
                         storageAPI.setCss(".header", {
-                            'background-image': 'url(' + data.file + ')',
+                            'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
                     });
@@ -249,10 +261,10 @@ $(function () {
                 text: "系统背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
-                        $('.yunye-template').css('background-image', 'url(' + img + ')');
+                        $('.yunye-template').css('background', 'url(' + img + ')');
                         $('.yunye-template').css('background-size', '100% 100%');
                         storageAPI.setCss(".yunye-template", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
@@ -279,10 +291,10 @@ $(function () {
                             yyAlert("上传图片格式错误");
                             return false;
                         }
-                        $('.yunye-template').css('background-image', 'url(' + data.file + ')');
+                        $('.yunye-template').css('background', 'url(' + data.file + ')');
                         $('.yunye-template').css('background-size', '100% 100%');
                         storageAPI.setCss(".yunye-template", {
-                            'background-image': 'url(' + data.file + ')',
+                            'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
                     });
@@ -311,7 +323,7 @@ $(function () {
                             'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".bar-footer", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
@@ -336,11 +348,11 @@ $(function () {
                 text: "主体背景",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
-                        $('body').css('background-image', 'url(' + img + ')');
+                        $('body').css('background', 'url(' + img + ')');
                         $('body').css('background-size', '100% 100%');
-                        $('.yunye-template,.header').css('background-image', 'url()')
+                        $('.yunye-template,.header').css('background', 'url()')
                         storageAPI.setCss("body", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         $('.header,.yunye-template,.bar-header,.bar-footer').css('background', 'none');
@@ -400,14 +412,14 @@ $(function () {
                 text: "背景图片",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-image', 'url(' + img + ')');
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background', 'url(' + img + ')');
                         $('.qrcode-inner .qrcode,.abutton-group li a').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode-inner .qrcode", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".abutton-group li a", {
-                            'background-image': 'url(' + img + ')',
+                            'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
                         $(".system-item").fadeOut(500);
@@ -423,14 +435,14 @@ $(function () {
                             yyAlert("上传图片格式错误");
                             return false;
                         }
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-image', 'url(' + data.file + ')');
+                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background', 'url(' + data.file + ')');
                         $('.qrcode-inner .qrcode,.abutton-group li a').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode-inner .qrcode", {
-                            'background-image': 'url(' + data.file + ')',
+                            'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
                         storageAPI.setCss(".abutton-group li a", {
-                            'background-image': 'url(' + data.file + ')',
+                            'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
                     });

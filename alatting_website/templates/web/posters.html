@@ -9,7 +9,7 @@
     <div class="header">
         <div class="container header-top">
             <div class="logo">
-                <a href="javascript:;" title="武汉云页移动科技">
+                <a href="javascript:;" title="武汉云页移动科技有限公司">
                     <img src="{% static 'web/images/logo.png' %}"/>
                 </a>
             </div>
@@ -19,7 +19,7 @@
                     <input type="text" placeholder="搜索"/>
                 </div>
                 <div class="dropdown">
-                    <button class="btn" id="seartype" data-toggle="dropdown">
+                    <button class="btn dropdown-toggle" id="seartype" data-toggle="dropdown">
                         <i class="icon ico-menu"></i>
                         <span class="caret"></span>
                     </button>
@@ -33,7 +33,7 @@
                     </ul>
                 </div>
                 <div class="dropdown">
-                    <button class="btn btn-last" id="searCat"
+                    <button class="btn btn-last dropdown-toggle" id="searCat"
                             data-toggle="dropdown">
                         <i class="icon ico-pagers"></i>
                         <span class="caret"></span>
@@ -54,7 +54,7 @@
                     </button>
                     <a href="#">
                         <img class="lazy"
-                             scr="{{ request.user.person.avatar.url }}"
+                             src="{% static 'web/images/avatar-default.png' %}"
                              data-src="{{ request.user.person.avatar.url }}"/>
                         <span class="name">{{ request.user }}</span>
                     </a>
@@ -99,28 +99,34 @@
                         </a>
                     </div>
                     <div class="det">
-        				<div class="head">
-        					<span class="time">11-3-2016</span>
-        					<a href="#" class="btn-share"><i class="icon ico-share"></i></a>
-        					<a href="#" class="btn-fav"><i class="icon ico-fav"></i></a>
-        				</div>
-        				<div class="middle">
-        					<div class="qrcode">
-        						<img src="{% static 'web/images/qrcode.jpg' %}" />
-        					</div>
-        				</div>
-        				<div class="bottom">
-        					<div class="uimg">
-        						<img src="{% static 'web/images/avatar.jpg' %}" />
-        					</div>
-        					<div class="uname">
-        						<span>Jry</span>
-        					</div>
-        					<div class="type">
-        						Business
-        					</div>
-        				</div>
-        			</div>
+                        <div class="head">
+                            <span class="time">11-3-2016</span>
+                            <a href="#" class="btn-share"><i class="icon ico-share"></i></a>
+                            <a href="#" class="btn-fav"><i class="icon ico-fav"></i></a>
+                        </div>
+                        <div class="middle">
+                            <div class="qrcode">
+                                <img src="{% static 'web/images/qrcode.jpg' %}" />
+                            </div>
+                            </div>
+                            <div class="bottom">
+                            <div class="uimg">
+                            	<img src="{% static 'web/images/avatar.jpg' %}" />
+                            </div>
+                            <div class="uname">
+                            	<span>{{ poster.creator }}</span>
+                            </div>
+                            <div class="type">
+                            	Business
+                            </div>
+                            </div>
+                        </div>
+                    <div class="info">
+                        <span class="phone">027-88888888</span>
+                        <span class="email">779311998@qq.com</span>
+                        <span class="address">武汉市洪山区光谷国际广场A座802</span>
+                        <span class="worktime">上午9点 - 下午6点</span>
+                    </div>
                 </div>
             </li>
         {% endfor %}
