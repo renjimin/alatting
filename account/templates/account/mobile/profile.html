@@ -3,6 +3,7 @@
 {% block base_header_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
 {% endblock %}
 
 {% block base_header_js %}
@@ -12,162 +13,162 @@
 {% endblock %}
 
 {% block base_body %}
-<div class="body-header">
-    <div class="head-top">
-        <div class="head-top-right">
-            <div class="top-rt-item myfavorite">
-                <i class="fa fa-star"></i>
-                <span class="rt-item-cont">我的收藏</span>
+    <div class="body-header">
+        <div class="head-top">
+            <div class="head-top-right">
+                <div class="top-rt-item myfavorite">
+                    <i class="fa fa-star"></i>
+                    <span class="rt-item-cont">我的收藏</span>
+                </div>
+                <div class="top-rt-item myshare">
+                    <i class="fa fa-share-square-o"></i>
+                    <span class="rt-item-cont">已分享</span>
+                </div>
             </div>
-            <div class="top-rt-item myshare">
-                <i class="fa fa-share-square-o"></i>
-                <span class="rt-item-cont">已分享</span>
-            </div>
-        </div>
-        <div class="head-top-left">
-            <div class="user-friends"><i class="fa fa-user"></i></div>
-            <div class="user-setting"><i class="fa fa-cog"></i></div>
-            <div class="user-level"><i class="fa fa-bank"></i></div>
-            <div class="user-info">
-                <span class="user-info-li user-icon" id="uIcon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="head"></span>
-                <span class="user-info-li user-name" id="uName">user</span>
+            <div class="head-top-left">
+                <div class="user-friends"><i class="fa fa-user"></i></div>
+                <div class="user-setting"><i class="fa fa-cog"></i></div>
+                <div class="user-level"><i class="fa fa-bank"></i></div>
+                <div class="user-info">
+                    <span class="user-info-li user-icon" id="uIcon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="head"></span>
+                    <span class="user-info-li user-name" id="uName">user</span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="body-main">
-    <div class="main-head" id="main-head">
-        <div class="head-bot-li head-bot-act" data-item="provide">
-            <span class="glyphicon glyphicon-file"></span>
-            <span class="head-bot-name">我提供的服务</span>
+    <div class="body-main">
+        <div class="main-head" id="main-head">
+            <div class="head-bot-li head-bot-act" data-item="provide">
+                <span class="glyphicon glyphicon-file"></span>
+                <span class="head-bot-name">我提供的服务</span>
+            </div>
+            <div class="head-bot-li" data-item="need">
+                <span class="glyphicon glyphicon-file"></span>
+                <span class="head-bot-name">我的服务需求</span>
+            </div>
+            <input type="hidden" id="pageType" value="provide">
+            <input type="hidden" id="shareId" value="0">
         </div>
-        <div class="head-bot-li" data-item="need">
-            <span class="glyphicon glyphicon-file"></span>
-            <span class="head-bot-name">我的服务需求</span>
+        <div class="main-list main-provide" id="main-provide">
+            <div class="ctrl-add" id="ctrl-add">
+                <div class="ctrl-icon"><i class="fa fa-plus"></i></div>
+            </div>
         </div>
-        <input type="hidden" id="pageType" value="provide">
-        <input type="hidden" id="shareId" value="0">
-    </div>
-    <div class="main-list main-provide" id="main-provide">
-        <div class="ctrl-add" id="ctrl-add">
-            <div class="ctrl-icon"><i class="fa fa-plus"></i></div>
-        </div>
-    </div>
 
-    <div class="main-list main-need" id="main-need"></div>
-</div>
-<div class="body-share" id="body-share">
-    <div class="share-li share-share">
-        <i class="fa fa-share-square-o"></i>
-        <span class="share-name">分享</span>
+        <div class="main-list main-need" id="main-need"></div>
     </div>
-    <div class="share-li share-weixin"><i class="fa fa-weixin"></i></div>
-    <div class="share-li share-comment"><i class="fa fa-comment"></i></div>
-    <div class="share-li share-envelope"><i class="fa fa-envelope"></i></div>
-    <div class="share-li share-weibo"><i class="fa fa-weibo"></i></div>
-    <div class="share-li share-qq"><i class="fa fa-qq"></i></div>
-</div>
-<div class="body-vip" id="body-vip">
-    <h3 class="vip-h3">VIP系统</h3>
-    <div class="vip-canvas">
-        <canvas class="process" id="vip-process" width='300' height='300'></canvas>
+    <div class="body-share" id="body-share">
+        <div class="share-li share-share">
+            <i class="fa fa-share-square-o"></i>
+            <span class="share-name">分享</span>
+        </div>
+        <div class="share-li share-weixin"><i class="fa fa-weixin"></i></div>
+        <div class="share-li share-comment"><i class="fa fa-comment"></i></div>
+        <div class="share-li share-envelope"><i class="fa fa-envelope"></i></div>
+        <div class="share-li share-weibo"><i class="fa fa-weibo"></i></div>
+        <div class="share-li share-qq"><i class="fa fa-qq"></i></div>
     </div>
-    <div class="vip-lv">
-        <span>黄金等级</span>
+    <div class="body-vip" id="body-vip">
+        <h3 class="vip-h3">VIP系统</h3>
+        <div class="vip-canvas">
+            <canvas class="process" id="vip-process" width='300' height='300'></canvas>
+        </div>
+        <div class="vip-lv">
+            <span>黄金等级</span>
+        </div>
+        <div class="vip-footer">
+            <ul>
+                <li>目前积分</li>
+                <li>升级需求</li>
+            </ul>
+            <ul>
+                <li>6128</li>
+                <li>1000</li>
+            </ul>
+        </div>
     </div>
-    <div class="vip-footer">
-        <ul>
-            <li>目前积分</li>
-            <li>升级需求</li>
-        </ul>
-        <ul>
-            <li>6128</li>
-            <li>1000</li>
-        </ul>
-    </div>
-</div>
-<script id="serverProvideTmpl" type="text/x-jquery-tmpl">
-    <div class="main-li">
-        <div class="mli-cont">
-            <div class="p-cont">
-                <div class="p-cont-img"><img src="${snapshot}" alt="img"></div>
-                <div class="p-cont-info">
-                    <div class="info-cont">
-                        <div class="info-cont-money">
-                            <span class="money-icon"><i class="fa fa-cny"></i></span>
-                            <span class="money-num">60</span>
-                            <span class="money-unit">小时</span>
-                        </div>
-                        <div class="info-cont-name">
-                            <span class="cont-name">${postername}</span>
-                            <span class="cont-star p-star p-star-10"></span>
+    <script id="serverProvideTmpl" type="text/x-jquery-tmpl">
+        <div class="main-li">
+            <div class="mli-cont">
+                <div class="p-cont">
+                    <div class="p-cont-img"><img src="${snapshot}" alt="img"></div>
+                    <div class="p-cont-info">
+                        <div class="info-cont">
+                            <div class="info-cont-money">
+                                <span class="money-icon"><i class="fa fa-cny"></i></span>
+                                <span class="money-num">60</span>
+                                <span class="money-unit">小时</span>
+                            </div>
+                            <div class="info-cont-name">
+                                <span class="cont-name">${postername}</span>
+                                <span class="cont-star p-star p-star-10"></span>
+                            </div>
                         </div>
                     </div>
+                    <div class="p-cont-tips"></div>
                 </div>
-                <div class="p-cont-tips"></div>
-            </div>
-            <div class="p-ctrl" data-id="${posterid}">
-                <div class="p-ctrl-li ctrl-lefttop ctrl-view">
-                    <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
-                    <span class="ctrl-name">查看</span>
-                </div>
-                <div class="p-ctrl-li ctrl-righttop ctrl-edit">
-                    <span class="ctrl-icon"><i class="fa fa-pencil"></i></span><br>
-                    <span class="ctrl-name">编辑</span>
-                </div>
-                <div class="p-ctrl-li ctrl-leftbot ctrl-statistics">
-                    <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
-                    <span class="ctrl-name">统计</span>
-                </div>
-                <div class="p-ctrl-li ctrl-rightbot ctrl-delete">
-                    <span class="ctrl-icon"><i class="fa fa-trash-o"></i></span><br>
-                    <span class="ctrl-name">删除</span>
+                <div class="p-ctrl" data-id="${posterid}">
+                    <div class="p-ctrl-li ctrl-lefttop ctrl-view">
+                        <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
+                        <span class="ctrl-name">查看</span>
+                    </div>
+                    <div class="p-ctrl-li ctrl-righttop ctrl-edit">
+                        <span class="ctrl-icon"><i class="fa fa-pencil"></i></span><br>
+                        <span class="ctrl-name">编辑</span>
+                    </div>
+                    <div class="p-ctrl-li ctrl-leftbot ctrl-statistics">
+                        <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
+                        <span class="ctrl-name">统计</span>
+                    </div>
+                    <div class="p-ctrl-li ctrl-rightbot ctrl-delete">
+                        <span class="ctrl-icon"><i class="fa fa-trash-o"></i></span><br>
+                        <span class="ctrl-name">删除</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</script>
-<script id="serverNeedTmpl" type="text/x-jquery-tmpl">
-    <div class="main-li">
-        <div class="mli-cont">
-            <div class="p-cont">
-                <div class="p-cont-img"><img src="${snapshot}" alt="img"></div>
-                <div class="p-cont-info">
-                    <div class="info-cont">
-                        <div class="info-cont-money">
-                            <span class="money-icon"><i class="fa fa-cny"></i></span>
-                            <span class="money-num">160</span>
-                            <span class="money-unit">小时</span>
-                        </div>
-                        <div class="info-cont-name">
-                            <span class="p-name">${postername}</span>
-                            <span class="p-star p-star-8"></span>
+    </script>
+    <script id="serverNeedTmpl" type="text/x-jquery-tmpl">
+        <div class="main-li">
+            <div class="mli-cont">
+                <div class="p-cont">
+                    <div class="p-cont-img"><img src="${snapshot}" alt="img"></div>
+                    <div class="p-cont-info">
+                        <div class="info-cont">
+                            <div class="info-cont-money">
+                                <span class="money-icon"><i class="fa fa-cny"></i></span>
+                                <span class="money-num">160</span>
+                                <span class="money-unit">小时</span>
+                            </div>
+                            <div class="info-cont-name">
+                                <span class="p-name">${postername}</span>
+                                <span class="p-star p-star-8"></span>
+                            </div>
                         </div>
                     </div>
+                    <div class="p-cont-tips"></div>
                 </div>
-                <div class="p-cont-tips"></div>
-            </div>
-            <div class="p-ctrl" data-id="${posterid}">
-                <div class="p-ctrl-li ctrl-lefttop ctrl-view">
-                    <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
-                    <span class="ctrl-name">查看</span>
-                </div>
-                <div class="p-ctrl-li ctrl-righttop ctrl-favorite">
-                    <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
-                    <span class="ctrl-name">收藏</span>
-                </div>
-                <div class="p-ctrl-li ctrl-leftbot ctrl-statistics">
-                    <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
-                    <span class="ctrl-name">统计</span>
-                </div>
-                <div class="p-ctrl-li ctrl-rightbot ctrl-share">
-                    <span class="ctrl-icon"><i class="fa fa-share-square-o"></i></span><br>
-                    <span class="ctrl-name">分享</span>
+                <div class="p-ctrl" data-id="${posterid}">
+                    <div class="p-ctrl-li ctrl-lefttop ctrl-view">
+                        <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
+                        <span class="ctrl-name">查看</span>
+                    </div>
+                    <div class="p-ctrl-li ctrl-righttop ctrl-favorite">
+                        <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
+                        <span class="ctrl-name">收藏</span>
+                    </div>
+                    <div class="p-ctrl-li ctrl-leftbot ctrl-statistics">
+                        <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
+                        <span class="ctrl-name">统计</span>
+                    </div>
+                    <div class="p-ctrl-li ctrl-rightbot ctrl-share">
+                        <span class="ctrl-icon"><i class="fa fa-share-square-o"></i></span><br>
+                        <span class="ctrl-name">分享</span>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</script>
+    </script>
 
 
 {% endblock %}
