@@ -39,9 +39,12 @@
                 smusic.off('click','.musiclisten').on('click','.musiclisten',function(){
                     var sm = $(this).attr('data-img');
                     console.log(sm)    
-                    $('.audiolink').empty().append('<audio autoplay></audio>');
+                    $('.audiolink').empty().append('<audio  id = "music" autoplay></audio>');
                     $('.audiolink audio').attr("src",sm);
-
+                    var music = document.getElementById("music"); 
+                   if (music.paused) { //判读是否播放
+                          music.play();//没有就播放
+                   } 
                 });
                  smusic.off('click','.music-system').on('click','.music-system',function(){
                     var sm = $(this).attr('data-img');

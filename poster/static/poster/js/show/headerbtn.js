@@ -2,6 +2,7 @@ $(function(){
 	$(document).click(function(){
 		$('.header-info .header-description').show();
 		$('.header-info .contact-info').hide();
+		$('.poster-top-inform-more').hide();
 		hideMap();
 	});
 	$(document.body).on("touchstart",function(){
@@ -28,6 +29,13 @@ $(function(){
 	});
 	$(".contact-info.location").click(function(){
 		togleMap();
+		return false;
+	});
+	$(".contact-info.hour").click(function(){
+		togleTopInform();
+		return false;
+	});
+	$(".contact-info:not(.location)").click(function(){
 		return false;
 	});
 	//click the logo image in the center to toogle abuttons in two layers
@@ -103,9 +111,18 @@ function showMap(mapDiv){
 function hideMap(){
 	var mapDiv = $("#allmap").parents("div").eq(0),
 		mapState = (mapDiv.css("visibility") == "visible")?true:false;
-	if(mapState)$("header.header").height($("header.header").height() - 300);
+	$("header.header").css("height","auto");
 	mapDiv.css("visibility","hidden");
 }
+function togleTopInform(){
+	var topInform = $('.poster-top-inform-more');
+	if(topInform.is(":visible")){
+		topInform.hide();
+	}else{
+		topInform.show();
+	}
+}
+
 function liked(){
 	$.post(likedURL).done(function(object){
 		$(".abutton-like").addClass("clicked");
@@ -155,4 +172,3 @@ function subscribed(){
 		}
 	})
 }
-

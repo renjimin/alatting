@@ -14,9 +14,9 @@ $(function(){
         e.stopPropagation();
         $('#text-model').animate({'bottom':'-300px'},200);
     });
-    postcontainer.on('click','.text-element',function(event){
+    postcontainer.on('click','.el-content',function(event){
         event.stopPropagation();
-        var ths = $(this);
+        var ths = $(this).parent();
         $('.cnd-element').removeClass('active');
         $('.text-element').removeClass('text-element-act').css('z-index','100');
         ths.addClass('text-element-act').css('z-index','110');
@@ -39,9 +39,9 @@ $(function(){
         },1000);
     }
     */
-    postcontainer.on('click','#ele-editor-ctrl',function(e){
-        e.stopPropagation();
+    postcontainer.on('click','#ele-editor-ctrl',function(event){
         $(document).trigger('clsdp');
+        event.stopPropagation();
         var bot = parseInt($('#text-model').css('bottom'));
         if(bot<0){
             $('#text-model').animate({'bottom':'0px'},200);

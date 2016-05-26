@@ -32,9 +32,8 @@ class PosterFormViewMixin(object):
     form_class = PosterCreateForm
 
     def get_success_url(self):
-        return '%s?poster_id=%s' % (
-            reverse('poster:select_template'),
-            self.object.id
+        return '%s?role=creator' % (
+            reverse('survey:start', kwargs={'poster_id':self.object.id})
         )
 
     def update_poster_keywords(self):
