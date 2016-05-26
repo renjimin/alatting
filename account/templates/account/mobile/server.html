@@ -3,17 +3,17 @@
 {% block base_header_css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
-    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/server.css' %}"/>
 {% endblock %}
 
 {% block base_header_js %}
     {{ block.super }}
-    <script src="{% static 'account/js/consumer.js' %}"></script>
+    <script src="{% static 'account/js/server.js' %}"></script>
 {% endblock %}
 
 {% block base_body %}
     <div class="body-header">
-        <div class="header-left" data-id="1">
+        <div class="header-left">
             <div class="hd-ctrl-li ctrl-favorite" id="ctrl-favorite">
                 <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
                 <span class="ctrl-name">收藏</span>
@@ -30,6 +30,7 @@
                 <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
                 <span class="ctrl-name">统计</span>
             </div>
+            <input type="hidden" id="posterid" value="1">
         </div>
         <div class="header-right">
             <div class="hd-left-img">

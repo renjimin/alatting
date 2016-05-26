@@ -5,6 +5,8 @@ $(function(){
 
     var serverProvideTmpl = $('#serverProvideTmpl').html();
     $.template('serverProvideTmpl',serverProvideTmpl);
+    var serverNeedTmpl = $('#serverNeedTmpl').html();
+    $.template('serverNeedTmpl',serverNeedTmpl);
     var data = [
         {
             posterid:1,
@@ -49,6 +51,7 @@ $(function(){
     ];
     for(var i=0;i<data.length;i++){
         $.tmpl('serverProvideTmpl',data[i]).appendTo('#main-provide');
+        $.tmpl('serverNeedTmpl',data[i]).appendTo('#main-need');
     }
     $(document).scroll(function(){
         var h = $('.body-header').outerHeight();
@@ -166,7 +169,7 @@ $(function(){
         if(pageType == 'provide'){
             console.log('view:provide:'+id);
         }else{
-            console.log('view:need:'+id);
+            location.href = '/mobile/account/posters/'+id+'/consumer.html';
         }
     });
     /*favorite*/

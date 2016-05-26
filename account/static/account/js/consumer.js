@@ -4,7 +4,17 @@
 
 
 $(function(){
-
+    var id = $('#posterid').val();
+    $('#ctrl-favorite').on('click',function(){
+        var status = $(this).attr('data-fav');
+        if(status == 0){
+            $(this).find('.fa').css('color','#feba01');
+            $(this).attr('data-fav','1');
+        }else{
+            $(this).find('.fa').css('color','#808080');
+            $(this).attr('data-fav','0');
+        }
+    });
     $('#ctrl-share').on('click',function(){
         showShare(true);
     });
