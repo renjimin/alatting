@@ -8,7 +8,7 @@
     <div class="title header-bar-title">
         <p>{{ poster.unique_name }}</p>
     </div>
-    <button class="button button-clear btn-music header-music rotate" id="music">
+    <button class="button button-clear btn-music header-music" id="music">
         <i class="ico-music "></i>
         <audio id="background_music" hidden  loop="true">
           <source src="{{ object.music|default_if_none:'' }}" type="audio/mpeg">
