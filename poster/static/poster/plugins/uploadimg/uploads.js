@@ -192,15 +192,15 @@
 				delete option.url;
 			}
 
-			var webUploadervideo = WebUploader.create(option);
-			webUploadervideo.on('uploadSuccess',function( file, response ){
+			var webUploaderaudio = WebUploader.create(option);
+			webUploaderaudio.on('uploadSuccess',function( file, response ){
 				if(self.success)self.success(response);
-				webUploadervideo.removeFile(file.id);
+				webUploaderaudio.removeFile(file.id);
 
 			});
 
 
-			webUploadervideo.on('uploadError',function( file, reason ){
+			webUploaderaudio.on('uploadError',function( file, reason ){
 				if ( self.error ) {
 					self.error( reason );
 
@@ -208,7 +208,7 @@
 			});
 
 			//绑定文件加入队列事件;
-			webUploadervideo.on('fileQueued', function(file ) {
+			webUploaderaudio.on('fileQueued', function(file ) {
 				if(!/\.(mp4|ogg|webm)$/.test(file.name)){
 					yyAlert("上传视频格式错误");
 					webUploader.removeFile(file.id);
@@ -217,14 +217,14 @@
 
 			});
 
-			webUploadervideo.on( 'uploadProgress', function( file, percentage ) {
+			webUploaderaudio.on( 'uploadProgress', function( file, percentage ) {
 				$.fn.yyTools.mask(1);
 
 			})
 
 
 			//选择文件错误触发事件;
-			webUploader.on('error', function( code ) {
+			webUploaderaudio.on('error', function( code ) {
 				var text = '';
 				switch( code ) {
 					case  'F_DUPLICATE' : text = '该文件已经被选择了!' ;
