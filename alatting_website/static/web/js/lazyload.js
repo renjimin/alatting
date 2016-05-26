@@ -94,7 +94,6 @@
                     $self.attr("src", settings.placeholder);
                 }
             }
-            $self.css({'top':'-20px'});
 
             /* When appear is triggered load original image. */
             $self.one("appear", function() {
