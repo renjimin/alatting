@@ -21,7 +21,7 @@ $(document).ready(function(){
         event.stopPropagation();
     });
     /* 海报列表hover效果 */
-    $('#posters .poster-item').hover(function(){
+    $('.poster-list .poster-item').hover(function(){
         $(this).addClass('hover');
     },function(){
         $(this).removeClass('hover');

@@ -54,6 +54,7 @@ $(function () {
                 info.enabled = $(".weekly td:eq(" + (i * 6 + 4) + ")").hasClass("off") ? 0 : 1;
             }
             storageAPI.setHead("lifetime", lifetime);
+            storageAPI.setHead("updated_at", yunyeEditorGlobal.updated_at);
         };
 
     $(".back-to-home").click(function () {
@@ -207,5 +208,4 @@ $(function () {
     window.onunload = function (event) {
         saveData();
     }
-
 });

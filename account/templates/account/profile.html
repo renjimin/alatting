@@ -12,19 +12,19 @@
 
 {% block base_body %}
     <header>
-      <div class="header-tabs">
-        <ul class="tabs-navigation">
-          <li class="tabs-navigation-item active">
-            <a class="tabs-navigation-icon" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
-          </li>
-          <li class="tabs-navigation-item">
-            <a class="tabs-navigation-icon" href="#"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
-          </li>
-          <li class="tabs-navigation-item">
-            <a class="tabs-navigation-icon" href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
-          </li>
-        </ul>
-      </div>
+        <div class="header-tabs">
+            <ul class="tabs-navigation">
+                <li class="tabs-navigation-item active">
+                    <a class="tabs-navigation-icon" href="#"><i class="fa fa-user" aria-hidden="true"></i></a>
+                </li>
+                <li class="tabs-navigation-item">
+                    <a class="tabs-navigation-icon" href="#"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                </li>
+                <li class="tabs-navigation-item">
+                    <a class="tabs-navigation-icon" href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+                </li>
+            </ul>
+        </div>
     </header>
     <div class="account-body-content">
         <div class="ac-uinfo">
@@ -116,7 +116,9 @@
                         </div>
                     </div>
                 </div>
-            </div>{% for poster_created in object.posters_created %}<div class="ac-temp-li ac-list" ng-repeat="t in tarr">
+            </div>
+            {% for poster_created in object.posters_created %}
+            <div class="ac-temp-li ac-list" ng-repeat="t in tarr">
                 <div class="ac-temp-box ac-temp-box-list" id="ac-temp-box-list-{{poster_created.id}}">
                     <div class="ac-list-img">
                         <img src="{% static 'account/img/hb002.png' %}" alt="hb">
@@ -133,6 +135,8 @@
                         </div>
                     </div>
                 </div>
-            </div>{% endfor %}</div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

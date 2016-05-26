@@ -2,16 +2,15 @@
 import base64
 from datetime import datetime
 import json
+import logging
 
 import pytz
-from django.contrib.auth.models import AnonymousUser, User
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
-    RetrieveUpdateAPIView, UpdateAPIView, get_object_or_404)
+    RetrieveUpdateAPIView, get_object_or_404)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from alatting import settings
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.model.resource import Image
@@ -23,8 +22,10 @@ from poster.serializer.poster import (
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer)
 from poster.serializer.resource import AddressSerializer
-from utils.file import handle_uploaded_file, get_image_path, save_file, \
-    read_template_file_content
+from utils.file import save_file, read_template_file_content
+
+
+logger = logging.getLogger('common')
 
 
 class PosterSimpleInfoListView(ListAPIView):
@@ -93,11 +94,6 @@ class PosterDetailView(RetrieveUpdateAPIView):
     def get_queryset(self):
         qs = super(PosterDetailView, self).get_queryset()
         return qs.filter(creator=self.request.user)
-
-
-class PosterPageTemplateMixin(object):
-
-    pass
 
 
 class PosterPageListView(ListCreateAPIView):
@@ -298,20 +294,27 @@ class PosterSaveContentMixin(object):
             try:
                 static_map = pages_json['{:d}'.format(page.id)]
                 if 'html' in static_map.keys() and len(static_map['html']) != 0:
-                    page.temp_html = base64.b64decode(static_map['html'])
+                    html = str(base64.b64decode(static_map['html']),
+                               encoding='utf-8', errors='ignore')
+                    page.temp_html = html
                 if 'css' in static_map.keys() and len(static_map['css']) != 0:
-                    page.temp_css = self._css_handler(page.temp_css, static_map['css'])
+                    page.temp_css = self._css_handler(page.temp_css,
+                                                      static_map['css'])
                 page.save()
             except KeyError:
                 pass
 
     def save_json_info(self, instance, request_data):
         # 存储头部基本信息
-        json_data = json.loads(request_data['data'])
-        if 'head' in json_data.keys():
-            self._save_head_info(instance, json_data['head'])
-        if 'pages' in json_data.keys():
-            self._save_pages_info(instance, json_data['pages'])
+        try:
+            json_data = json.loads(request_data['data'])
+            if 'head' in json_data.keys():
+                self._save_head_info(instance, json_data['head'])
+            if 'pages' in json_data.keys():
+                self._save_pages_info(instance, json_data['pages'])
+        except Exception as e:
+            logger.exception(e)
+            raise e
 
 
 class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
@@ -349,8 +352,8 @@ class PosterPublishView(RetrieveUpdateAPIView, PosterSaveContentMixin):
             print(image_url)
             print(pdf_url)
         except Exception as e:
-            # todo lyh: 记录日志并提示
-            pass
+            logger.exception(e)
+            raise e
 
 
 class PosterSaveView(RetrieveUpdateAPIView, PosterSaveContentMixin):
