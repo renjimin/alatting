@@ -56,8 +56,8 @@ $(function () {
         if (storageAPI.getCss(".qrcode-inner .qrcode")) {
             $(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
         }
-        if (storageAPI.getCss(".abutton-group li a")) {
-            $(".abutton-group li a").css(storageAPI.getCss(".abutton-group li a"));
+        if (storageAPI.getCss(".btn-circle")) {
+            $(".btn-circle").css(storageAPI.getCss(".btn-circle"));
         }
 
         /*读取主体部分*/
@@ -403,9 +403,9 @@ $(function () {
                 callback: function () {
                     $("#colorBox").css('top', $('.content').offset().top).show();
                     $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background', color);
+                        $('.qrcode-inner .qrcode,.btn-circle').css('background', color);
                         storageAPI.setCss(".qrcode-inner .qrcode", {'background': color});
-                        storageAPI.setCss(".abutton-group li a", {'background': color});
+                        storageAPI.setCss(".btn-circle", {'background': color});
                     });
                 }
             },
@@ -414,13 +414,13 @@ $(function () {
                 text: "背景图片",
                 callback: function () {
                     $(this).bgselect({}, function (ths, img) {
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background', 'url(' + img + ')');
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-size', '100% 100%');
+                        $('.qrcode-inner .qrcode,.btn-circle').css('background', 'url(' + img + ')');
+                        $('.qrcode-inner .qrcode,.btn-circle').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode-inner .qrcode", {
                             'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
-                        storageAPI.setCss(".abutton-group li a", {
+                        storageAPI.setCss(".btn-circle", {
                             'background': 'url(' + img + ')',
                             'background-size': '100% 100%'
                         });
@@ -437,13 +437,13 @@ $(function () {
                             yyAlert("上传图片格式错误");
                             return false;
                         }
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background', 'url(' + data.file + ')');
-                        $('.qrcode-inner .qrcode,.abutton-group li a').css('background-size', '100% 100%');
+                        $('.qrcode-inner .qrcode,.btn-circle').css('background', 'url(' + data.file + ')');
+                        $('.qrcode-inner .qrcode,.btn-circle').css('background-size', '100% 100%');
                         storageAPI.setCss(".qrcode-inner .qrcode", {
                             'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
-                        storageAPI.setCss(".abutton-group li a", {
+                        storageAPI.setCss(".btn-circle", {
                             'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });

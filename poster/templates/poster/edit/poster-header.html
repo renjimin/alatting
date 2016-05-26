@@ -1,44 +1,48 @@
 <header class="header">
-    <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
-    <div class="header-bar">
-        <div class="header-qrcode">
-            <div class="qrcode-inner">
-                <div class="qrcode">
-                    <a href="javascript:void(0);" class="btn">
-                        <img src="{% url 'website:code_poster' poster.id %}"/>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="header-logo">
-            <img src="{{ poster.logo_image.file.url }}">
-        </div>
-        <div class="header-abutton">
-            <div class="abutton-inner" id="abutton">
-                <div class="abutton-internal">
-                    <a class="abtn" href="javascript:void(0);"><i
-                            class="icon ico-menu"></i></a>
-                </div>
-                <ul class="abutton-group abutton-contact">
-                    <li><a href="#"><i class="icon ico-phone"></i></a></li>
-                    <li><a href="#"><i class="icon ico-email"></i></a></li>
-                    <li><a href="#"><i class="icon ico-address"></i></a></li>
-                    <li><a href="#"><i class="icon ico-clock"></i></a></li>
-                </ul>
-                <ul class="abutton-group abutton-express">
-                    <li><a href="#"><i class="icon ico-like"></i></a></li>
-                    <li><a href="#"><i class="icon ico-bookmark"></i></a></li>
-                    <li><a href="#"><i class="icon ico-subscribe"></i></a></li>
-                    <li><a href="#"><i class="icon ico-fun"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="header-info">
-        <div class="desc">
-            <span id="short_description" style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
-        </div>
-    </div>
+	<div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
+	<div class="header-bar">
+		<div class="header-qrcode">
+			<div class="qrcode-inner">
+				<div class="qrcode">
+					<a href="javascript:void(0);" class="btn">
+						<img src="{% url 'website:code_poster' poster.id %}"/>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="header-logo">
+			<img src="{{ poster.logo_image.file.url }}">
+		</div>
+		<div class="header-abutton">
+			<div class="abutton-inner" id="abutton">
+				<div class="btn-circle" style="width: 100%;height: 100%;border-radius: 100%;position: absolute;z-index: 0;"></div>
+				<div class="abutton-internal" style="position: absolute;z-index: 30;">
+					<a class="abtn" href="javascript:void(0);"><i class="icon ico-menu"></i></a>
+				</div>
+				<ul class="abutton-group abutton-contact">
+					<li><a href="#"><i class="icon ico-phone"></i></a></li>
+					<li><a href="#"><i class="icon ico-email"></i></a></li>
+					<li><a href="#"><i class="icon ico-address"></i></a></li>
+					<li><a href="#"><i class="icon ico-clock"></i></a></li>
+				</ul>
+				<ul class="abutton-group abutton-express">
+					<li><a href="#"><i class="icon ico-like"></i></a></li>
+					<li><a href="#"><i class="icon ico-bookmark"></i></a></li>
+					<li><a href="#"><i class="icon ico-subscribe"></i></a></li>
+					<li><a href="#"><i class="icon ico-fun"></i></a></li>
+				</ul>
+				<div style="width: 100%;height: 100%;position: absolute;z-index: 20;">
+					<div style="width: 100%;height: 2px;background: #fff;transform: rotate(45deg);transform-origin: left;left: 14%;top: 14%;position: absolute;"></div>
+					<div style="width: 100%;height: 2px;background: #fff;transform: rotate(135deg);transform-origin: left;left: 85%;top: 14%;position: absolute;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="header-info">
+		<div class="desc">
+			<span id="short_description" style="position: relative;z-index: 20;">{{ poster.short_description }}</span>
+		</div>
+	</div>
 </header>
 <div id = "test" style="display: none"></div>
 <div class = "audiolink"></div>
