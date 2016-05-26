@@ -12,6 +12,9 @@ $(function(){
 			onSearchComplete: function(){
 				if( pp = local.getResults().getPoi(0) ){
 					var pp = local.getResults().getPoi(0).point;	//获取第一个智能搜索的结果
+					window.zoomMap = function(){
+						baiduMap.centerAndZoom(pp, 14);
+					}
 					baiduMap.centerAndZoom(pp, 14);
 					baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
 				}else{

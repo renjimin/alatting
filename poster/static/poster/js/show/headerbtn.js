@@ -1,6 +1,6 @@
 $(function(){
 	$(document).click(function(){
-		$('.header-info .contact-info').hide();
+		$('.info-toggle .contact-info').hide();
 		$('.poster-top-inform-more').hide();
 		hideMap();
 	});
@@ -17,7 +17,7 @@ $(function(){
 	$('a.abutton-contact').click(function(e){
 		hideMap();
 		var target_element = 'div.' + $(this).attr('for');
-		var target_container = $('.header-info');
+		var target_container = $('.info-toggle');
 		var target = $(target_container).find(target_element);
 		if($(target).css('display') == 'none') {
 			$(target_container).find('div.contact-info').hide();
@@ -40,10 +40,10 @@ $(function(){
 	$('a.abutton-trigger').click(function(e){
 		e.preventDefault();
 		if($(this).attr('expressed') == 'false') {
-			$(this).parents('div.abutton-inner').removeClass("open");
+			$(this).parents('div.abutton-inner').addClass("open");
 			$(this).attr('expressed','true');
 		}else if($(this).attr('expressed') == 'true') {
-			$(this).parents('div.abutton-inner').addClass("open");
+			$(this).parents('div.abutton-inner').removeClass("open");
 			$(this).attr('expressed','false');
 		}
 	});
@@ -93,17 +93,21 @@ $(function(){
 	});
 });
 function togleMap(){
-	var mapDiv = $("#allmap").parents("div").eq(0),
+	var mapDiv = $("#allmap").parents("div").eq(0).parents("div").eq(0),
 		mapState = (mapDiv.css("visibility") == "visible")?true:false;
 	if(mapState){
 		hideMap();
 	}else{
 		mapDiv.css("visibility","visible");
+		mapDiv.height($(".template-box").height());
+		$(".info-toggle").height($(".template-box").height());
+		if(window.zoomMap)window.zoomMap();
 	}
 }
 function hideMap(){
-	var mapDiv = $("#allmap").parents("div").eq(0);
+	var mapDiv = $("#allmap").parents("div").eq(0).parents("div").eq(0);
 	mapDiv.css("visibility","hidden");
+	$(".info-toggle").css("height","auto");
 }
 function togleTopInform(){
 	var topInform = $('.poster-top-inform-more');
