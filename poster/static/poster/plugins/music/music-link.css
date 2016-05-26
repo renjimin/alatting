@@ -75,6 +75,9 @@
     margin-top: 6px; 
     padding: 0 10px; 
 }
+.system-music  .musiclisten:active{
+    background: #aaa;
+}
 .system-music  .musicapp{
     float: right;
     margin-right: 10px;
@@ -84,6 +87,9 @@
     height: 25px;
     margin-top: 6px;   
     padding: 0 10px; 
+}
+.system-music  .musicapp:active{
+    background: #aaa;
 }
 #okmusic{
     height: 23px;

@@ -36,9 +36,10 @@ $(function () {
                         accept: 'image/jpg,image/jpeg,image/png,image/gif',
                         compress: false,
                         threads: 1,
+                        auto:true,
                         sliderContainer: _this
                     });
-                    $(".closefile").click(function () {
+                    $(".closefile,.file-bottom .btn").click(function () {
                         $(".upload-image-dialog").removeClass('open');
                     });
                 }
@@ -57,12 +58,7 @@ $(function () {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
                         obj.imgoperation({'data': data});
-
-
                     });
-
-
-
                 }
             },
             {
@@ -76,16 +72,24 @@ $(function () {
                             return false;
                         }
                         if (obj) {
-                            obj.empty().append('<video autoplay src="' + data.file + '"></video>');
+                            //obj.empty().append('<video autoplay src="' + data.file + '"></video>');
+                            obj.empty();
+                            $("#videoDomTmpl").tmpl(
+                                {
+                                    "class_name": "video_content",
+                                    "video_dom_id": data.id,
+                                    "video_id": data.id,
+                                    "video_preview_img": data.preview,
+                                    "video_url": data.file
+                                }
+                            ).appendTo(obj);
+                            //videojs.initialize('video_' + data.id);
                         }
-
                         console.log(data);
                         obj.imgoperation({'data': data});
                     }, function (data) {
                         yyAlert("上传失败");
                     });
-
-
                 }
             },
             {
@@ -123,11 +127,9 @@ $(function () {
         }else if($this.find('img').length > 0){
             $(this).imgoperation();
         }
-
     });
     $(".yunye-template .cnd-element").each(function () {
         scale($(this));
     });
-    
 
 });

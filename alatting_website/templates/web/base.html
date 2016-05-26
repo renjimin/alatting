@@ -15,6 +15,7 @@
     <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
     <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'web/js/lazyload.js' %}"></script>
+    <script src="{% static 'web/js/jquery.imgview.js' %}"></script>
     <script src="{% static 'web/js/base.js' %}"></script>
     <!--[if lt IE 9]>
     <script src="{% static 'web/js/html5shiv.min.js' %}"></script>
@@ -23,7 +24,7 @@
     {% block base_head_js %}
     {% endblock %}
 </head>
-<body>
+<body class="viewport">
 {% block base_body %}
     {% block base_body_header %}
     {% endblock %}

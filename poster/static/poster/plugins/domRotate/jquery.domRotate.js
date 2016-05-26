@@ -25,6 +25,7 @@
         }
         var $etrl = $('#ele-editor-ctrl');
         var $ctrl = $('#ele-rotate-ctrl');
+        var rate = $('body').width()/box.width();/*适应yunye-template缩放*/
         moveCtrlBtn($element.children('.el-rotate'),$element.parent(),$ctrl);
         moveCtrlBtn($element.children('.el-editor'),$element.parent(),$etrl);
 
@@ -47,8 +48,13 @@
                 if (move){
                     bx = e.pageX;
                     by = e.pageY;
+                    /*
                     var sx = bx - _bx + eleft;
                     var sy = by - _by + etop;
+                    */
+                    /*适应yunye-template缩放*/
+                    var sx  =  modifyRate(bx-_bx,rate,0)+eleft;
+                    var sy  =  modifyRate(by-_by,rate,0)+etop;
                     $element.css({'left': sx + 'px', top: sy + 'px'});
                     moveCtrlBtn($element.children('.el-rotate'),$element.parent(),$ctrl);
                     moveCtrlBtn($element.children('.el-editor'),$element.parent(),$etrl);
@@ -92,6 +98,11 @@
                         by = e.pageY;
                         movp.left = rbotp.left + bx - _bx;
                         movp.top = rbotp.top + by - _by;
+
+                        /*适应yunye-template缩放*/
+                        movp.left  =  modifyRate(movp.left,rate,0);
+                        movp.top  =  modifyRate(movp.top,rate,0);
+
                         var bvl = getTwoPointDistance(botp,movp);
                         var mbl = getTwoPointDistance(midp,botp);
                         var mvl = getTwoPointDistance(midp,movp);
@@ -105,7 +116,12 @@
                         ndeg = keepTwoValid(ndeg);
                         nrate = keepTwoValid(nrate);
                         var tranf = 'rotate('+ndeg+'deg) scale('+nrate+')';
-                        $element.css({'transform':tranf,'-webkit-transform':tranf,'-moz-transform':tranf,'-ms-transform':tranf,'-o-transform':tranf});
+                        $element.css({"transform":tranf});
+
+                        /*
+                        var tranforms = 'transform:'+tranf+';-webkit-transform:'+tranf+';-moz-transform:'+tranf+';-ms-transform:'+tranf+';-o-transform:'+tranf;
+                        $element.attr('style',tranforms);
+                        */
                         moveCtrlBtn($element.children('.el-rotate'),$element.parent(),$ctrl);
                         moveCtrlBtn($element.children('.el-editor'),$element.parent(),$etrl);
                     }
@@ -120,6 +136,9 @@
             var fbox = $fbox.offset();
             var sx = pos.left-fbox.left;
             var sy = pos.top-fbox.top;
+            /*适应yunye-template缩放*/
+            sx  =  modifyRate(sx,rate,0);
+            sy  =  modifyRate(sy,rate,0);
             $ctrol.css({left:sx+'px',top:sy+'px'});
         }
 
@@ -138,6 +157,14 @@
         function keepTwoValid(num){
             num=parseFloat(num);
             return num.toFixed(2);
+        }
+        /*适应yunye-template缩放*/
+        function modifyRate(num,rate,type){
+            if(type){
+                return num*rate;
+            }else{
+                return num/rate;
+            }
         }
 
 

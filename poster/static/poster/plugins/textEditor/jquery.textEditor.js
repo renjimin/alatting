@@ -32,6 +32,8 @@
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
         var move=false;
+        /*适应yunye-template缩放*/
+        var rate = $('body').width()/$('.container-fluid').find('.yunye-template').width();
         /*载入控件dom*/
         var ch = pluginBox.children().length;
         if(!ch){
@@ -110,6 +112,8 @@
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
             var cont = $('#tt-content').val();
+            cont = cont.replace(/<\/?.+?>/g,"");
+            cont = cont.replace(/&nbsp;/g,"")
             cont = cont.replace('\n','<br>');
             if(option.pluginType == 'main'){
                 $element.find('.el-content').html(cont);
@@ -430,7 +434,18 @@
             var fbox = $fbox.offset();
             var sx = pos.left-fbox.left;
             var sy = pos.top-fbox.top;
+            /*适应yunye-template缩放*/
+            sx  =  modifyRate(sx,rate,0);
+            sy  =  modifyRate(sy,rate,0);
             $ctrol.css({left:sx+'px',top:sy+'px'});
+        }
+        /*适应yunye-template缩放*/
+        function modifyRate(num,rate,type){
+            if(type){
+                return num*rate;
+            }else{
+                return num/rate;
+            }
         }
 
     };

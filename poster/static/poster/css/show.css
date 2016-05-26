@@ -1,6 +1,5 @@
 .navbar{
     margin-bottom: 0;
-    min-height: auto;
 }
 .edit-bar-header .title {
     margin: 0
@@ -37,7 +36,7 @@
 .icon-btn img{
     max-width: 100%;
     vertical-align: middle;
-    padding-bottom: 10px;
+
 }
 /*--文字预置样式---start-*/
 .text-element{
@@ -69,6 +68,10 @@
     left: -1px;
 }
 /*--文字预置样式---end-*/
+
+.hours-more-details{
+    width: 100%;
+}
 
 @media only screen and (max-width: 767px) and (min-width: 360px){
     .comments-submenu {

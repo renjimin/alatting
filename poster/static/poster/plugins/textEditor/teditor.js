@@ -1,11 +1,11 @@
 $(function(){
     $('#text-element-act').tEditor({});
-    var postcontainer = $('.container-fluid').children('.yunye-template');
+    var postcontainer = $('.container-fluid').find('.yunye-template');
     $('#share-toggle').on('click',function(e){
         e.stopPropagation();
         $('.dropdown-panel').removeClass('open');
         $('.dropdown-toggle').removeClass('open');
-        var cnd = $('<div class="cnd-element text-element"><div class="el-content">请修改文字</div><div class="el-rotate"></div><div class="el-editor"></div></div>');
+        var cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-rotate"></div><div class="el-editor"></div></div>');
         postcontainer.append(cnd);
         cnd.css({'top':'20px','left':'100px'});
     });
@@ -14,9 +14,9 @@ $(function(){
         e.stopPropagation();
         $('#text-model').animate({'bottom':'-300px'},200);
     });
-    postcontainer.on('click','.text-element',function(event){
+    postcontainer.on('click','.el-content',function(event){
         event.stopPropagation();
-        var ths = $(this);
+        var ths = $(this).parent();
         $('.cnd-element').removeClass('active');
         $('.text-element').removeClass('text-element-act').css('z-index','100');
         ths.addClass('text-element-act').css('z-index','110');
@@ -39,9 +39,9 @@ $(function(){
         },1000);
     }
     */
-    postcontainer.on('click','#ele-editor-ctrl',function(e){
-        e.stopPropagation();
+    postcontainer.on('click','#ele-editor-ctrl',function(event){
         $(document).trigger('clsdp');
+        event.stopPropagation();
         var bot = parseInt($('#text-model').css('bottom'));
         if(bot<0){
             $('#text-model').animate({'bottom':'0px'},200);

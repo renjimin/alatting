@@ -64,14 +64,15 @@ html {
 .ico-fun:before,
 .ico-alogo:before,
 .ico-mobile:before,
-.ico-menu:before {
+.ico-menu:before,
+.clicked .ico-like:before,
+.clicked .ico-bookmark:before,
+.clicked .ico-subscribe:before,
+.clicked .ico-fun:before{
 	display: inline-block;
-
 	width: 1em;
 	height: 1em;
-
 	content: "";
-
 	background: url(/static/website/images/icons/sprits_tools.png) center center no-repeat;
 	background-size: auto 100%;
 }
@@ -111,6 +112,19 @@ html {
 .ico-mobile:before {
 	background-position: -10em 0;
 }
+.clicked .ico-like:before{
+	background-position: -12em 0;
+}
+.clicked .ico-bookmark:before{
+	background-position: -14em 0;
+}
+.clicked .ico-subscribe:before{
+	background-position: -13em 0;
+}
+.clicked .ico-fun:before{
+	background-position: -11em 0;
+}
+	
 .ico-share-email,
 .ico-share-wechat,
 .ico-share-qq,
@@ -1580,6 +1594,9 @@ to {
 	top: 0;
 	left: 0;
 }
+.template-box{
+	overflow:hidden;
+}
 .body-container{
 	height:100%;
 }
@@ -1597,12 +1614,45 @@ to {
 	display: none;
 	vertical-align: middle;
 	text-align: center;
-	margin-left: 3%;
-	margin-right: 1%;
 }
 .contact-info .icon{
 	margin-left: 10px;
 	margin-top: 2px;
 	font-size: 22px;
 	vertical-align: middle;
+}
+
+.video-js {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+}
+.poster-video-widget{
+    -webkit-clip-path: inherit;
+    clip-path: inherit;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+.poster-video-widget .video-play {
+    position: absolute !important;
+    left: 35%;
+    top: 30%;
+    width: auto;
+    height: 30%;
+}
+.vjs-controls-disabled .vjs-poster {
+    display: inline-block;
+}
+
+#dpw_address{
+	padding: 5px;
+}
+#dpw_address li{
+	border-bottom: 5px solid #e1e1e1;
+	margin-bottom: 5px;
+}
+#dpw_address li span{
+	width: calc(100% - 44px);
 }
