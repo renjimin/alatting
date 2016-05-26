@@ -1,0 +1,57 @@
+
+.body-container{
+    width: 100%;
+    background: #cccccc;
+    color: #808080;
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.body-container .fa{
+    display: block;
+}
+.body-container ul{
+    padding: 0;
+    outline: none;
+    list-style: none;
+}
+.header{
+    height: 20px;
+    background: #373737;
+}
+/*icon-star*/
+.p-star{
+    overflow: hidden;
+    background: url("../img/ic_score.png") no-repeat;
+}
+.p-star-0{
+    background-position: 0 -200px;
+}
+.p-star-1{
+    background-position: 0 -180px;
+}
+.p-star-2{
+    background-position: 0 -160px;
+}
+.p-star-3{
+    background-position: 0 -140px;
+}
+.p-star-4{
+    background-position: 0 -120px;
+}
+.p-star-5{
+    background-position: 0 -100px;
+}
+.p-star-6{
+    background-position: 0 -80px;
+}
+.p-star-7{
+    background-position: 0 -60px;
+}
+.p-star-8{
+    background-position: 0 -40px;
+}
+.p-star-9{
+    background-position: 0 -20px;
+}
+.p-star-10{
+    background-position: 0 0px;
+}
