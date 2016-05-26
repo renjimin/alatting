@@ -123,7 +123,7 @@ LOGGING = {
             # python自带的logging handler
             'class': 'logging.handlers.RotatingFileHandler',
             # 日志存储的地址
-            'filename': os.path.join(os.getcwd(), 'logs', 'alatting.log'),
+            'filename': os.path.join(BASE_DIR, 'logs', 'alatting.log'),
             # 日志记录的格式，需要引用formatters中定义的格式，否则无法启动项目
             'formatter': 'default',
         }
