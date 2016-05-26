@@ -17,6 +17,8 @@ input,button{outline:none!important;}
 input[type="button"],input[type="reset"],input[type="submit"]{cursor:pointer;}
 input[type="reset"]::-moz-focus-inner,input[type="button"]::-moz-focus-inner,input[type="submit"]::-moz-focus-inner,
 input[type="file"] > input[type="button"]::-moz-focus-inner{border:none;padding:0;}
+img["src"=""]{opacity:0;}
+
 
 /* 清除浮动 */
 .clearfix:after,.layout:after,.header:after{content:"";display:block;height:0;clear:both; visibility:hidden;}
@@ -87,7 +89,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner{border:none;padding:
 .poster-list{ overflow: hidden; margin-left:-15px; margin-right:-15px;padding-top:10px;}
 .poster-list .poster-item{float:left; width: 25%; padding-bottom:30%; position: relative;}
 .poster-list .poster-wraper{ position: absolute;width:90%;height:90%;top:5%;left:5%;}
-.poster-list .poster-item .img{width:100%;height:100%;box-shadow:0 0 10px #444;overflow:hidden;}
+.poster-list .poster-item .img{width:100%;height:100%;box-shadow:0 0 10px #444;overflow:hidden; background: url(../images/logo-loading.png) #fff;background-size:100% auto;}
 .poster-list .poster-item .img img{width:100%;}
 .poster-list .poster-item:hover{opacity:0.9;filter:Alpha(oapcity=90);}
 .poster-item .det{position: absolute;width:100%;height:100%;top:0;left:0; background:url(../images/opa-black80.png);opacity: 0;filter:Alpha(oapcity=0); visibility: hidden;}
@@ -157,9 +159,11 @@ input[type="file"] > input[type="button"]::-moz-focus-inner{border:none;padding:
 }
 @media (min-width: 768px){
     .search-input{width:220px;}
+     .poster-list .poster-item{width:33.3333333%;padding-bottom:40%;}
 }
 @media (min-width: 992px){
     .search-input{width:460px;}
+     .poster-list .poster-item{width:25%;padding-bottom:30%;}
 }
 @media (min-width: 1200px){
     .search-input{width:650px;}

@@ -301,19 +301,14 @@ html {
 	z-index: 10;
 	top: 0;
 	left: 0;
-
 	width: 100%;
 	height: 100%;
-
 	border-radius: 50%;
-
 }
 .qrcode-inner .qrcode {
-
 	z-index: 15;
 	top: 0;
 	left: 0;
-
 	width: 100%;
 	height: 100%;
 	background: #8d8d8d;
@@ -358,37 +353,29 @@ html {
 	z-index: 10;
 	top: 0;
 	left: 0;
-
 	overflow: hidden;
-
 	width: 100%;
 	height: 100%;
-
 	-webkit-transition: all 0.2s ease;
 	transition: all 0.2s ease;
 	-webkit-transform: scale(0);
 	transform: scale(0);
-
 	font-size: 15px;
 }
 .abutton-group li {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-
 	overflow: hidden;
-
 	width: 100%;
 	height: 100%;
 	margin-top: -100%;
 	margin-left: -100%;
-
 	-webkit-transition: border .3s ease;
 	transition: border .3s ease;
 	-webkit-transform-origin: 100% 100%;
 	transform-origin: 100% 100%;
 	pointer-events: none;
-
 	border: 1px solid transparent;
 }
 .abutton-group li a {
@@ -438,24 +425,18 @@ html {
 	-webkit-transform: rotate(225deg) skew(0);
 	transform: rotate(225deg) skew(0);
 }
-.abutton-group li a {
-	background-color: #8d8d8d;
-}
 .abutton-group li:first-child a {
 	padding-right: 67%;
-
 	-webkit-transform: rotate(45deg) scale(1);
 	transform: rotate(45deg) scale(1);
 }
 .abutton-group li:nth-child(2) a {
 	padding-bottom: 67%;
-
 	-webkit-transform: rotate(-45deg) skew(0);
 	transform: rotate(-45deg) skew(0);
 }
 .abutton-group li:nth-child(3) a {
 	padding-left: 67%;
-
 	-webkit-transform: rotate(-135deg) skew(0);
 	transform: rotate(-135deg) skew(0);
 }
@@ -1134,7 +1115,6 @@ to {
 }
 .container-fluid {
 	position: relative;
-
 	overflow-y: auto;
 	overflow-x:hidden;
 	width: 100%;
@@ -1661,4 +1641,11 @@ to {
 #dpw_address li span{
 	width: calc(100% - 44px);
 }
-
+.info-toggle{
+	position: absolute;
+	z-index: 30;
+	width: 100%;
+	background: #000;
+	opacity: 0.8;
+	color: #fff;
+}
