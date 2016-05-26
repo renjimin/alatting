@@ -53,7 +53,14 @@
 
 			//绑定文件加入队列事件;
 			webUploader.on('fileQueued', function( file ) {
+				if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(file)){
+		                            yyAlert("上传图片格式错误");
+		                            webUploader.removeFile(file.id);
+		                            return false;
+		                        }
+
 				createBox( $fileInput, file ,webUploader,opt.sliderContainer);
+
 			});
 
 			//进度条事件
@@ -123,7 +130,7 @@
 					default : text = '未知错误!';
  					break;
 				}
-            	yyAlert( text );
+            		alert( text );
         	});
         }
     });
@@ -148,8 +155,8 @@
 			},
 			//配置生成缩略图的选项
 			thumb:{
-				width:170,
-				height:150,
+				width:120,
+				height:140,
 				// 图片质量，只有type为`image/jpeg`的时候才有效。
 				quality:70,
 				// 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.

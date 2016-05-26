@@ -98,6 +98,49 @@ LOGOUT_URL = '/account/logout/'
 LOGIN_URL = '/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '[%(asctime)s][%(levelname)s][%(module)s][%(filename)s][func:%(funcName)s][line:%(lineno)d]: %(message)s'
+        }
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            # django自带的日志处理类，通过邮件发送
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'common_handler': {
+            'level': 'DEBUG',
+            # python自带的logging handler
+            'class': 'logging.handlers.RotatingFileHandler',
+            # 日志存储的地址
+            'filename': os.path.join(BASE_DIR, 'logs', 'alatting.log'),
+            # 日志记录的格式，需要引用formatters中定义的格式，否则无法启动项目
+            'formatter': 'default',
+        }
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['mail_admins'],  # 通过邮件发送错误日志
+            'level': 'ERROR',
+            'propagate': True,
+        },
+        'common': {
+            'handlers': ['common_handler'],  # 引用handlers中配置的handler
+            'level': 'DEBUG',  # 日志记录级别
+            'propagate': False
+        }
+    }
+}
 
 # STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
