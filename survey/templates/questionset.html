@@ -34,6 +34,7 @@
         </header>
         <div class="qs-body">
             <form class="form" action="{{ request.path }}" method="POST">
+                <div class="qs-title">{{qs_title}}</div>
                 <div class="qs-list">
                     <div class="step">
                         {% for question, qdict in qlist %}
