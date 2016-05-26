@@ -65,49 +65,51 @@ $(function () {
             $(".yunye-template").remove();
             $(".container-fluid").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
         }
+    };
+
+    //if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
+        //yunyeEditorGlobal = $.extend(yunyeEditorGlobal, pageHeadData);
+
+    //服务器暂时没传数据 (默认时间)
+    if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {
+        lifetime_weekly : {
+            "Monday": {start: "09:00", end: "17:00", enabled: 1},
+            "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
+            "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
+            "Thursday": {start: "09:00", end: "17:00", enabled: 1},
+            "Friday": {start: "09:00", end: "17:00", enabled: 1},
+            "Saturday": {start: "09:00", end: "17:00", enabled: 0},
+            "Sunday": {start: "09:00", end: "17:00", enabled: 0}
+        },
+        lifetime_special : {}
+    };
+    if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
+        initData();
+    }
+
+    var templateScale = $('body').width()/$('.yunye-template').width();
+    var templateScaleOpt =
+        '-webkit-transform:scale('+templateScale+','+templateScale+');'
+       +   '-moz-transform:scale('+templateScale+','+templateScale+');'
+       +     '-o-transform:scale('+templateScale+','+templateScale+');'
+       +    '-ms-transform:scale('+templateScale+','+templateScale+');'
+       +        'transform:scale('+templateScale+','+templateScale+');';
+
+    $('.yunye-template').attr('style',templateScaleOpt);
+    $('.template-box').height($('.yunye-template').height()*templateScale);
+
+    window.onresize = function(){
         var templateScale = $('body').width()/$('.yunye-template').width();
         var templateScaleOpt =
             '-webkit-transform:scale('+templateScale+','+templateScale+');'
            +   '-moz-transform:scale('+templateScale+','+templateScale+');'
            +     '-o-transform:scale('+templateScale+','+templateScale+');'
            +    '-ms-transform:scale('+templateScale+','+templateScale+');'
-           +        'transform:scale('+templateScale+','+templateScale+');'
+           +        'transform:scale('+templateScale+','+templateScale+');';
 
         $('.yunye-template').attr('style',templateScaleOpt);
         $('.template-box').height($('.yunye-template').height()*templateScale);
-
-        window.onresize = function(){
-            var templateScale = $('body').width()/$('.yunye-template').width();
-            var templateScaleOpt =
-                '-webkit-transform:scale('+templateScale+','+templateScale+');'
-               +   '-moz-transform:scale('+templateScale+','+templateScale+');'
-               +     '-o-transform:scale('+templateScale+','+templateScale+');'
-               +    '-ms-transform:scale('+templateScale+','+templateScale+');'
-               +        'transform:scale('+templateScale+','+templateScale+');'
-
-            $('.yunye-template').attr('style',templateScaleOpt);
-            $('.template-box').height($('.yunye-template').height()*templateScale);
-        }
-
     };
-
-    if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
-        $.extend(yunyeEditorGlobal, pageHeadData);
-        //服务器暂时没传数据 (默认时间)
-        if (!yunyeEditorGlobal.lifetime)yunyeEditorGlobal.lifetime = {
-            lifetime_weekly : {
-                "Monday": {start: "09:00", end: "17:00", enabled: 1},
-                "Tuesday": {start: "09:00", end: "17:00", enabled: 1},
-                "Wednesday": {start: "09:00", end: "17:00", enabled: 1},
-                "Thursday": {start: "09:00", end: "17:00", enabled: 1},
-                "Friday": {start: "09:00", end: "17:00", enabled: 1},
-                "Saturday": {start: "09:00", end: "17:00", enabled: 0},
-                "Sunday": {start: "09:00", end: "17:00", enabled: 0}
-            },
-            lifetime_special : {}
-        };
-        initData();
-    }
 
     //弹出菜单
     $(".dropdown-toggle:not(#share-toggle)").registerDropDown();

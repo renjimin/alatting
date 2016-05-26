@@ -53,14 +53,7 @@
 
 			//绑定文件加入队列事件;
 			webUploader.on('fileQueued', function( file ) {
-				if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(file)){
-		                            yyAlert("上传图片格式错误");
-		                            webUploader.removeFile(file.id);
-		                            return false;
-		                        }
-
 				createBox( $fileInput, file ,webUploader,opt.sliderContainer);
-
 			});
 
 			//进度条事件
@@ -130,7 +123,9 @@
 					default : text = '未知错误!';
  					break;
 				}
+
             		yyAlert( text );
+
         	});
         }
     });

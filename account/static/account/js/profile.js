@@ -7,7 +7,7 @@ $(document).ready(function () {
 	$('.footer-tab').find("li").eq(3).addClass("active");
 	/*add*/
 	$(".ac-add .ac-list-item-ctrl").click(function(){
-	    alert("添加更多模板");
+	    window.document
 	});
 	/*edit*/
 	$(".ac-item-back").click(function(){
