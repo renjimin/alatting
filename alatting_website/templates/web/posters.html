@@ -1,7 +1,7 @@
 {% extends 'web/base.html' %}
 {% load static %}
 
-{% block base_head_titl %}服务邦 - {% endblock %}
+{% block base_head_title %}服务邦 - {% endblock %}
 
 
 {% block base_body_header %}
@@ -25,10 +25,10 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="seartype">
                         <li>
-                            <a href="#">最新</a>
+                            <a href="javascript:void(0);">最新</a>
                         </li>
                         <li>
-                            <a href="#">已发布</a>
+                            <a href="javascript:void(0);">已发布</a>
                         </li>
                     </ul>
                 </div>
@@ -41,7 +41,7 @@
                     <ul class="dropdown-menu" aria-labelledby="searCat">
                         {% for category in categorys %}
                         <li>
-                            <a href="#">{{ category.name }}</a>
+                            <a href="javascript:void(0);">{{ category.name }}</a>
                         </li>
                         {% endfor %}
                     </ul>
@@ -52,7 +52,7 @@
                     <button class="btn mobsearch-btn" id="searchBtn">
                         <i class="icon ico-search"></i>
                     </button>
-                    <a href="#">
+                    <a href="javascript:void(0);">
                         <img class="lazy"
                              src="{% static 'web/images/avatar-default.png' %}"
                              data-src="{{ request.user.person.avatar.url }}"/>
@@ -100,32 +100,33 @@
                     </div>
                     <div class="det">
                         <div class="head">
-                            <span class="time">11-3-2016</span>
+                            <span class="time">{{ poster.created_at|date:'Y-m-d' }}</span>
                             <a href="#" class="btn-share"><i class="icon ico-share"></i></a>
                             <a href="#" class="btn-fav"><i class="icon ico-fav"></i></a>
                         </div>
                         <div class="middle">
                             <div class="qrcode">
-                                <img src="{% static 'web/images/qrcode.jpg' %}" />
+                                <img src="{% url 'website:code_poster' poster.id %}" />
                             </div>
                             </div>
-                            <div class="bottom">
+                        <div class="bottom">
                             <div class="uimg">
-                            	<img src="{% static 'web/images/avatar.jpg' %}" />
+                                <img src="{% static 'web/images/avatar-default.png' %}"
+                                     data-src="{{ request.user.person.avatar.url }}"/>
                             </div>
                             <div class="uname">
-                            	<span>{{ poster.creator }}</span>
+                                <span>{{ poster.creator }}</span>
                             </div>
                             <div class="type">
-                            	Business
-                            </div>
+                                {{ poster.main_category }}
                             </div>
                         </div>
+                    </div>
                     <div class="info">
-                        <span class="phone">027-88888888</span>
-                        <span class="email">779311998@qq.com</span>
-                        <span class="address">武汉市洪山区光谷国际广场A座802</span>
-                        <span class="worktime">上午9点 - 下午6点</span>
+                        <span class="phone">{{ poster.mobile }}</span>
+                        <span class="email">{{ poster.email }}</span>
+                        <span class="address">{{ poster.address.address1 }}</span>
+                        {% comment %}<span class="worktime">上午9点 - 下午6点</span>{% endcomment %}
                     </div>
                 </div>
             </li>
