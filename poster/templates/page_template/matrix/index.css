@@ -16,7 +16,7 @@
     position: absolute;
     left: 0;
     width: 96%;
-    height: 46%;
+    height: 47%;
     left: 2%;
 }
 
@@ -28,13 +28,13 @@
     top: 50%;
     left: 2%;
     width: 31%;
-    height: 49%;
+    height: 48.5%;
 }
 .content-bottom-center {
     -webkit-clip-path: polygon(0% 0%, 100% 0%, 100% 100%,0 100%);
     clip-path: url(#content-bottom-center);
     width: 31%;
-    height: 49%;
+    height: 48.5%;
     position: absolute;
     top: 50%;
     left: 35%;
@@ -44,7 +44,7 @@
     clip-path: url(#content-bottom-right);
     position: absolute;
     width: 30%;
-    height: 49%;
+    height: 48.5%;
     top: 50%;
     right: 2%;
 }
