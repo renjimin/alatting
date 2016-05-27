@@ -49,7 +49,6 @@ figcaption,
 figure,
 footer,
 header,
-hgroup,
 main,
 nav,
 section {
@@ -455,7 +454,7 @@ img[src=""] {
 
 .poster-list .poster-item:hover {
     opacity: 0.9;
-    filter: Alpha(oapcity=90);
+    filter: Alpha(opacity=90);
 }
 
 .poster-item .det {
@@ -466,7 +465,7 @@ img[src=""] {
     left: 0;
     background: url(../images/opa-black80.png);
     opacity: 0;
-    filter: Alpha(oapcity=0);
+    filter: Alpha(opacity=0);
     visibility: hidden;
 }
 
@@ -490,7 +489,7 @@ img[src=""] {
     width: 100%;
     left: 0;
     opacity: 0;
-    filter: Alpha(oapcity=0);
+    filter: Alpha(opacity=0);
     transition: all .2s;
     -webkit-transition: all .2s;
     -webkit-transition-delay: .1s;
@@ -541,7 +540,7 @@ img[src=""] {
 .poster-item .det .middle img {
     height: 100%;
     opacity: 0;
-    filter: Alpha(oapcity=0);
+    filter: Alpha(opacity=0);
     transform: scale(0.9, 0.9);
     transition: all .2s;
     -webkit-transition: all .2s;
@@ -601,14 +600,14 @@ img[src=""] {
 
 .poster-item.hover .det {
     opacity: 1;
-    filter: Alpha(oapcity=100);
+    filter: Alpha(opacity=100);
     visibility: visible;
 }
 
 .poster-item.hover .btn-share,
 .poster-item.hover .btn-fav {
     opacity: 1;
-    filter: Alpha(oapcity=100);
+    filter: Alpha(opacity=100);
     right: 15px;
 }
 
@@ -619,13 +618,13 @@ img[src=""] {
 .poster-item.hover .det .bottom {
     bottom: 0;
     opacity: 1;
-    filter: Alpha(oapcity=100);
+    filter: Alpha(opacity=100);
 }
 
 .poster-item.hover .det .middle img {
     transform: scale(1, 1);
     opacity: 1;
-    filter: Alpha(oapcity=100);
+    filter: Alpha(opacity=100);
 }
 
 .main-plus {
@@ -885,20 +884,14 @@ body.active .poster-item {
     _bottom: auto;
     _top: expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-(parseInt(this.currentStyle.marginTop, 10)||0)-(parseInt(this.currentStyle.marginBottom, 10)||0)));
     _margin-bottom: 10px;
-    _background: url(img/go-top-ie.png) 0 0 no-repeat;
 }
 
 .gotop:hover {
     background-color: #ef8200;
-    _background: url(img/go-top-ie.png) 0 -55px no-repeat;
 }
 
 
 /* for ie */
-
-@media \0screen\,
-screen\9 {}
-
 @media (min-width: 768px) {
     .search-input {
         width: 220px;
@@ -928,11 +921,9 @@ screen\9 {}
         display: inline-block;
         height: 40px;
         line-height: 40px;
-        border: 1px solid #d0d0d0;
         padding: 0 8px;
         font-size: 20px;
         background: none;
-        border: 0;
         opacity: 0.6;
         outline: none;
         border-radius: 50%;
@@ -948,7 +939,6 @@ screen\9 {}
         display: -webkit-box;
         display: -webkit-flex;
         display: -moz-box;
-        display: -moz-flex;
         display: -ms-flexbox;
         display: flex;
         display: none;
@@ -986,7 +976,6 @@ screen\9 {}
         display: -webkit-box;
         display: -webkit-flex;
         display: -moz-box;
-        display: -moz-flex;
         display: -ms-flexbox;
         display: flex;
     }
