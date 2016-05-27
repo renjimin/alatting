@@ -448,6 +448,8 @@ img[src=""] {
     height: 100%;
     box-shadow: 0 0 10px #444;
     overflow: hidden;
+    background: url(../images/logo-loading.png) center center no-repeat #fff;
+    background-size: 100% auto;
 }
 
 .poster-list .poster-item .img img {
