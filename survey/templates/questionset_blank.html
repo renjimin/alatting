@@ -11,7 +11,11 @@
                 <div class="qs-title">{{qs_title}}</div>
                     <div class="qs-footer">
                         <div>
-                            <a class="back btn btn-default" href="{% url 'poster:update_form' pk=poster_id %}">返回</a>
+                            {% ifequal role "creator"%}
+                                <a class="back btn btn-default" href="{% url 'poster:update_form' pk=poster_id %}">返回</a>
+                            {% else %}
+                                <a class="back btn btn-default" href="{% url 'poster:show' pk=poster_id %}">返回</a>
+                            {% endifequal %}
                             <input type="submit" class="next btn btn-default" value="确认">
                         </div>
                     </div>  

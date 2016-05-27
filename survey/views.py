@@ -24,17 +24,23 @@ class QuestionnaireBlankView(View):
 	def get(self, request, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
 		qs_title = "没有此类别的调查问卷"
-
+		role = self.request.GET.get('role', '')
 		contextdict = {'qs_title': qs_title,
-						'poster_id': poster.pk}
+						'poster_id': poster.pk,
+						'role': role}
 		return render_to_response('questionset_blank.html', contextdict)
 
 	def post(self, request, **kwargs):
-		return HttpResponseRedirect('%s?poster_id=%s' % (
+		role = self.request.GET.get('role', '')
+		if role == "creator":
+			return HttpResponseRedirect('%s?poster_id=%s' % (
 			reverse('poster:select_template'),
 			self.kwargs['poster_id']))
+		else:
+			kwargs = {'pk': self.kwargs['poster_id']}
+			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
-		
+
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
@@ -43,7 +49,7 @@ class StartView(RedirectView):
 			role=role).first()
 		if not qu:
 			kwargs = {'poster_id': poster.pk}
-			return reverse('survey:questionnaireblank', kwargs=kwargs)
+			return '%s?role=%s' % (reverse('survey:questionnaireblank', kwargs=kwargs), role)
 
 		qs = qu.questionsets()[0]
 		su = self.request.user
@@ -109,8 +115,12 @@ class QuestionnaireView(View):
 					'qs_sortid': sortid}
 			prev_url = reverse('survey:questionset', kwargs=kwargs)
 		else:
-			kwargs = {'pk': runinfo.poster.pk}
-			prev_url = reverse('poster:update_form', kwargs=kwargs)
+			if runinfo.questionset.questionnaire.role == "creator":
+				kwargs = {'pk': runinfo.poster.pk}
+				prev_url = reverse('poster:update_form', kwargs=kwargs)
+			else:
+				kwargs = {'pk': runinfo.poster.pk}
+				prev_url = reverse('posters:show', kwargs=kwargs)
 
 		progress = self.get_progress(runinfo)
 
@@ -259,8 +269,11 @@ class QuestionnaireView(View):
 		hist.questionnaire = questionnaire
 		hist.save()
 		runinfo.delete()
-		return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
-
+		if hist.questionnaire.role == "creator":
+			return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
+		else:
+			kwargs = {'pk': runinfo.poster.pk}
+			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
 class AnswerDetailView(TemplateView):
 
