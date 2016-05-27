@@ -3,7 +3,7 @@
  */
 
 $(function(){
-    var id = $('#postid').val();
+    var id = $('#posterid').val();
     var ch =$(window).height()-$('.main-title').outerHeight();
     $('.main-user-ctrl').css('height',ch+'px');
     ///*
@@ -100,6 +100,17 @@ $(function(){
         $('#main-'+item).show();
     });
 
+    /* set message */
+    $('#plyMess').on('click',function(){
+        var cont = $('#mess').val();
+            cont = cont.replace(/<\/?.+?>/g,"");
+            cont = cont.replace(/&nbsp;/g,"");
+        if(cont == ''){
+            yyAlert('请填写您要告知给对方的信息!');
+            return;
+        }
+        console.log('cont:'+cont);
+    });
 
     function showLoading(type){
         if(type){

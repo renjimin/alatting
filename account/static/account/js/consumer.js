@@ -5,8 +5,24 @@
 
 $(function(){
     var id = $('#posterid').val();
-
-
+    ///*
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/poster/'+id+'/consumer/ans',
+        success:function(data){
+            var ans = data[0].ans;
+            var h = '<ul>';
+            for(var i=0;i<ans.length;i++){
+                h+= '<li><span class="tips-name">'+ans[i]["question"]["short_text"]+'</span><span class="tips-cont">'+ans[i]["answer"]+'</span></li>';
+            }
+                h += '</ul>';
+            $('#tips-info').append(h);
+        },
+        error: function(xhr, status, statusText){
+            $('#tips-info').append('<span class="error-msg">服务超时</span>');
+        }
+    });
+    //*/
     showLoading(false);
 
     /* favorite */
@@ -55,6 +71,7 @@ $(function(){
     /* my consult */
     $('#quote-consult').on('click',function(){
         $('#body-tips').fadeIn(200);
+
     });
     $('#close-tips').on('click',function(){
         $('#body-tips').fadeOut(200);
@@ -67,6 +84,17 @@ $(function(){
         var item = $(this).attr('data-item');
         $('.mainli').hide();
         $('#main-'+item).show();
+    });
+    /* set message */
+    $('#plyMess').on('click',function(){
+        var cont = $('#mess').val();
+            cont = cont.replace(/<\/?.+?>/g,"");
+            cont = cont.replace(/&nbsp;/g,"");
+        if(cont == ''){
+            yyAlert('请填写您要告知给对方的信息!');
+            return;
+        }
+        console.log('cont:'+cont);
     });
 
     /* back to usercenter */

@@ -13,7 +13,7 @@ $(function(){
     $.template('serverNeedTmpl',serverNeedTmpl);
     var defImg = '/static/account/img/hb001.png';
 
-    ///*
+    /*
     // 静态数据
     var data = [
         {
@@ -23,11 +23,11 @@ $(function(){
         }
     ];
     for(var i=0;i<8;i++){
-        //$.tmpl('serverProvideTmpl',data[0]).appendTo('#main-provide');
+        $.tmpl('serverProvideTmpl',data[0]).appendTo('#main-provide');
         $.tmpl('serverNeedTmpl',data[0]).appendTo('#main-need');
     }
     //showLoading(false);
-    //*/
+    */
 
 
     ///*
@@ -35,13 +35,13 @@ $(function(){
         type: 'GET',
         url: '/api/v1/account/profile',
         success:function(data){
-            //var headIcon = data.person?'/static/account/img/headicon-default.jpg':data.person.avatar;
-            var headIcon = '/static/account/img/headicon-default.jpg';
+            var headIcon = (data.person)?'/static/account/img/headicon-default.jpg':data.person.avatar;
+            //var headIcon = '/static/account/img/headicon-default.jpg';
             $('#uIcon').children('img').attr('src',headIcon);
             $('#uName').html(data.username);
         },
         error: function(xhr,status,statusText){
-            yyAlert("data error");
+            yyAlert("服务超时,请稍候再试!");
         }
     });
     //*/
@@ -67,7 +67,7 @@ $(function(){
     });
     //*/
 
-    /*
+    ///*
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/consumer',
@@ -85,7 +85,7 @@ $(function(){
             yyAlert("服务超时,请稍候再试!");
         }
     });
-    */
+    //*/
 
     /*fix main-head*/
     $(document).scroll(function(){
@@ -117,7 +117,6 @@ $(function(){
             showProcess(50);
         }
     });
-
 
     /* show the current poster controller */
     $('.body-main').on('click','.p-cont',function(event){
@@ -193,9 +192,22 @@ $(function(){
     /* delete */
     $('.body-main').on('click','.ctrl-delete',function(event){
         event.stopPropagation();
-        var id= $(this).parent().attr('data-id');
+        var mli = $(this).parent();
+        var id= mli.attr('data-id');
+        yyConfirm('此操作将删除海报关联的所有信息、统计数据等.无法恢复!确定要退出吗？',function(){
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/v1/poster/posters/'+id,
+                success:function(){
+                    yyAlert("删除成功!");
+                    mli.remove();
+                },
+                error: function(){
+                    yyAlert("服务超时,请稍候再试!");
+                }
+            });
+        });
         console.log('delete:'+id);
-
     });
     /* quit share */
     $('#body-share').on('click',function(){

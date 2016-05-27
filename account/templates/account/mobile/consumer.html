@@ -46,6 +46,7 @@
         <div class="main-title">
             <div class="title-star p-star p-star-4"></div>
             <div class="title-name">黄裕祥钢琴教学</div>
+            <input type="hidden" id="posterid" value="{{ poster.id }}">
         </div>
         <div class="main-menu">
             <div class="main-menu-li main-menu-act" data-item="price">
@@ -192,33 +193,7 @@
                 <i class="fa fa-file-text-o"></i>
                 <span>我的资讯</span>
             </div>
-            <div class="tips-info">
-                <ul>
-                    <li>
-                        <span class="tips-name">程度</span>
-                        <span class="tips-cont">初学者</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">上课次数</span>
-                        <span class="tips-cont">一周两次</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">年龄</span>
-                        <span class="tips-cont">12</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">上课时间</span>
-                        <span class="tips-cont">周一晚上八点</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">地点</span>
-                        <span class="tips-cont">到府上课</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">开始时间</span>
-                        <span class="tips-cont">马上开始</span>
-                    </li>
-                </ul>
+            <div class="tips-info" id="tips-info">
             </div>
         </div>
     </div>
