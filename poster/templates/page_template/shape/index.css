@@ -31,9 +31,9 @@
     -webkit-clip-path: polygon(0% 0, 100% 0, 100% 100%,0 100%);
     clip-path: url(#content-bottom);
     position: absolute;
-    top: 54%;
+    top: 53%;
     left: 0;
     width: 96%;
-    height: 50%;
+    height: 45.5%;
     left: 2%;
 }
