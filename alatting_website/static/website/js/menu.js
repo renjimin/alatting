@@ -182,47 +182,65 @@ function favored(){
 }
 
 function createScreenShot(){
-    alert( "click OK to start transforming" );
-    $.get(createScreenShotURL).done(function(object){
-        alert("Transform completed");
-        var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-        var screenshot_url = full_url_header + object.image_url;
-        window.open(
-            screenshot_url,
-            '_blank'
-        );
-    }).fail(function(jqXHR){
-        
-    })
+    yyConfirm(
+        '确定要创建首页截图吗？',
+        function(){
+            $.get(createScreenShotURL).done(function(object){
+                yyAlert("首页截图创建完成！");
+                var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+                var screenshot_url = full_url_header + object.image_url;
+                window.open(
+                    screenshot_url,
+                    '_blank'
+                );
+            }).fail(function(jqXHR){
+            });
+        },
+        {
+            okText: '确定'
+        }
+    );
 }
 
 function createScreenShotPDF(){
-    alert( "click OK to start transforming" );
-    $.get(createScreenShotURL).done(function(object){
-        alert("Transform completed");
-        var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-        var screenshotPDF_url = full_url_header + object.pdf_url;
-        window.open(
-            screenshotPDF_url,
-            '_blank'
-        );
-    }).fail(function(jqXHR){
-    
-    })
+    yyConfirm(
+        '确定要重新生成海报PDF文件吗？',
+        function(){
+            $.get(createScreenShotURL).done(function(object){
+                yyAlert("海报PDF文件创建完成！");
+                var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+                var screenshotPDF_url = full_url_header + object.pdf_url;
+                window.open(
+                    screenshotPDF_url,
+                    '_blank'
+                );
+            }).fail(function(jqXHR){
+            });
+        },
+        {
+            okText: '确定'
+        }
+    );
 }
 function printScreenShot(){
-    alert( "click OK to start transforming" );
-    $.get(createScreenShotURL).done(function(object){
-        alert("Transform completed");
-        var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-        var screenshotPDF_url = full_url_header + object.pdf_url;
-        printPDF(screenshotPDF_url);
-    }).fail(function(jqXHR){
-    
-    })
+    yyConfirm(
+        '确定要打印吗？',
+        function(){
+            $.get(createScreenShotURL).done(function(object){
+                yyAlert("文件创建完成，即将开始打印！");
+                var full_url_header = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+                var screenshotPDF_url = full_url_header + object.pdf_url;
+                printPDF(screenshotPDF_url);
+            }).fail(function(jqXHR){
+            });
+        },
+        {
+            okText: '确定'
+        }
+    );
 }
 function printPDF(url){
-    var popup = window.open(url)
+    var popup = window.open(url);
     popup.onload = function(evt){
         this.print()
     }

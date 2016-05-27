@@ -186,7 +186,7 @@
 		this.init = function(){
 
 			$('body').append('<div id="uploadsaudio"></div>');
-			var option = $.extend(optvideo,{pick: {'id':'#uploadsaudio','multiple':false},url: '/api/v1/poster/upload/logo'});
+			var option = $.extend(optaudio,{pick: {'id':'#uploadsaudio','multiple':false},url: '/api/v1/poster/upload/logo'});
 			if( option.url ) {
 				option.server = option.url;
 				delete option.url;
@@ -209,9 +209,9 @@
 
 			//绑定文件加入队列事件;
 			webUploaderaudio.on('fileQueued', function(file ) {
-				if(!/\.(mp4|ogg|webm)$/.test(file.name)){
-					yyAlert("上传视频格式错误");
-					webUploader.removeFile(file.id);
+				if(!/\.(mp3|ogg|wav)$/.test(file.name)){
+					yyAlert("上传音频格式错误");
+					webUploaderaudio.removeFile(file.id);
 					return false;
 				}
 

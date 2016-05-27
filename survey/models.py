@@ -177,7 +177,7 @@ class Answer(models.Model):
 class RunInfoHistory(models.Model):
     subject = models.ForeignKey(User)
     poster = BigForeignKey(Poster,blank=True, null=True)
-    completed = models.DateField()
+    completed = models.DateTimeField(auto_now_add=True)
     questionnaire = models.ForeignKey(Questionnaire)
     runid = models.CharField(max_length=32)
 

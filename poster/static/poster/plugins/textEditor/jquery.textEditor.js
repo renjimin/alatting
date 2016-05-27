@@ -97,7 +97,7 @@
             var top= parseInt($element.css('top'))+30;
             $element.parent().append($newel);
             $newel.css({'top':top+'px'});
-            $newel.trigger('click');
+            $newel.children('.el-content').trigger('click');
         });
         /*文字内容编辑*/
         pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
