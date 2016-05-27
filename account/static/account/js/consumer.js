@@ -275,7 +275,7 @@ $(function(){
         $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
         $('.price-li').hide();
         if(lastPriceData["accepted"]){
-            if(lastPriceData["consumer"]['id'] == lastPriceData["creator"]['id']){
+            if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
                 $('#price-accept').find('.q-c-name').html('您接受对方的报价');
             }else{
                 $('#price-accept').find('.q-c-name').html('对方接受您的报价');

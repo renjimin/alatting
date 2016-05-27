@@ -243,24 +243,24 @@ $(function(){
 
     //展示当前讨价还价的状态
     function showPriceli(lastPriceData){
-        $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
+        $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData['price']);
         $('.price-li').hide();
-        if(lastPriceData["accepted"]){
-            if(lastPriceData["consumer"]['id'] == lastPriceData["creator"]['id']){
+        if(lastPriceData['accepted']){
+            if(lastPriceData['consumer']['id'] == lastPriceData['creator']['id']){
                 $('#price-accept').find('.q-c-name').html('您接受对方的报价');
             }else{
                 $('#price-accept').find('.q-c-name').html('对方接受您的报价');
             }
             $('#price-accept').show();
-        }else if(lastPriceData["refused"]){
-            if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
+        }else if(lastPriceData['refused']){
+            if(lastPriceData['consumer']['id'] != lastPriceData['creator']['id']){
                 $('#price-refuse').find('.bid-tips').html('您的报价被对方拒绝,请再次');
             }else{
                 $('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
             }
             $('#price-refuse').show();
         }else{
-            if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
+            if(lastPriceData['consumer']['id'] != lastPriceData['creator']['id']){
                 $('#price-quote').children('.price-icon').children().html('你的报价');
                 $('#accept-price').hide();
                 $('#refuse-price').hide();
@@ -308,7 +308,7 @@ $(function(){
                     var ans = data[0].ans;
                     var h = '<ul>';
                     for(var i=0;i<ans.length;i++){
-                        h+= '<li><span class="tips-name">'+ans[i]["question"]["short_text"]+'</span><span class="tips-cont">'+ans[i]["answer"]+'</span></li>';
+                        h+= '<li><span class="tips-name">'+ans[i]['question']['short_text']+'</span><span class="tips-cont">'+ans[i]['answer']+'</span></li>';
                     }
                     h += '</ul>';
                     $('#tips-info').append(h);
