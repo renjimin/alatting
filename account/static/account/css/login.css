@@ -137,8 +137,17 @@ input {
  }
  .div-server .li-server{
     display: block;
-    padding: 10px 20px;
+    padding: 0;
     border-bottom: 1px solid rgb(169,169,169);
+ }
+ .div-server .li-server a{
+    display: block;
+    padding: 10px 10px;
+    position: relative;
+    color:black;
+ }
+  .div-server .li-server a:hover{
+    background:#AFAFAF;
  }
  .div-provider .li-provider{
     display: block;
@@ -152,7 +161,7 @@ input {
     background:white;
  }
 .li-server .sli-server:hover{
-    background:#ccc;
+    background:#AFAFAF;
  }
  .li-server .sul-server{
     padding:0;
