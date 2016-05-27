@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.contrib.auth.models import User
 from survey.models import *
 from alatting_website.model.poster import Poster
+from alatting_website.models import Category
 from survey import *
 from account.models import Person
 from survey.form.forms import *
@@ -59,6 +60,38 @@ class StartView(RedirectView):
 			kwargs = {'poster_id': poster.pk}
 			return '%s?role=%s' % (reverse('survey:questionnaireblank', kwargs=kwargs), role)
 
+		su = self.request.user
+		prev_run = RunInfo.objects.filter(subject=su, questionset__in = qu.questionsets,
+			poster=poster).order_by("-id").first()
+		if prev_run:
+			qs = qu.questionsets()[0]
+			run = prev_run
+			run.questionset = qs
+			run.save()
+		else:
+			qs = qu.questionsets()[0]
+			run = RunInfo(subject=su, questionset=qs, poster=poster)
+			run.save()
+
+		kwargs = {'runid': run.id}
+		return reverse('survey:questionnaire', kwargs=kwargs)
+
+class StartShowView(RedirectView):
+	def get_redirect_url(self, *args, **kwargs):
+		category = get_object_or_404(Category, pk=self.kwargs['cat_id'])
+		if category.parent:
+			main_category = category.parent
+		else:
+			main_category = category
+
+		role = self.request.GET.get('role', '')
+		qu = Questionnaire.objects.filter(main_category=main_category, 
+			role=role).first()
+		if not qu:
+			kwargs = {'poster_id': poster.pk}
+			return '%s?role=%s' % (reverse('survey:questionnaireblank', kwargs=kwargs), role)
+
+		poster = Poster.objects.latest('id')
 		su = self.request.user
 		prev_run = RunInfo.objects.filter(subject=su, questionset__in = qu.questionsets,
 			poster=poster).order_by("-id").first()

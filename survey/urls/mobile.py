@@ -6,7 +6,7 @@ from survey.view.mobile import (
 	IndexView, StartView, QuestionnaireView,
 	QuestionnaireBlankView, AnswerDetailView,
 	QuestionCreateView, ChoiceCreateView,
-	ChoiceInputCreateView,
+	ChoiceInputCreateView, StartShowView
 )
 
 urlpatterns = [
@@ -32,4 +32,11 @@ urlpatterns += [
 	url(r'^create/$', QuestionCreateView.as_view(), name='create'),
 	url(r'^create_choice/(?P<q_id>\d+)/$', ChoiceCreateView.as_view(), name='create_choice'),
 	url(r'^create_choice_input/(?P<q_id>\d+)/$', ChoiceInputCreateView.as_view(), name='create_choice_input'),
+]
+
+#测试调查问卷
+urlpatterns += [
+#show/cat_id/?role=creator or start/cat_id/?role=consumer
+	url(r'^show/(?P<cat_id>\d+)/$', 
+		login_required(StartShowView.as_view(permanent=False)), name='show'),
 ]
