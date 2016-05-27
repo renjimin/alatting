@@ -623,7 +623,9 @@
 }
 
 .template-box {
-    overflow: hidden;
+    /*overflow: hidden;*/
+    position: relative;
+    z-index: 99;
 }
 
 
