@@ -247,9 +247,9 @@
 ```
 
 
-## 用户上传资源列表(图片)
+## 用户上传图片资源列表
 
-    GET /api/v1/account/files?q=image
+    GET /api/v1/account/images
 
 **Response**
 
@@ -269,13 +269,41 @@
     },
     ...
 ]
-
 ```
 
+## 用户上传图片资源 - 单个详情
 
-## 用户上传资源列表(音频)
+    GET /api/v1/account/images/{:id}
 
-    GET /api/v1/account/files?q=audio
+**Response**
+
+* 返回图片数据格式：
+
+```json
+{
+    "id": 181,
+    "uuid": "1be683365bd44867ae52e72c4c15e4cd",
+    "created_at": "2016-05-31 17:43:42",
+    "file": "http://0.0.0.0:8020/media/images/2016/05/31/aa55b3a5e68d46ab81559965057c703f.jpg",
+    "width": 108,
+    "height": 108,
+    "format": "jpg",
+    "creator": 5
+}
+```
+
+## 删除用户上传图片资源
+
+    DELETE /api/v1/account/images/{:id}
+
+**Response**
+
+成功返回 204 状态码
+
+
+## 用户上传音频资源列表
+
+    GET /api/v1/account/audios
 
 * 返回音频数据格式：
 
@@ -293,9 +321,36 @@
 ]
 ```
 
-## 用户上传资源列表(视频)
+## 用户上传音频资源 - 单个详情
 
-    GET /api/v1/account/files?q=video
+    GET /api/v1/account/audios/{:id}
+
+* 返回音频数据格式：
+
+```json
+{
+    "id": 1,
+    "uuid": "e00f5c389f1b46948530079e368fa8d9",
+    "created_at": "2015-09-23 21:59:22",
+    "file": "http://0.0.0.0:8020/media/music/2015/09/23/745f07fbc5014e54b9835bf5d985b5b8.mp3",
+    "format": "mp3",
+    "creator": 5
+}
+```
+
+## 删除用户上传音频资源
+
+    DELETE /api/v1/account/audios/{:id}
+
+**Response**
+
+成功返回 204 状态码
+
+
+
+## 用户上传视频资源列表
+
+    GET /api/v1/account/videos
 
 * 返回视频数据格式：
 
@@ -313,3 +368,29 @@
     ...
 ]
 ```
+
+## 用户上传视频资源 - 单个详情
+
+    GET /api/v1/account/videos/{:id}
+
+* 返回视频数据格式：
+
+```json
+{
+    "id": 32,
+    "uuid": "f16d86bb09444b40965036766d485459",
+    "created_at": "2016-05-26 08:15:16",
+    "preview": "/media/videos/2016/05/26/398bc4e3f5bf47c9a2b314381d42aecd.jpg",
+    "file": "http://0.0.0.0:8020/media/videos/2016/05/26/398bc4e3f5bf47c9a2b314381d42aecd.mp4",
+    "format": "mp4",
+    "creator": 5
+}
+```
+
+## 删除用户上传视频资源
+
+    DELETE /api/v1/account/videos/{:id}
+
+**Response**
+
+成功返回 204 状态码

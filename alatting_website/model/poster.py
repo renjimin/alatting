@@ -182,10 +182,20 @@ class Poster(models.Model):
         else:
             return 1
 
-    def get_edit_url(self):
+    def get_mobile_edit_url(self):
         page_id = self.get_first_poster_page_id()
         if page_id:
             return reverse('posters:edit', kwargs={
+                'poster_pk': self.id,
+                'pk': page_id
+            })
+        else:
+            return 1
+
+    def get_pc_edit_url(self):
+        page_id = self.get_first_poster_page_id()
+        if page_id:
+            return reverse('posters_pc:edit', kwargs={
                 'poster_pk': self.id,
                 'pk': page_id
             })

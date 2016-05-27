@@ -5,6 +5,12 @@
 __author__ = 'lyhapple'
 
 
+TRUE_FALSE = (
+    (True, u'是'),
+    (False, u'否')
+)
+
+
 class DataStatus(object):
     UNUSABLE = 0
     USABLE = 1
