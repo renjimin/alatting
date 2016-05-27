@@ -1,0 +1,14 @@
+<ul>
+{% for key, value in results.items %}
+	<li>
+    {{key.id}}, {{key.subject.username}},{{key.completed}}
+	    <ul>
+	    {% for ans in value%}
+	    	<li>
+				{{ans.answer}}
+			</li>
+	    {% endfor %}
+		</ul>
+	</li>
+{% endfor %}
+</ul>
