@@ -23,14 +23,14 @@ $(function(){
         }
     ];
     for(var i=0;i<8;i++){
-        $.tmpl('serverProvideTmpl',data[0]).appendTo('#main-provide');
+        //$.tmpl('serverProvideTmpl',data[0]).appendTo('#main-provide');
         $.tmpl('serverNeedTmpl',data[0]).appendTo('#main-need');
     }
-    showLoading(false);
+    //showLoading(false);
     //*/
 
 
-    /*
+    ///*
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/profile',
@@ -44,9 +44,9 @@ $(function(){
             yyAlert("data error");
         }
     });
-    */
+    //*/
 
-    /*
+    ///*
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/server',
@@ -59,12 +59,13 @@ $(function(){
                 };
                 $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
             }
+            showLoading(false);
         },
         error: function(xhr, status, statusText){
             yyAlert("服务超时,请稍候再试!");
         }
     });
-    */
+    //*/
 
     /*
     $.ajax({
