@@ -108,7 +108,7 @@ class CheckMessageView(APIView):
 
 
 class ProfileView(DetailView):
-    template_name = 'account/profile.html'
+    template_name = 'account/mobile/profile.html'
     model = User
 
     def get_object(self, queryset=None):
@@ -154,7 +154,7 @@ class RegisterView(FormView):
     """
     注册接口
     """
-    template_name = "account/register.html"
+    template_name = "account/mobile/register.html"
     form_class = RegisterForm
     success_url = settings.LOGIN_URL
 
@@ -214,7 +214,7 @@ class RegisterView(FormView):
 
 class ResetPasswordView(FormView):
     """重置密码"""
-    template_name = "account/forget-pwd.html"
+    template_name = "account/mobile/forget-pwd.html"
     form_class = ResetPasswordForm
     success_url = settings.LOGIN_URL
 
@@ -224,7 +224,8 @@ class ResetPasswordView(FormView):
         password = data['password1']
         password2 = data['password2']
         if not pwd_validate(password, password2):
-            return render_to_response('account/forget-pwd.html', {'error': "两次密码输入不一致"})
+            return render_to_response(self.template_name,
+                                      {'error': "两次密码输入不一致"})
         else:
             input_type = what(username)
             if input_type == "phonenumber":  # 手机号重置密码
@@ -242,7 +243,7 @@ class ResetPasswordView(FormView):
 
 class LoginView(FormView):
     """用户登陆，支持邮箱登陆、手机号登陆"""
-    template_name = "account/login.html"
+    template_name = "account/mobile/login.html"
     form_class = LoginForm
     success_url = settings.LOGIN_REDIRECT_URL
 
@@ -257,17 +258,20 @@ class LoginView(FormView):
                 person = Person.objects.get(phonenumber=username)
                 username = person.user.username
             except Person.DoesNotExist:
-                return render_to_response('account/login.html', {'error': "请输入正确的邮箱"})
+                return render_to_response(self.template_name,
+                                          {'error': "请输入正确的邮箱"})
                 # return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         elif input_type == "email":
             try:
                 user = User.objects.get(email=username)
                 username = user.username
             except User.DoesNotExist:
-                return render_to_response('account/login.html', {'error': "请输入正确的邮箱"})
+                return render_to_response(self.template_name,
+                                          {'error': "请输入正确的邮箱"})
                 # return render_to_response('account/login.html', {'error': "请输入正确的邮箱或手机号"})
         else:
-            return render_to_response('account/login.html', {'error': "请使用邮箱登陆"})
+            return render_to_response(self.template_name,
+                                      {'error': "请使用邮箱登陆"})
             # return render_to_response('account/login.html', {'error': "请使用邮箱或者手机号登陆"})
 
         user = authenticate(username=username, password=password)
@@ -279,4 +283,5 @@ class LoginView(FormView):
                 self.success_url = next_url
             return super(LoginView, self).form_valid(form)
         else:
-            return render_to_response('account/login.html', {'error': "用户名或密码错误"})
+            return render_to_response(self.template_name,
+                                      {'error': "用户名或密码错误"})

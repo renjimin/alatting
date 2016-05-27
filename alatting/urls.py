@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^poster/', include('poster.urls', namespace='poster')),
     url(r'^posters/', include('poster.urls', namespace='posters')),
     url(r'^survey/', include('survey.urls', namespace='survey')),
+    url(r'^service/', include('service.urls', namespace='service')),
 
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]

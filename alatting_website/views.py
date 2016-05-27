@@ -24,7 +24,7 @@ def get_first_category_list():
 
 
 class IndexView(TemplateView):
-    template_name = 'alatting_website/index.html'
+    template_name = 'core/index/mobile/index.html'
 
     def get_poster_sort_keys(self):
         req_sort = self.request.GET.get('sort', '')
@@ -53,7 +53,7 @@ class IndexView(TemplateView):
 
 
 class IndexCategoryView(TemplateView):
-    template_name = 'alatting_website/index-category.html'
+    template_name = 'core/index/mobile/index-category.html'
 
     def get_poster_sort_keys(self):
         req_sort = self.request.GET.get('sort', '')
@@ -423,37 +423,3 @@ class SvgClipView(View):
         else:
             response = HttpResponse(xml, content_type='image/svg+xml')
         return response
-
-
-class PosterListView(ListView):
-    model = Poster
-    template_name = 'web/posters.html'
-    queryset = Poster.objects.filter(
-        status=Poster.STATUS_PUBLISHED
-    )
-
-    def get_poster_sort_keys(self):
-        req_sort = self.request.GET.get('sort', '')
-        sort_key = ''
-        if req_sort in ['hot', 'new', 'recommend']:
-            if req_sort == 'hot':
-                sort_key = '-poster_statistics__views_count'
-            elif req_sort == 'new':
-                sort_key = '-created_at'
-        return sort_key
-
-    def get_queryset(self):
-        qs = Poster.objects.filter(
-            status=Poster.STATUS_PUBLISHED
-        ).order_by('-created_at')
-        sort_key = self.get_poster_sort_keys()
-        if sort_key:
-            qs = qs.order_by(sort_key)
-        return qs
-
-    def get_context_data(self, **kwargs):
-        ctx = super(PosterListView, self).get_context_data(**kwargs)
-        ctx['categorys'] = Category.objects.filter(
-            parent__isnull=True
-        ).order_by('name')
-        return ctx
