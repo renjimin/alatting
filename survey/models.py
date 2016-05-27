@@ -70,7 +70,7 @@ class QuestionSet(models.Model):
 
     def is_last(self):
         try:
-            return self.questionnaire.questionsets()[-1] == self
+            return self.questionnaire.questionsets().latest('sortid') == self
         except NameError:
             # should only occur if not yet saved
             return True

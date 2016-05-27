@@ -124,12 +124,17 @@ class QuestionnaireView(View):
 
 		progress = self.get_progress(runinfo)
 
+		islast_comsumer = False
+		if questionset.is_last() and questionnaire.role=="consumer":
+			islast_comsumer = True
+
 		contextdict = {'qs_title': qs_title,
 						'questionset': questionset,
 						'qlist': qlist,
 						'prev_url': prev_url,
 						'progress': progress,
-						'errors': errors}
+						'errors': errors,
+						'islast_comsumer': islast_comsumer}
 		return render_to_response('questionset.html', contextdict)
 
 	def add_answer(self, runinfo, question, ans):
