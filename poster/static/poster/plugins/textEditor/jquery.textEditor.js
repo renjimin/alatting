@@ -42,18 +42,25 @@
 
             var canvas = document.getElementById("bot-cbox-canvas");
             var ctx=canvas.getContext("2d");
-            var boxwidth=parseInt($('.bot-cbox').width());
-            var boxheight=parseInt($('.bot-cbox').height());
-            var grd=ctx.createLinearGradient(0,0,boxwidth,0);
-                grd.addColorStop(0,"red");
-                grd.addColorStop(0.15,"#f96");
-                grd.addColorStop(0.35,"yellow");
-                grd.addColorStop(0.50,"green");
-                grd.addColorStop(0.70,"#ace");
-                grd.addColorStop(0.85,"blue");
-                grd.addColorStop(1,"blueviolet");
-                ctx.fillStyle=grd;
-                ctx.fillRect(0,0,boxwidth,boxheight);
+            canvas.width=parseInt($('.bot-cbox').width());
+            canvas.height=parseInt($('.bot-cbox').height());
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            var hGrad = ctx.createLinearGradient(0, 0, canvas.width, 0);
+                hGrad.addColorStop(0 / 6, '#F00');
+                hGrad.addColorStop(1 / 6, '#FF0');
+                hGrad.addColorStop(2 / 6, '#0F0');
+                hGrad.addColorStop(3 / 6, '#0FF');
+                hGrad.addColorStop(4 / 6, '#00F');
+                hGrad.addColorStop(5 / 6, '#F0F');
+                hGrad.addColorStop(6 / 6, '#F00');
+            ctx.fillStyle = hGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            var vGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            vGrad.addColorStop(0, 'rgba(255,255,255,0)');
+            vGrad.addColorStop(1, 'rgba(255,255,255,1)');
+            ctx.fillStyle = vGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
         }else{
             var canvas = document.getElementById("bot-cbox-canvas");
             var ctx=canvas.getContext("2d");
