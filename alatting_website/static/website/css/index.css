@@ -299,14 +299,13 @@ body,html {
 
 /*适配*/
 @media (min-width: 600px) {
-.home-header {
-	width: 600px;
-	left: 50%;
-	margin-left: -300px;
+	.home-header,.footer {
+		width: 600px;
+		left: 50%;
+		margin-left: -300px;
+	}
+
 }
-.footer {
-	width: 600px;
-	left: 50%;
-	margin-left: -300px;
-}
+@media (min-width: 600px)  and (max-width:769px){	
+	.home-header,.footer{max-width:768px;width:100%;left:0;margin-left:0;}
 }
