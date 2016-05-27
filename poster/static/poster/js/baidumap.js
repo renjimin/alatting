@@ -16,7 +16,12 @@ $(function(){
 					baiduMap.clearOverlays();
 					baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
 					baiduMap.centerAndZoom(pp, 14);
-					$.fn.yunyeStorage.setHead("address",$("#suggestId").val());
+					var add = {
+						address:$("#suggestId").val(),
+						city:local.getResults().city,
+						province:local.getResults().province
+					}
+					$.fn.yunyeStorage.setHead("address",add);
 				}else{
 					$("#suggestId").val("");
 					$("#suggestId").attr('placeholder','未搜索到您所填的位置');
