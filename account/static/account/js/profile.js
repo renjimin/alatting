@@ -39,6 +39,7 @@ $(function(){
                 $('#uIcon').children('img').attr('src',data.person.avatar);
             }
             $('#uName').html(data.username);
+            $('#userid').val(data.id);
         },
         error: function(xhr,status,statusText){
             yyAlert("服务超时,请稍候再试!");
@@ -76,6 +77,7 @@ $(function(){
             for(var i=0;i<data.length;i++){
                 var pd = {
                     posterid:data[i].id,
+                    creatorid:data[i].creator,
                     snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
                     postername:data[i]['unique_name']
                 };
@@ -150,7 +152,7 @@ $(function(){
             //console.log('view:provide:'+id);
             location.href = '/mobile/account/posters/'+id+'/server.html';
         }else{
-            location.href = '/mobile/account/posters/'+id+'/consumer.html';
+            location.href = '/mobile/account/posters/'+id+'/consumer.html?consumerid='+$('#userid').val();
         }
     });
     /* favorite */

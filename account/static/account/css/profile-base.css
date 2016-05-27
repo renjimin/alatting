@@ -98,3 +98,11 @@
     margin-left: -16px;
     margin-top: -16px;
 }
+
+.error-msg{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    padding: 15px 10px;
+    line-height: 25px;
+}

@@ -13,7 +13,7 @@
 
 {% block base_body %}
     <div class="body-header">
-        <div class="header-left" data-id="1">
+        <div class="header-left">
             <div class="hd-ctrl-li ctrl-favorite" id="ctrl-favorite" data-fav="0">
                 <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
                 <span class="ctrl-name">收藏</span>
@@ -30,6 +30,7 @@
                 <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
                 <span class="ctrl-name">统计</span>
             </div>
+            <input type="hidden" id="consumerid" value="{{ request.GET.consumerid }}">
         </div>
         <div class="header-right">
             <div class="hd-close" id="page-close"><i class="fa fa-times"></i></div>
@@ -57,35 +58,44 @@
             </div>
         </div>
         <div class="mainli main-plist" id="main-plist">
-            <ul>
-                <li>
-                    <span class="plist-name">服务报价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">我的出价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">服务报价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">我的出价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">服务报价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li class="plist-act">
-                    <span class="plist-name">我的出价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li class="plist-end">
-                    已接受<i class="fa fa-check-circle-o"></i>
-                </li>
-            </ul>
+            <!---
+            <div class="main-plist-ul">
+                <ul>
+                    <li>
+                        <span class="plist-name">服务报价</span>
+                        <span class="plist-value">￥40/小时</span>
+                        <span class="plist-time">2016-05-27 07:32:31</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">我的出价</span>
+                        <span class="plist-value">￥40/小时</span>
+                        <span class="plist-time">2016-05-27 07:32:31</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">服务报价</span>
+                        <span class="plist-value">￥40/小时</span>
+                        <span class="plist-time">2016-05-27 07:32:31</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">我的出价</span>
+                        <span class="plist-value">￥40/小时</span>
+                        <span class="plist-time">2016-05-27 07:32:31</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">服务报价</span>
+                        <span class="plist-value">￥40/小时</span>
+                        <span class="plist-time">2016-05-27 07:32:31</span>
+                    </li>
+                    <li class="plist-act">
+                        <span class="plist-name">我的出价</span>
+                        <span class="plist-value">￥40/小时</span>
+                        <span class="plist-time">2016-05-27 07:32:31</span>
+                    </li>
+                    <li class="plist-end">
+                        已接受<i class="fa fa-check-circle-o"></i>
+                    </li>
+                </ul>
+            </div>-->
         </div>
         <div class="mainli main-price" id="main-price">
             <div class="price-li price-quote" id="price-quote">
@@ -151,7 +161,7 @@
             </div>
         </div>
         <div class="main-message">
-            <div class="message-list">
+            <div class="message-list" id="message-list">
                 <ul>
                     <li class="mess-li">
                         <div class="mess-checkbox"></div>

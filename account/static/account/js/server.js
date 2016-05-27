@@ -22,11 +22,10 @@ $(function(){
         }
     });
     //*/
-
     function getMainLiHtml(d){
         var headIcon = (d.subject.person)?d.subject.person.avatar:'/static/account/img/headicon-default.jpg';
         var ans = d.ans;
-        var h = '<div class="main-li">';
+        var h = '<div class="main-li" data-csid="'+d.subject.id+'">';
             h+= '   <div class="mli-header">';
             h+= '       <div class="mli-hd-right">'+ d.completed+'</div>';
             h+= '       <div class="mli-hd-left">';
@@ -65,37 +64,78 @@ $(function(){
     $('#main-list').on('click','.mli-header',function(){
         var ths = $(this);
         $('#main-list').css({height:ch+'px','min-height':'0px','overflow':'hidden'});
-        if($('.main-user-ctrl').children('.main-li').length==0){
-            var $mli = ths.parent().clone();
-            $('.main-goback').after($mli);
-        }
+        var $mli = ths.parent().clone();
+        $('.main-goback').after($mli);
+        var consumer_id = ths.parent().attr('data-csid');
+        $('.main-user-ctrl').attr('data-csid',consumer_id);
         $('.main-user-ctrl').fadeIn(200);
+        getBargainsList(consumer_id);
+        getChatsList(consumer_id);
+
     });
     $('#main-goback').on('click',function(){
         $('#main-list').attr('style','');
-        $('.main-user-ctrl').fadeOut(200);
+        $('.main-user-ctrl').fadeOut(200).children('.main-li').remove();
+        $('#main-plist').empty();
+        $('#message-list').empty();
     });
     $('#page-close').on('click',function(){
         location.href='/mobile/account/profile.html';
     });
 
+
     /* bargained */
+    ///*
+    //接受服务提供者的报价
     $('#accept-price').on('click',function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
+            var consumer_id = $('.main-user-ctrl').attr('data-csid');
+            $.ajax({
+                type: 'PATCH',
+                data:{accepted:true,refused:false},
+                url: '/api/v1/poster/'+id+'/bargains/'+consumer_id,
+                success:function(){
+                    //yyAlert('您的出价发送成功!');
+                    $('#price-quote').hide();
+                    $('#price-accept').show();
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
             $('#price-quote').hide();
             $('#price-accept').show();
         });
     });
+    //*/
+    ///*
+    //拒绝服务提供者的报价
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             console.log('refuse-price');
+            var consumer_id = $('.main-user-ctrl').attr('data-csid');
+            $.ajax({
+                type: 'PATCH',
+                data:{accepted:false,refused:true},
+                url: '/api/v1/poster/'+id+'/bargains/'+consumer_id,
+                success:function(){
+                    //yyAlert('您的出价发送成功!');
+                    $('#price-quote').hide();
+                    $('#price-accept').show();
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
         });
     });
+    //*/
     $('#bid-price').on('click',function(){
         $('#price-quote').hide();
         $('#price-bid').show();
     });
     /* bargained bid-price */
+    //服务需求者出价
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
         var reg = new RegExp("^[0-9]*$");
@@ -103,6 +143,17 @@ $(function(){
             yyAlert('请输入数字!');
         }else{
             console.log('bid-price:'+price);
+            $.ajax({
+                type: 'POST',
+                data:{price:price,note:''},
+                url: '/api/v1/poster/'+id+'/bargains',
+                success:function(){
+                    yyAlert('您的出价发送成功!');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
         }
     });
     $('#cancel-price').on('click',function(){
@@ -142,5 +193,87 @@ $(function(){
         }
     }
 
+    //获取双发讨价还价的历史记录
+    function getBargainsList(consumer_id){
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumer_id,
+            success:function(data){
+                if(!$.isEmptyObject(data)){
+                    var h = '<div class="main-plist-ul"><ul>';
+                    for(var i=0;i<data.length;i++){
+                        if(data[i]["accepted"]){
+                            h+= '<li class="plist-act">';
+                        }else{
+                            h+= '<li>';
+                        }
+                        h+= '<span class="plist-name">'+data[i]["data_status"]+'</span>';
+                        h+= '<span class="plist-value">'+data[i]["price"]+'</span>';
+                        h+= '<span class="plist-time">'+data[i]["created_at"]+'</span>';
+                        h+= '</li>';
+                    }
+                    h += '</ul></div>';
+                    $('#main-plist').append(h);
+                }else{
+                    $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
+                }
+            },
+            error: function(xhr, status, statusText){
+                $('#main-plist').append('<span class="error-msg">服务超时</span>');
+            }
+        });
+    }
+
+    //获取双方交流的信息列表
+    function getChatsList(consumer_id){
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumer_id,
+            success:function(data){
+                if(!$.isEmptyObject(data)){
+                    var h = '<ul>';
+                    for(var i=0;i<data.length;i++){
+                        h+= '<li>';
+                        h+= '   <div class="mess-checkbox"></div>';
+                        h+= '   <div class="mess-info">';
+                        h+= '       <div class="mess-info-title"><span>'+data[i]["username"]+'</span><span>'+data[i]["cteate_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
+                        h+= '   </div>';
+                        h+= '</li>';
+                    }
+                    h += '</ul>';
+                    $('#message-list').append(h);
+                }else{
+                    $('#message-list').append('<span class="error-msg">当前没有任何信息</span>');
+                }
+            },
+            error: function(xhr, status, statusText){
+                $('#message-list').append('<span class="error-msg">服务超时</span>');
+            }
+        });
+    }
+
+    //获取服务需求方提交的服务调查问卷信息
+    function getAnsList(){
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/poster/'+id+'/consumer/ans',
+            success:function(data){
+                if(!$.isEmptyObject(data)){
+                    var ans = data[0].ans;
+                    var h = '<ul>';
+                    for(var i=0;i<ans.length;i++){
+                        h+= '<li><span class="tips-name">'+ans[i]["question"]["short_text"]+'</span><span class="tips-cont">'+ans[i]["answer"]+'</span></li>';
+                    }
+                    h += '</ul>';
+                    $('#tips-info').append(h);
+                    showLoading(false);
+                }
+            },
+            error: function(xhr, status, statusText){
+                $('#tips-info').append('<span class="error-msg">服务超时</span>');
+            }
+        });
+    }
 
 });

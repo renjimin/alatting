@@ -32,6 +32,7 @@
                 <div class="user-info">
                     <span class="user-info-li user-icon" id="uIcon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="head"></span>
                     <span class="user-info-li user-name" id="uName">user</span>
+                    <input type="hidden" id="userid" value="">
                 </div>
             </div>
         </div>
@@ -149,7 +150,7 @@
                     </div>
                     <div class="p-cont-tips"></div>
                 </div>
-                <div class="p-ctrl" data-id="${posterid}">
+                <div class="p-ctrl" data-id="${posterid}" data-ctid="${creatorid}">
                     <div class="p-ctrl-li ctrl-lefttop ctrl-view">
                         <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
                         <span class="ctrl-name">查看</span>
