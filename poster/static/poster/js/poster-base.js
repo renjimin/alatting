@@ -103,6 +103,7 @@ $(function () {
            if($('.template-box').length <= 0){
                 var templateBox = $('<div class="template-box"></div>');
                 $('.yunye-template').parent().append(templateBox);
+                templateBox.append($('.yunye-template'));
            }
         
         $('.yunye-template').attr('style',templateScaleOpt);

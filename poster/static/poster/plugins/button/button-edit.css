@@ -360,10 +360,16 @@
 	opacity:0.6;
 }
 .cnd-element .nbar{
-display:none;
+	display:none;
+}
+.cnd-element .nbar .icon{
+	display:none;
 }
 .cnd-element.active .nbar{
-display:block;
+	display:block;
+}
+.cnd-element.active .nbar .icon{
+	display:block;
 }
 .cnd-element.active .nbar.nbar-ne,
 .cnd-element.active .nbar.nbar-sw,
