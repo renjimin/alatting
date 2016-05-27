@@ -20,17 +20,17 @@
                         <i class="icon ico-search"></i>
                         <input type="text" placeholder="搜索" name="q" id="q" value="{{ request.GET.q }}"/>
                     </div>
-                    <div class="dropdown">
+                    <div class="dropdown" style="display:none;">
                         <button class="btn dropdown-toggle" id="seartype" data-toggle="dropdown">
                             <i class="icon ico-menu"></i>
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="seartype">
+                        <ul class="dropdown-menu main-dropdown-menu" aria-labelledby="seartype">
                             <li>
-                                <a href="javascript:void(0);">最新</a>
+                                <a href="javascript:void(0);">最新<i class="icon ico-right"></i></a>
                             </li>
-                            <li>
-                                <a href="javascript:void(0);">已发布</a>
+                            <li class="active">
+                                <a href="javascript:void(0);">已发布<i class="icon ico-right"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -40,10 +40,10 @@
                             <i class="icon ico-pagers"></i>
                             <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="searCat">
+                        <ul class="dropdown-menu main-dropdown-menu" aria-labelledby="searCat" id="searCatoBody">
                             {% for category in categorys %}
                             <li>
-                                <a href="javascript:void(0);">{{ category.name }}</a>
+                                <a href="javascript:void(0);" data-id="{{ category.id }}">{{ category.name }}<i class="icon ico-right"></i></a>                                
                             </li>
                             {% endfor %}
                         </ul>
@@ -51,6 +51,8 @@
                     {% for k, v in request.GET.dict.items %}
                         <input type="hidden" name="{{ k }}" value="{{ v }}" >
                     {% endfor %}
+                    <input type="hidden" name="catId" id="catId" value="" >
+
                 </form>
             </div>
             {% if request.user.is_authenticated %}
