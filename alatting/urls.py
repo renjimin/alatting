@@ -22,16 +22,29 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+# pc端路由
+from alatting_website.views import MobileIndexView
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('alatting_website.urls', namespace='website')),
     url(r'', include('alatting.api_urls', namespace='api')),
 
-    url(r'^account/', include('account.urls', namespace='account')),
-    url(r'^poster/', include('poster.urls', namespace='poster')),
-    url(r'^posters/', include('poster.urls', namespace='posters')),
-    url(r'^survey/', include('survey.urls', namespace='survey')),
-    url(r'^service/', include('service.urls', namespace='service')),
+    url(r'^account/', include('account.urls', namespace='account_pc')),
+    url(r'^service/', include('service.urls', namespace='service_pc')),
+
+    # url('^', include('django.contrib.auth.urls', namespace='auth'))
+]
+
+# 移动端路由
+urlpatterns += [
+    # url(r'', include('alatting_website.urls', namespace='website')),
+    # url(r'', include('alatting.api_urls', namespace='api')),
+    url(r'^mobile/index.html$', MobileIndexView.as_view(), name='mobile_index'),
+    url(r'^mobile/account/', include('account.urls', namespace='account')),
+    url(r'^mobile/poster/', include('poster.urls', namespace='poster')),
+    url(r'^mobile/posters/', include('poster.urls', namespace='posters')),
+    url(r'^mobile/survey/', include('survey.urls', namespace='survey')),
 
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]

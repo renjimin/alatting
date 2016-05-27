@@ -23,12 +23,12 @@
             updated_at: "{{ poster.updated_at|date:'Y-m-d H:i:s' }}",
             short_description:"{{ poster.short_description }}",
             API: {
-                templates: "/api/v1/poster/templates",
-                updateTemplate: "/api/v1/poster/posterpages/{0}",
-                createPage: "/api/v1/poster/posterpages",
-                save: "/api/v1/poster/save/{0}/",
-                publish: "/api/v1/poster/publish/{0}/",
-                show: "/posters/{0}/"
+                templates: "{% url 'poster_api:templates' %}",
+                updateTemplate: "{% url 'poster_api:posterpage_detail' posterpage.id %}",
+                createPage: "{% url 'poster_api:poster_pages' %}",
+                save: "{% url 'poster_api:poster_save' poster.id %}",
+                publish: "{% url 'poster_api:poster_publish' poster.id %}",
+                show: "{% url 'posters:show' poster.id %}"
             }
         }
     </script>
