@@ -52,9 +52,15 @@ $(document).ready(function(){
     });
 
     $("#searCatoBody a").click(function(){
-        $(this).parent().addClass('active').siblings().removeClass('active');
-        $("#catId").val($(this).attr('data-id'));
-        $("#search_form").submit();
+        var $this = $(this);
+        $this.parent().addClass('active').siblings().removeClass('active');
+        $("#catId").val($this.attr('data-id'));
+        setTimeout(function(){
+            $this.parentsUntil('div').parent().removeClass("open");
+        }, 300);
+        if($.trim($("#q").val()) != ""){
+            $("#search_form").submit();
+        }
     });
 });
 
