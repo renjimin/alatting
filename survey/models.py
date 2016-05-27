@@ -96,6 +96,7 @@ class Question(models.Model):
     questionset = models.ForeignKey(QuestionSet)
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
+    short_text = models.TextField(blank=True, verbose_name="shortText")
     required = models.BooleanField(default=False)
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)

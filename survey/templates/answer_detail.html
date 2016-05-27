@@ -1,12 +1,14 @@
 <ul>
 {% for key, value in results.items %}
 	<li>
-    {{key.id}}, {{key.subject.username}},{{key.completed}}
+    用户:&nbsp;{{key.subject.username}}&nbsp;&nbsp;&nbsp;&nbsp;完成时间:&nbsp;{{key.completed}}
 	    <ul>
 	    {% for ans in value%}
-	    	<li>
-				{{ans.answer}}
-			</li>
+	    	{% if ans.answer%}
+		    	<li>
+					{{ans.question.short_text}} : {{ans.answer}}
+				</li>
+			{% endif %}
 	    {% endfor %}
 		</ul>
 	</li>
