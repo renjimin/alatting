@@ -1,6 +1,7 @@
 import os
 from django.db import models
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from alatting_website.models import Category
 from utils.db.fields import BigAutoField, \
@@ -84,6 +85,16 @@ class QuestionSet(models.Model):
             # should only occur if not yet saved
             return True
 
+    def changeform_link(self):
+        if self.id:
+            changeform_url = reverse(
+                'admin:survey_questionset_change', args=(self.id,)
+            )
+            return u'<a href="%s" target="_blank">详情</a>' % changeform_url
+        return u''
+    changeform_link.allow_tags = True
+    changeform_link.short_description = ''   # omit column header
+
     def __str__(self):
         return '%s-%d' % (self.questionnaire.name, self.sortid)
 
@@ -126,6 +137,16 @@ class Question(models.Model):
     def questioninclude(self):
         return "questionnaire/" + self.get_type() + ".html"
 
+    def changeform_link(self):
+        if self.id and self.type in ['choice','choice-input', 'checkbox']:
+            changeform_url = reverse(
+                'admin:survey_question_change', args=(self.id,)
+            )
+            return u'<a href="%s" target="_blank">选项详情</a>' % changeform_url
+        return u''
+    changeform_link.allow_tags = True
+    changeform_link.short_description = ''   # omit column header
+
 class Choice(models.Model):
     question = models.ForeignKey(Question)
     sortid = models.IntegerField()
@@ -138,6 +159,16 @@ class Choice(models.Model):
 
     def __str__(self):
         return '(%s) %d. %s' % (self.question.text, self.sortid, self.text)
+
+    def changeform_link(self):
+        if self.id and self.question.type=='choice-input':
+            changeform_url = reverse(
+                'admin:survey_choice_change', args=(self.id,)
+            )
+            return u'<a href="%s" target="_blank">选项输入框</a>' % changeform_url
+        return u''
+    changeform_link.allow_tags = True
+    changeform_link.short_description = ''   # omit column header
 
 class Input(models.Model):
     placeholder = models.CharField(max_length=256, default='请输入')

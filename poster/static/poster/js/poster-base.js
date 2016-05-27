@@ -203,8 +203,7 @@ $(function () {
     });
     $('.mask').registerPopUp({
         id: 'dpw_header',
-        offsetXPercent: 80,
-        offsetYPercent: 90,
+        offsetYPercent: 50,
         offsetY: 30,
         followMouse: true,
         list: [
@@ -260,11 +259,9 @@ $(function () {
     /* 模版空白设置背景 */
     $('.yunye-template').registerPopUp({
         id: 'dpw_template',
-        offsetXPercent: 50,
         offsetYPercent: 50,
         offsetY: 30,
-        arrowOffset: 80,
-        orientation: 1,
+        followMouse: true,
         list: [
             {
                 icon: "icon ico-system-pic",
