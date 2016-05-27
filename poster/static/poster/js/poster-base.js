@@ -86,31 +86,28 @@ $(function () {
     if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
         initData();
     }
-
-    var templateScale = $('body').width()/$('.yunye-template').width();
-    var templateScaleOpt =
-        '-webkit-transform:scale('+templateScale+','+templateScale+');'
-       +   '-moz-transform:scale('+templateScale+','+templateScale+');'
-       +     '-o-transform:scale('+templateScale+','+templateScale+');'
-       +    '-ms-transform:scale('+templateScale+','+templateScale+');'
-       +        'transform:scale('+templateScale+','+templateScale+');';
-
-    $('.yunye-template').attr('style',templateScaleOpt);
-    $('.template-box').height($('.yunye-template').height()*templateScale);
+    templateScaleFun();
+    
 
     window.onresize = function(){
+       templateScaleFun();
+    };
+    
+    function templateScaleFun(){
         var templateScale = $('body').width()/$('.yunye-template').width();
-        var templateScaleOpt =
-            '-webkit-transform:scale('+templateScale+','+templateScale+');'
+         var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
            +   '-moz-transform:scale('+templateScale+','+templateScale+');'
            +     '-o-transform:scale('+templateScale+','+templateScale+');'
            +    '-ms-transform:scale('+templateScale+','+templateScale+');'
            +        'transform:scale('+templateScale+','+templateScale+');';
-
+           if($('.template-box').length <= 0){
+                var templateBox = $('<div class="template-box"></div>');
+                $('.yunye-template').parent().append(templateBox);
+           }
+        
         $('.yunye-template').attr('style',templateScaleOpt);
-        $('.template-box').height($('.yunye-template').height()*templateScale);
-    };
-
+        $('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
+    }
     //弹出菜单
     $(".dropdown-toggle:not(#share-toggle)").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({

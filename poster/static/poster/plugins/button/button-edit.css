@@ -229,8 +229,9 @@
 .nbar-rotate {
 	top: -30px;
 	left: 50%;
-
-	margin-left: -6px;
+	width:20px;
+	height:20px;
+	margin-left: -10px;
 
 	cursor: url(mouserotate.ico) 10 10, default;
 	transition:all .2s;
