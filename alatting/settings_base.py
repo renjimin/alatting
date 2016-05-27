@@ -26,11 +26,13 @@ INSTALLED_APPS = (
     'rest_framework',
     'djcelery',
     'corsheaders',
+    'core',
     'account',
     'poster',
     'survey',
     'alatting_website',
     'alatting_admin',
+    'service'
 )
 
 MIDDLEWARE_CLASSES = (
