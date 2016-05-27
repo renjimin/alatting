@@ -1,2 +1,16 @@
-<div id="colorBox" style="position: absolute;z-index: 100;overflow: scroll;width: 100%;">
-</div>
+<div id="colorBox"></div>
+<style>
+    #colorBox{
+        position: absolute;
+        z-index: 100;
+        overflow: scroll;
+        width: 100%;
+    }
+    @media screen and (min-width:769px) {
+        #colorBox{
+            width: 600px;
+            left: 50%;
+            margin-left: -300px;
+        }
+    }
+</style>

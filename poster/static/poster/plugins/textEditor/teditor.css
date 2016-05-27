@@ -6,6 +6,13 @@
     height: 265px;
     width: 100%;
 }
+@media screen and (min-width:769px) {
+    .text-model{
+        width: 600px;
+        left: 50%;
+        margin-left: -300px;
+    }
+}
 
 .text-element{
     position: absolute;

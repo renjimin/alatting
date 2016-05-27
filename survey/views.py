@@ -268,3 +268,22 @@ class QuestionnaireView(View):
 		hist.save()
 		runinfo.delete()
 		return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
+
+
+class AnswerDetailView(TemplateView):
+
+	template_name = "answer_detail.html"
+
+	def get_context_data(self, **kwargs):
+		context = super(AnswerDetailView, self).get_context_data(**kwargs)
+		poster_id = self.kwargs['poster_id']
+		role = self.request.GET.get('role', '')
+
+		results = {}
+		for his in RunInfoHistory.objects.filter(
+			poster_id = poster_id, questionnaire__role = role).order_by('-completed'):
+			results.setdefault(his, [])
+			for ans in Answer.objects.filter(runid=his.runid):
+				results[his].append(ans)
+		context['results'] = results
+		return context
