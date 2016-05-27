@@ -155,6 +155,29 @@
             num=parseFloat(num);
             return num.toFixed(2);
         }
+        /*
+        function setDomTranStyle(ele,value){
+            var csobj={};
+            var csss = ele.attr('style');
+            csss = csss.substr(0,csss.length-1);
+            csss = csss.split(';');
+            for(var i=0;i<csss.length;i++){
+                var sa= csss[i].split(':');
+                csobj[sa[0]]=sa[1];
+            }
+            csobj['transform']=value;
+            csobj['-webkit-transform']=value;
+            csobj['-moz-transform']=value;
+            csobj['-ms-transform']=value;
+            csobj['-o-transform']=value;
+            csss = JSON.stringify(csobj);
+            csss = csss.replace(/,/g,';');
+            csss = csss.substr(1,csss.length-2);
+            csss = csss.replace(/"/g,'');
+            csss += ';';
+            ele.attr('style',csss);
+        }*/
+
         /*适应yunye-template缩放*/
         function modifyRate(num,rate,type){
             if(type){
