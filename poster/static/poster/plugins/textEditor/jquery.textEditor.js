@@ -105,20 +105,20 @@
         pluginBox.off('click','#ted-edit').on('click','#ted-edit',function(){
             $('.ted-text-content').fadeIn(200);
             if(option.pluginType == 'main'){
-                var cont = $element.find('.el-content').html();
+                var cont = $element.children('.el-content').html();
             }else if(option.pluginType == 'other'){
                 var cont = $element.html();
             }else{}
-            cont = cont.replace('<br>','\n');
+            cont = cont.replace(/<br>/g,'\n');
             $('#tt-content').val(cont);
         });
         pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
             var cont = $('#tt-content').val();
             cont = cont.replace(/<\/?.+?>/g,"");
             cont = cont.replace(/&nbsp;/g,"")
-            cont = cont.replace('\n','<br>');
+            cont = cont.replace(/\n/g,'<br>');
             if(option.pluginType == 'main'){
-                $element.find('.el-content').html(cont);
+                $element.children('.el-content').html(cont);
             }else if(option.pluginType == 'other'){
                 $element.html(cont);
             }else{}

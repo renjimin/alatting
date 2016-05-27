@@ -165,4 +165,5 @@ class PosterView(DetailView):
             if my_rating:
                 obj.my_rating = my_rating[0]
 
+        self.update_statistics(obj)
         return obj
