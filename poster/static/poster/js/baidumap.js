@@ -8,7 +8,38 @@ $(function(){
 		window.baiduMap = new BMap.Map("allmap");		// 创建Map实例
 
 		var _localAdress = yunyeEditorGlobal.address;
-		var ac = new BMap.Autocomplete(	//建立一个自动完成的对象
+		console.log(_localAdress);
+		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
+			onSearchComplete: function(){
+				if( pp = local.getResults().getPoi(0) ){
+					var pp = local.getResults().getPoi(0).point;	//获取第一个智能搜索的结果
+					baiduMap.clearOverlays();
+					baiduMap.addOverlay(new BMap.Marker(pp));	//添加标注
+					baiduMap.centerAndZoom(pp, 14);
+					$.fn.yunyeStorage.setHead("address",$("#suggestId").val());
+				}else{
+					$("#suggestId").val("");
+					$("#suggestId").attr('placeholder','未搜索到您所填的位置');
+					var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(r){
+						if(this.getStatus() == BMAP_STATUS_SUCCESS){
+							var mk = new BMap.Marker(r.point);
+							baiduMap.clearOverlays();
+							baiduMap.addOverlay(mk);
+							baiduMap.centerAndZoom(r.point, 14);
+						}else {
+							local.search("光谷");
+						}        
+					},{enableHighAccuracy: true})
+				}
+			}
+		});
+		$("#suggestId").val(_localAdress);
+		local.search(_localAdress);
+		$("#suggestId").on("change",function(){
+			local.search($("#suggestId").val());
+		});
+		/*var ac = new BMap.Autocomplete(	//建立一个自动完成的对象
 			{"input" : "suggestId"
 			,"location" : baiduMap
 		});
@@ -35,6 +66,7 @@ $(function(){
 				}
 			}
 		});
+		
 		ac.setInputValue(_localAdress);
 		local.search(_localAdress);
 		baiduMap.enableScrollWheelZoom();
@@ -52,6 +84,6 @@ $(function(){
 				onSearchComplete: myFun
 			});
 			local.search(myValue);
-		});
+		});*/
 	} 
 });
