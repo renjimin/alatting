@@ -26,7 +26,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'djcelery',
     'corsheaders',
-    'core',
     'account',
     'poster',
     'survey',

@@ -2,7 +2,7 @@
 
 from django.conf.urls import include, url
 from alatting_website.views import (
-    PosterView, IndexView, IndexCategoryView,
+    PosterView, MobileIndexView, IndexCategoryView,
     PosterCodeView, SvgClipView, DemoView,
     CaptureView, TestView, PosterCaptureView
 )
@@ -10,7 +10,7 @@ from alatting_website.view.edit_view import CreatePosterView
 from alatting_website.feeds import PosterUpdateFeed
 
 urlpatterns = [
-    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^$', MobileIndexView.as_view(), name='index'),
     url(r'^demo$', DemoView.as_view(), name='demo'),
     url(r'^test$', TestView.as_view(), name='test'),
     url(r'^capture$', CaptureView.as_view(), name='capture'),
