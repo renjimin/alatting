@@ -83,22 +83,19 @@
 </header>
 <div class="info-toggle">
 	<div class="contact-info phone">
-		{{ poster.mobile }}
-		<a class="abutton-contact-info" href="tel: {{poster.mobile}}">
-			<i class="icon ico-phone"></i>
+		<a class="abutton-contact-info" href="tel://{{poster.mobile}}#mp.weixin.qq.com">
+			{{ poster.mobile }}<i class="icon ico-phone"></i>
 		</a>
 	</div>
 	<div class="contact-info email">
-		{{ poster.email }}
 		<a class="abutton-contact-info" href="mailto:{{ poster.email }}?{{ poster.email_content|safe }}">
-			<i class="icon ico-email"></i>
+			{{ poster.email }}<i class="icon ico-email"></i>
 		</a>
 	</div>
 	<div class="contact-info hour">
-		{{ poster.hours }}
-		<span class="poster-lifetime-status"> {{ poster.hours_status }} </span>
 		<a href="#" class="more-info">
-			<img src="{% static 'website/images/icons/more_icon.png' %}" style="width: 30px;height: 30px;">
+			<span class="poster-lifetime-status"> {{ poster.hours_status }} </span>
+			{{ poster.hours }}<img src="{% static 'website/images/icons/more_icon.png' %}" style="width: 30px;height: 30px;">
 		</a>
 	<div class="poster-top-inform-more" style="display: none;">
 		<table class="hours-more-details">
@@ -112,12 +109,11 @@
 	</div>
 	</div>
 	<div class="contact-info location">
-		{{ poster.address }}
-		<i class="icon ico-address"></i>
+		{{ poster.address }}<i class="icon ico-address"></i>
 	</div>
 </div>
 <div style="position:absolute;width: 100%;z-index: 40;">
-	<div style="padding: 40px 10px 10px 10px;width: 100%;height:100%;z-index: 40;">
+	<div style="padding: 50px 10px 10px 10px;width: 100%;height:100%;z-index: 40;">
 		<div id="allmap" style="width: 100%;height: 100%;"></div>
 	</div>
 </div>
