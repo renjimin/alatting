@@ -5,7 +5,7 @@ $(function(){
         e.stopPropagation();
         $('.dropdown-panel').removeClass('open');
         $('.dropdown-toggle').removeClass('open');
-        var $cnd = $('<div class="text-element"><div class="el-content">请修改文字</div><div class="el-rotate"></div><div class="el-editor"></div></div>');
+        var $cnd = $('<div class="cnd-element text-element"><div class="el-content">请修改文字</div><div class="el-rotate"></div><div class="el-editor"></div></div>');
         postcontainer.append($cnd);
         $cnd.css({'top':'20px','left':'100px'});
         $cnd.children('.el-content').trigger('click');

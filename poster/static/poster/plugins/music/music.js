@@ -9,10 +9,8 @@
           var bg_music = document.getElementById("background_music"); 
           if (bg_music.paused == false) {
               bg_music.pause();
-              $(".header-music").removeClass('rotate');
           } else {
               bg_music.play();
-              $(".header-music").addClass('rotate');
          }
   	console.log(data)
   	$.fn.yunyeStorage.setHead('music',data.file);
@@ -25,13 +23,12 @@
     	$(this).changeMusic({}, function (ths,img) {
 	$('.audiolink').empty().append('<audio autoplay  id = "background_music" loop="loop"></audio>');
 	$('.audiolink audio').attr("src",img);
+  console.log(img);
         var bg_music = document.getElementById("background_music"); 
         if (bg_music.paused == false) {
             bg_music.pause();
-            $(".header-music").removeClass('rotate');
         } else {
             bg_music.play();
-            $(".header-music").addClass('rotate');
        }  
 	console.log($.fn.yunyeStorage.setHead('music',img));
     	})

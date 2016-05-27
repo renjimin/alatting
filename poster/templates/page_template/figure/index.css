@@ -11,12 +11,12 @@
 }
 
 .content-top {
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 80%,50% 100%,0 81%);
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 82%,50% 100%,0 82%);
     clip-path: url(#content-top);
     position: absolute;
     left: 0;
     width: 96%;
-    height: 54%;
+    height: 55.5%;
     left: 2%;
 }
 
@@ -27,5 +27,5 @@
     top: 50%;
     left: 2%;
     width: 96%;
-    height: 50%;
+    height: 48.5%;
 }

@@ -7,11 +7,12 @@
    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%,0 88%);
     clip-path: url(#content-top);
     background-color: #fff;
-    height:40%;
+    height:45%;
+    margin-top: 5%;
 }
 
 .content > .content-middle {
     -webkit-clip-path: polygon(0 0, 100% 10%, 100% 90%,0 80%);
     clip-path: url(#content-middle);
-    height:40%;
+    height:53%;
 }

@@ -526,6 +526,9 @@ img[src=""] {
     line-height: 30px;
     padding: 10px 10px 10px 100px;
     background: rgba(255, 255, 255, 0.96);
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
 }
 
 .poster-item .det .bottom .type {

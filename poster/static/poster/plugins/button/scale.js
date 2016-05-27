@@ -1,4 +1,4 @@
-var scaleIndex = 20;
+var scaleIndex = 20;var templateScale = $('body').width()/$('.yunye-template').width();
 var scale = function(box,options){
     var defaults = {
         'box':'.cnd-element',
@@ -79,7 +79,7 @@ var scale = function(box,options){
 
         s.opt.width = ele.innerWidth() == 0 ? parseInt(ele.css('width')) : ele.innerWidth();
         s.opt.height = ele.innerHeight() == 0 ? parseInt(ele.css('height')) : ele.innerHeight();
-        s.opt.currentAngle = s.o.data('rotate') == null ? '0': s.o.data('rotate');
+        s.opt.currentAngle = s.o.attr('data-rotate') == null ? '0': s.o.attr('data-rotate');
     }
     s.initData(b);
     var touchEvents={
@@ -113,8 +113,8 @@ var scale = function(box,options){
             touchEvents.currentX = touch.pageX;
             touchEvents.currentY = touch.pageY;
 
-            var ex = touchEvents.currentX - touchEvents.startX;
-            var ey = touchEvents.currentY - touchEvents.startY;
+            var ex = (touchEvents.currentX - touchEvents.startX)/templateScale;
+            var ey = (touchEvents.currentY - touchEvents.startY)/templateScale;
 
             var ox = s.opt.tx = parseInt(s.opt.left) + ex;
             var oy = s.opt.ty = parseInt(s.opt.top) + ey;
@@ -139,7 +139,6 @@ var scale = function(box,options){
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
             $(e.currentTarget).addClass('drag-active');
-
         },
         'touchmove':function(e){
             if (e.originalEvent) e = e.originalEvent;
@@ -175,6 +174,7 @@ var scale = function(box,options){
             var offsetAngle = angle - parseInt(s.opt.currentAngle);
 
             s.o.css({'transform': 'rotate('+offsetAngle+'deg)','-webkit-transform': 'rotate('+offsetAngle+'deg)','-moz-transform': 'rotate('+offsetAngle+'deg)','-o-transform': 'rotate('+offsetAngle+'deg)','-ms-transform': 'rotate('+offsetAngle+'deg)'});
+            
             s.o.attr('data-rotate',offsetAngle);
         },
         'touchend':function(e){

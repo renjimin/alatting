@@ -23,8 +23,8 @@ def get_first_category_list():
     return Category.objects.filter(parent__isnull=True).order_by('name')
 
 
-class IndexView(TemplateView):
-    template_name = 'core/index/mobile/index.html'
+class MobileIndexView(TemplateView):
+    template_name = 'website/mobile/index.html'
 
     def get_poster_sort_keys(self):
         req_sort = self.request.GET.get('sort', '')
@@ -46,14 +46,14 @@ class IndexView(TemplateView):
         return qs
 
     def get_context_data(self, **kwargs):
-        ctx = super(IndexView, self).get_context_data(**kwargs)
+        ctx = super(MobileIndexView, self).get_context_data(**kwargs)
         ctx['posters'] = self.get_poster_list()
         ctx['categorys'] = get_first_category_list()
         return ctx
 
 
 class IndexCategoryView(TemplateView):
-    template_name = 'core/index/mobile/index-category.html'
+    template_name = 'website/mobile/index-category.html'
 
     def get_poster_sort_keys(self):
         req_sort = self.request.GET.get('sort', '')
