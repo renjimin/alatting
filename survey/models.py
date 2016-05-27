@@ -24,8 +24,8 @@ class Questionnaire(models.Model):
         null=True
     )
     ROLE_CHOICES = (
-        ('creator', 'creator who creates the poster'),
-        ('consumer', 'consumer who wants to contact the poster creator')
+        ('creator', ' 服务提供者'),
+        ('consumer', '服务使用者')
     )
     role = models.CharField(
         max_length=32, choices=ROLE_CHOICES, default='creator'
