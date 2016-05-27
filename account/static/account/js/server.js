@@ -6,6 +6,7 @@ $(function(){
     var id = $('#posterid').val();
     var ch =$(window).height()-$('.main-title').outerHeight();
     $('.main-user-ctrl').css('height',ch+'px');
+    var lastPrice,consumer_id;
     ///*
     $.ajax({
         type: 'GET',
@@ -66,11 +67,10 @@ $(function(){
         $('#main-list').css({height:ch+'px','min-height':'0px','overflow':'hidden'});
         var $mli = ths.parent().clone();
         $('.main-goback').after($mli);
-        var consumer_id = ths.parent().attr('data-csid');
-        $('.main-user-ctrl').attr('data-csid',consumer_id);
+        consumer_id = ths.parent().attr('data-csid');
         $('.main-user-ctrl').fadeIn(200);
-        getBargainsList(consumer_id);
-        getChatsList(consumer_id);
+        getBargainsList();
+        getChatsList();
 
     });
     $('#main-goback').on('click',function(){
@@ -89,14 +89,14 @@ $(function(){
     //接受服务提供者的报价
     $('#accept-price').on('click',function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
-            var consumer_id = $('.main-user-ctrl').attr('data-csid');
             $.ajax({
                 type: 'PATCH',
                 data:{accepted:true,refused:false},
-                url: '/api/v1/poster/'+id+'/bargains/'+consumer_id,
+                url: '/api/v1/poster/'+id+'/bargains/'+lastPrice['id'],
                 success:function(){
                     //yyAlert('您的出价发送成功!');
-                    $('#price-quote').hide();
+                    $('#price-accept').find('.q-c-name').html('您接受对方的报价');
+                    $('.price-li').hide();
                     $('#price-accept').show();
                 },
                 error: function(xhr, status, statusText){
@@ -113,15 +113,15 @@ $(function(){
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             console.log('refuse-price');
-            var consumer_id = $('.main-user-ctrl').attr('data-csid');
             $.ajax({
                 type: 'PATCH',
                 data:{accepted:false,refused:true},
-                url: '/api/v1/poster/'+id+'/bargains/'+consumer_id,
+                url: '/api/v1/poster/'+id+'/bargains/'+lastPrice['id'],
                 success:function(){
                     //yyAlert('您的出价发送成功!');
-                    $('#price-quote').hide();
-                    $('#price-accept').show();
+                    $('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
+                    $('.price-li').hide();
+                    $('#price-refuse').show();
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -130,12 +130,12 @@ $(function(){
         });
     });
     //*/
-    $('#bid-price').on('click',function(){
+    $('.bid-price').on('click',function(){
         $('#price-quote').hide();
         $('#price-bid').show();
     });
     /* bargained bid-price */
-    //服务需求者出价
+    //服务提供者出价
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
         var reg = new RegExp("^[0-9]*$");
@@ -145,10 +145,16 @@ $(function(){
             console.log('bid-price:'+price);
             $.ajax({
                 type: 'POST',
-                data:{price:price,note:''},
+                data:{"consumer_id":consumer_id,price:price,note:''},
                 url: '/api/v1/poster/'+id+'/bargains',
                 success:function(){
-                    yyAlert('您的出价发送成功!');
+                    //yyAlert('您的出价发送成功!');
+                    $('#price-quote').children('.price-icon').children().html('你的报价');
+                    $('#price-quote').find('.value-num').html(price);
+                    $('#accept-price').hide();
+                    $('#refuse-price').hide();
+                    $('.price-li').hide();
+                    $('#price-quote').show();
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -194,7 +200,7 @@ $(function(){
     }
 
     //获取双发讨价还价的历史记录
-    function getBargainsList(consumer_id){
+    function getBargainsList(){
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumer_id,
@@ -203,17 +209,28 @@ $(function(){
                     var h = '<div class="main-plist-ul"><ul>';
                     for(var i=0;i<data.length;i++){
                         if(data[i]["accepted"]){
-                            h+= '<li class="plist-act">';
+                            h+= '<li class="plist-over">';
                         }else{
-                            h+= '<li>';
+                            if(data[i]["consumer"]['id'] != data[i]["creator"]['id']){
+                                h+= '<li class="plist-active">';
+                            }else{
+                                h+= '<li>';
+                            }
                         }
-                        h+= '<span class="plist-name">'+data[i]["data_status"]+'</span>';
+                        if(data[i]["consumer"]['id'] == data[i]["creator"]['id']){
+                            h+= '<span class="plist-name">对方报价</span>';
+                        }else{
+                            h+= '<span class="plist-name">我的报价</span>';
+                        }
                         h+= '<span class="plist-value">'+data[i]["price"]+'</span>';
                         h+= '<span class="plist-time">'+data[i]["created_at"]+'</span>';
                         h+= '</li>';
                     }
                     h += '</ul></div>';
                     $('#main-plist').append(h);
+
+                    lastPrice=data[0];
+                    showPriceli(lastPrice);
                 }else{
                     $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
                 }
@@ -224,8 +241,36 @@ $(function(){
         });
     }
 
+    //展示当前讨价还价的状态
+    function showPriceli(lastPriceData){
+        $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
+        $('.price-li').hide();
+        if(lastPriceData["accepted"]){
+            if(lastPriceData["consumer"]['id'] == lastPriceData["creator"]['id']){
+                $('#price-accept').find('.q-c-name').html('您接受对方的报价');
+            }else{
+                $('#price-accept').find('.q-c-name').html('对方接受您的报价');
+            }
+            $('#price-accept').show();
+        }else if(lastPriceData["refused"]){
+            if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
+                $('#price-refuse').find('.bid-tips').html('您的报价被对方拒绝,请再次');
+            }else{
+                $('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
+            }
+            $('#price-refuse').show();
+        }else{
+            if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
+                $('#price-quote').children('.price-icon').children().html('你的报价');
+                $('#accept-price').hide();
+                $('#refuse-price').hide();
+            }
+            $('#price-quote').show();
+        }
+    }
+
     //获取双方交流的信息列表
-    function getChatsList(consumer_id){
+    function getChatsList(){
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumer_id,

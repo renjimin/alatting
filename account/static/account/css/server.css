@@ -211,7 +211,7 @@
     border-bottom: 1px solid #cacaca;
     white-space: nowrap;
 }
-.main-plist li:nth-child(even){
+.main-plist li.plist-active{
     background: #f2f2f2;
 }
 .main-plist li span{
@@ -249,7 +249,7 @@
     font-size: 20px;
     margin-left: 3px;
 }
-.main-plist li.plist-act{
+.main-plist li.plist-over{
     font-weight: 600;
     color: #151515;
     background: #c1c1c1;
@@ -268,7 +268,7 @@
     overflow: hidden;
     position: relative;
 }
-.price-bid,.price-accept{
+.price-bid,.price-accept,.price-refuse{
     display: none;
 }
 .price-icon{

@@ -118,33 +118,29 @@
                         <i class="fa fa-close"></i>
                         <span class="pbtn-name">拒绝</span>
                     </div>
-                    <div class="price-btn-li" id="bid-price">
+                    <div class="price-btn-li bid-price">
                         <i class="fa fa-yen"></i>
                         <span class="pbtn-name">出价</span>
                     </div>
                 </div>
             </div>
-            <div class="price-li price-bid" id="price-bid">
-                <div class="price-icon"><span>我的出价</span></div>
+            <div class="price-li price-refuse" id="price-refuse">
+                <div class="price-icon"><span>拒绝报价</span></div>
                 <div class="quote-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
-                    <span class="value-num"><input type="text" name="price" id="bPrice"></span>
+                    <span class="value-num">0</span>
                     <span class="value-unit">/小时</span>
                 </div>
-                <div class="bid-consult">您还剩3次出价机会</div>
                 <div class="price-btn">
-                    <div class="price-btn-li" id="set-price">
-                        <i class="fa fa-check"></i>
-                        <span class="pbtn-name">送出</span>
-                    </div>
-                    <div class="price-btn-li" id="cancel-price">
-                        <i class="fa fa-close"></i>
-                        <span class="pbtn-name">取消</span>
+                    <div class="price-btn-li bid-tips"></div>
+                    <div class="price-btn-li bid-price">
+                        <i class="fa fa-yen"></i>
+                        <span class="pbtn-name">出价</span>
                     </div>
                 </div>
             </div>
             <div class="price-li price-accept" id="price-accept">
-                <div class="price-icon"><span>对方报价</span></div>
+                <div class="price-icon"><span>接受报价</span></div>
                 <div class="quote-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num">160</span>
@@ -159,6 +155,26 @@
                     <span>周一晚上8点-下周开始</span>
                 </div>
             </div>
+            <div class="price-li price-bid" id="price-bid">
+                <div class="price-icon"><span>我的出价</span></div>
+                <div class="quote-value">
+                    <span class="value-icon"><i class="fa fa-cny"></i></span>
+                    <span class="value-num"><input type="text" name="bPrice" id="bPrice"></span>
+                    <span class="value-unit">/小时</span>
+                </div>
+                <div class="bid-consult">您还剩3次出价机会</div>
+                <div class="price-btn">
+                    <div class="price-btn-li" id="set-price">
+                        <i class="fa fa-check"></i>
+                        <span class="pbtn-name">送出</span>
+                    </div>
+                    <div class="price-btn-li" id="cancel-price">
+                        <i class="fa fa-close"></i>
+                        <span class="pbtn-name">取消</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="main-message">
             <div class="message-list" id="message-list">
