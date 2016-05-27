@@ -21,10 +21,9 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-
-# pc端路由
 from alatting_website.views import MobileIndexView
 
+# pc端路由
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('alatting_website.urls', namespace='website')),
@@ -51,9 +50,11 @@ urlpatterns += [
 
 # 以下是AJAX API路由配置
 urlpatterns += [
-    # url(r'^api/v1/account/', include('account.urls', namespace='account')),
-    url(r'^api/v1/poster/', include('poster.api_urls',
-                                    namespace='poster_api')),
+    url(r'^api/v1/account/',
+        include('account.urls_api', namespace='account_api')),
+
+    url(r'^api/v1/poster/',
+        include('poster.urls_api', namespace='poster_api')),
 
     # url(r'^api/.*', 'account.views.not_found'),
 ]

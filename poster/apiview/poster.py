@@ -7,7 +7,7 @@ import logging
 import pytz
 from rest_framework.generics import (
     ListCreateAPIView, ListAPIView,
-    RetrieveUpdateAPIView, get_object_or_404)
+    RetrieveUpdateAPIView, get_object_or_404, RetrieveUpdateDestroyAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -86,7 +86,7 @@ class PosterListView(ListCreateAPIView):
         )
 
 
-class PosterDetailView(RetrieveUpdateAPIView):
+class PosterDetailView(RetrieveUpdateDestroyAPIView):
     model = Poster
     queryset = Poster.objects.all()
     serializer_class = PosterSerializer
