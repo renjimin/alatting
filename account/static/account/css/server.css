@@ -164,7 +164,6 @@
 /*main-menu*/
 .main-menu{
     height: 40px;
-    border-bottom: 1px solid #eaeaea;
 }
 .main-menu-li{
     width: 50%;
@@ -174,8 +173,14 @@
     text-align: center;
     background: #e5e5e5;
 }
+.main-menu-li .glyphicon{
+    display: none;
+}
 .main-menu-act{
     background: #ffffff;
+}
+.main-menu-act .glyphicon{
+    display: inline;
 }
 /*main-plist*/
 .main-plist{
@@ -273,9 +278,9 @@
     left: 0px;
     width: 100%;
     text-align: center;
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
-    line-height: 40px;
+    line-height: 25px;
 }
 .quote-consult {
     position: absolute;

@@ -56,6 +56,28 @@
     background-position: 0 0px;
 }
 
+.level-diamond{
+    background: url("../img/icon-vip-diamond.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-gold{
+    background: url("../img/icon-vip-gold.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+
+}
+.level-silver{
+    background: url("../img/icon-vip-silver.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-bronze{
+    background: url("../img/icon-vip-bronze.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
 /*body-loading*/
 .body-loading{
     position: fixed;

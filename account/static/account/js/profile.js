@@ -35,9 +35,9 @@ $(function(){
         type: 'GET',
         url: '/api/v1/account/profile',
         success:function(data){
-            var headIcon = (data.person)?'/static/account/img/headicon-default.jpg':data.person.avatar;
-            //var headIcon = '/static/account/img/headicon-default.jpg';
-            $('#uIcon').children('img').attr('src',headIcon);
+            if(data.person){
+                $('#uIcon').children('img').attr('src',data.person.avatar);
+            }
             $('#uName').html(data.username);
         },
         error: function(xhr,status,statusText){
@@ -55,7 +55,8 @@ $(function(){
                 var pd = {
                     posterid:data[i].id,
                     snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
-                    postername:data[i]['unique_name']
+                    postername:data[i]['unique_name'],
+                    mobileEditUrl:data[i]["mobile_edit_url"]
                 };
                 $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
             }
@@ -186,8 +187,11 @@ $(function(){
     /* edit */
     $('.body-main').on('click','.ctrl-edit',function(event){
         event.stopPropagation();
-        var id= $(this).parent().attr('data-id');
-        console.log('edit:'+id);
+        var url = $(this).attr('data-url');
+        if(url){
+            location.href = url;
+        }
+        console.log('edit:none');
     });
     /* delete */
     $('.body-main').on('click','.ctrl-delete',function(event){

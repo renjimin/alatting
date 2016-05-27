@@ -64,6 +64,7 @@ $(function(){
 
     $('#main-list').on('click','.mli-header',function(){
         var ths = $(this);
+        $('#main-list').css({height:ch+'px','min-height':'0px','overflow':'hidden'});
         if($('.main-user-ctrl').children('.main-li').length==0){
             var $mli = ths.parent().clone();
             $('.main-goback').after($mli);
@@ -71,24 +72,45 @@ $(function(){
         $('.main-user-ctrl').fadeIn(200);
     });
     $('#main-goback').on('click',function(){
+        $('#main-list').attr('style','');
         $('.main-user-ctrl').fadeOut(200);
     });
     $('#page-close').on('click',function(){
         location.href='/mobile/account/profile.html';
     });
 
+    /* bargained */
     $('#accept-price').on('click',function(){
-        $('#price-quote').hide();
-        $('#price-accept').show();
+        yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
+            $('#price-quote').hide();
+            $('#price-accept').show();
+        });
+    });
+    $('#refuse-price').on('click',function(){
+        yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
+            console.log('refuse-price');
+        });
     });
     $('#bid-price').on('click',function(){
         $('#price-quote').hide();
         $('#price-bid').show();
     });
+    /* bargained bid-price */
+    $('#set-price').on('click',function(){
+        var price = $.trim($('#bPrice').val());
+        var reg = new RegExp("^[0-9]*$");
+        if(!reg.test(price) || price == ''){
+            yyAlert('请输入数字!');
+        }else{
+            console.log('bid-price:'+price);
+        }
+    });
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
         $('#price-quote').show();
     });
+
+
     $('#quote-consult').on('click',function(){
         $('#body-tips').fadeIn(200);
     });
