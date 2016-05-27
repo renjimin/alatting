@@ -24,6 +24,9 @@ $(function(){
 							var mk = new BMap.Marker(r.point);
 							baiduMap.addOverlay(mk);
 							baiduMap.centerAndZoom(r.point, 14);
+							window.zoomMap = function(){
+								baiduMap.centerAndZoom(r.point, 14);
+							}
 						}else {
 							local.search("光谷");
 						}        

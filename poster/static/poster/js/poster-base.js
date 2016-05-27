@@ -135,22 +135,26 @@ $(function () {
         dynamicClass: 'clock'
     });
     $('.bar-header .title').click(function(){
-      $('#text-model').animate({'bottom':'0px'},200);
-      $(".bar-header .title p").tEditor({
+        $('#text-model').animate({'bottom':'0px'},200);
+        $('.text-element').removeClass('text-element-act');
+        $('.ele-rotate-ctrl').remove();
+        $(".bar-header .title p").tEditor({
           textDelete: false,
           textCopy: false,
           pluginType: 'other'
-      });
-      $('#ted-edit').trigger('click');
+        });
+        $('#ted-edit').trigger('click');
     });
     $('.header-info').click(function(){
-      $('#text-model').animate({'bottom':'0px'},200);
-      $("#short_description").tEditor({
+        $('#text-model').animate({'bottom':'0px'},200);
+        $('.text-element').removeClass('text-element-act');
+        $('.ele-rotate-ctrl').remove();
+        $("#short_description").tEditor({
           textDelete: false,
           textCopy: false,
           pluginType: 'other'
-      });
-      $('#ted-edit').trigger('click');
+        });
+        $('#ted-edit').trigger('click');
     });
     $('.header-logo').registerPopUp({
         id: 'dpw_menu',
@@ -163,6 +167,8 @@ $(function () {
                         $('.header-logo').empty().append('<h2></h2>');
                     }
                     $('#text-model').animate({'bottom':'0px'},200);
+                    $('.text-element').removeClass('text-element-act');
+                    $('.ele-rotate-ctrl').remove();
                     $(".header-logo h2").tEditor({
                         textDelete: false,
                         textCopy: false,
@@ -462,6 +468,10 @@ $(function () {
         if(!$(target).hasClass("dropdown-toggle"))$('.dropdown-panel').removeClass("open");
         if($(target).hasClass("dropdown-toggle"))$("#dp").removeClass("open");
         if(!target)$("#dp").removeClass("open");
+        if(!$(target).hasClass('ele-rotate-ctrl')){
+            $('.text-element').removeClass('text-element-act');
+            $('.ele-rotate-ctrl').remove();
+        }
     });
 
     $('body').on('click', function (event) {

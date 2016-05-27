@@ -41,7 +41,7 @@ $(function(){
     }
     */
     postcontainer.on('click','#ele-editor-ctrl',function(event){
-        $(document).trigger('clsdp');
+        $(document).trigger('clsdp',event.currentTarget);
         event.stopPropagation();
         var bot = parseInt($('#text-model').css('bottom'));
         if(bot<0){

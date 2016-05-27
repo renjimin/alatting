@@ -76,6 +76,8 @@
             $('#ted-fontsizebig').css('display','block');
             $('#ted-fontsizesml').css('display','block');
         }else{}
+        /*隐藏文字编辑输入框*/
+        $('.ted-text-content').fadeOut(200);
 
         /*------------控件操作事件-------------*/
         /*删除文本*/
