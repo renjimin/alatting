@@ -170,7 +170,10 @@ class Poster(models.Model):
         return "{:d}".format(self.pk)
 
     def get_absolute_url(self):
-        return reverse('posters:show', kwargs={'pk': self.id})
+        if self.id == 1:
+            return reverse('website:poster', kwargs={'pk': self.id})
+        else:
+            return reverse('posters:show', kwargs={'pk': self.id})
 
     def get_first_poster_page_id(self):
         pages = self.poster_pages.all().order_by('index')
