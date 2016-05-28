@@ -9,8 +9,20 @@ from alatting_website.views import (
 from alatting_website.view.edit_view import CreatePosterView
 from alatting_website.feeds import PosterUpdateFeed
 
+
+# 首页配置
 urlpatterns = [
     url(r'^$', MobileIndexView.as_view(), name='index'),
+    url(r'^mobile/index.html$',
+        MobileIndexView.as_view(), name='mobile_index'),
+    url(r'^mobile/poster/index.html$',
+        MobileIndexView.as_view(), name='mobile_poster_index'),
+    url(r'^mobile/posters/index.html$',
+        MobileIndexView.as_view(), name='mobile_posters_index'),
+]
+
+
+urlpatterns += [
     url(r'^demo$', DemoView.as_view(), name='demo'),
     url(r'^test$', TestView.as_view(), name='test'),
     url(r'^capture$', CaptureView.as_view(), name='capture'),

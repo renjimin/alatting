@@ -88,7 +88,7 @@ class IndexCategoryView(TemplateView):
 
 
 class PosterView(DetailView):
-    template_name = 'website/poster.html'
+    template_name = 'website_old/poster.html'
     model = Poster
     COMMENT_SIZE = 20
 

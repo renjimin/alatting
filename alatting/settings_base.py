@@ -30,8 +30,7 @@ INSTALLED_APPS = (
     'poster',
     'survey',
     'alatting_website',
-    'alatting_admin',
-    'service'
+    'alatting_admin'
 )
 
 MIDDLEWARE_CLASSES = (

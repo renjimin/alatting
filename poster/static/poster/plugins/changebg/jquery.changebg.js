@@ -57,7 +57,6 @@
                 callBack_Selected(ele,img);
             });
             bimg.on('touchstart', '#closebg',function(){
-                    alert('12');
                     $(".system-item").fadeOut(200);
             });               
         }

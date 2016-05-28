@@ -94,7 +94,7 @@ def process_checkbox(question, answer):
 				pass
 			else:
 				raise AnswerException(question.errmsg)
-	return multiple
+	return ','.join(multiple)
 
 #text, textarea
 def question_text(request, question):

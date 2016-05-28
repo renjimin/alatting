@@ -7,11 +7,10 @@ from poster.view.create import (CategoryKeywordsView, CreateFormView,
                                 SelectTemplateView, PosterPageCreateView,
                                 UpdateFormView)
 from poster.view.edit import PosterEditView
+from poster.view.show import PosterView
 
 
 # 创建海报
-from poster.view.show import PosterView
-
 urlpatterns = [
     url(r'^keywords/$', login_required(CategoryKeywordsView.as_view()),
         name='keywords'),
@@ -31,7 +30,6 @@ urlpatterns = [
 ]
 
 # 显示海报
-
 urlpatterns += [
     url(r'^(?P<pk>[\d]+)/$', PosterView.as_view(), name='show'),
 ]
@@ -41,6 +39,4 @@ urlpatterns += [
     url(r'^(?P<poster_pk>[\d]+)/edit/(?P<pk>[\d]+)$',
         login_required(PosterEditView.as_view()),
         name='edit'),
-
-
 ]

@@ -1,14 +1,57 @@
-<ul>
-{% for key, value in results.items %}
-	<li>
-    {{key.id}}, {{key.subject.username}},{{key.completed}}
-	    <ul>
-	    {% for ans in value%}
-	    	<li>
-				{{ans.answer}}
+{% load static %}
+{% load questionnaire %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width,user-scalable=no" >
+    <title>武汉云页移动科技有限公司</title>
+    {% block base_header_css %}
+        <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
+        <link rel="stylesheet" href="{% static 'survey/css/survey-base.css' %}">
+    {% endblock %}
+    {% block base_header_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'website/js/base.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
+    {% block base_header_extra %}
+    {% endblock %}
+</head>
+<body>
+<div class="body-container">
+{% block base_body_header %}
+{% endblock %}
+{% block base_body %}
+	<a class="btn" href="javascript: history.go(-1)">返回</a>
+	<div class="text-center">
+    	<h2>海报名称:&nbsp;{{ poster.unique_name }}</h2>
+    </div>
+    <div>
+		<ul>
+		{% for key, value in results.items %}
+			<li>
+		    用户:&nbsp;{{key.subject.username}}&nbsp;&nbsp;&nbsp;&nbsp;完成时间:&nbsp;{{key.completed}}
+			    <ul>
+			    {% for ans in value%}
+			    	{% if ans.answer%}
+				    	<li>
+							{{ans.question.short_text}} : {{ans.answer}}
+						</li>
+					{% endif %}
+			    {% endfor %}
+				</ul>
 			</li>
-	    {% endfor %}
+		{% endfor %}
 		</ul>
-	</li>
-{% endfor %}
-</ul>
+	</div>
+{% endblock %}
+{% block base_body_footer %}
+{% endblock %}
+{% block base_footer_js %}
+    <script src="{% static 'website/js/footer.js' %}"></script>
+{% endblock %}
+</div>
+</body>
+</html>
