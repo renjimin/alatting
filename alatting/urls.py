@@ -31,7 +31,7 @@ urlpatterns = [
 
     url(r'^account/', include('account.urls', namespace='account_pc')),
     url(r'^service/', include('service.urls', namespace='service_pc')),
-
+    url(r'^posters/', include('poster.urls_pc', namespace='posters_pc')),
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 

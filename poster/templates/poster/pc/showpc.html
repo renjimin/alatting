@@ -1,50 +1,48 @@
+{% extends 'website/pc/base.html' %}
+
 {% load static %}
-{% block base_header_css %}
+{% block base_head_css %}
     <link rel="stylesheet" href="{% static 'poster/css/showpc.css' %}">
 {% endblock %}
 
-{% block base_header_js %}
+{% block base_head_js %}
     {{ block.super }}
     <script src="http://static.bshare.cn/b/buttonLite.js#style=-1&amp;uuid=&amp;pophcol=3&amp;lang=zh"></script>
-    <script type="text/javascript" src="http://static.bshare.cn/b/bshareC0.js"></script>
+    <script type="text/javascript"
+            src="http://static.bshare.cn/b/bshareC0.js"></script>
 {% endblock %}
+
+{% block base_body_class %}class="body-bg"{% endblock %}
 
 {% block base_body %}
+    <div class="panel">
+        <div class="main-mobile">
+            <div class="top"></div>
+            <div class="phone-mess"></div>
+            <div class="middle">
+                <iframe src="{% url 'posters:show' poster.id %}" width="100%"
+                        height="100%" frameborder="no" border="0"></iframe>
+            </div>
+            <div class="bottom"></div>
 
-    <div class="body-bg">
-		<div class="panel">
-			<div class="main-mobile">
-				<div class="top"></div>
-				<div class="phone-mess"></div>
-				<div class="middle">
-					<iframe src="#" width="100%" height="100%" frameborder="no" border="0" ></iframe>
-				</div>
-				<div class="bottom"></div>
+        </div>
 
-			</div>
+    </div>
 
-		</div>
-
-		<div class="code">
-			<div>扫一扫,分享给朋友！</div>
-			<div><img src="images/ewm.png" /></div>
-			<div>
-				<div class="bshare-custom icon-medium-plus">
-					<a title="分享到QQ空间" class="bshare-qzone"></a>
-					<a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
-					<a title="分享到人人网" class="bshare-renren"></a>
-					<a title="分享到腾讯微博" class="bshare-qqmb"></a>
-					<a title="分享到网易微博" class="bshare-neteasemb"></a>
-					<a title="更多平台" class="bshare-more bshare-more-icon more-style-addthis"></a>
-					<span class="BSHARE_COUNT bshare-share-count">更多</span>
-				</div>
-			</div>
-
-		</div>
-
-	</div>
-
-{% endblock %}
-
-{% block base_body_footer %}
+    <div class="code">
+        <div>扫一扫,分享给朋友！</div>
+        <div><img src="{% static 'poster/images/ewm.png' %}"/></div>
+        <div>
+            <div class="bshare-custom icon-medium-plus">
+                <a title="分享到QQ空间" class="bshare-qzone"></a>
+                <a title="分享到新浪微博" class="bshare-sinaminiblog"></a>
+                <a title="分享到人人网" class="bshare-renren"></a>
+                <a title="分享到腾讯微博" class="bshare-qqmb"></a>
+                <a title="分享到网易微博" class="bshare-neteasemb"></a>
+                <a title="更多平台"
+                   class="bshare-more bshare-more-icon more-style-addthis"></a>
+                <span class="BSHARE_COUNT bshare-share-count">更多</span>
+            </div>
+        </div>
+    </div>
 {% endblock %}
