@@ -1,11 +1,11 @@
 var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template').eq(0);
 var curentOpts={};
-setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
+setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons();/**/},100);
 
     var addButton = function(ele,options){
         var defaults = {
             'container':$("#button-model"),
-            'buttonAction':'1',
+            'buttonAction':'0',
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
@@ -29,7 +29,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
         s.add = function(){
             isEdit = false;
             var newbtn = null;
-            newbtn = $('<a class="element btn btn-default">请输入文字</a>')
+            newbtn = $('<a class="element btn btn-default">请输入文字</a>');
             defaults.container.find('.btn-container').empty().append(newbtn);
             s.controlInit();
             s.upload(newbtn);
@@ -106,7 +106,13 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
                 opts = $.extend(opts,eleopts);
             }
 
-
+            if(opts.buttonAction != '0'){
+                $('.button-href').attr("disabled","disabled");
+                $('.button-href').parent().parent().hide();
+            }else{
+                $('.button-href').removeAttr("disabled");
+                $('.button-href').parent().parent().show();
+            }
 
             var href = opts.href=="javascript:void(0)"?'':opts.href;
             $('.button-action').val(opts.buttonAction);
@@ -306,9 +312,43 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
         }
 
         s.addControlListen();
-
-
-
+    }
+    
+    function addDefaultButtons(){
+        if($('.sys-button').length > 0){
+            return;
+        }
+        var g = yunyeEditorGlobal;
+        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1">详情</a>'),
+              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2">预约</a>');
+        var cnd = '<div class="cnd-element button-element sys-button">'
+                +'<div class="element-box">'
+                +'    <div class="element-box-contents">'
+                +'        '
+                +'    </div>'
+                +'</div>'
+                +'<div class="nbar nbar-rotate nbar-radius"></div>'
+                +'<div class="nbar nbar-line"></div>'
+                +'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
+                +'<div class="nbar nbar-se nbar-radius"></div>'
+                +'<div class="nbar nbar-sw nbar-radius"></div>'
+                +'<div class="nbar nbar-ne nbar-radius"></div>'
+            +'</div>';
+        var detailBox = $(cnd),orderBox = $(cnd).clone();
+        detailBox.find('.element-box-contents').append(detailBtn);
+        orderBox.find('.element-box-contents').append(orderBtn);
+        detailBox.hide();orderBox.hide();
+        
+        fullcontainer.append(detailBox);
+        fullcontainer.append(orderBox);
+        detailBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-detailBox.innerHeight() - 10+'px','left':fullcontainer.innerWidth()/2-detailBox.innerWidth() - 10+'px'}).show();
+        scale(detailBox);
+        orderBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-orderBox.innerHeight() -10+'px','left':fullcontainer.innerWidth()/2+10+'px'}).show();
+        scale(orderBox);
 
     }
     function buttonConfirm(ele){
@@ -329,7 +369,6 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);},100);
                 +'<div class="nbar nbar-sw nbar-radius"></div>'
                 +'<div class="nbar nbar-ne nbar-radius"></div>'
             +'</div>');
-
         if(!isEdit){
             cnd.find('.element-box-contents').append(ele);
             cnd.hide();
@@ -384,6 +423,9 @@ var editButtonBorder = function(){
     ele.addClass('open').siblings().removeClass('open');
 }
 var copyButton = function(){
+    if($('.button-element.active').hasClass('sys-button')){
+        return;
+    }
     var imgclone = $('.button-element.active').clone();
     $('.button-element').removeClass('active');
     imgclone.animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
@@ -391,6 +433,9 @@ var copyButton = function(){
     scale(imgclone);
 }
 var deleteButton = function(){
+    if($('.button-element.active').hasClass('sys-button')){
+        return;
+    }
     var imgactive = $('.button-element.active');
 
     imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
@@ -415,7 +460,7 @@ $(function(){
     /*页面第一次加载就开始加载系统图案*/
     $.ajax({
         type: 'GET',
-        url: 'http://www.yunye123.com:8000/api/v1/poster/system/images',
+        url: '/api/v1/poster/system/images',
         success: function(data){
             var con = $('#systemimg-model .systemimg-list ul');
             con.empty();
