@@ -14,7 +14,8 @@ from alatting_website.models import (
     BusinessCard, PosterMoreLink,
     CategoryKeyword)
 from survey.models import (
-    Questionnaire, QuestionSet, Question, Choice, Input)
+    Questionnaire, QuestionSet, Question, Choice, Input,
+    Answer, RunInfo, RunInfoHistory)
 
 
 class AlattingAdminModelMixin(object):
@@ -222,6 +223,21 @@ class QuestionSetLinkInline(admin.TabularInline):
 @admin.register(Questionnaire)
 class QuestionnaireAdmin(admin.ModelAdmin):
     inlines = [QuestionSetLinkInline,]
+
+
+@admin.register(Answer)
+class AnswerAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(RunInfo)
+class RunInfoAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(RunInfoHistory)
+class RunInfoHistoryAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(ServiceBargain)

@@ -1,4 +1,5 @@
 $(function(){
+	$(".info-toggle").css("background",$('.qrcode-inner .qrcode').css('background-color'));
 	$(document).click(function(){
 		$('.info-toggle .contact-info').hide();
 		$('.poster-top-inform-more').hide();

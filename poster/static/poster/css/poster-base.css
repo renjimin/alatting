@@ -1266,9 +1266,10 @@ to {
 	display: block;
 	overflow: hidden;
 	height: 40px;
-	border-bottom: 1px solid #fff;
+	border-bottom: 1px solid #666;
 	font-size: 16px;
 	line-height: 16px;
+	position: relative;
 }
 #dp li:last-child {
 	border-bottom: none;
@@ -1287,9 +1288,9 @@ to {
 	width: calc(100% -  40px);
 	padding-left: 5px;
 	vertical-align: top;
-	background: #f0f0f0;
 	font-size: 15px;
 	line-height: 40px;
+	background: #fff;
 }
 #dp span input[type="text"] {
 	width: 100%;
@@ -1669,7 +1670,7 @@ to {
 	position: absolute;
 	z-index: 30;
 	width: 100%;
-	background: rgba(00,00,00,.85);
+/*	background: rgba(00,00,00,.85);*/
 	color: #fff;
 }
 .btn-circle{
