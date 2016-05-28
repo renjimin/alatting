@@ -42,7 +42,5 @@ urlpatterns += [
         login_required(PosterEditView.as_view()),
         name='edit'),
 
-    url(r'^files-upload$',
-        TemplateView.as_view(template_name='poster/files-upload.html'),
-        name='edit'),
+
 ]

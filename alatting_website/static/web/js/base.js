@@ -50,6 +50,18 @@ $(document).ready(function(){
             $('.usersshow-dialog').addClass('open');
         }
     });
+
+    $("#searCatoBody a").click(function(){
+        var $this = $(this);
+        $this.parent().addClass('active').siblings().removeClass('active');
+        $("#catId").val($this.attr('data-id'));
+        setTimeout(function(){
+            $this.parentsUntil('div').parent().removeClass("open");
+        }, 300);
+        if($.trim($("#q").val()) != ""){
+            $("#search_form").submit();
+        }
+    });
 });
 
 

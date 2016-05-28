@@ -23,10 +23,20 @@ class ServiceIndexListView(ListView):
                 sort_key = '-created_at'
         return sort_key
 
-    def get_queryset(self):
+    def query_filter(self):
         qs = Poster.objects.filter(
             status=Poster.STATUS_PUBLISHED
         ).order_by('-created_at')
+        q = self.request.GET.get('q')
+        cat_id = self.request.GET.get('catId')
+        if q:
+            qs = qs.filter(unique_name__contains=q)
+        if cat_id:
+            qs = qs.filter(main_category_id=cat_id)
+        return qs
+
+    def get_queryset(self):
+        qs = self.query_filter()
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)

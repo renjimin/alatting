@@ -23,31 +23,33 @@ class IndexView(TemplateView):
 class QuestionnaireBlankView(View):
 	def get(self, request, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
-		main_cat_name = poster.main_category.name
-		sub_cat_name = poster.sub_category.name
 		qs_title = "没有此类别的调查问卷"
-
-		contextdict = {'main_cat_name': main_cat_name,
-						'sub_cat_name': sub_cat_name,
-						'qs_title': qs_title,
-						'poster_id': poster.pk}
+		role = self.request.GET.get('role', '')
+		contextdict = {'qs_title': qs_title,
+						'poster_id': poster.pk,
+						'role': role}
 		return render_to_response('questionset_blank.html', contextdict)
 
 	def post(self, request, **kwargs):
-		return HttpResponseRedirect('%s?poster_id=%s' % (
+		role = self.request.GET.get('role', '')
+		if role == "creator":
+			return HttpResponseRedirect('%s?poster_id=%s' % (
 			reverse('poster:select_template'),
 			self.kwargs['poster_id']))
+		else:
+			kwargs = {'pk': self.kwargs['poster_id']}
+			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
-		
+
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
 		role = self.request.GET.get('role', '')
 		qu = Questionnaire.objects.filter(main_category=poster.main_category, 
-			sub_category=poster.sub_category, role=role).first()
+			role=role).first()
 		if not qu:
 			kwargs = {'poster_id': poster.pk}
-			return reverse('survey:questionnaireblank', kwargs=kwargs)
+			return '%s?role=%s' % (reverse('survey:questionnaireblank', kwargs=kwargs), role)
 
 		qs = qu.questionsets()[0]
 		su = self.request.user
@@ -90,8 +92,6 @@ class QuestionnaireView(View):
 	def show_questionnaire(self, request, runinfo, errors={}):
 		questionset = runinfo.questionset
 		questionnaire = questionset.questionnaire
-		main_cat_name = questionset.questionnaire.main_category.name
-		sub_cat_name = questionset.questionnaire.sub_category.name
 		qs_title = questionset.heading
 		questions = questionset.questions()
 		qlist = []
@@ -115,14 +115,16 @@ class QuestionnaireView(View):
 					'qs_sortid': sortid}
 			prev_url = reverse('survey:questionset', kwargs=kwargs)
 		else:
-			kwargs = {'pk': runinfo.poster.pk}
-			prev_url = reverse('poster:update_form', kwargs=kwargs)
+			if runinfo.questionset.questionnaire.role == "creator":
+				kwargs = {'pk': runinfo.poster.pk}
+				prev_url = reverse('poster:update_form', kwargs=kwargs)
+			else:
+				kwargs = {'pk': runinfo.poster.pk}
+				prev_url = reverse('posters:show', kwargs=kwargs)
 
 		progress = self.get_progress(runinfo)
 
-		contextdict = {'main_cat_name': main_cat_name,
-						'sub_cat_name': sub_cat_name,
-						'qs_title': qs_title,
+		contextdict = {'qs_title': qs_title,
 						'questionset': questionset,
 						'qlist': qlist,
 						'prev_url': prev_url,
@@ -267,8 +269,11 @@ class QuestionnaireView(View):
 		hist.questionnaire = questionnaire
 		hist.save()
 		runinfo.delete()
-		return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
-
+		if hist.questionnaire.role == "creator":
+			return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
+		else:
+			kwargs = {'pk': runinfo.poster.pk}
+			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
 class AnswerDetailView(TemplateView):
 
@@ -278,6 +283,8 @@ class AnswerDetailView(TemplateView):
 		context = super(AnswerDetailView, self).get_context_data(**kwargs)
 		poster_id = self.kwargs['poster_id']
 		role = self.request.GET.get('role', '')
+
+		context['poster'] = Poster.objects.filter(pk=poster_id).first()
 
 		results = {}
 		for his in RunInfoHistory.objects.filter(

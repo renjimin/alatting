@@ -11,10 +11,12 @@ $(function(){
            if($('.template-box').length <= 0){
                 var templateBox = $('<div class="template-box"></div>');
                 $('.yunye-template').parent().append(templateBox);
+                templateBox.append($('.yunye-template'));
            }
         
         $('.yunye-template').attr('style',templateScaleOpt);
         $('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
+        
     window.onresize = function(){
          var templateScale = $('body').width()/$('.yunye-template').width();
          var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'

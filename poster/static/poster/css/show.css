@@ -73,6 +73,10 @@
     width: 100%;
 }
 
+.cnd-element .nbar{
+    display:none;
+}
+
 @media only screen and (max-width: 767px) and (min-width: 360px){
     .comments-submenu {
         padding-bottom: 2em;
@@ -82,3 +86,4 @@
         padding-top: 4%;
     }
 }
+

@@ -103,6 +103,7 @@ $(function () {
            if($('.template-box').length <= 0){
                 var templateBox = $('<div class="template-box"></div>');
                 $('.yunye-template').parent().append(templateBox);
+                templateBox.append($('.yunye-template'));
            }
         
         $('.yunye-template').attr('style',templateScaleOpt);
@@ -473,22 +474,19 @@ $(function () {
 
     $('body').on('click', function (event) {
         //处理点击事件
-        var click_list = ['#closebg'];
-        var item = '';
-        for (var i in click_list) {
-            if ($(event.target).closest(click_list[i]).length != 0) {
-                item = click_list[i];
-                break;
-            }
-        }
-        switch (item) {
-            case "#closebg":
-                $(".system-item").fadeOut(200);
-                break;
-        }
-        $("#closesmusic").on('click',function(){
-            $(".system-music").fadeOut(200);
-        });
+        // var click_list = ['#closebg'];
+        // var item = '';
+        // for (var i in click_list) {
+        //     if ($(event.target).closest(click_list[i]).length != 0) {
+        //         item = click_list[i];
+        //         break;
+        //     }
+        // }
+        // switch (item) {
+        //     case "#closebg":
+        //         //$(".system-item").fadeOut(200);
+        //         break;
+        // }
         //点击被保护列表中的对象返回
         window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
         var list = window.clickItmList;
