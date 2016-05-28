@@ -4,6 +4,7 @@ from collections import OrderedDict
 import datetime
 import json
 from django.core.urlresolvers import reverse
+from django.http import Http404
 from django.utils.http import urlquote
 import pytz
 from alatting_website.model.resource import Image
@@ -25,18 +26,33 @@ class PosterEditView(DetailView):
     model = PosterPage
     template_name = 'poster/mobile/edit/edit.html'
 
-    def get_object(self, queryset=None):
+    def get_poster_object(self):
         poster = Poster.objects.filter(
             pk=self.kwargs.get('poster_pk'),
             creator=self.request.user
         ).first()
         if not poster:
             raise PermissionDenied
-        return get_object_or_404(
-            PosterPage,
-            pk=self.kwargs.get('pk'),
-            poster=poster
-        )
+        self.poster = poster
+        return poster
+
+    def get_object(self, queryset=None):
+        page = PosterPage.objects.filter(
+            poster=self.poster,
+            index=0
+        ).first()
+        return page
+
+    def get(self, request, *args, **kwargs):
+        poster = self.get_poster_object()
+        page = self.get_object()
+        if not page:
+            re_url = reverse('posters:select_template', kwargs={
+                'poster_pk': poster.id
+            })
+            re_url += '?back=0'
+            return redirect(re_url)
+        return super(PosterEditView, self).get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         ctx = super(PosterEditView, self).get_context_data(**kwargs)
@@ -340,6 +356,20 @@ class SelectTemplateView(ListView):
         data_status=Template.USABLE
     ).order_by('name')
 
+    def get_poster_object(self):
+        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+
+    def get_queryset(self):
+        poster = self.get_poster_object()
+        if poster.creator != self.request.user:
+            raise PermissionDenied
+        return super(SelectTemplateView, self).get_queryset()
+
+    def get_context_data(self, **kwargs):
+        ctx = super(SelectTemplateView, self).get_context_data(**kwargs)
+        ctx['poster_id'] = self.kwargs.get('poster_pk')
+        return ctx
+
 
 class PosterPageCreateView(View):
 
@@ -347,6 +377,7 @@ class PosterPageCreateView(View):
         poster_id = request.POST.get('poster_id')
         template_id = request.POST.get('template_id')
         pages = PosterPage.objects.filter(
+            poster__creator=self.request.user,
             poster_id=poster_id, template_id=template_id
         ).order_by('-index')
         template = get_object_or_404(Template, pk=template_id)
@@ -368,8 +399,7 @@ class PosterPageCreateView(View):
             temp_script=js
         )
         posterpage.check_and_create_static_file_dir()
-        return redirect(reverse('poster:edit',
+        return redirect(reverse('posters:edit',
                                 kwargs={
-                                    'pk': posterpage.id,
                                     'poster_pk': poster_id
                                 }))
