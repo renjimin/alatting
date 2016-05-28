@@ -120,6 +120,9 @@ input {
     z-index: 10;
     overflow: auto;
     background: rgba(213,213,213,0.9);
+    box-sizing: border-box;
+    top: 0px;
+    left: 0px;
 }
  .div-server .ul-server{
     padding:0;
@@ -202,10 +205,10 @@ input {
  }
 
  .glyphicon-ok-circle{
-      float:right;
+    float:right;
     font-size: 1.2em;
     padding: 10px 10px;
-    margin: 8px 0;  
+    margin: 5px 0;  
  }
  .li-provider  .glyphicon{
     float:right;
@@ -275,7 +278,7 @@ input {
 }
 
 .regist .list-li input.regist-industryinput{
-     width: 39%;
+     width: 37%;
      float:right;
     background: white;
     border-radius: 8px;
@@ -320,10 +323,11 @@ input {
 .regist .list-li .btn-success {
     display: block;
     float: right;
-    padding: 0 6px;
+    padding: 0 2px;
     background-color: #5cb85c;
     width: 30%;
     line-height: 25px;
+    font-size: 1.4rem;
 }
 
 .regist .list-li .btn-default {

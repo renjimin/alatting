@@ -9,7 +9,8 @@
                 'phone':'',
                 'email':'',
                 'address':'',
-                'worktime':''
+                'worktime':'',
+                'src':''
             };
         return this.each(function(){
             var s = $(this);
@@ -35,7 +36,8 @@
                                 				</ul>\
                                 			</div>\
                                 			<div class="imgshow-img">\
-                                				<a href="javascript:void(0);"></a>\
+                                                 <iframe src="/mobile/posters/54/" width="100%" height="100%" frameborder="no" border="0">\
+                                                </iframe>\
                                 			</div>\
                                 		</div>\
                                 	</div>\
@@ -57,11 +59,14 @@
                 $('.imgshow-dialog').find('.email').html(data.email);
                 $('.imgshow-dialog').find('.address').html(data.address);
                 $('.imgshow-dialog').find('.worktime').html(data.worktime);
-                var img = data.img.clone();
+                $('.imgshow-dialog').find('iframe').attr('src',data.src);
+
+                /*var img = data.img.clone();
                 if(img.attr('src') == ''){
                     img.attr('src',img.attr('data-src'));
                 }
                 $('.imgshow-dialog').find('.imgshow-img').html(img);
+                */
             }
             s.on('click',function(e){
                 if($('.imgshow-dialog').length <= 0){
@@ -105,13 +110,17 @@
                 datas.email = currentImgBox.find('.email').text();
                 datas.address = currentImgBox.find('.address').text();
                 datas.worktime = currentImgBox.find('.worktime').text();
+                datas.src = currentImgBox.find('.img').find('a').attr('data-src');
 
                 $('.imgshow-dialog .imgshow-container').animate({'opacity':'0','left':'20px'},200,function(){
                     $('.imgshow-dialog .imgshow-container').css({'left':'-20px','opacity':'0'})
                 });
                 setTimeout(function(){
+                    $('.imgshow-dialog').find('iframe').attr('src',"").hide();
                     s.initData(datas);
-                    $('.imgshow-dialog .imgshow-container').animate({'opacity':'1','left':'0'},200);
+                    $('.imgshow-dialog .imgshow-container').animate({'opacity':'1','left':'0'},200,function(){
+                        $('.imgshow-dialog').find('iframe').show();
+                    });
                 },200);
 
 
@@ -130,13 +139,17 @@
                 datas.email = currentImgBox.find('.email').text();
                 datas.address = currentImgBox.find('.address').text();
                 datas.worktime = currentImgBox.find('.worktime').text();
+                datas.src = currentImgBox.find('.img').find('a').attr('data-src');
 
                 $('.imgshow-dialog .imgshow-container').animate({'opacity':'0','left':'-20px'},200,function(){
                     $('.imgshow-dialog .imgshow-container').css({'left':'20px','opacity':'0'})
                 });
                 setTimeout(function(){
+                    $('.imgshow-dialog').find('iframe').attr('src',"").hide();
                     s.initData(datas);
-                    $('.imgshow-dialog .imgshow-container').animate({'opacity':'1','left':'0'},200);
+                    $('.imgshow-dialog .imgshow-container').animate({'opacity':'1','left':'0'},200,function(){
+                        $('.imgshow-dialog').find('iframe').show();
+                    });
                 },200);
 
 

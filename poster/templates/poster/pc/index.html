@@ -112,7 +112,7 @@
             <li class="poster-item">
                 <div class="poster-wraper">
                     <div class="img">
-                        <a href="javascript:;">
+                        <a href="javascript:;" data-src="{{ poster.get_absolute_url }}">
                             <img class="lazy"
                                  data-src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %} "/>
                         </a>
