@@ -6,5 +6,5 @@ from service.views import ServiceIndexListView
 
 
 urlpatterns = [
-    url(r'^index.html$', MobileIndexView.as_view(), name='index'),
+    url(r'^index.html$', ServiceIndexListView.as_view(), name='index'),
 ]

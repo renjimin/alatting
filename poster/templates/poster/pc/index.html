@@ -1,0 +1,157 @@
+{% extends 'website/pc/base.html' %}
+{% load static %}
+
+{% block base_head_title %}服务邦 - {% endblock %}
+
+
+{% block base_body_header %}
+    <!-- header start -->
+    <div class="header">
+        <div class="container header-top">
+            <div class="logo">
+                <a href="javascript:;" title="武汉云页移动科技有限公司">
+                    <img src="{% static 'web/images/logo.png' %}"/>
+                </a>
+            </div>
+            <div class="search-bar" id="searchBar">
+                <form action="{% url 'posters_pc:index' %}" method="get"
+                      name="search_form" id="search_form">
+                    <div class="search-input clearfix">
+                        <i class="icon ico-search"></i>
+                        <input type="text" placeholder="搜索" name="q" id="q" value="{{ request.GET.q }}"/>
+                    </div>
+                    <div class="dropdown" style="display:none;">
+                        <button class="btn dropdown-toggle" id="seartype" data-toggle="dropdown">
+                            <i class="icon ico-menu"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu main-dropdown-menu" aria-labelledby="seartype">
+                            <li>
+                                <a href="javascript:void(0);">最新<i class="icon ico-right"></i></a>
+                            </li>
+                            <li class="active">
+                                <a href="javascript:void(0);">已发布<i class="icon ico-right"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-last dropdown-toggle" id="searCat"
+                                data-toggle="dropdown">
+                            <i class="icon ico-pagers"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu main-dropdown-menu" aria-labelledby="searCat" id="searCatoBody">
+                            {% for category in categorys %}
+                            <li {% if category.id|stringformat:"s" == request.GET.catId %}class="active"{% endif %}>
+                                <a href="javascript:void(0);" data-id="{{ category.id }}">{{ category.name }}<i class="icon ico-right"></i></a>                                
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% for k, v in request.GET.dict.items %}
+                        {% if k != 'q' and k != 'catId' %}
+                            <input type="hidden" name="{{ k }}" value="{{ v }}" >
+                        {% endif %}
+                    {% endfor %}
+                        <input type="hidden" name="catId" id="catId" value="" >
+                </form>
+            </div>
+            {% if request.user.is_authenticated %}
+                <div class="head-user">
+                    <button class="btn mobsearch-btn" id="searchBtn">
+                        <i class="icon ico-search"></i>
+                    </button>
+                    <a href="javascript:void(0);">
+                        <img class="lazy"
+                             src="{% static 'web/images/avatar-default.png' %}"
+                             data-src="{{ request.user.person.avatar.url }}"/>
+                        <span class="name">{{ request.user }}</span>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+        <div class="nav-bar">
+            <div class="container">
+                <ul class="nav nav-list">
+                    <li>
+                        <a href="?sort=new&q={{ request.GET.q }}&catId={{ request.GET.catId }}" {% if not request.GET.sort or request.GET.sort == 'new' %}class="active"{% endif %}>
+                            最新
+                        </a>
+                    </li>
+                    <li>
+                        <a href="?sort=hot&q={{ request.GET.q }}&catId={{ request.GET.catId }}" {% if request.GET.sort == 'hot' %}class="active"{% endif %}>热门</a>
+                    </li>
+                    <li>
+                        <a href="?sort=recommend&q={{ request.GET.q }}&catId={{ request.GET.catId }}" {% if request.GET.sort == 'recommend' %}class="active"{% endif %}>推荐</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- header end -->
+{% endblock %}
+
+{% block base_body_container_inner %}
+    {% if request.user.is_authenticated %}
+        <div class="main-plus">
+            <a href="javascript:;" class="plus-button"></a>
+        </div>
+    {% endif %}
+    <ul class="poster-list">
+        {% for poster in poster_list %}
+            <li class="poster-item">
+                <div class="poster-wraper">
+                    <div class="img">
+                        <a href="javascript:;">
+                            <img class="lazy"
+                                 data-src="{% if poster.snapshot %}{{ poster.snapshot.url }}{% endif %} "/>
+                        </a>
+                    </div>
+                    <div class="det">
+                        <div class="head">
+                            <span class="time">{{ poster.created_at|date:'Y-m-d' }}</span>
+                            <a href="#" class="btn-share"><i class="icon ico-share"></i></a>
+                            <a href="#" class="btn-fav"><i class="icon ico-fav"></i></a>
+                        </div>
+                        <div class="middle">
+                            <div class="qrcode">
+                                <img src="{% url 'website:code_poster' poster.id %}" />
+                            </div>
+                            </div>
+                        <div class="bottom">
+                            <div class="uimg">
+                                <img src="{% static 'web/images/avatar-default.png' %}"
+                                     data-src="{{ request.user.person.avatar.url }}"/>
+                            </div>
+                            <div class="uname">
+                                <span>{{ poster.creator }}</span>
+                            </div>
+                            <div class="type">
+                                {{ poster.main_category }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <span class="phone">{{ poster.mobile }}</span>
+                        <span class="email">{{ poster.email }}</span>
+                        <span class="address">{{ poster.address.address1 }}</span>
+                        {% comment %}<span class="worktime">上午9点 - 下午6点</span>{% endcomment %}
+                    </div>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+
+{% block base_foot_js %}
+    <script>
+        $(function(){
+            $("#q").keyup(function (event) {
+                if(event.keyCode == 13){
+                    $("#search_form").submit();
+                }
+            });
+        });
+    </script>
+{% endblock %}

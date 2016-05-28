@@ -30,8 +30,7 @@ urlpatterns = [
     url(r'', include('alatting.api_urls', namespace='api')),
 
     url(r'^account/', include('account.urls', namespace='account_pc')),
-    url(r'^service/', include('service.urls', namespace='service_pc')),
-    url(r'^posters/', include('poster.urls_pc', namespace='posters_pc')),
+    url(r'^posters/', include('poster.urls.pc', namespace='posters_pc')),
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 
@@ -39,10 +38,15 @@ urlpatterns = [
 urlpatterns += [
     # url(r'', include('alatting_website.urls', namespace='website')),
     # url(r'', include('alatting.api_urls', namespace='api')),
-    url(r'^mobile/index.html$', MobileIndexView.as_view(), name='mobile_index'),
     url(r'^mobile/account/', include('account.urls', namespace='account')),
-    url(r'^mobile/poster/', include('poster.urls', namespace='poster')),
-    url(r'^mobile/posters/', include('poster.urls', namespace='posters')),
+
+    # 暂时保留此URL, 后期将逐步作废
+    url(r'^mobile/poster/',
+        include('poster.urls.mobile', namespace='poster')),
+
+    url(r'^mobile/posters/',
+        include('poster.urls.mobile', namespace='posters')),
+
     url(r'^mobile/survey/', include('survey.urls', namespace='survey')),
 
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
