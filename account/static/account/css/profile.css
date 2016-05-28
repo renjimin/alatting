@@ -395,12 +395,22 @@ header {
 .body-vip .vip-lv{
     height:50px;
     background:rgb(51,51,51);
+    text-align: center;
 }
 .body-vip .vip-lv span{
-    color:rgb(255,200,37);
-    text-align: center;
-    margin-left: 40%;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 30px;
 }
+.lv-icon{
+    width: 40px;
+    height: 30px;
+}
+.lv-name{
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .body-vip .vip-footer{
     background: #ffffff;
     height: 80px;

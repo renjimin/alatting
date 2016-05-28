@@ -43,12 +43,12 @@
             </div>
         </div>
     </div>
-    <div class="body-main">
-        <div class="main-title">
-            <div class="title-star p-star p-star-4"></div>
-            <div class="title-name">黄裕祥钢琴教学</div>
-            <input type="hidden" id="posterid" value="{{ poster.id }}">
-        </div>
+    <div class="body-main-title" id="body-main-title">
+        <div class="title-star p-star p-star-4"></div>
+        <div class="title-name">黄裕祥钢琴教学</div>
+        <input type="hidden" id="posterid" value="{{ poster.id }}">
+    </div>
+    <div class="body-li body-main" id="body-main">
         <div class="main-menu">
             <div class="main-menu-li main-menu-act" data-item="price">
                 <span class="main-menu-cont">报价</span>
@@ -57,46 +57,7 @@
                 <span class="main-menu-cont">记录</span>
             </div>
         </div>
-        <div class="mainli main-plist" id="main-plist">
-            <!---
-            <div class="main-plist-ul">
-                <ul>
-                    <li>
-                        <span class="plist-name">服务报价</span>
-                        <span class="plist-value">￥40/小时</span>
-                        <span class="plist-time">2016-05-27 07:32:31</span>
-                    </li>
-                    <li>
-                        <span class="plist-name">我的出价</span>
-                        <span class="plist-value">￥40/小时</span>
-                        <span class="plist-time">2016-05-27 07:32:31</span>
-                    </li>
-                    <li>
-                        <span class="plist-name">服务报价</span>
-                        <span class="plist-value">￥40/小时</span>
-                        <span class="plist-time">2016-05-27 07:32:31</span>
-                    </li>
-                    <li>
-                        <span class="plist-name">我的出价</span>
-                        <span class="plist-value">￥40/小时</span>
-                        <span class="plist-time">2016-05-27 07:32:31</span>
-                    </li>
-                    <li>
-                        <span class="plist-name">服务报价</span>
-                        <span class="plist-value">￥40/小时</span>
-                        <span class="plist-time">2016-05-27 07:32:31</span>
-                    </li>
-                    <li class="plist-act">
-                        <span class="plist-name">我的出价</span>
-                        <span class="plist-value">￥40/小时</span>
-                        <span class="plist-time">2016-05-27 07:32:31</span>
-                    </li>
-                    <li class="plist-end">
-                        已接受<i class="fa fa-check-circle-o"></i>
-                    </li>
-                </ul>
-            </div>-->
-        </div>
+        <div class="mainli main-plist" id="main-plist"></div>
         <div class="mainli main-price" id="main-price">
             <div class="price-li price-quote" id="price-quote">
                 <div class="price-icon"><span>对方报价</span></div>
@@ -198,6 +159,69 @@
             <div class="mess-textarea">
                 <textarea id="mess" cols="30" rows="5" placeholder="输入讯息"></textarea>
                 <input type="button" id="plyMess" value="发送">
+            </div>
+        </div>
+    </div>
+    <div class="body-li body-comments" id="body-comments">
+        <ul>
+            <li>
+                <div class="com-headicon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="img"></div>
+                <div class="com-main">
+                    <div class="com-main-top">
+                        <span class="com-username">username</span>
+                        <span class="com-pstar p-star p-star-8"></span>
+                    </div>
+                    <div class="com-main-cont">
+                        <p>这是神社茅塞顿开分类管理个</p>
+                    </div>
+                    <div class="com-main-bot">
+                        <span class="com-time">2016-06-06 13:34:31</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="com-headicon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="img"></div>
+                <div class="com-main">
+                    <div class="com-main-top">
+                        <span class="com-username">username</span>
+                        <span class="com-pstar p-star p-star-8"></span>
+                    </div>
+                    <div class="com-main-cont">
+                        <p>这是神社茅塞顿开分类管理个</p>
+                    </div>
+                    <div class="com-main-bot">
+                        <span class="com-time">2016-06-06 13:34:31</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="body-li body-makecomt" id="body-makecomt">
+        <div class="mcom-tips">请问您对此次服务满意吗？</div>
+        <div class="mcom-star">
+            <ul>
+                <li data-item="1"><i class="fa fa-star"></i></li>
+                <li data-item="2"><i class="fa fa-star"></i></li>
+                <li data-item="3"><i class="fa fa-star"></i></li>
+                <li data-item="4"><i class="fa fa-star"></i></li>
+                <li data-item="5"><i class="fa fa-star"></i></li>
+            </ul>
+            <input type="hidden" id="star-comt">
+        </div>
+        <div class="mcom-textarea mess-textarea">
+            <textarea name="serve-comt" id="serve-comt" cols="30" rows="5" placeholder="您的评论"></textarea>
+        </div>
+        <div class="mcom-btn price-btn">
+            <div class="price-btn-li" id="submit-comt">
+                <i class="fa fa-check"></i>
+                <span class="pbtn-name">送出</span>
+            </div>
+            <div class="price-btn-li" id="cancel-comt">
+                <i class="fa fa-close"></i>
+                <span class="pbtn-name">取消</span>
+            </div>
+            <div class="price-btn-li" id="mcom-order">
+                <span class="pbtn-name">再次预约</span>
             </div>
         </div>
     </div>

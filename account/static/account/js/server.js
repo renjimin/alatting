@@ -8,6 +8,7 @@ $(function(){
     $('.main-user-ctrl').css('height',ch+'px');
     var lastPrice,consumer_id;
     ///*
+    // 获取当前海报所有预约用户填写的调查问卷
     $.ajax({
         type: 'GET',
         url: '/api/v1/poster/'+id+'/consumer/answers',
@@ -46,6 +47,7 @@ $(function(){
         return h;
     }
 
+    // 展示或隐藏更多的调查问卷信息
     $('.mlist').on('click','.mli-toggle',function(){
         var ths = $(this);
         var cont = ths.siblings('.mli-cont');
@@ -62,6 +64,7 @@ $(function(){
         }
     });
 
+    // 进入当前用户的预约详情页面
     $('#main-list').on('click','.mli-header',function(){
         var ths = $(this);
         $('#main-list').css({height:ch+'px','min-height':'0px','overflow':'hidden'});
@@ -71,22 +74,22 @@ $(function(){
         $('.main-user-ctrl').fadeIn(200);
         getBargainsList();
         getChatsList();
-
     });
+    // 返回所有用户预约信息页面
     $('#main-goback').on('click',function(){
         $('#main-list').attr('style','');
         $('.main-user-ctrl').fadeOut(200).children('.main-li').remove();
         $('#main-plist').empty();
         $('#message-list').empty();
     });
+    // 回到个人中心主页面
     $('#page-close').on('click',function(){
         location.href='/mobile/account/profile.html';
     });
 
-
-    /* bargained */
+    /* ----讨价还价功能模块---- */
     ///*
-    //接受服务提供者的报价
+    //接受服务需求者的报价
     $('#accept-price').on('click',function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
             $.ajax({
@@ -109,7 +112,7 @@ $(function(){
     });
     //*/
     ///*
-    //拒绝服务提供者的报价
+    //拒绝服务需求者的报价
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             console.log('refuse-price');
@@ -130,11 +133,11 @@ $(function(){
         });
     });
     //*/
+    // 打开出价面板
     $('.bid-price').on('click',function(){
         $('#price-quote').hide();
         $('#price-bid').show();
     });
-    /* bargained bid-price */
     //服务提供者出价
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
@@ -162,15 +165,13 @@ $(function(){
             });
         }
     });
+    // 取消出价
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
         $('#price-quote').show();
     });
 
-
-    $('#quote-consult').on('click',function(){
-        $('#body-tips').fadeIn(200);
-    });
+    // 报价与记录的切换
     $('.main-menu-li').on('click',function(){
         $('.main-menu-li').removeClass('main-menu-act');
         $(this).addClass('main-menu-act');
@@ -179,7 +180,7 @@ $(function(){
         $('#main-'+item).show();
     });
 
-    /* set message */
+    /* 服务提供者发送消息 */
     $('#plyMess').on('click',function(){
         var cont = $('#mess').val();
             cont = cont.replace(/<\/?.+?>/g,"");

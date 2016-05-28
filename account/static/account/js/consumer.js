@@ -21,7 +21,7 @@ $(function(){
     getChatsList();
     getAnsList();
 
-    /* favorite */
+    /* 收藏当前海报 */
     $('#ctrl-favorite').on('click',function(){
         var status = $(this).attr('data-fav');
         if(status == 0){
@@ -33,12 +33,12 @@ $(function(){
         }
     });
 
-    /* share-controller */
-    /* show share */
+    /* ----分享功能模块---- */
+    /* 显示分享菜单 */
     $('#ctrl-share').on('click',function(){
         showShare(true);
     });
-    /* close share */
+    /* 关闭分享菜单 */
     $('#body-share').on('click',function(){
         showShare(false);
     });
@@ -74,18 +74,17 @@ $(function(){
         console.log('weixin:none');
     });
 
-
-    /* view poster */
+    /* 浏览海报信息 */
     $('#ctrl-view').on('click',function(){
         location.href = '/mobile/posters/12/';
     });
-    /* statistics */
+    /* 显示海报统计信息 */
     $('#ctrl-statistics').on('click',function(){
         console.log('statistics:'+id);
     });
 
 
-    /* bargained */
+    /* 讨价还价功能模块 */
     ///*
     //接受服务提供者的报价
     $('#accept-price').on('click',function(){
@@ -128,12 +127,12 @@ $(function(){
         });
     });
     //*/
+    // 打开出价面板
     $('.bid-price').on('click',function(){
         $('#price-quote').hide();
         $('#price-bid').show();
     });
-    /* bargained bid-price */
-    //服务需求者出价
+    // 服务需求者出价
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
         var reg = new RegExp("^[0-9]*$");
@@ -159,22 +158,24 @@ $(function(){
             });
         }
     });
+    // 取消出价，回到报价面板
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
         $('#price-quote').show();
     });
 
 
-    /* my consult */
+    /* 打开我的资讯信息层 */
     $('#quote-consult').on('click',function(){
         $('#body-tips').fadeIn(200);
 
     });
+    /* 关闭我的资讯信息层 */
     $('#close-tips').on('click',function(){
         $('#body-tips').fadeOut(200);
     });
 
-    /* quote or price list */
+    /* 报价与记录信息页的切换 */
     $('.main-menu-li').on('click',function(){
         $('.main-menu-li').removeClass('main-menu-act');
         $(this).addClass('main-menu-act');
@@ -182,7 +183,7 @@ $(function(){
         $('.mainli').hide();
         $('#main-'+item).show();
     });
-    /* set message */
+    /* 发送消息 */
     $('#plyMess').on('click',function(){
         var cont = $('#mess').val();
             cont = cont.replace(/<\/?.+?>/g,"");
@@ -194,10 +195,71 @@ $(function(){
         console.log('cont:'+cont);
     });
 
-    /* back to usercenter */
+    /* 服务需求者给服务提供者评价 */
+    /* 评分 */
+    $('#body-makecomt li').on('click',function(){
+        var num = $(this).attr('data-item');
+        $('#star-comt').val(num);
+        $('#body-makecomt li').css('color','#d3d3d3');
+        $(this).css('color','#feba01');
+        $(this).prevAll().css('color','#feba01');
+    });
+    /* 发送评论 */
+    $('#submit-comt').on('click',function(){
+        var star = $('#star-comt').val();
+        if(star == ''){
+            yyAlert('请您给本次服务评分!');
+            return;
+        }
+        var cont = $('#serve-comt').val();
+            cont = cont.replace(/<\/?.+?>/g,"");
+            cont = cont.replace(/&nbsp;/g,"");
+        if(cont == ''){
+            yyAlert('请填写您的评价内容!');
+            return;
+        }
+        $.ajax({
+                type: 'POST',
+                data:{content:cont,rating:star},
+                url: '/api/v1/poster/'+id+'/servicecomments',
+                success:function(){
+                    yyAlert('感谢您的评价，欢迎再次预约服务!');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
+    });
+    /* 取消评论 */
+    $('#cancel-comt').on('click',function(){
+        $('.body-li').hide();
+        $('#body-main').show();
+    });
+    /* 再次预约 */
+    $('#mcom-order').on('click',function(){
+        //location.href='';
+        console.log('order again');
+    });
+
+    /* 点击头部海报名称显示当前海报的所有用户评价信息 */
+    $('#body-main-title').on('click',function(){
+        $('.body-li').hide();
+        if($('#body-comments').css('display') == 'none'){
+            $('#body-comments').show();
+            if($('#body-comments').children().length == 0){
+                getCommentsList();
+            }
+        }else{
+            $('#body-comments').hide();
+            $('#body-main').show();
+        }
+    });
+
+    /* 回到个人中心主页面 */
     $('#page-close').on('click',function(){
         location.href='/mobile/account/profile.html';
     });
+
 
     function showShare(type){
         var chd = $('#body-share').children();
@@ -349,5 +411,37 @@ $(function(){
         });
     }
 
-
+    function getCommentsList(){
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/poster/'+id+'/servicecomments',
+            success:function(data){
+                if(!$.isEmptyObject(data)){
+                    var h = '<ul>';
+                    for(var i=0;i<data.length;i++){
+                        var hdicon = data[i]['creator']['person']['avatar'];
+                        hdicon = (hdicon)?hdicon:'/static/account/img/headicon-default.jpg';
+                        h+= '<li>';
+                        h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
+                        h+= '   <div class="com-main">';
+                        h+= '       <div class="com-main-top">';
+                        h+= '           <span class="com-username">username</span>';
+                        h+= '           <span class="com-pstar p-star p-star-8"></span>';
+                        h+= '       </div>';
+                        h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
+                        h+= '       <div class="com-main-bot"><span class="com-time">'+data[i]['created_at']+'</span></div>';
+                        h+= '   </div>';
+                        h+= '</li>';
+                    }
+                    h += '</ul>';
+                    $('#body-comments').append(h);
+                }else{
+                    $('#body-comments').append('<span class="error-msg">当前没有任何信息</span>');
+                }
+            },
+            error: function(xhr, status, statusText){
+                $('#body-comments').append('<span class="error-msg">服务超时</span>');
+            }
+        });
+    }
 });

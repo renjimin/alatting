@@ -63,19 +63,17 @@
 .hd-close .fa{
     font-size: 20px;
 }
-/*body-main*/
-.body-main{
-    background: #ffffff;
-    box-shadow: 0 3px 10px #7c7c7c;
-}
-.main-title{
+
+/*body-main-title*/
+.body-main-title{
     height: 40px;
     border-bottom: 1px solid #eaeaea;
+    background: #ffffff;
 }
 .title-star{
     float: right;
     width: 100px;
-    margin: 10px;
+    margin: 10px 15px;
     height: 20px;
 }
 .title-name{
@@ -88,6 +86,15 @@
     line-height: 39px;
     font-weight: 600;
     padding-left: 15px;
+}
+
+/*body-main*/
+.body-li{
+    background: #ffffff;
+    /*box-shadow: 0 3px 10px #7c7c7c;*/
+}
+.body-main{
+    display: none;
 }
 /*main-menu*/
 .main-menu{
@@ -110,7 +117,6 @@
 .main-menu-act .glyphicon{
     display: inline;
 }
-
 /*main-plist*/
 .main-plist{
     padding: 15px 0;
@@ -343,7 +349,6 @@
     font-size: 30px;
 }
 
-
 /*main-message*/
 .main-message {
     padding: 10px 10px 30px;
@@ -512,4 +517,86 @@
 }
 .share-li .fa{
     font-size: 38px;
+}
+
+/*body-comments*/
+.body-comments{
+    min-height: 500px;
+    display: none;
+}
+.body-comments ul{
+    padding: 0 15px;
+}
+.body-comments li{
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.body-comments li:last-child{
+    border:none;
+}
+.com-headicon{
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border:1px solid #e5e5e5;
+    overflow: hidden;
+    float:left;
+}
+.com-headicon img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.com-main{
+    margin-left: 45px;
+}
+.com-main-top{
+    height: 40px;
+    padding: 10px 0;
+}
+.com-main-top span{
+    display: block;
+}
+.com-username{
+    float: left;
+    width: 120px;
+    height: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #5e5e5e;
+}
+.com-pstar{
+    float: right;
+    width: 100px;
+    height: 20px;
+}
+.com-main-cont{
+    min-height: 60px;
+}
+.com-main-bot{
+    text-align: right;
+}
+
+/*body-makecomt*/
+.body-makecomt{
+    display: block;
+    height: 400px;
+    padding: 15px;
+}
+.mcom-star ul{
+    color: #c0c0c0;
+    padding: 20px 0;
+    text-align: center;
+}
+.mcom-star ul li{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 30px;
+    height: 30px;
+    font-size: 26px;
+}
+#mcom-order{
+    background: #d3d3d3;
 }

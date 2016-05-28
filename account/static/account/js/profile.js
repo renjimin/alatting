@@ -12,25 +12,10 @@ $(function(){
     var serverNeedTmpl = $('#serverNeedTmpl').html();
     $.template('serverNeedTmpl',serverNeedTmpl);
     var defImg = '/static/account/img/hb001.png';
-
-    /*
-    // 静态数据
-    var data = [
-        {
-            posterid:1,
-            snapshot:'/static/account/img/hb001.png',
-            postername:'yigehaibao2'
-        }
-    ];
-    for(var i=0;i<8;i++){
-        $.tmpl('serverProvideTmpl',data[0]).appendTo('#main-provide');
-        $.tmpl('serverNeedTmpl',data[0]).appendTo('#main-need');
-    }
-    //showLoading(false);
-    */
-
+    var userinfo;
 
     ///*
+    // 获取个人信息
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/profile',
@@ -40,6 +25,7 @@ $(function(){
             }
             $('#uName').html(data.username);
             $('#userid').val(data.id);
+            userinfo = data;
         },
         error: function(xhr,status,statusText){
             yyAlert("服务超时,请稍候再试!");
@@ -48,6 +34,7 @@ $(function(){
     //*/
 
     ///*
+    // 获取当前用户提供的所有海报列表
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/server',
@@ -70,6 +57,7 @@ $(function(){
     //*/
 
     ///*
+    // 获取当前用户所有预约的海报列表
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/consumer',
@@ -90,7 +78,7 @@ $(function(){
     });
     //*/
 
-    /*fix main-head*/
+    /* 菜单栏的固定置顶 */
     $(document).scroll(function(){
         var h = $('.body-header').outerHeight();
         var sh = $('body').scrollTop();
@@ -102,26 +90,28 @@ $(function(){
             $('#ctrl-add').css({'position':'absolute','top':'10px'});
         }
     });
-    /* create new poster */
+    /* 创建新的海报 */
     $('#ctrl-add').on('click',function(){
         location.href='/?main_category_id=1';
     });
-    /* user-level */
+    /* 显示用户的会员等级 */
     $('.user-level').on('click',function(event){
         event.stopPropagation();
         var tur = $('#body-vip');
         var view = tur.css('display');
         if(view == 'block'){
-            $('.body-container').css({'overflow':'auto','height':'auto'});
+            $('.body-container').attr('style','');
             tur.css('display','none');
         }else{
             $('.body-container').css({'overflow':'hidden','height':wh+'px'});
             tur.css('display','block');
-            showProcess(50);
+            //var rate = Math.floor(100*userinfo.score/userinfo.levelScore);
+            var rate = Math.floor(100*6128/10000);
+            showProcess(rate);
         }
     });
 
-    /* show the current poster controller */
+    /* 显示当前海报的操作控件 */
     $('.body-main').on('click','.p-cont',function(event){
         event.stopPropagation();
         var ths = $(this);
@@ -138,12 +128,12 @@ $(function(){
             moveCtrl(obj,true);
         }
     });
-    /* hide the current poster controller */
+    /* 隐藏当前海报的操作控件 */
     $('.body-main').on('click','.p-ctrl',function(){
         $(this).parent().parent().removeClass('main-li-act');
         moveCtrl($(this),false);
     });
-    /* view */
+    /* 查看当前海报的信息 */
     $('.body-main').on('click','.ctrl-view',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
@@ -155,7 +145,7 @@ $(function(){
             location.href = '/mobile/account/posters/'+id+'/consumer.html?consumerid='+$('#userid').val();
         }
     });
-    /* favorite */
+    /* 收藏当前海报 */
     $('.body-main').on('click','.ctrl-favorite',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
@@ -169,14 +159,14 @@ $(function(){
             $(this).attr('data-fav','0');
         }
     });
-    /* statistics */
+    /* 查看海报的统计信息 */
     $('.body-main').on('click','.ctrl-statistics',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         console.log('statistics:'+id);
 
     });
-    /* share */
+    /* 分享当前海报 */
     $('.body-main').on('click','.ctrl-share',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
@@ -186,7 +176,7 @@ $(function(){
         moveShareBtn(true);
         console.log('share:'+id);
     });
-    /* edit */
+    /* 进入海报编辑 */
     $('.body-main').on('click','.ctrl-edit',function(event){
         event.stopPropagation();
         var url = $(this).attr('data-url');
@@ -195,7 +185,7 @@ $(function(){
         }
         console.log('edit:none');
     });
-    /* delete */
+    /* 删除海报 */
     $('.body-main').on('click','.ctrl-delete',function(event){
         event.stopPropagation();
         var mli = $(this).parent();
@@ -206,7 +196,7 @@ $(function(){
                 url: '/api/v1/poster/posters/'+id,
                 success:function(){
                     yyAlert("删除成功!");
-                    mli.remove();
+                    mli.parent().parent().remove();
                 },
                 error: function(){
                     yyAlert("服务超时,请稍候再试!");
@@ -215,7 +205,7 @@ $(function(){
         });
         console.log('delete:'+id);
     });
-    /* quit share */
+    /* 退出分享 */
     $('#body-share').on('click',function(){
         moveShareBtn(false);
     });
@@ -229,7 +219,7 @@ $(function(){
         $('.main-list').hide();
         $('#main-'+item).show();
     });
-	/* show the controller of the poster */
+	/* 海报分享菜单的显示与隐藏 */
     function moveCtrl(obj,type){
         if(type){
             obj.fadeIn(200);
@@ -242,7 +232,7 @@ $(function(){
             obj.children('.ctrl-rightbot').animate({top:'100%',left:'100%'},300);
         }
     }
-	/* show share controller */
+	/* 海报分享菜单的动画 */
     function moveShareBtn(type){
         var ths = $('#body-share');
         var chl = ths.children();
@@ -303,6 +293,7 @@ $(function(){
         }
     });
     */
+    // 个人积分显示动画
     var ptm=0;
     function showProcess(percent){
         var rate=2;
