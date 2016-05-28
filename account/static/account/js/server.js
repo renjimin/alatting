@@ -94,7 +94,7 @@ $(function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
             $.ajax({
                 type: 'PATCH',
-                data:{accepted:true,refused:false},
+                data:{"accepted":true,"refused":false},
                 url: '/api/v1/poster/'+id+'/bargains/'+lastPrice['id'],
                 success:function(){
                     //yyAlert('您的出价发送成功!');
@@ -106,8 +106,6 @@ $(function(){
                     yyAlert('网络错误,请稍候再试!');
                 }
             });
-            $('#price-quote').hide();
-            $('#price-accept').show();
         });
     });
     //*/
@@ -116,6 +114,10 @@ $(function(){
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             console.log('refuse-price');
+            //$('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
+            //$('.price-li').hide();
+            //$('#price-refuse').show();
+            //return;
             $.ajax({
                 type: 'PATCH',
                 data:{accepted:false,refused:true},
@@ -248,9 +250,9 @@ $(function(){
         $('.price-li').hide();
         if(lastPriceData['accepted']){
             if(lastPriceData['consumer']['id'] == lastPriceData['creator']['id']){
-                $('#price-accept').find('.q-c-name').html('您接受对方的报价');
+                $('#price-accept').find('.q-c-name').html('您已接受报价');
             }else{
-                $('#price-accept').find('.q-c-name').html('对方接受您的报价');
+                $('#price-accept').find('.q-c-name').html('对方已接受报价');
             }
             $('#price-accept').show();
         }else if(lastPriceData['refused']){
