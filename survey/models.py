@@ -17,15 +17,9 @@ class Questionnaire(models.Model):
         limit_choices_to={'parent__isnull': True},
         null=True
     )
-    sub_category = models.ForeignKey(
-        Category,
-        related_name='sub_cat_qs',
-        limit_choices_to={'parent__isnull': False},
-        null=True
-    )
     ROLE_CHOICES = (
-        ('creator', 'creator who creates the poster'),
-        ('consumer', 'consumer who wants to contact the poster creator')
+        ('creator', ' 服务提供者'),
+        ('consumer', '服务使用者')
     )
     role = models.CharField(
         max_length=32, choices=ROLE_CHOICES, default='creator'
@@ -96,6 +90,7 @@ class Question(models.Model):
     questionset = models.ForeignKey(QuestionSet)
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
+    short_text = models.TextField(blank=True, verbose_name="shortText")
     required = models.BooleanField(default=False)
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)
