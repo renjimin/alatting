@@ -14,17 +14,15 @@
 {% endblock %}
 
 {% block base_body_container %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2">
-                {% include 'poster/pc/edit/left-sidebar.html' %}
-            </div>
-            <div class="col-sm-8">
-                {% include 'poster/pc/edit/main.html' %}
-            </div>
-            <div class="col-sm-2">
-                {% include 'poster/pc/edit/right-sidebar.html' %}
-            </div>
+    <div class="edit-viewport">
+        <div class="edit-left">
+            {% include 'poster/pc/edit/left-sidebar.html' %}
+        </div>
+        <div class="edit-center">
+            {% include 'poster/pc/edit/main.html' %}
+        </div>
+        <div class="edit-right">
+            {% include 'poster/pc/edit/right-sidebar.html' %}
         </div>
     </div>
 {% endblock %}
