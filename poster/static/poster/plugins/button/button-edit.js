@@ -3,13 +3,14 @@ var curentOpts={};
 setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons();/**/},100);
 
     var addButton = function(ele,options){
+        var templateScale = $('body').width()/$('.yunye-template').width();
         var defaults = {
             'container':$("#button-model"),
             'buttonAction':'0',
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
-            'fontSize':'14',
+            'fontSize':14/templateScale + 'px',
             'fontFamily':'Microsoft YaHei',
             'background':'ffffff',
             'backgroundOpacity':'1',
@@ -61,7 +62,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opts.backgroundOpacity+')';
             o.css({
                 'color':'#'+opts.color,
-                'font-size':opts.fontSize+'px',
+                'font-size':opts.fontSize/templateScale+'px',
                 'font-family':opts.fontFamily,
                 'background':back,
                 'opacity':opts.opacity,
