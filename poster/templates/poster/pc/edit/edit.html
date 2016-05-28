@@ -1,0 +1,34 @@
+{% extends 'website/pc/base.html' %}
+{% load static %}
+
+{% block base_head_css %}
+    {% include 'poster/pc/edit/header-css.html' %}
+{% endblock %}
+
+{% block base_head_js %}
+    {% include 'poster/pc/edit/header-js.html' %}
+{% endblock %}
+
+{% block base_body_header %}
+    {% include 'poster/pc/edit/header.html' %}
+{% endblock %}
+
+{% block base_body_container %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                {% include 'poster/pc/edit/left-sidebar.html' %}
+            </div>
+            <div class="col-sm-8">
+                {% include 'poster/pc/edit/main.html' %}
+            </div>
+            <div class="col-sm-2">
+                {% include 'poster/pc/edit/right-sidebar.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block base_foot_js %}
+    {% include 'poster/pc/edit/footer-js.html' %}
+{% endblock %}
