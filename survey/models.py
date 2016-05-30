@@ -175,6 +175,7 @@ class RunInfoHistory(models.Model):
     completed = models.DateTimeField(auto_now_add=True)
     questionnaire = models.ForeignKey(Questionnaire)
     runid = models.CharField(max_length=32)
+    isactive = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s" % (self.subject, self.completed)

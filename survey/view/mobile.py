@@ -51,10 +51,18 @@ class StartView(RedirectView):
 			kwargs = {'poster_id': poster.pk}
 			return '%s?role=%s' % (reverse('survey:questionnaireblank', kwargs=kwargs), role)
 
-		qs = qu.questionsets()[0]
 		su = self.request.user
-		run = RunInfo(subject=su, questionset=qs, poster=poster)
-		run.save()
+		prev_run = RunInfo.objects.filter(subject=su, questionset__in = qu.questionsets,
+			poster=poster).order_by("-id").first()
+		if prev_run:
+			qs = qu.questionsets()[0]
+			run = prev_run
+			run.questionset = qs
+			run.save()
+		else:
+			qs = qu.questionsets()[0]
+			run = RunInfo(subject=su, questionset=qs, poster=poster)
+			run.save()
 
 		kwargs = {'runid': run.id}
 		return reverse('survey:questionnaire', kwargs=kwargs)
@@ -83,7 +91,8 @@ class QuestionnaireView(View):
 
 	def get_pre_ans(self, runinfo, question):
 		ans = Answer.objects.filter(subject=runinfo.subject, 
-			question=question, poster=runinfo.poster).order_by("-id")
+			question=question, poster=runinfo.poster, 
+			runid=runinfo.pk).order_by("-id")
 		if ans:
 			return ans[0].answer
 		else:
@@ -266,19 +275,27 @@ class QuestionnaireView(View):
 			kwargs = {'runid': runinfo.id}
 			return HttpResponseRedirect(reverse('survey:questionnaire', kwargs=kwargs))
 
+		prev_hist = RunInfoHistory.objects.filter(subject=runinfo.subject, 
+			questionnaire = questionnaire, poster=runinfo.poster)
+		for ph in prev_hist:
+			ph.isactive = False
+
 		hist = RunInfoHistory()
 		hist.subject = runinfo.subject
 		hist.poster = runinfo.poster
 		hist.runid = runinfo.pk
 		hist.completed = datetime.datetime.now()
 		hist.questionnaire = questionnaire
+		hist.isactive = True
 		hist.save()
-		runinfo.delete()
+		RunInfo.objects.filter(subject=hist.subject, questionset__in = hist.questionnaire.questionsets,
+			poster=hist.poster).delete()
 		if hist.questionnaire.role == "creator":
 			return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
 		else:
 			kwargs = {'pk': runinfo.poster.pk}
 			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
+
 
 class AnswerDetailView(TemplateView):
 
@@ -293,7 +310,7 @@ class AnswerDetailView(TemplateView):
 
 		results = {}
 		for his in RunInfoHistory.objects.filter(
-			poster_id = poster_id, questionnaire__role = role).order_by('-completed'):
+			poster_id = poster_id, questionnaire__role = role, isactive = True).order_by('-completed'):
 			results.setdefault(his, [])
 			for ans in Answer.objects.filter(runid=his.runid):
 				results[his].append(ans)
