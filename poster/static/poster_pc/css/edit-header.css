@@ -1,19 +1,18 @@
 .edit-header > div{
     float: left;
     text-align: center;
-    padding: 6px 0;
     height: 100%;
 }
 
 .edit-header .logo{
-    width: 20%;
+    width: 240px;
 }
 .edit-header .header-bar{
-    width: 53%;
+    width: 59%;
 }
 
 .edit-header .header-btn{
-    width: 26%;
+    width: 320px;
 }
 .logo img{
     padding-left: 6%;
@@ -23,7 +22,13 @@
    text-align: center;
 }
 .header-bar a.item{
-    padding: 0px 15px;
+    padding: 3px 4px;
+    display: inline-block;
+    margin-right: 23px;
+}
+
+.header-bar a.item:hover,.header-bar a.item:active{
+    background-color:#ECEAE8;
 }
 
 .ico-edit-text, .ico-edit-pic, .ico-edit-button, .ico-edit-music, .ico-preview {
@@ -98,14 +103,14 @@
 
 /*left sidebar*/
 .add-page{
-    background: #716F6A;
+    background: #D1CEC8;
     padding: 15px 52px 20px 52px;
+    display: block;
 }
 
 .add-page .pages{
     background: #ffffff;
     height: 205px;
-    display: block;
     box-shadow: 0 0 12px #696161;
 }
 
@@ -117,6 +122,10 @@
     color: #656766;
 }
 
-.page-color{
-    background:#D1CEC8;
+.edit-left .add-page:hover,.edit-left .add-page:active{
+    background: #716F6A;
+}
+
+.active-page{
+    background: #716F6A;
 }
