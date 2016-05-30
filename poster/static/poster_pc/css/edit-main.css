@@ -553,6 +553,8 @@
 .header-info.active,
 .header .mask.active,
 .yunye-template > .content > div.active{
+    -webkit-transition: background .3s;
+    transition: background .3s;
     background: #989898;
 }
 
