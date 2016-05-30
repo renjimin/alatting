@@ -6,13 +6,16 @@ from poster.view.api import (
     PosterSaveView, PosterStatusView, PosterPageDetailView,
     SystemMusicListView, PosterDetailView,
     CategoryKeywordListView, CategoryKeywordDetailView,
-    UploadFileView, TemplateDetailView, TemplateListView
-)
+    UploadFileView, TemplateDetailView, TemplateListView,
+    CategoryListView)
 
 
 urlpatterns = [
     url(r'^(?P<pk>\d+)/$', PosterDetailView.as_view(),
         name='poster_detail'),
+
+    url(r'^categorys$', CategoryListView.as_view(),
+        name='categorys'),
 
     url(r'^category/(?P<pk>\d+)/keywords$', CategoryKeywordListView.as_view(),
         name='category_keywords'),

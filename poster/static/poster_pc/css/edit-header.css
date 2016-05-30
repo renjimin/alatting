@@ -105,6 +105,7 @@
 .add-page .pages{
     background: #ffffff;
     height: 205px;
+    display: block;
     box-shadow: 0 0 12px #696161;
 }
 
