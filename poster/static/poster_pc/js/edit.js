@@ -1,5 +1,30 @@
-(function(){
-
+(function(modules) { 
+	var installedModules = {};//模块缓存对象
+	function __require__(moduleId){
+		if(installedModules[moduleId])return installedModules[moduleId].exports;//检查模块是否在缓存中
+		var module = installedModules[moduleId] = {
+			exports: {},
+			id: moduleId,
+			loaded: false
+		}//为模块创建一个模型(并放入缓存)
+		modules[moduleId].call(module.exports, module, module.exports, __require__);//执行模块方法
+		module.loaded = true;//标记模块为已加载
+		return module.exports;//将模块的exports返回
+	}
+	__require__.m = modules;//暴露模块对象
+	__require__.c = installedModules;//暴露模块缓存
+	__require__.p = "/";//公共路径
+	return __require__(0);//加载入口模块,并返回模块export
+})([
+//[模块0]入口模块
+function(module, exports, __require__) {
+	__require__(1);
+	__require__(2);
+	__require__(3);
+	__require__(4);
+},
+//[模块1]核心模块
+function(module, exports, __require__) {
 	var Editor = {
 		modules :{}
 	};
@@ -28,9 +53,9 @@
 
 	$(Editor.ready);
 	window.Editor = Editor;
-})();
-
-(function(Editor){
+},
+//[模块2]右侧面板菜单toggle模块
+function(module, exports, __require__){
 	Editor.define("togglePannel",function(){
 		var api = {};
 		var pannels = {};
@@ -43,21 +68,36 @@
 		};
 		return api;
 	});
-})(window.Editor);
+},
+//[模块3]切换右侧面板模块
+function(module, exports, __require__){
+	var api = {};
+	var currentPannel = "logo_pannel";
 
-(function(Editor){
+	api.switchPannel = function(pannelName){
+		$("#" + currentPannel).hide();
+		$("#" + pannelName).show();
+		currentPannel = pannelName;
+	}
+	module.exports = api;
+},
+//[模块4]点击高亮模块
+function(module, exports, __require__){
 	Editor.define("hightClick",function(){
 		var api = {};
+		var pannelSwitcher =  __require__(3);
 		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.content-top,.content-middle,.content-bottom".split(",");
 
 		api.ready = function(){
 			$(document).on("click",function(e){
 				if($(e.target).closest(".edit-body").length != 0){
 					_.each(clicklist,function(item){
+						$(item).removeClass("active");
 						if($(e.target).closest(item).length != 0){
 							var transform = "";
 							if($(item).closest(".yunye-template").length  != 0)transform = $(".yunye-template").css("transform");
 							hightItem(item,transform);
+							pannelSwitcher.switchPannel($(item).data("pannel"));
 							return;
 						}
 					});
@@ -70,9 +110,11 @@
 					y = item.offset().top - $(".edit-body").offset().top,
 					width = item.outerWidth() - 4,
 					height = item.outerHeight() - 4;
+				item.addClass("active");
 				$(".vitrul-body .hightlight").width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
 		}
 		return api;
 	});
-})(window.Editor);
+}
+]);
