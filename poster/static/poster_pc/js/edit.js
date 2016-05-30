@@ -56,34 +56,33 @@ function(module, exports, __require__) {
 },
 //[模块2]右侧面板菜单toggle模块
 function(module, exports, __require__){
-	Editor.define("togglePannel",function(){
-		var api = {};
-		var pannels = {};
-
-		api.createPannel = function(name,options){
-			if(pannels[name])return;
-			options.title.name
-			options.title.icon
-			pannels[name] = {title:1};
-		};
-		return api;
-	});
+	var api = {};
+	
+	api.init = function(pannel){
+		var menuList = pannel.find(".nav-item");
+	}
+	module.exports = api;
 },
 //[模块3]切换右侧面板模块
 function(module, exports, __require__){
 	var api = {};
 	var currentPannel = "logo_pannel";
+	var toggleMenu = __require__(2);
 
 	api.switchPannel = function(pannelName){
 		$("#" + currentPannel).hide();
 		$("#" + pannelName).show();
 		currentPannel = pannelName;
+		toggleMenu.init($("#" + pannelName));
+	}
+	api.getCurrentPannel = function(){
+		return $("#" + currentPannel);
 	}
 	module.exports = api;
 },
 //[模块4]点击高亮模块
 function(module, exports, __require__){
-	Editor.define("hightClick",function(){
+	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher =  __require__(3);
 		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.content-top,.content-middle,.content-bottom".split(",");
@@ -111,7 +110,7 @@ function(module, exports, __require__){
 					width = item.outerWidth() - 4,
 					height = item.outerHeight() - 4;
 				item.addClass("active");
-				$(".vitrul-body .hightlight").width(width).height(height).css({"top":y,"left":x,"transform":transform});
+				$(".vitrul-body .hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
 		}
 		return api;
