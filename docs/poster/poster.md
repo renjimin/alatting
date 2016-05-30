@@ -1,5 +1,19 @@
 # 海报接口说明
 
+
+## 检查海报名称是否已经存在
+
+    GET /api/v1/poster/check/unique/?name=XXXXX
+    
+    
+**Response**
+```json
+{
+    "exists": false             //true or false,  true表示存在， false表示不存在
+}
+```
+
+
 ## 获取已经发表的海报列表
 
 只返回‘发布’状态的海报数据
@@ -236,3 +250,13 @@
     "name": "COMPANY"
 }
 ```
+
+# 编辑海报接口说明
+
+## 保存海报
+
+
+
+## 发布海报
+
+
