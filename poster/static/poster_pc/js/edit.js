@@ -65,7 +65,12 @@ function(module, exports, __require__){
 		_.each(menuList,function(item){
 			var aTag = $(item).find(".nav-link");
 			if(aTag.data("toggle"))aTag.off("click").on("click",function(){
-				$(item).find(".subnav").toggle();
+				var subnav = $(item).find(".subnav");
+				if(subnav.is(":visible")){
+					subnav.slideUp(200);
+				}else{
+					subnav.slideDown(200);
+				}
 			});
 		});
 	}
