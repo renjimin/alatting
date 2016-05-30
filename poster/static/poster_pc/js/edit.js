@@ -105,8 +105,8 @@ function(module, exports, __require__){
 			$(document).on("click",function(e){
 				if($(e.target).closest(".edit-body").length != 0){
 					_.each(clicklist,function(item){
-						$(".active").removeClass("active");
 						if($(e.target).closest(item).length != 0){
+							$(".active").removeClass("active");
 							var transform = "";
 							if($(item).closest(".yunye-template").length  != 0)transform = $(".yunye-template").css("transform");
 							hightItem(item,transform);
@@ -127,12 +127,15 @@ function(module, exports, __require__){
 				$(".vitrul-body .hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
 		}
+		api.removeHighLigh = function(){
+			$(".vitrul-body .hightlight").hide();
+		}
 		return api;
 	});
 },
 //[模块5]点击头部切换面板模块
 function(module, exports, __require__){
-	Editor.define("hightClick",module.exports = function(){
+	Editor.define("headerClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher =  __require__(3);
 		var clicklist = ".item-text,.item-sysimg,.item-button,.item-music".split(",");
@@ -141,6 +144,7 @@ function(module, exports, __require__){
 			_.each(clicklist,function(item){
 				$(item).on("click",function(){
 					$(".active").removeClass("active");
+					Editor.require("hightClick").removeHighLigh();
 					$(item).addClass("active");
 					pannelSwitcher.switchPannel($(item).data("pannel"));
 				});
