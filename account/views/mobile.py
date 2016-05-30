@@ -12,16 +12,17 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 
-from account.form.forms import RegisterForm, pwd_validate, ResetPasswordForm, LoginForm
+from account.form.forms import RegisterForm, pwd_validate, \
+    ResetPasswordForm, LoginForm
 from utils.userinput import what
 from utils.message import get_message
 from alatting_website.models import (
-    Person, Poster, PosterLike, PosterSubscribe
+    Poster, PosterLike, PosterSubscribe
     )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from account.email import send_verify_email
-from account.models import LoginMessage, UserFriends
+from account.models import LoginMessage, UserFriends, Person
 from account.serializers import AccountProfileSerializer, \
     AccountFriendsListSerializer
 
