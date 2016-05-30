@@ -4,6 +4,7 @@ import re
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from alatting_website.model.statistics import (
     PosterStatistics, HistoryStatistics, PosterLike,
     PosterFun, PosterFavorites, PosterSubscribe, Comment, Rating
@@ -20,7 +21,26 @@ from utils.constants import DataStatus
 from utils.db.fields import BigAutoField
 
 
-class Category(models.Model):
+class AlattingBaseModel(models.Model):
+    DATA_STATUS_DISABLE = 0
+    DATA_STATUS_USABLE = 1
+    DATA_STATUS_CHOICES = (
+        (DATA_STATUS_USABLE, u'启用'),
+        (DATA_STATUS_DISABLE, u'禁用')
+    )
+    data_status = models.PositiveSmallIntegerField(
+        verbose_name=u'数据状态',
+        default=DATA_STATUS_USABLE,
+        choices=DATA_STATUS_CHOICES
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
+class Category(AlattingBaseModel):
     TYPE_ACTIVITY = 'Activity'
     TYPE_PRODUCT = 'Product'
     TYPE_EXPERT = 'Expert'
@@ -37,8 +57,22 @@ class Category(models.Model):
         TYPE_EXPERT: ExpertShow,
         TYPE_BUSINESS: BusinessMarketing,
     }
+
+    AUDIT_STATUS_UN_PASS = 0
+    AUDIT_STATUS_AUDITING = 1
+    AUDIT_STATUS_PASS = 2
+    AUDIT_STATUS_CHOICES = (
+        (AUDIT_STATUS_UN_PASS, u'不通过'),
+        (AUDIT_STATUS_AUDITING, u'审核中'),
+        (AUDIT_STATUS_PASS, u'通过')
+    )
     id = models.AutoField(primary_key=True)
-    parent = models.ForeignKey('Category', null=True, blank=True, related_name='children')
+    parent = models.ForeignKey(
+        'Category',
+        null=True,
+        blank=True,
+        related_name='children'
+    )
     type = models.CharField(
         max_length=15,
         choices=TYPE_CHOICES,
@@ -47,6 +81,11 @@ class Category(models.Model):
     name = models.CharField(max_length=63, blank=True, unique=True)
     description = models.CharField(max_length=127, blank=True, default='')
     tags = models.CharField(max_length=2048, blank=True, default='')
+    audit_status = models.PositiveSmallIntegerField(
+        verbose_name=u'审核状态',
+        default=AUDIT_STATUS_PASS,
+        choices=AUDIT_STATUS_CHOICES
+    )
 
     def __str__(self):
         return "{:s}".format(self.name, )

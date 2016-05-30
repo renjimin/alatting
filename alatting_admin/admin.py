@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.contrib import admin
-from account.models import Person
+from account.models import UserCategory, Person
 from poster.models import SystemImage, SystemBackground, SystemMusic
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
@@ -23,6 +23,11 @@ class AlattingAdminModelMixin(object):
             fields = self.model._meta.get_concrete_fields_with_model()
             return [pair[0].name for pair in fields]
         return fields
+
+
+@admin.register(UserCategory)
+class UserCategoryAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
 
 
 @admin.register(Person)
