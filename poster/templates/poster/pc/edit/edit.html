@@ -2,31 +2,60 @@
 {% load static %}
 
 {% block base_head_css %}
-    {% include 'poster/pc/edit/header-css.html' %}
+	{% include 'poster/pc/edit/header-css.html' %}
 {% endblock %}
 
 {% block base_head_js %}
-    {% include 'poster/pc/edit/header-js.html' %}
+	<script>
+		var yunyeEditorGlobal = {
+			posterId: "{{ poster.id }}",
+			posterPageId: "{{ posterpage.id }}",
+			templateId: "{{ posterpage.template.id }}",
+			address: "{{ poster.address }}",
+			mobile: "{{ poster.mobile }}",
+			phone: "{{ poster.phone }}",
+			email: "{{ poster.email }}",
+			unique_name:"{{ poster.unique_name }}",
+			logo_title: "{{ poster.logo_title }}",
+			logo_image: "{{ poster.logo_image.file.url }}",
+			lifetime: "{{ poster.lifetime|default_if_none:'' }}",
+			updated_at: "{{ poster.updated_at|date:'Y-m-d H:i:s' }}",
+			short_description:"{{ poster.short_description }}",
+			API: {
+				templates: "{% url 'poster_api:templates' %}",
+				updateTemplate: "{% url 'poster_api:posterpage_detail' posterpage.id %}",
+				createPage: "{% url 'poster_api:poster_pages' %}",
+				save: "{% url 'poster_api:poster_save' poster.id %}",
+				publish: "{% url 'poster_api:poster_publish' poster.id %}",
+				show: "{% url 'posters:show' poster.id %}"
+			},
+			globalButton:{
+				detail:"{% url 'survey:answer' poster_id=poster.id %}?role=creator",
+				order:"{% url 'survey:start' poster_id=poster.id %}?role=consumer"
+			}
+		}
+	</script>
+	{% include 'poster/pc/edit/header-js.html' %}
 {% endblock %}
 
 {% block base_body_header %}
-    {% include 'poster/pc/edit/header.html' %}
+	{% include 'poster/pc/edit/header.html' %}
 {% endblock %}
 
 {% block base_body_container %}
-    <div class="edit-viewport">
-        <div class="edit-left">
-            {% include 'poster/pc/edit/left-sidebar.html' %}
-        </div>
-        <div class="edit-center">
-            {% include 'poster/pc/edit/main.html' %}
-        </div>
-        <div class="edit-right">
-            {% include 'poster/pc/edit/right-sidebar.html' %}
-        </div>
-    </div>
+	<div class="edit-viewport">
+		<div class="edit-left">
+			{% include 'poster/pc/edit/left-sidebar.html' %}
+		</div>
+		<div class="edit-center">
+			{% include 'poster/pc/edit/main.html' %}
+		</div>
+		<div class="edit-right">
+			{% include 'poster/pc/edit/right-sidebar.html' %}
+		</div>
+	</div>
 {% endblock %}
 
 {% block base_foot_js %}
-    {% include 'poster/pc/edit/footer-js.html' %}
+	{% include 'poster/pc/edit/footer-js.html' %}
 {% endblock %}
