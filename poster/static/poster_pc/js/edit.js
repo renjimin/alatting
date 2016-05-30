@@ -22,6 +22,7 @@ function(module, exports, __require__) {
 	__require__(2);
 	__require__(3);
 	__require__(4);
+	__require__(5);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -61,16 +62,28 @@ function(module, exports, __require__){
 	
 	api.init = function(pannel){
 		menuList = pannel.find(".nav-item");
+		_.each(menuList,function(item){
+			var aTag = $(item).find(".nav-link");
+			if(aTag.data("toggle"))aTag.off("click").on("click",function(){
+				var subnav = $(item).find(".subnav");
+				if(subnav.is(":visible")){
+					subnav.slideUp(200);
+				}else{
+					subnav.slideDown(200);
+				}
+			});
+		});
 	}
 	module.exports = api;
 },
 //[模块3]切换右侧面板模块
 function(module, exports, __require__){
 	var api = {};
-	var currentPannel = "logo_pannel";
+	var currentPannel;
 	var toggleMenu = __require__(2);
 
 	api.switchPannel = function(pannelName){
+		if(currentPannel == pannelName)return;
 		$("#" + currentPannel).hide();
 		$("#" + pannelName).show();
 		currentPannel = pannelName;
@@ -92,8 +105,8 @@ function(module, exports, __require__){
 			$(document).on("click",function(e){
 				if($(e.target).closest(".edit-body").length != 0){
 					_.each(clicklist,function(item){
-						$(item).removeClass("active");
 						if($(e.target).closest(item).length != 0){
+							$(".active").removeClass("active");
 							var transform = "";
 							if($(item).closest(".yunye-template").length  != 0)transform = $(".yunye-template").css("transform");
 							hightItem(item,transform);
@@ -113,6 +126,29 @@ function(module, exports, __require__){
 				item.addClass("active");
 				$(".vitrul-body .hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
+		}
+		api.removeHighLigh = function(){
+			$(".vitrul-body .hightlight").hide();
+		}
+		return api;
+	});
+},
+//[模块5]点击头部切换面板模块
+function(module, exports, __require__){
+	Editor.define("headerClick",module.exports = function(){
+		var api = {};
+		var pannelSwitcher =  __require__(3);
+		var clicklist = ".item-text,.item-sysimg,.item-button,.item-music".split(",");
+
+		api.ready = function(){
+			_.each(clicklist,function(item){
+				$(item).on("click",function(){
+					$(".active").removeClass("active");
+					Editor.require("hightClick").removeHighLigh();
+					$(item).addClass("active");
+					pannelSwitcher.switchPannel($(item).data("pannel"));
+				});
+			});
 		}
 		return api;
 	});
