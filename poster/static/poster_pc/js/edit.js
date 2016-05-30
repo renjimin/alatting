@@ -22,6 +22,7 @@ function(module, exports, __require__) {
 	__require__(2);
 	__require__(3);
 	__require__(4);
+	__require__(5);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -64,7 +65,12 @@ function(module, exports, __require__){
 		_.each(menuList,function(item){
 			var aTag = $(item).find(".nav-link");
 			if(aTag.data("toggle"))aTag.off("click").on("click",function(){
-				$(item).find(".subnav").toggle();
+				var subnav = $(item).find(".subnav");
+				if(subnav.is(":visible")){
+					subnav.slideUp(200);
+				}else{
+					subnav.slideDown(200);
+				}
 			});
 		});
 	}
@@ -99,7 +105,7 @@ function(module, exports, __require__){
 			$(document).on("click",function(e){
 				if($(e.target).closest(".edit-body").length != 0){
 					_.each(clicklist,function(item){
-						$(item).removeClass("active");
+						$(".active").removeClass("active");
 						if($(e.target).closest(item).length != 0){
 							var transform = "";
 							if($(item).closest(".yunye-template").length  != 0)transform = $(".yunye-template").css("transform");
@@ -124,35 +130,23 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//[模块5]数据绑定模块
+//[模块5]点击头部切换面板模块
 function(module, exports, __require__){
-	Editor.define("dataBind",module.exports = function(){
+	Editor.define("hightClick",module.exports = function(){
 		var api = {};
-		api.init = function(binds){
-			_.each(binds,function(item){
-				new DataBinder();
+		var pannelSwitcher =  __require__(3);
+		var clicklist = ".item-text,.item-sysimg,.item-button,.item-music".split(",");
+
+		api.ready = function(){
+			_.each(clicklist,function(item){
+				$(item).on("click",function(){
+					$(".active").removeClass("active");
+					$(item).addClass("active");
+					pannelSwitcher.switchPannel($(item).data("pannel"));
+				});
 			});
 		}
+		return api;
 	});
-	/*function DataBinder( object_id ) {
-		var pubSub = $({});
-		var data_attr = "bind-" + object_id,
-			message = object_id + ":change";
-		$(document).on( "change", "[data-" + data_attr + "]", function( evt ) {
-			var $input = $( this );
-			pubSub.trigger( message, [ $input.data( data_attr ), $input.val() ] );
-		});
-		pubSub.on( message, function( evt, prop_name, new_val ) {
-			$( "[data-" + data_attr + "=" + prop_name + "]" ).each( function() {
-				var $bound = $( this );
-				if ( $bound.is("input, textarea, select") ) {
-					$bound.val( new_val );
-				} else {
-					$bound.html( new_val );
-				}
-			});
-		});
-		return pubSub;
-	}*/
 }
 ]);
