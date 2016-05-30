@@ -23,6 +23,7 @@ function(module, exports, __require__) {
 	__require__(3);
 	__require__(4);
 	__require__(5);
+	__require__(6);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -80,13 +81,13 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	var api = {};
 	var currentPannel;
-	var toggleMenu = __require__(2);
 
 	api.switchPannel = function(pannelName){
 		if(currentPannel == pannelName)return;
 		$("#" + currentPannel).hide();
 		$("#" + pannelName).show();
 		currentPannel = pannelName;
+		var toggleMenu = __require__(2);
 		toggleMenu.init($("#" + pannelName));
 	}
 	api.getCurrentPannel = function(){
@@ -148,6 +149,50 @@ function(module, exports, __require__){
 					$(item).addClass("active");
 					pannelSwitcher.switchPannel($(item).data("pannel"));
 				});
+			});
+		}
+		return api;
+	});
+},
+//[模块6]模块
+function(module, exports, __require__){
+	Editor.define("dataHandler",module.exports = function(){
+		var api = {};
+		var binders = {};
+
+		api.ready = function(){
+			api.bindData($("#logo_title"),"unique_name");
+			api.bindData($("#titleInput"),"unique_name");
+			api.setValue("unique_name",yunyeEditorGlobal.unique_name);
+
+			$("#phoneInput").val(yunyeEditorGlobal.phone);
+			$("#mobileInput").val(yunyeEditorGlobal.mobile);
+			$("#emailInput").val(yunyeEditorGlobal.email);
+			$("#adressInput").val(yunyeEditorGlobal.address);
+		}
+		api.bindData = function(element,valueName){
+			if(binders[valueName]){
+				binders[valueName].elements.push(element);
+			}else{
+				binders[valueName] = {
+					elements:[element],
+					value:null
+				};
+			}
+			if( element.is("input, textarea, select") ){
+				element.on("change",function(){
+					api.setValue(valueName,element.val());
+				});
+			}
+		}
+		api.setValue =function(valueName,value){
+			binders[valueName].value = value;
+			_.each(binders[valueName].elements,function(item){
+				if( item.is("input, textarea, select") ){
+					item.val( value );
+				}else{
+					item.html( value );
+				}
 			});
 		}
 		return api;
