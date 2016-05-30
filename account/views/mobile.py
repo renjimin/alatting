@@ -22,7 +22,7 @@ from alatting_website.models import (
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from account.email import send_verify_email
-from account.models import LoginMessage, UserFriends, Person
+from account.models import LoginMessage, UserFriends, Person, UserCategory
 from account.serializers import AccountProfileSerializer, \
     AccountFriendsListSerializer
 
@@ -175,45 +175,60 @@ class RegisterView(FormView):
         message = data['message']
         password = data['password1']
         password2 = data['password2']
+        user_type = data['user_type']
+        main_category_id = data['main_category_id']
+        sub_category_ids = data['sub_category_ids']
+        input_category = data['input_category']
         if not pwd_validate(password, password2):
             form.initial = data
             return self.response_error_msg(form, u'两次密码输入不一致')
+
+        input_type = what(username)
+        if not input_type:
+            form.initial = data
+            return self.response_error_msg(form, u'请用邮箱注册')
+            # return self.response_error_msg(form, u'请用邮箱或者手机号注册')
+
+        try:
+            msg = LoginMessage.objects.get(username=username)
+        except LoginMessage.DoesNotExist:
+            form.initial = data
+            return self.response_error_msg(form, u'未发送过此验证码')
+
+        offset_naive_dt = msg.created_at.replace(tzinfo=None)
+        # 校验时间是否已过期
+        if (datetime.now() - offset_naive_dt) > timedelta(seconds=settings.EXPIRE_TIME):
+            return self.response_error_msg(form, u'验证码已过期')
+
+        if msg.message != message:  # 校验验证码是否正确
+            return self.response_error_msg(form, u'验证码不正确')
+
+        username_temp = '{}_{}'.format(
+            username, str(uuid.uuid1()).split('-')[0]
+        )
+        if input_type == 'email':
+            user = User.objects.all().filter(email=username)
+            if user.exists():
+                return self.response_error_msg(form, u'用户名已存在')
+            user = User.objects.create_user(username_temp, username, password)
         else:
-            input_type = what(username)
-            if not input_type:
-                form.initial = data
-                return self.response_error_msg(form, u'请用邮箱注册')
-                # return self.response_error_msg(form, u'请用邮箱或者手机号注册')
-            else:
-                try:
-                    msg = LoginMessage.objects.get(username=username)
-                except LoginMessage.DoesNotExist:
-                    form.initial = data
-                    return self.response_error_msg(form, u'未发送过此验证码')
+            user = Person.objects.all().filter(phonenumber=username)
+            if user.exists():
+                return self.response_error_msg(form, u'用户名已存在')
+            user = User.objects.create_user(username_temp, password=password)
+        user.save()
 
-                offset_naive_dt = msg.created_at.replace(tzinfo=None)
-                # 校验时间是否已过期
-                if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
-                    return self.response_error_msg(form, u'验证码已过期')
-                if msg.message != message:  # 校验验证码是否正确
-                    return self.response_error_msg(form, u'验证码不正确')
-
-                username_temp = '{}_{}'.format(username, str(uuid.uuid1()).split('-')[0])
-                if input_type == 'email':
-                    user = User.objects.all().filter(email=username)
-                    if len(user) != 0:
-                        return self.response_error_msg(form, u'用户名已存在')
-                    user = User.objects.create_user(username_temp, username, password)
-                else:
-                    user = Person.objects.all().filter(phonenumber=username)
-                    if len(user) != 0:
-                        return self.response_error_msg(form, u'用户名已存在')
-                    user = User.objects.create_user(username_temp, password=password)
-                    person = Person.objects.create(phonenumber=username, user=user)
-                    person.save()
-                user.save()
-                # login_validate(request, username, password)
-                return super(RegisterView, self).form_valid(form)
+        person = Person.objects.create(
+            phonenumber=username, user=user,
+            user_type=user_type
+        )
+        person.save()
+        person.create_user_categorys(
+            main_category_id, sub_category_ids,
+            input_category
+        )
+        # login_validate(request, username, password)
+        return super(RegisterView, self).form_valid(form)
 
 
 class ResetPasswordView(FormView):
