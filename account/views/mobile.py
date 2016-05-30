@@ -1,4 +1,5 @@
 # coding=utf-8
+
 import uuid
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -19,9 +20,10 @@ from alatting_website.models import (
     )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from .email import send_verify_email
-from .models import LoginMessage, UserFriends
-from .serializers import AccountProfileSerializer, AccountFriendsListSerializer
+from account.email import send_verify_email
+from account.models import LoginMessage, UserFriends
+from account.serializers import AccountProfileSerializer, \
+    AccountFriendsListSerializer
 
 
 def not_found(request):

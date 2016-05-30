@@ -2,7 +2,7 @@
 
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
-from account.views_api import AccountPostersListView
+from account.views.api import AccountPostersListView
 
 
 urlpatterns = [

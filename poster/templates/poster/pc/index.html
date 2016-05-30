@@ -3,6 +3,15 @@
 
 {% block base_head_title %}服务邦 - {% endblock %}
 
+{% block base_head_css %}
+    <link rel="stylesheet" href="{% static 'web/css/base.css' %}">
+{% endblock %}
+
+{% block base_head_js %}
+    <script src="{% static 'web/js/lazyload.js' %}"></script>
+    <script src="{% static 'web/js/jquery.imgview.js' %}"></script>
+    <script src="{% static 'web/js/base.js' %}"></script>
+{% endblock %}
 
 {% block base_body_header %}
     <!-- header start -->
