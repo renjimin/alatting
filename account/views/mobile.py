@@ -10,7 +10,6 @@ from django.views.generic.detail import DetailView
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
 
 from account.form.forms import RegisterForm, pwd_validate, \
     ResetPasswordForm, LoginForm
@@ -22,9 +21,7 @@ from alatting_website.models import (
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from account.email import send_verify_email
-from account.models import LoginMessage, UserFriends, Person
-from account.serializers import AccountProfileSerializer, \
-    AccountFriendsListSerializer
+from account.models import LoginMessage, Person
 
 
 def not_found(request):
@@ -137,21 +134,6 @@ class ProfileView(DetailView):
             return obj
         else:
             return None
-
-
-class FriendsView(ListAPIView):
-    model = UserFriends
-    queryset = UserFriends.objects.all()
-    serializer_class = AccountFriendsListSerializer
-
-    def get_queryset(self):
-        queryset = super(FriendsView, self).get_queryset()
-        user = self.request.user
-        if user.is_authenticated():
-            queryset = queryset.filter(user1=user)
-        else:
-            queryset = queryset.none()
-        return queryset
 
 
 class RegisterView(FormView):
