@@ -1,12 +1,10 @@
 # coding=utf-8
 from django.conf.urls import url
-from poster.apiview.poster import (
+from poster.view.api import (
     PosterPageListView, CheckPosterUniqueNameView,
     PosterPublishView, SystemImageListView, SystemBackgroundListView,
     PosterSaveView, PosterStatusView, PosterPageDetailView,
-    SystemMusicListView, PosterDetailView
-)
-from poster.apiview.resource import (
+    SystemMusicListView, PosterDetailView,
     CategoryKeywordListView, CategoryKeywordDetailView,
     UploadFileView, TemplateDetailView, TemplateListView
 )

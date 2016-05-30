@@ -60,7 +60,7 @@ urlpatterns += [
         include('account.urls.api', namespace='account_api')),
 
     url(r'^api/v1/poster/',
-        include('poster.urls_api', namespace='poster_api')),
+        include('poster.urls.api', namespace='poster_api')),
 
     # url(r'^api/.*', 'account.views.not_found'),
 ]
