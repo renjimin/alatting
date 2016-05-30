@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+# coding=utf-8
+
 from rest_framework.generics import ListCreateAPIView
 from alatting_website.model.poster import Poster
 from poster.serializer.poster import PosterSerializer
