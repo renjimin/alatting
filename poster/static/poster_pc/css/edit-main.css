@@ -590,3 +590,22 @@
 }
 
 /************template***********/
+
+
+
+
+.vitrul-body{
+    position: absolute;
+    z-index: 100;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+}
+.vitrul-body .hightlight{
+    border:2px solid #01FFFF;
+    display: block;
+    position: absolute;
+    transform-origin: left top;
+}
