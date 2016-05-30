@@ -36,10 +36,12 @@ class AccountProfileSerializer(serializers.ModelSerializer):
     poster_likes_count = serializers.IntegerField(
         source='poster_likes_creator.count', read_only=True)
 
-    poster_subscriptions_follower = AccountPosterSubscribeSerializer(many=True,
-                                                                     read_only=True)
+    poster_subscriptions_follower = AccountPosterSubscribeSerializer(
+        many=True, read_only=True
+    )
     poster_subscriptions_count = serializers.IntegerField(
-        source='poster_subscriptions_follower.count', read_only=True)
+        source='poster_subscriptions_follower.count', read_only=True
+    )
 
     class Meta:
         model = User

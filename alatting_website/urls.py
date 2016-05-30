@@ -13,6 +13,8 @@ from alatting_website.feeds import PosterUpdateFeed
 # 首页配置
 urlpatterns = [
     url(r'^$', MobileIndexView.as_view(), name='index'),
+    url(r'^mobile/$',
+        MobileIndexView.as_view(), name='mobile_index'),
     url(r'^mobile/index.html$',
         MobileIndexView.as_view(), name='mobile_index'),
     url(r'^mobile/poster/index.html$',
