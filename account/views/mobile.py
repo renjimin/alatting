@@ -83,6 +83,7 @@ class MessageView(APIView):
             data['message'] = message
         return Response(data)
 
+
 class CheckMessageView(APIView):
     """校验验证码"""
     permission_classes = ()
