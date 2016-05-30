@@ -105,7 +105,7 @@ function(module, exports, __require__){
 			$(document).on("click",function(e){
 				if($(e.target).closest(".edit-body").length != 0){
 					_.each(clicklist,function(item){
-						$(item).removeClass("active");
+						$(".active").removeClass("active");
 						if($(e.target).closest(item).length != 0){
 							var transform = "";
 							if($(item).closest(".yunye-template").length  != 0)transform = $(".yunye-template").css("transform");
@@ -135,11 +135,13 @@ function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher =  __require__(3);
-		var clicklist = ".item-text,.item-sysimg,.item-button,.item-music,.item-view".split(",");
+		var clicklist = ".item-text,.item-sysimg,.item-button,.item-music".split(",");
 
 		api.ready = function(){
 			_.each(clicklist,function(item){
 				$(item).on("click",function(){
+					$(".active").removeClass("active");
+					$(item).addClass("active");
 					pannelSwitcher.switchPannel($(item).data("pannel"));
 				});
 			});
