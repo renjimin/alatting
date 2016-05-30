@@ -58,8 +58,8 @@
                     <div class="qs-footer">
                         <div>
                             <a class="back btn btn-default" href="{{ prev_url }}">返回</a>
-                            {% if isfirst_consumer_repeat %}
-                                <input type="submit" class="next btn btn-default"  onclick="return isfirst_consumer_repeat();" value="确认">
+                            {% if islast_consumer_repeat %}
+                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer_repeat();" value="确认">
                             {% elif  islast_consumer%}
                                 <input type="submit" class="next btn btn-default"  onclick="return islast_consumer();" value="确认">
                             {% else %}

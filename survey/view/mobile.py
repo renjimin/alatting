@@ -134,12 +134,12 @@ class QuestionnaireView(View):
 
 		progress = self.get_progress(runinfo)
 
-		isfirst_consumer_repeat = False
-		if questionset.is_first() and questionnaire.role=="consumer":
+		islast_consumer_repeat = False
+		if questionset.is_last() and questionnaire.role=="consumer":
 			prev_hist = RunInfoHistory.objects.filter(subject=runinfo.subject, 
 			questionnaire = questionnaire, poster=runinfo.poster)
 			if prev_hist:
-				isfirst_consumer_repeat = True
+				islast_consumer_repeat = True
 
 		islast_consumer = False
 		if questionset.is_last() and questionnaire.role=="consumer":
@@ -151,7 +151,7 @@ class QuestionnaireView(View):
 						'prev_url': prev_url,
 						'progress': progress,
 						'errors': errors,
-						'isfirst_consumer_repeat': isfirst_consumer_repeat,
+						'islast_consumer_repeat': islast_consumer_repeat,
 						'islast_consumer': islast_consumer}
 		return render_to_response('questionset.html', contextdict)
 
