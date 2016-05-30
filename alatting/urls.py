@@ -49,7 +49,7 @@ urlpatterns += [
         include('poster.urls.mobile', namespace='posters')),
 
     url(r'^mobile/survey/',
-        include('survey.urls', namespace='survey')),
+        include('survey.urls.mobile', namespace='survey')),
 
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
