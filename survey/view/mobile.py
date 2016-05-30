@@ -12,6 +12,7 @@ from survey.models import *
 from alatting_website.model.poster import Poster
 from survey import *
 
+
 class IndexView(TemplateView):
 	template_name = 'questionset.html'
 
@@ -133,9 +134,16 @@ class QuestionnaireView(View):
 
 		progress = self.get_progress(runinfo)
 
-		islast_comsumer = False
+		isfirst_consumer_repeat = False
+		if questionset.is_first() and questionnaire.role=="consumer":
+			prev_hist = RunInfoHistory.objects.filter(subject=runinfo.subject, 
+			questionnaire = questionnaire, poster=runinfo.poster)
+			if prev_hist:
+				isfirst_consumer_repeat = True
+
+		islast_consumer = False
 		if questionset.is_last() and questionnaire.role=="consumer":
-			islast_comsumer = True
+			islast_consumer = True
 
 		contextdict = {'qs_title': qs_title,
 						'questionset': questionset,
@@ -143,7 +151,8 @@ class QuestionnaireView(View):
 						'prev_url': prev_url,
 						'progress': progress,
 						'errors': errors,
-						'islast_comsumer': islast_comsumer}
+						'isfirst_consumer_repeat': isfirst_consumer_repeat,
+						'islast_consumer': islast_consumer}
 		return render_to_response('questionset.html', contextdict)
 
 	def add_answer(self, runinfo, question, ans):
@@ -276,9 +285,10 @@ class QuestionnaireView(View):
 			return HttpResponseRedirect(reverse('survey:questionnaire', kwargs=kwargs))
 
 		prev_hist = RunInfoHistory.objects.filter(subject=runinfo.subject, 
-			questionnaire = questionnaire, poster=runinfo.poster)
+			questionnaire = questionnaire, poster=runinfo.poster).all()
 		for ph in prev_hist:
 			ph.isactive = False
+			ph.save()
 
 		hist = RunInfoHistory()
 		hist.subject = runinfo.subject
@@ -288,6 +298,7 @@ class QuestionnaireView(View):
 		hist.questionnaire = questionnaire
 		hist.isactive = True
 		hist.save()
+
 		RunInfo.objects.filter(subject=hist.subject, questionset__in = hist.questionnaire.questionsets,
 			poster=hist.poster).delete()
 		if hist.questionnaire.role == "creator":
