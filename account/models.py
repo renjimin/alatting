@@ -2,6 +2,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from alatting_website.models import AlattingBaseModel
 from utils import file
 from utils.db.fields import (BigAutoField, OverWriteImageField)
 
@@ -35,6 +36,12 @@ class Person(models.Model):
         (GENDER_MALE, GENDER_MALE),
         (GENDER_FEMALE, GENDER_FEMALE),
     )
+    USER_TYPE_SERVER = 'Server'
+    USER_TYPE_CONSUMER = 'Consumer'
+    USER_TYPE_CHOICES = (
+        (USER_TYPE_SERVER, USER_TYPE_SERVER),
+        (USER_TYPE_CONSUMER, USER_TYPE_CONSUMER)
+    )
     user = models.OneToOneField(User, db_column='id', primary_key=True)
     gender = models.CharField(
         max_length=15, choices=GENDER_CHOICES, default='unknown'
@@ -44,6 +51,27 @@ class Person(models.Model):
     avatar = OverWriteImageField(
         upload_to=file.get_avatar_path, default='avatars/avatar.png'
     )
+    user_type = models.CharField(
+        max_length=20,
+        choices=USER_TYPE_CHOICES,
+        default=USER_TYPE_SERVER
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+
+class UserCategory(AlattingBaseModel):
+    from alatting_website.models import Category
+    user = models.ForeignKey(User, verbose_name=u'用户')
+    sub_category = models.ForeignKey(
+        Category,
+        verbose_name=u'行业分类',
+        help_text=u'保存二级行业分类'
+    )
+
+    class Meta:
+        verbose_name_plural = verbose_name = u'用户关注行业'
+
+    def __str__(self):
+        return u'%s_%s' % (self.user, self.sub_category.name)
