@@ -479,7 +479,9 @@ class UploadFileView(APIView):
 
 class CategoryListView(ListAPIView):
     model = Category
-    queryset = Category.objects.all()
+    queryset = Category.objects.filter(
+        audit_status=Category.AUDIT_STATUS_PASS
+    )
     serializer_class = CategorySerializer
 
     def get_queryset(self):
