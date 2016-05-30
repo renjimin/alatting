@@ -61,16 +61,23 @@ function(module, exports, __require__){
 	
 	api.init = function(pannel){
 		menuList = pannel.find(".nav-item");
+		_.each(menuList,function(item){
+			var aTag = $(item).find(".nav-link");
+			if(aTag.data("toggle"))aTag.off("click").on("click",function(){
+				$(item).find(".subnav").toggle();
+			});
+		});
 	}
 	module.exports = api;
 },
 //[模块3]切换右侧面板模块
 function(module, exports, __require__){
 	var api = {};
-	var currentPannel = "logo_pannel";
+	var currentPannel;
 	var toggleMenu = __require__(2);
 
 	api.switchPannel = function(pannelName){
+		if(currentPannel == pannelName)return;
 		$("#" + currentPannel).hide();
 		$("#" + pannelName).show();
 		currentPannel = pannelName;
@@ -116,5 +123,36 @@ function(module, exports, __require__){
 		}
 		return api;
 	});
+},
+//[模块5]数据绑定模块
+function(module, exports, __require__){
+	Editor.define("dataBind",module.exports = function(){
+		var api = {};
+		api.init = function(binds){
+			_.each(binds,function(item){
+				new DataBinder();
+			});
+		}
+	});
+	/*function DataBinder( object_id ) {
+		var pubSub = $({});
+		var data_attr = "bind-" + object_id,
+			message = object_id + ":change";
+		$(document).on( "change", "[data-" + data_attr + "]", function( evt ) {
+			var $input = $( this );
+			pubSub.trigger( message, [ $input.data( data_attr ), $input.val() ] );
+		});
+		pubSub.on( message, function( evt, prop_name, new_val ) {
+			$( "[data-" + data_attr + "=" + prop_name + "]" ).each( function() {
+				var $bound = $( this );
+				if ( $bound.is("input, textarea, select") ) {
+					$bound.val( new_val );
+				} else {
+					$bound.html( new_val );
+				}
+			});
+		});
+		return pubSub;
+	}*/
 }
 ]);
