@@ -1,7 +1,7 @@
 <div class="m-container">
     <div class="edit-body">
         <!-- top -->
-        <div class="bar-header edit-bar-header">
+        <div class="bar-header edit-bar-header" data-pannel="unique_name_pannel">
             <a href="javascript:void(0)"  class="btn-back"
                data-url="{% url 'website:index' %}">
                 <i class="icon ico-pages"></i>
@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="header-logo">
+                <div class="header-logo" data-pannel="logo_pannel">
                     {% if poster.logo_title %}
                         {{ poster.logo_title|safe }}
                     {% else %}

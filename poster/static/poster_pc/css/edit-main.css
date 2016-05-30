@@ -607,7 +607,7 @@
 }
 .vitrul-body .hightlight{
     border:2px solid #01FFFF;
-    display: block;
+    display: none;
     position: absolute;
     transform-origin: left top;
 }
