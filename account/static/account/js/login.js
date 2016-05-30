@@ -15,6 +15,22 @@ $(document).ready(function () {
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
     var deviceH = document.documentElement.clientHeight + "px";
 
+    //Default Action
+    $(".tab-content").hide(); //Hide all content
+    $("ul.regist-tab li:first").addClass("active").show(); //Activate first tab
+    $(".tab-content:first").show(); //Show first tab content
+    
+    //On Click Event
+    $("ul.regist-tab li").click(function() {
+        $("ul.regist-tab li").removeClass("active"); //Remove any "active" class
+        $(this).addClass("active"); //Add "active" class to selected tab
+        $(".tab-content").hide(); //Hide all tab content
+        var activeTab = $(this).find("a").attr("href"); //Find the rel attribute value to identify the active tab + content
+        $(activeTab).fadeIn(); //Fade in the active content
+        $(this).css('background',"#000")
+        return false;
+    });
+
     function isLocalStorageSupported() {
         var testKey = 'test',
             storage = window.localStorage;
