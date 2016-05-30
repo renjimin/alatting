@@ -1,9 +1,11 @@
+# coding=utf-8
 from django.contrib import admin
+from account.models import Person
 from poster.models import SystemImage, SystemBackground, SystemMusic
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
-    Person, Image, Music, Video, Category,
+    Image, Music, Video, Category,
     Poster, PosterImage, PosterVideo, PosterLike, PageText,
     Comment, Address, PosterPage, Rating, PosterStatistics, HistoryStatistics,
     ActivityInvitation, BusinessMarketing, ProductSell,

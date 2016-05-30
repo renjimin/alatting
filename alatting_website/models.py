@@ -16,34 +16,8 @@ from alatting_website.model.poster import (
     ProductSell, ExpertShow, PageText, BusinessCard, PosterMoreLink,
     AbstractPageTemplate
 )
-from utils import file
 from utils.constants import DataStatus
-from utils.db.fields import (
-    OverWriteFileField, OverWriteImageField, OverWriteVideoField,
-    BigAutoField, BigForeignKey, BigOneToOneField
-)
-
-
-class Person(models.Model):
-    GENDER_UNKNOWN = 'Unknown'
-    GENDER_MALE = 'Male'
-    GENDER_FEMALE = 'Female'
-    GENDER_CHOICES = (
-        (GENDER_UNKNOWN, GENDER_UNKNOWN),
-        (GENDER_MALE, GENDER_MALE),
-        (GENDER_FEMALE, GENDER_FEMALE),
-    )
-    user = models.OneToOneField(User, db_column='id', primary_key=True)
-    gender = models.CharField(
-        max_length=15, choices=GENDER_CHOICES, default='unknown'
-    )
-    phonenumber = models.CharField(max_length=12, null=True, default='')  # 手机号
-    avatar = OverWriteImageField(
-        upload_to=file.get_avatar_path, default='avatars/avatar.png'
-    )
-
-    def __str__(self):
-        return "{:d}".format(self.pk)
+from utils.db.fields import BigAutoField
 
 
 class Category(models.Model):
