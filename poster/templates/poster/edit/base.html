@@ -29,8 +29,13 @@
                 save: "{% url 'poster_api:poster_save' poster.id %}",
                 publish: "{% url 'poster_api:poster_publish' poster.id %}",
                 show: "{% url 'posters:show' poster.id %}"
+            },
+            globalButton:{
+                detail:"{% url 'survey:answer' poster_id=poster.id %}?role=creator",
+                order:"{% url 'survey:start' poster_id=poster.id %}?role=consumer"
             }
         }
+
     </script>
 
     {{ block.super }}

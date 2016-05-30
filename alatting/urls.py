@@ -29,9 +29,8 @@ urlpatterns = [
     url(r'', include('alatting_website.urls', namespace='website')),
     url(r'', include('alatting.api_urls', namespace='api')),
 
-    url(r'^account/', include('account.urls', namespace='account_pc')),
-    url(r'^service/', include('service.urls', namespace='service_pc')),
-
+    url(r'^account/', include('account.urls.pc', namespace='account_pc')),
+    url(r'^posters/', include('poster.urls.pc', namespace='posters_pc')),
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 
@@ -39,11 +38,18 @@ urlpatterns = [
 urlpatterns += [
     # url(r'', include('alatting_website.urls', namespace='website')),
     # url(r'', include('alatting.api_urls', namespace='api')),
-    url(r'^mobile/index.html$', MobileIndexView.as_view(), name='mobile_index'),
-    url(r'^mobile/account/', include('account.urls', namespace='account')),
-    url(r'^mobile/poster/', include('poster.urls', namespace='poster')),
-    url(r'^mobile/posters/', include('poster.urls', namespace='posters')),
-    url(r'^mobile/survey/', include('survey.urls', namespace='survey')),
+    url(r'^mobile/account/',
+        include('account.urls.mobile', namespace='account')),
+
+    # 暂时保留此URL, 后期将逐步作废
+    url(r'^mobile/poster/',
+        include('poster.urls.mobile', namespace='poster')),
+
+    url(r'^mobile/posters/',
+        include('poster.urls.mobile', namespace='posters')),
+
+    url(r'^mobile/survey/',
+        include('survey.urls.mobile', namespace='survey')),
 
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
@@ -51,10 +57,10 @@ urlpatterns += [
 # 以下是AJAX API路由配置
 urlpatterns += [
     url(r'^api/v1/account/',
-        include('account.urls_api', namespace='account_api')),
+        include('account.urls.api', namespace='account_api')),
 
     url(r'^api/v1/poster/',
-        include('poster.urls_api', namespace='poster_api')),
+        include('poster.urls.api', namespace='poster_api')),
 
     # url(r'^api/.*', 'account.views.not_found'),
 ]

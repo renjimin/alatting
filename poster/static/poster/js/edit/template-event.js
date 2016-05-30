@@ -66,6 +66,8 @@ $(function() {
                         obj.imgoperation({
                             'data': data
                         });
+
+                        $.fn.yyTools.mask(0);
                     });
                 }
             }, {

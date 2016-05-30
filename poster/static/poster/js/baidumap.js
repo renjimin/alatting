@@ -7,7 +7,12 @@ $(function(){
 	window.init = function() {
 		window.baiduMap = new BMap.Map("allmap");		// 创建Map实例
 
-		var _localAdress = yunyeEditorGlobal.address;
+		var _localAdress;
+		if (!(yunyeEditorGlobal.updated_at > $.fn.yunyeStorage.getHead("updated_at"))) {
+			_localAdress  = $.fn.yunyeStorage.getHead("address").address;
+		}else{
+			_localAdress  = yunyeEditorGlobal.address;
+		}
 		console.log(_localAdress);
 		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
 			onSearchComplete: function(){

@@ -4,6 +4,7 @@ import re
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 from alatting_website.model.statistics import (
     PosterStatistics, HistoryStatistics, PosterLike,
     PosterFun, PosterFavorites, PosterSubscribe, Comment, Rating
@@ -16,37 +17,30 @@ from alatting_website.model.poster import (
     ProductSell, ExpertShow, PageText, BusinessCard, PosterMoreLink,
     AbstractPageTemplate
 )
-from utils import file
 from utils.constants import DataStatus
-from utils.db.fields import (
-    OverWriteFileField, OverWriteImageField, OverWriteVideoField,
-    BigAutoField, BigForeignKey, BigOneToOneField
-)
+from utils.db.fields import BigAutoField
 
 
-class Person(models.Model):
-    GENDER_UNKNOWN = 'Unknown'
-    GENDER_MALE = 'Male'
-    GENDER_FEMALE = 'Female'
-    GENDER_CHOICES = (
-        (GENDER_UNKNOWN, GENDER_UNKNOWN),
-        (GENDER_MALE, GENDER_MALE),
-        (GENDER_FEMALE, GENDER_FEMALE),
+class AlattingBaseModel(models.Model):
+    DATA_STATUS_DISABLE = 0
+    DATA_STATUS_USABLE = 1
+    DATA_STATUS_CHOICES = (
+        (DATA_STATUS_USABLE, u'启用'),
+        (DATA_STATUS_DISABLE, u'禁用')
     )
-    user = models.OneToOneField(User, db_column='id', primary_key=True)
-    gender = models.CharField(
-        max_length=15, choices=GENDER_CHOICES, default='unknown'
+    data_status = models.PositiveSmallIntegerField(
+        verbose_name=u'数据状态',
+        default=DATA_STATUS_USABLE,
+        choices=DATA_STATUS_CHOICES
     )
-    phonenumber = models.CharField(max_length=12, null=True, default='')  # 手机号
-    avatar = OverWriteImageField(
-        upload_to=file.get_avatar_path, default='avatars/avatar.png'
-    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return "{:d}".format(self.pk)
+    class Meta:
+        abstract = True
 
 
-class Category(models.Model):
+class Category(AlattingBaseModel):
     TYPE_ACTIVITY = 'Activity'
     TYPE_PRODUCT = 'Product'
     TYPE_EXPERT = 'Expert'
@@ -63,8 +57,22 @@ class Category(models.Model):
         TYPE_EXPERT: ExpertShow,
         TYPE_BUSINESS: BusinessMarketing,
     }
+
+    AUDIT_STATUS_UN_PASS = 0
+    AUDIT_STATUS_AUDITING = 1
+    AUDIT_STATUS_PASS = 2
+    AUDIT_STATUS_CHOICES = (
+        (AUDIT_STATUS_UN_PASS, u'不通过'),
+        (AUDIT_STATUS_AUDITING, u'审核中'),
+        (AUDIT_STATUS_PASS, u'通过')
+    )
     id = models.AutoField(primary_key=True)
-    parent = models.ForeignKey('Category', null=True, blank=True, related_name='children')
+    parent = models.ForeignKey(
+        'Category',
+        null=True,
+        blank=True,
+        related_name='children'
+    )
     type = models.CharField(
         max_length=15,
         choices=TYPE_CHOICES,
@@ -73,6 +81,11 @@ class Category(models.Model):
     name = models.CharField(max_length=63, blank=True, unique=True)
     description = models.CharField(max_length=127, blank=True, default='')
     tags = models.CharField(max_length=2048, blank=True, default='')
+    audit_status = models.PositiveSmallIntegerField(
+        verbose_name=u'审核状态',
+        default=AUDIT_STATUS_PASS,
+        choices=AUDIT_STATUS_CHOICES
+    )
 
     def __str__(self):
         return "{:s}".format(self.name, )
