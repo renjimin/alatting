@@ -1,0 +1,122 @@
+.edit-header > div{
+    float: left;
+    text-align: center;
+    padding: 6px 0;
+    height: 100%;
+}
+
+.edit-header .logo{
+    width: 20%;
+}
+.edit-header .header-bar{
+    width: 53%;
+}
+
+.edit-header .header-btn{
+    width: 26%;
+}
+.logo img{
+    padding-left: 6%;
+}
+
+.header-bar{
+   text-align: center;
+}
+.header-bar a.item{
+    padding: 0px 15px;
+}
+
+.ico-edit-text, .ico-edit-pic, .ico-edit-button, .ico-edit-music, .ico-preview {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-image: url(../images/icon-edit.png);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+
+.ico-edit-text{
+    background-position: 0px 0px;
+}
+
+.ico-edit-pic{
+    background-position: -50px 0px;
+}
+
+.ico-edit-button{
+    background-position: -100px 0px;
+    width: 76px;
+}
+
+.ico-edit-music{
+     background-position: -198px 0px;
+ }
+
+.ico-preview{
+     background-position: -248px 0px;
+     width: 60px;
+ }
+
+.icon-save,.icon-publish{
+    display: inline-block;
+    width: 22px;
+    height: 50px;
+    background-image: url(../images/edit-icon2.png);
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+}
+
+.icon-save{
+    background-position: 0px 15px;
+}
+
+.icon-publish{
+    background-position: -20px 15px;
+}
+
+.edit-header .header-btn i +span{
+    vertical-align: top;
+    line-height: 53px;
+}
+
+.header-btn a{
+    color: #7F7C77;
+    margin-right: 30px;
+    text-decoration: none;
+}
+
+.edit-page{
+    background-color: #4F4F4C;
+    line-height: 45px;
+}
+.edit-page > a{
+    color: #ffffff;
+}
+.add-page{
+    background: #716F6A;
+}
+
+/*left sidebar*/
+.add-page{
+    background: #716F6A;
+    padding: 15px 52px 20px 52px;
+}
+
+.add-page .pages{
+    background: #ffffff;
+    height: 205px;
+    display: block;
+    box-shadow: 0 0 12px #696161;
+}
+
+.add-plus{
+    line-height: 45px;
+}
+
+.add-plus a{
+    color: #656766;
+}
+
+.page-color{
+    background:#D1CEC8;
+}

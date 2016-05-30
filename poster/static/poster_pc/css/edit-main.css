@@ -1,0 +1,613 @@
+.m-container {
+    width: 420px;
+    height: 100%;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 10px #888;
+    position: relative;
+}
+
+.edit-body {
+    width: 100%;
+    height: 100%;
+    padding: 40px 0 44px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+/***********************/
+
+
+/*defaut style*/
+/*top*/
+.bar-header{
+    position: absolute;
+    z-index: 100;
+    right: 0;
+    left: 0;
+    top: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    padding: 5px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    background-color: #000;
+}
+.bar-header .title {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: block;
+    overflow: hidden;
+    min-width: 30px;
+    height: 40px;
+    margin: 0 10px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #fff;
+    font-family: "Microsoft YaHei";
+    font-size: 1.4em;
+    font-weight: 500;
+    line-height: 40px;
+}
+.bar-header .title p{
+    margin:0;
+}
+.ico-pages {
+    display: inline-block;
+
+    width: 1em;
+    height: 1em;
+
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+}
+.ico-pages {
+    background-image: url(/static/website/images/icons/ico-pages.png);
+}
+.btn-back{
+    width:40px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+}
+.btn-back .icon{
+    vertical-align: top;
+    font-size: 24px;
+    margin-top:8px;
+}
+/*header*/
+
+.header {
+    position: relative;
+    background-color: #c5c5c5;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+
+.header-bar {
+    position: relative;
+    z-index: 20;
+    padding: 0;
+    overflow: hidden;
+}
+
+.header-qrcode {
+    float: left;
+    padding: 7.5px 10px;
+    pointer-events: auto;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+}
+
+.header-logo {
+    position: relative;
+    
+    overflow: hidden;
+    height: 95px;
+    padding: 7.5px 0;
+    margin:0 100px;
+    text-align: center;
+    pointer-events: auto;
+}
+.header-logo:before,
+.header-logo:after{
+    content:"";
+    display: block;
+    width: 1px;
+    height: 100%;
+    border-left: 2px dashed #8a8a8a;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.header-logo:after{
+    left:auto;
+    right: 0;
+}
+
+.header-abutton {
+    float: right;
+    padding: 7.5px 10px;
+    position: absolute;
+    z-index: 10;
+    right: 0;
+    top: 0;
+}
+
+.qrcode-inner,
+.abutton-inner {
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+
+    width: 80px;
+    height: 80px;
+}
+
+.qrcode-inner .circle {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.qrcode-inner .qrcode {
+    z-index: 15;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #8d8d8d;
+    border-radius: 50%;
+}
+
+.qrcode-inner .qrcode img {
+    width: 100%;
+    width: 45px;
+    height: 45px;
+    display: block;
+}
+
+.qrcode-inner .qrcode a.btn {
+    display: block;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    padding: 20%;
+    text-align: center;
+    border-radius: 50%;
+}
+
+.qrcode-inner .qrcode a.btn:active {
+    background: #bbb;
+}
+
+.header-logo img {
+    max-width: 100%;
+    height: 100%;
+    pointer-events: auto;
+}
+
+.header-logo h2 {
+    display: inline-block;
+    overflow: hidden;
+    min-height: 50%;
+    min-width: 50%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    word-break: break-all;
+    pointer-events: auto;
+}
+.ico-phone:before,
+.ico-email:before,
+.ico-address:before,
+.ico-clock:before,
+.ico-like:before,
+.ico-bookmark:before,
+.ico-subscribe:before,
+.ico-fun:before,
+.ico-alogo:before,
+.ico-mobile:before,
+.ico-menu:before,
+.clicked .ico-like:before,
+.clicked .ico-bookmark:before,
+.clicked .ico-subscribe:before,
+.clicked .ico-fun:before{
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    content: "";
+    background: url(/static/website/images/icons/sprits_tools.png) center center no-repeat;
+    background-size: auto 100%;
+}
+.ico-phone:before {
+    background-position: 0 0;
+}
+.ico-email:before {
+    background-position: -1em 0;
+}
+.ico-address:before {
+    background-position: -2em 0;
+}
+.ico-clock:before {
+    background-position: -3em 0;
+}
+.ico-fun:before {
+    background-position: -4em 0;
+}
+.ico-like:before {
+    background-position: -5em 0;
+}
+.ico-subscribe:before {
+    background-position: -6em 0;
+}
+.ico-bookmark:before {
+    background-position: -7em 0;
+}
+.ico-alogo:before {
+    background-position: -8em 0;
+}
+.ico-mobile:before {
+    background-position: -9em 0;
+}
+.ico-menu:before {
+    background-position: -9em 0;
+}
+.ico-mobile:before {
+    background-position: -10em 0;
+}
+.clicked .ico-like:before{
+    background-position: -12em 0;
+}
+.clicked .ico-bookmark:before{
+    background-position: -14em 0;
+}
+.clicked .ico-subscribe:before{
+    background-position: -13em 0;
+}
+.clicked .ico-fun:before{
+    background-position: -11em 0;
+}
+.abutton-group {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    font-size: 15px;
+    border-radius: 50%;
+}
+
+.abutton-group li {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    margin-top: -100%;
+    margin-left: -100%;
+    -webkit-transform-origin: 100% 100%;
+    transform-origin: 100% 100%;
+    pointer-events: none;
+    border: 0px solid transparent;
+    background: #8d8d8d;
+}
+
+.abutton-group li a {
+    position: absolute;
+    right: -50%;
+    bottom: -50%;
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    -webkit-transform: rotate(-45deg) scale(1);
+    transform: rotate(-45deg) scale(1);
+    text-align: center;
+    text-decoration: none;
+    pointer-events: fill;
+    color: #fff;
+    border-radius: 50%;
+    /*background: #8d8d8d;*/
+}
+
+.abutton-group li a span {
+    opacity: 0.7;
+    font-size: 1.1em;
+}
+
+.abutton-group li a .icon {
+    font-size: 20px;
+}
+
+.abutton-group li:first-child {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.abutton-group li:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.abutton-group li:nth-child(3) {
+    -webkit-transform: rotate(135deg);
+    transform: rotate(135deg);
+}
+
+.abutton-group li:nth-child(4) {
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+}
+
+.abutton-group li:first-child a {
+    padding-right: 67%;
+    -webkit-transform: rotate(45deg) scale(1);
+    transform: rotate(45deg) scale(1);
+}
+
+.abutton-group li:nth-child(2) a {
+    padding-bottom: 67%;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.abutton-group li:nth-child(3) a {
+    padding-left: 67%;
+    -webkit-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+}
+
+.abutton-group li:nth-child(4) a {
+    padding-top: 67%;
+    -webkit-transform: rotate(-225deg);
+    transform: rotate(-225deg);
+}
+
+.abutton-group li:first-child a .icon,
+.abutton-group li:nth-child(3) a .icon {
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 33%;
+    height: 100%;
+}
+
+.abutton-group li:nth-child(3) a .icon {
+    left: auto;
+    right: 0;
+}
+
+.abutton-group li:nth-child(2) a .icon,
+.abutton-group li:nth-child(4) a .icon {
+    position: absolute;
+    top: 0;
+    display: block;
+    width: 100%;
+    height: 33%;
+}
+
+.abutton-group li:nth-child(4) a .icon {
+    top: auto;
+    bottom: 0;
+}
+
+.abutton-group li:nth-child(1) a .icon:before,
+.abutton-group li:nth-child(3) a .icon:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+}
+
+.abutton-group li:nth-child(2) a .icon:before,
+.abutton-group li:nth-child(4) a .icon:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+}
+
+
+.abutton-internal {
+    position: absolute;
+    z-index: 20;
+    top: 33%;
+    left: 33%;
+    width: 34%;
+    padding-top: 34%;
+    font-size: 18px;
+    pointer-events: auto;
+}
+
+.abutton-internal .abtn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.abutton-internal .abtn .icon {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.abutton-internal .abtn .icon:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.5em;
+    margin-left: -0.5em;
+}
+
+.open .abutton-internal .abtn,
+.abutton-internal .abtn:active {
+    background: #f4f4f4;
+}
+
+.abutton-contact {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.open .abutton-contact {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+
+.open .abutton-express {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.header-info {
+    padding: 10px;
+    text-align: center;
+    font-size: 1.1em;
+    position: relative;
+}
+.header-info:before{
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: #fff;
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 20;
+}
+
+/***********************/
+.change-template-button{
+    position: absolute;
+    z-index: 300;
+    left: 10px;
+    font-size: 30px;
+    margin-top: 10px;
+}
+.ico-edit-template{
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    background: url(../images/icon-change-template.png) no-repeat;
+    background-size: 100% auto;
+}
+/******************************/
+.header-qrcode:hover,
+.header-logo:hover,
+.header-abutton:hover,
+.header-info:hover,
+.header .mask:hover,
+.yunye-template > .content > div:hover,
+.header-qrcode.active,
+.header-logo.active,
+.header-abutton.active,
+.header-info.active,
+.header .mask.active,
+.yunye-template > .content > div.active{
+    -webkit-transition: background .3s;
+    transition: background .3s;
+    background: #989898;
+}
+
+.header-qrcode:hover .qrcode-inner .qrcode,
+.header-abutton:hover .abutton-group li,
+.header-qrcode:active .qrcode-inner .qrcode,
+.header-abutton:active .abutton-group li{
+     background: #4e4e4e;
+}
+
+/************template***********/
+/* template css */
+.yunye-template {
+    background-color: #fff;
+    position: relative;
+    /*padding-bottom: 120%;*/
+    width:600px;
+    height:747px;
+    transform-origin: top left;
+    -webkit-transform-origin: top left;
+    -moz-transform-origin: top left;
+    -o-transform-origin: top left;
+    -ms-transform-origin: top left;
+}
+
+.yunye-template > .content{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.template-box{
+    overflow:hidden;
+}
+
+/************template***********/
+
+
+
+
+.vitrul-body{
+    position: absolute;
+    z-index: 100;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width:100%;
+    height: 100%;
+}
+.vitrul-body .hightlight{
+    border:2px solid #01FFFF;
+    display: block;
+    position: absolute;
+    transform-origin: left top;
+}
