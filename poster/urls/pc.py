@@ -2,7 +2,7 @@
 
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
-from poster.view.pc.main import PosterIndexView, PosterShowFrameView, \
+from poster.view.pc import PosterIndexView, PosterShowFrameView, \
     PosterEditView
 
 

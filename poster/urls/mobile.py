@@ -1,13 +1,13 @@
 # coding=utf-8
 
 from django.conf.urls import url
-from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from poster.view.create import (CategoryKeywordsView, CreateFormView,
-                                SelectTemplateView, PosterPageCreateView,
-                                UpdateFormView)
-from poster.view.edit import PosterEditView
-from poster.view.show import PosterView
+from poster.view.mobile import (
+    PosterEditView, PosterView,
+    CategoryKeywordsView, CreateFormView,
+    SelectTemplateView, PosterPageCreateView,
+    UpdateFormView
+)
 
 
 # 创建海报
