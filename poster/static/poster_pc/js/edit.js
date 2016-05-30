@@ -57,9 +57,10 @@ function(module, exports, __require__) {
 //[模块2]右侧面板菜单toggle模块
 function(module, exports, __require__){
 	var api = {};
+	var menuList;
 	
 	api.init = function(pannel){
-		var menuList = pannel.find(".nav-item");
+		menuList = pannel.find(".nav-item");
 	}
 	module.exports = api;
 },
