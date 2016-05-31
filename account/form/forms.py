@@ -42,6 +42,24 @@ class RegisterForm(forms.Form):
             attrs={'placeholder': u'请再次输入密码', 'class': 'list-input'}
         )
     )
+    user_type = forms.CharField(
+        max_length=10,
+        widget=forms.HiddenInput
+    )
+    main_category_id = forms.CharField(
+        max_length=10,
+        widget=forms.HiddenInput
+    )
+    sub_category_ids = forms.CharField(
+        max_length=10,
+        widget=forms.HiddenInput,
+        required=False
+    )
+    input_category = forms.CharField(
+        max_length=10,
+        widget=forms.HiddenInput,
+        required=False
+    )
 
 
 class ResetPasswordForm(forms.Form):

@@ -23,7 +23,7 @@ from alatting_website.models import CategoryKeyword, Template, Address
 
 class PosterEditView(DetailView):
     model = PosterPage
-    template_name = 'poster/edit/edit.html'
+    template_name = 'poster/mobile/edit/edit.html'
 
     def get_object(self, queryset=None):
         poster = Poster.objects.filter(
@@ -49,7 +49,7 @@ class PosterEditView(DetailView):
 
 class PosterView(DetailView):
     model = Poster
-    template_name = 'poster/show/poster.html'
+    template_name = 'poster/mobile/show/poster.html'
     queryset = Poster.objects.filter(
         status=Poster.STATUS_PUBLISHED
     )
@@ -207,7 +207,7 @@ class PosterView(DetailView):
 
 class CategoryKeywordsView(ListView):
     model = CategoryKeyword
-    template_name = 'poster/keywords.html'
+    template_name = 'poster/mobile/create/keywords.html'
     queryset = CategoryKeyword.objects.all()
 
     def get_queryset(self):
@@ -262,7 +262,7 @@ class PosterFormViewMixin(object):
 
 
 class CreateFormView(PosterFormViewMixin, CreateView):
-    template_name = 'poster/create-form.html'
+    template_name = 'poster/mobile/create/base-form.html'
 
     def get_initial(self):
         req_get = self.request.GET
@@ -298,7 +298,7 @@ class CreateFormView(PosterFormViewMixin, CreateView):
 
 
 class UpdateFormView(PosterFormViewMixin, UpdateView):
-    template_name = 'poster/create-form.html'
+    template_name = 'poster/mobile/create/base-form.html'
 
     def get_initial(self):
         keywords = PosterKeyword.objects.filter(
@@ -335,7 +335,7 @@ class UpdateFormView(PosterFormViewMixin, UpdateView):
 
 class SelectTemplateView(ListView):
     model = Template
-    template_name = 'poster/select-template.html'
+    template_name = 'poster/mobile/create/select-template.html'
     queryset = Template.objects.filter(
         data_status=Template.USABLE
     ).order_by('name')

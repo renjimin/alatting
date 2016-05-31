@@ -1,4 +1,4 @@
-{% extends 'poster/base.html' %}
+{% extends 'website/mobile/base.html' %}
 {% load static %}
 
 {% block base_head_meta %}
@@ -93,20 +93,20 @@
 {% endblock %}
 
 {% block base_body_header %}
-    {% include "poster/show/header-bar.html" %}
+    {% include "poster/mobile/show/header-bar.html" %}
 {% endblock %}
 
 {% block base_body_inner %}
-    {% include "poster/show/header.html" %}
+    {% include "poster/mobile/show/header.html" %}
     {{ index_page.render_html_to_string|safe }}
 {% endblock %}
 
 {% block base_body_footer %}
-    {% include 'poster/show/footer.html' %}
+    {% include 'poster/mobile/show/footer.html' %}
 {% endblock %}
 {% block base_footer_js %}
     {% if not request.GET.capture %}
-        {% include 'poster/show/comment.html' %}
+        {% include 'poster/mobile/show/comment.html' %}
     {% endif %}
     <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
