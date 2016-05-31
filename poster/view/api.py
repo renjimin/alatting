@@ -559,6 +559,7 @@ class TemplateDetailView(RetrieveAPIView):
     queryset = Template.objects.all()
     serializer_class = TemplateSerializer
 
+
 class SurveyConsumerAnswersView(ListAPIView):
     model = RunInfoHistory
     queryset = RunInfoHistory.objects.all()
@@ -566,5 +567,20 @@ class SurveyConsumerAnswersView(ListAPIView):
 
     def get_queryset(self):
         qs = super(SurveyConsumerAnswersView, self).get_queryset()
-        return qs.filter(poster_id=self.kwargs['pk'], questionnaire__role = 'consumer', isactive = True)
-        
+        return qs.filter(
+            poster_id=self.kwargs['pk'], questionnaire__role = 'consumer', 
+            isactive = True
+        )
+    
+
+class SurveyConsumerAnsView(ListAPIView):
+    model = RunInfoHistory
+    queryset = RunInfoHistory.objects.all()
+    serializer_class = RunInfoHistorySerializer
+
+    def get_queryset(self):
+        qs = super(SurveyConsumerAnsView, self).get_queryset()
+        return qs.filter(
+            poster_id=self.kwargs['pk'], subject_id=self.request.user.id, 
+            questionnaire__role = 'consumer', isactive = True
+        )
