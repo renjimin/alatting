@@ -1,3 +1,6 @@
+ul li{
+    list-style: none;
+}
 .link-body{
     padding: 10px 15px;
     height: 195px;
@@ -16,4 +19,32 @@
 }
 .link-input .input-group{
     margin: 0 auto;
+}
+
+.systemimg{
+    width: 65%;
+    background: #7F7C77;
+    margin: 0 auto;
+    margin-top: 28px;
+    padding: 10px 0px;
+    border-radius: 7px;
+    overflow-y: auto;
+    height: 260px;
+}
+
+.systemimg .imgul{
+    overflow-y:auto;
+    overflow: hidden;
+    padding: 0px 15px;
+}
+
+.systemimg .imgul li{
+    float: left;
+    margin-right: 8px;
+    margin-bottom: 6px;
+}
+
+.systemimg .imgul li img{
+    width: 42px;
+    height: 62px;
 }

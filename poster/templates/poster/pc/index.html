@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block base_head_js %}
+    {{ block.super }}
     <script src="{% static 'web/js/lazyload.js' %}"></script>
     <script src="{% static 'web/js/jquery.imgview.js' %}"></script>
     <script src="{% static 'web/js/base.js' %}"></script>

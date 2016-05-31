@@ -12,14 +12,17 @@
     <link rel="stylesheet" href="{% static 'libs/fontawesome/css/font-awesome4.5.0.min.css' %}">
     {% block base_head_css %}
     {% endblock %}
-    <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
-    <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% block base_head_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'libs/common/jquery.base64.js' %}"></script>
+        <script src="{% static 'libs/common/jquery.storageapi.min.js' %}"></script>
+        <script src="{% static 'libs/common/jquery.tmpl.min.js' %}"></script>
+    {% endblock %}
     <!--[if lt IE 9]>
     <script src="{% static 'web/js/html5shiv.min.js' %}"></script>
     <script src="{% static 'web/js/respond.min.js' %}"></script>
     <![endif]-->
-    {% block base_head_js %}
-    {% endblock %}
 </head>
 <body {% block base_body_class %}{% endblock %}>
 {% block base_body %}
