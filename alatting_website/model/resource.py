@@ -1,6 +1,9 @@
 # coding=utf-8
+from django.conf import settings
+from django.contrib.auth.models import User
 
 from django.db import models
+from django.db.models import SET_NULL
 from utils.db.utils import generate_uuid
 from utils.db.fields import (OverWriteFileField, OverWriteImageField,
                              OverWriteVideoField, BigForeignKey)
@@ -19,6 +22,12 @@ class Image(models.Model):
     width = models.PositiveSmallIntegerField(blank=True)
     height = models.PositiveSmallIntegerField(blank=True)
     format = models.CharField(max_length=10, blank=True)
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        default=None,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -30,6 +39,12 @@ class Music(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     file = OverWriteFileField(upload_to=file.get_music_path)
     format = models.CharField(max_length=10, default='mp3')
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        default=None,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)
@@ -45,6 +60,12 @@ class Video(models.Model):
         preview_field='preview'
     )
     format = models.CharField(max_length=31, default='mp4')
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        default=None,
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return "{:d}".format(self.pk)
