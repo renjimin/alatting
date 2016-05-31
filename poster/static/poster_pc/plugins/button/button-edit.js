@@ -1,16 +1,18 @@
 var currentElebox = null,isEdit = false,fullcontainer=$('.yunye-template').eq(0);
 var curentOpts={};
-setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons();/**/},100);
+setTimeout(function(){
+    fullcontainer=$('.yunye-template').eq(0);var templateScale = $('.edit-body').width()/$('.yunye-template').width();
+    addDefaultButtons();/**/
+},100);
 
     var addButton = function(ele,options){
-        var templateScale = $('body').width()/$('.yunye-template').width();
+        
         var defaults = {
-            'container':$("#button-model"),
             'buttonAction':'0',
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
-            'fontSize':14/templateScale + 'px',
+            'fontSize':14 + 'px',
             'fontFamily':'Microsoft YaHei',
             'background':'ffffff',
             'backgroundOpacity':'1',
@@ -24,16 +26,38 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             'height':'34'/*默认高度*/
         }
 
-        defaults.container.addClass('open');
         var opts = $.extend(defaults,options),s = this;
 
         s.add = function(){
             isEdit = false;
-            var newbtn = null;
-            newbtn = $('<a class="element btn btn-default">请输入文字</a>');
-            defaults.container.find('.btn-container').empty().append(newbtn);
-            s.controlInit();
+            var newbtn = $('<a class="element btn btn-default">请输入文字</a>');
+            var cnd = $('<div class="cnd-element button-element">'
+                +'<div class="element-box">'
+                +'    <div class="element-box-contents">'
+                +'        '
+                +'    </div>'
+                +'</div>'
+                +'<div class="nbar nbar-rotate nbar-radius"></div>'
+                +'<div class="nbar nbar-line"></div>'
+                +'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
+                +'<div class="nbar nbar-nw nbar-radius"></div>'
+                +'<div class="nbar nbar-se nbar-radius"></div>'
+                +'<div class="nbar nbar-sw nbar-radius"></div>'
+                +'<div class="nbar nbar-ne nbar-radius"></div>'
+            +'</div>');
+            cnd.find('.element-box-contents').append(newbtn);
+            cnd.hide();
+            
+            fullcontainer.append(cnd);
+            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
+            scale(cnd);
+
+            s.controlInit(newbtn);
             s.upload(newbtn);
+            s.addControlListen(newbtn);
 
         }
         s.edit = function(element){
@@ -44,6 +68,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             currentElebox = element.parent();
             s.controlInit(editbtn);
             s.upload(editbtn);
+
         }
         $('#buttonConfirm').unbind();
         $('#buttonConfirm').on('click',function(){
@@ -138,8 +163,8 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             $('.button-borderWidth').val(parseInt(opts.borderWidth));
 
         }
-        s.addControlListen = function(){
-            var elebtn = $("#button-model").find('.element').eq(0);
+        s.addControlListen = function(elebtn){
+            //var elebtn = $("#button-model").find('.element').eq(0);
 
             $('.button-href').off('input propertychange').on('input propertychange',function(){
                 opts.href = $(this).val();
@@ -312,11 +337,27 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             this.edit(ele);
         }
 
-        s.addControlListen();
+        //s.addControlListen();
     }
-    
+    function posterDetail(){
+        return false;
+    }
+    function posterOrder(){
+        return false;
+    }
     function addDefaultButtons(){
         if($('.sys-button').length > 0){
+            $('.sys-button').each(function(){
+                if($(this).find('.btn').attr('onclick') == undefined||$(this).find('.btn').attr('onclick') == ''){
+                    if($(this).find('.btn').attr('data-action') == '1'){
+                        $(this).find('.btn').attr('onclick','return posterDetail()');
+                    }else if($(this).find('.btn').attr('data-action') == '2'){
+                        $(this).find('.btn').attr('onclick','return posterOrder()');
+                    }else{
+                         $(this).find('.btn').attr('onclick','return false');
+                    }
+                }
+            });
             return;
         }
         var g = yunyeEditorGlobal;
@@ -387,7 +428,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             }
             currentElebox.empty().append(ele);
         }
-        $('#button-model').removeClass('open')
+        
     }
 var editButtonBasic = function(){
     var e = window.event || event;

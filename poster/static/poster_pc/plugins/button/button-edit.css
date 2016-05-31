@@ -60,3 +60,15 @@ input[type="range"]::-webkit-slider-thumb {
     background: #fff;
     box-shadow: 0 0 1px 1px #ccc;
 }
+
+.btn-normal{
+	display: block;
+	background-color: #cacaca;
+	text-align: center;
+	color: #6e6e6e;
+	padding-top: 10px;
+	padding-bottom:10px;
+}
+.btn-normal:hover{
+	background-color: #bbb;
+}

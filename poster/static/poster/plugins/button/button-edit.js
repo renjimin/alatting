@@ -322,8 +322,20 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
     }
     function addDefaultButtons(){
         if($('.sys-button').length > 0){
+            $('.sys-button').each(function(){
+                if($(this).find('.btn').attr('onclick') == undefined||$(this).find('.btn').attr('onclick') == ''){
+                    if($(this).find('.btn').attr('data-action') == '1'){
+                        $(this).find('.btn').attr('onclick','return posterDetail()');
+                    }else if($(this).find('.btn').attr('data-action') == '2'){
+                        $(this).find('.btn').attr('onclick','return posterOrder()');
+                    }else{
+                         $(this).find('.btn').attr('onclick','return false');
+                    }
+                }
+            });
             return;
         }
+
         var g = yunyeEditorGlobal;
         var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1" onclick="return posterDetail()">详情</a>'),
               orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2" onclick="return posterOrder()">预约</a>');
