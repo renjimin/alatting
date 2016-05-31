@@ -15,7 +15,7 @@ class LoginMessage(models.Model):
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "{:s}".format(self.id)
+        return "{:d}".format(self.id)
 
 
 class UserFriends(models.Model):
@@ -25,7 +25,7 @@ class UserFriends(models.Model):
     user2 = models.ForeignKey(User, related_name='user2')
 
     def __str__(self):
-        return "{:d}".format(self.pk)
+        return "{:d}".format(self.id)
 
 
 class Person(models.Model):
