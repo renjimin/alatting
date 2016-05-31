@@ -128,7 +128,7 @@ var scale = function(box,options){
 		b.on({
 				'mousedown':function(e){
 						if (e.originalEvent) e = e.originalEvent;
-						e.preventDefault();
+						e.preventDefault();						
 						ismoved = true;
 						s.initData($(e.currentTarget));
 						var touch = e;
@@ -138,8 +138,8 @@ var scale = function(box,options){
 						s.o.addClass('active').css('z-index',scaleIndex++);
 						$(e.currentTarget).addClass('drag-active');
 						// 移除文字编辑焦点 
-						$('.text-element').removeClass('text-element-act');
-						$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+						//$('.text-element').removeClass('text-element-act');
+						//$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
 				},
 				'mousemove':function(e){
 						if (e.originalEvent) e = e.originalEvent;
@@ -157,13 +157,15 @@ var scale = function(box,options){
 						var ox = s.opt.tx = parseInt(s.opt.left) + ex;
 						var oy = s.opt.ty = parseInt(s.opt.top) + ey;
 
-						s.o.css({'left': ox + 'px','top': oy + 'px'});
+						s.o.css({'transform': 'translate3d('+ex+'px,'+ey+'px,0)'});
 
 				},
 				'mouseup':function(e){
-						if (e.originalEvent) e = e.originalEvent;
-						$(e.currentTarget).removeClass('drag-active');
-						ismoved = false;
+					ismoved = false;
+					if (e.originalEvent) e = e.originalEvent;
+					$(e.currentTarget).removeClass('drag-active');
+					s.o.css({'left': s.opt.tx + 'px','top': s.opt.ty + 'px','transform':'translate3d(0,0,0)'});
+						
 				}
 		});
 
@@ -171,18 +173,21 @@ var scale = function(box,options){
 		* 旋转 nbar-rotate
 		*/
 		r.on({
-				'touchstart':function(e){
-						if (e.originalEvent) e = e.originalEvent;e.preventDefault();
+				'mousedown':function(e){
+						if (e.originalEvent) e = e.originalEvent;e.preventDefault();ismoved = true;
 						s.initData($(e.currentTarget));
-						var touch = e.touches[0];
+						var touch = e;
 						touchEvents.startX = touch.pageX;
 						touchEvents.startY = touch.pageY;
 						$(e.currentTarget).addClass('drag-active');
 				},
-				'touchmove':function(e){
+				'mousemove':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						e.preventDefault();
-						var touch = e.touches[0];
+						if(!ismoved){
+							return;
+						}
+						var touch = e;
 						touchEvents.currentX = touch.pageX;
 						touchEvents.currentY = touch.pageY;
 
@@ -216,24 +221,25 @@ var scale = function(box,options){
 						
 						s.o.attr('data-rotate',offsetAngle);
 				},
-				'touchend':function(e){
-						if (e.originalEvent) e = e.originalEvent;
-						$(e.currentTarget).removeClass('drag-active');
-						s.opt.currentAngle = s.o.data('rotate');
+				'mouseup':function(e){
+					ismoved = false;
+					if (e.originalEvent) e = e.originalEvent;
+					$(e.currentTarget).removeClass('drag-active');
+					s.opt.currentAngle = s.o.data('rotate');
 				}
 		});
 		/*
 		* 缩放（右下角,改变宽度和高度） nbar-se
 		*/
 		nbarse.on({
-				'touchstart':function(e){
+				'mousedown':function(e){
 						if (e.originalEvent) e = e.originalEvent;e.preventDefault();
 						s.initData($(e.currentTarget));
 						var touch = e.touches[0];
 						touchEvents.startX = touch.pageX;
 						touchEvents.startY = touch.pageY;
 				},
-				'touchmove':function(e){
+				'mousemove':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						e.preventDefault();
 						var touch = e.touches[0];
@@ -251,7 +257,7 @@ var scale = function(box,options){
 
 						s.o.find('.element').css({'width':tox+'px','height':toy+'px'});
 				},
-				'touchend':function(e){
+				'mouseup':function(e){
 
 				}
 		});
