@@ -5,11 +5,10 @@
 .webuploader-container
 {
     position: relative;
-    margin:15px 0 0;
-    padding:0 10px;
-    width:33.3333333%;
-    height:140px;
-    float:left;
+    padding: 0 10px;
+    width: 100%;
+    line-height: 40px;
+    float: left;
 }
 .webuploader-element-invisible
 {
@@ -23,31 +22,18 @@
 .webuploader-pick
 {
     position: relative;
-    width:100%;
+    width: 100%;
     height:100%;
     left: 0;
     top:0;
     display: block;
     overflow: hidden;
-    text-indent: -9999px;
-    overflow: hidden;
     cursor: pointer;
     text-align: center;
-    background: #eee;
-}
-.webuploader-pick:before{
-    content:"";
-    display:block;
-    position: absolute;
-    top:50%;
-    left:50%;
-    margin-left:-30px;
-    margin-top:-30px;
-    width:60px;
-    height: 60px;
-    border-radius: 50%;
-    background: url(../../images/file-plus.png) center center no-repeat;
-    background-size:100% 100%;
+    background: #CECAC5;
+    border-radius: 7px;
+    color: #6D6B66;
+    font-size: 15px;
 }
 
 .webuploader-container:active .webuploader-pick{
