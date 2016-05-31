@@ -154,7 +154,7 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//[模块6]模块
+//[模块6]数据模块
 function(module, exports, __require__){
 	Editor.define("dataHandler",module.exports = function(){
 		var api = {};
@@ -164,6 +164,9 @@ function(module, exports, __require__){
 			api.bindData($("#logo_title"),"unique_name");
 			api.bindData($("#titleInput"),"unique_name");
 			api.setValue("unique_name",yunyeEditorGlobal.unique_name);
+			api.bindData($("#short_description"),"short_description");
+			api.bindData($("#descInput"),"short_description");
+			api.setValue("short_description",yunyeEditorGlobal.short_description);
 
 			$("#phoneInput").val(yunyeEditorGlobal.phone);
 			$("#mobileInput").val(yunyeEditorGlobal.mobile);
