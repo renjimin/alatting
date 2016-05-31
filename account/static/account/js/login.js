@@ -14,6 +14,22 @@ $(document).ready(function () {
     var PHONE_REGEXP = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
     var deviceH = document.documentElement.clientHeight + "px";
+    $("ul.regist-tab li:last").css('background',"black");
+    $("ul.regist-tab li").click(function() {
+        $("ul.regist-tab li").removeClass("regist-tab-act"); 
+        $("ul.regist-tab li").css('background',"black");
+        $(this).addClass("regist-tab-act"); 
+        $(this).css('background',"");
+        if($(this).attr('data-item') == "server"){
+            $("#id_user_type").val('server');            
+            $('.selectprovider').hide();
+            $('.selectserver').show();
+        }else{
+            $("#id_user_type").val('consumer');      
+            $('.selectprovider').show();
+            $('.selectserver').hide();
+        }
+    });
 
     function isLocalStorageSupported() {
         var testKey = 'test',
@@ -83,7 +99,7 @@ $(document).ready(function () {
         }
         $.ajax({
             type: 'POST',
-            url: '/account/send_message',
+            url: '/api/v1/account/send_message',
             data: {
                 "username": username,
                 "user_existed": "0"
@@ -154,6 +170,96 @@ $(document).ready(function () {
         }
         $("#registForm").submit();
     });
+function  selectTrade(opts,callBack){
+        $.ajax({
+            type:'GET',
+            url:'/api/v1/poster/categorys?parent='+opts,
+
+            success:function(data){
+                 callBack(data);
+            },
+            error:function(){
+
+            }
+        });
+}
+    $(".selectserver").click(function(){
+        var selected = $('body');
+        selectTrade(0,function(data){
+            var sbox= '<div class="div-server"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
+            for(var i= 0;i<data.length;i++){
+                sbox += '<li class = "li-server" data-name = "'+data[i].name+'" data-id="'+data[i].id+'"><a>'+data[i].name+'<span class="glyphicon glyphicon-chevron-down"></span></a></li>';
+            }
+            sbox += '</ul></div>';
+            if (selected.children('.div-server')) {
+                selected.append(sbox);
+            };
+            });
+        selected.on('click','.li-server',function(){
+            var ths = $(this);
+            var sid = $(this).attr('data-id');
+            var ssbox = '';
+            $("#id_main_category").val(sid);
+            selectTrade(sid,function(data){
+                for (var i = 0; i < data.length; i++) {
+                    ssbox += '<li class = "sli-server" data-name ="'+data[i].name+'" data-id="'+data[i].id+'">'+data[i].name+'</li>';
+                    console.log(data.length);
+                };  
+                if(ths.find("li").length==0){
+                    ths.append(ssbox); 
+                }                
+            });
+            selected.off('click','.sli-server').on('click','.sli-server',function(){
+                var selectedname = $(this).attr('data-name');
+                $('.selectserver').text(selectedname);
+                $("#id_sub_category_ids").val($(this).attr('data-id'));
+                console.log($.trim($(".regist-industryinput").val()));
+                $('.div-server').fadeOut(200);
+            });
+        });
+    });
+
+    $('.selectprovider').click(function(){
+      var selected = $('body');
+            selectTrade(0,function(data){
+                console.log(data);
+                var sbox= '<div class="div-provider"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
+                for(var i= 0;i<data.length;i++){
+                    sbox += '<li class = "li-provider" data-id="'+data[i].id+'"><a>'+data[i].name+'<span class="glyphicon glyphicon-unchecked"></span></a></li>';
+                }
+                sbox += '</ul></div>';
+                selected.append(sbox);
+                    
+                });
+            selected.on('click','.li-provider',function(){
+                var ths = $(this);
+                var sid = $(this).attr('data-id');
+                var ssbox= ' <ul>';
+                selectTrade(sid,function(data){
+                    for (var i = 0; i < data.length; i++) {
+                        ssbox +='<li class = "sli-provider" data-name ="'+data[i].name+'" data-id="'+data[i].id+'">'+data[i].name+'<span class="glyphicon glyphicon-unchecked"></span></li>';
+                    };  
+                    ssbox +='</ul>';
+                    if(ths.find('li').length ==0){
+                        ths.append(ssbox);    
+                    }                                        
+                });
+                selected.on('click','.sli-provider',function(event){
+                    var selectedname = $(this).attr('data-name');
+                    var ths = $(this);
+                    $('.selectprovider').text(selectedname);
+                     var chckbox = ths.children();
+                    //console.log(chckbox)
+                    chckbox.removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+                    event.stopPropagation();  
+                    //$('.div-server').fadeOut(200);
+                });
+                selected.on('click','.glyphicon-ok-circle',function(){
+                    $('.div-server').fadeIn(200);
+                })
+
+            });  
+    })
 
     /*忘记密码后获取验证码*/
     $("#btncode-psd").click(function () {

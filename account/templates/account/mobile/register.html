@@ -10,44 +10,70 @@
 
 {% block base_body %}
     {% with flase as open_cellphone %}
-    <form method="post" class="regist" id="registForm">
-        {% csrf_token %}
+     {% csrf_token %}
+     <div class="regist">
         <div class="rgheader">
             <a href="{% url 'account:login' %}" class="btn-back">
                 <i class="icon-back"></i>
             </a>
-
             <h3>注 册</h3>
-        </div>
-        <div class="regist-content">
-            <ul class="list">
-                <li class="list-li">
-                    <img src="{% static 'account/img/name.png' %}">
-                    {{ form.username }}
+        </div>   
+        <div class = "regist-container">
+            <div class = "regist-contents">
+            <ul class = "regist-tab">
+                <li class = "regist-tab-act" data-item="server">
+                    <div >我要提供服务</div>
                 </li>
-                <li class="list-li">
-                    <img src="{% static 'account/img/password.png' %}">
-                    {{ form.message }}
-                    <input type="button" id="btncode" class="btn btn-success"
-                           value="获取验证码"/>
-                    <input type="button" id="btncodeoff"
-                           class="btn btn-default" value="获取验证码"/>
-                </li>
-                <li class="list-li">
-                    <img src="{% static 'account/img/password.png' %}">
-                    {{ form.password1 }}
-                </li>
-                <li class="list-li">
-                    <img src="{% static 'account/img/password.png' %}">
-                    {{ form.password2 }}
+                <li class = "" data-item="provider">
+                    <div>我要找服务</div>
                 </li>
             </ul>
-            <button type="button" id="btnregist"
-                    class="btn btn-success btn-lg btn-block">注 册
-            </button>
-        </div>
-        <input type="hidden" name="next" value="{{ next }}"/>
-    </form>
+            <input type="hidden" id="pageType">
+            <div class = "tab_container">
+                <div id= "regist-tab1" class = "tab-content">
+                     <form method="post"  id="registForm">
+                        <input id = "id_user_type" name = "user_type" type= "hidden">
+                            <div class="regist-content">
+                                <ul class="list">
+                                    <li class="list-li">
+                                        <img src="{% static 'account/img/name.png' %}">
+                                        {{ form.username }}
+                                    </li>
+                                    <li class="list-li">
+                                        <img src="{% static 'account/img/password.png' %}">
+                                        {{ form.message }}
+                                        <input type="button" id="btncode" class="btn btn-success"
+                                               value="获取验证码"/>
+                                        <input type="button" id="btncodeoff"
+                                               class="btn btn-default" value="获取验证码"/>
+                                    </li>
+                                    <li class="list-li">
+                                        <img src="{% static 'account/img/password.png' %}">
+                                        {{ form.password1 }}
+                                    </li>
+                                    <li class="list-li">
+                                        <img src="{% static 'account/img/password.png' %}">
+                                        {{ form.password2 }}
+                                    </li>
+                                    <li class="list-li">
+                                        <a  id = "sub_category_ids" class = "selectserver">请选择行业<i class = "glyphicon glyphicon-menu-down"></i></a>
+                                        <a class = "selectprovider"style ="display:none">我要找的服务(可多选)<i class = "glyphicon glyphicon-menu-down"></i></a>   
+                                        <input type="hidden" name="main_category" id = "id_main_category">
+                                        <input type="hidden" name="sub_category_ids" id = "id_sub_category_ids">
+                                    </li>
+                                    <li class = "list-li">
+                                        <span class= "regist-industry">找不到行业?</span>
+                                        <input  id = "id_input_category" name="input_category" class = "regist-industryinput" type= "text" placeholder = "请输入">
+                                    </li>                                       
+                                </ul>
+                                <button type="button" id="btnregist"
+                                        class="btn btn-success btn-lg btn-block">注 册
+                                </button>
+                            </div>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                        </form>               
+                </div>
+        </div>   
 {% endwith %}
 {% endblock %}
 
