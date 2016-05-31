@@ -25,6 +25,8 @@ function(module, exports, __require__) {
 	__require__(5);
 	__require__(6);
 	__require__(7);
+	__require__(8);
+	__require__(9);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -163,6 +165,7 @@ function(module, exports, __require__){
 			$(".vitrul-body .hightlight").width(width).height(height);
 		}
 		api.removeHighLigh = function(){
+			currentSelect.removeClass("active");
 			$(".vitrul-body .hightlight").hide();
 		}
 		api.getCurrentTarget = function(){
@@ -267,5 +270,183 @@ function(module, exports, __require__){
 		}
 		return api;
 	});
+},
+//[模块8]
+function(module, exports, __require__){
+	Editor.define("header_background_pannel",module.exports = function(){
+		var api = {};
+		var palette = __require__(9);
+
+		api.init = function(){
+			palette.init($("#header_background_pannel .palette"),$(".header"));
+		}
+		api.destory = function(){
+			palette.destory();
+		}
+		return api;
+	});
+},
+//[模块9]调色板模块
+function(module, exports, __require__){
+	var api ={};
+	var colorSet   = [["#ffffff","#ffffff","#e2e3e5","#e46d1d8","#388bb7","#47b4f9","#7ac7fb","#5c89cd","#3650bf","#7934ff","#8500ff","#9900cd","#cb00bc"],
+					["#a7a7a7","#555555","#55e1bc","#51c2ae","#2c749c","#809cff","#4a3eff","#a106ff","#9200c5","#c137ff","#ec6db4","#eb6d78","#ef008f"],
+					["#1e1e1e","#1f965c","#1aa901","#77dd00","#b1df73","#c8ff01","#eeea02","#d6ba01","#c57401","#f28715","#f65b2f","#d92940","#000108"]];
+	var container;
+	api.init = function(div,target){
+		if( !div.html().trim() ){
+			var str = "";
+			_.each(colorSet,function(arr){
+				str += "<tr>"
+				_.each(arr,function(color){
+					str += "<td style='background:"+ color +"'></td>"
+				});
+				str += "</tr>"
+			});
+			str = "<table class='colorBox'>"+ str +"</table>"
+			str += "<div class='colorPannel'><div class='colorGrid' style='background-color: rgb(255, 0, 0);'><div class='color-picker'><div></div></div></div><div class='colorSlider'><div class='color-picker'></div></div></div>"
+			div.empty().append(str);
+		}
+		container = div;
+		api.initColorBox(target);
+		api.initPannel(target);
+	}
+	api.destory = function(div){
+		container.find(".colorBox").off("click");
+	}
+	api.initColorBox = function(targetToChange){
+		container.find(".colorBox").on("click",function(e){
+			var index = $(e.currentTarget).find("td").index($(e.target));
+			if( index==38 ){
+				var colorPannel = $(e.currentTarget).next();
+				if(colorPannel.is(":visible")){
+					colorPannel.slideUp(200);
+				}else{
+					colorPannel.slideDown(200);
+				}
+			}else{
+				if( index==0 ){
+					var bgC = "transparent";
+				}else{
+					var bgC = $(e.target).css("background-color");
+				}
+				targetToChange.css("background",bgC);
+			}
+		});
+	}
+	api.initPannel = function(targetToChange){
+		$(document)
+		.on('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider', function(event) {
+			var target = $(this);
+			event.preventDefault();
+			$(document).data('colors-target', target);
+			move(target, event, true);
+		})
+		.on('mousemove.colorPannel touchmove.colorPannel', function(event) {
+			var target = $(document).data('colors-target');
+			if( target ) move(target, event);
+		})
+		.on('mouseup.colorPannel touchend.colorPannel', function() {
+			$(this).removeData('colors-target');
+		});
+		function move(target, event){
+			var picker = target.find('[class$=-picker]'),
+				offsetX = target.offset().left,
+				offsetY = target.offset().top,
+				x = Math.round(event.pageX - offsetX),
+				y = Math.round(event.pageY - offsetY),
+				wx, wy, r, phi;
+
+			if( event.originalEvent.changedTouches ) {
+				x = event.originalEvent.changedTouches[0].pageX - offsetX;
+				y = event.originalEvent.changedTouches[0].pageY - offsetY;
+			}
+			if( x < 0 ) x = 0;
+			if( y < 0 ) y = 0;
+			if( x > target.width() ) x = target.width();
+			if( y > target.height() ) y = target.height();
+			if( target.is('.colorGrid') ) {
+				picker
+					.stop(true)
+					.animate({
+						top: y + 'px',
+						left: x + 'px'
+					}, 0, 'swing', function() {
+						updateFromControl(target,targetToChange);
+					});
+			} else {
+				picker
+					.stop(true)
+					.animate({
+						top: y + 'px'
+					}, 0, 'swing', function() {
+						updateFromControl(target,targetToChange);
+					});
+			}
+		}
+		function updateFromControl(target,targetToChange) {
+			function getCoords(picker, container) {
+				var left, top;
+				if( !picker.length || !container ) return null;
+				left = picker.offset().left;
+				top = picker.offset().top;
+				return {
+					x: left - container.offset().left + (picker.outerWidth() / 2),
+					y: top - container.offset().top + (picker.outerHeight() / 2)
+				};
+			}
+			var hue, saturation, brightness, x, y, r, phi,
+				minicolors = target.parent(),
+				grid = minicolors.find('.colorGrid'),
+				slider = minicolors.find('.colorSlider'),
+				gridPicker = grid.find('[class$=-picker]'),
+				sliderPicker = slider.find('[class$=-picker]'),
+				gridPos = getCoords(gridPicker, grid),
+				sliderPos = getCoords(sliderPicker, slider);
+
+			if( target.is('.colorGrid, .colorSlider') ) {
+				hue = keepWithin(360 - parseInt(sliderPos.y * (360 / slider.height()), 10), 0, 360);
+				saturation = keepWithin(Math.floor(gridPos.x * (100 / grid.width())), 0, 100);
+				brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
+				grid.css('backgroundColor', rgb2hex(hsb2rgb({ h: hue, s: 100, b: 100 })));
+				targetToChange.css('backgroundColor', rgb2hex(hsb2rgb({ h: hue, s:saturation, b:brightness })));
+			}
+		}
+		function keepWithin(value, min, max) {
+			if( value < min ) value = min;
+			if( value > max ) value = max;
+			return value;
+		}
+		function hsb2rgb(hsb) {
+			var rgb = {};
+			var h = Math.round(hsb.h);
+			var s = Math.round(hsb.s * 255 / 100);
+			var v = Math.round(hsb.b * 255 / 100);
+			if(s === 0) {
+				rgb.r = rgb.g = rgb.b = v;
+			} else {
+				var t1 = v;
+				var t2 = (255 - s) * v / 255;
+				var t3 = (t1 - t2) * (h % 60) / 60;
+				if( h === 360 ) h = 0;
+				if( h < 60 ) { rgb.r = t1; rgb.b = t2; rgb.g = t2 + t3; }
+				else if( h < 120 ) {rgb.g = t1; rgb.b = t2; rgb.r = t1 - t3; }
+				else if( h < 180 ) {rgb.g = t1; rgb.r = t2; rgb.b = t2 + t3; }
+				else if( h < 240 ) {rgb.b = t1; rgb.r = t2; rgb.g = t1 - t3; }
+				else if( h < 300 ) {rgb.b = t1; rgb.g = t2; rgb.r = t2 + t3; }
+				else if( h < 360 ) {rgb.r = t1; rgb.g = t2; rgb.b = t1 - t3; }
+				else { rgb.r = 0; rgb.g = 0; rgb.b = 0; }
+			}
+			return {r: Math.round(rgb.r),g: Math.round(rgb.g),b: Math.round(rgb.b)};
+		}
+		function rgb2hex(rgb) {
+			var hex = [rgb.r.toString(16),rgb.g.toString(16),rgb.b.toString(16)];
+			$.each(hex, function(nr, val) {
+				if (val.length === 1) hex[nr] = '0' + val;
+			});
+			return '#' + hex.join('');
+		}
+	}	
+	module.exports = api;
 }
 ]);

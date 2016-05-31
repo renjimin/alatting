@@ -541,22 +541,6 @@
     background-size: 100% auto;
 }
 /******************************/
-.header-qrcode:hover,
-.header-logo:hover,
-.header-abutton:hover,
-.header-info:hover,
-.header .mask:hover,
-.yunye-template > .content > div:hover,
-.header-qrcode.active,
-.header-logo.active,
-.header-abutton.active,
-.header-info.active,
-.header .mask.active,
-.yunye-template > .content > div.active{
-    -webkit-transition: background .3s;
-    transition: background .3s;
-    background: #989898;
-}
 
 .header-qrcode:hover .qrcode-inner .qrcode,
 .header-abutton:hover .abutton-group li,
@@ -606,7 +590,7 @@
     height: 100%;
 }
 .vitrul-body .hightlight{
-    border:2px solid #01FFFF;
+    border:2px solid #000108;
     display: none;
     position: absolute;
     transform-origin: left top;
