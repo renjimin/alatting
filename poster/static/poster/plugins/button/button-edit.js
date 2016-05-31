@@ -314,14 +314,19 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
 
         s.addControlListen();
     }
-    
+    function posterDetail(){
+        return false;
+    }
+    function posterOrder(){
+        return false;
+    }
     function addDefaultButtons(){
         if($('.sys-button').length > 0){
             return;
         }
         var g = yunyeEditorGlobal;
-        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1">详情</a>'),
-              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2">预约</a>');
+        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1" onclick="return posterDetail()">详情</a>'),
+              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2" onclick="return posterOrder()">预约</a>');
         var cnd = '<div class="cnd-element button-element sys-button">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
@@ -350,6 +355,18 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
         scale(detailBox);
         orderBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-orderBox.innerHeight() -10+'px','left':fullcontainer.innerWidth()/2+10+'px'}).show();
         scale(orderBox);
+
+        detailBtn.unbind();orderBtn.unbind();
+        detailBtn.on('click',function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        });
+        orderBtn.on('click',function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        });
 
     }
     function buttonConfirm(ele){

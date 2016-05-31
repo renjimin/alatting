@@ -47,3 +47,9 @@ $(function(){
         }
     });
 });
+function posterDetail(){
+        return true;
+}
+function posterOrder(){
+    return true;
+}
