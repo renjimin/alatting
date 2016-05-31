@@ -15,13 +15,14 @@ $(document).ready(function () {
     //获取设备高度（软键盘调出来时高度也会变小，所以在点击事件前获取）
     var deviceH = document.documentElement.clientHeight + "px";
     $("ul.regist-tab li:last").css('background',"black");
+    $("#id_user_type").val('server');
     $("ul.regist-tab li").click(function() {
         $("ul.regist-tab li").removeClass("regist-tab-act"); 
         $("ul.regist-tab li").css('background',"black");
         $(this).addClass("regist-tab-act"); 
         $(this).css('background',"");
         if($(this).attr('data-item') == "server"){
-            $("#id_user_type").val('server');            
+            $("#id_user_type").val('server');
             $('.selectprovider').hide();
             $('.selectserver').show();
         }else{

@@ -21,7 +21,7 @@ ul li{
     margin: 0 auto;
 }
 
-.systemimg{
+.image-all{
     width: 65%;
     background: #7F7C77;
     margin: 0 auto;
@@ -32,19 +32,19 @@ ul li{
     height: 260px;
 }
 
-.systemimg .imgul{
+.image-all .imgul{
     overflow-y:auto;
     overflow: hidden;
     padding: 0px 15px;
 }
 
-.systemimg .imgul li{
+.image-all .imgul li{
     float: left;
     margin-right: 8px;
     margin-bottom: 6px;
 }
 
-.systemimg .imgul li img{
+.image-all .imgul li img{
     width: 42px;
     height: 62px;
 }

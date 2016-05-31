@@ -92,10 +92,10 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
-LOGOUT_URL = '/account/logout/'
-LOGIN_URL = '/account/login/'
+LOGOUT_URL = '/mobile/account/logout/'
+LOGIN_URL = '/mobile/account/login/'
 LOGIN_REDIRECT_URL = '/'
 
 LOGGING = {

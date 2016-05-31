@@ -24,7 +24,7 @@
 				</div>
 
 
-				<div class="systemimg">
+				<div class="image-all">
 					<ul class="imgul">
 						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
 						<li><img src="/static/poster_pc/images/system-img2.png"/></li>
@@ -40,9 +40,6 @@
 				</div>
 
 
-
-
-
 			</div>
 
 		</li>
@@ -50,24 +47,25 @@
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-video-camera"></i><span>上传视频</span></a>
 			<div class="subnav">
-
-
+				<div id="uploadsvideo1">上传视频</div>
 			</div>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-chain"></i><span>图片视频链接</span></a>
 			<div class="subnav">
+
 				<div class="link-body"><div class="link-body-inner"></div></div>
 				<div class="link-input">
-						<div class="input-group">
-								<input type="text" class="form-control input-lg" id="resourceLinkText" placeholder="请输入图片或视频链接">
-								<span class="input-group-btn">
-										<button class="btn btn-default btn-lg" type="button" id="resourceLinkBtn">
-												<span class="fa fa-chain"></span>
-										</button>
-								</span>
-						</div>
+					<div class="input-group">
+						<input type="text" class="form-control input-lg" id="resourceLinkText" placeholder="请输入图片或视频链接">
+						<span class="input-group-btn">
+							<button class="btn btn-default btn-lg" type="button" id="resourceLinkBtn">
+								<span class="fa fa-chain"></span>
+							</button>
+						</span>
+					</div>
 				</div>
+
 			</div>
 		</li>
 	</ul>
@@ -91,14 +89,42 @@
                         auto: true,
                         success: function(data, file) {
 							var target = Editor.require("hightClick").getCurrentTarget();
-							console.log(target);
+							//console.log(target);
 							$(target).imgslider({"data":data});
-							//target.append('<img src="'+data.file+'"/>');
                         },
                         error: function(err) {
                             console.info(err);
                         },
 
                     });
+
+
+$("#uploadsvideo1").click(function(){
+	$.fn.uploadsvideo.showDialog(function(data) {
+		var target = Editor.require("hightClick").getCurrentTarget();
+		console.log(data);
+		var vediobtn = $('<a data-url="'+data.file+'"><img src="'+data.preview+'" /></a>')
+
+		target.empty().append(vediobtn);
+		vediobtn.on('click',function(){
+			//
+		});
+		/*
+		$("#videoDomTmpl").tmpl({
+			"class_name": "video_content",
+			"video_dom_id": data.id,
+			"video_id": data.id,
+			"video_preview_img": data.preview,
+			"video_url": data.file
+		}).appendTo(target);
+
+		videojs.initialize('video_' + data.id);
+		*/
+
+
+	}, function(data) {
+		yyAlert("上传失败");
+	});
+})
 
 </script>

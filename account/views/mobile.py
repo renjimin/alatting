@@ -3,24 +3,20 @@
 import uuid
 from django.conf import settings
 from django.contrib.auth import authenticate, login
-from django.http import JsonResponse
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.http import JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render_to_response, render
 from django.views.generic import FormView
 from django.views.generic.detail import DetailView
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from account.form.forms import RegisterForm, pwd_validate, \
     ResetPasswordForm, LoginForm
 from utils.userinput import what
-from utils.message import get_message
 from alatting_website.models import (
-    Poster, PosterLike, PosterSubscribe
-    )
+    Poster, PosterLike, PosterSubscribe,
+    Category)
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from account.email import send_verify_email
 from account.models import LoginMessage, Person
 
 
@@ -33,27 +29,23 @@ class ProfileView(DetailView):
     model = User
 
     def get_object(self, queryset=None):
-        user = self.request.user
-        if user.is_authenticated():
-            obj = self.request.user
-            posters_created = []
-            posters = Poster.objects.filter(creator=self.request.user)
-            for poster_created in posters:
-                posters_created.append(poster_created)
-            obj.posters_created = posters_created
-            obj.poster_count = Poster.objects.filter(
-                creator=self.request.user
-            ).count()
-            obj.poster_likes_count = PosterLike.objects.filter(
-                creator=self.request.user
-            ).count()
-            obj.poster_subscriptions_count = PosterSubscribe.objects.filter(
-                follower=self.request.user
-            ).count()
-            obj.money = 340
-            return obj
-        else:
-            return None
+        obj = self.request.user
+        posters_created = []
+        posters = Poster.objects.filter(creator=self.request.user)
+        for poster_created in posters:
+            posters_created.append(poster_created)
+        obj.posters_created = posters_created
+        obj.poster_count = Poster.objects.filter(
+            creator=self.request.user
+        ).count()
+        obj.poster_likes_count = PosterLike.objects.filter(
+            creator=self.request.user
+        ).count()
+        obj.poster_subscriptions_count = PosterSubscribe.objects.filter(
+            follower=self.request.user
+        ).count()
+        obj.money = 340
+        return obj
 
 
 class RegisterView(FormView):
@@ -62,7 +54,7 @@ class RegisterView(FormView):
     """
     template_name = "account/mobile/register.html"
     form_class = RegisterForm
-    success_url = settings.LOGIN_URL
+    success_url = reverse_lazy('account:login')
 
     def response_error_msg(self, form, error):
         form.initial = form.cleaned_data
@@ -99,7 +91,7 @@ class RegisterView(FormView):
 
         offset_naive_dt = msg.created_at.replace(tzinfo=None)
         # 校验时间是否已过期
-        if (datetime.now() - offset_naive_dt) > timedelta(seconds=settings.EXPIRE_TIME):
+        if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
             return self.response_error_msg(form, u'验证码已过期')
 
         if msg.message != message:  # 校验验证码是否正确
@@ -129,8 +121,44 @@ class RegisterView(FormView):
             main_category_id, sub_category_ids,
             input_category
         )
-        # login_validate(request, username, password)
+        self.login_and_redirect_to(
+            user_type, user.username, password,
+            main_category_id, sub_category_ids
+        )
         return super(RegisterView, self).form_valid(form)
+
+    def login_and_redirect_to(self, user_type, username, password,
+                              main_id, sub_id='',
+                              input_category=''):
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return
+        login(self.request, user)
+        self.success_url = reverse('account:profile')
+        if user_type == Person.USER_TYPE_SERVER:
+            main_cate = get_object_or_404(Category, pk=main_id)
+            if sub_id:
+                sub_cate = get_object_or_404(Category, pk=sub_id)
+            else:
+                input_category = input_category.strip()
+                sub_cate = Category.objects.filter(
+                    name=input_category
+                ).first()
+
+            if sub_cate:
+                self.success_url = reverse('posters:keywords')
+                q = QueryDict(mutable=True)
+                kw = {
+                    'main_category_id': main_cate.id,
+                    'sub_category_id': sub_cate.id,
+                    'cate': main_cate.name,
+                    'subcate': sub_cate.name
+                }
+                q.update(kw)
+                self.success_url += '?%s' % q.urlencode()
+        else:
+            self.success_url += '?sub_id=%s' % sub_id
+        return self.success_url
 
 
 class ResetPasswordView(FormView):

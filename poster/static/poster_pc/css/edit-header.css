@@ -29,6 +29,7 @@
     padding: 3px 4px;
     display: inline-block;
     margin-right: 23px;
+    height: 60px;
 }
 
 .top-bar a.item:hover,.top-bar a.item:active{
@@ -58,12 +59,12 @@
 }
 
 .ico-edit-music{
-     background-position: -198px 0px;
+     background-position: -195px 0px;
  }
 
 .ico-preview{
-     background-position: -248px 0px;
-     width: 60px;
+     background-position: -245px 0px;
+     width: 62px;
  }
 
 .icon-save,.icon-publish{
@@ -128,7 +129,7 @@
 }
 
 .edit-left .add-page:hover,.edit-left .add-page:active{
-    background: #716F6A;
+    background: #ABAAA7;
 }
 
 .active-page{

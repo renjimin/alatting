@@ -21,7 +21,7 @@ function selectSysImg(obj){
 	addSystemimg(eleobj);
 }
 function addSystemimg(eleobj){
-    var cnd = $('<div class="cnd-element systemimg-element">'
+    var cnd = $('<div class="cnd-element systemimg-element" data-type="systemimg">'
 				+'<div class="element-box">'
 				+'	<div class="element-box-contents">'
 				+'		'
@@ -43,5 +43,6 @@ function addSystemimg(eleobj){
     cnd.hide();
     fullcontainer.append(cnd);
     cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-eleobj.height()/2+'px','left':fullcontainer.innerWidth()/2-eleobj.width()/2+'px'}).show();
-    scale(cnd);
+    //scale(cnd);
+    cnd.scaleable();
 }

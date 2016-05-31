@@ -1,5 +1,17 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import absolute_import, print_function, unicode_literals
+# coding=utf-8
 
-__author__ = 'lyhapple'
+from django.contrib.auth import views as auth_views
+from django.core.urlresolvers import reverse
+from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.views.generic import TemplateView
+
+
+def alatting_logout(request):
+    auth_views.logout(request)
+    return redirect(reverse('website:index'))
+
+
+class LoginView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse('PC端登录页面，待实现...')
