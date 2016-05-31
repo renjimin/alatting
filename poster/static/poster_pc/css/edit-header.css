@@ -7,7 +7,7 @@
     width: 240px;
     float: left;
 }
-.edit-header .header-bar{
+.edit-header .top-bar{
     width: 59%;
 }
 
@@ -21,17 +21,17 @@
     padding-left: 6%;
 }
 
-.header-bar{
+.top-bar{
    margin-left: 240px;
    margin-right: 320px;
 }
-.header-bar a.item{
+.top-bar a.item{
     padding: 3px 4px;
     display: inline-block;
     margin-right: 23px;
 }
 
-.header-bar a.item:hover,.header-bar a.item:active{
+.top-bar a.item:hover,.top-bar a.item:active{
     background-color:#ECEAE8;
 }
 
