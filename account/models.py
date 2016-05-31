@@ -2,7 +2,8 @@
 
 from django.db import models
 from django.contrib.auth.models import User
-from alatting_website.models import AlattingBaseModel
+from django.shortcuts import get_object_or_404
+from alatting_website.models import AlattingBaseModel, Category
 from utils import file
 from utils.db.fields import (BigAutoField, OverWriteImageField)
 
@@ -36,8 +37,8 @@ class Person(models.Model):
         (GENDER_MALE, GENDER_MALE),
         (GENDER_FEMALE, GENDER_FEMALE),
     )
-    USER_TYPE_SERVER = 'Server'
-    USER_TYPE_CONSUMER = 'Consumer'
+    USER_TYPE_SERVER = 'server'
+    USER_TYPE_CONSUMER = 'consumer'
     USER_TYPE_CHOICES = (
         (USER_TYPE_SERVER, USER_TYPE_SERVER),
         (USER_TYPE_CONSUMER, USER_TYPE_CONSUMER)
@@ -60,18 +61,58 @@ class Person(models.Model):
     def __str__(self):
         return "{:d}".format(self.pk)
 
+    def create_user_category_record(self, main_category_id, sub_category_id):
+        UserCategory.objects.create(
+            user=self.user,
+            main_category_id=main_category_id,
+            sub_category_id=sub_category_id
+        )
+
+    def create_user_categorys(self, main_category_id,
+                              sub_category_ids=None, input_category=''):
+        main_cate = get_object_or_404(Category, pk=main_category_id)
+        if sub_category_ids:
+            sub_ids = sub_category_ids.split(',')
+            for sub_id in sub_ids:
+                sub_id = sub_id.strip()
+                if sub_id:
+                    self.create_user_category_record(
+                        main_cate.id, sub_id
+                    )
+
+        if input_category and isinstance(str, input_category):
+            input_category = input_category.strip()
+            qs = Category.objects.filter(name=input_category)
+            if qs.exists():
+                sub_cate = qs.first()
+            else:
+                sub_cate = Category.objects.create(
+                    name=input_category,
+                    parend_id=main_cate.id,
+                    type=main_cate.type,
+                    audit_status=Category.AUDIT_STATUS_AUDITING
+                )
+            self.create_user_category_record(main_cate.id, sub_cate.id)
+
 
 class UserCategory(AlattingBaseModel):
     from alatting_website.models import Category
     user = models.ForeignKey(User, verbose_name=u'用户')
+    main_category = models.ForeignKey(
+        Category,
+        verbose_name=u'主行业分类',
+        related_name='+',
+        default=None
+    )
     sub_category = models.ForeignKey(
         Category,
-        verbose_name=u'行业分类',
-        help_text=u'保存二级行业分类'
+        verbose_name=u'二级行业分类',
+        related_name='+',
+        default=None
     )
 
     class Meta:
         verbose_name_plural = verbose_name = u'用户关注行业'
 
     def __str__(self):
-        return u'%s_%s' % (self.user, self.sub_category.name)
+        return u'%s_%s' % (self.user, self.main_category.name)
