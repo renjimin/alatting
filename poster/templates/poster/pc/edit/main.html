@@ -70,19 +70,7 @@
         <div class = "audiolink"></div>
         <a class="change-template-button" href="javascript:void(0);"><i class="ico-edit-template"></i></a>
         <!--           template           -->
-        <div class="yunye-template">
-            <div class="content">
-                <div class="content-top" data-pannel="template_clip_pannel">
-                    
-                </div>
-                <div class="content-middle" data-pannel="template_clip_pannel">
-                    
-                </div>
-                <div class="content-bottom" data-pannel="template_clip_pannel">
-                    
-                </div>
-            </div>
-        </div>
+        {{ posterpage.temp_html|safe }}
         <!--                     -->
     </div>
     <div class="vitrul-body">
@@ -90,19 +78,8 @@
     </div>
 </div>
 <style type="text/css">
-    .yunye-template > .content > .content-top {
-        background-color: rgba(0,0,0,.12);
-        overflow: hidden;
-        height: 30%;
-    }
-    .yunye-template > .content > .content-middle {
-        background-color:  rgba(255,255,255,.12);
-        overflow: hidden;
-        height: 30%;
-    }
-    .yunye-template > .content > .content-bottom {
-        background-color:  rgba(0,0,0,.12);
-        overflow: hidden;
-        height: 30%;
+    {{ posterpage.temp_css|safe }}
+    .change-template-button{
+        display: none;
     }
 </style>
