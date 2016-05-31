@@ -108,27 +108,34 @@ function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher =  __require__(3);
-		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.content-top,.content-middle,.content-bottom".split(",");
+		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.yunye-template > .content > div".split(",");
 		var currentSelect = null;
 
 		api.ready = function(){
 			$(document).on("click",function(e){
 				if($(e.target).closest(".edit-body").length != 0){
-					_.each(clicklist,function(item){
-						if($(e.target).closest(item).length != 0){
-							$(".active").removeClass("active");
-							var transform = "";
-							if($(item).closest(".yunye-template").length  != 0)transform = $(".yunye-template").css("transform");
-							hightItem(item,transform);
-							pannelSwitcher.switchPannel($(item).data("pannel"));
-							return;
+					_.each(clicklist,function(itemSelector){
+						if( $(e.target).closest(itemSelector).length == 0 )return;
+						if( $(itemSelector).length == 1 ){
+							var item  = $(itemSelector);
+						}else{
+							var item  = $(e.target);
 						}
+						$(".active").removeClass("active");
+						var transform = "",pannelName = "";
+						if(item.closest(".yunye-template").length  != 0){
+							transform = $(".yunye-template").css("transform");
+							pannelName = "template_clip_pannel";
+						}else{
+							pannelName = $(itemSelector).data("pannel");
+						}
+						hightItem(item,transform);
+						pannelSwitcher.switchPannel(pannelName);
 					});
 				}
 			});
-			function hightItem(itemName,transform){
-				var item = $(itemName),
-					editBody = $(".edit-body"),
+			function hightItem(item,transform){
+				var editBody = $(".edit-body"),
 					x = item.offset().left - $(".edit-body").offset().left,
 					y = item.offset().top - $(".edit-body").offset().top,
 					width = item.outerWidth() - 4,
@@ -137,6 +144,13 @@ function(module, exports, __require__){
 				currentSelect = item;
 				$(".vitrul-body .hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
+		}
+		api.resizeHighLigh = function(){
+			if( !api.getCurrentTarget() )return;
+			var item = api.getCurrentTarget(),
+				width = item.outerWidth() - 4,
+				height = item.outerHeight() - 4;
+			$(".vitrul-body .hightlight").width(width).height(height);
 		}
 		api.removeHighLigh = function(){
 			$(".vitrul-body .hightlight").hide();
@@ -177,9 +191,11 @@ function(module, exports, __require__){
 			//有绑定的数据
 			api.bindData($("#logo_title"),"unique_name");
 			api.bindData($("#titleInput"),"unique_name");
+			api.bindData($("#titleLastLength"),"unique_name","var calV = 10 - String(__value__).length;( calV < 0) ? 0 : calV;");
 			api.setValue("unique_name",yunyeEditorGlobal.unique_name);
 			api.bindData($("#short_description"),"short_description");
 			api.bindData($("#descInput"),"short_description");
+			api.bindData($("#descLastLength"),"short_description","Editor.require('hightClick').resizeHighLigh();var calV = 50 - String(__value__).length;( calV < 0) ? 0 : calV;");
 			api.setValue("short_description",yunyeEditorGlobal.short_description);
 			//无需绑定的数据
 			$("#phoneInput").val(yunyeEditorGlobal.phone);
@@ -187,31 +203,42 @@ function(module, exports, __require__){
 			$("#emailInput").val(yunyeEditorGlobal.email);
 			$("#adressInput").val(yunyeEditorGlobal.address);
 		}
-		api.bind 
-		api.bindData = function(element,valueName){
+		api.bindData = function(element,valueName,eval){
 			if(binders[valueName]){
-				binders[valueName].elements.push(element);
+				binders[valueName].elements.push({"element":element,"eval":eval});
 			}else{
 				binders[valueName] = {
-					elements:[element],
+					elements:[{"element":element,"eval":eval}],
 					value:null
 				};
 			}
 			if( element.is("input, textarea, select") ){
 				element.off("input propertychange").on("input propertychange",function(){
-					api.setValue(valueName,element.val());
+					api.setValue(valueName,element.val(),element);
 				});
 			}
 		}
-		api.setValue =function(valueName,value){
+		api.setValue = function(valueName,value,valueItem){
 			binders[valueName].value = value;
-			_.each(binders[valueName].elements,function(item){
-				if( item.is("input, textarea, select") ){
-					item.val( value );
+			_.each(binders[valueName].elements,function(obj){
+				var item = obj.element,
+					compiledValue;
+				if( item==valueItem )return;
+				if(obj.eval){
+					var __value__ = value;
+					compiledValue = eval(obj.eval);
 				}else{
-					item.html( value );
+					compiledValue = value;
+				}
+				if( item.is("input, textarea, select") ){
+					item.val( compiledValue );
+				}else{
+					item.html( compiledValue );
 				}
 			});
+		}
+		api.getValue = function(valueName){
+			return binders[valueName].value;
 		}
 		return api;
 	});
