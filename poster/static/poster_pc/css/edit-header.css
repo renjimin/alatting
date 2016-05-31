@@ -29,6 +29,7 @@
     padding: 3px 4px;
     display: inline-block;
     margin-right: 23px;
+    height: 60px;
 }
 
 .top-bar a.item:hover,.top-bar a.item:active{
