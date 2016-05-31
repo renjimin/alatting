@@ -9,7 +9,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, \
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from account.email import send_verify_email
-from account.models import Person, UserFriends, LoginMessage
+from account.models import Person, UserFriends, LoginMessage, UserCategory
 from account.serializers import AccountProfileSerializer, \
     AccountFriendsListSerializer
 from alatting_website.model.poster import Poster
@@ -98,14 +98,36 @@ class CheckMessageView(APIView):
                                 status=status.HTTP_401_UNAUTHORIZED)
 
 
-class PostersListView(ListCreateAPIView):
+class PostersServerListView(ListCreateAPIView):
     model = Poster
     queryset = Poster.objects.all()
     serializer_class = PosterSerializer
 
     def get_queryset(self):
-        qs = super(PostersListView, self).get_queryset()
+        qs = super(PostersServerListView, self).get_queryset()
         return qs.filter(creator=self.request.user).order_by('-created_at')
+
+
+class PostersConsumerListView(ListAPIView):
+    model = Poster
+    queryset = Poster.objects.filter(
+        status=Poster.STATUS_PUBLISHED
+    )
+    serializer_class = PosterSerializer
+
+    def get_queryset(self):
+        qs = super(PostersConsumerListView, self).get_queryset()
+        sub_ids = UserCategory.objects.filter(
+            user=self.request.user,
+            data_status=UserCategory.DATA_STATUS_USABLE
+        ).values_list('sub_category_id', flat=True)
+        if sub_ids:
+            qs = qs.filter(
+                sub_category_id__in=sub_ids
+            ).exclude(
+                creator=self.request.user
+            ).order_by('-created_at')
+        return qs
 
 
 class ProfileView(RetrieveUpdateAPIView):
