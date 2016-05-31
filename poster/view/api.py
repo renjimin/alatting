@@ -39,7 +39,8 @@ from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
 )
-
+from survey.models import RunInfoHistory
+from survey.serializer.survey import RunInfoHistorySerializer
 
 logger = logging.getLogger('common')
 
@@ -557,3 +558,13 @@ class TemplateDetailView(RetrieveAPIView):
     model = Template
     queryset = Template.objects.all()
     serializer_class = TemplateSerializer
+
+class SurveyConsumerAnswersView(ListAPIView):
+    model = RunInfoHistory
+    queryset = RunInfoHistory.objects.all()
+    serializer_class = RunInfoHistorySerializer
+
+    def get_queryset(self):
+        qs = super(SurveyConsumerAnswersView, self).get_queryset()
+        return qs.filter(poster_id=self.kwargs['pk'], questionnaire__role = 'consumer', isactive = True)
+        
