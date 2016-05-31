@@ -2,8 +2,11 @@
 
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
-from survey.views import IndexView, StartView, QuestionnaireView, \
-QuestionnaireDoneView, QuestionnaireBlankView, AnswerDetailView
+from survey.view.mobile import (
+	IndexView, StartView, QuestionnaireView,
+	QuestionnaireDoneView, QuestionnaireBlankView, 
+	AnswerDetailView
+)
 
 urlpatterns = [
 	url(r'^$', IndexView.as_view(), name='index'),

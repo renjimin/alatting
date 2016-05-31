@@ -70,7 +70,7 @@ class QuestionSet(models.Model):
 
     def is_last(self):
         try:
-            return self.questionnaire.questionsets()[-1] == self
+            return self.questionnaire.questionsets().latest('sortid') == self
         except NameError:
             # should only occur if not yet saved
             return True
@@ -175,6 +175,7 @@ class RunInfoHistory(models.Model):
     completed = models.DateTimeField(auto_now_add=True)
     questionnaire = models.ForeignKey(Questionnaire)
     runid = models.CharField(max_length=32)
+    isactive = models.BooleanField(default=False)
 
     def __unicode__(self):
         return "%s" % (self.subject, self.completed)

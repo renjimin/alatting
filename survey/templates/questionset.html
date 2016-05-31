@@ -58,7 +58,13 @@
                     <div class="qs-footer">
                         <div>
                             <a class="back btn btn-default" href="{{ prev_url }}">返回</a>
-                            <input type="submit" class="next btn btn-default" value="确认">
+                            {% if islast_consumer_repeat %}
+                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer_repeat();" value="确认">
+                            {% elif  islast_consumer%}
+                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer();" value="确认">
+                            {% else %}
+                                <input type="submit" class="next btn btn-default" value="确认">
+                            {% endif %}
                         </div>
                     </div>  
                 </div>
@@ -70,6 +76,7 @@
 {% endblock %}
 {% block base_footer_js %}
     <script src="{% static 'website/js/footer.js' %}"></script>
+    <script src="{% static 'survey/js/survey-base.js' %}"></script>
 {% endblock %}
 </div>
 </body>

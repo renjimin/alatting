@@ -31,10 +31,11 @@ def process_choice(question, answer):
 	if question.required and not opt:
 		raise AnswerException('必须选择一个选项')
 	if question.regex:
-		if regex_check(question.regex, opt):
-			pass
-		else:
-			raise AnswerException(question.errmsg)
+		if question.required:
+			if regex_check(question.regex, opt):
+				pass
+			else:
+				raise AnswerException(question.errmsg)
 	return opt
 #choice-input
 def question_choice_input(request, question):
@@ -68,10 +69,11 @@ def process_choice_input(question, answer):
 	if question.required and not opt:
 		raise AnswerException('必须选择一个选项')
 	if question.regex:
-		if regex_check(question.regex, opt):
-			pass
-		else:
-			raise AnswerException(question.errmsg)
+		if question.required:
+			if regex_check(question.regex, opt):
+				pass
+			else:
+				raise AnswerException(question.errmsg)
 	return opt
 #checkbox
 def question_checkbox(request, question):
@@ -89,11 +91,12 @@ def process_checkbox(question, answer):
 	if question.required and not multiple:
 		raise AnswerException('必须选择一个选项')
 	if question.regex:
-		for opt in multiple:
-			if regex_check(question.regex, opt):
-				pass
-			else:
-				raise AnswerException(question.errmsg)
+		if question.required:
+			for opt in multiple:
+				if regex_check(question.regex, opt):
+					pass
+				else:
+					raise AnswerException(question.errmsg)
 	return ','.join(multiple)
 
 #text, textarea
@@ -107,10 +110,11 @@ def process_text(question, answer):
 	if question.required and not opt:
 		raise AnswerException('请输入文本')
 	if question.regex:
-		if regex_check(question.regex, opt):
-			pass
-		else:
-			raise AnswerException(question.errmsg)
+		if question.required:
+			if regex_check(question.regex, opt):
+				pass
+			else:
+				raise AnswerException(question.errmsg)
 	return opt
 
 #for processing questions: supply additional information to the templates
