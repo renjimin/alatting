@@ -14,7 +14,7 @@ from survey import *
 
 
 class IndexView(TemplateView):
-	template_name = 'questionset.html'
+	template_name = 'survey/mobile/questionset.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(IndexView, self).get_context_data(**kwargs)
@@ -29,7 +29,7 @@ class QuestionnaireBlankView(View):
 		contextdict = {'qs_title': qs_title,
 						'poster_id': poster.pk,
 						'role': role}
-		return render_to_response('questionset_blank.html', contextdict)
+		return render_to_response('survey/mobile/questionset_blank.html', contextdict)
 
 	def post(self, request, **kwargs):
 		role = self.request.GET.get('role', '')
@@ -146,7 +146,7 @@ class QuestionnaireView(View):
 						'errors': errors,
 						'islast_consumer_repeat': islast_consumer_repeat,
 						'islast_consumer': islast_consumer}
-		return render_to_response('questionset.html', contextdict)
+		return render_to_response('survey/mobile/questionset.html', contextdict)
 
 	def add_answer(self, runinfo, question, ans):
 		answer = Answer()
@@ -303,7 +303,7 @@ class QuestionnaireView(View):
 
 class AnswerDetailView(TemplateView):
 
-	template_name = "answer_detail.html"
+	template_name = "survey/mobile/answer_detail.html"
 
 	def get_context_data(self, **kwargs):
 		context = super(AnswerDetailView, self).get_context_data(**kwargs)

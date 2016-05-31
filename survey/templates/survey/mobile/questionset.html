@@ -1,0 +1,83 @@
+{% load static %}
+{% load questionnaire %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width,user-scalable=no" >
+    <title>武汉云页移动科技有限公司</title>
+    {% block base_header_css %}
+        <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
+        <link rel="stylesheet" href="{% static 'survey/css/survey-base.css' %}">
+    {% endblock %}
+    {% block base_header_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'website/js/base.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
+    {% block base_header_extra %}
+    {% endblock %}
+</head>
+<body>
+<div class="body-container">
+{% block base_body_header %}
+{% endblock %}
+{% block base_body %}
+    <div class="qs container-fluid">
+        <header class="qs-header">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                style="width: {{progress}}%;"></div>
+            </div>      
+            <div class="progress-btm">请输入详细信息</div>
+        </header>
+        <div class="qs-body">
+            <form class="form" action="{{ request.path }}" method="POST">
+                <div class="qs-title">{{qs_title}}</div>
+                <div class="qs-list">
+                    <div class="step">
+                        {% for question, qdict in qlist %}
+                        {% with errors|dictget:question.sortid as error %}
+                            <div class="qs-list-section 
+                            {% if forloop.last or qlist.count == 1 %}
+                            {% else %}
+                                qs-list-section-pre
+                            {% endif %}">
+                                <div class="qs-list-title"> 
+                                    {{question.text}}
+                                </div>
+                                {% if error %}
+                                    <div class="error">{{error}}</div>
+                                {% endif %}
+                                {% include qdict.template %}
+                            </div>
+                        {% endwith %}
+                        {% endfor %}
+                    </div>
+                    <div class="qs-footer">
+                        <div>
+                            <a class="back btn btn-default" href="{{ prev_url }}">返回</a>
+                            {% if islast_consumer_repeat %}
+                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer_repeat();" value="确认">
+                            {% elif  islast_consumer%}
+                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer();" value="确认">
+                            {% else %}
+                                <input type="submit" class="next btn btn-default" value="确认">
+                            {% endif %}
+                        </div>
+                    </div>  
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block base_body_footer %}
+{% endblock %}
+{% block base_footer_js %}
+    <script src="{% static 'website/js/footer.js' %}"></script>
+    <script src="{% static 'survey/js/survey-base.js' %}"></script>
+{% endblock %}
+</div>
+</body>
+</html>
