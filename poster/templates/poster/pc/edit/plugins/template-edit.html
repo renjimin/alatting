@@ -24,7 +24,7 @@
 				</div>
 
 
-				<div class="systemimg">
+				<div class="image-all">
 					<ul class="imgul">
 						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
 						<li><img src="/static/poster_pc/images/system-img2.png"/></li>
@@ -40,9 +40,6 @@
 				</div>
 
 
-
-
-
 			</div>
 
 		</li>
@@ -50,24 +47,16 @@
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-video-camera"></i><span>上传视频</span></a>
 			<div class="subnav">
-
-
+				<div id="uploadsvideo">上传视频</div>
 			</div>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-chain"></i><span>图片视频链接</span></a>
 			<div class="subnav">
-				<div class="link-body"><div class="link-body-inner"></div></div>
-				<div class="link-input">
-						<div class="input-group">
-								<input type="text" class="form-control input-lg" id="resourceLinkText" placeholder="请输入图片或视频链接">
-								<span class="input-group-btn">
-										<button class="btn btn-default btn-lg" type="button" id="resourceLinkBtn">
-												<span class="fa fa-chain"></span>
-										</button>
-								</span>
-						</div>
-				</div>
+
+
+
+
 			</div>
 		</li>
 	</ul>
@@ -91,14 +80,14 @@
                         auto: true,
                         success: function(data, file) {
 							var target = Editor.require("hightClick").getCurrentTarget();
-							console.log(target);
+							//console.log(target);
 							$(target).imgslider({"data":data});
-							//target.append('<img src="'+data.file+'"/>');
                         },
                         error: function(err) {
                             console.info(err);
                         },
 
                     });
+
 
 </script>
