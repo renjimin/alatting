@@ -3,7 +3,7 @@
 from django.conf.urls import url
 from account.views.api import ProfileView, FriendsView, \
     MessageView, CheckMessageView, PostersServerListView, \
-    PostersConsumerListView
+    PostersConsumerListView, FilesListView
 
 
 urlpatterns = [
@@ -19,5 +19,5 @@ urlpatterns = [
     url(r'^profile$', ProfileView.as_view(), name='profile'),
     url(r'^friends$', FriendsView.as_view(), name='friends'),
 
-
+    url(r'^files$', FilesListView.as_view(), name='files'),
 ]
