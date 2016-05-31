@@ -89,42 +89,22 @@ var scale = function(box,options){
 				'currentX':0,
 				'currentY':0,
 		}
+		templateScale = $('.edit-body').width()/$('.yunye-template').width();
 		/*
 		* 拖动 element-box
 		*/
-		/*
-		bindEvents(b.get(0),{
-			'start':function(e){console.log(222222222)
-				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
-				s.initData($(e.currentTarget));
-				touchEvents.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
-				touchEvents.startY = e.type === 'touchstart' ? e.targetTouches[0].pageY : e.pageY;
+		b.dragable({
+			'dragElement':b.parent(),
+			'scaling':templateScale,
+			'start':function(){
 				$('.cnd-element').removeClass('active');
-				s.o.addClass('active').css('z-index',scaleIndex++);
-				$(e.currentTarget).addClass('drag-active');
-				// 移除文字编辑焦点
-				$('.text-element').removeClass('text-element-act');
-				$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+				b.parent().addClass('active').css('z-index',scaleIndex++);
 			},
-			'move':function(e){console.log(333333)
-				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
-				touchEvents.currentX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
-				touchEvents.currentY = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+			'end':function(){
 
-				var ex = (touchEvents.currentX - touchEvents.startX)/templateScale;
-				var ey = (touchEvents.currentY - touchEvents.startY)/templateScale;
-
-				var ox = s.opt.tx = parseInt(s.opt.left) + ex;
-				var oy = s.opt.ty = parseInt(s.opt.top) + ey;
-
-				s.o.css({'left': ox + 'px','top': oy + 'px'});
-			},
-			'end':function(e){
-				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
-				$(e.currentTarget).removeClass('drag-active');
 			}
-		});*/
-		var ismoved = false;
+		});
+		/*var ismoved = false;
 		b.on({
 				'mousedown':function(e){
 						if (e.originalEvent) e = e.originalEvent;
@@ -137,6 +117,9 @@ var scale = function(box,options){
 						$('.cnd-element').removeClass('active');
 						s.o.addClass('active').css('z-index',scaleIndex++);
 						$(e.currentTarget).addClass('drag-active');
+
+						Editor.require("switchPannel").switchPannel('button_pannel');
+
 						// 移除文字编辑焦点 
 						//$('.text-element').removeClass('text-element-act');
 						//$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
@@ -168,7 +151,7 @@ var scale = function(box,options){
 						
 				}
 		});
-
+	*/
 		/*
 		* 旋转 nbar-rotate
 		*/
@@ -235,14 +218,14 @@ var scale = function(box,options){
 				'mousedown':function(e){
 						if (e.originalEvent) e = e.originalEvent;e.preventDefault();
 						s.initData($(e.currentTarget));
-						var touch = e.touches[0];
+						var touch = e;
 						touchEvents.startX = touch.pageX;
 						touchEvents.startY = touch.pageY;
 				},
 				'mousemove':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						e.preventDefault();
-						var touch = e.touches[0];
+						var touch = e;
 						touchEvents.currentX = touch.pageX;
 						touchEvents.currentY = touch.pageY;
 
