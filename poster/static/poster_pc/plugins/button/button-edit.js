@@ -389,9 +389,11 @@ setTimeout(function(){
         fullcontainer.append(detailBox);
         fullcontainer.append(orderBox);
         detailBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-detailBox.innerHeight() - 10+'px','left':fullcontainer.innerWidth()/2-detailBox.innerWidth() - 10+'px'}).show();
-        scale(detailBox);
+        //scale(detailBox);
+        detailBox.scaleable();
         orderBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-orderBox.innerHeight() -10+'px','left':fullcontainer.innerWidth()/2+10+'px'}).show();
-        scale(orderBox);
+        //scale(orderBox);
+        orderBox.scaleable();
 
     }
     function buttonConfirm(ele){
@@ -421,7 +423,8 @@ setTimeout(function(){
             }
             fullcontainer.append(cnd);
             cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
-            scale(cnd);
+            //scale(cnd);
+            cnd.scaleable();
         }else{
             if(ele.data('rotate') != null){
                 ele.css('transform','rotate(0)');
