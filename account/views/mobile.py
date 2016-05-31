@@ -3,24 +3,20 @@
 import uuid
 from django.conf import settings
 from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render_to_response, render
 from django.views.generic import FormView
 from django.views.generic.detail import DetailView
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 from account.form.forms import RegisterForm, pwd_validate, \
     ResetPasswordForm, LoginForm
 from utils.userinput import what
-from utils.message import get_message
 from alatting_website.models import (
     Poster, PosterLike, PosterSubscribe
     )
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
-from account.email import send_verify_email
 from account.models import LoginMessage, Person
 
 
@@ -62,7 +58,7 @@ class RegisterView(FormView):
     """
     template_name = "account/mobile/register.html"
     form_class = RegisterForm
-    success_url = settings.LOGIN_URL
+    success_url = reverse_lazy('account:login')
 
     def response_error_msg(self, form, error):
         form.initial = form.cleaned_data
@@ -99,7 +95,7 @@ class RegisterView(FormView):
 
         offset_naive_dt = msg.created_at.replace(tzinfo=None)
         # 校验时间是否已过期
-        if (datetime.now() - offset_naive_dt) > timedelta(seconds=settings.EXPIRE_TIME):
+        if datetime.now() - offset_naive_dt > timedelta(seconds=settings.EXPIRE_TIME):
             return self.response_error_msg(form, u'验证码已过期')
 
         if msg.message != message:  # 校验验证码是否正确
@@ -129,7 +125,9 @@ class RegisterView(FormView):
             main_category_id, sub_category_ids,
             input_category
         )
-        # login_validate(request, username, password)
+        # if input_type != 'email':
+        #     user = authenticate(username=username_temp, password=password)
+        #     self.success_url = reverse('posters:keywords', kwargs=)
         return super(RegisterView, self).form_valid(form)
 
 

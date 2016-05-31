@@ -51,7 +51,7 @@ class RegisterForm(forms.Form):
         widget=forms.HiddenInput
     )
     sub_category_ids = forms.CharField(
-        max_length=10,
+        max_length=100,
         widget=forms.HiddenInput,
         required=False
     )
