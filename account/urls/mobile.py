@@ -5,8 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from account.views.mobile import (
     LoginView, MessageView, CheckMessageView,
-    RegisterView, ResetPasswordView, ProfileView,
-    FriendsView
+    RegisterView, ResetPasswordView, ProfileView
 )
 
 
@@ -19,6 +18,6 @@ urlpatterns = [
     url(r'^auth_message$', CheckMessageView.as_view(), name='auth_message'),
     url(r'^reset_password', ResetPasswordView.as_view(),
         name='reset_password'),
-    url(r'^profile', login_required(ProfileView.as_view()), name='profile'),
-    url(r'^friends', FriendsView.as_view(), name='friends'),
+    url(r'^profile.html$',
+        login_required(ProfileView.as_view()), name='profile'),
 ]
