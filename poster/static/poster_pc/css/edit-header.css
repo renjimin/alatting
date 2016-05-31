@@ -1,11 +1,11 @@
 .edit-header > div{
-    float: left;
     text-align: center;
     height: 100%;
 }
 
 .edit-header .logo{
     width: 240px;
+    float: left;
 }
 .edit-header .header-bar{
     width: 59%;
@@ -13,13 +13,17 @@
 
 .edit-header .header-btn{
     width: 320px;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 .logo img{
     padding-left: 6%;
 }
 
 .header-bar{
-   text-align: center;
+   margin-left: 240px;
+   margin-right: 320px;
 }
 .header-bar a.item{
     padding: 3px 4px;

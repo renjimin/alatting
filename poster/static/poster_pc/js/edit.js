@@ -226,6 +226,7 @@ function(module, exports, __require__){
 				var target = Editor.require("hightClick").getCurrentTarget();
 				console.log(target);
 			});
+
 		}
 		return api;
 	});
