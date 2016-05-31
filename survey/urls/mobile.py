@@ -4,8 +4,7 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from survey.view.mobile import (
 	IndexView, StartView, QuestionnaireView,
-	QuestionnaireDoneView, QuestionnaireBlankView, 
-	AnswerDetailView
+	QuestionnaireBlankView, AnswerDetailView
 )
 
 urlpatterns = [
@@ -17,8 +16,6 @@ urlpatterns = [
 		name='questionnaire'),
 	url(r'^questionnaire/(?P<runid>\d+)/(?P<qs_sortid>\d+)$', 
 		QuestionnaireView.as_view(), name='questionset'),
-	url(r'^questionnairedone/', QuestionnaireDoneView.as_view(), 
-		name='questionnairedone'),
 #questionnaireblank/poster_id/?role=creator or questionnaireblank/poster_id/?role=consumer
 	url(r'^questionnaireblank/(?P<poster_id>\d+)/', QuestionnaireBlankView.as_view(), 
 		name='questionnaireblank'),

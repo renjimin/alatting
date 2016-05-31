@@ -68,13 +68,6 @@ class StartView(RedirectView):
 		kwargs = {'runid': run.id}
 		return reverse('survey:questionnaire', kwargs=kwargs)
 
-class QuestionnaireDoneView(TemplateView):
-	template_name = 'questionset_done.html'
-
-	def get_context_data(self, **kwargs):
-		context = super(QuestionnaireDoneView, self).get_context_data(**kwargs)
-		return context
-		
 
 class QuestionnaireView(View):
 	def get_progress(self, runinfo):
