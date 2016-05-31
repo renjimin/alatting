@@ -63,13 +63,12 @@ function(module, exports, __require__){
 	var api = {};
 	var menuList;
 	
-	api.init = function(pannel){
-		var pannelName = __require__(3).getCurrentPannel(),
-			pannel = $("#" + pannelName);
+	api.init = function(pannelName){
+		var pannel = $("#" + pannelName);
 		menuList = pannel.find(".nav-item");
 		_.each(menuList,function(item){
 			var aTag = $(item).find(".nav-link");
-			if(aTag.data("toggle"))aTag.off("click").on("click",function(){
+			if(aTag.data("toggle"))aTag.on("click",function(){
 				var subnav = $(item).find(".subnav");
 				if(subnav.is(":visible")){
 					subnav.slideUp(200);
@@ -78,36 +77,47 @@ function(module, exports, __require__){
 				}
 			});
 		});
-		if(Editor.require(pannelName)){
-			var editorModule = Editor.require(pannelName);
-			editorModule.init();
-		}
+		var editorModule = Editor.require(pannelName);
+		if(editorModule && editorModule.init && $.isFunction(editorModule.init))editorModule.init();
+	}
+	api.destory = function(pannelName){
+		var pannel = $("#" + pannelName);
+		menuList = pannel.find(".nav-item");
+		_.each(menuList,function(item){
+			var aTag = $(item).find(".nav-link");
+			if(aTag.data("toggle"))aTag.off("click");
+		});
+		var editorModule = Editor.require(pannelName);
+		if(editorModule && editorModule.destory && $.isFunction(editorModule.destory))editorModule.destory();
 	}
 	module.exports = api;
 },
 //[模块3]切换右侧面板模块
 function(module, exports, __require__){
-	var api = {};
-	var currentPannel;
+	Editor.define("switchPannel",module.exports = function(){
+		var api = {};
+		var currentPannel;
 
-	api.switchPannel = function(pannelName){
-		if(currentPannel == pannelName)return;
-		$("#" + currentPannel).hide();
-		$("#" + pannelName).show();
-		currentPannel = pannelName;
-		var toggleMenu = __require__(2);
-		toggleMenu.init($("#" + pannelName));
-	}
-	api.getCurrentPannel = function(){
-		return currentPannel;
-	}
-	module.exports = api;
+		api.switchPannel = function(pannelName){
+			if(currentPannel == pannelName)return;
+			$("#" + currentPannel).hide();
+			__require__(2).destory(currentPannel);
+
+			currentPannel = pannelName;
+			$("#" + pannelName).show();
+			__require__(2).init(currentPannel);
+		}
+		api.getCurrentPannel = function(){
+			return currentPannel;
+		}
+		return api;
+	});
 },
 //[模块4]点击高亮模块
 function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
-		var pannelSwitcher =  __require__(3);
+		var pannelSwitcher = Editor.require("switchPannel");
 		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.yunye-template > .content > div".split(",");
 		var currentSelect = null;
 
@@ -165,7 +175,7 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("headerClick",module.exports = function(){
 		var api = {};
-		var pannelSwitcher =  __require__(3);
+		var pannelSwitcher =  Editor.require("switchPannel");
 		var clicklist = ".item-text,.item-sysimg,.item-button,.item-music".split(",");
 
 		api.ready = function(){
