@@ -154,7 +154,7 @@ function(module, exports, __require__){
 					height = item.outerHeight() - 4;
 				item.addClass("active");
 				currentSelect = item;
-				$(".vitrul-body .hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
+				$(".hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
 		}
 		api.resizeHighLigh = function(){
@@ -162,11 +162,11 @@ function(module, exports, __require__){
 			var item = api.getCurrentTarget(),
 				width = item.outerWidth() - 4,
 				height = item.outerHeight() - 4;
-			$(".vitrul-body .hightlight").width(width).height(height);
+			$(".hightlight").width(width).height(height);
 		}
 		api.removeHighLigh = function(){
 			if(currentSelect)currentSelect.removeClass("active");
-			$(".vitrul-body .hightlight").hide();
+			$(".hightlight").hide();
 		}
 		api.getCurrentTarget = function(){
 			return currentSelect;
@@ -256,22 +256,11 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//[模块7]图片视频编辑模块
+//[模块7]模块
 function(module, exports, __require__){
-	Editor.define("template_clip_pannel",module.exports = function(){
-		var api = {};
-
-		api.init = function(){
-			$("#template_clip_pannel .nav-link").on("click",function(){
-				var target = Editor.require("hightClick").getCurrentTarget();
-				console.log(target);
-			});
-
-		}
-		return api;
-	});
+	
 },
-//[模块8]
+//[模块8]头部背景颜色模块
 function(module, exports, __require__){
 	Editor.define("header_background_pannel",module.exports = function(){
 		var api = {};
@@ -292,19 +281,26 @@ function(module, exports, __require__){
 	var colorSet   = [["#ffffff","#ffffff","#e2e3e5","#e46d1d8","#388bb7","#47b4f9","#7ac7fb","#5c89cd","#3650bf","#7934ff","#8500ff","#9900cd","#cb00bc"],
 					["#a7a7a7","#555555","#55e1bc","#51c2ae","#2c749c","#809cff","#4a3eff","#a106ff","#9200c5","#c137ff","#ec6db4","#eb6d78","#ef008f"],
 					["#1e1e1e","#1f965c","#1aa901","#77dd00","#b1df73","#c8ff01","#eeea02","#d6ba01","#c57401","#f28715","#f65b2f","#d92940","#000108"]];
-	var container;
+	var container = null;
 	api.init = function(div,target,cssName){
 		if( !div.html().trim() ){
 			var str = "";
 			_.each(colorSet,function(arr){
 				str += "<tr>"
 				_.each(arr,function(color){
-					str += "<td style='background:"+ color +"'></td>"
+					str += "<td style='background:"+ color +";'></td>"
 				});
 				str += "</tr>"
 			});
 			str = "<table class='colorBox'>"+ str +"</table>"
-			str += "<div class='colorPannel'><div class='colorGrid' style='background-color: rgb(255, 0, 0);'><div class='color-picker'><div></div></div></div><div class='colorSlider'><div class='color-picker'></div></div></div>"
+			str += "<div class='colorPannel'><div class='colorGrid' style='background-color: rgb(255, 0, 0);'><div class='color-picker'><div></div></div></div><div class='colorSlider'><div class='color-picker'></div></div>"
+				+"<table><tr><td style='background:#000000;'></td><td style='background:#ffffff;'></td><td style='background:#ffecce;'></td></tr>"
+				+"<tr><td style='background:#ff8001;'></td><td style='background:#458026;'></td><td style='background:#ffff01;'></td></tr>"
+				+"<tr><td style='background:#fe0000'></td><td style='background:#008001;'></td><td style='background:#0000fe;'></td></tr>"
+				+"<tr style='margin-bottom: 15px;display: block;'><td style='background:#ee82ef;'></td></tr>"
+				+"<tr><td style='background:'></td><td style='background:#666666;'></td><td style='background:#8e3b2d;'></td></tr>"
+				+"<tr><td style='background:#c1c1c1;'></td><td style='background:#cecece;'></td><td style='background:#f4f4f4;'></td></tr></table>"
+				+"<div class='colorPrev' style='background-color: rgb(128, 64, 64);'></div><input type='' value='#804040'/></div>"
 			div.empty().append(str);
 		}
 		container = div;
@@ -313,6 +309,12 @@ function(module, exports, __require__){
 	}
 	api.destory = function(div){
 		container.find(".colorBox").off("click");
+		container.find(".colorPannel table").off("click");
+		$(document)
+			.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
+			.off('mousemove.colorPannel touchmove.colorPannel')
+			.off('mouseup.colorPannel touchend.colorPannel');
+		container = null;
 	}
 	api.initColorBox = function(targetToChange,cssName){
 		container.find(".colorBox").on("click",function(e){
@@ -332,6 +334,11 @@ function(module, exports, __require__){
 				}
 				targetToChange.css(cssName,bgC);
 			}
+		});
+		container.find(".colorPannel table").on("click",function(e){
+			var index = $(e.currentTarget).find("td").index($(e.target));
+			var bgC = $(e.target).css("background-color");
+			targetToChange.css(cssName,bgC);
 		});
 	}
 	api.initPannel = function(targetToChange,cssName){
@@ -404,13 +411,14 @@ function(module, exports, __require__){
 				gridPos = getCoords(gridPicker, grid),
 				sliderPos = getCoords(sliderPicker, slider);
 
-			if( target.is('.colorGrid, .colorSlider') ) {
-				hue = keepWithin(360 - parseInt(sliderPos.y * (360 / slider.height()), 10), 0, 360);
-				saturation = keepWithin(Math.floor(gridPos.x * (100 / grid.width())), 0, 100);
-				brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
-				grid.css('backgroundColor', rgb2hex(hsb2rgb({ h: hue, s: 100, b: 100 })));
-				targetToChange.css(cssName, rgb2hex(hsb2rgb({ h: hue, s:saturation, b:brightness })));
-			}
+			hue = keepWithin(360 - parseInt(sliderPos.y * (360 / slider.height()), 10), 0, 360);
+			saturation = keepWithin(Math.floor(gridPos.x * (100 / grid.width())), 0, 100);
+			brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
+			grid.css('backgroundColor', rgb2hex(hsb2rgb({ h: hue, s: 100, b: 100 })));
+			var hex = rgb2hex(hsb2rgb({ h: hue, s:saturation, b:brightness }));
+			targetToChange.css( cssName,hex );
+			minicolors.find(".colorPrev").css( 'backgroundColor',hex );
+			minicolors.find("input").val( hex );
 		}
 		function keepWithin(value, min, max) {
 			if( value < min ) value = min;
