@@ -22,14 +22,13 @@ ul li{
 }
 
 .image-all{
-    width: 65%;
+    width: 64%;
     background: #7F7C77;
     margin: 0 auto;
     margin-top: 28px;
     padding: 10px 0px;
     border-radius: 7px;
     overflow-y: auto;
-    height: 260px;
 }
 
 .image-all .imgul{
