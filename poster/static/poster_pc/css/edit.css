@@ -14,6 +14,9 @@ body {
     background: #c8c8c8;
     font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+a:focus,a:hover,a:visited{
+    text-decoration: none;
+}
 
 .edit-viewport {
     position: relative;
@@ -249,3 +252,102 @@ body {
     height:100%;
 }
 /**/
+
+
+
+/* 颜色选择器 */
+.colorBox{
+    margin:auto;
+}
+.colorBox td,.colorPannel td{
+    width: 20px;
+    height: 20px;
+    border: 1px solid;
+}
+.colorPannel td{
+    display: inline-block;
+    margin:2px;
+}
+.colorPannel table{
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.colorPannel{
+    border-radius: 5px;
+    background: #e1e1e1;
+    width:260px;
+    height: 180px;
+    margin:20px auto;
+    position: relative;
+}
+.colorSlider {
+    position: absolute;
+    top: 10px;
+    right: 8px;
+    width: 20px;
+    height: 120px;
+    background: white url("../images/colors.png") 0 0;
+    cursor: row-resize;
+}
+.colorSlider .color-picker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: white;
+    border: solid 1px black;
+    margin-top: -2px;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.colorGrid{
+    position: absolute;
+    top: 10px;
+    right: 34px;
+    width: 120px;
+    height: 120px;
+    background: url("../images/colors.png") -120px 0;
+    cursor: crosshair;
+}
+.colorGrid .color-picker{
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    width: 12px;
+    height: 12px;
+    border: solid 1px black;
+    border-radius: 10px;
+    margin-top: -6px;
+    margin-left: -6px;
+    background: none;
+}
+.colorGrid .color-picker > div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 8px;
+    border: solid 2px white;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.colorPannel input{
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    width: 95px;
+    height:30px;
+}
+.colorPannel .colorPrev{
+    position: absolute;
+    bottom: 8px;
+    height:30px;
+    width: 50px;
+    right:105px;
+    border: 1px solid #000;
+}

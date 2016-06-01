@@ -1,5 +1,14 @@
 /**/
-
+.systemimg-wraper{
+    position: relative;
+}
+.systemimg-list{
+    height: 100%;
+    overflow: auto;
+    overflow: auto;
+    height: 350px;
+        padding: 35px 0;
+}
 .systemimg-list ul {
     overflow: hidden;
     margin: 0;
@@ -9,8 +18,8 @@
 
 .systemimg-list li {
     display: inline-block;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     padding: 20px;
     background-repeat: no-repeat;
     background-position: center center;
@@ -25,12 +34,6 @@
     width: 100%;
 }
 
-.systemimg-list {
-    overflow: auto;
-    height: 350px;
-    position: relative;
-     padding: 35px 0;
-}
 
 .systemimg-list li.empty {
     padding: 0;
@@ -135,7 +138,7 @@
 	width: 1em;
 	height: 1em;
 	display: inline-block;
-	background: url(../images/scroll-up.png) center center no-repeat;
+	background: url(/static/poster_pc/images/scroll-up.png) center center no-repeat;
 	background-size: 100% auto;
 	position: absolute;
 	left: 50%;
@@ -143,7 +146,7 @@
 	transition: all .2s;
 }
 .ico-scrolldown{
-	background-image: url(../images/scroll-down.png);
+	background-image: url(/static/poster_pc/images/scroll-down.png);
 }
 .btn-scrolltop:hover{
 	background:-webkit-linear-gradient(rgba(0,0,0,.1),rgba(0,0,0,0));

@@ -40,16 +40,16 @@
     max-width: 600px;
 }
 .qs-body {
-    padding-top: 70px;
+    padding-top: 50px;
 }
 .qs-header .progress-bar {
     background-color: #d0d0d0;
 }
 .progress-btm {
-    background: #363636;;
-    line-height: 60px;
-    color: #e1e1e1;
-    font-size: 1.5em;
+    background: #000;
+    line-height: 40px;
+    color: #fff;
+    font-size: 16px;
     margin-bottom: 0;
 }
 .qs-cat{
@@ -138,17 +138,18 @@
     bottom: 0;
     width: 100%;
     text-align: center;
-    background: #434343;
-    line-height: 4em;
+    background: #000;
+    line-height: 3.5em;
 }
 .qs-footer .btn{
-    line-height: 2.5em;
+    line-height: 2.4em;
     padding: 0 24px;
     margin-right: 12px;
     background: #f3f3f3;
     border: 0 none;
     border-radius: 4px;
     vertical-align: baseline;
+    min-width: 90px;
 }
 
 @media (min-width:600px) {
