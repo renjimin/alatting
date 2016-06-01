@@ -102,7 +102,7 @@ function(module, exports, __require__){
 
 		api.switchPannel = function(pannelName){
 			if(currentPannel == pannelName)return;
-			$(".active").removeClass("active");
+			if(pannelName!="template_clip_pannel")$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
 
@@ -139,6 +139,7 @@ function(module, exports, __require__){
 						if(item.closest(".yunye-template").length  != 0){
 							transform = $(".yunye-template").css("transform");
 							pannelName = "template_clip_pannel";
+							item.addClass("active");
 						}else{
 							pannelName = $(itemSelector).data("pannel");
 						}
