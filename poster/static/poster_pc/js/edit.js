@@ -165,7 +165,7 @@ function(module, exports, __require__){
 			$(".vitrul-body .hightlight").width(width).height(height);
 		}
 		api.removeHighLigh = function(){
-			currentSelect.removeClass("active");
+			if(currentSelect)currentSelect.removeClass("active");
 			$(".vitrul-body .hightlight").hide();
 		}
 		api.getCurrentTarget = function(){
@@ -278,7 +278,7 @@ function(module, exports, __require__){
 		var palette = __require__(9);
 
 		api.init = function(){
-			palette.init($("#header_background_pannel .palette"),$(".header"));
+			palette.init($("#header_background_pannel .palette"),$(".header"),"background");
 		}
 		api.destory = function(){
 			palette.destory();
@@ -293,7 +293,7 @@ function(module, exports, __require__){
 					["#a7a7a7","#555555","#55e1bc","#51c2ae","#2c749c","#809cff","#4a3eff","#a106ff","#9200c5","#c137ff","#ec6db4","#eb6d78","#ef008f"],
 					["#1e1e1e","#1f965c","#1aa901","#77dd00","#b1df73","#c8ff01","#eeea02","#d6ba01","#c57401","#f28715","#f65b2f","#d92940","#000108"]];
 	var container;
-	api.init = function(div,target){
+	api.init = function(div,target,cssName){
 		if( !div.html().trim() ){
 			var str = "";
 			_.each(colorSet,function(arr){
@@ -308,13 +308,13 @@ function(module, exports, __require__){
 			div.empty().append(str);
 		}
 		container = div;
-		api.initColorBox(target);
-		api.initPannel(target);
+		api.initColorBox(target,cssName);
+		api.initPannel(target,cssName);
 	}
 	api.destory = function(div){
 		container.find(".colorBox").off("click");
 	}
-	api.initColorBox = function(targetToChange){
+	api.initColorBox = function(targetToChange,cssName){
 		container.find(".colorBox").on("click",function(e){
 			var index = $(e.currentTarget).find("td").index($(e.target));
 			if( index==38 ){
@@ -330,11 +330,11 @@ function(module, exports, __require__){
 				}else{
 					var bgC = $(e.target).css("background-color");
 				}
-				targetToChange.css("background",bgC);
+				targetToChange.css(cssName,bgC);
 			}
 		});
 	}
-	api.initPannel = function(targetToChange){
+	api.initPannel = function(targetToChange,cssName){
 		$(document)
 		.on('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider', function(event) {
 			var target = $(this);
@@ -372,7 +372,7 @@ function(module, exports, __require__){
 						top: y + 'px',
 						left: x + 'px'
 					}, 0, 'swing', function() {
-						updateFromControl(target,targetToChange);
+						updateFromControl(target,targetToChange,cssName);
 					});
 			} else {
 				picker
@@ -380,11 +380,11 @@ function(module, exports, __require__){
 					.animate({
 						top: y + 'px'
 					}, 0, 'swing', function() {
-						updateFromControl(target,targetToChange);
+						updateFromControl(target,targetToChange,cssName);
 					});
 			}
 		}
-		function updateFromControl(target,targetToChange) {
+		function updateFromControl(target,targetToChange,cssName) {
 			function getCoords(picker, container) {
 				var left, top;
 				if( !picker.length || !container ) return null;
@@ -409,7 +409,7 @@ function(module, exports, __require__){
 				saturation = keepWithin(Math.floor(gridPos.x * (100 / grid.width())), 0, 100);
 				brightness = keepWithin(100 - Math.floor(gridPos.y * (100 / grid.height())), 0, 100);
 				grid.css('backgroundColor', rgb2hex(hsb2rgb({ h: hue, s: 100, b: 100 })));
-				targetToChange.css('backgroundColor', rgb2hex(hsb2rgb({ h: hue, s:saturation, b:brightness })));
+				targetToChange.css(cssName, rgb2hex(hsb2rgb({ h: hue, s:saturation, b:brightness })));
 			}
 		}
 		function keepWithin(value, min, max) {
