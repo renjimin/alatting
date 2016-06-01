@@ -73,19 +73,19 @@
                     <div class="form-group">
                         <label class="col-xs-2 control-label">阴影</label>
                         <div class="col-xs-7">
-                            <input type="range" class="range button-boxShadow" name="volume" min="0" max="100" value="16">
+                            <input type="range" class="range button-boxShadow" name="volume" min="0" max="100" value="0">
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control button-boxShadow" data-val="16" value="16px" />
+                            <input type="text" class="form-control button-boxShadow" value="16px" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-xs-2 control-label">弧度</label>
                         <div class="col-xs-7">
-                            <input type="range" class="range button-borderRadius" name="volume" min="0" max="100" value="3">
+                            <input type="range" class="range button-borderRadius" name="volume" min="0" max="30" value="3">
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" class="form-control button-borderRadius" data-val="30" value="30px" />
+                            <input type="text" class="form-control button-borderRadius" value="3" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -125,13 +125,13 @@
         	
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-copy"></i><span>复制</span></a>
+            <a class="nav-link" href="javascript:void(0);" onclick="copyButton()"><i class="fa fa-copy"></i><span>复制</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0);"><i class="fa fa-upload"></i><span>上传</span></a>
+            <a class="nav-link" href="javascript:void(0);" onclick="resetButton()"><i class="fa fa-laptop"></i><span>重设</span></a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0);"><i class="fa fa-trash"></i><span>删除</span></a>
+            <a class="nav-link" href="javascript:void(0);" onclick="deleteButton()"><i class="fa fa-trash"></i><span>删除</span></a>
         </li>
     </ul>
 </section>

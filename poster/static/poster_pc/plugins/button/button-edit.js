@@ -12,7 +12,7 @@ setTimeout(function(){
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
-            'fontSize':14 + 'px',
+            'fontSize':14,
             'fontFamily':'Microsoft YaHei',
             'background':'ffffff',
             'backgroundOpacity':'1',
@@ -27,11 +27,15 @@ setTimeout(function(){
         }
 
         var opts = $.extend(defaults,options),s = this;
-
+        s.reset = function(){
+            var imgactive = $('.button-element.actived');
+            s.upload(imgactive.find('.btn'));
+        }
         s.add = function(){
             isEdit = false;
+            $('.cnd-element').removeClass('actived');
             var newbtn = $('<a class="element btn btn-default">请输入文字</a>');
-            var cnd = $('<div class="cnd-element button-element" data-type="button">'
+            var cnd = $('<div class="cnd-element button-element actived" data-type="button">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
                 +'        '
@@ -49,11 +53,10 @@ setTimeout(function(){
                 +'<div class="nbar nbar-ne nbar-radius"></div>'
             +'</div>');
             cnd.find('.element-box-contents').append(newbtn);
-            cnd.hide();
+            cnd.css('opacity','0');
             
             fullcontainer.append(cnd);
-            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
-           //scale(cnd);
+            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).css('opacity','1');
             cnd.scaleable();
 
             s.controlInit(newbtn);
@@ -155,7 +158,7 @@ setTimeout(function(){
             $('.button-opacity').val(opts.opacity*100);
             $('.button-background-opacity').val(opts.backgroundOpacity*100);
             $('.button-boxShadow').val(opts.boxShadow);
-            $('.button-borderRadius').val(opts.borderRadius).attr('max',opts.height/2);
+            $('.button-borderRadius').val(opts.borderRadius).attr('max','100');
             $('.button-borderColor').val(opts.borderColor);
             $('.button-borderStyle').val(opts.borderStyle);
             for(i=0;i<20;i++){
@@ -220,22 +223,26 @@ setTimeout(function(){
                 currentX: 0,
                 currentY: 0,
                 diff: 0,
-                value:0
+                value:0,
+                max:100
             };
             $('.button-opacity').dragable({
                 'moveable':false,
                 'start':function(e){
                     s.touches.startX = e.pageX;
                     s.touches.value = e.target.value;
+                    s.touches.max = parseInt($(e.target).attr('max'));
                 },
                 'move':function(e){
+                    var _this = e.target;
                     s.touches.currentX = e.pageX;
-                    e.target.value = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
-                    e.target.value >100 ? e.target.value = 100 : e.target.value;
-                    e.target.value < 0 ? 0 :e.target.value;
-                    $('.button-opacity').val(e.target.value);
-                    elebtn.css('opacity',e.target.value/100);
-                    opts.opacity = e.target.value;
+                    var val = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
+                    val > s.touches.max ? val = s.touches.max : false;
+                    val < 0 ? val = 0 : false;
+                    e.target.value = val;
+                    $('.button-opacity').val(val);
+                    elebtn.css('opacity',val/100);
+                    opts.opacity = val;
                 }
             });
             $('.button-background-opacity').dragable({
@@ -243,14 +250,15 @@ setTimeout(function(){
                 'start':function(e){
                     s.touches.startX = e.pageX;
                     s.touches.value = e.target.value;
+                    s.touches.max = parseInt($(e.target).attr('max'));
                 },
                 'move':function(e){
                     var _this = e.target;
                     s.touches.currentX =  e.pageX;
-                    e.target.value = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
-                    e.target.value >100 ? e.target.value = 100 : e.target.value;
-                    e.target.value < 0 ? 0 :e.target.value;
-                    $('.button-background-opacity').val(e.target.value);
+                    _this.value = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
+                    _this.value >s.touches.max ? _this.value = s.touches.max : false;
+                    _this.value < 0 ? _this.value = 0 : false;
+                    $('.button-background-opacity').val(_this.value);
                     var rgb = colorRgb(opts.background);
                     var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+$(_this).val()/100+')';
                     elebtn.css('background',back);
@@ -264,13 +272,14 @@ setTimeout(function(){
                 'start':function(e){
                     s.touches.startX = e.pageX;
                     s.touches.value = e.target.value;
+                    s.touches.max = parseInt($(e.target).attr('max'));
                 },
                 'move':function(e){
                     var _this = e.target;
                     s.touches.currentX =  e.pageX;
                     _this.value = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
-                    _this.value >100 ? _this.value = 100 : _this.value;
-                    _this.value < 0 ? 0 : _this.value;
+                    _this.value >s.touches.max ? _this.value = s.touches.max : false;
+                    _this.value < 0 ? 0 : false;
                     $('.button-boxShadow').val(_this.value);
                     elebtn.css('box-shadow','0 0 '+$(_this).val()+'px #000');
 
@@ -282,17 +291,19 @@ setTimeout(function(){
                 'start':function(e){
                     s.touches.startX = e.pageX;
                     s.touches.value = e.target.value;
+                    s.touches.max = parseInt($(e.target).attr('max'));
                 },
                 'move':function(e){
                     var _this = e.target;
                     s.touches.currentX =  e.pageX;
-                    _this.value = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
-                    _this.value >100 ? _this.value = 100 : _this.value;
-                    _this.value < 0 ? 0 : _this.value;
+                    var val = (s.touches.currentX - s.touches.startX)*s.touches.max/$(_this).width() + parseInt(s.touches.value);
+                    _this.value = val;
+                    _this.value >s.touches.max ? _this.value = s.touches.max : false;
+                    _this.value < 0 ? _this.value = 0 : false;
                     $('.button-borderRadius').val(_this.value);
                     elebtn.css('border-radius',$(_this).val()+'px');
 
-                    opts.borderRadius = $(_this).val();
+                    opts.borderRadius = _this.value;
                 }
             });
             $('.button-rotate').dragable({
@@ -300,15 +311,16 @@ setTimeout(function(){
                 'start':function(e){
                     s.touches.startX = e.pageX;
                     s.touches.value = e.target.value;
+                    s.touches.max = parseInt($(e.target).attr('max'));
                 },
                 'move':function(e){
                     var _this = e.target;
                     s.touches.currentX =  e.pageX;
                     _this.value = (s.touches.currentX - s.touches.startX) + parseInt(s.touches.value);
-                    _this.value >100 ? _this.value = 100 : _this.value;
-                    _this.value < 0 ? 0 : _this.value;
+                    _this.value >s.touches.max ? _this.value = s.touches.max : false;
+                    _this.value < 0 ? _this.value = 0 : false;
                     $('.button-rotate').val(_this.value);
-                    elebtn.css('transform','rotate('+$(_this).val()+'deg)');
+                    elebtn.parents('.cnd-element').css('transform','rotate('+$(_this).val()+'deg)');
 
                     opts.rotate = $(_this).val();
                     elebtn.attr('data-rotate',$(_this).val());
@@ -319,6 +331,8 @@ setTimeout(function(){
         }
         if(typeof(ele)=='undefined' || ele == null){
             this.add();
+        }else if(ele == 'reset'){
+            this.reset();
         }else{
             this.edit(ele);
         }
@@ -347,8 +361,8 @@ setTimeout(function(){
             return;
         }
         var g = yunyeEditorGlobal;
-        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1">详情</a>'),
-              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2">预约</a>');
+        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1" style="fons-size:20px">详情</a>'),
+              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2" style="fons-size:20px">预约</a>');
         var cnd = '<div class="cnd-element button-element sys-button">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
@@ -369,156 +383,47 @@ setTimeout(function(){
         var detailBox = $(cnd),orderBox = $(cnd).clone();
         detailBox.find('.element-box-contents').append(detailBtn);
         orderBox.find('.element-box-contents').append(orderBtn);
-        detailBox.hide();orderBox.hide();
+        detailBox.css('opacity','0');orderBox.css('opacity','0');
         
         fullcontainer.append(detailBox);
         fullcontainer.append(orderBox);
-        detailBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-detailBox.innerHeight() - 10+'px','left':fullcontainer.innerWidth()/2-detailBox.innerWidth() - 10+'px'}).show();
-        //scale(detailBox);
+        detailBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-detailBox.innerHeight() - 10+'px','left':fullcontainer.innerWidth()/2-detailBox.innerWidth() - 10+'px'}).css('opacity','1');
         detailBox.scaleable();
-        orderBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-orderBox.innerHeight() -10+'px','left':fullcontainer.innerWidth()/2+10+'px'}).show();
-        //scale(orderBox);
+        orderBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-orderBox.innerHeight() -10+'px','left':fullcontainer.innerWidth()/2+10+'px'}).css('opacity','1');
         orderBox.scaleable();
 
     }
-    function buttonConfirm(ele){
-        var cnd = $('<div class="cnd-element button-element">'
-                +'<div class="element-box">'
-                +'    <div class="element-box-contents">'
-                +'        '
-                +'    </div>'
-                +'</div>'
-                +'<div class="nbar nbar-rotate nbar-radius"></div>'
-                +'<div class="nbar nbar-line"></div>'
-                +'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
-                +'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
-                +'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
-                +'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-                +'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
-                +'<div class="nbar nbar-se nbar-radius"></div>'
-                +'<div class="nbar nbar-sw nbar-radius"></div>'
-                +'<div class="nbar nbar-ne nbar-radius"></div>'
-            +'</div>');
-        if(!isEdit){
-            cnd.find('.element-box-contents').append(ele);
-            cnd.hide();
-            if(ele.data('rotate') != null){
-                ele.css('transform','rotate(0)');
-                cnd.css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
-            }
-            fullcontainer.append(cnd);
-            cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
-            //scale(cnd);
-            cnd.scaleable();
-        }else{
-            if(ele.data('rotate') != null){
-                ele.css('transform','rotate(0)');
-                currentElebox.parent().parent().css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
-            }
-            currentElebox.empty().append(ele);
-        }
-        
-    }
-var editButtonBasic = function(){
-    var e = window.event || event;
-    e.stopPropagation();
-    if (e.originalEvent) e = e.originalEvent;
-    var ele = $(e.target);
-    if($(ele).hasClass('icon')){
-        ele = ele.parent();
-    }
-
-    $("#button-basic").show();
-    $("#button-border").hide();
-    if(!$('#button-model').hasClass('open')){
-        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
-        addButton();
-    }
-    ele.addClass('open').siblings().removeClass('open');
-}
-var editButtonBorder = function(){
-    var e = window.event || event;
-    e.stopPropagation();
-    if (e.originalEvent) e = e.originalEvent;
-    var ele = $(e.target);
-    if($(ele).hasClass('icon')){
-        ele = ele.parent();
-    }
-
-    $("#button-basic").hide();
-    $("#button-border").show();
-    if(!$('#button-model').hasClass('open')){
-        $('#button-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
-        addButton();
-    }
-    ele.addClass('open').siblings().removeClass('open');
-}
-var copyButton = function(){
-    if($('.button-element.active').hasClass('sys-button')){
+    
+function copyButton(){
+    if($('.button-element.actived').hasClass('sys-button')){
         return;
     }
-    var imgclone = $('.button-element.active').clone();
-    $('.button-element').removeClass('active');
-    imgclone.animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
+    var imgclone = $('.button-element.actived').clone();
+    $('.button-element').removeClass('actived');
+    imgclone.stop(true,false).animate({'top':parseInt(imgclone.css('top'))+30+'px','left':parseInt(imgclone.css('left'))+30+'px'},200);
     fullcontainer.append(imgclone);
-    scale(imgclone);
+    imgclone.scaleable();
 }
-var deleteButton = function(){
-    if($('.button-element.active').hasClass('sys-button')){
+function deleteButton(){
+    if($('.button-element.actived').hasClass('sys-button')){
         return;
     }
-    var imgactive = $('.button-element.active');
+    var imgactive = $('.button-element.actived');
 
-    imgactive.animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
+    imgactive.stop(true,false).animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
         imgactive.remove();
     });
 
 }
-
-
-
-var selectSysImg = function(obj){
-    $('#systemimg-model').removeClass('open');
-    var eleobj = $('<div class="element systemimg"></div>');
-    eleobj.css({'width':$(obj).find('svg').width(),'height':$(obj).find('svg').height()});
-    eleobj.append($(obj).find('svg').clone());
-    addSystemimg(eleobj);
-}
-
-var openSystemimg = function(){
-    var e = window.event || event;
-    e.stopPropagation();
-    if (e.originalEvent) e = e.originalEvent;
-    var ele = $(e.target);
-    if($(ele).hasClass('icon')){
-        ele = ele.parent();
+function resetButton(){
+    if($('.button-element.actived').hasClass('sys-button')){
+        return;
     }
+    var imgactive = $('.button-element.actived');
 
-    if($('#systemimg-model').hasClass('open')){
-        $('#systemimg-model').removeClass('open');
-        ele.removeClass('open');
-    }else{
-        if($('#systemimg-model .systemimg-list ul li').length <= 0){
-            $.ajax({
-                type: 'GET',
-                url: '/api/v1/poster/system/images',
-                success: function(data){
-                    var con = $('#systemimg-model .systemimg-list ul');
-                    con.empty();
-                    for(i=0;i<data.length;i++){
-                        var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
-                        con.append(li);
-                    }
-
-                },
-            });
-        }
-        $('#systemimg-model').css('max-height',$(window).height() - 87 +'px').addClass('open');
-        ele.addClass('open');
-    }
+    addButton('reset');
 
 }
-
 
 
 function deleteElement(){
