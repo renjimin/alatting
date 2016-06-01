@@ -1,9 +1,9 @@
 {% extends 'website/mobile/base.html' %}
 {% load static %}
 {% block base_header_css %}
-<link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
-<link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
-<link rel="stylesheet" href="{% static 'libs/fontawesome/css/font-awesome4.5.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'libs/fontawesome/css/font-awesome4.5.0.min.css' %}">
+    <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
 {% endblock %}
 
 {% block base_header_js %}
@@ -29,7 +29,7 @@
             <div class="user-friends"><i class="fa fa-user"></i></div>
             <div class="user-setting"><i class="fa fa-cog"></i></div>
             <div class="user-level"><i class="fa fa-bank"></i></div>
-            <div class="ueer-info">
+            <div class="user-info">
                 <span class="user-info-li user-icon" id="uIcon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="head"></span>
                 <span class="user-info-li user-name" id="uName">user</span>
             </div>
@@ -50,18 +50,8 @@
 </div>
 <div class="body-main">
     <div class="main-list main-provide" id="main-provide">
-        <div class="main-li main-li-add">
-            <div class="mli-cont">
-                <div class="madd-cont">
-                    <div class="p-cont-img"><img src="{% static 'account/img/hb001.png' %}" alt="img"></div>
-                </div>
-                <div class="madd-ctrl">
-                    <div class="ctrl-add">
-                        <div class="ctrl-icon">+</div>
-                        <div class="ctrl-name">新增</div>
-                    </div>
-                </div>
-            </div>
+        <div class="ctrl-add" id="ctrl-add">
+            <div class="ctrl-icon"><i class="fa fa-plus"></i></div>
         </div>
     </div>
 
@@ -73,11 +63,10 @@
         <span class="share-name">分享</span>
     </div>
     <div class="share-li share-weixin"><i class="fa fa-weixin"></i></div>
-    <div class="share-li share-friend"><i class="fa fa-chrome"></i></div>
+    <div class="share-li share-comment"><i class="fa fa-comment"></i></div>
+    <div class="share-li share-envelope"><i class="fa fa-envelope"></i></div>
     <div class="share-li share-weibo"><i class="fa fa-weibo"></i></div>
     <div class="share-li share-qq"><i class="fa fa-qq"></i></div>
-    <div class="share-li share-twitter"><i class="fa fa-twitter"></i></div>
-    <div class="share-li share-facebook"><i class="fa fa-facebook-f"></i></div>
 </div>
 <div class = "body-vip">
     <h3 class = "vip-h3">VIP系统</h3>
@@ -99,10 +88,10 @@
     </div>
 </div>
 <script id="serverProvideTmpl" type="text/x-jquery-tmpl">
-    <div class="main-li" data-id="1">
+    <div class="main-li">
         <div class="mli-cont">
             <div class="p-cont">
-                <div class="p-cont-img"><img src="${thumb}" alt="img"></div>
+                <div class="p-cont-img"><img src="${snapshot}" alt="img"></div>
                 <div class="p-cont-info">
                     <div class="info-cont">
                         <div class="info-cont-money">
@@ -111,14 +100,14 @@
                             <span class="money-unit">小时</span>
                         </div>
                         <div class="info-cont-name">
-                            <span class="cont-name">${poster_title}</span>
+                            <span class="cont-name">${postername}</span>
                             <span class="cont-star p-star p-star-10"></span>
                         </div>
                     </div>
                 </div>
                 <div class="p-cont-tips"></div>
             </div>
-            <div class="p-ctrl" data-id="${poster_id}">
+            <div class="p-ctrl" data-id="${posterid}">
                 <div class="p-ctrl-li ctrl-lefttop ctrl-view">
                     <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
                     <span class="ctrl-name">查看</span>
@@ -143,7 +132,7 @@
     <div class="main-li">
         <div class="mli-cont">
             <div class="p-cont">
-                <div class="p-cont-img"><img src="../images/poster002.jpg" alt="img"></div>
+                <div class="p-cont-img"><img src="${snapshot}" alt="img"></div>
                 <div class="p-cont-info">
                     <div class="info-cont">
                         <div class="info-cont-money">
@@ -152,14 +141,14 @@
                             <span class="money-unit">小时</span>
                         </div>
                         <div class="info-cont-name">
-                            <span class="p-name">徐莉莉会计事务所</span>
+                            <span class="p-name">${postername}</span>
                             <span class="p-star p-star-8"></span>
                         </div>
                     </div>
                 </div>
                 <div class="p-cont-tips"></div>
             </div>
-            <div class="p-ctrl" data-id="${poster_id}">
+            <div class="p-ctrl" data-id="${posterid}">
                 <div class="p-ctrl-li ctrl-lefttop ctrl-view">
                     <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
                     <span class="ctrl-name">查看</span>
@@ -179,7 +168,6 @@
             </div>
         </div>
     </div>
-
 </script>
 
 
