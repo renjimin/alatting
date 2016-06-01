@@ -40,7 +40,7 @@
 				'startX': 0,
 				'startY': 0,
 				'currentX': 0,
-				'currentY': 0,
+				'currentY': 0
 			}
 			var moveX = 0,
 				moveY = 0;
@@ -60,6 +60,56 @@
 				'top': '0',
 				'left': '0'
 			});
+
+			var moveX,moveY;
+			i.dragable({
+				'start':function(e){
+
+					var imgl = i.css('left') == undefined ? 0 : i.css('left');
+					var imgt = i.css('top') == undefined ? 0 : i.css('top');
+					moveX = parseInt(imgl);
+					moveY = parseInt(imgt);
+
+
+				},
+
+				'end':function(e){
+
+					var moveEndX = i.css('left') == undefined ? 0 : i.css('left');
+					var moveEndY = i.css('top') == undefined ? 0 : i.css('top');
+					var endX = moveEndX,
+						endY = moveEndY;
+
+					var endW = i.width(),
+						endH = i.height();
+
+
+					if (parseInt(moveEndX) > 0) {/* 左部 >0*/
+						endX = 0;
+					}
+
+					if (endW + parseInt(moveEndX) < s.width()) {
+						endX = -endW + s.width();
+
+					}
+
+					if (parseInt(moveEndY) > 0) {/* 顶部 >0*/
+						endY = 0;
+					}
+					if (endH + parseInt(moveEndY) < s.height()) {
+						endY = -endH + s.height();
+
+					}
+
+					i.css('top', endY + 'px');
+					i.css('left', endX + 'px');
+
+
+				}
+			});
+
+
+
 			i.on({
 				'touchstart': function(e) {
 					if (e.originalEvent) e = e.originalEvent;

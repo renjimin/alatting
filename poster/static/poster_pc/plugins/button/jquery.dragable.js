@@ -30,7 +30,7 @@
 						currentTop = dragEvent.target.css("top") == 'auto'? 0 : dragEvent.target.css("top");
 					dragEvent.currentX = e.pageX/opts.scaling - parseInt(currentLeft);
 					dragEvent.currentY = e.pageY/opts.scaling - parseInt(currentTop);
-					opts.dragElement.fadeTo(20,0.5);//点击后开始拖动并透明
+					opts.dragElement.stop(true,false).fadeTo(20,0.5);//点击后开始拖动并透明
 
 					if(opts.start){						
 						opts.start(e);
@@ -52,7 +52,7 @@
 				
 			}).mouseup(function(e){
 				dragEvent.flag=false;
-				dragEvent.target.fadeTo("fast",1);//松开鼠标后停止移动并恢复成不透明
+				dragEvent.target.stop(true,false).fadeTo("fast",1);//松开鼠标后停止移动并恢复成不透明
 				if(opts.end){						
 					opts.end(e);
 				}
