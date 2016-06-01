@@ -10,10 +10,7 @@ $(function(){
 	                var li = '<li onclick="selectSysImg(this)">'+data[i].text+'</li>';
 	                con.append(li);
 	            }
-	            for(j=0;j<=20;j++){
-	            		var li = '<li onclick="selectSysImg(this)">'+data[0].text+'</li>';
-	              	con.append(li);
-	            }
+	            
 
 	        },
    	});
