@@ -161,7 +161,7 @@ input {
  }
  .li-provider .sli-provider{
     display: block;
-    padding: 10px 20px 10px 40px;
+    padding: 10px 0 10px 40px;
     background: rgba(255,255,255,0.7);
 
  }
@@ -171,28 +171,30 @@ input {
     padding: 16px 19px;
     margin: -16px 6px;
  }
- .glyphicon-unchecked{
-    float:right;
-    font-size: 1.2em;
-    padding: 16px 19px;
-    margin: -16px 6px;
- }
- .selectprovider{
+
+ .selectserver,.selectprovider{
     display:none;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    padding-left: 10px;
+    line-height: 40px;
+    height:40px;
+    border: 1px solid #white;
+    border-radius: 6px;
+    background: white;
+    display: block;
+    position: relative;
+    color: black;
+    font-size: 1.2em;    
  }
- .glyphicon-check{
-    float:right;
-    font-size: 1.2em;
-    padding: 36px 0;
-    margin: -37px 6px;
- }
+
  .glyphicon-ok-circle{
       float:right;
     font-size: 1.2em;
     padding: 10px 10px;
     margin: 8px 0;  
  }
- .sli-provider  .glyphicon-unchecked{
+ .li-provider  .glyphicon{
     float:right;
     font-size: 1.2em;
     padding: 0px 0;
@@ -244,6 +246,9 @@ input {
     font-size: 1.2em;
 
 }
+.regist-tab div{
+    color:white;
+}
 .selectprovider{
     display:none;
 }
@@ -257,17 +262,20 @@ input {
 }
 
 .regist .list-li input.regist-industryinput{
-     width: 42%;
+     width: 39%;
      float:right;
     background: white;
     border-radius: 8px;
     color:black;
     padding:3px 10px;
+    line-height: 32px;
 }
 
 .regist-industry{
     color: white;
-    font-size: 1.5em;
+    font-size: 1.2em;
+    padding:015px;
+    line-height: 38px;
 }
 .regist .list-li {
     width: 95%;
@@ -302,6 +310,7 @@ input {
     padding: 0 6px;
     background-color: #5cb85c;
     width: 30%;
+    line-height: 25px;
 }
 
 .regist .list-li .btn-default {
@@ -311,6 +320,7 @@ input {
     padding: 0 6px;
     background-color: rgb(171, 171, 171);
     width: 41%;
+    line-height: 25px;
 }
 
 .regist .list-li .codeinput {
