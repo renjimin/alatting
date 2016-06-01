@@ -49,6 +49,16 @@ $(function(){
     $('.p-ctrl').on('click',function(){
         moveCtrl($(this),false);
     });
+    /*user-level*/
+    $('.user-level').on('click',function(event){
+        event.stopPropagation();
+        var percent = 50;
+        var t = setInterval(function(){
+            addNum(percent);
+        },10);
+        console.log(t)
+        //clearInterval(t);
+    })
     /*view*/
     $('.ctrl-view').on('click',function(event){
         event.stopPropagation();
@@ -166,7 +176,7 @@ $(function(){
         pos.push({left:left,top:top});
         return pos;
     }
-
+  
     /*长按显示菜单
     var hold=false;
     $('.p-cont').on('touchstart touchend',function(event){
@@ -186,4 +196,44 @@ $(function(){
         }
     });
     */
-});
+})
+var i = 0,rate=2;
+function addNum(percent) {
+        if(i<percent*rate){
+            i++;
+            $('canvas.process').text(i/rate);
+            drawProcess();
+        }else{
+            //clearInterval(t);
+        }
+} 
+function drawProcess() {  
+    $('canvas.process').each(function() {
+        var process = $(this).text();
+        // var process = text;   
+        var canvas = this;  
+        var context = canvas.getContext('2d');  
+        context.clearRect(0, 0, 300, 300);  
+        context.beginPath();  
+        context.moveTo(280, 280);  
+        context.arc(150, 150, 120, -Math.PI * 0.5, Math.PI * 1.5, false);  
+        context.closePath();  
+        context.fillStyle = 'rgba(78,79,83,1)';  
+        context.fill();  
+        context.beginPath();  
+        context.moveTo(150, 150);    
+        context.arc(150, 150, 120, -Math.PI * 0.5,  -Math.PI * 0.5+Math.PI * 2* process / 100, false);
+        // console.log(Math.PI * 2*process / 100 );  
+        context.closePath();  
+        context.fillStyle = 'rgb(255,200,37)';  
+        context.fill();   
+        context.beginPath();  
+        context.moveTo(150, 150);  
+        context.arc(150, 150, 80, -Math.PI * 0.5, Math.PI * 1.5, true);  
+        context.closePath();  
+        context.fillStyle = 'rgba(51,51,51,1)';  
+        context.fill();  
+
+        //context.fillText(text, 24, 24);  
+    });
+}

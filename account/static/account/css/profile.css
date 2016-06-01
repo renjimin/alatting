@@ -353,8 +353,58 @@ header {
     line-height: 35px;
     font-size: 50px;
 }
+/*body-vip*/
+.body-vip{
+    width: 100%;
+    height: 100%;
+    top: 22%;
+    left: 0;
+    position: fixed;
+    z-index: 1000;
+    background: rgba(255,255,255,0.8);
+    display: block;
+}
+.body-vip .vip-h3{
+    line-height: 40px;
+    text-align: center;
+    background:white;
+    margin-bottom: 0;
+    margin-top: 0;
+    border-top: 1px solid #ccc;
+}
+.body-vip .vip-canvas{
+    background:rgb(51,51,51);
+}
+.body-vip .process{
+    margin:0 auto;
+    width:300px;
+    height:300px;  
+    display:block;  
+}
+.body-vip .vip-lv{
+    height:14.5%;
+    background:rgb(51,51,51);
+}
+.body-vip .vip-lv span{
+    color:rgb(255,200,37);
+    text-align: center;
+    margin-left: 40%;
+}
+.body-vip .vip-footer{
 
-
+}
+.vip-footer ul{
+    width:50%;
+    float:left;
+}
+.vip-footer ul:first-child{
+    background:#ccc;
+}
+.vip-footer  li{
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid #aaa;
+}
 /*body-share*/
 .body-share{
     width: 100%;
