@@ -26,7 +26,17 @@ class QuestionnaireBlankView(View):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
 		qs_title = "没有此类别的调查问卷"
 		role = self.request.GET.get('role', '')
-		contextdict = {'qs_title': qs_title,
+		#check if current consumer is the poster creator
+		consumer_is_poster_creator = False
+		if self.request.user.pk == poster.creator.pk and role=="consumer":
+			consumer_is_poster_creator = True
+		#if current consumer is the poster creator, change title
+		if consumer_is_poster_creator:
+			title = "请浏览您海报上面的调查问卷"
+		else:
+			title = '请输入详细信息'
+		contextdict = {'title': title,
+						'qs_title': qs_title,
 						'poster_id': poster.pk,
 						'role': role}
 		return render_to_response('survey/mobile/questionset_blank.html', contextdict)
