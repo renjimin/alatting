@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from survey.models import *
 from alatting_website.model.poster import Poster
 from survey import *
-
+from account.models import Person
 
 class IndexView(TemplateView):
 	template_name = 'survey/mobile/questionset.html'
@@ -353,7 +353,9 @@ class AnswerDetailView(TemplateView):
 		poster_id = self.kwargs['poster_id']
 		role = self.request.GET.get('role', '')
 
-		context['poster'] = Poster.objects.filter(pk=poster_id).first()
+		poster = Poster.objects.filter(pk=poster_id).first()
+		context['poster'] = poster
+		context['person'] = Person.objects.filter(user=poster.creator).first()
 
 		results = {}
 		for his in RunInfoHistory.objects.filter(
