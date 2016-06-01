@@ -20,6 +20,7 @@
 function(module, exports, __require__) {
 	__require__(1);
 	__require__(9);
+	__require__(12);
 	__require__(2);
 	__require__(3);
 	__require__(4);
@@ -27,6 +28,7 @@ function(module, exports, __require__) {
 	__require__(6);
 	__require__(7);
 	__require__(8);
+	__require__(13);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -260,12 +262,15 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("contact_pannel",module.exports = function(){
 		var api = {};
+		var daterModule = __require__(10),
+			calendarModule = __require__(11);
 
 		api.init = function(){
-			
+			var nowTime = daterModule.getToday();
+			calendarModule.init(nowTime.year,nowTime.month);
 		}
 		api.destory = function(){
-			
+			calendarModule.offEvent();
 		}
 		return api;
 	});
@@ -463,6 +468,150 @@ function(module, exports, __require__){
 				string = string[0] + string[0] + string[1] + string[1] + string[2] + string[2];
 			}
 			return '#' + string;
+		}
+		return api;
+	});
+},
+//[模块10]日期模块
+function(module, exports, __require__){
+	var api = {};
+
+	api.getToday = function(){
+		var date = new Date();//获得时间对象
+		var nowYear = date.getFullYear();//获得当前年份
+		var nowMonth = date.getMonth() + 1;//获得当前月份
+		var today = date.getDate();//获得当前天数
+		var nowWeek = new Date(nowYear, nowMonth - 1, 1).getDay();//获得当前星期
+		var nowLastday = api.getMonthNum(nowMonth, nowYear);//获得最后一天
+		return {year:nowYear,month:nowMonth,day:today,week:nowWeek,lastday:nowLastday};
+	}
+	api.getMonthNum = function(month,year){
+		month = parseInt(month - 1);
+		var LeapYear = ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) ? true: false;
+		_.each([{num:[0,2,4,6,7,9,11],value:31},{num:[3,5,8,10],value:30},{num:[1],value:LeapYear ? 29: 28}],function(obj){
+			_.each(obj.num,function(n){
+				if(n == month)monthNum = obj.value;
+			});
+		});
+		return monthNum;
+	}
+	module.exports = api;
+},
+//[模块11]calendar模块
+function(module, exports, __require__){
+	var api = {};
+	var inited = false;
+	var daterModule = __require__(10);
+
+	api.init = function(year, month){
+		if(!inited){
+			inited = true;
+			api.gotoYM(year, month);
+		}
+		api.bindEvent();
+	}
+	api.gotoYM = function(year, month){
+		var week = new Date(year, month - 1, 1).getDay();
+		var lastday = daterModule.getMonthNum(month,year);
+		$("#year").val(year);
+		$("#month").val(month);
+		var table = document.getElementById("calender");
+		var n = 1;
+		for (var j = 0; j < week; j++) {
+			table.rows[1].cells[j].innerHTML = "&nbsp;"
+			table.rows[1].cells[j].className = "";
+		}
+		for (var j = week; j < 7; j++) {
+			//table.rows[1].cells[j].className = calculateClass(j,n);
+			table.rows[1].cells[j].innerHTML = n;
+			n++;
+		}
+		for (var i = 2; i < 7; i++) {
+			for (j = 0; j < 7; j++) {
+				if (n > lastday) {
+					table.rows[i].cells[j].innerHTML = "&nbsp;"
+					table.rows[i].cells[j].className = "";
+				}else {
+					//table.rows[i].cells[j].className = calculateClass(j,n);
+					table.rows[i].cells[j].innerHTML = n;
+					n++;
+				}
+			}
+		}
+	}
+	api.bindEvent = function(){
+		$("#calender td").on('click',function(event) {
+			if( event.target.innerHTML  == "&nbsp;" )return;
+			$('.calenderTable input').eq(0).val("").attr("disabled",false);
+			$('.calenderTable input').eq(1).val("").attr("disabled",false);
+			$("td.hover").removeClass("hover");
+			$(this).addClass("hover");
+			var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + event.target.innerHTML;
+			//setInput(specificDay);
+		});
+		$(".fa.fa-cog").on("click",function(event) {
+			if($(".weekly").is(":visible")){
+				$(".calender").show();
+				$(".weekly").hide();
+				api.gotoYM(parseInt($("#year").val()), parseInt($("#month").val()));
+			}else{
+				$(".calender").hide();
+				$(".weekly").show();
+			}
+		});
+	}
+	api.offEvent = function(){
+		$("#calender td").off('click');
+		$(".fa.fa-cog").off("click");
+	}
+	module.exports = api;
+},
+//[模块12]文字编辑模块
+function(module, exports, __require__){
+	Editor.define("textEditor",module.exports = function(){
+		var api ={};
+		var container = null;
+
+		api.init = function(div,target){
+			if( !container ){
+				var str = "<div class='form-horizontal'>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>颜色</label><div class='col-xs-4'><input class='form-color text-color jscolor' readonly='readonly'></div><label class='col-xs-2 control-label'>大小</label><div class='col-xs-4'><select class='form-control text-fontSize'><option value='12'>12px</option><option value='13'>13px</option><option value='14'>14px</option><option value='15'>15px</option><option value='16'>16px</option><option value='17'>17px</option><option value='18'>18px</option><option value='19'>19px</option><option value='20'>20px</option><option value='21'>21px</option><option value='22'>22px</option><option value='23'>23px</option><option value='24'>24px</option><option value='25'>25px</option><option value='26'>26px</option><option value='27'>27px</option><option value='28'>28px</option><option value='29'>29px</option></select></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>透明度</label><div class='col-xs-7'><input type='range' class='range text-opacity' name='opacity' min='0' max='100' value='100'></div><div class='col-xs-3'><input type='text' class='form-control text-opacity' data-val='100' value='100'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>阴影</label><div class='col-xs-7'><input type='range' class='range text-boxShadow' name='volume' min='0' max='100' value='16'></div><div class='col-xs-3'><input type='text' class='form-control text-boxShadow' data-val='16' value='16px'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>边框</label><div class='col-xs-7'><input class='form-color text-color jscolor' readonly='readonly'></div><div class='col-xs-3'><input type='text' class='form-control text-boxShadow' data-val='16' value='16px'></div></div>"
+						+"</div>";
+				div.empty().append(str);
+			}
+			container = div;
+			api.initEditor(target);
+		}
+		api.initEditor = function(target){
+			console.log(target);
+			//container.find();
+		}
+		api.destory = function(div){
+			container.find(".colorBox").off("click");
+			container.find(".colorPannel table").off("click");
+			container.find(".colorPannel input").off("change");
+			$(document)
+				.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
+				.off('mousemove.colorPannel touchmove.colorPannel')
+				.off('mouseup.colorPannel touchend.colorPannel');
+			container = null;
+		}
+		return api;
+	});
+},
+//[模块13]logo编辑模块
+function(module, exports, __require__){
+	Editor.define("logo_pannel",module.exports = function(){
+		var api ={};
+
+		api.init = function(div,target,cssName){
+			Editor.require("textEditor").init($(".textEditor"),$(".header-logo"));
+		}
+		api.destory = function(div){
+			
 		}
 		return api;
 	});
