@@ -31,7 +31,7 @@ setTimeout(function(){
         s.add = function(){
             isEdit = false;
             var newbtn = $('<a class="element btn btn-default">请输入文字</a>');
-            var cnd = $('<div class="cnd-element button-element">'
+            var cnd = $('<div class="cnd-element button-element" data-type="button">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
                 +'        '
@@ -53,7 +53,8 @@ setTimeout(function(){
             
             fullcontainer.append(cnd);
             cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
-            scale(cnd);
+           //scale(cnd);
+            cnd.scaleable();
 
             s.controlInit(newbtn);
             s.upload(newbtn);
@@ -388,9 +389,11 @@ setTimeout(function(){
         fullcontainer.append(detailBox);
         fullcontainer.append(orderBox);
         detailBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-detailBox.innerHeight() - 10+'px','left':fullcontainer.innerWidth()/2-detailBox.innerWidth() - 10+'px'}).show();
-        scale(detailBox);
+        //scale(detailBox);
+        detailBox.scaleable();
         orderBox.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()-orderBox.innerHeight() -10+'px','left':fullcontainer.innerWidth()/2+10+'px'}).show();
-        scale(orderBox);
+        //scale(orderBox);
+        orderBox.scaleable();
 
     }
     function buttonConfirm(ele){
@@ -420,7 +423,8 @@ setTimeout(function(){
             }
             fullcontainer.append(cnd);
             cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-cnd.innerHeight()/2+'px','left':fullcontainer.innerWidth()/2-cnd.innerWidth()/2+'px'}).show();
-            scale(cnd);
+            //scale(cnd);
+            cnd.scaleable();
         }else{
             if(ele.data('rotate') != null){
                 ele.css('transform','rotate(0)');
@@ -556,31 +560,6 @@ var openSystemimg = function(){
 
 }
 
-var addSystemimg = function(eleobj){
-    var cnd = $('<div class="cnd-element systemimg-element">'
-				+'<div class="element-box">'
-				+'	<div class="element-box-contents">'
-				+'		'
-				+'	</div>'
-				+'</div>'
-				+'<div class="nbar nbar-rotate nbar-radius"></div>'
-				+'<div class="nbar nbar-line"></div>'
-				+'<div class="nbar nbar-n"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius"></div>'
-				+'<div class="nbar nbar-se nbar-radius"></div>'
-				+'<div class="nbar nbar-sw nbar-radius"></div>'
-				+'<div class="nbar nbar-ne nbar-radius"></div>'
-			+'</div>');
-
-    cnd.find('.element-box-contents').append(eleobj);
-    cnd.hide();
-    fullcontainer.append(cnd);
-    cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-eleobj.height()/2+'px','left':fullcontainer.innerWidth()/2-eleobj.width()/2+'px'}).show();
-    scale(cnd);
-}
 
 var copySystemimg = function(){
     var imgclone = $('.systemimg-element.active').clone(false);

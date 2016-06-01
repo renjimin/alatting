@@ -110,6 +110,7 @@ input {
     width:50%;
     text-align: center;
     border-radius: 8px 8px 0 0 ;
+    color:#fff;
 }
 .div-server,.div-provider{
     position: fixed;

@@ -1,9 +1,10 @@
 # coding=utf-8
 from rest_framework import serializers
 from alatting_website.model.poster import Poster, PosterPage
+from alatting_website.serializer.edit_serializer import ImageSerializer
 from poster.models import SystemImage, SystemMusic
-from poster.serializer.resource import CategorySerializer, ImageSerializer, \
-    AddressSerializer, CategoryKeywordSerializer, TemplateSerializer
+from poster.serializer.resource import CategorySerializer, \
+    CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
 
 class PosterSimpleInfoSerializer(serializers.ModelSerializer):

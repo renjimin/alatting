@@ -1,5 +1,5 @@
 {% for choice in qdict.choices %}
     <div class="radio">
-        <label class="radio-label"><input name="question_{{ question.sortid }}" type="radio" value="{{choice.value}}" {% if choice.value == qdict.prev_ans %} checked {% endif %}>{{choice.text}}</label>
+        <label class="radio-label"><input name="question_{{ question.sortid }}" type="radio" value="{{choice.value}}" {% if choice.value == qdict.prev_ans %} checked {% endif %} {% if consumer_is_poster_creator %} disabled {% endif %}>{{choice.text}}</label>
     </div>
 {% endfor %}

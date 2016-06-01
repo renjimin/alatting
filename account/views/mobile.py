@@ -4,7 +4,7 @@ import uuid
 from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.http import JsonResponse
+from django.http import JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render_to_response, render
 from django.views.generic import FormView
 from django.views.generic.detail import DetailView
@@ -13,8 +13,8 @@ from account.form.forms import RegisterForm, pwd_validate, \
     ResetPasswordForm, LoginForm
 from utils.userinput import what
 from alatting_website.models import (
-    Poster, PosterLike, PosterSubscribe
-    )
+    Poster, PosterLike, PosterSubscribe,
+    Category)
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from account.models import LoginMessage, Person
@@ -29,27 +29,23 @@ class ProfileView(DetailView):
     model = User
 
     def get_object(self, queryset=None):
-        user = self.request.user
-        if user.is_authenticated():
-            obj = self.request.user
-            posters_created = []
-            posters = Poster.objects.filter(creator=self.request.user)
-            for poster_created in posters:
-                posters_created.append(poster_created)
-            obj.posters_created = posters_created
-            obj.poster_count = Poster.objects.filter(
-                creator=self.request.user
-            ).count()
-            obj.poster_likes_count = PosterLike.objects.filter(
-                creator=self.request.user
-            ).count()
-            obj.poster_subscriptions_count = PosterSubscribe.objects.filter(
-                follower=self.request.user
-            ).count()
-            obj.money = 340
-            return obj
-        else:
-            return None
+        obj = self.request.user
+        posters_created = []
+        posters = Poster.objects.filter(creator=self.request.user)
+        for poster_created in posters:
+            posters_created.append(poster_created)
+        obj.posters_created = posters_created
+        obj.poster_count = Poster.objects.filter(
+            creator=self.request.user
+        ).count()
+        obj.poster_likes_count = PosterLike.objects.filter(
+            creator=self.request.user
+        ).count()
+        obj.poster_subscriptions_count = PosterSubscribe.objects.filter(
+            follower=self.request.user
+        ).count()
+        obj.money = 340
+        return obj
 
 
 class RegisterView(FormView):
@@ -125,10 +121,44 @@ class RegisterView(FormView):
             main_category_id, sub_category_ids,
             input_category
         )
-        # if input_type != 'email':
-        #     user = authenticate(username=username_temp, password=password)
-        #     self.success_url = reverse('posters:keywords', kwargs=)
+        self.login_and_redirect_to(
+            user_type, user.username, password,
+            main_category_id, sub_category_ids
+        )
         return super(RegisterView, self).form_valid(form)
+
+    def login_and_redirect_to(self, user_type, username, password,
+                              main_id, sub_id='',
+                              input_category=''):
+        user = authenticate(username=username, password=password)
+        if user is None:
+            return
+        login(self.request, user)
+        self.success_url = reverse('account:profile')
+        if user_type == Person.USER_TYPE_SERVER:
+            main_cate = get_object_or_404(Category, pk=main_id)
+            if sub_id:
+                sub_cate = get_object_or_404(Category, pk=sub_id)
+            else:
+                input_category = input_category.strip()
+                sub_cate = Category.objects.filter(
+                    name=input_category
+                ).first()
+
+            if sub_cate:
+                self.success_url = reverse('posters:keywords')
+                q = QueryDict(mutable=True)
+                kw = {
+                    'main_category_id': main_cate.id,
+                    'sub_category_id': sub_cate.id,
+                    'cate': main_cate.name,
+                    'subcate': sub_cate.name
+                }
+                q.update(kw)
+                self.success_url += '?%s' % q.urlencode()
+        else:
+            self.success_url += '?sub_id=%s' % sub_id
+        return self.success_url
 
 
 class ResetPasswordView(FormView):

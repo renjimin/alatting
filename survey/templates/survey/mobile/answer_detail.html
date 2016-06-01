@@ -1,0 +1,90 @@
+{% load static %}
+{% load questionnaire %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width,user-scalable=no" >
+    <title>武汉云页移动科技有限公司</title>
+    {% block base_header_css %}
+        <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
+        <link rel="stylesheet" href="{% static 'survey/css/answer-detail.css' %}">
+    {% endblock %}
+    {% block base_header_js %}
+        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+        <script src="{% static 'website/js/base.js' %}"></script>
+        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+    {% endblock %}
+    {% block base_header_extra %}
+    {% endblock %}
+</head>
+<body>
+<div class="body-container">
+{% block base_body_header %}
+{% endblock %}
+{% block base_body %}
+    <div class="qs container-fluid">
+        <header class="qs-header">   
+            <div class="progress-btm">
+            	<a href="javascript: history.go(-1)" class="qs-btn-back">
+			        <i class="qs-icon-back"></i>
+			    </a>
+				<div class="qs-title">
+            		海报创建者详细信息
+            	</div>
+           	</div>
+        </header>
+        <div class="qs-body">
+			<div class="qs-poster-title">
+		    	{{ poster.unique_name }}
+		    </div>
+		    <div class="qs-poster-rating">
+				<span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+			</div>
+			{% for key, value in results.items %}
+			<div class="qs-ans">
+				<div class="qs-ans-info">
+					<span class="qs-ans-user">
+						<span class="qs-ans-user-avatar">
+							{% if person.avatar %}
+	                            <img src="/media/{{person.avatar}}"/>
+	                        {% else %}
+	                            <img src="/media/avatars/avatar.png"/>
+	                        {% endif %}
+						</span>
+						<span class="qs-ans-user-un">
+							{{key.subject.username}}
+						</span>
+					</span>
+					<span class="qs-ans-time">
+						{{key.completed}}
+					</span>
+				</div>
+
+				<div class="qs-ans-list">
+					{% for ans in value%}
+						{% if ans.answer%}
+							<div class="qs-ans-item">
+								<span class="qs-ans-item-qs">
+									{{ans.question.short_text}}
+								</span>
+								<span class="qs-ans-item-ans">
+									{{ans.answer}}
+								</span>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+			{% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block base_body_footer %}
+{% endblock %}
+{% block base_footer_js %}
+{% endblock %}
+</div>
+</body>
+</html>
