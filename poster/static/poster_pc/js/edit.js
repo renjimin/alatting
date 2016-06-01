@@ -102,11 +102,13 @@ function(module, exports, __require__){
 
 		api.switchPannel = function(pannelName){
 			if(currentPannel == pannelName)return;
+			$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
 
 			currentPannel = pannelName;
 			$("#" + pannelName).show();
+			if($("[data-pannel="+currentPannel+"]"))$("[data-pannel="+currentPannel+"]").addClass("active");
 			__require__(2).init(currentPannel);
 		}
 		api.getCurrentPannel = function(){
@@ -133,7 +135,6 @@ function(module, exports, __require__){
 						}else{
 							var item  = $(e.target).closest(itemSelector);
 						}
-						$(".active").removeClass("active");
 						var transform = "",pannelName = "";
 						if(item.closest(".yunye-template").length  != 0){
 							transform = $(".yunye-template").css("transform");
@@ -152,7 +153,6 @@ function(module, exports, __require__){
 					y = item.offset().top - $(".edit-body").offset().top,
 					width = item.outerWidth() - 4,
 					height = item.outerHeight() - 4;
-				item.addClass("active");
 				currentSelect = item;
 				$(".hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
@@ -184,10 +184,9 @@ function(module, exports, __require__){
 		api.ready = function(){
 			_.each(clicklist,function(item){
 				$(item).on("click",function(){
-					$(".active").removeClass("active");
 					Editor.require("hightClick").removeHighLigh();
-					$(item).addClass("active");
 					pannelSwitcher.switchPannel($(item).data("pannel"));
+					//$(item).addClass("active");
 				});
 			});
 		}
@@ -256,9 +255,19 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//[模块7]模块
+//[模块7]contact模块
 function(module, exports, __require__){
-	
+	Editor.define("contact_pannel",module.exports = function(){
+		var api = {};
+
+		api.init = function(){
+			
+		}
+		api.destory = function(){
+			
+		}
+		return api;
+	});
 },
 //[模块8]头部背景颜色模块
 function(module, exports, __require__){

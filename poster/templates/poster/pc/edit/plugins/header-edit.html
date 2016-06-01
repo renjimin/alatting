@@ -41,7 +41,41 @@
 		<li class="form-item"><i class="fa fa-mobile"></i><div><input type="text" id="mobileInput"></div></li>
 		<li class="form-item"><i class="fa fa-envelope"></i><div><input type="text" id="emailInput"></div></li>
 		<li class="form-item"><i class="fa fa-map-marker"></i><div><input type="text" id="adressInput"></div></li>
-		<li class="form-item"><i class="fa fa-clock-o"></i><div><input type="text"></div></li>
+		<li class="form-item"><i class="fa fa-clock-o"></i></li>
+		<div style="width: 100%;background: #ff0000;" class="clock-dropdown">
+			<div class='calender'><div class='calenderContent'><div class='calenderTable'>
+			<div class='getyear'>
+				<a class='preMonth' id='preMonth'>上一月</a>
+				<select id='year'></select>
+				<select id='month'></select>
+				<a class='nextMonth' id='nextMonth' style="float: right;">下一月</a>
+				<i class="glyphicon glyphicon-cog" style="font-size: 14px;border:none;float: right;background:transparent;margin:10px;width: auto;height: auto;"></i>
+			</div>
+			<div class='tablebg'>
+				<table id='calender' class='calendertb' cellpadding='0' cellspacing='1'><tr bgcolor='#D6D6D6'><th class='weekend'>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class='weekend noborder'>六</th></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr></table>
+			</div>
+			<div class='dayinfo'>
+				<input type="time">至<input type="time" >
+				<div id="dateState" style="position: relative;width: 45px;display: inline-block;height: 35px;vertical-align: bottom;">
+						<div class="toggle-line"></div><div class="toggle-btn"></div>
+				</div>
+			</div>
+			</div></div></div>
+			<div class="weekly">
+				<div style="width: 100%;height: 30px;background-color: #EBEBEB;">
+					<i class="glyphicon glyphicon-cog" style="font-size: 14px;border:none;float: right;background:transparent;margin:10px;width: auto;height: auto;"></i>
+				</div>
+				<table>
+					<tr><td>周一</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+					<tr><td>周二</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+					<tr><td>周三</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+					<tr><td>周四</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+					<tr><td>周五</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+					<tr><td>周六</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+					<tr><td>周日</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+				</table>
+			</div>
+		</div>
 	</ul>
 </section>
 
@@ -62,9 +96,7 @@
 	<ul class="navbar">
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-font"></i><span>颜色</span></a>
-			<div class="subnav palette">
-				
-			</div>
+			<div class="subnav palette"></div>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);"><i class="fa fa-image"></i><span>系统图案</span></a>
