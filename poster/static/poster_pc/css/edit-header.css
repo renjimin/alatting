@@ -32,7 +32,7 @@
     height: 60px;
 }
 
-.top-bar a.item:hover,.top-bar a.item:active{
+.top-bar a.item:hover,.top-bar a.item.active{
     background-color:#ECEAE8;
 }
 
