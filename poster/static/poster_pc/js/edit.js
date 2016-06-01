@@ -131,7 +131,7 @@ function(module, exports, __require__){
 						if( $(itemSelector).length == 1 ){
 							var item  = $(itemSelector);
 						}else{
-							var item  = $(e.target);
+							var item  = $(e.target).closest(itemSelector);
 						}
 						$(".active").removeClass("active");
 						var transform = "",pannelName = "";
