@@ -9,7 +9,7 @@
     {% block base_header_css %}
         <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
         <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
-        <link rel="stylesheet" href="{% static 'survey/css/survey-base.css' %}">
+        <link rel="stylesheet" href="{% static 'survey/css/answer-detail.css' %}">
     {% endblock %}
     {% block base_header_js %}
         <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
@@ -24,33 +24,45 @@
 {% block base_body_header %}
 {% endblock %}
 {% block base_body %}
-	<a class="btn" href="javascript: history.go(-1)">返回</a>
-	<div class="text-center">
-    	<h2>海报名称:&nbsp;{{ poster.unique_name }}</h2>
-    </div>
-    <div>
-		<ul>
-		{% for key, value in results.items %}
-			<li>
-		    用户:&nbsp;{{key.subject.username}}&nbsp;&nbsp;&nbsp;&nbsp;完成时间:&nbsp;{{key.completed}}
-			    <ul>
-			    {% for ans in value%}
-			    	{% if ans.answer%}
-				    	<li>
-							{{ans.question.short_text}} : {{ans.answer}}
-						</li>
-					{% endif %}
-			    {% endfor %}
+    <div class="qs container-fluid">
+        <header class="qs-header">   
+            <div class="progress-btm">
+            	<a href="javascript: history.go(-1)" class="qs-btn-back">
+			        <i class="qs-icon-back"></i>
+			    </a>
+				<div class="qs-title">
+            		海报创建者详细信息
+            	</div>
+           	</div>
+        </header>
+        <div class="qs-body">
+			<div class="text-center">
+		    	<h2>海报名称:&nbsp;{{ poster.unique_name }}</h2>
+		    </div>
+		    <div>
+				<ul>
+				{% for key, value in results.items %}
+					<li>
+				    用户:&nbsp;{{key.subject.username}}&nbsp;&nbsp;&nbsp;&nbsp;完成时间:&nbsp;{{key.completed}}
+					    <ul>
+					    {% for ans in value%}
+					    	{% if ans.answer%}
+						    	<li>
+									{{ans.question.short_text}} : {{ans.answer}}
+								</li>
+							{% endif %}
+					    {% endfor %}
+						</ul>
+					</li>
+				{% endfor %}
 				</ul>
-			</li>
-		{% endfor %}
-		</ul>
-	</div>
+			</div>
+        </div>
+    </div>
 {% endblock %}
 {% block base_body_footer %}
 {% endblock %}
 {% block base_footer_js %}
-    <script src="{% static 'website/js/footer.js' %}"></script>
 {% endblock %}
 </div>
 </body>
