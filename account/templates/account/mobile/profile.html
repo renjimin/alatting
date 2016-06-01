@@ -1,8 +1,8 @@
 {% extends 'website/mobile/base.html' %}
 {% load static %}
 {% block base_header_css %}
-<link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
-<link rel="stylesheet" href="{% static 'libs/fontawesome/css/font-awesome4.5.0.min.css' %}">
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
 {% endblock %}
 
 {% block base_header_js %}
