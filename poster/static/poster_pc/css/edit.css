@@ -14,6 +14,9 @@ body {
     background: #c8c8c8;
     font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+a:focus,a:hover,a:visited{
+    text-decoration: none;
+}
 
 .edit-viewport {
     position: relative;
@@ -55,13 +58,14 @@ body {
     background: #e9e9e9;
     box-shadow: 0 0 5px #999;
     overflow-y: auto;
-    z-index: 99;
+    z-index: 80;
 }
 
 .edit-right {
     left: auto;
     right: 0;
     width: 320px;
+
 }
 
 .edit-center {
@@ -69,7 +73,7 @@ body {
     width:100%;
     height: 100%;
     padding: 80px 320px 20px 240px;
-
+    z-index:79;
 }
 
 .header-bar {}

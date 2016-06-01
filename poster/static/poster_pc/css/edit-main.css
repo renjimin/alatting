@@ -543,13 +543,25 @@
 }
 /******************************/
 
-.header-qrcode:hover .qrcode-inner .qrcode,
-.header-abutton:hover .abutton-group li,
-.header-qrcode:active .qrcode-inner .qrcode,
-.header-abutton:active .abutton-group li{
-     background: #4e4e4e;
+.header-qrcode:hover,
+.header-abutton:hover,
+.header-logo:hover,
+.header-info:hover{
+     background: rgba(0,0,0,.1);
 }
-
+.yunye-template>.content>div{
+    position: relative;
+}
+.yunye-template>.content>div:hover:before{
+    content:"";
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.1);
+    position: absolute;
+}
 /************template***********/
 /* template css */
 .yunye-template {
