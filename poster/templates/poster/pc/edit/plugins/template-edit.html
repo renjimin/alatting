@@ -73,7 +73,7 @@
 
 <script type="text/javascript">
 
-
+var slideTarget;
 	  $('#uploaderContainer').diyUpload({
 			url: '/api/v1/poster/upload/logo',
 			buttonText: '上传图片',
@@ -90,12 +90,17 @@
 			auto: true,
 			success: function(data, file) {
 				var target = Editor.require("hightClick").getCurrentTarget();
+				slideTarget = $(target);
 				//console.log(target);
+				data.imgid = file.id;
 				$(target).imgslider({"data":data});
+				$(target).imgoperation();
+
 			},
 			error: function(err) {
 				console.info(err);
 			},
+		  	sliderContainer:slideTarget
 
 		});
 
