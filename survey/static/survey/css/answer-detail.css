@@ -18,6 +18,7 @@
 }
 .qs-body {
     padding-top: 50px;
+    overflow: auto;
 }
 .progress-btm {
     background: #000;
@@ -38,8 +39,8 @@
 }
 .qs-icon-back {
     display: inline-block;
-    width: 1em;
-    height: 1em;
+    width: 22px;
+    height: 22px;
     vertical-align: top;
     color: #fff;
     background: url('../img/arrow.png') no-repeat;
@@ -54,4 +55,48 @@
     display: block;
     text-align: center;
     color: #fff;
+}
+.qs-poster-title {
+    text-align: center;
+    font-size: 18px;
+    padding-top: 10px;
+}
+.qs-poster-rating {
+    padding-bottom: 10px;
+    text-align: center;
+}
+.qs-ans-info {
+    overflow: auto;
+    padding: 5px 0;
+}
+.qs-ans-user {
+    float: left;
+}
+.qs-ans-time {
+    float: right;
+}
+.qs-ans-item {
+    background: #DCDCDC;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+.qs-ans-item-qs {
+    background: #C0C0C0;
+    min-width: 150px;
+    display: inline-block;
+    padding: 5px 0;
+    border-radius: 5px;
+    text-align: center;
+}
+.qs-ans-item-ans {
+    padding-left: 10px;
+}
+.qs-ans-user-avatar img{
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+}
+.qs-ans-time {
+    height: 40px;
+    line-height: 40px;
 }
