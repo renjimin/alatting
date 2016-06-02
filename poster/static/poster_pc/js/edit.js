@@ -105,7 +105,7 @@ function(module, exports, __require__){
 
 		api.switchPannel = function(pannelName){
 			if(currentPannel == pannelName)return;
-			if(pannelName!="template_clip_pannel")$(".active").removeClass("active");
+			$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
 
