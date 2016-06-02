@@ -236,9 +236,17 @@ class LoginView(FormView):
                                       {'error': "用户名或密码错误"})
 
 
-class PosterServiceIndexView(DetailView):
+class PosterServerIndexView(DetailView):
     model = Poster
-    template_name = 'account/mobile/service.html'
+    template_name = 'account/mobile/server.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+
+
+class PosterConsumerIndexView(DetailView):
+    model = Poster
+    template_name = 'account/mobile/consumer.html'
 
     def get_object(self, queryset=None):
         return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))

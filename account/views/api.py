@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from rest_framework import status
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, \
-    ListAPIView, get_object_or_404
+    ListAPIView, get_object_or_404, GenericAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from account.email import send_verify_email
@@ -166,6 +166,10 @@ FILE_MODEL_CLASS_MAPPING = {
 
 
 class FilesListView(ListAPIView):
+    model = Image
+    serializer_class = ImageSerializer
+    queryset = Image.objects.none()
+
     def get(self, request, *args, **kwargs):
         q = request.GET.get('q', '')
         if q and q in FILE_MODEL_CLASS_MAPPING.keys():
@@ -175,8 +179,4 @@ class FilesListView(ListAPIView):
             self.queryset = self.model.objects.filter(
                 creator=self.request.user
             ).order_by("-created_at")
-        else:
-            self.model = Image
-            self.serializer_class = ImageSerializer
-            self.queryset = Image.objects.none()
         return super(FilesListView, self).get(request, *args, **kwargs)
