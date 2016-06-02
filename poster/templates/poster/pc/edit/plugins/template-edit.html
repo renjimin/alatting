@@ -17,12 +17,8 @@
 					<div class="fileBar" id="fileBar">
 						<div class="fileProgress"></div>
 					</div>
-					<div id="uploaderContainer2" class="webuploader-container">
-						<div class="webuploader-pick">选择文件</div>
-						<div id="uploadFileContainer">
-							<input type="file" name="file" multiple="multiple">
-							<label></label>
-						</div>
+					<div id="uploaderContainer" class="webuploader-container">
+
 					</div>
 					<div class="file-bottom" style="display:none;">
 						<a href="javascript:;" class="btn">确定</a>
@@ -67,7 +63,7 @@
 <script type="text/javascript">
 
 	var slideTarget;
-	  $('#uploaderContainer2').diyUpload({
+	  $('#uploaderContainer').diyUpload({
 			url: '/api/v1/poster/upload/logo',
 			buttonText: '上传图片',
 			chunked: false,
