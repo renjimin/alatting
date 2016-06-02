@@ -104,7 +104,7 @@ function(module, exports, __require__){
 
 		api.switchPannel = function(pannelName){
 			if(currentPannel == pannelName)return;
-			if(pannelName!="template_clip_pannel")$(".active").removeClass("active");
+			$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
 
@@ -569,35 +569,92 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("textEditor",module.exports = function(){
 		var api ={};
-		var container = null;
+		var container,textColorInput,textSizeInput,borderColorInput,borderSizeInput,textOpacityInput,textShadowInput,ID,sliderTarget;
 
 		api.init = function(div,target){
 			if( !container ){
-				var str = "<div class='form-horizontal'>"
+				ID = "textEditor_" + $(".ttttEditor").length ; 
+				var str = "<div class='form-horizontal ttttEditor "+ID+"'>"
 							+"<div class='form-group'><label class='col-xs-2 control-label'>颜色</label><div class='col-xs-4'><input class='form-color text-color jscolor' readonly='readonly'></div><label class='col-xs-2 control-label'>大小</label><div class='col-xs-4'><select class='form-control text-fontSize'><option value='12'>12px</option><option value='13'>13px</option><option value='14'>14px</option><option value='15'>15px</option><option value='16'>16px</option><option value='17'>17px</option><option value='18'>18px</option><option value='19'>19px</option><option value='20'>20px</option><option value='21'>21px</option><option value='22'>22px</option><option value='23'>23px</option><option value='24'>24px</option><option value='25'>25px</option><option value='26'>26px</option><option value='27'>27px</option><option value='28'>28px</option><option value='29'>29px</option></select></div></div>"
-							+"<div class='form-group'><label class='col-xs-2 control-label'>透明度</label><div class='col-xs-7'><input type='range' class='range text-opacity' name='opacity' min='0' max='100' value='100'></div><div class='col-xs-3'><input type='text' class='form-control text-opacity' data-val='100' value='100'></div></div>"
-							+"<div class='form-group'><label class='col-xs-2 control-label'>阴影</label><div class='col-xs-7'><input type='range' class='range text-boxShadow' name='volume' min='0' max='100' value='16'></div><div class='col-xs-3'><input type='text' class='form-control text-boxShadow' data-val='16' value='16px'></div></div>"
-							+"<div class='form-group'><label class='col-xs-2 control-label'>边框</label><div class='col-xs-7'><input class='form-color text-color jscolor' readonly='readonly'></div><div class='col-xs-3'><input type='text' class='form-control text-boxShadow' data-val='16' value='16px'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>透明度</label><div class='col-xs-7'><input type='range' class='range text-opacity' name='opacity' min='0' max='100' value='100'></div><div class='col-xs-3'><input type='text' class='form-control text-opacity' value='100%'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>阴影</label><div class='col-xs-7'><input type='range' class='range text-boxShadow' name='volume' min='0' max='100' value='0'></div><div class='col-xs-3'><input type='text' class='form-control text-boxShadow' value='0px'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>边框</label><div class='col-xs-7'><input class='form-color text-color jscolor' readonly='readonly'></div><div class='col-xs-3'><input type='text' class='form-control border-Control' value='0px'></div></div>"
 						+"</div>";
 				div.empty().append(str);
+				container = div,
+				textColorInput = container.find(".form-color.text-color.jscolor").eq(0),
+				textSizeInput = container.find(".form-control.text-fontSize").eq(0),
+				borderColorInput = container.find(".form-color.text-color.jscolor").eq(1),
+				borderSizeInput = container.find(".border-Control").eq(0),
+				textOpacityInput = container.find(".form-control.text-opacity"),
+				textShadowInput = container.find(".form-control.text-boxShadow");
+
+				target.css("fontSize",textSizeInput.val() + "px");
+				target.css("borderWidth",borderSizeInput.val());
+				new jscolor(container.find(".form-color.text-color.jscolor")[0]);
+				new jscolor(container.find(".form-color.text-color.jscolor")[1]);
 			}
-			container = div;
 			api.initEditor(target);
 		}
 		api.initEditor = function(target){
-			console.log(target);
-			//container.find();
-			
+			textColorInput.on("input propertychange change",function(e){
+				target.css("color",$(e.target).css("background-color"));
+			});
+			borderColorInput.on("input propertychange change",function(e){
+				target.css("borderColor",$(e.target).css("background-color"));
+			});
+			textSizeInput.on("change",function(e){
+				target.css("fontSize",textSizeInput.val() + "px");
+			});
+			borderSizeInput.on("change",function(e){
+				target.css("borderWidth",borderSizeInput.val());
+			});
+			textOpacityInput.on("change",function(e){
+				
+			});
+			api.initSliders(target);
+		}
+		api.initSliders = function(target){
+			$(document)
+			.on("mousedown."+ID+" touchstart."+ID,".range.text-opacity,.range.text-boxShadow",function(event){
+				sliderTarget = $(this);
+				event.preventDefault();
+				move(event);
+			})
+			.on("mousemove."+ID+" touchmove."+ID,function(event){
+				if(!sliderTarget)return;
+				move(event);
+			})
+			.on("mouseup."+ID+" touchend."+ID,function(event){
+				sliderTarget = null;
+			})
+			function move(event){
+				if(!sliderTarget)return;
+				var offsetX = sliderTarget.offset().left,
+					x = Math.round(event.pageX - offsetX),
+					wx = sliderTarget.outerWidth();
+				if( x < 0 ) x = 0;
+				if( x > wx ) x = wx;
+				var percent = Math.round(x/wx *100);
+				sliderTarget.val(percent);
+				if(sliderTarget.is(".text-opacity")){
+					textOpacityInput.val(percent+"%");
+					target.css("opacity",percent/100);
+				}else{
+					var pxv = 5 * percent /100;
+					textShadowInput.val(pxv+"px");
+					target.css("textShadow","#000 "+ pxv +"px "+ pxv +"px 2px");
+				}
+			}
 		}
 		api.destory = function(div){
-			container.find(".colorBox").off("click");
-			container.find(".colorPannel table").off("click");
-			container.find(".colorPannel input").off("change");
+			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput],function(item){
+				item.off("input propertychange change");
+			});
 			$(document)
-				.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
-				.off('mousemove.colorPannel touchmove.colorPannel')
-				.off('mouseup.colorPannel touchend.colorPannel');
-			container = null;
+			.off("mousedown."+ID+" touchstart."+ID,".range.text-opacity,.range.text-boxShadow")
+			.off("mousemove."+ID+" touchmove."+ID)
+			.off("mouseup."+ID+" touchend."+ID);
 		}
 		return api;
 	});
@@ -619,8 +676,6 @@ function(module, exports, __require__){
 			var dataHandler = Editor.require("dataHandler");
 			dataHandler.bindData($(".header-logo h2"),"header_logo_text");
 			dataHandler.bindData(pannel.find(".text-textarea"),"header_logo_text");
-			//api.bindData($("#titleLastLength"),"unique_name","var calV = 10 - String(__value__).length;( calV < 0) ? 0 : calV;");
-			//api.setValue("unique_name",yunyeEditorGlobal.unique_name);
 		}
 		api.init = function(){
 			var state = $(".header-logo h2").is(":visible");
@@ -635,9 +690,7 @@ function(module, exports, __require__){
 			imgBtn.off("click").on("click",function(){
 				showImg();
 			});
-			
-			textEditor.init($(".textEditor"),$(".header-logo"));
-			
+			textEditor.init($(".textEditor"),$(".header-logo h2"));
 		}
 		function showText(){
 			textEdit.slideDown(200);
@@ -652,7 +705,7 @@ function(module, exports, __require__){
 			$(".header-logo h2").hide();
 		}
 		api.destory = function(div){
-			
+			textEditor.destory();
 		}
 		return api;
 	});
