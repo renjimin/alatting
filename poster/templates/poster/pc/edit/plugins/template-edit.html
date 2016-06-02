@@ -17,7 +17,7 @@
 					<div class="fileBar" id="fileBar">
 						<div class="fileProgress"></div>
 					</div>
-					<div id="uploaderContainer" class="webuploader-container">
+					<div id="uploaderContainer2" class="webuploader-container">
 						<div class="webuploader-pick">选择文件</div>
 						<div id="uploadFileContainer">
 							<input type="file" name="file" multiple="multiple">
@@ -28,9 +28,6 @@
 						<a href="javascript:;" class="btn">确定</a>
 					</div>
 				</div>
-
-
-
 
 
 			</div>
@@ -70,7 +67,7 @@
 <script type="text/javascript">
 
 	var slideTarget;
-	  $('#uploaderContainer').diyUpload({
+	  $('#uploaderContainer2').diyUpload({
 			url: '/api/v1/poster/upload/logo',
 			buttonText: '上传图片',
 			chunked: false,
@@ -149,12 +146,12 @@
 		});
 		}
 
-	getImage();
-	function getImage(){
+		getImage();
+		function getImage(){
 		$.ajax({
-		url: "/api/v1/account/files?q=image",
-		type: "get",
-		datatype: "json",
+			url: "/api/v1/account/files?q=image",
+			type: "get",
+			datatype: "json",
 		success: function(data) {
 			$(".imgul").empty();
 			$.each(data, function(){
@@ -173,7 +170,7 @@
 
 
 		}
-	});
+		});
 
 
 	}

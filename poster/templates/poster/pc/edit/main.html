@@ -30,11 +30,8 @@
                     </div>
                 </div>
                 <div class="header-logo" data-pannel="logo_pannel">
-                    {% if poster.logo_title %}
-                        {{ poster.logo_title|safe }}
-                    {% else %}
-                        <img src="{{ poster.logo_image.file.url }}">
-                    {% endif %}
+                        <h2 style="{% if poster.logo_title %}display: block;{% else %}display: none;{% endif %}">{{ poster.logo_title|safe }}</h2> 
+                        <img style="{% if poster.logo_title %}display: none;{% else %}display: block;{% endif %}" src="{{ poster.logo_image.file.url }}">
                 </div>
                 <div class="header-abutton" data-pannel="contact_pannel">
                     <div class="abutton-inner" id="abutton">
