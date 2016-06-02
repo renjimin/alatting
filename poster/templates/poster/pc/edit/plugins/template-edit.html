@@ -7,6 +7,12 @@
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-image"></i><span>上传图片</span></a>
 			<div class="subnav">
 
+				<div class="image-all">
+					<ul class="imgul">
+					</ul>
+
+				</div>
+
 				<div class="clearfix">
 					<div class="fileBar" id="fileBar">
 						<div class="fileProgress"></div>
@@ -24,20 +30,7 @@
 				</div>
 
 
-				<div class="image-all">
-					<ul class="imgul">
-						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
-						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
-					</ul>
 
-				</div>
 
 
 			</div>
@@ -169,6 +162,10 @@
 				$(".imgul").append(li);
 				li.click(function(){
 
+					var target = Editor.require("hightClick").getCurrentTarget();
+					var img = $(this).find("img").clone();
+					target.empty().append(img);
+					target.imgoperation();
 
 				})
 
