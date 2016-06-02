@@ -70,7 +70,7 @@
 }
 
 .subnav{
-	padding:10px 10px 20px 10px;
+	padding:10px 15px 20px 15px;
 	display: none;
 }
 
@@ -125,4 +125,72 @@
 	border: 4px #D6D6D6 solid;
 	width: 100%;
 	background: #EBEBEB;
+}
+.weekly table{
+	width: 100%;
+}
+.weekly table tr{
+	height: 30px;
+	width: 100%;
+	border:1px #CCCCCC solid;
+}
+.weekly table td{
+	text-align: center;
+	position: relative;
+}
+.weekly table tr td:nth-child(1){
+	border:1px #CCCCCC solid;
+	width: 40px;
+}
+.weekly table tr td:nth-child(3){
+	padding-right: 20px;
+}
+#contact_pannel .toggle-line{
+	width: 45px;
+	height: 18px;
+	background-color: #fff;
+	border-radius:20px;
+	margin: auto;
+	transition: background-color .2s;
+	box-shadow: 1px 1px 1px #999 inset;
+}
+#contact_pannel td.off .toggle-line,#dateState.off .toggle-line{
+	background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+}
+#contact_pannel td.off .toggle-line:after, #dateState.off .toggle-line:after {
+    content: "off";
+    left: 20px;
+    position: absolute;
+    line-height: 18px;
+}
+#contact_pannel .toggle-line:after {
+    content: "on";
+    position: absolute;
+    left: 4px;
+    line-height: 18px;
+}
+#contact_pannel .toggle-btn{
+	width: 20px;
+	height: 20px;
+	background-color: #fff;
+	border-radius:100%;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left:100%;
+	margin:auto;
+	margin-left: -20px;
+	transition: margin-left .2s ,left .2s;
+	box-shadow: 1px 1px 1px #999;
+}
+#contact_pannel td.off .toggle-btn,#dateState.off .toggle-btn{
+	left: -1px;
+	margin-left: 0px;
+}
+.weekly table td input{
+	background: transparent;
+	border:none;
+}
+#dateState .toggle-line{
+	margin-top: 8.5px;
 }
