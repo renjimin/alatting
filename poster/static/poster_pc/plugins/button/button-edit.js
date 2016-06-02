@@ -433,8 +433,7 @@ function deleteElement(){
 			imgactive = $(this);
 		}
 	});
-
-	console.log(imgactive.length)
+	if(imgactive == null) return;
 	imgactive.stop(true,false).animate({'width':'0','height':'0','top':parseInt(imgactive.css('top'))+imgactive.height()/2+'px','left':parseInt(imgactive.css('left'))+imgactive.width()/2+'px'},200,function(){
 			imgactive.remove();
 	});
