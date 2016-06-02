@@ -1,17 +1,22 @@
 # coding=utf-8
-import datetime               
+import datetime			   
 from django.shortcuts import render_to_response, \
 get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.generic import View, TemplateView, RedirectView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
+from django.forms import formset_factory
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from survey.models import *
 from alatting_website.model.poster import Poster
 from survey import *
 from account.models import Person
+from survey.form.forms import *
+import logging
+logger = logging.getLogger(__name__)
+
 
 class IndexView(TemplateView):
 	template_name = 'survey/mobile/questionset.html'
@@ -365,3 +370,28 @@ class AnswerDetailView(TemplateView):
 				results[his].append(ans)
 		context['results'] = results
 		return context
+
+
+class QuestionCreateView(FormView):
+	template_name = "survey/mobile/create_question.html"
+	form_class = QuestionForm
+
+	def form_valid(self, form):
+		if form.is_valid():
+			qs_type = form.cleaned_data['qs_type']
+		logger.debug('qs_type')
+		logger.debug(qs_type)
+		return HttpResponseRedirect(reverse("survey:create_choice"))
+
+
+class ChoiceCreateView(FormView):
+	template_name = "survey/mobile/create_choice.html"
+	form_class = formset_factory(ChoiceForm)
+
+	def form_valid(self, form):
+		if form.is_valid():
+			qs_type = form.cleaned_data['qs_type']
+		logger.debug('qs_type')
+		logger.debug(qs_type)
+		return render_to_response("survey/mobile/create_choice.html")
+		
