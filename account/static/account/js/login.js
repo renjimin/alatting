@@ -229,15 +229,24 @@ $(document).ready(function () {
             $("#id_main_category").val(sid);
              if (ths.find("li").length == 0) {
                 selectTrade(sid, function (data) {
+                    ssbox = '<ul class = "sul-server">'
                     for (var i = 0; i < data.length; i++) {
                         ssbox += '<li class = "sli-server" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '</li>';
                         console.log(data.length);
                     } ;
+                    ssbox += '</ul>'
                         ths.append(ssbox);
                 });
              }else{
 
              }
+            if (ths.hasClass('open')) {
+                ths.removeClass('open');
+                ths.children('ul').hide();
+            }else{
+                ths.addClass('open');
+                ths.children('ul').show();
+            };                   
             $('.li-server').on('click', '.sli-server', function () {
                 selectedname = $(this).attr('data-name');
                 $('.selectserver').text(selectedname);
@@ -311,18 +320,23 @@ $(document).ready(function () {
                         $(event.target).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
                     };   
                 }
-                $('.selectprovider').text(selectedname);
-                var chckbox = ths.children();
-                messbox += selectedname + ',';
-                console.log(messbox)
-                messid += meid+ ',';   
             });
         });
-        selected.on('click', '.glyphicon-ok-circle', function () {
+        selected.off("click", '.glyphicon-ok-circle').on('click', '.glyphicon-ok-circle', function () {
+           // console.log($('.div-provider .glyphicon-check').parents('li'));
+            var i = $('.div-provider .glyphicon-check');
+            var meid = "";
+            for(var n=0;n<i.length;n++){
+                $(i[n]).parent('li').attr('data-id');
+                meid += $(i[n]).parent('li').attr('data-id')+",";
+                messbox += $(i[n]).parent('li').attr('data-name')+","
+            }
+            meid = meid.substring(0,meid.length-1);
+            messbox = messbox.substring(0,messbox.length-1);
             if(messbox.length>0){
                 $('.selectprovider').text(messbox);            
             }
-            $("#id_sub_category_ids").val(messid);
+            $("#id_sub_category_ids").val(meid);
             $('.div-provider').fadeOut(200);
         });
     });
