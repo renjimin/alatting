@@ -215,11 +215,11 @@
 
 			//绑定文件加入队列事件;
 			webUploaderaudio.on('fileQueued', function(file ) {
-				if(!/\.(mp4|ogg|webm)$/.test(file.name)){
+				/*if(!/\.(mp4|ogg|webm)$/.test(file.name)){
 					yyAlert("上传视频格式错误");
 					webUploaderaudio.removeFile(file.id);
 					return false;
-				}
+				}*/
 
 			});
 
