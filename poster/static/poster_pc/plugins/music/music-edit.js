@@ -29,10 +29,12 @@ function loadMusic(){
 	$('.music-list').click(function(e){
 		var target = $(e.target).closest('.music-link');
 		var audio = target.parent().find('audio')[0];
+
 		target.parent().siblings().each(function(){
 			$(this).find('audio')[0].pause();//
+			$(this).removeClass('pause').addClass('play');
 		});
-		target.parent().addClass('actived').siblings().removeClass('actived').addClass('play');
+		target.parent().addClass('actived').siblings().removeClass('actived');
 
 		if(target.parent().hasClass('play')){
 			target.parent().removeClass('play').addClass('pause');
