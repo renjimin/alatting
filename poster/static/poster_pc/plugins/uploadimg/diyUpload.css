@@ -515,10 +515,17 @@
     height: 100%;
 }
 
+.parentImgUL{
+    margin:0;
+    padding:0;
+}
+
 .parentImgUL li{
     position: relative;
     margin-bottom: 15px;
     cursor: pointer;
+    min-height: 100px;
+    background: #eee;
 }
 
 .img-close{
