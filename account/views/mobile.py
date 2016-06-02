@@ -6,15 +6,15 @@ from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render_to_response, render
-from django.views.generic import FormView, TemplateView
-from django.views.generic.detail import DetailView
+from django.views.generic import FormView
 
 from account.form.forms import RegisterForm, pwd_validate, \
     ResetPasswordForm, LoginForm
+from account.views.base import ProfileBaseView, AccountPosterBaseView
 from utils.userinput import what
 from alatting_website.models import (
-    Poster, PosterLike, PosterSubscribe,
-    Category)
+    Category
+)
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from account.models import LoginMessage, Person
@@ -24,28 +24,8 @@ def not_found(request):
     return JsonResponse({'detail': u'Page Not Found'}, status=404)
 
 
-class ProfileView(DetailView):
+class ProfileView(ProfileBaseView):
     template_name = 'account/mobile/profile.html'
-    model = User
-
-    def get_object(self, queryset=None):
-        obj = self.request.user
-        posters_created = []
-        posters = Poster.objects.filter(creator=self.request.user)
-        for poster_created in posters:
-            posters_created.append(poster_created)
-        obj.posters_created = posters_created
-        obj.poster_count = Poster.objects.filter(
-            creator=self.request.user
-        ).count()
-        obj.poster_likes_count = PosterLike.objects.filter(
-            creator=self.request.user
-        ).count()
-        obj.poster_subscriptions_count = PosterSubscribe.objects.filter(
-            follower=self.request.user
-        ).count()
-        obj.money = 340
-        return obj
 
 
 class RegisterView(FormView):
@@ -236,18 +216,13 @@ class LoginView(FormView):
                                       {'error': "用户名或密码错误"})
 
 
-class PosterServerIndexView(DetailView):
-    model = Poster
+class PosterIndexView(AccountPosterBaseView):
+    template_name = 'account/mobile/poster.html'
+
+
+class PosterServerIndexView(AccountPosterBaseView):
     template_name = 'account/mobile/server.html'
 
-    def get_object(self, queryset=None):
-        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
 
-
-class PosterConsumerIndexView(DetailView):
-    model = Poster
+class PosterConsumerIndexView(AccountPosterBaseView):
     template_name = 'account/mobile/consumer.html'
-
-    def get_object(self, queryset=None):
-        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
-
