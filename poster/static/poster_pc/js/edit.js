@@ -571,7 +571,7 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("textEditor",module.exports = function(){
 		var api ={};
-		var container,textColorInput,textSizeInput,borderColorInput,borderSizeInput,textOpacityInput,textShadowInput,ID,sliderTarget;
+		var container,textColorInput,textSizeInput,borderColorInput,borderSizeInput,textOpacityInput,textOpacitySlider,textShadowInput,textShadowSlider,ID,sliderTarget;
 
 		api.init = function(div,target){
 			if( !container ){
@@ -589,7 +589,9 @@ function(module, exports, __require__){
 				borderColorInput = container.find(".form-color.text-color.jscolor").eq(1),
 				borderSizeInput = container.find(".border-Control").eq(0),
 				textOpacityInput = container.find(".form-control.text-opacity"),
-				textShadowInput = container.find(".form-control.text-boxShadow");
+				textShadowInput = container.find(".form-control.text-boxShadow"),
+				textOpacitySlider = container.find(".range.text-opacity"),
+				textShadowSlider = container.find(".range.text-boxShadow");
 
 				target.css("fontSize",textSizeInput.val() + "px");
 				target.css("borderWidth",borderSizeInput.val());
@@ -612,8 +614,33 @@ function(module, exports, __require__){
 				target.css("borderWidth",borderSizeInput.val());
 			});
 			textOpacityInput.on("change",function(e){
+				if( !textOpacityInput.val() ){
+					textOpacityInput.val(textOpacitySlider.val() + "%");
+					return;
+				}
+				var num = parseInt(textOpacityInput.val().replace(/[^A-F0-9]/ig, ''));
+				textOpacityInput.val(num + "%");
+				target.css("opacity",num/100);
+				textOpacitySlider.val(num);
 				e.preventDefault();
-				//target.css("borderWidth",borderSizeInput.val());
+			});
+			textShadowInput.on("change",function(e){
+				if( !textShadowInput.val() ){
+					textShadowInput.val(parseInt(textShadowSlider.val()) *5 /100 + "px");
+					return;
+				}
+				var num = parseInt(textShadowInput.val().replace(/[^0-9]/ig, ''));
+				if( num > 5 ){
+					num = 5;
+				}
+				if(num == 0){
+					target.css("textShadow","none");
+				}else{
+					target.css("textShadow","#000 "+ num +"px "+ num +"px 2px");
+				}
+				textShadowInput.val(num + "px");
+				textShadowSlider.val( Math.round(num/5 * 100) );
+				e.preventDefault();
 			});
 			api.initSliders(target);
 		}
@@ -655,7 +682,7 @@ function(module, exports, __require__){
 			}
 		}
 		api.destory = function(div){
-			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput],function(item){
+			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput,textOpacityInput,textShadowInput],function(item){
 				item.off("input propertychange change");
 			});
 			$(document)
