@@ -1,0 +1,23 @@
+.change-templates-wraper{
+	padding:15px;
+}
+.change-templates-list{
+	margin: 0;
+	padding: 0;
+}
+.change-templates-list .template-item{
+	width:50%;
+	float: left;
+	padding:10px;
+}
+.change-templates-list .template-item a{
+	display: block;
+	border: 2px solid transparent;
+}
+.change-templates-list .template-item img{
+	width: 100%;
+	display: block;
+}
+.change-templates-list .template-item a:hover{
+	border: 2px solid #999;
+}
