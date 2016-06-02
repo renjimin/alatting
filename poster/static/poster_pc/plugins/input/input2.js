@@ -130,11 +130,11 @@ $(function(){
 
       var text = $.trim($("#resourceLinkText").val());
         if(text == ""){
-            alert("请输入图片或视频链接地址");
+            yyAlert("请输入图片或视频链接地址");
             return;
         }
         if(!text.match("^http://")){
-            alert("链接地址格式不正确,应以http://开始");
+            yyAlert("链接地址格式不正确,应以http://开始");
             return;
         }
 
@@ -142,9 +142,9 @@ $(function(){
 
 
     })
+    var target = Editor.require("hightClick").getCurrentTarget();
 
-
-
+    
 
 
 })
