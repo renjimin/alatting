@@ -26,15 +26,15 @@
 
 				<div class="image-all">
 					<ul class="imgul">
-						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img2.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img2.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img2.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img2.png"/></li>
-						<li><img src="/static/poster_pc/images/system-img1.png"/></li>
+						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img2.png"/></li>-->
+						<!--<li><img src="/static/poster_pc/images/system-img1.png"/></li>-->
 					</ul>
 
 				</div>
@@ -98,7 +98,7 @@
 				data.imgid = file.id;
 				$(target).imgslider({"data":data});
 				$(target).imgoperation();
-
+				getImage();
 			},
 			error: function(err) {
 				console.info(err);
@@ -125,18 +125,6 @@
 
 
 				});
-		/*
-		$("#videoDomTmpl").tmpl({
-			"class_name": "video_content",
-			"video_dom_id": data.id,
-			"video_id": data.id,
-			"video_preview_img": data.preview,
-			"video_url": data.file
-		}).appendTo(target);
-
-		videojs.initialize('video_' + data.id);
-		*/
-
 
 	}, function(data) {
 			yyAlert("上传失败");
@@ -167,6 +155,31 @@
 			}
 		});
 		}
+
+	getImage();
+	function getImage(){
+		$.ajax({
+		url: "/api/v1/account/files?q=image",
+		type: "get",
+		datatype: "json",
+		success: function(data) {
+			$(".imgul").empty();
+			$.each(data, function(){
+				var li = $(' <li><img src="' + this.file + '"/></li>')
+				$(".imgul").append(li);
+				li.click(function(){
+
+
+				})
+
+			 });
+
+
+		}
+	});
+
+
+	}
 
 
 
