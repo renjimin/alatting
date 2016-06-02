@@ -4,9 +4,6 @@
 	</div>
 	<ul class="navbar">
 		<li class="nav-item">
-			
-		</li>
-		<li class="nav-item">
 	            <a class="nav-link" href="javascript:void(0);" onclick="" data-toggle="true"><i class="fa fa-music"></i><span>上传</span></a>
 	            <div class="subnav">
 	            		<div class="music-wraper">
@@ -29,8 +26,15 @@
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" onclick="" data-toggle="true"><i class="fa fa-chain"></i><span>链接</span></a>
 			<div class="subnav">
+				<div class="music-link-wraper">
+					<a class="btn-controller" href="javascript:void(0);">
+						<span class="icon"></span>
+						<span class="name">abcd.mp3</span>
+						<audio src="" loop></audio>
+					</a>					
+				</div>
 				<div class="lniks-con">
-					<input type="text"><a class="btn" href="javascript:void(0);"><i class="fa fa-chain"></i></a>
+					<input type="text" id="music-resouce"><a class="btn" href="javascript:void(0);" onclick="resouceMusic()"><i class="fa fa-chain"></i></a>
 				</div>
 			</div>
 		</li>

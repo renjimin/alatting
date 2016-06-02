@@ -31,7 +31,7 @@ function loadMusic(){
 		var audio = target.parent().find('audio')[0];
 
 		target.parent().siblings().each(function(){
-			$(this).find('audio')[0].pause();//
+			$(this).find('audio')[0].pause();
 			$(this).removeClass('pause').addClass('play');
 		});
 		target.parent().addClass('actived').siblings().removeClass('actived');
@@ -55,4 +55,13 @@ function addMusic(){
 	},function(data){
 		console.log(data)
 	})
+}
+
+function resouceMusic(){
+	var url = $('#music-resouce').val();
+	if(url == "") return;
+	var typeName = $.fn.yyTools.getFileTypeName(url);
+	console.log(typeName);
+	console.log(url.format());
+
 }
