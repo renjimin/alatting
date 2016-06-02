@@ -29,5 +29,5 @@ urlpatterns = [
 #创建问题
 urlpatterns += [
 	url(r'^create/$', QuestionCreateView.as_view(), name='create'),
-	url(r'^create_choice/$', ChoiceCreateView.as_view(), name='create_choice'),
+	url(r'^create_choice/(?P<q_id>\d+)/$', ChoiceCreateView.as_view(), name='create_choice'),
 ]

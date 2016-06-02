@@ -45,10 +45,12 @@ class QuestionSet(models.Model):
     heading = models.CharField(max_length=64)
    
     def questions(self):
-        return Question.objects.filter(questionset=self.id).order_by('sortid')
+        res = Question.objects.filter(questionset=self.id).order_by('sortid')
+        return res
 
     def questions_count(self):
-        return Question.objects.filter(questionset=self.id).order_by('sortid').count()
+        res = Question.objects.filter(questionset=self.id).order_by('sortid').count()
+        return res
 
     def next(self):
         qs = self.questionnaire.questionsets()
@@ -112,6 +114,10 @@ class Question(models.Model):
         res = Choice.objects.filter(question=self).order_by('sortid')
         return res
 
+    def choices_count(self):
+        res = Choice.objects.filter(question=self).order_by('sortid').count()
+        return res
+
     def get_type(self):
         "Get the type name"
         t = self.type
@@ -142,7 +148,7 @@ class Input(models.Model):
         ('textarea', 'input type[textarea]')
     ]
     type = models.CharField(
-        max_length=32, choices=InputChoices
+        max_length=32, choices=InputChoices, default='text'
     )
 
 

@@ -7,4 +7,6 @@ class QuestionForm(forms.Form):
 	q_type = forms.ChoiceField(choices = QuestionChoices)
 
 class ChoiceForm(forms.Form):
-	choice_add = forms.CharField()
+	c_text = forms.CharField()
+	c_value = forms.CharField()
+	c_input = forms.BooleanField(required=False)

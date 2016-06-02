@@ -1,34 +1,12 @@
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <meta name="viewport"  content="width=device-width,user-scalable=no" >
-    <title>武汉云页移动科技有限公司</title>
-    {% block base_header_css %}
-        <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
-        <link rel="stylesheet" href="{% static 'website/css/base.css' %}"/>
-    {% endblock %}
-    {% block base_header_js %}
-        <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
-        <script src="{% static 'website/js/base.js' %}"></script>
-        <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
-    {% endblock %}
-    {% block base_header_extra %}
-    {% endblock %}
-</head>
-<body>
-<div class="body-container">
-{% block base_body_header %}
-{% endblock %}
-
-{% block base_body %}
 <form id="myForm" method="post" action="">{% csrf_token %}
     <table border="0" cellpadding="0" cellspacing="0">
         <tbody>
             {% for f in form %}
             <tr>
-               <td>Add choice:{{ f.choice_add }}</td>
+               <td>输入选项文本:{{ f.c_text }}</td>
+               <td>输入选项的值:{{ f.c_value }}</td>
+               <td>选项是否包含输入框:{{ f.c_input }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -36,19 +14,11 @@
     {{ form.management_form }}
     <input type="submit" value="Submit" />
 </form>
-{% endblock %}
 
-{% block base_body_footer %}
-{% endblock %}
-
-{% block base_footer_js %}
-    <script src="{% static 'survey/js/jquery.formset.js' %}"></script>
-    <script type="text/javascript">
-	    $(function() {
-	        $('#myForm tbody tr').formset();
-	    })
-	</script>
-{% endblock %}
-</div>
-</body>
-</html>
+<script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
+<script src="{% static 'survey/js/jquery.formset.js' %}"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#myForm tbody tr').formset();
+    })
+</script>

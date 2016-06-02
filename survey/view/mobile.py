@@ -14,8 +14,6 @@ from alatting_website.model.poster import Poster
 from survey import *
 from account.models import Person
 from survey.form.forms import *
-import logging
-logger = logging.getLogger(__name__)
 
 
 class IndexView(TemplateView):
@@ -398,7 +396,11 @@ class QuestionCreateView(FormView):
 			q.text =q_text
 			q.short_text = q_short_text
 			q.save()
-		return HttpResponseRedirect(reverse("survey:create_choice"))
+			q_id  = q.pk
+		if q_type in ['choice', 'choice-input', 'checkbox']:
+			kwargs = {'q_id': q_id}
+			return HttpResponseRedirect(reverse('survey:create_choice', kwargs=kwargs))
+		return HttpResponseRedirect(reverse("survey:index"))
 
 
 class ChoiceCreateView(FormView):
@@ -407,10 +409,24 @@ class ChoiceCreateView(FormView):
 
 	def form_valid(self, form):
 		if form.is_valid():
+			q_id = self.kwargs['q_id']
+			q = Question.objects.filter(pk=q_id).first()
 			for f in form: 
 				cd = f.cleaned_data
-				choice_add = cd.get('choice_add')
-				logger.debug('choice_add')
-				logger.debug(choice_add)
+				c_text = cd.get('c_text')
+				c_value = cd.get('c_value')
+				c = Choice()
+				c.question = q
+				c.sortid = q.choices_count()+1
+				c.text = c_text
+				c.value = c_value
+				c.save()
+				c_input = cd.get('c_input')
+				if c_input:
+					inp = Input()
+					inp.question = q
+					inp.choice = c
+					inp.save()
+				
 		return render_to_response("survey/mobile/create_choice.html")
 		
