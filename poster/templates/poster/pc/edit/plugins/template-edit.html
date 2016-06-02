@@ -122,7 +122,7 @@
 		getVideos();
 		function getVideos(){
 		$.ajax({
-			url: "/api/v1/account/files?q=video",
+			url: "/api/v1/account/videos",
 			type: "get",
 			datatype: "json",
 			success: function(data) {
@@ -145,7 +145,7 @@
 		getImage();
 		function getImage(){
 		$.ajax({
-			url: "/api/v1/account/files?q=image",
+			url: "/api/v1/account/images",
 			type: "get",
 			datatype: "json",
 		success: function(data) {
