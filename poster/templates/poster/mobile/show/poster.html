@@ -38,6 +38,14 @@
     <link rel="stylesheet" href="{% static 'website/css/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'website/css/poster-bottom.css' %}">
     <link rel="stylesheet" href="{% static 'poster/css/poster-base.css' %}">
+    {% if request.GET.capture %}
+        <style>
+            .body-container {
+                height: auto !important;
+            }
+        </style>
+    {% endif %}
+
 {% endblock %}
 
 {% block base_header_js %}
