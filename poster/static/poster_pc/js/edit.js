@@ -189,7 +189,6 @@ function(module, exports, __require__){
 				$(item).on("click",function(){
 					Editor.require("hightClick").removeHighLigh();
 					pannelSwitcher.switchPannel($(item).data("pannel"));
-					//$(item).addClass("active");
 				});
 			});
 		}
@@ -588,6 +587,7 @@ function(module, exports, __require__){
 		api.initEditor = function(target){
 			console.log(target);
 			//container.find();
+			
 		}
 		api.destory = function(div){
 			container.find(".colorBox").off("click");
@@ -606,9 +606,50 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("logo_pannel",module.exports = function(){
 		var api ={};
+		var pannel,textBtn,textEdit,imgBtn,imgEdit,textEditor;
 
-		api.init = function(div,target,cssName){
-			Editor.require("textEditor").init($(".textEditor"),$(".header-logo"));
+		api.ready = function(){
+			pannel = $("#logo_pannel"),
+			textBtn = pannel.find(".nav-link").eq(0),
+			textEdit = pannel.find(".subnav").eq(0),
+			imgBtn = pannel.find(".nav-link").eq(1),
+			imgEdit = pannel.find(".subnav").eq(1),
+			textEditor = Editor.require("textEditor");
+
+			var dataHandler = Editor.require("dataHandler");
+			dataHandler.bindData($(".header-logo h2"),"header_logo_text");
+			dataHandler.bindData(pannel.find(".text-textarea"),"header_logo_text");
+			//api.bindData($("#titleLastLength"),"unique_name","var calV = 10 - String(__value__).length;( calV < 0) ? 0 : calV;");
+			//api.setValue("unique_name",yunyeEditorGlobal.unique_name);
+		}
+		api.init = function(){
+			var state = $(".header-logo h2").is(":visible");
+			if(state){
+				showText();
+			}else{
+				showImg();
+			}
+			textBtn.off("click").on("click",function(){
+				showText();
+			});
+			imgBtn.off("click").on("click",function(){
+				showImg();
+			});
+			
+			textEditor.init($(".textEditor"),$(".header-logo"));
+			
+		}
+		function showText(){
+			textEdit.slideDown(200);
+			imgEdit.slideUp(200);
+			$(".header-logo h2").show();
+			$(".header-logo img").hide();
+		}
+		function showImg(){
+			textEdit.slideUp(200);
+			imgEdit.slideDown(200);
+			$(".header-logo img").show();
+			$(".header-logo h2").hide();
 		}
 		api.destory = function(div){
 			
