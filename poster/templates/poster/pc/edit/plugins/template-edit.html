@@ -151,7 +151,7 @@
 		success: function(data) {
 			$(".imgul").empty();
 			$.each(data, function(){
-				var li = $(' <li><img src="' + this.file + '"/></li>')
+				var li = $(' <li><img src="' + this.file + '"/><a href="#" class="img-close"></a></li>')
 				$(".imgul").append(li);
 				li.click(function(){
 
@@ -171,6 +171,36 @@
 
 	}
 
+
+
+	deleteImg();
+	function deleteImg(){
+
+		$.ajax({
+			url: "/api/v1/account/images",
+			type: "DELETE",
+			datatype: "json",
+		success: function(data) {
+			$(".imgul").empty();
+			$.each(data, function(){
+				var li = $(' <li><img src="' + this.file + '"/><a href="#" class="img-close"></a></li>')
+				$(".imgul").append(li);
+				$li.find(".img-close").click(function(){
+
+					var target = Editor.require("hightClick").getCurrentTarget();
+					var img = target.find("img");
+					target.remove(img);
+
+				})
+
+			 });
+
+
+		}
+		});
+
+
+	}
 
 
 

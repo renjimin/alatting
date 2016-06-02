@@ -33,7 +33,7 @@ ul li{
     overflow-y:auto;
     /* overflow: hidden; */
     padding: 0px 15px;
-    height: 200px;
+    height: 246px;
 }
 
 .image-all .imgul li{
@@ -41,9 +41,12 @@ ul li{
     margin-right: 8px;
     margin-bottom: 6px;
     cursor: pointer;
+    position: relative;
 }
 
 .image-all .imgul li img{
     width: 67px;
     height: 77px;
+    border: 1px solid #9C9898;
+    box-shadow: 0 0 3px #333232;
 }
