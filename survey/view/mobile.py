@@ -25,7 +25,9 @@ class IndexView(TemplateView):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		return context
 
-
+'''
+显示空白调查问卷
+'''
 class QuestionnaireBlankView(View):
 	def get(self, request, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
@@ -56,7 +58,9 @@ class QuestionnaireBlankView(View):
 			kwargs = {'pk': self.kwargs['poster_id']}
 			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
-
+'''
+显示调查问卷
+'''
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 # no questionnaire for current category
@@ -348,7 +352,9 @@ class QuestionnaireView(View):
 				kwargs = {'pk': hist.poster.pk}
 				return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
-
+'''
+显示调查问卷答案
+'''
 class AnswerDetailView(TemplateView):
 
 	template_name = "survey/mobile/answer_detail.html"
@@ -372,15 +378,26 @@ class AnswerDetailView(TemplateView):
 		return context
 
 
+'''
+添加问题
+'''
 class QuestionCreateView(FormView):
 	template_name = "survey/mobile/create_question.html"
 	form_class = QuestionForm
 
 	def form_valid(self, form):
 		if form.is_valid():
-			qs_type = form.cleaned_data['qs_type']
-		logger.debug('qs_type')
-		logger.debug(qs_type)
+			q_type = form.cleaned_data['q_type']
+			q_text = form.cleaned_data['q_text']
+			q_short_text = form.cleaned_data['q_short_text']
+			q = Question()
+			qs = QuestionSet.objects.filter(pk=8).first()
+			q.questionset = qs
+			q.sortid = qs.questions_count()+1
+			q.type = q_type
+			q.text =q_text
+			q.short_text = q_short_text
+			q.save()
 		return HttpResponseRedirect(reverse("survey:create_choice"))
 
 
@@ -390,8 +407,10 @@ class ChoiceCreateView(FormView):
 
 	def form_valid(self, form):
 		if form.is_valid():
-			qs_type = form.cleaned_data['qs_type']
-		logger.debug('qs_type')
-		logger.debug(qs_type)
+			for f in form: 
+				cd = f.cleaned_data
+				choice_add = cd.get('choice_add')
+				logger.debug('choice_add')
+				logger.debug(choice_add)
 		return render_to_response("survey/mobile/create_choice.html")
 		

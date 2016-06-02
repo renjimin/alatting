@@ -45,10 +45,10 @@ class QuestionSet(models.Model):
     heading = models.CharField(max_length=64)
    
     def questions(self):
-        if not hasattr(self, "__qcache"):
-            self.__qcache = \
-                questions_ = Question.objects.filter(questionset=self.id).order_by('sortid')
-        return self.__qcache
+        return Question.objects.filter(questionset=self.id).order_by('sortid')
+
+    def questions_count(self):
+        return Question.objects.filter(questionset=self.id).order_by('sortid').count()
 
     def next(self):
         qs = self.questionnaire.questionsets()
@@ -91,7 +91,7 @@ class Question(models.Model):
     sortid = models.IntegerField()
     text = models.TextField(blank=True, verbose_name="Text")
     short_text = models.TextField(blank=True, verbose_name="shortText")
-    required = models.BooleanField(default=False)
+    required = models.BooleanField(default=True)
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)
     type = models.CharField(u"Type of question", max_length=32,
