@@ -377,7 +377,7 @@ input[type="range"]::-webkit-slider-thumb {
     animation: line-scale 1s 0.2s infinite cubic-bezier(.2, .68, .18, 1.08);
 }
 .music-link .ico-pause:before,.music-link .ico-pause:after{
-    
+
 }
 .music-link:hover .ico-play,.music-link:hover .ico-pause{
     opacity: 1;
@@ -425,4 +425,68 @@ input[type="range"]::-webkit-slider-thumb {
     padding: 10px 15px;
     color: #fff;
     font-size:16px;
+}
+
+.btn-music-controller,a.btn-music-controller{
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+    color:#666;
+    display: none;
+}
+.btn-music-controller .icon{
+    display: block;
+    width: 0;
+    height: 16px;
+    background: #666;
+    position: relative;
+    margin: 8px 20px;
+    margin-right: 20px;
+    float: left;
+}
+.btn-music-controller .icon:before,.btn-music-controller .icon:after{
+    content:"";
+    display: block;
+    width: 3px;
+    height: 16px;
+    background: #666;
+    position: absolute;
+    left: -3px;
+    top: 0;
+    transition: all .2s;
+}
+.btn-music-controller .icon:after{
+    left:3px;
+}
+.btn-music-controller .icon:hover{
+    opacity: .9;
+}
+.btn-music-controller .name{
+    display: block;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+.btn-music-controller .action-icon{
+    height: 30px;
+    line-height: 30px;
+    width: 30px;
+    float: right;
+    display: block;
+    background: url(/static/poster_pc/images/music-action.gif) center center no-repeat;
+}
+.btn-music-controller.pause .icon:before{
+    width: 0;
+    height: 0;
+    border-top: 8px solid transparent;
+    border-left: 13px solid #666;    
+    border-bottom: 8px solid transparent;
+    background:none;
+}
+.btn-music-controller.pause .icon:after{
+    height: 0;
+}
+.btn-music-controller.pause .action-icon{
+    background-image: url(/static/poster_pc/images/music-pause.gif);
 }
