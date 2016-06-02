@@ -125,7 +125,7 @@ function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher = Editor.require("switchPannel");
-		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.yunye-template > .content > div".split(",");
+		var clicklist = ".change-template,.header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.title.header-bar-title,.yunye-template > .content > div".split(",");
 		var currentSelect = null;
 
 		api.ready = function(){
@@ -612,7 +612,8 @@ function(module, exports, __require__){
 				target.css("borderWidth",borderSizeInput.val());
 			});
 			textOpacityInput.on("change",function(e){
-				
+				e.preventDefault();
+				//target.css("borderWidth",borderSizeInput.val());
 			});
 			api.initSliders(target);
 		}
@@ -645,7 +646,11 @@ function(module, exports, __require__){
 				}else{
 					var pxv = 5 * percent /100;
 					textShadowInput.val(pxv+"px");
-					target.css("textShadow","#000 "+ pxv +"px "+ pxv +"px 2px");
+					if(pxv == 0){
+						target.css("textShadow","none");
+					}else{
+						target.css("textShadow","#000 "+ pxv +"px "+ pxv +"px 2px");
+					}
 				}
 			}
 		}
@@ -712,7 +717,7 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//头部背景设置
+//[模块14]头部背景设置
 function(module, exports, __require__){
 	Editor.define("system_context",module.exports = function(){
 		var api ={};

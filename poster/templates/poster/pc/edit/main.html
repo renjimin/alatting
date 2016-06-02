@@ -2,15 +2,14 @@
     <div class="edit-body">
         <div class="hightlight"></div>
         <!-- top -->
-        <div class="bar-header edit-bar-header" data-pannel="unique_name_pannel">
-            <a href="javascript:void(0)"  class="btn-back"
-               data-url="{% url 'website:index' %}">
+        <div class="bar-header edit-bar-header">
+            <a href="javascript:void(0)"  class="btn-back change-template" data-url="{% url 'website:index' %}" data-pannel="change_template_pannel">
                 <i class="icon ico-pages"></i>
             </a>
             {% comment %}<button class="button button-clear btn-page">
                 <i class="ico-pages"></i>
             </button>{% endcomment %}
-            <div class="title header-bar-title">
+            <div class="title header-bar-title" data-pannel="unique_name_pannel">
                 <p id="logo_title">{{ poster.unique_name }}</p>
             </div>
             <!--<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>-->
