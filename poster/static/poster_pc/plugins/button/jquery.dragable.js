@@ -23,7 +23,7 @@
 			var opts = $.extend(defaults,options);
 			dragEvent.target = opts.dragElement;
 			opts.target.bind("mousedown", function(e){
-				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
+				if (e.originalEvent) e = e.originalEvent;e.stopPropagation();
 				if(event.type == 'mousedown') {
 					dragEvent.flag=true;
 					var currentLeft = dragEvent.target.css("left") == 'auto'? 0 : dragEvent.target.css("left"),

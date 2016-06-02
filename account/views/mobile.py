@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render_to_response, render
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from django.views.generic.detail import DetailView
 
 from account.form.forms import RegisterForm, pwd_validate, \
@@ -234,3 +234,12 @@ class LoginView(FormView):
         else:
             return render_to_response(self.template_name,
                                       {'error': "用户名或密码错误"})
+
+
+class PosterServiceIndexView(DetailView):
+    model = Poster
+    template_name = 'account/mobile/service.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+

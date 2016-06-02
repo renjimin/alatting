@@ -2,53 +2,160 @@
  * Created by zhangjie on 2016/5/30.
  */
 $(function(){
+    var serverProvideTmpl = $('#serverProvideTmpl').html();
+    $.template('serverProvideTmpl',serverProvideTmpl);
+    var data = [
+        {
+            posterid:1,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao2'
+        },
+        {
+            posterid:2,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao3'
+        },
+        {
+            posterid:3,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao4'
+        },
+        {
+            posterid:4,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao5'
+        },
+        {
+            posterid:3,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao4'
+        },
+        {
+            posterid:4,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao5'
+        },
+        {
+            posterid:3,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao4'
+        },
+        {
+            posterid:4,
+            snapshot:'/static/account/img/hb001.png',
+            postername:'yigehaibao5'
+        }
+    ];
+    for(var i=0;i<data.length;i++){
+        $.tmpl('serverProvideTmpl',data[i]).appendTo('#main-provide');
+    }
+    $(document).scroll(function(){
+        var h = $('.body-header').outerHeight();
+        var sh = $('body').scrollTop();
+        if(sh>h){
+            $('#ctrl-add').css({'position':'fixed'});
+        }else{
+            $('#ctrl-add').css({'position':'absolute'});
+        }
+    });
+    /*
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/account/profile',
+        success:function(data){
+            //var headIcon = data.person?'/static/account/img/headicon-default.jpg':data.person.avatar;
+            var headIcon = '/static/account/img/headicon-default.jpg';
+            $('#uIcon').children('img').attr('src',headIcon);
+            $('#uName').html(data.username);
+        },
+        error: function(xhr,status,statusText){
+            yyAlert("data error");
+        }
+    });
 
-        $.ajax({
-            type: 'GET',
-            url: '/api/v1/account/profile',
-            success:function(data){
-                //var headIcon = data.person?'/static/account/img/headicon-default.jpg':data.person.avatar;
-                var headIcon = '/static/account/img/headicon-default.jpg';
-                $('#uIcon').children('img').attr('src',headIcon);
-                $('#uName').html(data.username);
-            },
-            error: function(xhr,status,statusText){
-                yyAlert("data error");
+    var serverProvideTmpl = $('#serverProvideTmpl').html();
+    $.template('serverProvideTmpl',serverProvideTmpl);
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/account/posters/server',
+        success:function(data){
+            for(var i=0;i<data.length;i++){
+                var pd = {
+                    posterid:data[i].id,
+                    snapshot:data[i].snapshot,
+                    postername:data[i]['unique_name']
+                };
+                $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
             }
-        });
-        $.ajax({
-            type: '',
-            url: '/api/v1/account/posters/server',
-            success:function(data){
-                var headIcon = data.person.avatar;
-                headIcon = headIcon?'/static/account/img/headicon-default.jpg':headIcon;
-                $('#uIcon').children('img').attr('src',headIcon);
-                $('#uName').html(data.username);
-            },
-            error: function(xhr, status, statusText){
-                /*
-                if(xhr.status == 403) {
-                    yyAlert("用户名已经存在,请更换");
-                }else if(xhr.status == 401) {
-                    yyAlert("请使用"+text+"注册");
-                }
-                else{
-                    yyAlert("参数错误");
-                }
-                */
+        },
+        error: function(xhr, status, statusText){
+            if(xhr.status == 403) {
+                yyAlert("用户名已经存在,请更换");
+            }else if(xhr.status == 401) {
+                yyAlert("请使用"+text+"注册");
             }
-        });
-
-
-
+            else{
+                yyAlert("参数错误");
+            }
+        }
+    });
+    var serverNeedTmpl = $('#serverNeedTmpl').html();
+    $.template('serverNeedTmpl',serverNeedTmpl);
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/account/posters/consumer',
+        success:function(data){
+            for(var i=0;i<data.length;i++){
+                var pd = {
+                    posterid:data[i].id,
+                    snapshot:data[i].snapshot,
+                    postername:data[i]['unique_name']
+                };
+                $.tmpl('serverNeedTmpl',pd).appendTo('#main-need');
+            }
+        },
+        error: function(xhr, status, statusText){
+            if(xhr.status == 403) {
+                yyAlert("用户名已经存在,请更换");
+            }else if(xhr.status == 401) {
+                yyAlert("请使用"+text+"注册");
+            }
+            else{
+                yyAlert("参数错误");
+            }
+        }
+    });
+*/
     $('.p-cont').on('click',function(event){
         event.stopPropagation();
-        var ths=$(this).next();
-        moveCtrl(ths,true);
+        var ths = $(this);
+        var obj = ths.next();
+        var mli = ths.parent().parent();
+        if(!mli.hasClass('main-li-act')){
+            var actmli = $('.main-li').filter('.main-li-act');
+            if(actmli.length != 0){
+                var actObj = actmli.eq(0).children().children('.p-ctrl');
+                moveCtrl(actObj,false);
+            }
+            $('.main-li').removeClass('main-li-act');
+            mli.addClass('main-li-act');
+            moveCtrl(obj,true);
+        }
     });
     $('.p-ctrl').on('click',function(){
+        $(this).parent().parent().removeClass('main-li-act');
         moveCtrl($(this),false);
     });
+    /*user-level*/
+    $('.user-level').on('click',function(event){
+        event.stopPropagation();
+        var percent = 50;
+        var t = setInterval(function(){
+            addNum(percent);
+        },10);
+        console.log(t)
+        //clearInterval(t);
+    })
     /*view*/
     $('.ctrl-view').on('click',function(event){
         event.stopPropagation();
@@ -81,7 +188,6 @@ $(function(){
         moveCtrl($(this).parent(),false);
         moveShareBtn(true);
         console.log('share:'+id);
-
     });
     /*edit*/
     $('.ctrl-edit').on('click',function(event){
@@ -127,18 +233,18 @@ $(function(){
 	/* show share controller */
     function moveShareBtn(type){
         var ths = $('#body-share');
+        var chl = ths.children();
+        var num = chl.length-1;
         if(type){
             var pos = getSixPos();
             ths.fadeIn(200);
-            ths.children('.share-weixin').animate({marginLeft:pos[0].left+'px',marginTop:pos[0].top+'px'},400);
-            ths.children('.share-friend').animate({marginLeft:pos[1].left+'px',marginTop:pos[1].top+'px'},400);
-            ths.children('.share-weibo').animate({marginLeft:pos[2].left+'px',marginTop:pos[2].top+'px'},400);
-            ths.children('.share-qq').animate({marginLeft:pos[3].left+'px',marginTop:pos[3].top+'px'},400);
-            ths.children('.share-twitter').animate({marginLeft:pos[4].left+'px',marginTop:pos[4].top+'px'},400);
-            ths.children('.share-facebook').animate({marginLeft:pos[5].left+'px',marginTop:pos[5].top+'px'},400);
+            for(var i=0;i<num;i++){
+                var index = i+1;
+                chl.eq(index).animate({marginLeft:pos[i].left+'px',marginTop:pos[i].top+'px'},400);
+            }
         }else{
             ths.fadeOut(200);
-            ths.children().animate({marginLeft:'-35px',marginTop:'-35px'},400);
+            chl.animate({marginLeft:'-35px',marginTop:'-35px'},400);
         }
     }
     function getSixPos(){
@@ -161,12 +267,12 @@ $(function(){
         top = -leng/2-r;
         pos.push({left:left,top:top});
         /*bot*/
-        left = -r;
-        top = leng-r;
-        pos.push({left:left,top:top});
+        //left = -r;
+        //top = leng-r;
+        //pos.push({left:left,top:top});
         return pos;
     }
-
+  
     /*长按显示菜单
     var hold=false;
     $('.p-cont').on('touchstart touchend',function(event){
@@ -186,4 +292,44 @@ $(function(){
         }
     });
     */
-});
+})
+var i = 0,rate=2;
+function addNum(percent) {
+        if(i<percent*rate){
+            i++;
+            $('canvas.process').text(i/rate);
+            drawProcess();
+        }else{
+            //clearInterval(t);
+        }
+} 
+function drawProcess() {  
+    $('canvas.process').each(function() {
+        var process = $(this).text();
+        // var process = text;   
+        var canvas = this;  
+        var context = canvas.getContext('2d');  
+        context.clearRect(0, 0, 300, 300);  
+        context.beginPath();  
+        context.moveTo(280, 280);  
+        context.arc(150, 150, 120, -Math.PI * 0.5, Math.PI * 1.5, false);  
+        context.closePath();  
+        context.fillStyle = 'rgba(78,79,83,1)';  
+        context.fill();  
+        context.beginPath();  
+        context.moveTo(150, 150);    
+        context.arc(150, 150, 120, -Math.PI * 0.5,  -Math.PI * 0.5+Math.PI * 2* process / 100, false);
+        // console.log(Math.PI * 2*process / 100 );  
+        context.closePath();  
+        context.fillStyle = 'rgb(255,200,37)';  
+        context.fill();   
+        context.beginPath();  
+        context.moveTo(150, 150);  
+        context.arc(150, 150, 80, -Math.PI * 0.5, Math.PI * 1.5, true);  
+        context.closePath();  
+        context.fillStyle = 'rgba(51,51,51,1)';  
+        context.fill();  
+
+        //context.fillText(text, 24, 24);  
+    });
+}
