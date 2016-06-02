@@ -22,29 +22,28 @@ ul li{
 }
 
 .image-all{
-    width: 65%;
     background: #7F7C77;
-    margin: 0 auto;
     margin-top: 28px;
-    padding: 10px 0px;
+    padding: 10px 0;
     border-radius: 7px;
-    overflow-y: auto;
-    height: 260px;
+    margin: 8px 0;
 }
 
 .image-all .imgul{
     overflow-y:auto;
-    overflow: hidden;
+    /* overflow: hidden; */
     padding: 0px 15px;
+    height: 200px;
 }
 
 .image-all .imgul li{
     float: left;
     margin-right: 8px;
     margin-bottom: 6px;
+    cursor: pointer;
 }
 
 .image-all .imgul li img{
-    width: 42px;
-    height: 62px;
+    width: 67px;
+    height: 77px;
 }

@@ -21,6 +21,7 @@ function(module, exports, __require__) {
 	__require__(1);
 	__require__(9);
 	__require__(12);
+	__require__(14);
 	__require__(2);
 	__require__(3);
 	__require__(4);
@@ -279,9 +280,10 @@ function(module, exports, __require__){
 	Editor.define("header_background_pannel",module.exports = function(){
 		var api = {};
 		var palette = Editor.require("palette");
-
+		var system_context = Editor.require("system_context");
 		api.init = function(){
 			palette.init($("#header_background_pannel .palette"),$(".header"),"background");
+			system_context.init($("#header_background_pannel .system_context"),$(".header"),"background");
 		}
 		api.destory = function(){
 			palette.destory();
@@ -706,6 +708,57 @@ function(module, exports, __require__){
 		}
 		api.destory = function(div){
 			textEditor.destory();
+		}
+		return api;
+	});
+},
+//头部背景设置
+function(module, exports, __require__){
+	Editor.define("system_context",module.exports = function(){
+		var api ={};
+		var container = null;
+		var str = "";
+		console.log(44);
+		api.init = function(div,target,cssName){
+			if( !container ){
+				$.ajax({
+					type:'GET',
+					async:false,
+					url:'/api/v1/poster/system/background',
+					success:function(data){
+						str = '<div class = "system_context-div"><ul class = "system_context-ul">';
+						for (var i = 0; i < data.length; i++) {
+							str += '<li class = "system_context-li" data-url ='+data[i].image_url+'><img src ="'+data[i].image_url+'"></li>';
+							console.log(data.length)
+						};
+						str +="</ul></div>";
+					},
+					error:function(){
+
+					}
+				})
+				console.log(div);				
+				div.empty().append(str);
+			}
+			container = div;
+			api.systemContext(target,cssName);
+		}
+		/*api.destory = function(div){
+			container.find(".colorBox").off("click");
+			container.find(".colorPannel table").off("click");
+			container.find(".colorPannel input").off("change");
+			$(document)
+				.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
+				.off('mousemove.colorPannel touchmove.colorPannel')
+				.off('mouseup.colorPannel touchend.colorPannel');
+			container = null;
+		}*/
+		api.systemContext = function(targetToChange,cssName){
+			container.find(".system_context-li").on("click",function(e){
+				var bgC = 'url('+$(this).attr('data-url')+')';
+				targetToChange.css(cssName,bgC);
+				targetToChange.css('background-size','100% 100%');
+			});
 		}
 		return api;
 	});

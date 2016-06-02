@@ -254,8 +254,27 @@ a:focus,a:hover,a:visited{
 }
 /**/
 
-
-
+/*系统背景*/
+.system_context-div{
+    margin:auto;
+    border-radius: 6px;
+    background:#7F7C77;
+    height:600px;
+    overflow:auto;
+}
+.system_context-ul{
+    padding:0;
+    margin:10px 10px;
+}
+.system_context-li{
+    width:36%;
+    float:left;
+    margin: 10px 10px;
+}
+.system_context-li img{
+    width:75px;
+    height:100px;
+}
 /* 颜色选择器 */
 .colorBox{
     margin:auto;
@@ -374,7 +393,7 @@ a:focus,a:hover,a:visited{
     padding-left: 0;
     color: #666;
     font-weight: normal;
-
+}
 /*
 * 弹出层 yyAlert yyConfirm yyMessage
 */
