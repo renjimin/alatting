@@ -7,7 +7,7 @@ from alatting import settings
 from alatting_website.model.poster import Poster
 from alatting_website.models import AlattingBaseModel
 from utils.constants import TRUE_FALSE
-from utils.db.fields import BigAutoField, BigOneToOneField
+from utils.db.fields import BigAutoField, BigForeignKey
 from alatting_website.model.resource import Image, Music
 from PIL import Image as pilimage
 
@@ -67,7 +67,10 @@ class SystemMusic(models.Model):
 
 
 class ServiceBargain(AlattingBaseModel):
-    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
+    poster = BigForeignKey(
+        Poster,
+        verbose_name=u'海报'
+    )
     server = models.ForeignKey(
         User,
         verbose_name=u'服务者',

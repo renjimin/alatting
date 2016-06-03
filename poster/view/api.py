@@ -17,6 +17,7 @@ from rest_framework.generics import (
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
 from rest_framework.permissions import IsAuthenticated
+from account.models import Person
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
@@ -24,7 +25,8 @@ from alatting_website.models import Category, CategoryKeyword, Template
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
-from poster.models import SystemImage, SystemBackground, SystemMusic
+from poster.models import SystemImage, SystemBackground, SystemMusic, \
+    ServiceBargain
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -35,7 +37,7 @@ from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
-    PosterSaveSerializer, SystemMusicListSerializer)
+    PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -582,3 +584,21 @@ class SurveyConsumerAnsView(ListAPIView):
             poster_id=self.kwargs['pk'], subject_id=self.request.user.id, 
             questionnaire__role = 'consumer', isactive = True
         )
+
+
+class ServiceBargainListView(ListCreateAPIView):
+    model = ServiceBargain
+    serializer_class = ServiceBargainSerializer
+    queryset = ServiceBargain.objects.all()
+
+    def get_queryset(self):
+        poster = get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+        qs = super(ServiceBargainListView, self).get_queryset()
+        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+            pass
+        else:
+            return qs.filter(
+                poster_id=poster.id,
+                server=poster.creator,
+                consumer=self.request.user
+            ).order_by('-created_at')

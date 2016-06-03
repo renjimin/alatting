@@ -8,7 +8,7 @@ from poster.view.api import (
     CategoryKeywordListView, CategoryKeywordDetailView,
     UploadFileView, TemplateDetailView, TemplateListView,
     CategoryListView, SurveyConsumerAnswersView,
-    SurveyConsumerAnsView, PosterListView)
+    SurveyConsumerAnsView, PosterListView, ServiceBargainListView)
 
 
 urlpatterns = [
@@ -68,4 +68,7 @@ urlpatterns = [
     # get current consumer answer sent to the poster creator
     url(r'^(?P<pk>\d+)/consumer/ans$',
         SurveyConsumerAnsView.as_view(), name='consumer_ans'),
+
+    url(r'^(?P<poster_pk>\d+)/bargains$',
+        ServiceBargainListView.as_view(), name='poster_bargains'),
 ]
