@@ -1,7 +1,8 @@
 # coding=utf-8
 from django.contrib import admin
 from account.models import UserCategory, Person
-from poster.models import SystemImage, SystemBackground, SystemMusic
+from poster.models import SystemImage, SystemBackground, SystemMusic, \
+    ServiceBargain
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -210,4 +211,9 @@ class ChoiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(Input)
 class InputAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(ServiceBargain)
+class ServiceBargainAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

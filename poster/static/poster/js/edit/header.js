@@ -40,7 +40,8 @@ $(function () {
             if(!!$('#mobileInput').val())storageAPI.setHead("mobile", $('#mobileInput').val());
             if(!!$('#emailInput').val())storageAPI.setHead("email", $('#emailInput').val());
             //logo
-            storageAPI.setHead("logo_title",$('.header-logo').html());
+            storageAPI.setHead("logo_title",$('.header-logo h2').html());
+            storageAPI.setHead("logo_img",$('.header-logo img').attr("src"));
             storageAPI.setCss(".header-logo h2", parseStyle($('.header-logo h2').attr("style")));
             storageAPI.setCss(".header-logo img", parseStyle($('.header-logo img').attr("style")));
            

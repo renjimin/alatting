@@ -13,6 +13,8 @@ $(function () {
 		if(g.short_description)$("#short_description").html(g.short_description);
 		if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
 		//logo
+		if(pageHeadData.logo_title)$('.header-logo h2').html(pageHeadData.logo_title);
+		if(storageAPI.getHead("logo_img"))$('.header-logo img').attr("src",storageAPI.getHead("logo_img"));
 		if(storageAPI.getCss(".header-logo h2"))$('.header-logo h2').css(storageAPI.getCss(".header-logo h2"));
 		if(storageAPI.getCss(".header-logo img"))$('.header-logo img').css(storageAPI.getCss(".header-logo img"));
 		//电话手机邮箱
@@ -53,8 +55,8 @@ $(function () {
 		if (storageAPI.getCss(".qrcode-inner .qrcode")) {
 			$(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
 		}
-		if (storageAPI.getCss(".btn-circle")) {
-			$(".btn-circle").css(storageAPI.getCss(".btn-circle"));
+		if (storageAPI.getCss(".abutton-group a")) {
+			$(".abutton-group a").css(storageAPI.getCss(".abutton-group a"));
 		}
 
 		/*读取主体部分*/
@@ -85,23 +87,22 @@ $(function () {
 	}
 	templateScaleFun();
 	
-
 	window.onresize = function(){
-	   templateScaleFun();
+		 templateScaleFun();
 	};
 	
 	function templateScaleFun(){
 		var templateScale = $('body').width()/$('.yunye-template').width();
 		 var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
-		   +   '-moz-transform:scale('+templateScale+','+templateScale+');'
-		   +     '-o-transform:scale('+templateScale+','+templateScale+');'
-		   +    '-ms-transform:scale('+templateScale+','+templateScale+');'
-		   +        'transform:scale('+templateScale+','+templateScale+');';
-		   if($('.template-box').length <= 0){
+			 +	 '-moz-transform:scale('+templateScale+','+templateScale+');'
+			 +	 '-o-transform:scale('+templateScale+','+templateScale+');'
+			 +	'-ms-transform:scale('+templateScale+','+templateScale+');'
+			 +		'transform:scale('+templateScale+','+templateScale+');';
+			 if($('.template-box').length <= 0){
 				var templateBox = $('<div class="template-box"></div>');
 				$('.yunye-template').parent().append(templateBox);
 				templateBox.append($('.yunye-template'));
-		   }
+			 }
 		
 		$('.yunye-template').attr('style',templateScaleOpt);
 		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
@@ -134,9 +135,9 @@ $(function () {
 		$('.text-element').removeClass('text-element-act');
 		$('.ele-rotate-ctrl').remove();
 		$(".bar-header .title p").tEditor({
-		  textDelete: false,
-		  textCopy: false,
-		  pluginType: 'other'
+			textDelete: false,
+			textCopy: false,
+			pluginType: 'other'
 		});
 		$('#ted-edit').trigger('click');
 	});
@@ -145,9 +146,9 @@ $(function () {
 		$('.text-element').removeClass('text-element-act');
 		$('.ele-rotate-ctrl').remove();
 		$("#short_description").tEditor({
-		  textDelete: false,
-		  textCopy: false,
-		  pluginType: 'other'
+			textDelete: false,
+			textCopy: false,
+			pluginType: 'other'
 		});
 		$('#ted-edit').trigger('click');
 	});
@@ -158,9 +159,8 @@ $(function () {
 				icon: "glyphicon glyphicon-font",
 				text: "输入文字",
 				callback: function () {
-					if (!$(".header-logo h2")[0]) {
-						$('.header-logo').empty().append('<h2></h2>');
-					}
+					$('.header-logo h2').css("display","inline-block");
+					$('.header-logo img').hide();
 					$('#text-model').animate({'bottom':'0px'},200);
 					$('.text-element').removeClass('text-element-act');
 					$('.ele-rotate-ctrl').remove();
@@ -176,17 +176,16 @@ $(function () {
 				icon: "glyphicon glyphicon-picture",
 				text: " 上传图片",
 				callback: function () {
-					$('.header-logo').empty().append('<img></img>');
 					$.fn.uploads.showDialog(function (data) {
 						if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
 							yyAlert("上传图片格式错误");
 							return false;
 						}
-						if (!$(".header-logo img")[0]) {
-							$('.header-logo').empty().append('<img />');
-						}
+						$('.header-logo h2').hide();
+						$('.header-logo img').show();
 						$('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
-						storageAPI.setHead("logo_title", "");
+
+						 $.fn.yyTools.mask();
 					});
 				}
 			},
@@ -244,6 +243,8 @@ $(function () {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
+
+						$.fn.yyTools.mask();
 					});
 				}
 			}
@@ -404,9 +405,9 @@ $(function () {
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
 					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.qrcode-inner .qrcode,.btn-circle').css('background', color);
+						$('.qrcode-inner .qrcode,.abutton-group a').css('background', color);
 						storageAPI.setCss(".qrcode-inner .qrcode", {'background': color});
-						storageAPI.setCss(".btn-circle", {'background': color});
+						storageAPI.setCss(".abutton-group a", {'background': color});
 					});
 				}
 			},
@@ -415,13 +416,13 @@ $(function () {
 				text: "背景图片",
 				callback: function () {
 					$(this).bgselect({}, function (ths, img) {
-						$('.qrcode-inner .qrcode,.btn-circle').css('background', 'url(' + img + ')');
-						$('.qrcode-inner .qrcode,.btn-circle').css('background-size', '100% 100%');
+						$('.qrcode-inner .qrcode,.abutton-group a').css('background', 'url(' + img + ')');
+						$('.qrcode-inner .qrcode,.abutton-group a').css('background-size', '100% 100%');
 						storageAPI.setCss(".qrcode-inner .qrcode", {
 							'background': 'url(' + img + ')',
 							'background-size': '100% 100%'
 						});
-						storageAPI.setCss(".btn-circle", {
+						storageAPI.setCss(".abutton-group a", {
 							'background': 'url(' + img + ')',
 							'background-size': '100% 100%'
 						});
@@ -438,13 +439,13 @@ $(function () {
 							yyAlert("上传图片格式错误");
 							return false;
 						}
-						$('.qrcode-inner .qrcode,.btn-circle').css('background', 'url(' + data.file + ')');
-						$('.qrcode-inner .qrcode,.btn-circle').css('background-size', '100% 100%');
+						$('.qrcode-inner .qrcode,.abutton-group a').css('background', 'url(' + data.file + ')');
+						$('.qrcode-inner .qrcode,.abutton-group a').css('background-size', '100% 100%');
 						storageAPI.setCss(".qrcode-inner .qrcode", {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
-						storageAPI.setCss(".btn-circle", {
+						storageAPI.setCss(".abutton-group a", {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
@@ -474,15 +475,15 @@ $(function () {
 		// var click_list = ['#closebg'];
 		// var item = '';
 		// for (var i in click_list) {
-		//     if ($(event.target).closest(click_list[i]).length != 0) {
-		//         item = click_list[i];
-		//         break;
-		//     }
+		//	 if ($(event.target).closest(click_list[i]).length != 0) {
+		//		 item = click_list[i];
+		//		 break;
+		//	 }
 		// }
 		// switch (item) {
-		//     case "#closebg":
-		//         //$(".system-item").fadeOut(200);
-		//         break;
+		//	 case "#closebg":
+		//		 //$(".system-item").fadeOut(200);
+		//		 break;
 		// }
 		//点击被保护列表中的对象返回
 		window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
@@ -518,7 +519,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :	"Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
