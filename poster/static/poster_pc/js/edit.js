@@ -33,6 +33,8 @@ function(module, exports, __require__) {
 	__require__(15);
 	__require__(16);
 	__require__(17);
+	__require__(18);
+	__require__(19);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -127,7 +129,7 @@ function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher = Editor.require("switchPannel");
-		var clicklist = ".change-template,.header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.title.header-bar-title,.yunye-template > .content > div".split(",");
+		var clicklist = ".edit-body,.change-template,.header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.title.header-bar-title,.yunye-template > .content > div".split(",");
 		var currentSelect = null;
 
 		api.ready = function(){
@@ -158,7 +160,7 @@ function(module, exports, __require__){
 					x = item.offset().left - $(".edit-body").offset().left,
 					y = item.offset().top - $(".edit-body").offset().top,
 					width = item.outerWidth() - 4,
-					height = item.outerHeight() - 4;
+					height = item[0].scrollHeight - 4;
 				currentSelect = item;
 				$(".hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
@@ -882,7 +884,8 @@ function(module, exports, __require__){
 			if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));
 			if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
 			if(storageAPI.getCss(".qrcode-inner .qrcode"))$(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
-			if(storageAPI.getCss(".btn-circle"))$(".btn-circle").css(storageAPI.getCss(".btn-circle"));
+			if(storageAPI.getCss(".qrcode-inner .qrcode"))$(".abutton-group.abutton-contact").css(storageAPI.getCss(".qrcode-inner .qrcode"));
+
 			/*读取主体部分*/
 			if(storageAPI.getHtml()) {
 				$(".yunye-template").remove();
@@ -899,7 +902,6 @@ function(module, exports, __require__){
 				            $(this).imgoperation();
 				        }
 				});
-				
 			}
 			api.templateScaleFun();
 		}
@@ -1017,8 +1019,23 @@ function(module, exports, __require__){
 		}
 		api.destory = function(){
 			palette.destory();
+			system_context.destory();
 		}
-		api.destory  = function(){
+		return api;
+	});
+},
+//[模块18]头部背景颜色模块
+function(module, exports, __require__){
+	Editor.define("stencilled_pannel",module.exports = function(){
+		var api = {};
+		var palette = Editor.require("palette");
+		var system_context = Editor.require("system_context");
+		api.init = function(){
+			palette.init($("#stencilled_pannel .palette"),$(".template-box"),"background");
+			system_context.init($("#stencilled_pannel  .system_context"),$(".template-box"),"background");
+		}
+		api.destory = function(){
+			palette.destory();
 			system_context.destory();
 		}
 		return api;
@@ -1035,5 +1052,22 @@ function(module, exports, __require__){
 		}
 		return api;
 	});
-}
+},
+//[模块19]头部背景颜色模块
+function(module, exports, __require__){
+	Editor.define("unique_name_pannel",module.exports = function(){
+		var api = {};
+		var palette = Editor.require("palette");
+		var system_context = Editor.require("system_context");
+		api.init = function(){
+			palette.init($("#unique_name_pannel .palette"),$(".header-bar-title"),"background");
+			system_context.init($("#unique_name_pannel  .system_context"),$(".header-bar-title"),"background");
+		}
+		api.destory = function(){
+			palette.destory();
+			system_context.destory();
+		}
+		return api;
+	});
+},
 ]);

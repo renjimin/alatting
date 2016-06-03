@@ -108,9 +108,9 @@
 .header {
     position: relative;
     background-color: #c5c5c5;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
+    background-repeat: no-repeat!important;
+    background-position: center center!important;
+    background-size: cover!important;
 }
 
 .header-bar {
@@ -195,6 +195,7 @@
     height: 100%;
     background: #8d8d8d;
     border-radius: 50%;
+    background-size: cover!important;
 }
 
 .qrcode-inner .qrcode img {
@@ -351,7 +352,6 @@
     transform-origin: 100% 100%;
     pointer-events: none;
     border: 0px solid transparent;
-    background: #8d8d8d;
 }
 
 .abutton-group li a {
