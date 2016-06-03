@@ -33,6 +33,7 @@ function(module, exports, __require__) {
 	__require__(15);
 	__require__(16);
 	__require__(17);
+	__require__(18);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -910,6 +911,26 @@ function(module, exports, __require__){
 			palette.init($("#QR_pannel .palette"),$(".abutton-group a"),"background");
 			system_context.init($("#QR_pannel .system_context"),$(".qrcode"),"background");
 			system_context.init($("#QR_pannel .system_context"),$(".abutton-group a"),"background");
+		}
+		api.destory = function(){
+			palette.destory();
+		}
+		api.destory  = function(){
+			system_context.destory();
+		}
+		return api;
+	});
+},
+//[模块16]头部背景颜色模块
+function(module, exports, __require__){
+	Editor.define("stencilled_pannel",module.exports = function(){
+		var api = {};
+		var palette = Editor.require("palette");
+		var system_context = Editor.require("system_context");
+		api.init = function(){
+			console.log(222)
+			palette.init($("#stencilled_pannel .palette"),$(".template-box"),"background");
+			system_context.init($("#stencilled_pannel  .system_context"),$(".template-box"),"background");
 		}
 		api.destory = function(){
 			palette.destory();
