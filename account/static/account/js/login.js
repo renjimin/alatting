@@ -240,13 +240,13 @@ $(document).ready(function () {
              }else{
 
              }
-            if (ths.hasClass('open')) {
+           /* if (ths.hasClass('open')) {
                 ths.removeClass('open');
                 ths.children('ul').hide();
             }else{
                 ths.addClass('open');
                 ths.children('ul').show();
-            };                   
+            };*/                   
             $('.li-server').on('click', '.sli-server', function () {
                 selectedname = $(this).attr('data-name');
                 $('.selectserver').text(selectedname);
@@ -256,7 +256,8 @@ $(document).ready(function () {
         });
         selected.on('click', '.glyphicon-ok-circle', function () {
             if(selectedname.length>0){
-                $('.selectprovider').text(selectedname);            
+                $('.selectserver').text(selectedname);
+                $('.regist-industryinput').attr('disabled',true);            
             }
             $('.div-server').fadeOut(200);
         })

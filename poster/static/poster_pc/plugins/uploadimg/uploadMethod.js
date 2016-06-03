@@ -1,3 +1,108 @@
+/* image */
+
+function imageEditor(typename,data){
+	var defaults = {
+		'sysImgBox':$(".imgul"),
+		'uploadImgBtn':$("#uploaderContainer2")
+
+	}
+	switch(typename){
+		case 'loadAllImages':loadAllImages();break;
+		case 'addUploadImg':addUploadImg(data);break;
+		default:break;
+	}
+	function addUploadImg(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		console.log(data)
+		$(target).imgslider({
+			"data": data
+		});
+	}
+	function loadAllImages(){
+		$.ajax({
+			url: "/api/v1/account/images",
+			type: "get",
+			datatype: "json",
+			success: function(data) {
+				defaults['sysImgBox'].empty();
+				$.each(data, function() {
+					var _this = this;
+					var li = $(' <li data-id="' + this.id + '"><img src="' + this.file + '" data-width="'+this.width+'" data-height="'+this.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
+					defaults['sysImgBox'].append(li);					
+				});
+				defaults['sysImgBox'].on('click',function(e){
+					var img = $(e.target).closest('img'),
+						closetarget = $(e.target).closest('.img-close'),
+						target = Editor.require("hightClick").getCurrentTarget();
+					if(img.length > 0){
+						selectSysImg(img,target);
+					}
+					if(closetarget.length > 0){
+						deleteSysImg(closetarget.parent());
+					}
+
+				});
+
+			}
+		});
+	}
+	function selectSysImg(img,target){
+		var imgclone = img.clone();
+		var imgdata={
+			'file':imgclone.attr('src'),
+			'width':imgclone.attr('data-width'),
+			'height':imgclone.attr('data-height'),
+			'imgid':img.attr('data-id')
+		}		
+		target.imgslider({'data':imgdata});
+		/* add image to sliderbox */
+		var file_id = img.attr('data-id');
+		var fileitem = $('<div class="file-item" id="fileBox_'+file_id+'" style="width:0;">\
+					        <div class="file-item-wraper">\
+					            <div class="viewThumb">\
+					            <img src="'+imgclone.attr('src')+'">\
+					            </div>\
+					            <div class="status">\
+					            </div>\
+					            <a href="javascript:void(0);" class="close"></a>\
+					        </div>\
+					    </div>');
+		defaults['uploadImgBtn'].before(fileitem);
+		fileitem.animate({'width':'33.3333333%'},200);
+		//绑定取消事件;
+		fileitem.find('.close').on('click',function(){
+			fileitem.animate({'width':'0'},200,function(){
+				fileitem.remove();
+			});
+			$("#slideImg"+file_id).remove();		
+			target.imgslider();
+		
+		});
+
+
+	}
+	function deleteSysImg(obj){
+		$.ajax({
+			url: "/api/v1/account/images/" + obj.attr('data-id'),
+			type: "DELETE",
+			datatype: "json",
+			success: function(data) {
+				obj.animate({
+					'width': '0'
+				}, 200, function() {
+					obj.remove();
+				});
+			}
+		});
+	}
+
+}
+$(function(){
+	imageEditor('loadAllImages');
+})
+
+
+
 $(function(){
 
 	var slideTarget;
@@ -18,13 +123,8 @@ $(function(){
 		success: function(data, file) {
 			var target = Editor.require("hightClick").getCurrentTarget();
 			slideTarget = $(target);
-			//console.log(target);
-			data.imgid = file.id;
-			$(target).imgslider({
-				"data": data
-			});
-			$(target).imgoperation();
-			getImage();
+			data.imgid = file.id;			
+			imageEditor('addUploadImg',data);
 		},
 		error: function(err) {
 			console.info(err);
@@ -52,7 +152,6 @@ $(function(){
 		getVideos();
 	})
 
-
 	getVideos();
 	function getVideos() {
 		$.ajax({
@@ -75,46 +174,7 @@ $(function(){
 			}
 		});
 	}
-	getImage();
 
-	function getImage() {
-		$.ajax({
-			url: "/api/v1/account/images",
-			type: "get",
-			datatype: "json",
-			success: function(data) {
-				$(".imgul").empty();
-				$.each(data, function() {
-					var li = $(' <li data-id="' + this.id + '"><img src="' + this.file + '"/><a href="#" class="img-close"></a></li>')
-					$(".imgul").append(li);
-					li.find('img').click(function() {
-						var target = Editor.require("hightClick").getCurrentTarget();
-						var img = $(this).clone();
-						target.empty().append(img);
-						target.imgoperation();
-					})
-					li.find('.img-close').click(function(e) {
-						deleteImg(li);
-					});
-				});
-			}
-		});
-	}
-
-	function deleteImg(obj) {
-		$.ajax({
-			url: "/api/v1/account/images/" + obj.attr('data-id'),
-			type: "DELETE",
-			datatype: "json",
-			success: function(data) {
-				obj.animate({
-					'width': '0'
-				}, 200, function() {
-					obj.remove();
-				});
-			}
-		});
-	}
 
 	function deleteVideos(obj) {
 		$.ajax({
