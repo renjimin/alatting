@@ -272,8 +272,8 @@ a:focus,a:hover,a:visited{
 		margin: 10px 10px;
 }
 .system_context-li img{
-		width:75px;
-		height:100px;
+                        width:60px;
+                        height:100px;
 }
 /* 颜色选择器 */
 .colorBox{
