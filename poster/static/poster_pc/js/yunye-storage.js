@@ -64,7 +64,8 @@
         };
 
         this.getPosterHeadData = function () {
-            return self.getPosterData()["head"];
+            if(self.getPosterData() && self.getPosterData()["head"])return self.getPosterData()["head"];
+            return undefined;
         };
 
         this.getPosterPagesData = function () {
