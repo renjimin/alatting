@@ -1,8 +1,14 @@
 .error{
 	color:red;	
 }
-.reminder {
+.disable-reminder {
+    font-weight: 700;
+    padding-top: 20px;
     color: red;
+}
+.required-reminder {
+    vertical-align: super;
+    color: #A9A9A9;
 }
 .qs {
 	text-align: center;
@@ -51,7 +57,6 @@
     color: #fff;
     font-size: 16px;
     margin-bottom: 0;
-    font-weight: 700;
 }
 .qs-cat{
     background: #ffffff;
@@ -129,6 +134,8 @@
 .qs-list-section {
     padding-left: 30px;
     padding-right: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #b4b4b4;
 }
 .qs-list-section.qs-list-section-pre {
     padding-bottom: 20px;
@@ -141,6 +148,13 @@
     text-align: center;
     background: #000;
     line-height: 3.5em;
+}
+.required-reminder-text {
+    padding-top: 20px;
+    text-align: right;
+    padding-right: 10px;
+    color: #A9A9A9;
+    font-size: 12px;
 }
 .qs-footer .btn{
     line-height: 2.4em;
@@ -157,6 +171,10 @@
     .qs-footer {
         width:600px;
         left:50%;
+        right: 0;
         margin-left:-300px;
+    }
+    .required-reminder-text {
+        padding-right: 0;
     }
 }
