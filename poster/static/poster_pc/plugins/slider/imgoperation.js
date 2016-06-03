@@ -178,21 +178,17 @@
 					var endW = i.width(),
 						endH = i.height();
 
-					if (parseInt(moveEndX) < 0) {/* 左部 < 0 */
-						endX = 0;
+					if(parseInt(moveEndX) + s.width()/2 - endW/2 < 0){
+						endX = endW/2 - s.width()/2;
 					}
-
-					if (endW + parseInt(moveEndX) > s.width()) {
-						endX = -endW + s.width();
-
+					if(parseInt(moveEndX) - s.width()/2 + endW/2 > 0){
+						endX = s.width()/2 - endW/2;
 					}
-
-					if (parseInt(moveEndY) < 0) {/* 顶部 < 0 */
-						endY = 0;
+					if(parseInt(moveEndY) + s.height()/2 - endH/2 < 0){
+						endY = endH/2 - s.height()/2;
 					}
-					if (endH + parseInt(moveEndY) > s.height()) {
-						endY = -endH + s.height();
-
+					if(parseInt(moveEndY) - s.height()/2 + endH/2 > 0){
+						endY = s.height()/2 - endH/2;
 					}
 
 					i.css('top', endY + 'px');
