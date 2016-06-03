@@ -448,3 +448,7 @@
 
     color: #999;
 }
+
+.img-preview{
+    max-width: 272px;
+}
