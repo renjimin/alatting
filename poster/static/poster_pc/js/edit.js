@@ -107,7 +107,6 @@ function(module, exports, __require__){
 		var currentPannel;
 
 		api.switchPannel = function(pannelName){
-			if(currentPannel == pannelName)return;
 			$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
@@ -141,11 +140,11 @@ function(module, exports, __require__){
 						}else{
 							var item  = $(e.target).closest(itemSelector);
 						}
+						if(currentSelect && currentSelect[0] == item[0])return;
 						var transform = "",pannelName = "";
 						if(item.closest(".yunye-template").length  != 0){
 							transform = $(".yunye-template").css("transform");
 							pannelName = "template_clip_pannel";
-							item.addClass("active");
 						}else{
 							pannelName = $(itemSelector).data("pannel");
 						}
@@ -921,10 +920,7 @@ function(module, exports, __require__){
 		var api = {};
 		
 		api.init = function(){
-			console.log(123123123);
-		}
-		api.destory = function(){
-			console.log(321321);
+			console.log(Editor.require("hightClick").getCurrentTarget());
 		}
 		return api;
 	});
