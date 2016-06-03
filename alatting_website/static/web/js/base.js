@@ -62,6 +62,9 @@ $(document).ready(function(){
             $("#search_form").submit();
         }
     });
+    $("#share-btn").on('click',function(event){
+        event.stopPropagation();
+    });
 });
 
 
