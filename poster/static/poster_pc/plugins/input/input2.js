@@ -47,7 +47,7 @@ $(function(){
 
         $(".link-body-inner").empty().append(imgele);
         var target = Editor.require("hightClick").getCurrentTarget();
-        target.empty().append(imgele);
+        target.empty().append(imgele.imgoperation());
         console.log(imgele);
         //console.log($(imgele).height())
         setTimeout(function(){
