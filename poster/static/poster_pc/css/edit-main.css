@@ -583,7 +583,7 @@
 }
 
 .yunye-template>.content>div {
-    position: relative;
+    /*position: relative;*/
 }
 
 .yunye-template>.content>div:hover:before {
