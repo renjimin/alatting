@@ -5,7 +5,7 @@ var templateScale = $('.edit-body').width()/$('.yunye-template').width();
 *	适用于PC拖拽
 */
 (function ($) {	
-    $.fn.scaleable = function (options) {
+	$.fn.scaleable = function (options) {
 		var dragEvent = {
 			"flag":false,
 			"target":null,
@@ -71,7 +71,9 @@ var templateScale = $('.edit-body').width()/$('.yunye-template').width();
 					switch(o.data('type')){
 						case 'systemimg': pannle = "sysimg_pannel";break;
 						case 'button': pannle = "button_pannel";break;
-						case 'text': pannle = "text_pannel";break;
+						case 'text': pannle = "text_pannel";
+							var textEditor = Editor.require("textEditor");
+							textEditor.init($("#text_pannel .textEditor"),ele);break;
 						default:break;
 					}
 					Editor.require("hightClick").removeHighLigh();
