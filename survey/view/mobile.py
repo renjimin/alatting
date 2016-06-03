@@ -104,8 +104,7 @@ class QuestionnaireView(View):
 
 	def get_pre_ans(self, runinfo, question):
 		ans = Answer.objects.filter(subject=runinfo.subject, 
-			question=question, poster=runinfo.poster, 
-			runid=runinfo.pk).order_by("-id")
+			question=question, poster=runinfo.poster).order_by("-id")
 		if ans:
 			return ans[0].answer
 		else:
