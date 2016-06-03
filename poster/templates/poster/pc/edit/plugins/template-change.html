@@ -2,6 +2,7 @@
 	<div class="righ_title">
 		<i class="fa fa-edit"></i><span class="text">更换模板</span>
 	</div>
+
 	<div class="change-templates-wraper">
 		<ul class="change-templates-list" id="change-templates-list">
 			<li class="template-item" data-id="">
@@ -14,6 +15,44 @@
 					<img src="/static/poster_pc/images/templete-1.jpg"/>
 				</a>
 			</li>
-	       </ul>
-       </div>
+		</ul>
+	</div>
 </section>
+
+{% verbatim %}
+    <script id="changeTemplateLayoutTmpl" type="text/x-jquery-tmpl">
+        <div class="change-template-layout">
+            <div class="change-template-header">
+                选择模板
+            </div>
+            <ul class="change-templates-list" id="change-templates-list">
+                </ul>
+            <div class="change-template-footer">
+                <button class="btn btn-default change-template-cancel-btn">取 消</button>
+                <button class="btn btn-default change-template-confirm-btn">确 定</button>
+            </div>
+        </div>
+    </script>
+    <script id="changeTemplateListTmpl" type="text/x-jquery-tmpl">
+        <li class="template-item" data-id="${id}">
+            <a href="javascript:void(0);">
+                <img src="${image_url}"/>
+            </a>
+        </li>
+    </script>
+    <script id="videoDomTmpl" type="text/x-jquery-tmpl">
+        <div class="poster-video-widget ${class_name}" id="video_dom_${video_dom_id}">
+            <video id="video_${video_id}" class="video-js" preload="auto" data-setup="{}" poster="${video_preview_img}">
+                <source src="${video_url}" type='video/mp4'>
+                <p class="vjs-no-js">
+                    更新您的浏览器，以便观看视频.
+                    <a href="http://videojs.com/html5-video-support/" target="_blank">
+                    supports HTML5 video
+                    </a>
+                </p>
+            </video>
+            <img class="video-play" onclick="videojs.start('video_${video_id}')"
+            src="/static/website/images/icons/play.png">
+        </div>
+    </script>
+{% endverbatim %}
