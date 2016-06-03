@@ -4,7 +4,9 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from survey.view.mobile import (
 	IndexView, StartView, QuestionnaireView,
-	QuestionnaireBlankView, AnswerDetailView
+	QuestionnaireBlankView, AnswerDetailView,
+	QuestionCreateView, ChoiceCreateView,
+	ChoiceInputCreateView,
 )
 
 urlpatterns = [
@@ -22,4 +24,12 @@ urlpatterns = [
 #answer/poster_id/?role=creator or answer/poster_id/?role=consumer
 	url(r'^answer/(?P<poster_id>\d+)/$', AnswerDetailView.as_view(), 
 		name='answer'),
+]
+
+
+#创建问题
+urlpatterns += [
+	url(r'^create/$', QuestionCreateView.as_view(), name='create'),
+	url(r'^create_choice/(?P<q_id>\d+)/$', ChoiceCreateView.as_view(), name='create_choice'),
+	url(r'^create_choice_input/(?P<q_id>\d+)/$', ChoiceInputCreateView.as_view(), name='create_choice_input'),
 ]

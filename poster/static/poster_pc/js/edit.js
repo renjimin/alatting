@@ -1,4 +1,4 @@
-(function(modules) { 
+ (function(modules) { 
 	var installedModules = {};//模块缓存对象
 	function __require__(moduleId){
 		if(installedModules[moduleId])return installedModules[moduleId].exports;//检查模块是否在缓存中
@@ -31,6 +31,8 @@ function(module, exports, __require__) {
 	__require__(8);
 	__require__(13);
 	__require__(15);
+	__require__(16);
+	__require__(17);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -743,15 +745,13 @@ function(module, exports, __require__){
 						str = '<div class = "system_context-div"><ul class = "system_context-ul">';
 						for (var i = 0; i < data.length; i++) {
 							str += '<li class = "system_context-li" data-url ='+data[i].image_url+'><img src ="'+data[i].image_url+'"></li>';
-							console.log(data.length)
 						};
 						str +="</ul></div>";
 					},
 					error:function(){
 
 					}
-				})
-				console.log(div);				
+				})			
 				div.empty().append(str);
 			}
 			container = div;
@@ -894,7 +894,38 @@ function(module, exports, __require__){
 
 			storageAPI.setHead("updated_at", yunyeEditorGlobal.updated_at);
 		}
-
+		return api;
+	});
+},
+//[模块16]头部背景颜色模块
+function(module, exports, __require__){
+	Editor.define("QR_pannel",module.exports = function(){
+		var api = {};
+		var palette = Editor.require("palette");
+		var system_context = Editor.require("system_context");
+		api.init = function(){
+			palette.init($("#QR_pannel .palette"),$(".qrcode"),"background");
+			palette.init($("#QR_pannel .palette"),$(".abutton-group a"),"background");
+			system_context.init($("#QR_pannel .system_context"),$(".qrcode"),"background");
+			system_context.init($("#QR_pannel .system_context"),$(".abutton-group a"),"background");
+		}
+		api.destory = function(){
+			palette.destory();
+		}
+		return api;
+	});
+},
+//[模块17]图视频编辑模块
+function(module, exports, __require__){
+	Editor.define("template_clip_pannel",module.exports = function(){
+		var api = {};
+		
+		api.init = function(){
+			console.log(123123123);
+		}
+		api.destory = function(){
+			console.log(321321);
+		}
 		return api;
 	});
 }
