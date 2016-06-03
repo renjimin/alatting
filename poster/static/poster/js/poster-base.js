@@ -182,10 +182,10 @@ $(function () {
 							return false;
 						}
 						$('.header-logo h2').hide();
-						$('.header-logo img').show();
+						$('.header-logo img').css("display","inline-block");
 						$('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
-
-						 $.fn.yyTools.mask();
+						$('.header-logo').imgoperationlogo();
+						$.fn.yyTools.mask();
 					});
 				}
 			},
