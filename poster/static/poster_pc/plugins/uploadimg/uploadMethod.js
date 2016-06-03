@@ -235,3 +235,28 @@ function addLogo(){
 	})
 
 }
+
+function changeBg(){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		var bgs = $(".qrcode-inner .qrcode,.abutton-group li a").css({'background':'url(' + data.file + ')','background-size':'100% 100%'});
+		//target.append(bgs);
+		//imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+}
+
+function changeHeader(){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		var bgs = $(".header").css({'background':'url(' + data.file + ')','background-size':'100% 100%'});
+		//target.append(bgs);
+		//imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+}
+
