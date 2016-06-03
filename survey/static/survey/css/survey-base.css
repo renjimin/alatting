@@ -1,6 +1,9 @@
 .error{
 	color:red;	
 }
+.required {
+    color: red;
+}
 .qs {
 	text-align: center;
     background: #efefef;

@@ -46,6 +46,9 @@
                             {% endif %}">
                                 <div class="qs-list-title"> 
                                     {{question.text}}
+                                    {% if question.required %}
+                                        <span class="required">(&#x26B9;)</span>
+                                    {% endif %}
                                 </div>
                                 {% if error %}
                                     <div class="error">{{error}}</div>
