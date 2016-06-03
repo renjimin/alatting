@@ -572,3 +572,18 @@ a:focus,a:hover,a:visited{
         opacity: 1;
     }
 }
+
+.poster-keywords{
+
+}
+.poster-keywords .title{
+    
+}
+.kewords-wraper{
+    padding:10px 0;
+}
+.kewords-container{
+    background-color: #d2d2d2;
+    border-radius:5px;
+    padding:15px;
+}

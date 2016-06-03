@@ -31,12 +31,13 @@ function imageEditor(typename,data){
 				$.each(data, function() {
 					var _this = this;
 					var li = $(' <li data-id="' + this.id + '"><img src="' + this.file + '" data-width="'+this.width+'" data-height="'+this.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
-					defaults['sysImgBox'].append(li);					
+					defaults['sysImgBox'].append(li);
 				});
 				defaults['sysImgBox'].on('click',function(e){
 					var img = $(e.target).closest('img'),
 						closetarget = $(e.target).closest('.img-close'),
 						target = Editor.require("hightClick").getCurrentTarget();
+						defaults['sysImgBox'] = img.parent().parent();
 					if(img.length > 0){
 						selectSysImg(img,target);
 					}
@@ -50,7 +51,12 @@ function imageEditor(typename,data){
 		});
 	}
 	function selectSysImg(img,target){
-		var imgclone = img.clone();
+		var imgclone = img.clone();console.log(defaults['sysImgBox'].attr('data-slider'))
+		if(!defaults['sysImgBox'].attr('data-slider') || defaults['sysImgBox'].attr('data-slider')==undefined){
+			target.empty().append(imgclone);
+			target.imgoperation();
+			return;
+		}
 		var imgdata={
 			'file':imgclone.attr('src'),
 			'width':imgclone.attr('data-width'),
