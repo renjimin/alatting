@@ -25,6 +25,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic
+from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
     get_file_ext_name, get_image_path,
@@ -114,10 +115,7 @@ class PosterDetailView(RetrieveUpdateDestroyAPIView):
     model = Poster
     queryset = Poster.objects.all()
     serializer_class = PosterSerializer
-
-    def get_queryset(self):
-        qs = super(PosterDetailView, self).get_queryset()
-        return qs.filter(creator=self.request.user)
+    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
 
 
 class PosterPageListView(ListCreateAPIView):

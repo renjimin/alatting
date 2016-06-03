@@ -165,66 +165,7 @@
 ```
 
 
-## 单个海报详情
-
-    GET /api/v1/poster/posters/{:id}
-
-**Response**
-
-```json
-{
-    "id": 8,
-    "main_category": {
-        "id": 2,
-        "type": "Business",
-        "name": "Business Marketing",
-        "description": "Business Marketing",
-        "tags": "",
-        "parent": null
-    },
-    "sub_category": {
-        "id": 14,
-        "type": "Business",
-        "name": "Enterprise Marketing",
-        "description": "Enterprise Marketing",
-        "tags": "",
-        "parent": 2
-    },
-    "logo_image": {
-        "id": 15,
-        "uuid": "abc6a4ce7b464951b52a71fe50833417",
-        "created_at": "2016-04-12 03:14:52",
-        "file": "http://127.0.0.1:8020/media/images/2016/04/12/3d4601961f894c2883e83241dec83223.png",
-        "width": 562,
-        "height": 248,
-        "format": "png"
-    },
-    "address": null,
-    "unique_name": "测试API接口创建海报",
-    "url": "http://www.mytest.com",
-    "logo_title": "测试API接口创建海报的标题",
-    "short_description": "测试API接口创建海报动之引才计划",
-    "phone": "87998799",
-    "mobile": "13822138222",
-    "email": "lyh@yunye123.com",
-    "lifetime_type": "weekly",
-    "lifetime_timezone": "America/Los_Angeles",
-    "lifetime_value": "",
-    "created_at": "2016-04-27 09:26:03",
-    "status": "Draft",
-    "width": 800,
-    "height": 1024,
-    "tags": "test tag",
-    "creator": 5,
-    "music": null,
-    "category_keyword": 3               //关键词ID
-}
-```
-
-# 编辑海报接口说明
-
-
-## 创建海报与模板的关联
+## 为海报选择模板（创建海报与模板的关联关系）
 
     POST /api/v1/poster/posterpages
     
@@ -310,6 +251,8 @@
 }
 ```
 
+# 编辑海报接口说明
+
 ## 保存海报
 
 
@@ -317,13 +260,3 @@
 ## 发布海报
 
 
-
-## 删除海报
-
-    DELETE /api/v1/poster/posters/{:id}
-    
-注意：此操作将删除海报关联的所有页面、统计数据等，目前是硬删除，无法恢复
-
-**Response**
-
-成功则返回 204 状态码, 删除他人创建的海报时报403错误
