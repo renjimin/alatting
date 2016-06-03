@@ -34,6 +34,7 @@ function(module, exports, __require__) {
 	__require__(16);
 	__require__(17);
 	__require__(18);
+	__require__(19);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -1005,28 +1006,23 @@ function(module, exports, __require__){
 		}
 		api.destory = function(){
 			palette.destory();
-		}
-		api.destory  = function(){
 			system_context.destory();
 		}
 		return api;
 	});
 },
-//[模块16]头部背景颜色模块
+//[模块18]头部背景颜色模块
 function(module, exports, __require__){
 	Editor.define("stencilled_pannel",module.exports = function(){
 		var api = {};
 		var palette = Editor.require("palette");
 		var system_context = Editor.require("system_context");
 		api.init = function(){
-			console.log(222)
 			palette.init($("#stencilled_pannel .palette"),$(".template-box"),"background");
 			system_context.init($("#stencilled_pannel  .system_context"),$(".template-box"),"background");
 		}
 		api.destory = function(){
 			palette.destory();
-		}
-		api.destory  = function(){
 			system_context.destory();
 		}
 		return api;
@@ -1043,5 +1039,22 @@ function(module, exports, __require__){
 		}
 		return api;
 	});
-}
+},
+//[模块19]头部背景颜色模块
+function(module, exports, __require__){
+	Editor.define("unique_name_pannel",module.exports = function(){
+		var api = {};
+		var palette = Editor.require("palette");
+		var system_context = Editor.require("system_context");
+		api.init = function(){
+			palette.init($("#unique_name_pannel .palette"),$(".header-bar-title"),"background");
+			system_context.init($("#unique_name_pannel  .system_context"),$(".header-bar-title"),"background");
+		}
+		api.destory = function(){
+			palette.destory();
+			system_context.destory();
+		}
+		return api;
+	});
+},
 ]);
