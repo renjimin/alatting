@@ -1,8 +1,13 @@
-import os
+# coding=utf-8
+
+from django.contrib.auth.models import User
 
 from django.db import models
 from alatting import settings
-from utils.db.fields import BigAutoField
+from alatting_website.model.poster import Poster
+from alatting_website.models import AlattingBaseModel
+from utils.constants import TRUE_FALSE
+from utils.db.fields import BigAutoField, BigOneToOneField
 from alatting_website.model.resource import Image, Music
 from PIL import Image as pilimage
 
@@ -59,3 +64,47 @@ class SystemMusic(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+
+class ServiceBargain(AlattingBaseModel):
+    poster = BigOneToOneField(Poster, primary_key=True, parent_link=True)
+    server = models.ForeignKey(
+        User,
+        verbose_name=u'服务者',
+        related_name='+',
+        help_text=u'服务者',
+    )
+    consumer = models.ForeignKey(
+        User,
+        verbose_name=u'需求者',
+        related_name='+',
+        help_text=u'需求者'
+    )
+    price = models.FloatField(
+        verbose_name=u'价格(元)'
+    )
+    accepted = models.BooleanField(
+        verbose_name=u'已接受',
+        default=False,
+        choices=TRUE_FALSE
+    )
+    refused = models.BooleanField(
+        verbose_name=u'已拒绝',
+        default=False,
+        choices=TRUE_FALSE
+    )
+    note = models.CharField(
+        verbose_name=u'留言',
+        max_length=300,
+        default=''
+    )
+
+    def __str__(self):
+        return '服务:%s-需求:%s-价格:%s' % (
+            self.server.username,
+            self.consumer.username,
+            self.price
+        )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '服务询价'

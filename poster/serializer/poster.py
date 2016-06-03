@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from alatting_website.model.poster import Poster, PosterPage
 from alatting_website.serializer.edit_serializer import ImageSerializer
-from poster.models import SystemImage, SystemMusic
+from poster.models import SystemImage, SystemMusic, ServiceBargain
 from poster.serializer.resource import CategorySerializer, \
     CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
@@ -122,3 +122,8 @@ class PosterSaveSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poster
         fields = ('pages_statics',)
+
+
+class ServiceBargainSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ServiceBargain
