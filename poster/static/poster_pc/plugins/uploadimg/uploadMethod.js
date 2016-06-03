@@ -210,4 +210,17 @@ $(function(){
 		});
 	}
 
+
 })
+
+function addLogo(){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		var imgLogo = $(".header-logo img").attr("src",data.file);
+		target.append(imgLogo);
+		imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+}
