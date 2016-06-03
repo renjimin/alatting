@@ -2,7 +2,7 @@ var fullcontainer = $('.yunye-template');
 $(function(){	
 	templateScaleInit();
 	fullcontainer = $('.yunye-template');
-	$(".yunye-template").changeTemplate('destroy').changeTemplate();
+	//$(".yunye-template").changeTemplate('destroy').changeTemplate();
 })
 
 function templateScaleInit(){
