@@ -190,7 +190,7 @@ class Poster(models.Model):
                 'pk': page_id
             })
         else:
-            return ''
+            return 1
 
 
 class AbstractPageTemplate(models.Model):
