@@ -259,7 +259,7 @@ a:focus,a:hover,a:visited{
     margin:auto;
     border-radius: 6px;
     background:#7F7C77;
-    height:600px;
+    height:400px;
     overflow:auto;
 }
 .system_context-ul{
@@ -267,7 +267,7 @@ a:focus,a:hover,a:visited{
     margin:10px 10px;
 }
 .system_context-li{
-    width:36%;
+    width:25%;
     float:left;
     margin: 10px 10px;
 }
