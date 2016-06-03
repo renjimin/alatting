@@ -215,6 +215,28 @@ function(module, exports, __require__){
 					}
 				})
 			});
+			$(".header-btn .item").eq(1).on("click",function(){
+				$.fn.yyTools.mask(1);
+				var full_json = JSON.stringify($.fn.yunyeStorage.getPosterData()),
+					api = yunyeEditorGlobal.API;
+				var url = api.publish.format(yunyeEditorGlobal.posterId);
+				$.ajax({
+					type: 'PATCH',
+					dataType: 'json',
+					data: {"data": full_json},
+					url: url,
+					success: function (data) {
+						$.fn.yyTools.mask();
+						yyConfirm("发布成功！<br>您需要查看发布的海报吗？",function(){window.location.href = api.show.format(yunyeEditorGlobal.posterId);},{'okText':'查看','cancelText':'不查看'});
+					},
+					error: function (xhr, status, statusText) {
+						if (xhr.status == 500) {
+							$.fn.yyTools.mask();
+							yyAlert("发布失败，服务器内部错误");
+						}
+					}
+				})
+			});
 		}
 		return api;
 	});
