@@ -110,7 +110,9 @@ $(function(){
 	imageEditor('loadAllImages');
 })
 
-
+function initSlider(target){
+	
+}
 
 $(function(){
 
