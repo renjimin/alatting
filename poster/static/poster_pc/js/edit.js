@@ -1,4 +1,4 @@
-(function(modules) { 
+ (function(modules) { 
 	var installedModules = {};//模块缓存对象
 	function __require__(moduleId){
 		if(installedModules[moduleId])return installedModules[moduleId].exports;//检查模块是否在缓存中
@@ -30,6 +30,9 @@ function(module, exports, __require__) {
 	__require__(7);
 	__require__(8);
 	__require__(13);
+	__require__(15);
+	__require__(16);
+	__require__(17);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -104,7 +107,6 @@ function(module, exports, __require__){
 		var currentPannel;
 
 		api.switchPannel = function(pannelName){
-			if(currentPannel == pannelName)return;
 			$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
@@ -138,11 +140,11 @@ function(module, exports, __require__){
 						}else{
 							var item  = $(e.target).closest(itemSelector);
 						}
+						if(currentSelect && currentSelect[0] == item[0])return;
 						var transform = "",pannelName = "";
 						if(item.closest(".yunye-template").length  != 0){
 							transform = $(".yunye-template").css("transform");
 							pannelName = "template_clip_pannel";
-							item.addClass("active");
 						}else{
 							pannelName = $(itemSelector).data("pannel");
 						}
@@ -202,22 +204,6 @@ function(module, exports, __require__){
 		var api = {};
 		var binders = {};
 
-		api.ready = function(){
-			//有绑定的数据
-			api.bindData($("#logo_title"),"unique_name");
-			api.bindData($("#titleInput"),"unique_name");
-			api.bindData($("#titleLastLength"),"unique_name","var calV = 10 - String(__value__).length;( calV < 0) ? 0 : calV;");
-			api.setValue("unique_name",yunyeEditorGlobal.unique_name);
-			api.bindData($("#short_description"),"short_description");
-			api.bindData($("#descInput"),"short_description");
-			api.bindData($("#descLastLength"),"short_description","Editor.require('hightClick').resizeHighLigh();var calV = 50 - String(__value__).length;( calV < 0) ? 0 : calV;");
-			api.setValue("short_description",yunyeEditorGlobal.short_description);
-			//无需绑定的数据
-			$("#phoneInput").val(yunyeEditorGlobal.phone);
-			$("#mobileInput").val(yunyeEditorGlobal.mobile);
-			$("#emailInput").val(yunyeEditorGlobal.email);
-			$("#adressInput").val(yunyeEditorGlobal.address);
-		}
 		api.bindData = function(element,valueName,eval){
 			if(binders[valueName]){
 				binders[valueName].elements.push({"element":element,"eval":eval});
@@ -571,7 +557,7 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("textEditor",module.exports = function(){
 		var api ={};
-		var container,textColorInput,textSizeInput,borderColorInput,borderSizeInput,textOpacityInput,textShadowInput,ID,sliderTarget;
+		var container,textColorInput,textSizeInput,borderColorInput,borderSizeInput,textOpacityInput,textOpacitySlider,textShadowInput,textShadowSlider,ID,sliderTarget;
 
 		api.init = function(div,target){
 			if( !container ){
@@ -589,13 +575,16 @@ function(module, exports, __require__){
 				borderColorInput = container.find(".form-color.text-color.jscolor").eq(1),
 				borderSizeInput = container.find(".border-Control").eq(0),
 				textOpacityInput = container.find(".form-control.text-opacity"),
-				textShadowInput = container.find(".form-control.text-boxShadow");
+				textShadowInput = container.find(".form-control.text-boxShadow"),
+				textOpacitySlider = container.find(".range.text-opacity"),
+				textShadowSlider = container.find(".range.text-boxShadow");
 
 				target.css("fontSize",textSizeInput.val() + "px");
 				target.css("borderWidth",borderSizeInput.val());
 				new jscolor(container.find(".form-color.text-color.jscolor")[0]);
 				new jscolor(container.find(".form-color.text-color.jscolor")[1]);
 			}
+			api.destory();
 			api.initEditor(target);
 		}
 		api.initEditor = function(target){
@@ -612,8 +601,33 @@ function(module, exports, __require__){
 				target.css("borderWidth",borderSizeInput.val());
 			});
 			textOpacityInput.on("change",function(e){
+				if( !textOpacityInput.val() ){
+					textOpacityInput.val(textOpacitySlider.val() + "%");
+					return;
+				}
+				var num = parseInt(textOpacityInput.val().replace(/[^A-F0-9]/ig, ''));
+				textOpacityInput.val(num + "%");
+				target.css("opacity",num/100);
+				textOpacitySlider.val(num);
 				e.preventDefault();
-				//target.css("borderWidth",borderSizeInput.val());
+			});
+			textShadowInput.on("change",function(e){
+				if( !textShadowInput.val() ){
+					textShadowInput.val(parseInt(textShadowSlider.val()) *5 /100 + "px");
+					return;
+				}
+				var num = parseInt(textShadowInput.val().replace(/[^0-9]/ig, ''));
+				if( num > 5 ){
+					num = 5;
+				}
+				if(num == 0){
+					target.css("textShadow","none");
+				}else{
+					target.css("textShadow","#000 "+ num +"px "+ num +"px 2px");
+				}
+				textShadowInput.val(num + "px");
+				textShadowSlider.val( Math.round(num/5 * 100) );
+				e.preventDefault();
 			});
 			api.initSliders(target);
 		}
@@ -655,7 +669,7 @@ function(module, exports, __require__){
 			}
 		}
 		api.destory = function(div){
-			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput],function(item){
+			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput,textOpacityInput,textShadowInput],function(item){
 				item.off("input propertychange change");
 			});
 			$(document)
@@ -679,10 +693,6 @@ function(module, exports, __require__){
 			imgBtn = pannel.find(".nav-link").eq(1),
 			imgEdit = pannel.find(".subnav").eq(1),
 			textEditor = Editor.require("textEditor");
-
-			var dataHandler = Editor.require("dataHandler");
-			dataHandler.bindData($(".header-logo h2"),"header_logo_text");
-			dataHandler.bindData(pannel.find(".text-textarea"),"header_logo_text");
 		}
 		api.init = function(){
 			var state = $(".header-logo h2").is(":visible");
@@ -723,7 +733,6 @@ function(module, exports, __require__){
 		var api ={};
 		var container = null;
 		var str = "";
-		console.log(44);
 		api.init = function(div,target,cssName){
 			if( !container ){
 				$.ajax({
@@ -734,36 +743,190 @@ function(module, exports, __require__){
 						str = '<div class = "system_context-div"><ul class = "system_context-ul">';
 						for (var i = 0; i < data.length; i++) {
 							str += '<li class = "system_context-li" data-url ='+data[i].image_url+'><img src ="'+data[i].image_url+'"></li>';
-							console.log(data.length)
 						};
 						str +="</ul></div>";
 					},
 					error:function(){
 
 					}
-				})
-				console.log(div);				
+				})			
 				div.empty().append(str);
 			}
 			container = div;
 			api.systemContext(target,cssName);
 		}
-		/*api.destory = function(div){
-			container.find(".colorBox").off("click");
-			container.find(".colorPannel table").off("click");
-			container.find(".colorPannel input").off("change");
+		api.destory = function(div){
+			container.find(".system_context-li").off("click");
 			$(document)
-				.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
-				.off('mousemove.colorPannel touchmove.colorPannel')
-				.off('mouseup.colorPannel touchend.colorPannel');
+				.off('mousedown.system_context-li touchstart.system_context-li')
+				.off('mousemove.system_context-li touchmove.system_context-li')
+				.off('mouseup.system_context-li touchend.system_context-li');
 			container = null;
-		}*/
+		}
 		api.systemContext = function(targetToChange,cssName){
 			container.find(".system_context-li").on("click",function(e){
+				$('.system_context-li').css({
+					'border': '0px solid #01a1ef'
+				});
+				$(this).css({
+					'border': '3px solid #01a1ef'  
+				});
 				var bgC = 'url('+$(this).attr('data-url')+')';
 				targetToChange.css(cssName,bgC);
 				targetToChange.css('background-size','100% 100%');
 			});
+		}
+		return api;
+	});
+},
+//[模块15]数据存储模块
+function(module, exports, __require__){
+	Editor.define("dataSaver",module.exports = function(){
+		var api = {};
+		var storageAPI = $.fn.yunyeStorage;
+		var pageHeadData = storageAPI.getPosterHeadData();
+		var dataHandler = Editor.require("dataHandler");
+
+		api.ready = function(){
+			bindDatas();
+			if( !(yunyeEditorGlobal.updated_at > pageHeadData.updated_at) ){
+				console.log(storageAPI.getPosterData());
+				api.initDataFromLocalStorage();
+			}
+			window.onunload = function (event) {
+				api.saveData();
+			}
+		}
+		function bindDatas(){
+			dataHandler.bindData($("#logo_title"),"unique_name");
+			dataHandler.bindData($("#titleInput"),"unique_name");
+			dataHandler.bindData($("#titleLastLength"),"unique_name","var calV = 10 - String(__value__).length;( calV < 0) ? 0 : calV;");
+
+			dataHandler.bindData($("#short_description"),"short_description");
+			dataHandler.bindData($("#descInput"),"short_description");
+			dataHandler.bindData($("#descLastLength"),"short_description","Editor.require('hightClick').resizeHighLigh();var calV = 50 - String(__value__).length;( calV < 0) ? 0 : calV;");
+
+			dataHandler.bindData($(".header-logo h2"),"header_logo_text");
+			dataHandler.bindData($("#logo_pannel .text-textarea"),"header_logo_text");
+		}
+		api.initDataFromLocalStorage = function(){
+			//标题文字
+			if(storageAPI.getCss("unique_name"))$("#logo_title").css(storageAPI.getCss("unique_name"));
+			dataHandler.setValue("unique_name",pageHeadData.unique_name);
+			//简述
+			if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
+			dataHandler.setValue("short_description",pageHeadData.short_description);
+			//logo
+			dataHandler.setValue("header_logo_text",pageHeadData.logo_title);
+			console.log(storageAPI.getCss(".header-logo h2"));
+			//$('.header-logo h2').css(storageAPI.getCss(".header-logo-h2"));
+			//$('.header-logo img').css(storageAPI.getCss(".header-logo-img"));
+			//电话手机邮箱
+			if(pageHeadData.phone)$('#phoneInput').val(pageHeadData.phone);
+			if(pageHeadData.mobile)$('#mobileInput').val(pageHeadData.mobile);
+			if(pageHeadData.email)$('#emailInput').val(pageHeadData.email);
+
+			/**读取缓存背景图片*/
+			if(storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
+			if(storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
+			if(storageAPI.getCss(".bar-header"))$(".bar-header").css(storageAPI.getCss(".bar-header"));
+			if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));
+			if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
+			if(storageAPI.getCss(".qrcode-inner .qrcode"))$(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
+			if(storageAPI.getCss(".btn-circle"))$(".btn-circle").css(storageAPI.getCss(".btn-circle"));
+		}
+		api.saveData = function(){
+			function parseStyle(string) {
+				var atrributes = string.split(";");
+				var returns = {};
+				for (var i in atrributes) {
+					if (i == atrributes.length - 1)return returns;
+					var key = $.trim(atrributes[i].split(":")[0]),
+						value = $.trim(atrributes[i].split(":")[1]);
+					returns[key] = value;
+				}
+				return returns;
+			}
+			/*去掉海报元素的编辑控件-zj*/
+			$('.cnd-element').removeClass('active');
+			$('.text-element').removeClass('text-element-act');
+			$('.ele-rotate-ctrl').remove();
+			/*为海报模板上的所有元素添加transform兼容-zj*/
+			$('.cnd-element').each(function(){
+				var _this = $(this);
+				var rotate = _this.attr('data-rotate');
+				var scale = _this.attr('data-scale');
+				var tranf = '';
+				if(rotate){
+					rotate = parseFloat(rotate).toFixed(2);
+					tranf += 'rotate('+rotate+') ';
+				}
+				if(scale){
+					tranf += 'scale('+scale+')';
+				}
+				if(tranf){
+					setDomTranStyle(_this,tranf);
+				}
+			});
+			$(".change-template-layout").remove();
+			storageAPI.setHtml(".yunye-template");
+			//电话手机邮箱
+			if(!!$('#phoneInput').val())storageAPI.setHead("phone", $('#phoneInput').val());
+			if(!!$('#mobileInput').val())storageAPI.setHead("mobile", $('#mobileInput').val());
+			if(!!$('#emailInput').val())storageAPI.setHead("email", $('#emailInput').val());
+			//标题文字
+			if (!!$('#logo_title').attr("style"))storageAPI.setCss("unique_name", parseStyle($('#logo_title').attr("style")));
+			storageAPI.setHead("unique_name", dataHandler.getValue("unique_name"));
+			//简述
+			if (!!$('#short_description').attr("style"))storageAPI.setCss("#short_description", parseStyle($('#short_description').attr("style")));
+			storageAPI.setHead("short_description", dataHandler.getValue("short_description"));
+			//logo
+			storageAPI.setHead("logo_title", dataHandler.getValue("header_logo_text"));
+			storageAPI.setCss(".header_logo h2", parseStyle($('.header-logo h2').attr("style")));
+			storageAPI.setCss(".header-logo img", parseStyle($('.header-logo img').attr("style")));
+
+			/**设置缓存背景图片*/
+			storageAPI.setCss(".header",parseStyle($('.header').attr("style")));
+			storageAPI.setCss(".yunye-template",parseStyle($('.yunye-template').attr("style")));
+			storageAPI.setCss(".bar-header",parseStyle($('.bar-header').attr("style")));
+			storageAPI.setCss(".bar-footer",parseStyle($('.bar-footer').attr("style")));
+			storageAPI.setCss(".body",parseStyle($('.body').attr("style")));
+			storageAPI.setCss(".qrcode-inner .qrcode",parseStyle($('.qrcode-inner .qrcode').attr("style")));
+			storageAPI.setCss(".btn-circle",parseStyle($('.btn-circle').attr("style")));
+
+			storageAPI.setHead("updated_at", yunyeEditorGlobal.updated_at);
+		}
+		return api;
+	});
+},
+//[模块16]头部背景颜色模块
+function(module, exports, __require__){
+	Editor.define("QR_pannel",module.exports = function(){
+		var api = {};
+		var palette = Editor.require("palette");
+		var system_context = Editor.require("system_context");
+		api.init = function(){
+			palette.init($("#QR_pannel .palette"),$(".qrcode"),"background");
+			palette.init($("#QR_pannel .palette"),$(".abutton-group a"),"background");
+			system_context.init($("#QR_pannel .system_context"),$(".qrcode"),"background");
+			system_context.init($("#QR_pannel .system_context"),$(".abutton-group a"),"background");
+		}
+		api.destory = function(){
+			palette.destory();
+		}
+		api.destory  = function(){
+			system_context.destory();
+		}
+		return api;
+	});
+},
+//[模块17]图视频编辑模块
+function(module, exports, __require__){
+	Editor.define("template_clip_pannel",module.exports = function(){
+		var api = {};
+		
+		api.init = function(){
+			console.log(Editor.require("hightClick").getCurrentTarget());
 		}
 		return api;
 	});

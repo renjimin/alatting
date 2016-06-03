@@ -515,8 +515,49 @@
     height: 100%;
 }
 
+.parentImgUL{
+    margin:0;
+    padding:0;
+}
+
 .parentImgUL li{
     position: relative;
     margin-bottom: 15px;
     cursor: pointer;
+    min-height: 100px;
+    background: #eee;
+}
+
+.img-close{
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 18px;
+    height: 18px;
+    display: block;
+    opacity: .8;
+    transition: all .2s;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.img-close:before,.img-close:after{
+    content:"";
+    display: block;
+    position: absolute;
+    width: 13px;
+    height:1px;
+    top: 47%;
+    left: 68%;
+    margin-left:-10px;
+    background: #222;
+    transform: rotate(45deg);
+}
+
+.img-close:after{
+    transform: rotate(-45deg);
+}
+.img-close:hover{
+    transform: scale(1.1);
+    opacity:1;
 }

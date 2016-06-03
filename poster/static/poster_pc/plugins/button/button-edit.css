@@ -81,7 +81,12 @@ input[type="range"]::-webkit-slider-thumb {
     position: absolute;
     z-index: 100;
 }
+.cnd-element .element{
+    max-height: 700px;
+    max-width: 100%;
+    overflow: hidden;
 
+}
 .cnd-element .nbar {
     position: absolute;
     z-index: 998;
