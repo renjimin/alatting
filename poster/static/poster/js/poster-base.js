@@ -190,6 +190,8 @@ $(function () {
                         }
                         $('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
                         storageAPI.setHead("logo_title", "");
+                        $('.header-logo').imgoperationlogo();
+                         $.fn.yyTools.mask();
                     });
                 }
             },
@@ -247,6 +249,8 @@ $(function () {
                             'background': 'url(' + data.file + ')',
                             'background-size': '100% 100%'
                         });
+
+                        $.fn.yyTools.mask();
                     });
                 }
             }

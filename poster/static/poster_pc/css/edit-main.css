@@ -216,7 +216,7 @@
 }
 
 .qrcode-inner .qrcode a.btn:active {
-    background: #bbb;
+    /*background: #bbb;*/
 }
 
 .header-logo img {
