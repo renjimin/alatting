@@ -1,0 +1,142 @@
+.body-guide{
+
+	width:100%;
+	height:100%;
+	z-index:999;
+	background:rgba(0,0,0,0.8);
+	position:fixed;
+	top:0px;
+	left:0px;
+}
+.body-guide .edit-header{
+	background:none;
+	height:60px;
+	padding:0 320px 0 240px;
+	text-align:center;
+	box-shadow:none;
+}
+.body-guide .edit-header .tool{
+             display:block;
+             position:absolute;
+             right:50%;
+             margin-right:270px;
+              color: #00c7ff;
+              line-height:60px;
+                  font-size: 20px;
+}
+.body-guide .edit-header .tool i{
+	font-size:30px;
+	margin-left:10px;
+	vertical-align: middle;
+
+}
+.body-guide .edit-header .top-bar{
+	border:#00c7ff 3px solid;
+	height:58px;	
+	margin:0;	
+	width:440px;
+	margin:0 auto;
+	
+}
+.edit-viewport2 .edit-left{
+    	height:90%;
+	background:none;
+	margin-top:60px;
+	border:#00c7ff 3px solid;
+}
+.edit-viewport2 .edit-left span{
+ 	display:block;
+	color:#00c7ff ;
+	font-size:20px;
+	position:absolute;
+	bottom:10px;
+	 text-align: center;
+    	width: 100%;
+}
+.edit-viewport2 .edit-center{
+	background:none;
+}
+.edit-viewport2 .edit-right{
+	background:none;
+              margin-top:60px;
+	border:#00c7ff 3px solid;
+	height:90%;	
+}
+.edit-viewport2 .edit-right span{
+	display:block;
+	color:#00c7ff ;
+	font-size:20px;
+	padding-top:700px;
+	text-align:center;
+	width:100%;
+	position:absolute;
+	bottom:10px;
+}
+
+.guid-center{
+	width:440px;
+	height:100%;
+	margin:0 auto;
+	border:3px solid #00c7ff;
+	position:relative;
+}
+.guid-btn{
+	display:block;
+	width:120px;
+	height:120px;
+	background:#00c7ff;
+	border-radius:50%;
+	margin:0 auto;
+	position:absolute;
+	left:50%;
+	margin-left:-60px;
+	top:50%;
+	margin-top:-120px;
+	text-align:center;
+}
+.guid-btn i{
+             color:white;
+             text-align: center;	
+}
+.guid-btn i img{
+	margin-top:40px;
+}
+.edit-viewport2 .edit-center .guid-btn span{
+    display: block;
+    font-size: 20px;
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+    width: 100%;
+    color:white;
+}
+
+.edit-viewport2 .edit-center .checkbox{
+	display:block;
+	font-size:20px;
+	position:absolute;
+	bottom:360px;
+	 text-align: center;
+    	width: 100%;
+    	background:none;
+    	color:#fff;
+    	padding-top:8px;
+    	font-size:16px;
+}
+.edit-viewport2 .edit-center .checkbox input{
+              background:none;
+              width:20px;
+              height:20px;
+	opacity:0.3;
+	border:#fff 1px solid;
+}
+
+.edit-viewport2 .edit-center span{
+ 	display:block;
+	color:#00c7ff ;
+	font-size:20px;
+	position:absolute;
+	bottom:10px;
+	 text-align: center;
+    	width: 100%;
+}
