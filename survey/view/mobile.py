@@ -397,9 +397,12 @@ class QuestionCreateView(FormView):
 			q.short_text = q_short_text
 			q.save()
 			q_id  = q.pk
-		if q_type in ['choice', 'choice-input', 'checkbox']:
+		if q_type in ['choice', 'checkbox']:
 			kwargs = {'q_id': q_id}
 			return HttpResponseRedirect(reverse('survey:create_choice', kwargs=kwargs))
+		elif q_type in ['choice-input']:
+			kwargs = {'q_id': q_id}
+			return HttpResponseRedirect(reverse('survey:create_choice_input', kwargs=kwargs))
 		return HttpResponseRedirect(reverse("survey:index"))
 
 
@@ -421,12 +424,31 @@ class ChoiceCreateView(FormView):
 				c.text = c_text
 				c.value = c_value
 				c.save()
+		return render_to_response(self.template_name)
+
+
+class ChoiceInputCreateView(FormView):
+	template_name = "survey/mobile/create_choice_input.html"
+	form_class = formset_factory(ChoiceInputForm)
+
+	def form_valid(self, form):
+		if form.is_valid():
+			q_id = self.kwargs['q_id']
+			q = Question.objects.filter(pk=q_id).first()
+			for f in form: 
+				cd = f.cleaned_data
+				c_text = cd.get('c_text')
+				c_value = cd.get('c_value')
+				c = Choice()
+				c.question = q
+				c.sortid = q.choices_count()+1
+				c.text = c_text
+				c.value = c_value
+				c.save()
 				c_input = cd.get('c_input')
 				if c_input:
 					inp = Input()
 					inp.question = q
 					inp.choice = c
-					inp.save()
-				
-		return render_to_response("survey/mobile/create_choice.html")
-		
+					inp.save()				
+		return render_to_response(self.template_name)

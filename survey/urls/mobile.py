@@ -5,7 +5,8 @@ from django.contrib.auth.decorators import login_required
 from survey.view.mobile import (
 	IndexView, StartView, QuestionnaireView,
 	QuestionnaireBlankView, AnswerDetailView,
-	QuestionCreateView, ChoiceCreateView
+	QuestionCreateView, ChoiceCreateView,
+	ChoiceInputCreateView,
 )
 
 urlpatterns = [
@@ -30,4 +31,5 @@ urlpatterns = [
 urlpatterns += [
 	url(r'^create/$', QuestionCreateView.as_view(), name='create'),
 	url(r'^create_choice/(?P<q_id>\d+)/$', ChoiceCreateView.as_view(), name='create_choice'),
+	url(r'^create_choice_input/(?P<q_id>\d+)/$', ChoiceInputCreateView.as_view(), name='create_choice_input'),
 ]
