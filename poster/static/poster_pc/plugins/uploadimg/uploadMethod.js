@@ -24,9 +24,9 @@ function imageEditor(typename,data){
 	function addUploadImgOne(data){
 		var target = Editor.require("hightClick").getCurrentTarget();
 		$(target).imgoperation();
-		var li = $(' <li data-id="' + data.id + '" style="width:0;"><img src="' + data.file + '" data-width="'+data.width+'" data-height="'+data.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
-		defaults['sysImgBox'].prepend(li);
-		li.animate({'width':'67px'},200);
+		var liele = $('<li data-id="' + data.id + '" style=""><img src="' + data.file + '" data-width="'+data.width+'" data-height="'+data.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
+		defaults['sysImgBox'].prepend(liele);
+
 	}
 	function loadAllImages(){
 		$.ajax({
@@ -58,6 +58,13 @@ function imageEditor(typename,data){
 	}
 	function selectSysImg(img,target){
 		var imgclone = img.clone();
+
+		if(!defaults['sysImgBox'].attr('data-slider') || defaults['sysImgBox'].attr('data-slider')==undefined){
+			target.empty().append(imgclone);
+			target.imgoperation();
+			return;
+		}
+
 		var imgdata={
 			'file':imgclone.attr('src'),
 			'width':imgclone.attr('data-width'),
@@ -112,7 +119,7 @@ $(function(){
 })
 
 function initSlider(target){
-	
+
 }
 
 $(function(){
