@@ -446,9 +446,11 @@ class ChoiceInputCreateView(FormView):
 				c.value = c_value
 				c.save()
 				c_input = cd.get('c_input')
+				c_input_ph = cd.get('c_input_ph')
 				if c_input:
 					inp = Input()
 					inp.question = q
 					inp.choice = c
+					inp.placeholder = c_input_ph
 					inp.save()				
 		return render_to_response(self.template_name)
