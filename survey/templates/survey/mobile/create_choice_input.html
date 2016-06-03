@@ -1,4 +1,5 @@
 {% load static %}
+ <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}"/>
 <form id="myForm" method="post" action="">{% csrf_token %}
     <table border="0" cellpadding="0" cellspacing="0">
         <tbody>
@@ -6,6 +7,8 @@
             <tr>
                <td>输入选项文本:{{ f.c_text }}</td>
                <td>输入选项的值:{{ f.c_value }}</td>
+               <td>选项是否包含输入框{{ f.c_input }}</td>
+               <td class="hidden">输入框的默认文本:{{ f.c_input_ph }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -20,4 +23,15 @@
     $(function() {
         $('#myForm tbody tr').formset();
     })
+    $('[id^="id_form"][id$="c_input"]').click(function(){
+        if($(this).is(':checked')){
+            c_inp_id = this.id
+            c_inp_ph_id = c_inp_id + "_ph"
+            $('#'+c_inp_ph_id).parent().removeClass('hidden')
+        } else {
+            c_inp_id = this.id
+            c_inp_ph_id = c_inp_id + "_ph"
+            $('#'+c_inp_ph_id).parent().addClass('hidden')
+        }
+    });
 </script>
