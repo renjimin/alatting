@@ -180,7 +180,7 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//[模块5]点击头部切换面板模块
+//[模块5]点击头部面板模块
 function(module, exports, __require__){
 	Editor.define("headerClick",module.exports = function(){
 		var api = {};
@@ -193,6 +193,27 @@ function(module, exports, __require__){
 					Editor.require("hightClick").removeHighLigh();
 					pannelSwitcher.switchPannel($(item).data("pannel"));
 				});
+			});
+			$(".header-btn .item").eq(0).on("click",function(){
+				Editor.require("dataSaver").saveData();
+				var full_json = JSON.stringify($.fn.yunyeStorage.getPosterData());
+				var url = yunyeEditorGlobal.API.save.format(yunyeEditorGlobal.posterId);
+				$.ajax({
+					type: 'PATCH',
+					dataType: 'json',
+					data: {"data": full_json},
+					url: url,
+					success: function (data) {
+						$.fn.yyTools.mask();
+						yyAlert("保存成功");
+					},
+					error: function (xhr, status, statusText) {
+						if (xhr.status == 500) {
+							$.fn.yyTools.mask();
+							yyAlert("保存失败，服务器内部错误");
+						}
+					}
+				})
 			});
 		}
 		return api;
@@ -579,8 +600,8 @@ function(module, exports, __require__){
 				textOpacitySlider = container.find(".range.text-opacity"),
 				textShadowSlider = container.find(".range.text-boxShadow");
 
-				target.css("fontSize",textSizeInput.val() + "px");
-				target.css("borderWidth",borderSizeInput.val());
+				textSizeInput.val(target.css("fontSize").replace(/[^0-9]/ig, ''));
+				borderSizeInput.val(target.css("borderWidth"));
 				new jscolor(container.find(".form-color.text-color.jscolor")[0]);
 				new jscolor(container.find(".form-color.text-color.jscolor")[1]);
 			}
@@ -712,8 +733,8 @@ function(module, exports, __require__){
 		function showText(){
 			textEdit.slideDown(200);
 			imgEdit.slideUp(200);
-			$(".header-logo h2").show();
-			$(".header-logo img").hide();
+			$(".header-logo h2").css("display","inline-block");
+			$(".header-logo img").css("display","none");
 		}
 		function showImg(){
 			textEdit.slideUp(200);
@@ -786,11 +807,10 @@ function(module, exports, __require__){
 
 		api.ready = function(){
 			bindDatas();
-			if( !(yunyeEditorGlobal.updated_at > pageHeadData.updated_at) ){
-				console.log(storageAPI.getPosterData());
+			if( pageHeadData && !(yunyeEditorGlobal.updated_at > pageHeadData.updated_at) ){
 				api.initDataFromLocalStorage();
 			}
-			window.onunload = function (event) {
+			window.onunload = function(event) {
 				api.saveData();
 			}
 		}
@@ -805,24 +825,31 @@ function(module, exports, __require__){
 
 			dataHandler.bindData($(".header-logo h2"),"header_logo_text");
 			dataHandler.bindData($("#logo_pannel .text-textarea"),"header_logo_text");
+
+			if(!pageHeadData)return;
+			var s = [{valueName:"header_logo_text",saveName:"logo_title"},
+					{valueName:"short_description",saveName:"short_description"},
+					{valueName:"unique_name",saveName:"unique_name"}]
+			_.each(s,function(obj){
+				if(pageHeadData[obj.saveName]){
+					dataHandler.setValue(obj.valueName,pageHeadData[obj.saveName]);
+				}else{
+					dataHandler.setValue(obj.valueName,yunyeEditorGlobal[obj.saveName]);
+				}
+			});
 		}
 		api.initDataFromLocalStorage = function(){
 			//标题文字
 			if(storageAPI.getCss("unique_name"))$("#logo_title").css(storageAPI.getCss("unique_name"));
-			dataHandler.setValue("unique_name",pageHeadData.unique_name);
 			//简述
 			if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
-			dataHandler.setValue("short_description",pageHeadData.short_description);
 			//logo
-			dataHandler.setValue("header_logo_text",pageHeadData.logo_title);
-			console.log(storageAPI.getCss(".header-logo h2"));
-			//$('.header-logo h2').css(storageAPI.getCss(".header-logo-h2"));
-			//$('.header-logo img').css(storageAPI.getCss(".header-logo-img"));
+			if(storageAPI.getCss(".header-logo h2"))$('.header-logo h2').css(storageAPI.getCss(".header-logo h2"));
+			if(storageAPI.getCss(".header-logo img"))$('.header-logo img').css(storageAPI.getCss(".header-logo img"));
 			//电话手机邮箱
 			if(pageHeadData.phone)$('#phoneInput').val(pageHeadData.phone);
 			if(pageHeadData.mobile)$('#mobileInput').val(pageHeadData.mobile);
 			if(pageHeadData.email)$('#emailInput').val(pageHeadData.email);
-
 			/**读取缓存背景图片*/
 			if(storageAPI.getCss(".header"))$('.header').css(storageAPI.getCss(".header"));
 			if(storageAPI.getCss(".yunye-template"))$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
@@ -831,9 +858,31 @@ function(module, exports, __require__){
 			if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
 			if(storageAPI.getCss(".qrcode-inner .qrcode"))$(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
 			if(storageAPI.getCss(".btn-circle"))$(".btn-circle").css(storageAPI.getCss(".btn-circle"));
+			/*读取主体部分*/
+			if(storageAPI.getHtml()) {
+				$(".yunye-template").remove();
+				$(".edit-body").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
+			}
+			api.templateScaleFun();
+		}
+		api.templateScaleFun = function(){
+			var templateScale = $('body').width()/$('.yunye-template').width();
+			var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
+				+   '-moz-transform:scale('+templateScale+','+templateScale+');'
+				+     '-o-transform:scale('+templateScale+','+templateScale+');'
+				+    '-ms-transform:scale('+templateScale+','+templateScale+');'
+				+        'transform:scale('+templateScale+','+templateScale+');';
+				if($('.template-box').length <= 0){
+					var templateBox = $('<div class="template-box"></div>');
+					$('.yunye-template').parent().append(templateBox);
+					templateBox.append($('.yunye-template'));
+				}
+			$('.yunye-template').attr('style',templateScaleOpt);
+			$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
 		}
 		api.saveData = function(){
 			function parseStyle(string) {
+				if(!string)return;
 				var atrributes = string.split(";");
 				var returns = {};
 				for (var i in atrributes) {
@@ -843,6 +892,27 @@ function(module, exports, __require__){
 					returns[key] = value;
 				}
 				return returns;
+			}
+			function setDomTranStyle(ele,value){
+				var csobj={};
+				var csss = ele.attr('style');
+				csss = csss.substr(0,csss.length-1);
+				csss = csss.split(';');
+				for(var i=0;i<csss.length;i++){
+					var sa= csss[i].split(':');
+					csobj[sa[0]]=sa[1];
+				}
+				csobj['transform']=value;
+				csobj['-webkit-transform']=value;
+				csobj['-moz-transform']=value;
+				csobj['-ms-transform']=value;
+				csobj['-o-transform']=value;
+				csss = JSON.stringify(csobj);
+				csss = csss.replace(/,/g,';');
+				csss = csss.substr(1,csss.length-2);
+				csss = csss.replace(/"/g,'');
+				csss += ';';
+				ele.attr('style',csss);
 			}
 			/*去掉海报元素的编辑控件-zj*/
 			$('.cnd-element').removeClass('active');
@@ -879,9 +949,8 @@ function(module, exports, __require__){
 			storageAPI.setHead("short_description", dataHandler.getValue("short_description"));
 			//logo
 			storageAPI.setHead("logo_title", dataHandler.getValue("header_logo_text"));
-			storageAPI.setCss(".header_logo h2", parseStyle($('.header-logo h2').attr("style")));
+			storageAPI.setCss(".header-logo h2", parseStyle($('.header-logo h2').attr("style")));
 			storageAPI.setCss(".header-logo img", parseStyle($('.header-logo img').attr("style")));
-
 			/**设置缓存背景图片*/
 			storageAPI.setCss(".header",parseStyle($('.header').attr("style")));
 			storageAPI.setCss(".yunye-template",parseStyle($('.yunye-template').attr("style")));
