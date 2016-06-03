@@ -3,13 +3,16 @@
 function imageEditor(typename,data){
 	var defaults = {
 		'sysImgBox':$(".imgul"),
+		'sysImgCurrentBox':$(".imgul").eq(0),
 		'uploadImgBtn':$("#uploaderContainer2")
 
 	}
+	
 	switch(typename){
 		case 'loadAllImages':loadAllImages();break;
 		case 'addUploadImg':addUploadImg(data);break;
 		case 'addUploadImgOne':addUploadImgOne(data);break;
+		case 'initSlider':initSlider();break;
 		default:break;
 	}
 	function addUploadImg(data){
@@ -28,6 +31,13 @@ function imageEditor(typename,data){
 		defaults['sysImgBox'].prepend(liele);
 
 	}
+	function initSlider(){
+		$('.file-item').hide();
+		var target = Editor.require("hightClick").getCurrentTarget();
+		target.find('.swiper-slide').each(function(){
+			$('#fileBox_'+$(this).find('img').attr('data-id')).show();
+		});
+	}
 	function loadAllImages(){
 		$.ajax({
 			url: "/api/v1/account/images",
@@ -44,6 +54,7 @@ function imageEditor(typename,data){
 					var img = $(e.target).closest('img'),
 						closetarget = $(e.target).closest('.img-close'),
 						target = Editor.require("hightClick").getCurrentTarget();
+						defaults['sysImgCurrentBox'] = $(this);
 					if(img.length > 0){
 						selectSysImg(img,target);
 					}
@@ -58,8 +69,8 @@ function imageEditor(typename,data){
 	}
 	function selectSysImg(img,target){
 		var imgclone = img.clone();
-
-		if(!defaults['sysImgBox'].attr('data-slider') || defaults['sysImgBox'].attr('data-slider')==undefined){
+		console.log(defaults['sysImgCurrentBox'].attr('data-slider'))
+		if(!defaults['sysImgCurrentBox'].attr('data-slider') || defaults['sysImgCurrentBox'].attr('data-slider') == undefined){
 			target.empty().append(imgclone);
 			target.imgoperation();
 			return;

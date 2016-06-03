@@ -926,7 +926,8 @@ function(module, exports, __require__){
 		var api = {};
 		
 		api.init = function(){
-			console.log(Editor.require("hightClick").getCurrentTarget());
+			var target = Editor.require("hightClick").getCurrentTarget();
+			imageEditor('initSlider');
 		}
 		return api;
 	});
