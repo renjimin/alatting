@@ -8,11 +8,15 @@ from poster.view.api import (
     CategoryKeywordListView, CategoryKeywordDetailView,
     UploadFileView, TemplateDetailView, TemplateListView,
     CategoryListView, SurveyConsumerAnswersView,
-    SurveyConsumerAnsView)
+    SurveyConsumerAnsView, PosterListView, ServiceBargainListView,
+    ServiceBargainDetailView)
 
 
 urlpatterns = [
-    url(r'^(?P<pk>\d+)/$', PosterDetailView.as_view(),
+    url(r'^posters$', PosterListView.as_view(),
+        name='posters'),
+
+    url(r'^posters/(?P<pk>\d+)$', PosterDetailView.as_view(),
         name='poster_detail'),
 
     url(r'^categorys$', CategoryListView.as_view(),
@@ -59,10 +63,16 @@ urlpatterns = [
     url(r'templates/(?P<pk>\d+)$',
         TemplateDetailView.as_view(), name='template_detail'),
 
-# get all consumer answers sent to the poster creator
+    # get all consumer answers sent to the poster creator
     url(r'^(?P<pk>\d+)/consumer/answers$',
         SurveyConsumerAnswersView.as_view(), name='consumer_answers'),
-# get current consumer answer sent to the poster creator
+    # get current consumer answer sent to the poster creator
     url(r'^(?P<pk>\d+)/consumer/ans$',
         SurveyConsumerAnsView.as_view(), name='consumer_ans'),
+
+    url(r'^(?P<poster_pk>\d+)/bargains$',
+        ServiceBargainListView.as_view(), name='poster_bargains'),
+
+    url(r'^(?P<poster_pk>\d+)/bargains/(?P<pk>\d+)$',
+        ServiceBargainDetailView.as_view(), name='poster_bargains_detail'),
 ]

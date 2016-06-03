@@ -13,6 +13,7 @@
 * 海报 API
     * [基础资源API](poster/resource.md)
     * [海报接口API](poster/poster.md)
+    * [海报服务接口API](poster/service.md)
 
 
 
