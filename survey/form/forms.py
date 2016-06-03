@@ -14,3 +14,4 @@ class ChoiceInputForm(forms.Form):
 	c_text = forms.CharField()
 	c_value = forms.CharField()
 	c_input = forms.BooleanField(required=False)
+	c_input_ph = forms.CharField(required=False)
