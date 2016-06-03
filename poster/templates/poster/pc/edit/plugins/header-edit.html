@@ -58,6 +58,18 @@
 				<p class="tips">还剩<span id="titleLastLength"></span>个字</p>
 			</div>
 		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-font"></i><span>颜色</span></a>
+			<div class="subnav palette"></div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-image"></i><span>系统图案</span></a>
+			<div class="subnav system_context"></div>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-chain"></i><span>上传图片</span></a>
+			<div class="subnav"></div>
+		</li>			
 	</ul>
 </section>
 
@@ -147,7 +159,9 @@
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-chain"></i><span>上传图片</span></a>
-			
+			<div class="subnav">
+				<a class="btn btn-normal" href="javascript:void(0);" onclick="changeHeader()">图片上传</a> 
+			</div>
 		</li>
 	</ul>
 </section>
@@ -175,12 +189,14 @@
 		</li>
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-upload"></i><span>上传图片</span></a>
-			
+			<div class="subnav">
+				<a class="btn btn-normal" href="javascript:void(0);" onclick="changeBg()">图片上传</a>
+			</div>
 		</li>					
 	</ul>
 </section>
 
-<section class = "edit-section" id="stencilled _pannel">
+<section class = "edit-section" id="stencilled_pannel">
 	<ul class="navbar">
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-th"></i><span>纯色</span></a>
@@ -204,4 +220,23 @@
 		</li>					
 	</ul>
 </section>
+
+<script>
+	function addLogo(obj){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		//var imgLogo = $('<img src="'+data.file+'"/>');
+		var imgLogo = $(".header-logo img").attr("src",data.file);
+		target.append(imgLogo);
+		imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+	}
+
+	addLogo();
+
+
+</script>
 
