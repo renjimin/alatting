@@ -1,17 +1,20 @@
 # coding=utf-8
-import datetime               
+import datetime			   
 from django.shortcuts import render_to_response, \
 get_object_or_404, render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.generic import View, TemplateView, RedirectView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
+from django.forms import formset_factory
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from survey.models import *
 from alatting_website.model.poster import Poster
 from survey import *
 from account.models import Person
+from survey.form.forms import *
+
 
 class IndexView(TemplateView):
 	template_name = 'survey/mobile/questionset.html'
@@ -20,7 +23,9 @@ class IndexView(TemplateView):
 		context = super(IndexView, self).get_context_data(**kwargs)
 		return context
 
-
+'''
+显示空白调查问卷
+'''
 class QuestionnaireBlankView(View):
 	def get(self, request, **kwargs):
 		poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
@@ -51,7 +56,9 @@ class QuestionnaireBlankView(View):
 			kwargs = {'pk': self.kwargs['poster_id']}
 			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
-
+'''
+显示调查问卷
+'''
 class StartView(RedirectView):
 	def get_redirect_url(self, *args, **kwargs):
 # no questionnaire for current category
@@ -343,7 +350,9 @@ class QuestionnaireView(View):
 				kwargs = {'pk': hist.poster.pk}
 				return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
 
-
+'''
+显示调查问卷答案
+'''
 class AnswerDetailView(TemplateView):
 
 	template_name = "survey/mobile/answer_detail.html"
@@ -365,3 +374,83 @@ class AnswerDetailView(TemplateView):
 				results[his].append(ans)
 		context['results'] = results
 		return context
+
+
+'''
+添加问题
+'''
+class QuestionCreateView(FormView):
+	template_name = "survey/mobile/create_question.html"
+	form_class = QuestionForm
+
+	def form_valid(self, form):
+		if form.is_valid():
+			q_type = form.cleaned_data['q_type']
+			q_text = form.cleaned_data['q_text']
+			q_short_text = form.cleaned_data['q_short_text']
+			q = Question()
+			qs = QuestionSet.objects.filter(pk=8).first()
+			q.questionset = qs
+			q.sortid = qs.questions_count()+1
+			q.type = q_type
+			q.text =q_text
+			q.short_text = q_short_text
+			q.save()
+			q_id  = q.pk
+		if q_type in ['choice', 'checkbox']:
+			kwargs = {'q_id': q_id}
+			return HttpResponseRedirect(reverse('survey:create_choice', kwargs=kwargs))
+		elif q_type in ['choice-input']:
+			kwargs = {'q_id': q_id}
+			return HttpResponseRedirect(reverse('survey:create_choice_input', kwargs=kwargs))
+		return HttpResponseRedirect(reverse("survey:index"))
+
+
+class ChoiceCreateView(FormView):
+	template_name = "survey/mobile/create_choice.html"
+	form_class = formset_factory(ChoiceForm)
+
+	def form_valid(self, form):
+		if form.is_valid():
+			q_id = self.kwargs['q_id']
+			q = Question.objects.filter(pk=q_id).first()
+			for f in form: 
+				cd = f.cleaned_data
+				c_text = cd.get('c_text')
+				c_value = cd.get('c_value')
+				c = Choice()
+				c.question = q
+				c.sortid = q.choices_count()+1
+				c.text = c_text
+				c.value = c_value
+				c.save()
+		return render_to_response(self.template_name)
+
+
+class ChoiceInputCreateView(FormView):
+	template_name = "survey/mobile/create_choice_input.html"
+	form_class = formset_factory(ChoiceInputForm)
+
+	def form_valid(self, form):
+		if form.is_valid():
+			q_id = self.kwargs['q_id']
+			q = Question.objects.filter(pk=q_id).first()
+			for f in form: 
+				cd = f.cleaned_data
+				c_text = cd.get('c_text')
+				c_value = cd.get('c_value')
+				c = Choice()
+				c.question = q
+				c.sortid = q.choices_count()+1
+				c.text = c_text
+				c.value = c_value
+				c.save()
+				c_input = cd.get('c_input')
+				c_input_ph = cd.get('c_input_ph')
+				if c_input:
+					inp = Input()
+					inp.question = q
+					inp.choice = c
+					inp.placeholder = c_input_ph
+					inp.save()				
+		return render_to_response(self.template_name)

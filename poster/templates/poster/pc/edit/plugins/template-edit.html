@@ -8,7 +8,7 @@
 			<div class="subnav">
 
 				<div class="image-all">
-					<ul class="imgul">
+					<ul class="imgul" data-slider="true">
 					</ul>
 
 				</div>
@@ -17,14 +17,13 @@
 					<div class="fileBar" id="fileBar">
 						<div class="fileProgress"></div>
 					</div>
-					<div id="uploaderContainer" class="webuploader-container">
+					<div id="uploaderContainer2" class="webuploader-container">
 
 					</div>
 					<div class="file-bottom" style="display:none;">
 						<a href="javascript:;" class="btn">确定</a>
 					</div>
 				</div>
-
 
 			</div>
 
@@ -33,9 +32,9 @@
 		<li class="nav-item">
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-video-camera"></i><span>上传视频</span></a>
 			<div class="subnav">
-			<ul class="parentImgUL">
+				<ul class="parentImgUL">
 
-			</ul>
+				</ul>
 				<div id="uploadsvideo1">上传视频</div>
 			</div>
 		</li>
@@ -43,14 +42,16 @@
 			<a class="nav-link" href="javascript:void(0);" data-toggle="true"><i class="fa fa-chain"></i><span>图片视频链接</span></a>
 			<div class="subnav">
 
-				<div class="link-body"><div class="link-body-inner"></div></div>
+				<div class="link-body">
+					<div class="link-body-inner"></div>
+				</div>
 				<div class="link-input">
 					<div class="input-group">
 						<input type="text" class="form-control input-lg" id="resourceLinkText" placeholder="请输入图片或视频链接">
 						<span class="input-group-btn">
 							<button class="btn btn-default btn-lg" type="button" id="resourceLinkBtn">
 								<span class="fa fa-chain"></span>
-							</button>
+						</button>
 						</span>
 					</div>
 				</div>
@@ -60,118 +61,139 @@
 	</ul>
 </section>
 
-<script type="text/javascript">
+<!--<script type="text/javascript">-->
 
-	var slideTarget;
-	  $('#uploaderContainer').diyUpload({
-			url: '/api/v1/poster/upload/logo',
-			buttonText: '上传图片',
-			chunked: false,
-			fileNumLimit: 4,
-			fileSingleSizeLimit: 5 * 1024 * 1024,
-			accept: {
-				title: 'Images',
-				extensions: 'gif,jpg,jpeg,png',
-				mimeTypes: 'image/*'
-			},
-			compress: false,
-			threads: 1,
-			auto: true,
-			success: function(data, file) {
-				var target = Editor.require("hightClick").getCurrentTarget();
-				slideTarget = $(target);
-				//console.log(target);
-				data.imgid = file.id;
-				$(target).imgslider({"data":data});
-				$(target).imgoperation();
-				getImage();
-			},
-			error: function(err) {
-				console.info(err);
-			},
-		  	sliderContainer:slideTarget
+	<!--var slideTarget;-->
+	<!--$('#uploaderContainer2').diyUpload({-->
+		<!--url: '/api/v1/poster/upload/logo',-->
+		<!--buttonText: '上传图片',-->
+		<!--chunked: false,-->
+		<!--fileNumLimit: 4,-->
+		<!--fileSingleSizeLimit: 5 * 1024 * 1024,-->
+		<!--accept: {-->
+			<!--title: 'Images',-->
+			<!--extensions: 'gif,jpg,jpeg,png',-->
+			<!--mimeTypes: 'image/*'-->
+		<!--},-->
+		<!--compress: false,-->
+		<!--threads: 1,-->
+		<!--auto: true,-->
+		<!--success: function(data, file) {-->
+			<!--var target = Editor.require("hightClick").getCurrentTarget();-->
+			<!--slideTarget = $(target);-->
+			<!--//console.log(target);-->
+			<!--data.imgid = file.id;-->
+			<!--$(target).imgslider({-->
+				<!--"data": data-->
+			<!--});-->
+			<!--$(target).imgoperation();-->
+			<!--getImage();-->
+		<!--},-->
+		<!--error: function(err) {-->
+			<!--console.info(err);-->
+		<!--},-->
+		<!--sliderContainer: slideTarget-->
+	<!--});-->
+	<!--$("#uploadsvideo1").click(function() {-->
+		<!--$.fn.uploadsvideo.showDialog(function(data) {-->
+			<!--var target = Editor.require("hightClick").getCurrentTarget();-->
+			<!--console.log(data);-->
+			<!--var vediobtn = $('<a class="video-js">' +-->
+				<!--'<img src="/static/poster_pc/images/play.png" class="video-play"/>' +-->
+				<!--'</a>');-->
+			<!--$("#uploadsvideo1").before(vediobtn);-->
+			<!--target.empty().append(vediobtn);-->
+			<!--//var videoplay = $(".video-play");-->
+			<!--$("#video_1").find("video").attr("poster", data.preview);-->
+			<!--vediobtn.find('.video-play').on('click', function() {-->
+				<!--$("#video_1").find("video").attr("src", data.file);-->
+				<!--$(".introVideoDialog").show();-->
+			<!--});-->
+		<!--}, function(data) {-->
+			<!--yyAlert("上传失败");-->
+		<!--});-->
+		<!--getVideos();-->
+	<!--})-->
+	<!--getVideos();-->
 
-		});
+	<!--function getVideos() {-->
+		<!--$.ajax({-->
+			<!--url: "/api/v1/account/videos",-->
+			<!--type: "get",-->
+			<!--datatype: "json",-->
+			<!--success: function(data) {-->
+				<!--$(".parentImgUL").empty();-->
+				<!--$.each(data, function() {-->
+					<!--var li = $(' <li data-src="' + this.file + '" data-id="' + this.id + '"><img class="img-preview" src="' + this.preview + '"/><img src="/static/poster_pc/images/play.png" class="video-play"/><a href="#" class="img-close"></a></li>')-->
+					<!--$(".parentImgUL").append(li);-->
+					<!--li.find(".video-play").click(function() {-->
+						<!--$("#video_1").find("video").attr("src", $(this).attr('data-src'));-->
+						<!--$(".introVideoDialog").show();-->
+					<!--})-->
 
+					<!--li.find(".img-close").click(function(e){-->
+						<!--deleteVideos(li);-->
 
-		$("#uploadsvideo1").click(function(){
-			$.fn.uploadsvideo.showDialog(function(data) {
-				var target = Editor.require("hightClick").getCurrentTarget();
-				console.log(data);
-				var vediobtn = $('<a class="video-js">' +
-						'<img src="/static/poster_pc/images/play.png" class="video-play"/>' +
-						'</a>');
-				$("#uploadsvideo1").before(vediobtn);
-				target.empty().append(vediobtn);
-				//var videoplay = $(".video-play");
-				$("#video_1").find("video").attr("poster",data.preview);
-				vediobtn.find('.video-play').on('click',function(){
-					$("#video_1").find("video").attr("src",data.file);
-					$(".introVideoDialog").show();
+					<!--})-->
 
+				<!--});-->
+			<!--}-->
+		<!--});-->
+	<!--}-->
+	<!--getImage();-->
 
-				});
+	<!--function getImage() {-->
+		<!--$.ajax({-->
+			<!--url: "/api/v1/account/images",-->
+			<!--type: "get",-->
+			<!--datatype: "json",-->
+			<!--success: function(data) {-->
+				<!--$(".imgul").empty();-->
+				<!--$.each(data, function() {-->
+					<!--var li = $(' <li data-id="' + this.id + '"><img src="' + this.file + '"/><a href="#" class="img-close"></a></li>')-->
+					<!--$(".imgul").append(li);-->
+					<!--li.find('img').click(function() {-->
+						<!--var target = Editor.require("hightClick").getCurrentTarget();-->
+						<!--var img = $(this).clone();-->
+						<!--target.empty().append(img);-->
+						<!--target.imgoperation();-->
+					<!--})-->
+					<!--li.find('.img-close').click(function(e) {-->
+						<!--deleteImg(li);-->
+					<!--});-->
+				<!--});-->
+			<!--}-->
+		<!--});-->
+	<!--}-->
 
-	}, function(data) {
-			yyAlert("上传失败");
-		});
+	<!--function deleteImg(obj) {-->
+		<!--$.ajax({-->
+			<!--url: "/api/v1/account/images/" + obj.attr('data-id'),-->
+			<!--type: "DELETE",-->
+			<!--datatype: "json",-->
+			<!--success: function(data) {-->
+				<!--obj.animate({-->
+					<!--'width': '0'-->
+				<!--}, 200, function() {-->
+					<!--obj.remove();-->
+				<!--});-->
+			<!--}-->
+		<!--});-->
+	<!--}-->
 
-		getVideos();
-		})
+	<!--function deleteVideos(obj) {-->
+	<!--$.ajax({-->
+		<!--url: "/api/v1/account/videos/" + obj.attr('data-id'),-->
+		<!--type: "DELETE",-->
+		<!--datatype: "json",-->
+		<!--success: function(data) {-->
+			<!--obj.animate({-->
+				<!--'width': '0'-->
+			<!--}, 200, function() {-->
+				<!--obj.remove();-->
+			<!--});-->
+		<!--}-->
+	<!--});-->
+	<!--}-->
 
-		getVideos();
-		function getVideos(){
-		$.ajax({
-			url: "/api/v1/account/files?q=video",
-			type: "get",
-			datatype: "json",
-			success: function(data) {
-				$(".parentImgUL").empty();
-				$.each(data, function(){
-					var li = $(' <li data-src="'+this.file+'"><img src="' + this.preview + '"/><img src="/static/poster_pc/images/play.png" class="video-play"/></li>')
-					$(".parentImgUL").append(li);
-					li.click(function(){
-						$("#video_1").find("video").attr("src",$(this).attr('data-src'));
-						$(".introVideoDialog").show();
-					})
-				 });
-
-
-
-			}
-		});
-		}
-
-		getImage();
-		function getImage(){
-		$.ajax({
-			url: "/api/v1/account/files?q=image",
-			type: "get",
-			datatype: "json",
-		success: function(data) {
-			$(".imgul").empty();
-			$.each(data, function(){
-				var li = $(' <li><img src="' + this.file + '"/></li>')
-				$(".imgul").append(li);
-				li.click(function(){
-
-					var target = Editor.require("hightClick").getCurrentTarget();
-					var img = $(this).find("img").clone();
-					target.empty().append(img);
-					target.imgoperation();
-
-				})
-
-			 });
-
-
-		}
-		});
-
-
-	}
-
-
-
-
-</script>
+<!--</script>-->

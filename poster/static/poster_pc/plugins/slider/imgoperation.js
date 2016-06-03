@@ -12,7 +12,7 @@
 
 			var imgW, imgH, ow, oh;
 			if (_option.data == null) {
-				ow = i.width()
+				ow = i.width();
 				oh = i.height();
 			} else if (_option.data.width == undefined) {
 				ow = s.width();
@@ -21,6 +21,7 @@
 				ow = _option.data.width;
 				oh = _option.data.height;
 			}
+			oh = i.height();
 
 			if (s.width() / s.height() >= ow / oh) {
 				imgW = s.width();
@@ -28,6 +29,7 @@
 			} else {
 				imgH = s.height();
 				imgW = ow * imgH / oh;
+
 			}
 
 			i.attr("width", imgW);
