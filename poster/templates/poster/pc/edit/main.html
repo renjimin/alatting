@@ -2,15 +2,14 @@
     <div class="edit-body">
         <div class="hightlight"></div>
         <!-- top -->
-        <div class="bar-header edit-bar-header" data-pannel="unique_name_pannel">
-            <a href="javascript:void(0)"  class="btn-back"
-               data-url="{% url 'website:index' %}">
+        <div class="bar-header edit-bar-header">
+            <a href="javascript:void(0)"  class="btn-back change-template" data-url="{% url 'website:index' %}" data-pannel="change_template_pannel">
                 <i class="icon ico-pages"></i>
             </a>
             {% comment %}<button class="button button-clear btn-page">
                 <i class="ico-pages"></i>
             </button>{% endcomment %}
-            <div class="title header-bar-title">
+            <div class="title header-bar-title" data-pannel="unique_name_pannel">
                 <p id="logo_title">{{ poster.unique_name }}</p>
             </div>
             <!--<button class="button button-clear btn-music rotate" id="music"><i class="ico-music "></i><audio loop="" src="" id="media" autoplay="" preload=""></audio></button>-->
@@ -30,7 +29,7 @@
                     </div>
                 </div>
                 <div class="header-logo" data-pannel="logo_pannel">
-                        <h2 style="{% if poster.logo_title %}display: block;{% else %}display: none;{% endif %}">{{ poster.logo_title|safe }}</h2> 
+                        <h2 style="border-style: solid;{% if poster.logo_title %}display: block;{% else %}display: none;{% endif %}" id="header-logo-text">{{ poster.logo_title|safe }}</h2> 
                         <img style="{% if poster.logo_title %}display: none;{% else %}display: block;{% endif %}" src="{{ poster.logo_image.file.url }}">
                 </div>
                 <div class="header-abutton" data-pannel="contact_pannel">
