@@ -20,6 +20,8 @@
 function(module, exports, __require__) {
 	__require__(1);
 	__require__(9);
+	__require__(12);
+	__require__(14);
 	__require__(2);
 	__require__(3);
 	__require__(4);
@@ -27,6 +29,7 @@ function(module, exports, __require__) {
 	__require__(6);
 	__require__(7);
 	__require__(8);
+	__require__(13);
 },
 //[模块1]核心模块
 function(module, exports, __require__) {
@@ -102,7 +105,7 @@ function(module, exports, __require__){
 
 		api.switchPannel = function(pannelName){
 			if(currentPannel == pannelName)return;
-			if(pannelName!="template_clip_pannel")$(".active").removeClass("active");
+			$(".active").removeClass("active");
 			$("#" + currentPannel).hide();
 			__require__(2).destory(currentPannel);
 
@@ -122,7 +125,7 @@ function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher = Editor.require("switchPannel");
-		var clicklist = ".header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.edit-bar-header,.yunye-template > .content > div".split(",");
+		var clicklist = ".change-template,.header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.title.header-bar-title,.yunye-template > .content > div".split(",");
 		var currentSelect = null;
 
 		api.ready = function(){
@@ -187,7 +190,6 @@ function(module, exports, __require__){
 				$(item).on("click",function(){
 					Editor.require("hightClick").removeHighLigh();
 					pannelSwitcher.switchPannel($(item).data("pannel"));
-					//$(item).addClass("active");
 				});
 			});
 		}
@@ -260,12 +262,15 @@ function(module, exports, __require__){
 function(module, exports, __require__){
 	Editor.define("contact_pannel",module.exports = function(){
 		var api = {};
+		var daterModule = __require__(10),
+			calendarModule = __require__(11);
 
 		api.init = function(){
-			
+			var nowTime = daterModule.getToday();
+			calendarModule.init(nowTime.year,nowTime.month);
 		}
 		api.destory = function(){
-			
+			calendarModule.offEvent();
 		}
 		return api;
 	});
@@ -275,9 +280,10 @@ function(module, exports, __require__){
 	Editor.define("header_background_pannel",module.exports = function(){
 		var api = {};
 		var palette = Editor.require("palette");
-
+		var system_context = Editor.require("system_context");
 		api.init = function(){
 			palette.init($("#header_background_pannel .palette"),$(".header"),"background");
+			system_context.init($("#header_background_pannel .system_context"),$(".header"),"background");
 		}
 		api.destory = function(){
 			palette.destory();
@@ -463,6 +469,301 @@ function(module, exports, __require__){
 				string = string[0] + string[0] + string[1] + string[1] + string[2] + string[2];
 			}
 			return '#' + string;
+		}
+		return api;
+	});
+},
+//[模块10]日期模块
+function(module, exports, __require__){
+	var api = {};
+
+	api.getToday = function(){
+		var date = new Date();//获得时间对象
+		var nowYear = date.getFullYear();//获得当前年份
+		var nowMonth = date.getMonth() + 1;//获得当前月份
+		var today = date.getDate();//获得当前天数
+		var nowWeek = new Date(nowYear, nowMonth - 1, 1).getDay();//获得当前星期
+		var nowLastday = api.getMonthNum(nowMonth, nowYear);//获得最后一天
+		return {year:nowYear,month:nowMonth,day:today,week:nowWeek,lastday:nowLastday};
+	}
+	api.getMonthNum = function(month,year){
+		month = parseInt(month - 1);
+		var LeapYear = ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) ? true: false;
+		_.each([{num:[0,2,4,6,7,9,11],value:31},{num:[3,5,8,10],value:30},{num:[1],value:LeapYear ? 29: 28}],function(obj){
+			_.each(obj.num,function(n){
+				if(n == month)monthNum = obj.value;
+			});
+		});
+		return monthNum;
+	}
+	module.exports = api;
+},
+//[模块11]calendar模块
+function(module, exports, __require__){
+	var api = {};
+	var inited = false;
+	var daterModule = __require__(10);
+
+	api.init = function(year, month){
+		if(!inited){
+			inited = true;
+			api.gotoYM(year, month);
+		}
+		api.bindEvent();
+	}
+	api.gotoYM = function(year, month){
+		var week = new Date(year, month - 1, 1).getDay();
+		var lastday = daterModule.getMonthNum(month,year);
+		$("#year").val(year);
+		$("#month").val(month);
+		var table = document.getElementById("calender");
+		var n = 1;
+		for (var j = 0; j < week; j++) {
+			table.rows[1].cells[j].innerHTML = "&nbsp;"
+			table.rows[1].cells[j].className = "";
+		}
+		for (var j = week; j < 7; j++) {
+			//table.rows[1].cells[j].className = calculateClass(j,n);
+			table.rows[1].cells[j].innerHTML = n;
+			n++;
+		}
+		for (var i = 2; i < 7; i++) {
+			for (j = 0; j < 7; j++) {
+				if (n > lastday) {
+					table.rows[i].cells[j].innerHTML = "&nbsp;"
+					table.rows[i].cells[j].className = "";
+				}else {
+					//table.rows[i].cells[j].className = calculateClass(j,n);
+					table.rows[i].cells[j].innerHTML = n;
+					n++;
+				}
+			}
+		}
+	}
+	api.bindEvent = function(){
+		$("#calender td").on('click',function(event) {
+			if( event.target.innerHTML  == "&nbsp;" )return;
+			$('.calenderTable input').eq(0).val("").attr("disabled",false);
+			$('.calenderTable input').eq(1).val("").attr("disabled",false);
+			$("td.hover").removeClass("hover");
+			$(this).addClass("hover");
+			var specificDay = $("#year").val() + "-" + $("#month").val() + "-" + event.target.innerHTML;
+			//setInput(specificDay);
+		});
+		$(".fa.fa-cog").on("click",function(event) {
+			if($(".weekly").is(":visible")){
+				$(".calender").show();
+				$(".weekly").hide();
+				api.gotoYM(parseInt($("#year").val()), parseInt($("#month").val()));
+			}else{
+				$(".calender").hide();
+				$(".weekly").show();
+			}
+		});
+	}
+	api.offEvent = function(){
+		$("#calender td").off('click');
+		$(".fa.fa-cog").off("click");
+	}
+	module.exports = api;
+},
+//[模块12]文字编辑模块
+function(module, exports, __require__){
+	Editor.define("textEditor",module.exports = function(){
+		var api ={};
+		var container,textColorInput,textSizeInput,borderColorInput,borderSizeInput,textOpacityInput,textShadowInput,ID,sliderTarget;
+
+		api.init = function(div,target){
+			if( !container ){
+				ID = "textEditor_" + $(".ttttEditor").length ; 
+				var str = "<div class='form-horizontal ttttEditor "+ID+"'>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>颜色</label><div class='col-xs-4'><input class='form-color text-color jscolor' readonly='readonly'></div><label class='col-xs-2 control-label'>大小</label><div class='col-xs-4'><select class='form-control text-fontSize'><option value='12'>12px</option><option value='13'>13px</option><option value='14'>14px</option><option value='15'>15px</option><option value='16'>16px</option><option value='17'>17px</option><option value='18'>18px</option><option value='19'>19px</option><option value='20'>20px</option><option value='21'>21px</option><option value='22'>22px</option><option value='23'>23px</option><option value='24'>24px</option><option value='25'>25px</option><option value='26'>26px</option><option value='27'>27px</option><option value='28'>28px</option><option value='29'>29px</option></select></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>透明度</label><div class='col-xs-7'><input type='range' class='range text-opacity' name='opacity' min='0' max='100' value='100'></div><div class='col-xs-3'><input type='text' class='form-control text-opacity' value='100%'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>阴影</label><div class='col-xs-7'><input type='range' class='range text-boxShadow' name='volume' min='0' max='100' value='0'></div><div class='col-xs-3'><input type='text' class='form-control text-boxShadow' value='0px'></div></div>"
+							+"<div class='form-group'><label class='col-xs-2 control-label'>边框</label><div class='col-xs-7'><input class='form-color text-color jscolor' readonly='readonly'></div><div class='col-xs-3'><input type='text' class='form-control border-Control' value='0px'></div></div>"
+						+"</div>";
+				div.empty().append(str);
+				container = div,
+				textColorInput = container.find(".form-color.text-color.jscolor").eq(0),
+				textSizeInput = container.find(".form-control.text-fontSize").eq(0),
+				borderColorInput = container.find(".form-color.text-color.jscolor").eq(1),
+				borderSizeInput = container.find(".border-Control").eq(0),
+				textOpacityInput = container.find(".form-control.text-opacity"),
+				textShadowInput = container.find(".form-control.text-boxShadow");
+
+				target.css("fontSize",textSizeInput.val() + "px");
+				target.css("borderWidth",borderSizeInput.val());
+				new jscolor(container.find(".form-color.text-color.jscolor")[0]);
+				new jscolor(container.find(".form-color.text-color.jscolor")[1]);
+			}
+			api.initEditor(target);
+		}
+		api.initEditor = function(target){
+			textColorInput.on("input propertychange change",function(e){
+				target.css("color",$(e.target).css("background-color"));
+			});
+			borderColorInput.on("input propertychange change",function(e){
+				target.css("borderColor",$(e.target).css("background-color"));
+			});
+			textSizeInput.on("change",function(e){
+				target.css("fontSize",textSizeInput.val() + "px");
+			});
+			borderSizeInput.on("change",function(e){
+				target.css("borderWidth",borderSizeInput.val());
+			});
+			textOpacityInput.on("change",function(e){
+				e.preventDefault();
+				//target.css("borderWidth",borderSizeInput.val());
+			});
+			api.initSliders(target);
+		}
+		api.initSliders = function(target){
+			$(document)
+			.on("mousedown."+ID+" touchstart."+ID,".range.text-opacity,.range.text-boxShadow",function(event){
+				sliderTarget = $(this);
+				event.preventDefault();
+				move(event);
+			})
+			.on("mousemove."+ID+" touchmove."+ID,function(event){
+				if(!sliderTarget)return;
+				move(event);
+			})
+			.on("mouseup."+ID+" touchend."+ID,function(event){
+				sliderTarget = null;
+			})
+			function move(event){
+				if(!sliderTarget)return;
+				var offsetX = sliderTarget.offset().left,
+					x = Math.round(event.pageX - offsetX),
+					wx = sliderTarget.outerWidth();
+				if( x < 0 ) x = 0;
+				if( x > wx ) x = wx;
+				var percent = Math.round(x/wx *100);
+				sliderTarget.val(percent);
+				if(sliderTarget.is(".text-opacity")){
+					textOpacityInput.val(percent+"%");
+					target.css("opacity",percent/100);
+				}else{
+					var pxv = 5 * percent /100;
+					textShadowInput.val(pxv+"px");
+					if(pxv == 0){
+						target.css("textShadow","none");
+					}else{
+						target.css("textShadow","#000 "+ pxv +"px "+ pxv +"px 2px");
+					}
+				}
+			}
+		}
+		api.destory = function(div){
+			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput],function(item){
+				item.off("input propertychange change");
+			});
+			$(document)
+			.off("mousedown."+ID+" touchstart."+ID,".range.text-opacity,.range.text-boxShadow")
+			.off("mousemove."+ID+" touchmove."+ID)
+			.off("mouseup."+ID+" touchend."+ID);
+		}
+		return api;
+	});
+},
+//[模块13]logo编辑模块
+function(module, exports, __require__){
+	Editor.define("logo_pannel",module.exports = function(){
+		var api ={};
+		var pannel,textBtn,textEdit,imgBtn,imgEdit,textEditor;
+
+		api.ready = function(){
+			pannel = $("#logo_pannel"),
+			textBtn = pannel.find(".nav-link").eq(0),
+			textEdit = pannel.find(".subnav").eq(0),
+			imgBtn = pannel.find(".nav-link").eq(1),
+			imgEdit = pannel.find(".subnav").eq(1),
+			textEditor = Editor.require("textEditor");
+
+			var dataHandler = Editor.require("dataHandler");
+			dataHandler.bindData($(".header-logo h2"),"header_logo_text");
+			dataHandler.bindData(pannel.find(".text-textarea"),"header_logo_text");
+		}
+		api.init = function(){
+			var state = $(".header-logo h2").is(":visible");
+			if(state){
+				showText();
+			}else{
+				showImg();
+			}
+			textBtn.off("click").on("click",function(){
+				showText();
+			});
+			imgBtn.off("click").on("click",function(){
+				showImg();
+			});
+			textEditor.init($(".textEditor"),$(".header-logo h2"));
+		}
+		function showText(){
+			textEdit.slideDown(200);
+			imgEdit.slideUp(200);
+			$(".header-logo h2").show();
+			$(".header-logo img").hide();
+		}
+		function showImg(){
+			textEdit.slideUp(200);
+			imgEdit.slideDown(200);
+			$(".header-logo img").show();
+			$(".header-logo h2").hide();
+		}
+		api.destory = function(div){
+			textEditor.destory();
+		}
+		return api;
+	});
+},
+//[模块14]头部背景设置
+function(module, exports, __require__){
+	Editor.define("system_context",module.exports = function(){
+		var api ={};
+		var container = null;
+		var str = "";
+		console.log(44);
+		api.init = function(div,target,cssName){
+			if( !container ){
+				$.ajax({
+					type:'GET',
+					async:false,
+					url:'/api/v1/poster/system/background',
+					success:function(data){
+						str = '<div class = "system_context-div"><ul class = "system_context-ul">';
+						for (var i = 0; i < data.length; i++) {
+							str += '<li class = "system_context-li" data-url ='+data[i].image_url+'><img src ="'+data[i].image_url+'"></li>';
+							console.log(data.length)
+						};
+						str +="</ul></div>";
+					},
+					error:function(){
+
+					}
+				})
+				console.log(div);				
+				div.empty().append(str);
+			}
+			container = div;
+			api.systemContext(target,cssName);
+		}
+		/*api.destory = function(div){
+			container.find(".colorBox").off("click");
+			container.find(".colorPannel table").off("click");
+			container.find(".colorPannel input").off("change");
+			$(document)
+				.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
+				.off('mousemove.colorPannel touchmove.colorPannel')
+				.off('mouseup.colorPannel touchend.colorPannel');
+			container = null;
+		}*/
+		api.systemContext = function(targetToChange,cssName){
+			container.find(".system_context-li").on("click",function(e){
+				var bgC = 'url('+$(this).attr('data-url')+')';
+				targetToChange.css(cssName,bgC);
+				targetToChange.css('background-size','100% 100%');
+			});
 		}
 		return api;
 	});

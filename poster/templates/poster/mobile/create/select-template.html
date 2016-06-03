@@ -1,6 +1,7 @@
 {% extends 'website/mobile/base.html' %}
 {% load static %}
 {% block base_header_css %}
+    {{ block.super }}
     <link rel="stylesheet"
           href="{% static 'website/css/select-template.css' %}"/>
 {% endblock %}
