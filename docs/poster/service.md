@@ -1,262 +1,157 @@
-# 海报接口说明
+# 海报服务接口说明
 
 
-## 检查海报名称是否已经存在
+## 取得某海报询价记录列表
 
-    GET /api/v1/poster/check/unique/?name=XXXXX
-    
-    
-**Response**
-```json
-{
-    "exists": false             //true or false,  true表示存在， false表示不存在
-}
-```
+    GET /api/v1/poster/{:poster_id}/bargains
 
+**Request**
 
-## 获取已经发表的海报列表
+数据过滤：
 
-只返回‘发布’状态的海报数据
+?consumer_id=XXX    XXX是需求者ID，过滤出此需求者针对当前海报的所有报价记录
 
-    GET /api/v1/poster/posters
-
-**Request过滤**
-
-暂无
 
 **Response**
 ```json
 [
     {
-        "id": 6,
-        "main_category": {
-            "id": 2,
-            "type": "Business",
-            "name": "Business Marketing",
-            "description": "Business Marketing",
+        "id": 1,
+        "poster": {
+            "id": 50,
+            "main_category": {
+                "id": 1,
+                "data_status": 1,
+                "created_at": "2016-05-30 07:13:00",
+                "updated_at": "2016-05-30 07:13:11",
+                "type": "Activity",
+                "name": "Activity Invitation",
+                "description": "Activity / Party Invitation",
+                "tags": "",
+                "audit_status": 2,
+                "parent": null
+            },
+            "sub_category": {
+                "id": 5,
+                "data_status": 1,
+                "created_at": "2016-05-30 07:13:00",
+                "updated_at": "2016-05-30 07:13:11",
+                "type": "Activity",
+                "name": "Marriage Invitation",
+                "description": "Marriage Invitation",
+                "tags": "",
+                "audit_status": 2,
+                "parent": 1
+            },
+            "logo_image": {
+                "id": 182,
+                "uuid": "f46341c3c9224031a1597824af14195c",
+                "created_at": "2016-05-31 18:11:51",
+                "file": "http://0.0.0.0:8020/media/images/2016/05/31/5715a6fcca24465db87eaee208f701ca.jpg",
+                "width": 108,
+                "height": 108,
+                "format": "jpg",
+                "creator": null
+            },
+            "address": {
+                "id": 52,
+                "address1": "fdfadfa",
+                "address2": "",
+                "city": "",
+                "province": "",
+                "state": "",
+                "country": "",
+                "post_code": "",
+                "created_at": "2016-05-31 18:11:51",
+                "updated_at": "2016-05-31 18:11:51"
+            },
+            "unique_name": "AD发ad",
+            "url": "",
+            "logo_title": "",
+            "short_description": "dfsdf",
+            "phone": "010-1234567",
+            "mobile": "13800138000",
+            "email": "123123@fdsf.com",
+            "lifetime_type": "weekly",
+            "lifetime_timezone": "Asia/Shanghai",
+            "lifetime_value": "{\"Tuesday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Monday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Wednesday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Saturday\": {\"disabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Friday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Sunday\": {\"disabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Thursday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}}",
+            "music": null,
+            "created_at": "2016-05-31 18:11:51",
+            "updated_at": "2016-05-31 18:11:51",
+            "status": "Draft",
+            "width": 800,
+            "height": 1024,
             "tags": "",
-            "parent": null
+            "snapshot": null,
+            "creator": 5
         },
-        "sub_category": {
-            "id": 14,
-            "type": "Business",
-            "name": "Enterprise Marketing",
-            "description": "Enterprise Marketing",
-            "tags": "",
-            "parent": 2
-        },
-        "logo_image": {
-            "id": 15,
-            "uuid": "abc6a4ce7b464951b52a71fe50833417",
-            "created_at": "2016-04-12 03:14:52",
-            "file": "http://127.0.0.1:8020/media/images/2016/04/12/3d4601961f894c2883e83241dec83223.png",
-            "width": 562,
-            "height": 248,
-            "format": "png"
-        },
-        "address": {
-            "id": 3,
-            "address1": "武汉光谷国际广场",
-            "address2": "",
-            "city": "武汉",
-            "state": "湖北",
-            "country": "中国",
-            "post_code": "430070",
-            "created_at": "2016-04-11 07:44:41",
-            "updated_at": "2016-04-11 07:44:41"
-        },
-        "unique_name": "3551",
-        "url": "http://www.yunye123.com",
-        "logo_title": "3551光谷人才计划",
-        "short_description": "“3551光谷人才计划” - 武汉东湖高新区启动之引才计划",
-        "phone": "87280808",
-        "mobile": "13800138000",
-        "email": "abc@yunye123.com",
-        "lifetime_type": "weekly",
-        "lifetime_timezone": "Asia/Shanghai",
-        "lifetime_value": "UTC",
-        "created_at": "2016-04-11 07:55:50",
-        "status": "Published",
-        "width": 800,
-        "height": 1024,
-        "tags": "3551",
-        "creator": 5,
-        "music": null,                       // 背景音乐链接，没有值是为null
-        "category_keyword_id": 2                // 分类关键词ID
+        "data_status": 1,
+        "created_at": "2016-06-03 14:48:52",
+        "updated_at": "2016-06-03 14:48:52",
+        "price": 20,                            //价格
+        "accepted": false,                      //是否接受
+        "refused": false,                       //是否拒绝
+        "note": "aaa",                          //备注留言
+        "server": 5,                            //服务者ID
+        "consumer": 12                          //需求者ID
     },
-    ...
+    ....
 ]
 ```
 
 
-## 创建海报
+## 服务者提交服务报价
 
-    POST /api/v1/poster/posters
-    
-**Request**
-```json
-{
-    "category_keyword_id": 3,               //关键词ID
-    "main_category_id": 2,                  //一级分类ID
-    "sub_category_id": 14,                  //二级分类ID
-    "logo_image_id": 15,                    //logo图片ID
-    "unique_name": "测试API接口创建海报",     //海报名称，全站唯一
-    "logo_title": "测试API接口创建海报的标题",             //海报标题
-    "short_description": "测试API接口创建海报动之引才计划",   //海报简述
-    "phone": "87998799",                                //电话
-    "mobile": "13822138222",                            //手机
-    "email": "lyh@yunye123.com",                        //邮箱
-    "address": "武汉江汉区汉正街"                         //地址
-}
-```
+    POST /api/v1/poster/{:poster_id}/bargains
+
 
 **Response**
-
-创建海报成功后，将返回创建的海报的完整json格式数据， 前端只需分拣所需数据进行展示。
-
 ```json
 {
-    "id": 8,
-    "main_category": {
-        "id": 2,
-        "type": "Business",
-        "name": "Business Marketing",
-        "description": "Business Marketing",
-        "tags": "",
-        "parent": null
-    },
-    "sub_category": {
-        "id": 14,
-        "type": "Business",
-        "name": "Enterprise Marketing",
-        "description": "Enterprise Marketing",
-        "tags": "",
-        "parent": 2
-    },
-    "logo_image": {
-        "id": 15,
-        "uuid": "abc6a4ce7b464951b52a71fe50833417",
-        "created_at": "2016-04-12 03:14:52",
-        "file": "http://127.0.0.1:8020/media/images/2016/04/12/3d4601961f894c2883e83241dec83223.png",
-        "width": 562,
-        "height": 248,
-        "format": "png"
-    },
-    "address": null,
-    "unique_name": "测试API接口创建海报",
-    "url": "http://www.mytest.com",
-    "logo_title": "测试API接口创建海报的标题",
-    "short_description": "测试API接口创建海报动之引才计划",
-    "phone": "87998799",
-    "mobile": "13822138222",
-    "email": "lyh@yunye123.com",
-    "lifetime_type": "weekly",
-    "lifetime_timezone": "America/Los_Angeles",
-    "lifetime_value": "",
-    "created_at": "2016-04-27 09:26:03",
-    "status": "Draft",
-    "width": 800,
-    "height": 1024,
-    "tags": "test tag",
-    "creator": 5,
-    "music": null,
-    "category_keyword": 3               //关键词ID
+    "consumer_id": 123,     //接收者ID（需求者）
+    "price": "45.9",        //价格
+    "note": "留言备注，可为空"
 }
 ```
 
 
-## 为海报选择模板（创建海报与模板的关联关系）
+## 需求者提交服务报价
 
-    POST /api/v1/poster/posterpages
-    
-**Request**
-```json
-{
-    "poster_id": 12,
-    "template_id: 33
-}
-```
+    POST /api/v1/poster/{:poster_id}/bargains
+
+无需指定报价接收人，接口内部根据海报ID自动处理接收人
 
 **Response**
-
-提交成功后，返回完整的 海报模板对象 信息
-
 ```json
-{
-    "id": 1,
-    "poster": {
-        "id": 12,
-        "main_category": {
-            "id": 2,
-            "type": "Business",
-            "name": "Business Marketing",
-            "description": "Business Marketing",
-            "tags": "",
-            "parent": null
-        },
-        "sub_category": {
-            "id": 14,
-            "type": "Business",
-            "name": "Enterprise Marketing",
-            "description": "Enterprise Marketing",
-            "tags": "",
-            "parent": 2
-        },
-        "logo_image": {
-            "id": 1,
-            "uuid": "a14f859435c34577acd1abaa609698a0",
-            "created_at": "2015-09-23 21:56:48",
-            "file": "http://127.0.0.1:8020/media/images/2015/09/23/92180490f431414e9b160002d91f15db.png",
-            "width": 594,
-            "height": 128,
-            "format": "png"
-        },
-        "address": {
-            "id": 2,
-            "address1": "2181 E Foothill Blvd",
-            "address2": "",
-            "city": "Pasadena",
-            "state": "CA",
-            "country": "USA",
-            "post_code": "91007",
-            "created_at": "2015-09-23 21:58:43",
-            "updated_at": "2015-09-23 21:58:43"
-        },
-        "category_keyword": null,
-        "unique_name": "alatting",
-        "url": "www.alatting.com",
-        "logo_title": "阿拉鼎高科国际股份有限公司",
-        "short_description": "阿拉鼎总部位于美国洛杉矶,专注智能海报营销",
-        "phone": "3234444444",
-        "mobile": "2134006368",
-        "email": "info@alatting.com",
-        "lifetime_type": "specific_days",
-        "lifetime_timezone": "America/Los_Angeles",
-        "lifetime_value": "{\"2015-11-23\": {\"time_start\": \"08:00 am\", \"enabled\": 1,\"time_end\": \"09:00 pm\", \"message\": \"Funding opening day and project demonstration\"}}",
-        "created_at": "2015-09-23 22:01:33",
-        "status": "Published",
-        "width": 800,
-        "height": 1024,
-        "tags": "",
-        "creator": 4,
-        "music": 1
-    },
-    "template": {
-        "id": 33,
-        "name": "alatting",
-        "image_url": ""
-    },
-    "index": 0,
-    "name": "COMPANY"
-}
+[
+    "price": "45.9",        //价格
+    "note": "留言备注，可为空"
+]
 ```
 
-# 编辑海报接口说明
 
-## 保存海报
+## 接受某一个报价
 
-
-
-## 发布海报
+    PATCH /api/v1/poster/{:poster_id}/bargains/{:bargain_id}
 
 
+**Response**
+```json
+[
+    "accepted": true,
+    "refused": false
+]
+```
+
+## 拒绝某一个报价
+
+    PATCH /api/v1/poster/{:poster_id}/bargains/{:bargain_id}
+
+
+**Response**
+```json
+[
+    "refused": true,
+    "accepted": false
+]
+```

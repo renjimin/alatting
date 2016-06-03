@@ -1,4 +1,5 @@
 # coding=utf-8
+from django.core.urlresolvers import reverse
 from rest_framework import serializers
 from alatting_website.model.poster import Poster, PosterPage
 from alatting_website.serializer.edit_serializer import ImageSerializer
@@ -13,8 +14,9 @@ class PosterSimpleInfoSerializer(serializers.ModelSerializer):
     views_count = serializers.SerializerMethodField()
 
     def get_thumb(self, obj):
-        # todo:lyh:修改真实海报截图
-        return '/media/images/2016/04/15/15588b5bb19f4518abb21269eccc9ba7.png'
+        if obj.snapshot:
+            return obj.snapshot.url
+        return ''
 
     def get_home_page(self, obj):
         return obj.get_absolute_url()
@@ -41,6 +43,15 @@ class PosterSerializer(serializers.ModelSerializer):
 
     category_keyword = CategoryKeywordSerializer(read_only=True)
     category_keyword_id = serializers.IntegerField(write_only=True)
+
+    mobile_edit_url = serializers.SerializerMethodField(read_only=True)
+    pc_edit_url = serializers.SerializerMethodField(read_only=True)
+
+    def get_mobile_edit_url(self, obj):
+        return obj.get_mobile_edit_url()
+
+    def get_pc_edit_url(self, obj):
+        return obj.get_pc_edit_url()
 
     def get_logo_image_url(self, obj):
         return obj.logo_image.file.url if obj.logo_image else ''
@@ -125,5 +136,13 @@ class PosterSaveSerializer(serializers.ModelSerializer):
 
 
 class ServiceBargainSerializer(serializers.ModelSerializer):
+    # from account.serializers import AccountPersonSerializer
+    # server = AccountPersonSerializer(read_only=True)
+    # server_id = serializers.IntegerField(write_only=True)
+    # consumer = AccountPersonSerializer(read_only=True)
+    consumer_id = serializers.IntegerField(write_only=True, required=False)
+    poster = PosterSerializer(read_only=True)
+
     class Meta:
         model = ServiceBargain
+        read_only_fields = ('server', 'consumer')

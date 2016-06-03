@@ -9,14 +9,15 @@ import pytz
 
 from django.conf import settings
 from rest_framework import status
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import filters
 from rest_framework.generics import (
     ListAPIView, RetrieveUpdateAPIView, get_object_or_404,
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
-from rest_framework.permissions import IsAuthenticated
 from account.models import Person
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
@@ -95,7 +96,6 @@ class PosterListView(ListCreateAPIView):
     queryset = Poster.objects.filter(
         status=Poster.STATUS_PUBLISHED
     ).order_by('-created_at')
-    permission_classes = (IsAuthenticated, )
 
     def perform_create(self, serializer):
         address = self.request.data.get('address', None)
@@ -117,7 +117,7 @@ class PosterDetailView(RetrieveUpdateDestroyAPIView):
     model = Poster
     queryset = Poster.objects.all()
     serializer_class = PosterSerializer
-    permission_classes = (IsAuthenticated, IsOwnerOrReadOnly)
+    permission_classes = (IsOwnerOrReadOnly, )
 
 
 class PosterPageListView(ListCreateAPIView):
@@ -590,15 +590,60 @@ class ServiceBargainListView(ListCreateAPIView):
     model = ServiceBargain
     serializer_class = ServiceBargainSerializer
     queryset = ServiceBargain.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('consumer_id', )
+
+    def get_poster_object(self):
+        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
 
     def get_queryset(self):
-        poster = get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+        poster = self.get_poster_object()
         qs = super(ServiceBargainListView, self).get_queryset()
+        qs = qs.filter(
+            poster_id=poster.id
+        ).order_by('-created_at')
         if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            pass
+            return qs
         else:
             return qs.filter(
-                poster_id=poster.id,
-                server=poster.creator,
                 consumer=self.request.user
             ).order_by('-created_at')
+
+    def _server_create(self, poster, serializer):
+        if poster.creator != self.request.user:
+            raise PermissionDenied()
+        serializer.save(
+            creator=self.request.user,
+            poster=poster,
+            consumer_id=serializer.validated_data.get('consumer_id')
+        )
+
+    def _consumer_create(self, poster, serializer):
+        serializer.save(
+            poster=poster,
+            consumer=self.request.user,
+            creator=self.request.user
+        )
+
+    def perform_create(self, serializer):
+        poster = self.get_poster_object()
+        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+            self._server_create(poster, serializer)
+        else:
+            self._consumer_create(poster, serializer)
+
+
+class ServiceBargainDetailView(RetrieveUpdateDestroyAPIView):
+    model = ServiceBargain
+    serializer_class = ServiceBargainSerializer
+    queryset = ServiceBargain.objects.all()
+
+    def get_poster_object(self):
+        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+
+    def check_object_permissions(self, request, obj):
+        super(ServiceBargainDetailView, self).check_object_permissions(
+            request, obj
+        )
+        if obj.poster.creator != request.user and obj.consumer != request.user:
+            raise PermissionDenied

@@ -19,7 +19,7 @@ class SystemImage(models.Model):
     text = models.TextField(
         default='',
         blank=True,
-        help_text=u'保存svg图片格式'
+        help_text='保存svg图片格式'
     )
 
     def __str__(self):
@@ -69,37 +69,42 @@ class SystemMusic(models.Model):
 class ServiceBargain(AlattingBaseModel):
     poster = BigForeignKey(
         Poster,
-        verbose_name=u'海报'
-    )
-    server = models.ForeignKey(
-        User,
-        verbose_name=u'服务者',
-        related_name='+',
-        help_text=u'服务者',
+        verbose_name='海报'
     )
     consumer = models.ForeignKey(
         User,
-        verbose_name=u'需求者',
+        verbose_name='需求者',
         related_name='+',
-        help_text=u'需求者'
+        help_text='需求者',
+        blank=True,
+        null=True
     )
     price = models.FloatField(
-        verbose_name=u'价格(元)'
+        verbose_name='价格(元)'
     )
     accepted = models.BooleanField(
-        verbose_name=u'已接受',
+        verbose_name='已接受',
         default=False,
         choices=TRUE_FALSE
     )
     refused = models.BooleanField(
-        verbose_name=u'已拒绝',
+        verbose_name='已拒绝',
         default=False,
         choices=TRUE_FALSE
     )
     note = models.CharField(
-        verbose_name=u'留言',
+        verbose_name='留言',
         max_length=300,
-        default=''
+        default='',
+        blank=True
+    )
+    creator = models.ForeignKey(
+        User,
+        verbose_name='数据创建人',
+        related_name='+',
+        default=None,
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
