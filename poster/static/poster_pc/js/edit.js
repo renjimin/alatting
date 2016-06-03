@@ -127,7 +127,7 @@ function(module, exports, __require__){
 	Editor.define("hightClick",module.exports = function(){
 		var api = {};
 		var pannelSwitcher = Editor.require("switchPannel");
-		var clicklist = ".change-template,.header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.title.header-bar-title,.yunye-template > .content > div".split(",");
+		var clicklist = ".edit-body,.change-template,.header-qrcode,.header-logo,.header-abutton,.header-info,.mask,.title.header-bar-title,.yunye-template > .content > div".split(",");
 		var currentSelect = null;
 
 		api.ready = function(){
@@ -158,7 +158,7 @@ function(module, exports, __require__){
 					x = item.offset().left - $(".edit-body").offset().left,
 					y = item.offset().top - $(".edit-body").offset().top,
 					width = item.outerWidth() - 4,
-					height = item.outerHeight() - 4;
+					height = item[0].scrollHeight - 4;
 				currentSelect = item;
 				$(".hightlight").show().width(width).height(height).css({"top":y,"left":x,"transform":transform});
 			}
