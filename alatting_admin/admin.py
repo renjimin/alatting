@@ -2,7 +2,7 @@
 from django.contrib import admin
 from account.models import UserCategory, Person
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain
+    ServiceBargain, Chat
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -216,4 +216,9 @@ class InputAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(ServiceBargain)
 class ServiceBargainAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Chat)
+class ChatAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
