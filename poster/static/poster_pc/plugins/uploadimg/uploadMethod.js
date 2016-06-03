@@ -17,6 +17,9 @@ function imageEditor(typename,data){
 		$(target).imgslider({
 			"data": data
 		});
+		var li = $(' <li data-id="' + data.id + '" style="width:0;"><img src="' + data.file + '" data-width="'+data.width+'" data-height="'+data.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
+		defaults['sysImgBox'].prepend(li);
+		li.animate({'width':'67px'},200);
 	}
 	function loadAllImages(){
 		$.ajax({
