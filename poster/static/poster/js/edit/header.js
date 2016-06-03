@@ -40,22 +40,10 @@ $(function () {
             if(!!$('#mobileInput').val())storageAPI.setHead("mobile", $('#mobileInput').val());
             if(!!$('#emailInput').val())storageAPI.setHead("email", $('#emailInput').val());
             //logo
-            if ($('.header-logo h2')[0]) {
-                if( !!$('.header-logo h2').html() ){
-                    storageAPI.setHead("logo_title", $('.header-logo').html());
-                }else{
-                    storageAPI.setHead("logo_title", "");
-                }
-                storageAPI.setHead("logoTitleType", "text");
-                storageAPI.setHead("logo_image", "");
-            } else {
-                storageAPI.setHead("logo_title", "");
-                storageAPI.setHead("logoTitleType", "image");
-                storageAPI.setHead("logo_image", {
-                    url: $('.header-logo img').attr("src"),
-                    id: $('.header-logo img').attr("data-src-id")
-                });
-            }
+            storageAPI.setHead("logo_title",$('.header-logo').html());
+            storageAPI.setCss(".header-logo h2", parseStyle($('.header-logo h2').attr("style")));
+            storageAPI.setCss(".header-logo img", parseStyle($('.header-logo img').attr("style")));
+           
             if ($('#logo_title').attr("style"))storageAPI.setCss("logo_title", parseStyle($('#logo_title').attr("style")));
             storageAPI.setHead("unique_name", $('#logo_title').html());
             if ($('#short_description').attr("style"))storageAPI.setCss("#short_description", parseStyle($('#short_description').attr("style")));

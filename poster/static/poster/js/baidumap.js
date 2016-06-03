@@ -8,7 +8,7 @@ $(function(){
 		window.baiduMap = new BMap.Map("allmap");		// 创建Map实例
 
 		var _localAdress;
-		if (!(yunyeEditorGlobal.updated_at > $.fn.yunyeStorage.getHead("updated_at"))) {
+		if (!(yunyeEditorGlobal.updated_at > $.fn.yunyeStorage.getHead("updated_at")) && $.fn.yunyeStorage.getHead("address") ) {
 			_localAdress  = $.fn.yunyeStorage.getHead("address").address;
 		}else{
 			_localAdress  = yunyeEditorGlobal.address;
