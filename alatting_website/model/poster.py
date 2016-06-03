@@ -180,7 +180,7 @@ class Poster(models.Model):
         if pages.exists():
             return pages.first().id
         else:
-            return ''
+            return 1
 
     def get_edit_url(self):
         page_id = self.get_first_poster_page_id()
@@ -190,7 +190,7 @@ class Poster(models.Model):
                 'pk': page_id
             })
         else:
-            return ''
+            return 1
 
 
 class AbstractPageTemplate(models.Model):

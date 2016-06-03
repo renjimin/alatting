@@ -882,7 +882,8 @@ function(module, exports, __require__){
 			if(storageAPI.getCss(".bar-footer"))$(".bar-footer").css(storageAPI.getCss(".bar-footer"));
 			if(storageAPI.getCss("body"))$("body").css(storageAPI.getCss("body"));
 			if(storageAPI.getCss(".qrcode-inner .qrcode"))$(".qrcode-inner .qrcode").css(storageAPI.getCss(".qrcode-inner .qrcode"));
-			if(storageAPI.getCss(".btn-circle"))$(".btn-circle").css(storageAPI.getCss(".btn-circle"));
+			if(storageAPI.getCss(".qrcode-inner .qrcode"))$(".abutton-group.abutton-contact").css(storageAPI.getCss(".qrcode-inner .qrcode"));
+
 			/*读取主体部分*/
 			if(storageAPI.getHtml()) {
 				$(".yunye-template").remove();
@@ -899,7 +900,6 @@ function(module, exports, __require__){
 				            $(this).imgoperation();
 				        }
 				});
-				
 			}
 			api.templateScaleFun();
 		}
