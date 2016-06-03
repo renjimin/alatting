@@ -190,7 +190,7 @@ $(function () {
                         }
                         $('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
                         storageAPI.setHead("logo_title", "");
-
+                        $('.header-logo').imgoperationlogo();
                          $.fn.yyTools.mask();
                     });
                 }

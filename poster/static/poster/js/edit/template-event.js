@@ -138,5 +138,8 @@ $(function() {
     $(".yunye-template .cnd-element").each(function() {
         scale($(this));
     });
+    setTimeout(function(){
+        $('.header-logo').imgoperationlogo();
+    },200)
 
 });
