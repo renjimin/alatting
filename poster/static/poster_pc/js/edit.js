@@ -751,7 +751,6 @@ function(module, exports, __require__){
 		var api ={};
 		var container = null;
 		var str = "";
-		console.log(44);
 		api.init = function(div,target,cssName){
 			if( !container ){
 				$.ajax({
@@ -774,18 +773,22 @@ function(module, exports, __require__){
 			container = div;
 			api.systemContext(target,cssName);
 		}
-		/*api.destory = function(div){
-			container.find(".colorBox").off("click");
-			container.find(".colorPannel table").off("click");
-			container.find(".colorPannel input").off("change");
+		api.destory = function(div){
+			container.find(".system_context-li").off("click");
 			$(document)
-				.off('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider')
-				.off('mousemove.colorPannel touchmove.colorPannel')
-				.off('mouseup.colorPannel touchend.colorPannel');
+				.off('mousedown.system_context-li touchstart.system_context-li')
+				.off('mousemove.system_context-li touchmove.system_context-li')
+				.off('mouseup.system_context-li touchend.system_context-li');
 			container = null;
-		}*/
+		}
 		api.systemContext = function(targetToChange,cssName){
 			container.find(".system_context-li").on("click",function(e){
+				$('.system_context-li').css({
+					'border': '0px solid #01a1ef'
+				});
+				$(this).css({
+					'border': '3px solid #01a1ef'  
+				});
 				var bgC = 'url('+$(this).attr('data-url')+')';
 				targetToChange.css(cssName,bgC);
 				targetToChange.css('background-size','100% 100%');
@@ -794,7 +797,7 @@ function(module, exports, __require__){
 		return api;
 	});
 },
-//[模块15]头部背景颜色模块
+//[模块15]头部和二维码背景颜色模块
 function(module, exports, __require__){
 	Editor.define("QR_pannel",module.exports = function(){
 		var api = {};
@@ -808,6 +811,9 @@ function(module, exports, __require__){
 		}
 		api.destory = function(){
 			palette.destory();
+		}
+		api.destory  = function(){
+			system_context.destory();
 		}
 		return api;
 	});
