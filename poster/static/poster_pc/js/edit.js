@@ -887,6 +887,19 @@ function(module, exports, __require__){
 			if(storageAPI.getHtml()) {
 				$(".yunye-template").remove();
 				$(".edit-body").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
+				$(".yunye-template .cnd-element").each(function() {
+				       $(this).scaleable();
+				});
+				var selector = $(".yunye-template > .content > div");
+				selector.each(function(){
+					$this = $(this);
+					if ($this.find('.swiper-container').length > 0) {
+				            $(this).imgslider();
+				        } else if ($this.find('img').length > 0) {
+				            $(this).imgoperation();
+				        }
+				});
+				
 			}
 			api.templateScaleFun();
 		}
