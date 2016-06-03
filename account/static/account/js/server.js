@@ -64,8 +64,10 @@ $(function(){
 
     $('#main-list').on('click','.mli-header',function(){
         var ths = $(this);
-        var $mli = ths.parent().clone();
-        $('.main-goback').after($mli);
+        if($('.main-user-ctrl').children('.main-li').length==0){
+            var $mli = ths.parent().clone();
+            $('.main-goback').after($mli);
+        }
         $('.main-user-ctrl').fadeIn(200);
     });
     $('#main-goback').on('click',function(){

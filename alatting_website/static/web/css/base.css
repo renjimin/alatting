@@ -559,7 +559,7 @@ img[src=""] {
 .poster-item .det .middle .qrcode {
     height: 100%;
     overflow: hidden;
-    padding: 12% 0;
+    padding: 30% 0;
 }
 
 .poster-item .det .middle img {
@@ -577,6 +577,8 @@ img[src=""] {
     display: none;
 }
 
+.btn-show,
+.btn-edit,
 .btn-share,
 .btn-fav {
     width: 30px;
@@ -592,8 +594,12 @@ img[src=""] {
     padding: 5px;
     -webkit-transition: all 0.2s;
     transition: all 0.2s;
+    font-size:20px;
 }
-
+.btn-show i,
+.btn-edit i{
+    float: left;
+}
 .btn-share {
     right: 80px;
     -webkit-transition-delay: .1s;
@@ -613,6 +619,8 @@ img[src=""] {
     background-image: url(../images/ico-star.png);
 }
 
+.btn-edit:hover,
+.btn-show:hover,
 .btn-share:hover,
 .btn-fav:hover {
     background: #f4f4f4;
@@ -638,6 +646,12 @@ img[src=""] {
 
 .poster-item.hover .btn-share {
     right: 60px;
+}
+.poster-item.hover .btn-show {
+    right: 105px;
+}
+.poster-item.hover .btn-edit {
+    right: 150px;
 }
 
 .poster-item.hover .det .bottom {
