@@ -161,26 +161,6 @@
 	</ul>
 </section>
 
-
-<script>
-	function addLogo(obj){
-	$.fn.uploads.showDialog(function(data){
-		var target = Editor.require("hightClick").getCurrentTarget();
-		//var imgLogo = $('<img src="'+data.file+'"/>');
-		var imgLogo = $(".header-logo img").attr("src",data.file);
-		target.append(imgLogo);
-		imageEditor('addUploadImgOne',data);
-	},function(data){
-		console.log(data)
-	})
-
-	}
-
-	addLogo();
-
-
-</script>
-
 <section class = "edit-section" id="stencilled _pannel">
 	<ul class="navbar">
 		<li class="nav-item">
