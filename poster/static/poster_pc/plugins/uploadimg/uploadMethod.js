@@ -51,7 +51,7 @@ function imageEditor(typename,data){
 		});
 	}
 	function selectSysImg(img,target){
-		var imgclone = img.clone();console.log(defaults['sysImgBox'].attr('data-slider'))
+		var imgclone = img.clone();
 		if(!defaults['sysImgBox'].attr('data-slider') || defaults['sysImgBox'].attr('data-slider')==undefined){
 			target.empty().append(imgclone);
 			target.imgoperation();
@@ -111,7 +111,7 @@ $(function(){
 })
 
 function initSlider(target){
-	
+
 }
 
 $(function(){
