@@ -407,7 +407,7 @@ class QuestionCreateView(FormView):
 
 class ChoiceCreateView(FormView):
 	template_name = "survey/mobile/create_choice.html"
-	form_class = formset_factory(ChoiceForm)
+	form_class = formset_factory(ChoiceForm, formset=BaseChoiceFormSet)
 
 	def form_valid(self, form):
 		if form.is_valid():
@@ -428,7 +428,7 @@ class ChoiceCreateView(FormView):
 
 class ChoiceInputCreateView(FormView):
 	template_name = "survey/mobile/create_choice_input.html"
-	form_class = formset_factory(ChoiceInputForm)
+	form_class = formset_factory(ChoiceInputForm, formset=BaseChoiceFormSet)
 
 	def form_valid(self, form):
 		if form.is_valid():

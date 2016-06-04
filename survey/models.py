@@ -140,7 +140,7 @@ class Choice(models.Model):
         return '(%s) %d. %s' % (self.question.text, self.sortid, self.text)
 
 class Input(models.Model):
-    placeholder = models.CharField(max_length=256, blank=True, null=True)
+    placeholder = models.CharField(max_length=256, default='请输入')
     question = models.ForeignKey(Question, blank=True, null=True)
     choice = models.ForeignKey(Choice, blank=True, null=True)
     InputChoices = [
