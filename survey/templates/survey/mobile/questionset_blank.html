@@ -1,10 +1,10 @@
-{% extends 'survey/mobile/questionset.html' %}
+{% extends 'questionset.html' %}
 {% load static %}
 {% load questionnaire %}
 {% block base_body %}
     <div class="qs container-fluid">
         <header class="qs-header">   
-            <div class="progress-btm">{{title}}</div>
+            <div class="progress-btm">请输入详细信息</div>
         </header>
         <div class="qs-body">
             <form class="form" action="{{ request.path }}" method="POST">
