@@ -3,7 +3,9 @@ $(function () {
     //数据初始化
     var storageAPI = $.fn.yunyeStorage;
     var pageHeadData = storageAPI.getPosterHeadData();
-
+    var regemail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+    var regtelephone = /^0\d{2,3}-?\d{7,8}$/;
+    var regphone = /^1[3|4|5|7|8][0-9]\d{4,8}$/;
     var initData = function () {
         var g = yunyeEditorGlobal;
         //标题
@@ -109,6 +111,28 @@ $(function () {
         $('.yunye-template').attr('style',templateScaleOpt);
         $('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
     }
+    //失去焦点预判输入
+    $('#emailInput').blur(function(){
+        var email = $('#emailInput').val();
+        if(!regemail.test(email)){
+            alert("邮箱输入格式不正确");
+            return false;
+        }
+    })
+    $('#mobileInput').blur(function(){
+        var phone = $('#mobileInput').val();
+        if(!regphone.test(phone)){
+            alert("手机号码输入格式不正确");
+            return false;
+        }
+    })
+    $('#phoneInput').blur(function(){
+        var telephone = $('#phoneInput').val();
+        if(!regtelephone.test(telephone)){
+            alert("电话号码输入格式不正确");
+            return false;
+        }
+    })        
     //弹出菜单
     $(".dropdown-toggle:not(#share-toggle)").registerDropDown();
     $(".abutton-contact .ico-phone").registerDropDown({
@@ -203,8 +227,7 @@ $(function () {
     });
     $('.mask').registerPopUp({
         id: 'dpw_header',
-        offsetXPercent: 80,
-        offsetYPercent: 90,
+        offsetYPercent: 50,
         offsetY: 30,
         followMouse: true,
         list: [
@@ -260,11 +283,9 @@ $(function () {
     /* 模版空白设置背景 */
     $('.yunye-template').registerPopUp({
         id: 'dpw_template',
-        offsetXPercent: 50,
         offsetYPercent: 50,
         offsetY: 30,
-        arrowOffset: 80,
-        orientation: 1,
+        followMouse: true,
         list: [
             {
                 icon: "icon ico-system-pic",

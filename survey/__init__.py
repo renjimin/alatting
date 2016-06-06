@@ -10,12 +10,12 @@ def regex_check(pattern, answer):
 	
 #define different types of questions
 QuestionChoices = [
-	('choice', 'A list of choices to choose from'),
-	('choice-input', 'A list of choices with input text to choose from'),
-	('checkbox', 'A list of checkboxes to choose from'),
-	('text', 'simple text input'),
-	('textarea', 'textarea input')
-]
+	('choice', '单选'),
+	('choice-input', '单选，选项中有输入框'),
+	('checkbox', '多选'),
+	('text', '单行文本框'),
+	('textarea', '多行文本框')
+]  
 #choice
 def question_choice(request, question):
 	choices = []

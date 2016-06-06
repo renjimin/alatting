@@ -2,7 +2,7 @@
 from django.contrib import admin
 from account.models import UserCategory, Person
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain
+    ServiceBargain, Chat
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -188,32 +188,47 @@ class SystemMusicAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 class SystemBackgroundAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
 
-
-@admin.register(Questionnaire)
-class QuestionnaireAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
-
-
-@admin.register(QuestionSet)
-class QuestionSetAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
-
-
-@admin.register(Question)
-class QuestionAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
-
-
+class InputInline(admin.StackedInline):
+    model = Input
 @admin.register(Choice)
-class ChoiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
+class ChoiceAdmin(admin.ModelAdmin):
+    inlines = [InputInline,]
 
 
-@admin.register(Input)
-class InputAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
-    pass
+class ChoiceInline(admin.StackedInline):
+    model = Choice
+    fields = ('question', 'sortid', 'value','text',
+        'changeform_link')
+    readonly_fields = ('changeform_link', )
+@admin.register(Question)
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [ChoiceInline,]
+
+
+class QuestionInline(admin.StackedInline):
+    model = Question
+    fields = ('questionset', 'sortid', 'text','short_text',
+        'required','regex','errmsg', 'type','changeform_link')
+    readonly_fields = ('changeform_link', )
+@admin.register(QuestionSet)
+class QuestionSetAdmin(admin.ModelAdmin):
+    inlines = [QuestionInline,]
+
+
+class QuestionSetLinkInline(admin.TabularInline):
+    model = QuestionSet
+    fields = ('questionnaire', 'sortid', 'heading','changeform_link')
+    readonly_fields = ('changeform_link', )
+@admin.register(Questionnaire)
+class QuestionnaireAdmin(admin.ModelAdmin):
+    inlines = [QuestionSetLinkInline,]
 
 
 @admin.register(ServiceBargain)
 class ServiceBargainAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(Chat)
+class ChatAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

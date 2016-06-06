@@ -3,7 +3,9 @@ from django.core.urlresolvers import reverse
 from rest_framework import serializers
 from alatting_website.model.poster import Poster, PosterPage
 from alatting_website.serializer.edit_serializer import ImageSerializer
-from poster.models import SystemImage, SystemMusic, ServiceBargain
+from alatting_website.serializer.statistics_serializer import \
+    PosterStatisticsSerializer, HistoryStatisticsSerializer
+from poster.models import SystemImage, SystemMusic, ServiceBargain, Chat
 from poster.serializer.resource import CategorySerializer, \
     CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
@@ -136,13 +138,23 @@ class PosterSaveSerializer(serializers.ModelSerializer):
 
 
 class ServiceBargainSerializer(serializers.ModelSerializer):
-    # from account.serializers import AccountPersonSerializer
-    # server = AccountPersonSerializer(read_only=True)
-    # server_id = serializers.IntegerField(write_only=True)
-    # consumer = AccountPersonSerializer(read_only=True)
     consumer_id = serializers.IntegerField(write_only=True, required=False)
-    poster = PosterSerializer(read_only=True)
 
     class Meta:
         model = ServiceBargain
-        read_only_fields = ('server', 'consumer')
+        read_only_fields = ('poster', 'server', 'consumer')
+
+
+class ChatSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Chat
+        read_only_fields = ('poster', 'sender', 'receiver')
+
+
+class StatisticsDataSerializer(serializers.ModelSerializer):
+    poster_statistics = PosterStatisticsSerializer()
+    history_statistics = HistoryStatisticsSerializer()
+
+    class Meta:
+        model = Poster
+        fields = ('poster_statistics', 'history_statistics')
