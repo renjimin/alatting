@@ -233,11 +233,9 @@ $(document).ready(function () {
             if (ths.hasClass('open')) {
                 ths.removeClass('open');
                 ths.children('ul').hide();
-                console.log(1)
             }else{
                 ths.addClass('open');
                 ths.children('ul').show();
-                console.log(2)
             };
             //ths.addClass('open');
             $("#id_main_category").val(sid);
@@ -263,7 +261,6 @@ $(document).ready(function () {
             };*/
             $('.li-server').on('click', '.sli-server', function (event) {
                 event.stopPropagation();
-                console.log(3)
                 selectedname = $(this).attr('data-name');
                 $('.selectserver').text(selectedname);
                 $("#id_sub_category_ids").val($(this).attr('data-id'));
