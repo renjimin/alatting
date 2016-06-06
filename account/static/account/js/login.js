@@ -197,12 +197,14 @@ $(document).ready(function () {
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/categorys?parent=' + opts,
-
             success: function (data) {
                 callBack(data);
-            },
-            error: function () {
 
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 403) {
+                    yyAlert("请登录后再操作。如果您已登录请刷新页面，谢谢！");
+                }
             }
         });
     }
@@ -212,6 +214,7 @@ $(document).ready(function () {
         var selectedname = "";
         if ($('.div-server').length ==0) {
             selectTrade(0, function (data) {
+            	alert(data);
                 var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
                 for (var i = 0; i < data.length; i++) {
                     sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></li>';
