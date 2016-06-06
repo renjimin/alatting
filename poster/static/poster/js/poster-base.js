@@ -203,7 +203,7 @@ $(function () {
 				icon: "glyphicon glyphicon-picture",
 				text: " 上传图片",
 				callback: function () {
-					$.fn.logoPrettify.init();
+					$.fn.logoPrettify.init($('.header-logo img').attr("src"));
 				}
 			},
 			{icon: "glyphicon glyphicon-camera", text: "照相"},
@@ -534,7 +534,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :	"Saturday" ,
+					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday6" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :	"Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
