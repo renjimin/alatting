@@ -327,3 +327,72 @@
 **Response**
 
 成功则返回 204 状态码, 删除他人创建的海报时报403错误
+
+
+
+## 单个海报统计数据信息
+
+    GET /api/v1/poster/{:id}/statistics
+    
+**Response**
+```json
+{
+    "poster_statistics": {                  //实时统计数据
+        "poster_id": 1,
+        "ratings_average": "2.8",           //星级评分
+        "five_percent": 30,                 
+        "four_percent": 65,
+        "three_percent": 100,
+        "two_percent": 30,
+        "one_percent": 65,
+        "fun_score": "0.0",                 //趣评
+        "popular_score": 125,               //人气
+        "credit_score": "0.4",              //信用
+        "overall_score": "42",               //当前分数  
+        "medal_next_score": 1000,               //下个等级分
+        "created_at": "2015-11-21 03:15:48",
+        "updated_at": null,
+        "ratings_count": 4,                 //打分数量
+        "ratings_total": 11,                
+        "five_count": 0,
+        "four_count": 1,
+        "three_count": 2,
+        "two_count": 0,
+        "one_count": 1,
+        "scans_count": 0,               //扫码数
+        "views_count": 741,             //查看数
+        "likes_count": 1,               //喜欢
+        "favorites_count": 0,           //收藏
+        "fun_count": 1,                 //fun
+        "complains_count": 0,
+        "fun_survey_score": 0,
+        "fun_review_score": 0,
+        "phone_contacted_count": 0,
+        "email_contacted_count": 0,
+        "map_contacted_count": 0,
+        "facebook_shared_count": 3,
+        "pinterest_shared_count": 0,
+        "twitter_shared_count": 0,
+        "linkedin_shared_count": 0,
+        "google_shared_count": 0,
+        "email_shared_count": 3,
+        "wechat_shared_count": 0,
+        "qq_shared_count": 0,
+        "qzone_shared_count": 0,
+        "weibo_shared_count": 0
+    },
+    "history_statistics": {             //历史统计数据
+        "favortes_count_change": 0,
+        "views_count_change": 741,
+        "likes_count_change": 1,
+        "shares_count_change": 6,
+        "fun_count_change": 1,
+        "ratings_average_change": "2.8",
+        "score_total_change": "42",
+        "fun_change_percent": 100,
+        "popular_change_percent": 100,
+        "credit_change_percent": 100,
+        "score_change_percent": 100
+    }
+}
+```

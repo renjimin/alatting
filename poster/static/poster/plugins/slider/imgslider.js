@@ -196,8 +196,10 @@
                 return;
             }
 
-            s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev'});
-
+            s.swiper = new Swiper('.swiper-container',{nextButton: '.swiper-button-next', prevButton: '.swiper-button-prev',autoplay : 4000});
+            if(imgarray.length == 1){
+                s.find('.swiper-slide').addClass('swiper-no-swiping');
+            }
         })
 
     }

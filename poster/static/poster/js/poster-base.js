@@ -3,6 +3,9 @@ $(function () {
 	//数据初始化
 	var storageAPI = $.fn.yunyeStorage;
 	var pageHeadData = storageAPI.getPosterHeadData();
+	var regtelephone = /^0\d{2,3}-?\d{7,8}$/;
+	var regemail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	var regphone = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;    
 
 	var initData = function () {
 		var g = yunyeEditorGlobal;
@@ -107,6 +110,30 @@ $(function () {
 		$('.yunye-template').attr('style',templateScaleOpt);
 		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
 	}
+	//失去焦点预判输入
+	$('#emailInput').blur(function(){
+		var email = $('#emailInput').val();
+		if(!regemail.test(email)){
+			alert("邮箱输入格式不正确");
+			return false;
+		}
+	})
+	$('#mobileInput').blur(function(){
+		var phone = $('#mobileInput').val();
+		if(!regphone.test(phone)){
+			alert("手机号码输入格式不正确");
+			return false;
+		}
+	})
+	$('#phoneInput').blur(function(){
+		var telephone = $('#phoneInput').val();
+		if(!regtelephone.test(telephone)){
+			alert("电话号码输入格式不正确");
+			return false;
+		}
+	})
+
+
 	//弹出菜单
 	$(".dropdown-toggle:not(#share-toggle)").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({
@@ -176,20 +203,7 @@ $(function () {
 				icon: "glyphicon glyphicon-picture",
 				text: " 上传图片",
 				callback: function () {
-					// $('.header-logo h2').hide();
-					// $('.header-logo img').css("display","inline-block");
 					$.fn.logoPrettify.init();
-					// $.fn.uploads.showDialog(function (data) {
-					// 	if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
-					// 		yyAlert("上传图片格式错误");
-					// 		return false;
-					// 	}
-					// 	$('.header-logo h2').hide();
-					// 	$('.header-logo img').css("display","inline-block");
-					// 	$('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
-					// 	$('.header-logo').imgoperationlogo();
-					// 	$.fn.yyTools.mask();
-					// });
 				}
 			},
 			{icon: "glyphicon glyphicon-camera", text: "照相"},
@@ -257,11 +271,9 @@ $(function () {
 	/* 模版空白设置背景 */
 	$('.yunye-template').registerPopUp({
 		id: 'dpw_template',
-		offsetXPercent: 50,
 		offsetYPercent: 50,
 		offsetY: 30,
-		arrowOffset: 80,
-		orientation: 1,
+		followMouse: true,
 		list: [
 			{
 				icon: "icon ico-system-pic",

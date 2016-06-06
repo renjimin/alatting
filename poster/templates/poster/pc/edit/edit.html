@@ -6,6 +6,18 @@
 {% endblock %}
 
 {% block base_head_js %}
+    <script type="text/javascript">
+        (function () {
+            var ua = navigator.userAgent.toLowerCase();
+            var bIsIpad = ua.match(/ipad/i) == "ipad";
+            var bIsIphoneOs = ua.match(/iphone os/i) == "iphone os";
+            var bIsAndroid = ua.match(/android/i) == "android";
+            var bIsWM = ua.match(/windows mobile/i) == "windows mobile";
+            if (bIsIpad || bIsIphoneOs || bIsAndroid || bIsWM) {
+                window.location.href = document.location.origin +  "/mobile/posters/{{ poster.id }}/edit/{{ posterpage.id }}"
+            }
+        })();
+    </script>
 	<script>
 		var yunyeEditorGlobal = {
 			posterId: "{{ poster.id }}",
@@ -55,32 +67,6 @@
 			{% include 'poster/pc/edit/right-sidebar.html' %}
 		</div>
 	</div>
-	<div class="body-guide">
-	 	<div class="edit-header">
-	 		<span class="tool">编辑工具<i class="fa fa-caret-right"></i></span> 
-	      		<div class="top-bar"></div>
-	      	</div>
-		<div class= "edit-viewport edit-viewport2">
-	      		<div class="edit-left">
-	      			<span>页面管理</span>
-	      		</div>
-			<div class="edit-center">
-				<div class="guid-center">
-					<a href="#" class="guid-btn">
-						<i><img src="{% static 'poster_pc/images/check.png' %}"></i>
-						<span id="edit-guide-hide">了解</span>	
-					</a>
-				
-				    <div class="checkbox">
-				         <input type="checkbox" name="" value="">不再显示
-			                 </div>
-			                 <span>海报编辑</span>
-			             </div>
-			</div>
-			<div class="edit-right"><span>子选项界面</span></div>
-		</div>
-             </div>
-
 	{% include "poster/pc/edit/plugins/video-view.html" %}
 {% endblock %}
 
