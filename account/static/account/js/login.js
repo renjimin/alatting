@@ -214,7 +214,6 @@ $(document).ready(function () {
         var selectedname = "";
         if ($('.div-server').length ==0) {
             selectTrade(0, function (data) {
-            	alert(data);
                 var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
                 for (var i = 0; i < data.length; i++) {
                     sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></li>';
@@ -312,12 +311,11 @@ $(document).ready(function () {
                 });
             }else{
 
-            }            ths.children('.glyphicon').off('click').on('click',function(event){
+            }
+            ths.children('.glyphicon').off('click').on('click',function(event){
                 if ($(event.target).hasClass('glyphicon-unchecked')) {
                     $(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                     $(event.target).next().find('.glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-                    meid = $(event.target).next().find('.glyphicon').attr('data-id')
-                    console.log($(this).attr('data-id'));
                 }else{
                     $(event.target).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
                     $(event.target).next().find('.glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
@@ -325,7 +323,6 @@ $(document).ready(function () {
             })
             selected.off('click','.sli-provider').on('click', '.sli-provider',function (event) {
                 var selectedname = $(this).attr('data-name');
-                meid = $(this).attr('data-id');
                 var ths = $(this);
                 event.stopPropagation();
                 if ($(event.target).hasClass("glyphicon")) {
