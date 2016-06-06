@@ -32,6 +32,7 @@ $(function(){
 				$('.yunye-template').attr('style',templateScaleOpt);
 				$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
 		};
+		
 
 		$('div.swiper-slide').magnificPopup({
 				delegate: 'img',
