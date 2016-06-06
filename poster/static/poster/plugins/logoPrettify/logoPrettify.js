@@ -3,11 +3,15 @@ $(
 		var api = {};
 		var canvas,ctx,currentPannel,hasImage;
 
-		api.init = function(){
+		api.init = function(url){
 			canvas = document.getElementById("editCanvas");
 			ctx = canvas.getContext('2d');
 			$("#logoPrettify").show();
 			api.bindEvents();
+			if(url){
+				api.setImage(url);
+				hasImage = true;
+			}
 		};
 		api.destory = function(){
 			$(".closeLogoPrettify").off("click");
@@ -51,8 +55,8 @@ $(
 			hasImage = true;
 			var 	scale = width/height;
 			if(scale>1){
-				$("#editCanvas").height(    ($(".body-container").width()) * 0.8    ) ;
-				$("#editCanvas").width(    $("#editCanvas").width() / scale    ) ;
+				$("#editCanvas").width(    ($(".body-container").width()) * 0.8    ) ;
+				$("#editCanvas").height(    $("#editCanvas").width() / scale    ) ;
 			}else{
 				$("#editCanvas").height(    ($(".body-container").height() - 220) * 0.8    ) ;
 				$("#editCanvas").width(    $("#editCanvas").height() * scale    ) ;
@@ -64,9 +68,9 @@ $(
 		api.editPannel_1 = function(){
 			var module = {};
 			module.init = function(){
-				$("#editPannel_1 .fa.fa-fa-magic").on("click",function(){
+				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
-					
+
 				});
 			};
 			module.destory = function(){
