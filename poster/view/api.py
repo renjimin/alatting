@@ -29,7 +29,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat
+    ServiceBargain, Chat, ServiceComment
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -41,7 +41,7 @@ from poster.serializer.poster import (
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
-    ChatSerializer, StatisticsDataSerializer)
+    ChatSerializer, StatisticsDataSerializer, ServiceCommentSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -691,3 +691,29 @@ class StatisticsDataView(RetrieveAPIView):
     queryset = Poster.objects.all()
     serializer_class = StatisticsDataSerializer
 
+
+class ServiceCommentListView(ListCreateAPIView):
+    model = ServiceComment
+    queryset = ServiceComment.objects.all()
+    serializer_class = ServiceCommentSerializer
+
+    def get_queryset(self):
+        qs = super(ServiceCommentListView, self).get_queryset()
+        return qs.filter(poster_id=self.kwargs.get('pk'))
+
+    def check_object_permissions(self, request, obj):
+        super(ServiceCommentListView, self).check_object_permissions(
+            request, obj
+        )
+        if obj.poster.creator == request.user:
+            raise PermissionDenied
+
+    def _get_poster_object(self):
+        return get_object_or_404(Poster, pk=self.kwargs.get('pk'))
+
+    def perform_create(self, serializer):
+        poster = self._get_poster_object()
+        serializer.save(
+            poster=poster,
+            creator=self.request.user
+        )

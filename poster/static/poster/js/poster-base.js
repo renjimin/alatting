@@ -117,21 +117,21 @@ $(function () {
 			alert("邮箱输入格式不正确");
 			return false;
 		}
-	})
+	});
 	$('#mobileInput').blur(function(){
 		var phone = $('#mobileInput').val();
 		if(!regphone.test(phone)){
 			alert("手机号码输入格式不正确");
 			return false;
 		}
-	})
+	});
 	$('#phoneInput').blur(function(){
 		var telephone = $('#phoneInput').val();
 		if(!regtelephone.test(telephone)){
 			alert("电话号码输入格式不正确");
 			return false;
 		}
-	})
+	});
 
 
 	//弹出菜单

@@ -142,3 +142,46 @@ class Chat(AlattingBaseModel):
 
     class Meta:
         verbose_name_plural = verbose_name = '交流记录'
+
+
+class ServiceComment(AlattingBaseModel):
+    RATING_0 = 0
+    RATING_20 = 20
+    RATING_40 = 40
+    RATING_60 = 60
+    RATING_80 = 80
+    RATING_100 = 100
+
+    RATING_CHOICES = (
+        (RATING_0, RATING_0),
+        (RATING_20, RATING_20),
+        (RATING_40, RATING_40),
+        (RATING_60, RATING_60),
+        (RATING_80, RATING_80),
+        (RATING_100, RATING_100)
+    )
+
+    poster = BigForeignKey(
+        Poster,
+        verbose_name='海报'
+    )
+    creator = models.ForeignKey(
+        User,
+        verbose_name='用户',
+        related_name='+',
+    )
+    content = models.CharField(
+        verbose_name='内容',
+        max_length=1000,
+    )
+    rating = models.PositiveSmallIntegerField(
+        verbose_name='评分',
+        default=RATING_0,
+        choices=RATING_CHOICES
+    )
+
+    def __str__(self):
+        return '服务评价: %s' % self.id
+
+    class Meta:
+        verbose_name_plural = verbose_name = '服务评价'
