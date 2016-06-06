@@ -23,6 +23,7 @@ from account.models import Person
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
+from alatting_website.model.statistics import PosterStatistics
 from alatting_website.models import Category, CategoryKeyword, Template
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
@@ -40,7 +41,7 @@ from poster.serializer.poster import (
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
-    ChatSerializer)
+    ChatSerializer, StatisticsDataSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -652,7 +653,7 @@ class ChatListView(ListCreateAPIView):
     queryset = Chat.objects.all()
 
     def get_poster_object(self):
-        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+        return get_object_or_404(Poster, pk=self.kwargs.get('pk'))
 
     def get_queryset(self):
         poster = self.get_poster_object()
@@ -684,3 +685,9 @@ class ChatListView(ListCreateAPIView):
             sender=self.request.user,
             receiver_id=receiver_id
         )
+
+
+class StatisticsDataView(RetrieveAPIView):
+    queryset = Poster.objects.all()
+    serializer_class = StatisticsDataSerializer
+
