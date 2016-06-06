@@ -31,7 +31,7 @@
 
 			var webUploader = WebUploader.create(option);
 			webUploader.on('uploadSuccess',function( file, response ){
-				if(self.success)self.success(response);
+				if(self.success)self.success(response,file);
 				webUploader.removeFile(file.id);
 
 			});

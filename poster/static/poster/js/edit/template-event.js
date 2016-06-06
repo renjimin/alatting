@@ -55,13 +55,15 @@ $(function() {
                 icon: "glyphicon glyphicon-picture",
                 text: "上传图片",
                 callback: function(obj) {
-                    $.fn.uploads.showDialog(function(data) {
+                    $.fn.uploads.showDialog(function(data,file) {
                         if (obj) {
                             obj.empty().append('<img src="' + data.file + '"/>');
                         }
-                        obj.imgoperation({
+                        data.imgid = file.id;
+                        obj.imgslider({"data":data});
+                        /*obj.imgoperation({
                             'data': data
-                        });
+                        });*/
 
                         $.fn.yyTools.mask();
                     });

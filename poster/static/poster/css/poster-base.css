@@ -515,7 +515,7 @@ html {
 	animation: rotating 1.2s linear infinite;
 }
 .abutton-group li a:active {
-	background: #ddd;
+	/*background: #ddd;*/
 }
  @-webkit-keyframes rotating {
  from {

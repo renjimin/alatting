@@ -121,18 +121,18 @@ class PostersConsumerListView(ListAPIView):
     serializer_class = PosterSerializer
 
     def get_queryset(self):
-        qs = super(PostersConsumerListView, self).get_queryset()
         sub_ids = UserCategory.objects.filter(
             user=self.request.user,
             data_status=UserCategory.DATA_STATUS_USABLE
         ).values_list('sub_category_id', flat=True)
         if sub_ids:
-            qs = qs.filter(
+            qs = super(PostersConsumerListView, self).get_queryset()
+            return qs.filter(
                 sub_category_id__in=sub_ids
             ).exclude(
                 creator=self.request.user
             ).order_by('-created_at')
-        return qs
+        return Poster.objects.none()
 
 
 class ProfileView(RetrieveUpdateAPIView):
