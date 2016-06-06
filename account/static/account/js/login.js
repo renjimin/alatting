@@ -212,11 +212,12 @@ $(document).ready(function () {
     $(".selectserver").click(function () {
         var selected = $('body');
         var selectedname = "";
+        var main_name = "";
         if ($('.div-server').length ==0) {
             selectTrade(0, function (data) {
                 var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
                 for (var i = 0; i < data.length; i++) {
-                    sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></li>';
+                    sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></a></li>';
                 }
                 sbox += '</ul></div>';
                 selected.append(sbox);
@@ -228,6 +229,7 @@ $(document).ready(function () {
             var ths = $(this);
             var sid = $(this).attr('data-id');
             var ssbox = '';
+            main_name = $(this).attr('data-name');
             if($('.li-server').hasClass('open')){
                 $('.li-server').removeClass('open');
                 $('.li-server').children('ul').hide();
@@ -273,6 +275,8 @@ $(document).ready(function () {
             if(selectedname.length>0){
                 $('.selectserver').text(selectedname);
                 $('.regist-industryinput').attr('disabled',true);
+            }else{
+            	$('.selectserver').text(main_name);
             }
             $('.div-server').fadeOut(200);
         })
