@@ -32,6 +32,9 @@ function textEditor(type){
 		fullcontainer.append(cnd);
 		cnd.css({'z-index':scaleIndex++,'top':fullcontainer.innerHeight()/2-eleobj.height()/2+'px','left':fullcontainer.innerWidth()/2-eleobj.width()/2+'px'}).css('opacity','1');
 		cnd.scaleable();		
+		var textEditor = Editor.require("textEditor");
+		textEditor.init($("#text_pannel .textEditor"),eleobj);
+
 	}
 	function copyText(){
 	    if($('.text-element.actived').hasClass('sys-text')){

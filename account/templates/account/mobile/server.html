@@ -1,0 +1,159 @@
+{% extends 'website/mobile/base.html' %}
+{% load static %}
+{% block base_header_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/server.css' %}"/>
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'account/js/server.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+    <div class="body-main">
+        <div class="main-title">
+            <div class="title-close" id="page-close"><i class="fa fa-close"></i></div>
+            <div class="title-name">黄裕祥钢琴教学</div>
+            <div class="title-star p-star p-star-4"></div>
+            <input type="hidden" id="postid" value="{{ poster.id }}">
+        </div>
+        <div class="main-list mlist" id="main-list">
+        </div>
+        <div class="main-user-ctrl mlist">
+            <div class="main-goback">
+                <span><i class="fa fa-angle-left"></i></span>
+                <span id="main-goback">返回</span>
+            </div>
+            <div class="main-menu">
+                <div class="main-menu-li main-menu-act" data-item="price">
+                    <span class="main-menu-cont">报价</span>
+                </div>
+                <div class="main-menu-li" data-item="plist">
+                    <span class="main-menu-cont">记录</span>
+                </div>
+            </div>
+            <div class="mainli main-plist" id="main-plist">
+                <ul>
+                    <li>
+                        <span class="plist-name">服务报价</span>
+                        <span class="plist-value">￥40/小时</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">我的出价</span>
+                        <span class="plist-value">￥40/小时</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">服务报价</span>
+                        <span class="plist-value">￥40/小时</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">我的出价</span>
+                        <span class="plist-value">￥40/小时</span>
+                    </li>
+                    <li>
+                        <span class="plist-name">服务报价</span>
+                        <span class="plist-value">￥40/小时</span>
+                    </li>
+                    <li class="plist-act">
+                        <span class="plist-name">我的出价</span>
+                        <span class="plist-value">￥40/小时</span>
+                    </li>
+                    <li class="plist-end">
+                        已接受<i class="fa fa-check-circle-o"></i>
+                    </li>
+                </ul>
+            </div>
+            <div class="mainli main-price" id="main-price">
+                <div class="price-li price-quote" id="price-quote">
+                    <div class="price-icon"><span>报价</span></div>
+                    <div class="quote-value">
+                        <span class="value-icon"><i class="fa fa-cny"></i></span>
+                        <span class="value-num">160</span>
+                        <span class="value-unit">/小时</span>
+                    </div>
+                    <div class="price-btn">
+                        <div class="price-btn-li" id="accept-price">
+                            <i class="fa fa-check"></i>
+                            <span class="pbtn-name">接受</span>
+                        </div>
+                        <div class="price-btn-li" id="refuse-price">
+                            <i class="fa fa-close"></i>
+                            <span class="pbtn-name">拒绝</span>
+                        </div>
+                        <div class="price-btn-li" id="bid-price">
+                            <i class="fa fa-yen"></i>
+                            <span class="pbtn-name">出价</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="price-li price-bid" id="price-bid">
+                    <div class="price-icon"><span>出价</span></div>
+                    <div class="quote-value">
+                        <span class="value-icon"><i class="fa fa-cny"></i></span>
+                        <span class="value-num"><input type="text" name="price" id="hid_price"></span>
+                        <span class="value-unit">/小时</span>
+                    </div>
+                    <div class="bid-consult">您还剩3次出价机会</div>
+                    <div class="price-btn">
+                        <div class="price-btn-li" id="set-price">
+                            <i class="fa fa-check"></i>
+                            <span class="pbtn-name">送出</span>
+                        </div>
+                        <div class="price-btn-li" id="cancel-price">
+                            <i class="fa fa-close"></i>
+                            <span class="pbtn-name">取消</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="price-li price-accept" id="price-accept">
+                    <div class="price-icon"><span>报价</span></div>
+                    <div class="quote-value">
+                        <span class="value-icon"><i class="fa fa-cny"></i></span>
+                        <span class="value-num">160</span>
+                        <span class="value-unit">/小时</span>
+                    </div>
+                    <div class="accept-consult">
+                        <i class="fa fa-check-circle-o"></i>
+                        <span class="q-c-name">您已接受报价</span>
+                    </div>
+                    <div class="accept-tips">
+                        <i class="fa fa-clock-o"></i>
+                        <span>周一晚上8点-下周开始</span>
+                    </div>
+                </div>
+            </div>
+            <div class="main-message">
+                <div class="message-list">
+                    <ul>
+                        <li class="mess-li">
+                            <div class="mess-checkbox"></div>
+                            <div class="mess-info">
+                                <div class="mess-info-title">
+                                    <span>黄裕祥</span>
+                                    <span>2016-5-24 6:49PM</span>
+                                </div>
+                                <div class="mess-info-cont">
+                                    <p>您好！</p>
+                                    <p>我是钢琴教师黄裕祥，</p>
+                                    <p>有任何关于课程上的问题都可以问我，谢谢！</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="mess-textarea">
+                    <textarea id="mess" cols="30" rows="5" placeholder="输入讯息"></textarea>
+                    <input type="button" id="plyMess" value="发送">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body-loading" id="body-loading">
+        <img src="{% static 'poster/images/loading.gif' %}" alt="loading">
+    </div>
+{% endblock %}
+
+{% block base_body_footer %}
+{% endblock %}

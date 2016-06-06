@@ -3,23 +3,40 @@
 function imageEditor(typename,data){
 	var defaults = {
 		'sysImgBox':$(".imgul"),
+		'sysImgCurrentBox':$(".imgul").eq(0),
 		'uploadImgBtn':$("#uploaderContainer2")
 
 	}
+	
 	switch(typename){
 		case 'loadAllImages':loadAllImages();break;
 		case 'addUploadImg':addUploadImg(data);break;
+		case 'addUploadImgOne':addUploadImgOne(data);break;
+		case 'initSlider':initSlider();break;
 		default:break;
 	}
 	function addUploadImg(data){
 		var target = Editor.require("hightClick").getCurrentTarget();
-		console.log(data)
 		$(target).imgslider({
 			"data": data
 		});
 		var li = $(' <li data-id="' + data.id + '" style="width:0;"><img src="' + data.file + '" data-width="'+data.width+'" data-height="'+data.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
 		defaults['sysImgBox'].prepend(li);
 		li.animate({'width':'67px'},200);
+	}
+	function addUploadImgOne(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		$(target).imgoperation();
+		var liele = $('<li data-id="' + data.id + '" style=""><img src="' + data.file + '" data-width="'+data.width+'" data-height="'+data.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
+		defaults['sysImgBox'].prepend(liele);
+
+	}
+	function initSlider(){
+		$('.file-item').hide();
+		var target = Editor.require("hightClick").getCurrentTarget();
+		target.find('.swiper-slide').each(function(){
+			$('#fileBox_'+$(this).find('img').attr('data-id')).show();
+		});
 	}
 	function loadAllImages(){
 		$.ajax({
@@ -31,13 +48,13 @@ function imageEditor(typename,data){
 				$.each(data, function() {
 					var _this = this;
 					var li = $(' <li data-id="' + this.id + '"><img src="' + this.file + '" data-width="'+this.width+'" data-height="'+this.height+'" data-id="WU_FILE_'+(new Date()).getTime()+'" /><a href="javascript:void(0);" class="img-close"></a></li>');
-					defaults['sysImgBox'].append(li);
+					defaults['sysImgBox'].append(li);					
 				});
 				defaults['sysImgBox'].on('click',function(e){
 					var img = $(e.target).closest('img'),
 						closetarget = $(e.target).closest('.img-close'),
 						target = Editor.require("hightClick").getCurrentTarget();
-						defaults['sysImgBox'] = img.parent().parent();
+						defaults['sysImgCurrentBox'] = $(this);
 					if(img.length > 0){
 						selectSysImg(img,target);
 					}
@@ -52,11 +69,13 @@ function imageEditor(typename,data){
 	}
 	function selectSysImg(img,target){
 		var imgclone = img.clone();
-		if(!defaults['sysImgBox'].attr('data-slider') || defaults['sysImgBox'].attr('data-slider')==undefined){
+		console.log(defaults['sysImgCurrentBox'].attr('data-slider'))
+		if(!defaults['sysImgCurrentBox'].attr('data-slider') || defaults['sysImgCurrentBox'].attr('data-slider') == undefined){
 			target.empty().append(imgclone);
 			target.imgoperation();
 			return;
 		}
+
 		var imgdata={
 			'file':imgclone.attr('src'),
 			'width':imgclone.attr('data-width'),
@@ -203,6 +222,41 @@ $(function(){
 	}
 
 
-
-
 })
+
+function addLogo(){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		var imgLogo = $(".header-logo img").attr("src",data.file);
+		target.append(imgLogo);
+		imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+}
+
+function changeBg(){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		var bgs = $(".qrcode-inner .qrcode,.abutton-group li a").css({'background':'url(' + data.file + ')','background-size':'100% 100%'});
+		//target.append(bgs);
+		//imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+}
+
+function changeHeader(){
+	$.fn.uploads.showDialog(function(data){
+		var target = Editor.require("hightClick").getCurrentTarget();
+		var bgs = $(".header").css({'background':'url(' + data.file + ')','background-size':'100% 100%'});
+		//target.append(bgs);
+		//imageEditor('addUploadImgOne',data);
+	},function(data){
+		console.log(data)
+	})
+
+}
+

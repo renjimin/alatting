@@ -6,11 +6,26 @@
             {% for f in form %}
             <tr>
                <td>输入选项文本:{{ f.c_text }}</td>
+               {% if f.c_text.errors %}
+                    {% for error in f.c_text.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
                <td>输入选项的值:{{ f.c_value }}</td>
+               {% if f.c_value.errors %}
+                    {% for error in f.c_value.errors %}
+                        {{ error|escape }}
+                    {% endfor %}
+                {% endif %}
                <td>选项是否包含输入框{{ f.c_input }}</td>
                <td class="hidden">输入框的默认文本:{{ f.c_input_ph }}</td>
             </tr>
             {% endfor %}
+            {% if form.non_form_errors %}
+                {% for error in form.non_form_errors %}
+                    {{ error|escape }}
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
     {{ form.management_form }}

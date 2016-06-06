@@ -561,3 +561,7 @@
     transform: scale(1.1);
     opacity:1;
 }
+
+.img-preview{
+    width: 273px;
+}

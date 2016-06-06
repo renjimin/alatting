@@ -1,8 +1,13 @@
-import os
+# coding=utf-8
+
+from django.contrib.auth.models import User
 
 from django.db import models
 from alatting import settings
-from utils.db.fields import BigAutoField
+from alatting_website.model.poster import Poster
+from alatting_website.models import AlattingBaseModel
+from utils.constants import TRUE_FALSE
+from utils.db.fields import BigAutoField, BigForeignKey
 from alatting_website.model.resource import Image, Music
 from PIL import Image as pilimage
 
@@ -14,7 +19,7 @@ class SystemImage(models.Model):
     text = models.TextField(
         default='',
         blank=True,
-        help_text=u'保存svg图片格式'
+        help_text='保存svg图片格式'
     )
 
     def __str__(self):
@@ -59,3 +64,81 @@ class SystemMusic(models.Model):
 
     def __str__(self):
         return "{:d}".format(self.pk)
+
+
+class ServiceBargain(AlattingBaseModel):
+    poster = BigForeignKey(
+        Poster,
+        verbose_name='海报'
+    )
+    consumer = models.ForeignKey(
+        User,
+        verbose_name='需求者',
+        related_name='+',
+        blank=True,
+        null=True
+    )
+    price = models.FloatField(
+        verbose_name='价格(元)'
+    )
+    accepted = models.BooleanField(
+        verbose_name='已接受',
+        default=False,
+        choices=TRUE_FALSE
+    )
+    refused = models.BooleanField(
+        verbose_name='已拒绝',
+        default=False,
+        choices=TRUE_FALSE
+    )
+    note = models.CharField(
+        verbose_name='留言',
+        max_length=300,
+        default='',
+        blank=True
+    )
+    creator = models.ForeignKey(
+        User,
+        verbose_name='数据创建人',
+        related_name='+',
+        default=None,
+        blank=True,
+        null=True,
+    )
+
+    def __str__(self):
+        return '服务:%s-需求:%s-价格:%s' % (
+            self.server.username,
+            self.consumer.username,
+            self.price
+        )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '服务询价'
+
+
+class Chat(AlattingBaseModel):
+    poster = BigForeignKey(
+        Poster,
+        verbose_name='海报'
+    )
+    sender = models.ForeignKey(
+        User,
+        verbose_name='发送者',
+        related_name='+',
+    )
+    receiver = models.ForeignKey(
+        User,
+        verbose_name='接收者',
+        related_name='+',
+    )
+    content = models.CharField(
+        verbose_name='内容',
+        max_length=300,
+    )
+
+    def __str__(self):
+        return '交流记录: %s' % self.id
+
+    class Meta:
+        verbose_name_plural = verbose_name = '交流记录'

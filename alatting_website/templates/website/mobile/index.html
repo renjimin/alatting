@@ -46,7 +46,7 @@
                                 </span>
 
                                 {% if poster.creator == request.user %}
-                                    <a href="{{ poster.get_edit_url }}">
+                                    <a href="{{ poster.get_mobile_edit_url }}">
                                         <i class="glyphicon glyphicon-pencil pull-right"></i>
                                     </a>
                                 {% endif %}

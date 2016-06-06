@@ -120,8 +120,12 @@
                     <div class="det">
                         <div class="head">
                             <span class="time">{{ poster.created_at|date:'Y-m-d' }}</span>
-                            <a href="#" class="btn-share"><i class="icon ico-share"></i></a>
-                            <a href="#" class="btn-fav"><i class="icon ico-fav"></i></a>
+                            {% if request.user.is_authenticated  and request.user == poster.creator%}
+                                <a href="{% url 'posters_pc:edit' poster.id  poster.get_first_poster_page_id %}" class="share-btn btn-edit" target="_blank"><i class="fa fa-edit"></i></a>
+                            {% endif %}                            
+                            <a href="{% url 'posters_pc:show' poster.id %}" class="share-btn btn-show" target="_blank"><i class="fa fa-eye"></i></a>
+                            <a href="#" class="share-btn btn-share"><i class="icon ico-share"></i></a>
+                            <a href="#" class="share-btn btn-fav"><i class="icon ico-fav"></i></a>
                         </div>
                         <div class="middle">
                             <div class="qrcode">
