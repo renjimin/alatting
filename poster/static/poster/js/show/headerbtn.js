@@ -25,24 +25,29 @@ $(function(){
 		hideMap();
 		var target_element = 'div.' + $(this).attr('for');
 		var target_container = $('.info-toggle');
+		console.log(target_element)
 		var target = $(target_container).find(target_element);
+		console.log(target)
 		if($(target).css('display') == 'none') {
 			$(target_container).find('div.contact-info').hide();
 			$(target).show();
+			if(target_element == "div.location"){
+				togleMap();
+			}
 		}
 		return false;
 	});
-	$(".contact-info.location").click(function(){
+	/*$(".contact-info.location").click(function(){
 		togleMap();
 		return false;
-	});
+	});*/
 	$(".contact-info.hour").click(function(){
 		togleTopInform();
 		return false;
 	});
-	$(".contact-info:not(.location)").click(function(){
+	/*$(".contact-info:not(.location)").click(function(){
 		return false;
-	});
+	});*/
 	//click the logo image in the center to toogle abuttons in two layers
 	$('a.abutton-trigger').click(function(e){
 		e.preventDefault();
