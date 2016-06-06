@@ -65,6 +65,7 @@ $(
 			var module = {};
 			module.init = function(){
 				$("#editPannel_1 .fa.fa-fa-magic").on("click",function(){
+					if(!hasImage)return;
 					
 				});
 			};
@@ -76,9 +77,10 @@ $(
 
 		return api;
 	}()
+);
 
+$(
 	$.fn.magicWand = function(){
-		var a ={};
-		return a;
+		
 	}()
 );
