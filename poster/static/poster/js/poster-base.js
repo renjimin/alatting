@@ -30,9 +30,9 @@ $(function () {
 			inputs.eq(i * 2).val(info.start);
 			inputs.eq(i * 2 + 1).val(info.end);
 			if (info.enabled) {
-				$(".weekly td:eq(" + (i * 6 + 4) + ")").removeClass("off")
+				$(".weekly td:eq(" + (i * 6 + 4) + ")").removeClass("off");
 			} else {
-				$(".weekly td:eq(" + (i * 6 + 4) + ")").addClass("off")
+				$(".weekly td:eq(" + (i * 6 + 4) + ")").addClass("off");
 			}
 		}
 
@@ -176,17 +176,20 @@ $(function () {
 				icon: "glyphicon glyphicon-picture",
 				text: " 上传图片",
 				callback: function () {
-					$.fn.uploads.showDialog(function (data) {
-						if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
-							yyAlert("上传图片格式错误");
-							return false;
-						}
-						$('.header-logo h2').hide();
-						$('.header-logo img').css("display","inline-block");
-						$('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
-						$('.header-logo').imgoperationlogo();
-						$.fn.yyTools.mask();
-					});
+					// $('.header-logo h2').hide();
+					// $('.header-logo img').css("display","inline-block");
+					$.fn.logoPrettify.init();
+					// $.fn.uploads.showDialog(function (data) {
+					// 	if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
+					// 		yyAlert("上传图片格式错误");
+					// 		return false;
+					// 	}
+					// 	$('.header-logo h2').hide();
+					// 	$('.header-logo img').css("display","inline-block");
+					// 	$('.header-logo img').attr("src", data.file).attr("data-src-id", data.id);
+					// 	$('.header-logo').imgoperationlogo();
+					// 	$.fn.yyTools.mask();
+					// });
 				}
 			},
 			{icon: "glyphicon glyphicon-camera", text: "照相"},
@@ -225,7 +228,7 @@ $(function () {
 							'background-size': '100% 100%'
 						});
 						$(".system-item").fadeOut(500);
-					})
+					});
 				}
 			},
 			{
@@ -354,7 +357,7 @@ $(function () {
 					$(this).bgselect({}, function (ths, img) {
 						$('body').css('background', 'url(' + img + ')');
 						$('body').css('background-size', '100% 100%');
-						$('.yunye-template,.header').css('background', 'url()')
+						$('.yunye-template,.header').css('background', 'url()');
 						storageAPI.setCss("body", {
 							'background': 'url(' + img + ')',
 							'background-size': '100% 100%'
@@ -365,7 +368,7 @@ $(function () {
 						storageAPI.setCss(".bar-header", {'background': 'none'});
 						storageAPI.setCss(".bar-footer", {'background': 'none'});
 						$(".system-item").fadeOut(500);
-					})
+					});
 				}
 			},
 			{
@@ -427,7 +430,7 @@ $(function () {
 							'background-size': '100% 100%'
 						});
 						$(".system-item").fadeOut(500);
-					})
+					});
 				}
 			},
 			{
