@@ -171,5 +171,66 @@
 
 **Response**
 ```json
+[
+    {
+        "id": 4,
+        "data_status": 1,
+        "created_at": "2016-06-03 18:04:03",
+        "updated_at": "2016-06-03 18:04:03",
+        "content": "多少钱服务33",
+        "poster": 50,
+        "sender": 12,
+        "receiver": 5
+    },
+    ...
+]
+```
 
+
+## 海报服务评价记录列表API
+
+    GET /api/v1/poster/{:poster_id}/servicecomments
+    
+**Response**
+```json
+[
+    {
+        "id": 1,
+        "creator": {                                    //评价用户信息
+            "id": 12,
+            "username": "cnpython@163.com_8795f878",
+            "first_name": "",
+            "last_name": "",
+            "email": "cnpython@163.com",
+            "person": {
+                "gender": "Unknown",
+                "phonenumber": "cnpython@163",
+                "avatar": "http://0.0.0.0:8020/media/avatars/avatar.png",
+                "user_type": "consumer"
+            }
+        },
+        "content": "adfasdfasdf",                   //评价内容
+        "rating": 100,                              //评分
+        "poster": 50，                              //海报ID
+        "data_status": 1,
+        "created_at": "2016-06-06 15:31:02",
+        "updated_at": "2016-06-06 15:31:02"
+    },
+    ...
+]
+```
+
+
+## 提交海报服务评价记录列表API
+
+    POST /api/v1/poster/{:poster_id}/servicecomments
+    
+注意：海报创建人不允许对自己创建的海报进行评价
+    
+**Response**
+```json
+{
+    "content": "adfasdfasdf",                   //评价内容
+    "rating": 100                               //评分
+}
 ```
