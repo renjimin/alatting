@@ -1,7 +1,7 @@
 $(
 	$.fn.logoPrettify = function(){
 		var self = this;
-		var canvas,ctx;
+		var canvas,ctx,currentPannel;
 
 		this.init = function(){
 			canvas = document.getElementById("editCanvas");
@@ -11,11 +11,15 @@ $(
 		};
 		this.destory = function(){
 			$(".closeLogoPrettify").off("click");
+			$(".editMenuGroup button").off("click");
 			$("#logoPrettify").hide();
 		};
 		this.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
 				self.destory();
+			});
+			$(".editMenuGroup button").on("click",function(e){
+				self.switchPannel($(e.target).data("pannel"));
 			});
 			$("#logoPrettify .uploadImage").on("change",function(){
 				var file=this.files[0];
@@ -26,6 +30,12 @@ $(
 				};
 				reader.readAsDataURL(file);
 			});
+		};
+		this.switchPannel = function(pannelID){
+			if(currentPannel == pannelID)return;
+			$("#"+currentPannel).hide();
+			if(pannelID && $("#"+pannelID))$("#"+pannelID).show();
+			currentPannel = pannelID;
 		};
 		this.setImage = function(url){
 			var image = new Image();
@@ -43,17 +53,8 @@ $(
 				$("#editCanvas").height(    ($(".body-container").height() - 220) * 0.8    ) ;
 				$("#editCanvas").width(    $("#editCanvas").height() * scale    ) ;
 			}
-			
-			// var 	scale = width/height,
-			// 	canvasScale = canvasW/canvasH;
-			// if(scale>canvasScale){
-			// 	ctx.drawImage(image,0,0,width,height,0,(canvasH - canvasW/scale)/2,canvasW,canvasW/scale);
-			// }else{
-			// 	ctx.drawImage(image,0,0,width,height,(canvasW - canvasH*scale)/2,0,canvasH*scale,canvasH);
-			// }
 		};
 		this.uploadImage = function(){
-
 			
 		};
 
