@@ -74,8 +74,10 @@
 }
 #editCanvas{
 	display: inline-block;
+}
+.editCanvasContainer{
 	width: 80%;
 	height: 80%;
 	margin:10%;
-	border:1px solid #000;
+	text-align: center; 
 }
