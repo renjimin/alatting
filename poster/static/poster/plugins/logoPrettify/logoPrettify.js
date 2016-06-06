@@ -64,7 +64,7 @@ $(
 		api.editPannel_1 = function(){
 			var module = {};
 			module.init = function(){
-				$("#editPannel_1 .fa.fa-fa-magic").on("click",function(){
+				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
 					
 				});
