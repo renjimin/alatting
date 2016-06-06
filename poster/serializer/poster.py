@@ -1,4 +1,5 @@
 # coding=utf-8
+import base64
 from django.core.urlresolvers import reverse
 from rest_framework import serializers
 from account.serializers import AccountProfileSimpleSerializer
@@ -75,10 +76,27 @@ class PosterPageSerializer(serializers.ModelSerializer):
     template = TemplateSerializer(read_only=True)
     template_id = serializers.IntegerField(write_only=True)
 
+    temp_html = serializers.SerializerMethodField()
+    temp_css = serializers.SerializerMethodField()
+
+    def get_temp_html(self, obj):
+        html = obj.temp_html
+        if html:
+            b_html = html.encode(encoding='utf-8', errors='ignore')
+            return bytes.decode(base64.b64encode(b_html))
+        return ""
+
+    def get_temp_css(self, obj):
+        css = obj.temp_css
+        if css:
+            b_css = css.encode(encoding='utf-8', errors='ignore')
+            return bytes.decode(base64.b64encode(b_css))
+        return ""
+
     class Meta:
         model = PosterPage
-        exclude = ('temp_html', 'temp_css', 'temp_script')
-        read_only_fields = ('id', 'poster', 'template', 'index', 'name')
+        exclude = ('temp_script', 'html', 'css', 'script')
+        read_only_fields = ('id', 'index', 'name', 'temp_html', 'temp_css')
 
 
 class PosterPublishSerializer(serializers.ModelSerializer):
