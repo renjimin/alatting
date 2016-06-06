@@ -5,6 +5,7 @@ from datetime import datetime
 import json
 import logging
 import os
+from django.db.models import Q
 import pytz
 
 from django.conf import settings
@@ -27,7 +28,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain
+    ServiceBargain, Chat
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -38,7 +39,8 @@ from poster.serializer.poster import (
     PosterSerializer, PosterSimpleInfoSerializer,
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
-    PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer)
+    PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
+    ChatSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -599,15 +601,10 @@ class ServiceBargainListView(ListCreateAPIView):
     def get_queryset(self):
         poster = self.get_poster_object()
         qs = super(ServiceBargainListView, self).get_queryset()
-        qs = qs.filter(
-            poster_id=poster.id
-        ).order_by('-created_at')
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            return qs
-        else:
-            return qs.filter(
-                consumer=self.request.user
-            ).order_by('-created_at')
+        qs = qs.filter(poster_id=poster.id)
+        if self.request.user.person.user_type == Person.USER_TYPE_CONSUMER:
+            qs = qs.filter(consumer=self.request.user)
+        return qs.order_by('-created_at')
 
     def _server_create(self, poster, serializer):
         if poster.creator != self.request.user:
@@ -647,3 +644,43 @@ class ServiceBargainDetailView(RetrieveUpdateDestroyAPIView):
         )
         if obj.poster.creator != request.user and obj.consumer != request.user:
             raise PermissionDenied
+
+
+class ChatListView(ListCreateAPIView):
+    model = Chat
+    serializer_class = ChatSerializer
+    queryset = Chat.objects.all()
+
+    def get_poster_object(self):
+        return get_object_or_404(Poster, pk=self.kwargs.get('poster_pk'))
+
+    def get_queryset(self):
+        poster = self.get_poster_object()
+        qs = super(ChatListView, self).get_queryset()
+        qs = qs.filter(
+            poster_id=poster.id
+        )
+        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+            user_id = self.request.GET.get('user_id')
+            qs = qs.filter(
+                Q(receiver_id=user_id) | Q(sender_id=user_id)
+            )
+        else:
+            user_id = self.request.user.id
+            qs = qs.filter(
+                Q(sender_id=user_id) |
+                Q(sender_id=poster.creator.id) | Q(receiver_id=user_id)
+            )
+        return qs.order_by('-created_at')
+
+    def perform_create(self, serializer):
+        poster = self.get_poster_object()
+        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+            receiver_id = self.request.data.get('receiver_id')
+        else:
+            receiver_id = poster.creator.id
+        serializer.save(
+            poster=poster,
+            sender=self.request.user,
+            receiver_id=receiver_id
+        )

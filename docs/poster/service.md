@@ -155,3 +155,21 @@
     "accepted": false
 ]
 ```
+
+
+## 交流记录列表API
+
+    GET /api/v1/poster/{:poster_id}/chats
+    
+
+**Request**
+
+数据过滤：
+
+?receiver_id=XXX    XXX是需求者ID, 过滤出服务者与需求者的交流记录, 需求者请求时，不需要添加此过滤
+
+
+**Response**
+```json
+
+```

@@ -811,7 +811,7 @@ function(module, exports, __require__){
 		api.systemContext = function(targetToChange,cssName){
 			container.find(".system_context-li").on("click",function(e){
 				$('.system_context-li').css({
-					'border': '0px solid #01a1ef'
+					'border': '3px solid rgba(255,255,255,0)'
 				});
 				$(this).css({
 					'border': '3px solid #01a1ef'  

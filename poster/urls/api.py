@@ -9,7 +9,7 @@ from poster.view.api import (
     UploadFileView, TemplateDetailView, TemplateListView,
     CategoryListView, SurveyConsumerAnswersView,
     SurveyConsumerAnsView, PosterListView, ServiceBargainListView,
-    ServiceBargainDetailView)
+    ServiceBargainDetailView, ChatListView)
 
 
 urlpatterns = [
@@ -75,4 +75,8 @@ urlpatterns = [
 
     url(r'^(?P<poster_pk>\d+)/bargains/(?P<pk>\d+)$',
         ServiceBargainDetailView.as_view(), name='poster_bargains_detail'),
+
+
+    url(r'^(?P<poster_pk>\d+)/chats$',
+        ChatListView.as_view(), name='poster_chats'),
 ]

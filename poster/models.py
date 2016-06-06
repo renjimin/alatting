@@ -75,7 +75,6 @@ class ServiceBargain(AlattingBaseModel):
         User,
         verbose_name='需求者',
         related_name='+',
-        help_text='需求者',
         blank=True,
         null=True
     )
@@ -116,3 +115,30 @@ class ServiceBargain(AlattingBaseModel):
 
     class Meta:
         verbose_name_plural = verbose_name = '服务询价'
+
+
+class Chat(AlattingBaseModel):
+    poster = BigForeignKey(
+        Poster,
+        verbose_name='海报'
+    )
+    sender = models.ForeignKey(
+        User,
+        verbose_name='发送者',
+        related_name='+',
+    )
+    receiver = models.ForeignKey(
+        User,
+        verbose_name='接收者',
+        related_name='+',
+    )
+    content = models.CharField(
+        verbose_name='内容',
+        max_length=300,
+    )
+
+    def __str__(self):
+        return '交流记录: %s' % self.id
+
+    class Meta:
+        verbose_name_plural = verbose_name = '交流记录'

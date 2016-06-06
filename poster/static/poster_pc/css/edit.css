@@ -270,6 +270,7 @@ a:focus,a:hover,a:visited{
 		width:25%;
 		float:left;
 		margin: 10px 10px;
+                            'border': 3px solid rgba(255,255,255,0);    
 }
 .system_context-li img{
                         width:60px;
