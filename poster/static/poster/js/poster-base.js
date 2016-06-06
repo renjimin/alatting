@@ -203,7 +203,7 @@ $(function () {
 				icon: "glyphicon glyphicon-picture",
 				text: " 上传图片",
 				callback: function () {
-					$.fn.logoPrettify.init();
+					$.fn.logoPrettify.init($('.header-logo img').attr("src"));
 				}
 			},
 			{icon: "glyphicon glyphicon-camera", text: "照相"},
