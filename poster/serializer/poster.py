@@ -141,6 +141,9 @@ class PosterSaveSerializer(serializers.ModelSerializer):
 
 class ServiceBargainSerializer(serializers.ModelSerializer):
     consumer_id = serializers.IntegerField(write_only=True, required=False)
+    server = AccountProfileSimpleSerializer(read_only=True)
+    consumer = AccountProfileSimpleSerializer(read_only=True)
+    creator = AccountProfileSimpleSerializer(read_only=True)
 
     class Meta:
         model = ServiceBargain

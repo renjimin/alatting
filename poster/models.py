@@ -107,8 +107,8 @@ class ServiceBargain(AlattingBaseModel):
     )
 
     def __str__(self):
-        return '服务:%s-需求:%s-价格:%s' % (
-            self.server.username,
+        return '服务:%s-需求人:%s-价格:%s' % (
+            self.poster.creator.username,
             self.consumer.username,
             self.price
         )

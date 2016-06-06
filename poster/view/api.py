@@ -10,7 +10,7 @@ import pytz
 
 from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -610,17 +610,20 @@ class ServiceBargainListView(ListCreateAPIView):
     def _server_create(self, poster, serializer):
         if poster.creator != self.request.user:
             raise PermissionDenied()
+        consumer_id = serializer.validated_data.get('consumer_id')
+        if not consumer_id:
+            raise ValidationError('参数不足，没有提供需求者ID!')
         serializer.save(
-            creator=self.request.user,
             poster=poster,
-            consumer_id=serializer.validated_data.get('consumer_id')
+            creator=self.request.user,
+            consumer_id=consumer_id
         )
 
     def _consumer_create(self, poster, serializer):
         serializer.save(
             poster=poster,
-            consumer=self.request.user,
-            creator=self.request.user
+            creator=self.request.user,
+            consumer_id=self.request.user.id
         )
 
     def perform_create(self, serializer):

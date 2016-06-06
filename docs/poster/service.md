@@ -16,84 +16,41 @@
 ```json
 [
     {
-        "id": 1,
-        "poster": {
-            "id": 50,
-            "main_category": {
-                "id": 1,
-                "data_status": 1,
-                "created_at": "2016-05-30 07:13:00",
-                "updated_at": "2016-05-30 07:13:11",
-                "type": "Activity",
-                "name": "Activity Invitation",
-                "description": "Activity / Party Invitation",
-                "tags": "",
-                "audit_status": 2,
-                "parent": null
-            },
-            "sub_category": {
-                "id": 5,
-                "data_status": 1,
-                "created_at": "2016-05-30 07:13:00",
-                "updated_at": "2016-05-30 07:13:11",
-                "type": "Activity",
-                "name": "Marriage Invitation",
-                "description": "Marriage Invitation",
-                "tags": "",
-                "audit_status": 2,
-                "parent": 1
-            },
-            "logo_image": {
-                "id": 182,
-                "uuid": "f46341c3c9224031a1597824af14195c",
-                "created_at": "2016-05-31 18:11:51",
-                "file": "http://0.0.0.0:8020/media/images/2016/05/31/5715a6fcca24465db87eaee208f701ca.jpg",
-                "width": 108,
-                "height": 108,
-                "format": "jpg",
-                "creator": null
-            },
-            "address": {
-                "id": 52,
-                "address1": "fdfadfa",
-                "address2": "",
-                "city": "",
-                "province": "",
-                "state": "",
-                "country": "",
-                "post_code": "",
-                "created_at": "2016-05-31 18:11:51",
-                "updated_at": "2016-05-31 18:11:51"
-            },
-            "unique_name": "AD发ad",
-            "url": "",
-            "logo_title": "",
-            "short_description": "dfsdf",
-            "phone": "010-1234567",
-            "mobile": "13800138000",
-            "email": "123123@fdsf.com",
-            "lifetime_type": "weekly",
-            "lifetime_timezone": "Asia/Shanghai",
-            "lifetime_value": "{\"Tuesday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Monday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Wednesday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Saturday\": {\"disabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Friday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Sunday\": {\"disabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}, \"Thursday\": {\"enabled\": 1, \"time_end\": \"18:00:00\", \"time_start\": \"09:00:00\"}}",
-            "music": null,
-            "created_at": "2016-05-31 18:11:51",
-            "updated_at": "2016-05-31 18:11:51",
-            "status": "Draft",
-            "width": 800,
-            "height": 1024,
-            "tags": "",
-            "snapshot": null,
-            "creator": 5
+        "id": 7,
+        "consumer": {
+            "id": 12,
+            "username": "cnpython@163.com_8795f878",
+            "first_name": "",
+            "last_name": "",
+            "email": "cnpython@163.com",
+            "person": {
+                "gender": "Unknown",
+                "phonenumber": "cnpython@163",
+                "avatar": "http://0.0.0.0:8020/media/avatars/avatar.png",
+                "user_type": "consumer"
+            }
         },
-        "data_status": 1,
-        "created_at": "2016-06-03 14:48:52",
-        "updated_at": "2016-06-03 14:48:52",
-        "price": 20,                            //价格
+        "creator": {
+            "id": 5,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@admin.com",
+            "person": {
+                "gender": "Male",
+                "phonenumber": "13800138000",
+                "avatar": "http://0.0.0.0:8020/media/avatars/2016/05/30/b2365b2b586449d184e7475371268ba7.jpg",
+                "user_type": "server"
+            }
+        },
+        "price": 29,                            //价格
         "accepted": false,                      //是否接受
         "refused": false,                       //是否拒绝
-        "note": "aaa",                          //备注留言
-        "server": 5,                            //服务者ID
-        "consumer": 12                          //需求者ID
+        "note": "服务者报价备注，可为空",                    
+        "poster": 50,
+        "data_status": 1,
+        "created_at": "2016-06-06 15:52:52",
+        "updated_at": "2016-06-06 15:52:52"
     },
     ....
 ]
