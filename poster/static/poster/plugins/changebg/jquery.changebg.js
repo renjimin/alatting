@@ -48,7 +48,7 @@
                     var img = $(this).attr('data-img');
                     $('.item-system').css({ 
                         'opacity':'.5',
-                        'border': '0px solid #01a1ef'
+                        'border': '3px solid rgba(0,0,0,0)'
                     });
                     $(this).css({
                         'opacity':'1',

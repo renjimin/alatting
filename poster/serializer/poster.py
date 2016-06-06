@@ -1,11 +1,13 @@
 # coding=utf-8
 from django.core.urlresolvers import reverse
 from rest_framework import serializers
+from account.serializers import AccountProfileSimpleSerializer
 from alatting_website.model.poster import Poster, PosterPage
 from alatting_website.serializer.edit_serializer import ImageSerializer
 from alatting_website.serializer.statistics_serializer import \
     PosterStatisticsSerializer, HistoryStatisticsSerializer
-from poster.models import SystemImage, SystemMusic, ServiceBargain, Chat
+from poster.models import SystemImage, SystemMusic, ServiceBargain, Chat, \
+    ServiceComment
 from poster.serializer.resource import CategorySerializer, \
     CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
@@ -158,3 +160,11 @@ class StatisticsDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poster
         fields = ('poster_statistics', 'history_statistics')
+
+
+class ServiceCommentSerializer(serializers.ModelSerializer):
+    creator = AccountProfileSimpleSerializer(read_only=True)
+
+    class Meta:
+        model = ServiceComment
+        read_only_fields = ('creator', 'poster')
