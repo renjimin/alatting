@@ -13,7 +13,7 @@
 
 {% block base_body %}
     <div class="body-header">
-        <div class="header-left" data-id="1">
+        <div class="header-left">
             <div class="hd-ctrl-li ctrl-favorite" id="ctrl-favorite" data-fav="0">
                 <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
                 <span class="ctrl-name">收藏</span>
@@ -30,6 +30,7 @@
                 <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
                 <span class="ctrl-name">统计</span>
             </div>
+            <input type="hidden" id="consumerid" value="{{ request.GET.consumerid }}">
         </div>
         <div class="header-right">
             <div class="hd-close" id="page-close"><i class="fa fa-times"></i></div>
@@ -42,11 +43,12 @@
             </div>
         </div>
     </div>
-    <div class="body-main">
-        <div class="main-title">
-            <div class="title-star p-star p-star-4"></div>
-            <div class="title-name">黄裕祥钢琴教学</div>
-        </div>
+    <div class="body-main-title" id="body-main-title">
+        <div class="title-star p-star p-star-4"></div>
+        <div class="title-name">黄裕祥钢琴教学</div>
+        <input type="hidden" id="posterid" value="{{ poster.id }}">
+    </div>
+    <div class="body-li body-main" id="body-main">
         <div class="main-menu">
             <div class="main-menu-li main-menu-act" data-item="price">
                 <span class="main-menu-cont">报价</span>
@@ -55,40 +57,10 @@
                 <span class="main-menu-cont">记录</span>
             </div>
         </div>
-        <div class="mainli main-plist" id="main-plist">
-            <ul>
-                <li>
-                    <span class="plist-name">服务报价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">我的出价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">服务报价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">我的出价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li>
-                    <span class="plist-name">服务报价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li class="plist-act">
-                    <span class="plist-name">我的出价</span>
-                    <span class="plist-value">￥40/小时</span>
-                </li>
-                <li class="plist-end">
-                    已接受<i class="fa fa-check-circle-o"></i>
-                </li>
-            </ul>
-        </div>
+        <div class="mainli main-plist" id="main-plist"></div>
         <div class="mainli main-price" id="main-price">
             <div class="price-li price-quote" id="price-quote">
-                <div class="price-icon"><span>报价</span></div>
+                <div class="price-icon"><span>对方报价</span></div>
                 <div class="quote-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num">160</span>
@@ -107,33 +79,29 @@
                         <i class="fa fa-close"></i>
                         <span class="pbtn-name">拒绝</span>
                     </div>
-                    <div class="price-btn-li" id="bid-price">
+                    <div class="price-btn-li bid-price">
                         <i class="fa fa-yen"></i>
                         <span class="pbtn-name">出价</span>
                     </div>
                 </div>
             </div>
-            <div class="price-li price-bid" id="price-bid">
-                <div class="price-icon"><span>出价</span></div>
+            <div class="price-li price-refuse" id="price-refuse">
+                <div class="price-icon"><span>拒绝报价</span></div>
                 <div class="quote-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
-                    <span class="value-num"><input type="text" name="price" id="hid_price"></span>
+                    <span class="value-num">0</span>
                     <span class="value-unit">/小时</span>
                 </div>
-                <div class="bid-consult">您还剩3次出价机会</div>
                 <div class="price-btn">
-                    <div class="price-btn-li" id="set-price">
-                        <i class="fa fa-check"></i>
-                        <span class="pbtn-name">送出</span>
-                    </div>
-                    <div class="price-btn-li" id="cancel-price">
-                        <i class="fa fa-close"></i>
-                        <span class="pbtn-name">取消</span>
+                    <div class="price-btn-li bid-tips"></div>
+                    <div class="price-btn-li bid-price">
+                        <i class="fa fa-yen"></i>
+                        <span class="pbtn-name">出价</span>
                     </div>
                 </div>
             </div>
             <div class="price-li price-accept" id="price-accept">
-                <div class="price-icon"><span>报价</span></div>
+                <div class="price-icon"><span>接受报价</span></div>
                 <div class="quote-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num">160</span>
@@ -148,9 +116,29 @@
                     <span>周一晚上8点-下周开始</span>
                 </div>
             </div>
+            <div class="price-li price-bid" id="price-bid">
+                <div class="price-icon"><span>我的出价</span></div>
+                <div class="quote-value">
+                    <span class="value-icon"><i class="fa fa-cny"></i></span>
+                    <span class="value-num"><input type="text" name="bPrice" id="bPrice"></span>
+                    <span class="value-unit">/小时</span>
+                </div>
+                <div class="bid-consult">您还剩3次出价机会</div>
+                <div class="price-btn">
+                    <div class="price-btn-li" id="set-price">
+                        <i class="fa fa-check"></i>
+                        <span class="pbtn-name">送出</span>
+                    </div>
+                    <div class="price-btn-li" id="cancel-price">
+                        <i class="fa fa-close"></i>
+                        <span class="pbtn-name">取消</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
         <div class="main-message">
-            <div class="message-list">
+            <div class="message-list" id="message-list">
                 <ul>
                     <li class="mess-li">
                         <div class="mess-checkbox"></div>
@@ -174,16 +162,79 @@
             </div>
         </div>
     </div>
+    <div class="body-li body-comments" id="body-comments">
+        <ul>
+            <li>
+                <div class="com-headicon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="img"></div>
+                <div class="com-main">
+                    <div class="com-main-top">
+                        <span class="com-username">username</span>
+                        <span class="com-pstar p-star p-star-8"></span>
+                    </div>
+                    <div class="com-main-cont">
+                        <p>这是神社茅塞顿开分类管理个</p>
+                    </div>
+                    <div class="com-main-bot">
+                        <span class="com-time">2016-06-06 13:34:31</span>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="com-headicon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="img"></div>
+                <div class="com-main">
+                    <div class="com-main-top">
+                        <span class="com-username">username</span>
+                        <span class="com-pstar p-star p-star-8"></span>
+                    </div>
+                    <div class="com-main-cont">
+                        <p>这是神社茅塞顿开分类管理个</p>
+                    </div>
+                    <div class="com-main-bot">
+                        <span class="com-time">2016-06-06 13:34:31</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="body-li body-makecomt" id="body-makecomt">
+        <div class="mcom-tips">请问您对此次服务满意吗？</div>
+        <div class="mcom-star">
+            <ul>
+                <li data-item="1"><i class="fa fa-star"></i></li>
+                <li data-item="2"><i class="fa fa-star"></i></li>
+                <li data-item="3"><i class="fa fa-star"></i></li>
+                <li data-item="4"><i class="fa fa-star"></i></li>
+                <li data-item="5"><i class="fa fa-star"></i></li>
+            </ul>
+            <input type="hidden" id="star-comt">
+        </div>
+        <div class="mcom-textarea mess-textarea">
+            <textarea name="serve-comt" id="serve-comt" cols="30" rows="5" placeholder="您的评论"></textarea>
+        </div>
+        <div class="mcom-btn price-btn">
+            <div class="price-btn-li" id="submit-comt">
+                <i class="fa fa-check"></i>
+                <span class="pbtn-name">送出</span>
+            </div>
+            <div class="price-btn-li" id="cancel-comt">
+                <i class="fa fa-close"></i>
+                <span class="pbtn-name">取消</span>
+            </div>
+            <div class="price-btn-li" id="mcom-order">
+                <span class="pbtn-name">再次预约</span>
+            </div>
+        </div>
+    </div>
     <div class="body-share" id="body-share">
         <div class="hd-ctrl-li share-share">
             <span class="ctrl-icon"><i class="fa fa-share-square-o"></i></span><br>
             <span class="ctrl-name">分享</span>
         </div>
-        <div class="share-li share-weixin"><i class="fa fa-weixin"></i></div>
-        <div class="share-li share-qq"><i class="fa fa-qq"></i></div>
-        <div class="share-li share-weibo"><i class="fa fa-weibo"></i></div>
-        <div class="share-li share-comment"><i class="fa fa-comment"></i></div>
-        <div class="share-li share-envelope"><i class="fa fa-envelope"></i></div>
+        <div class="share-li share-weixin" id="share-weixin"><i class="fa fa-weixin"></i></div>
+        <div class="share-li share-qq" id="share-qq"><i class="fa fa-qq"></i></div>
+        <div class="share-li share-weibo" id="share-weibo"><i class="fa fa-weibo"></i></div>
+        <div class="share-li share-comment" id="share-comment"><i class="fa fa-comment"></i></div>
+        <div class="share-li share-envelope" id="share-envelope"><i class="fa fa-envelope"></i></div>
     </div>
     <div class="body-tips" id="body-tips">
         <div class="tips-main">
@@ -192,33 +243,7 @@
                 <i class="fa fa-file-text-o"></i>
                 <span>我的资讯</span>
             </div>
-            <div class="tips-info">
-                <ul>
-                    <li>
-                        <span class="tips-name">程度</span>
-                        <span class="tips-cont">初学者</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">上课次数</span>
-                        <span class="tips-cont">一周两次</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">年龄</span>
-                        <span class="tips-cont">12</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">上课时间</span>
-                        <span class="tips-cont">周一晚上八点</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">地点</span>
-                        <span class="tips-cont">到府上课</span>
-                    </li>
-                    <li>
-                        <span class="tips-name">开始时间</span>
-                        <span class="tips-cont">马上开始</span>
-                    </li>
-                </ul>
+            <div class="tips-info" id="tips-info">
             </div>
         </div>
     </div>
