@@ -162,6 +162,8 @@ class ServiceBargainSerializer(serializers.ModelSerializer):
     server = AccountProfileSimpleSerializer(read_only=True)
     consumer = AccountProfileSimpleSerializer(read_only=True)
     creator = AccountProfileSimpleSerializer(read_only=True)
+    accepted = serializers.BooleanField()
+    refused = serializers.BooleanField()
 
     class Meta:
         model = ServiceBargain
