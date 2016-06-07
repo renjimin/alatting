@@ -197,12 +197,14 @@ $(document).ready(function () {
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/categorys?parent=' + opts,
-
             success: function (data) {
                 callBack(data);
-            },
-            error: function () {
 
+            },
+            error: function (xhr, status, statusText) {
+                if (xhr.status == 403) {
+                    yyAlert("请登录后再操作。如果您已登录请刷新页面，谢谢！");
+                }
             }
         });
     }
@@ -210,11 +212,12 @@ $(document).ready(function () {
     $(".selectserver").click(function () {
         var selected = $('body');
         var selectedname = "";
+        var main_name = "";
         if ($('.div-server').length ==0) {
             selectTrade(0, function (data) {
                 var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
                 for (var i = 0; i < data.length; i++) {
-                    sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></li>';
+                    sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></a></li>';
                 }
                 sbox += '</ul></div>';
                 selected.append(sbox);
@@ -226,6 +229,7 @@ $(document).ready(function () {
             var ths = $(this);
             var sid = $(this).attr('data-id');
             var ssbox = '';
+            main_name = $(this).attr('data-name');
             if($('.li-server').hasClass('open')){
                 $('.li-server').removeClass('open');
                 $('.li-server').children('ul').hide();
@@ -271,6 +275,8 @@ $(document).ready(function () {
             if(selectedname.length>0){
                 $('.selectserver').text(selectedname);
                 $('.regist-industryinput').attr('disabled',true);
+            }else{
+            	$('.selectserver').text(main_name);
             }
             $('.div-server').fadeOut(200);
         })
@@ -282,7 +288,7 @@ $(document).ready(function () {
                  selectTrade(0, function (data) {
                     var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
                     for (var i = 0; i < data.length; i++) {
-                        sbox += '<li class = "li-provider" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
+                        sbox += '<li class = "li-provider" data-name = "'+data[i].name+'" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
                     }
                     sbox += '</ul></div>';
                     selected.append(sbox);
@@ -309,12 +315,11 @@ $(document).ready(function () {
                 });
             }else{
 
-            }            ths.children('.glyphicon').off('click').on('click',function(event){
+            }
+            ths.children('.glyphicon').off('click').on('click',function(event){
                 if ($(event.target).hasClass('glyphicon-unchecked')) {
                     $(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
                     $(event.target).next().find('.glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-                    meid = $(event.target).next().find('.glyphicon').attr('data-id')
-                    console.log($(this).attr('data-id'));
                 }else{
                     $(event.target).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
                     $(event.target).next().find('.glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
@@ -322,7 +327,6 @@ $(document).ready(function () {
             })
             selected.off('click','.sli-provider').on('click', '.sli-provider',function (event) {
                 var selectedname = $(this).attr('data-name');
-                meid = $(this).attr('data-id');
                 var ths = $(this);
                 event.stopPropagation();
                 if ($(event.target).hasClass("glyphicon")) {

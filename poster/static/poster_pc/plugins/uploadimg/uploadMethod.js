@@ -1,4 +1,10 @@
 /* image */
+(function() {
+	$.fn.userImg = function(){
+		
+	}
+})(jQuery)
+
 
 function imageEditor(typename,data){
 	var defaults = {

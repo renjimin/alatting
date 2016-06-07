@@ -10,7 +10,7 @@ import pytz
 
 from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import PermissionDenied
+from rest_framework.exceptions import PermissionDenied, ValidationError
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -29,7 +29,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat
+    ServiceBargain, Chat, ServiceComment
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -41,7 +41,7 @@ from poster.serializer.poster import (
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
-    ChatSerializer, StatisticsDataSerializer)
+    ChatSerializer, StatisticsDataSerializer, ServiceCommentSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -610,17 +610,20 @@ class ServiceBargainListView(ListCreateAPIView):
     def _server_create(self, poster, serializer):
         if poster.creator != self.request.user:
             raise PermissionDenied()
+        consumer_id = serializer.validated_data.get('consumer_id')
+        if not consumer_id:
+            raise ValidationError('参数不足，没有提供需求者ID!')
         serializer.save(
-            creator=self.request.user,
             poster=poster,
-            consumer_id=serializer.validated_data.get('consumer_id')
+            creator=self.request.user,
+            consumer_id=consumer_id
         )
 
     def _consumer_create(self, poster, serializer):
         serializer.save(
             poster=poster,
-            consumer=self.request.user,
-            creator=self.request.user
+            creator=self.request.user,
+            consumer_id=self.request.user.id
         )
 
     def perform_create(self, serializer):
@@ -691,3 +694,29 @@ class StatisticsDataView(RetrieveAPIView):
     queryset = Poster.objects.all()
     serializer_class = StatisticsDataSerializer
 
+
+class ServiceCommentListView(ListCreateAPIView):
+    model = ServiceComment
+    queryset = ServiceComment.objects.all()
+    serializer_class = ServiceCommentSerializer
+
+    def get_queryset(self):
+        qs = super(ServiceCommentListView, self).get_queryset()
+        return qs.filter(poster_id=self.kwargs.get('pk'))
+
+    def check_object_permissions(self, request, obj):
+        super(ServiceCommentListView, self).check_object_permissions(
+            request, obj
+        )
+        if obj.poster.creator == request.user:
+            raise PermissionDenied
+
+    def _get_poster_object(self):
+        return get_object_or_404(Poster, pk=self.kwargs.get('pk'))
+
+    def perform_create(self, serializer):
+        poster = self._get_poster_object()
+        serializer.save(
+            poster=poster,
+            creator=self.request.user
+        )

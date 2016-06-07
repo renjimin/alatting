@@ -196,7 +196,7 @@
             "remove": self.remove,
             "cleanPage": self.cleanPage,
             "getCssObj": self.getCssObj
-        }
+        };
     }();
 })(jQuery);
 
