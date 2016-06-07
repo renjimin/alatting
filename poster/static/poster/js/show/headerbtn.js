@@ -25,9 +25,7 @@ $(function(){
 		hideMap();
 		var target_element = 'div.' + $(this).attr('for');
 		var target_container = $('.info-toggle');
-		console.log(target_element)
 		var target = $(target_container).find(target_element);
-		console.log(target)
 		if($(target).css('display') == 'none') {
 			$(target_container).find('div.contact-info').hide();
 			$(target).show();

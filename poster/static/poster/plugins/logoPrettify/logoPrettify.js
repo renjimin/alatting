@@ -80,6 +80,17 @@ $(function(){
 				$("#editPannel_1 .fa.fa-fa-magic").off("click");
 			};
 			return module;
+		};
+		api.editPannel_4 = function(){
+			var module = {};
+			module.init = function(){
+				if(!hasImage)return;
+				
+			};
+			module.destory = function(){
+				
+			};
+			return module;
 		}();
 
 		return api;
@@ -237,6 +248,7 @@ $(function(){
 		api.contiguous = true;
 
 		api.active = function(){
+			console.log(1);
 			$("#selectCanvas").on("click",function(e){
 				api.buildSelection(e);
 			});
@@ -245,6 +257,7 @@ $(function(){
 			$("#selectCanvas").off("click");
 		};
 		api.buildSelection = function(e){
+			console.log(e);
 			var canvas = document.getElementById("editCanvas");
 			var canvasContext = canvas.getContext('2d');
 			var selectionCanvas = document.getElementById("selectCanvas");
@@ -287,3 +300,8 @@ $(function(){
 	}();
 });
 
+$(
+	$.fn.imagecrop = function(){
+		
+	}()
+);
