@@ -31,13 +31,18 @@ $(function(){
 				api.switchPannel($(e.target).data("pannel"));
 			});
 			$("#logoPrettify .uploadImage").on("change",function(){
-				var file=this.files[0];
-				var reader=new FileReader();
-				reader.onload=function(){
-					var url=reader.result;
+				var file = this.files[0];
+				var reader = new FileReader();
+				reader.onload = function(){
+					var url = reader.result;
 					api.setImage(url);
 				};
 				reader.readAsDataURL(file);
+			});
+			$("#logoPrettify .uploadCanvas").on("click",function(){
+				var image = new Image();
+				image.src = canvas.toDataURL("image/png");
+				return image;
 			});
 		};
 		api.switchPannel = function(pannelID){
