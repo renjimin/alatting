@@ -22,7 +22,8 @@ urlpatterns = [
         login_required(UpdateFormView.as_view()),
         name='update_form'),
 
-    url(r'^select-template/$', login_required(SelectTemplateView.as_view()),
+    url(r'^select-template/(?P<poster_pk>[\d]+)$',
+        login_required(SelectTemplateView.as_view()),
         name='select_template'),
 
     url(r'^posterpage/$', login_required(PosterPageCreateView.as_view()),
@@ -36,7 +37,7 @@ urlpatterns += [
 
 # 编辑海报url
 urlpatterns += [
-    url(r'^(?P<poster_pk>[\d]+)/edit/(?P<pk>[\d]+)$',
+    url(r'^(?P<poster_pk>[\d]+)/edit$',
         login_required(PosterEditView.as_view()),
         name='edit'),
 ]

@@ -491,6 +491,7 @@ class CategoryListView(ListAPIView):
         audit_status=Category.AUDIT_STATUS_PASS
     )
     serializer_class = CategorySerializer
+    permission_classes = ()
 
     def get_queryset(self):
         qs = super(CategoryListView, self).get_queryset()
@@ -605,7 +606,7 @@ class ServiceBargainListView(ListCreateAPIView):
         qs = qs.filter(poster_id=poster.id)
         if self.request.user.person.user_type == Person.USER_TYPE_CONSUMER:
             qs = qs.filter(consumer=self.request.user)
-        return qs.order_by('-created_at')
+        return qs.order_by('created_at')
 
     def _server_create(self, poster, serializer):
         if poster.creator != self.request.user:

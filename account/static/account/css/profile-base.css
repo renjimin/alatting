@@ -56,6 +56,62 @@
     background-position: 0 0px;
 }
 
+.level-diamond{
+    background: url("../img/icon-vip-diamond.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-gold{
+    background: url("../img/icon-vip-gold.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-silver{
+    background: url("../img/icon-vip-silver.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-bronze{
+    background: url("../img/icon-vip-bronze.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+.icon-diamond{
+    background: url("../img/ic-vip-diamond.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.icon-gold{
+    background: url("../img/ic-vip-gold.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.icon-silver{
+    background: url("../img/ic-vip-silver.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.icon-bronze{
+    background: url("../img/ic-vip-bronze.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+
+.name-diamond{
+    color:rgb(255,200,37);
+}
+.name-gold{
+    color:rgb(255,200,37);
+}
+.name-silver{
+    color:rgb(193,221,230);
+}
+.name-bronze{
+    color:rgb(228,148,76);
+}
+
 /*body-loading*/
 .body-loading{
     position: fixed;
@@ -75,4 +131,12 @@
     left: 50%;
     margin-left: -16px;
     margin-top: -16px;
+}
+
+.error-msg{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    padding: 15px 10px;
+    line-height: 25px;
 }

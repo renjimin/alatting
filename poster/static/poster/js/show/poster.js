@@ -2,7 +2,7 @@ $(function(){
 		
 		$('.slider-content').each(function(){
 			$(this).imgslidershow();
-		})
+		});
 		var templateScale = $('body').width()/$('.yunye-template').width();
 		
 				 var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'

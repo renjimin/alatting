@@ -2,14 +2,25 @@
 	<div class="editMenuHeader">
 		<button class="btn">上传照片<input class="uploadImage" type="file" value="上传照片" /></button>
 		<button class="btn closeLogoPrettify">关闭</button>
-		<button class="btn">确认</button>
+		<button class="btn uploadCanvas">确认</button>
 	</div>
 	
 	<div class="editCanvasBox">
 		<div class="editCanvasContainer">
 			<canvas id="editCanvas"></canvas>
+			<div class="imgCrop-cover" id="imgCropCover">
+				<div class="imgCrop-cover-main"></div>
+				<div class="imgCrop-con" id="imgCrop-con">
+					<div class="imgCrop-bar imgCrop-bar-1"></div>
+					<div class="imgCrop-bar imgCrop-bar-2"></div>
+					<div class="imgCrop-bar imgCrop-bar-3"></div>
+					<div class="imgCrop-bar imgCrop-bar-4"></div>
+				</div>
+			</div>
 			<canvas id="selectCanvas" width="0" height="0"></canvas>
+
 		</div>
+
 	</div>
 
 	<div class="editMenuGroup">
@@ -28,13 +39,16 @@
 			<a class="deleteSelection" href="javascript:;" style="position: absolute;top: 50%;left: 40%;font-size:25px;color:#000;"><i class="fa fa-trash"></i></a>
 		</section>
 		<section id="editPannel_2">
-			
+			<canvas id="invertColor"></canvas>
+			<canvas id="grayColor"></canvas>
+			<canvas id="rilievo"></canvas>
+			<canvas id="mirror"></canvas>
 		</section>
 		<section id="editPannel_3">
 			
 		</section>
 		<section id="editPannel_4">
-			
+			<button class="btn btn-primary" id="cropConfirm">确认裁剪</button><button class="btn btn-primary" id="cropCancel">取消</button>
 		</section>
 		<section id="editPannel_5">
 			

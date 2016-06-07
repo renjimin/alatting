@@ -186,8 +186,7 @@ class Poster(models.Model):
         page_id = self.get_first_poster_page_id()
         if page_id:
             return reverse('posters:edit', kwargs={
-                'poster_pk': self.id,
-                'pk': page_id
+                'poster_pk': self.id
             })
         else:
             return 1
