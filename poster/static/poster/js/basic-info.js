@@ -99,4 +99,20 @@ $(function () {
     $(".poster-form-submit-btn").click(function () {
         checkPosterFormValues();
     });
+
+    $('#form-info input[type="text"]').on('focus',function(event){
+        var _this = $(this);
+        event.preventDefault();
+       var bodySt = $('body').scrollTop();
+        setTimeout(function(){
+            var st = $(window).height()/2;
+            if($('body').scrollTop() - bodySt > 50){
+                return;
+            }
+             if(_this.offset().top > st){
+                 $('body').animate({scrollTop:_this.offset().top - st + _this.height()/2 + 80},200);
+             }
+        },500)
+        
+    });
 });

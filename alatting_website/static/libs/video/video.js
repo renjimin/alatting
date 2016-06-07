@@ -33,4 +33,7 @@ videojs.start = function (id) {
     player.requestFullscreen();
     player.play();
     $('.vjs-controls-disabled .vjs-poster').css({'display': 'none'});
+    $(player.el_).on('touchend',function(){
+        player.exitFullscreen();
+    });
 };
