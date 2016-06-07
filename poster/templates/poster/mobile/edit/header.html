@@ -11,8 +11,8 @@
 			</div>
 		</div>
 		<div class="header-logo">
-            <h2 style="border-style: solid;{% if poster.logo_title %}display: block;{% else %}display: none;{% endif %}" id="header-logo-text">{{ poster.logo_title|safe }}</h2>
-            <img style="{% if poster.logo_title %}display: none;{% else %}display: block;margin: auto;{% endif %}" src="{{ poster.logo_image.file.url }}">
+            <h2 style="{% if poster.logo_title %}display: inline-block;{% else %}display: none;{% endif %}" id="header-logo-text">{{ poster.logo_title|safe }}</h2>
+            <img style="{% if poster.logo_title %}display: none;{% else %}display: inline-block;margin: auto;{% endif %}" src="{{ poster.logo_image.file.url }}">
         </div>
 		<div class="header-abutton">
 			<div class="abutton-inner" id="abutton">
