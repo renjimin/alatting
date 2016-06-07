@@ -91,10 +91,6 @@
 /*body-main*/
 .body-li{
     background: #ffffff;
-    /*box-shadow: 0 3px 10px #7c7c7c;*/
-}
-.body-main{
-    display: none;
 }
 /*main-menu*/
 .main-menu{
@@ -348,7 +344,14 @@
     vertical-align: middle;
     font-size: 30px;
 }
-
+.price-refuse .price-btn{
+    background: #e0e0e0;
+}
+.price-refuse .bid-tips{
+    font-size: 16px;
+    color:#5e5e5e;
+    line-height: 30px;
+}
 /*main-message*/
 .main-message {
     padding: 10px 10px 30px;
@@ -581,7 +584,7 @@
 
 /*body-makecomt*/
 .body-makecomt{
-    display: block;
+    display: none;
     height: 400px;
     padding: 15px;
 }

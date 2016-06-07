@@ -14,8 +14,27 @@ $(function(){
     var defImg = '/static/account/img/hb001.png';
     var userinfo;
 
-    ///*
-    // 获取个人信息
+    /* 头部两类海报列表切换 */
+    $('.head-bot-li').on('click',function(){
+        var ths =$(this);
+        var item = ths.attr('data-item');
+        $('#pageType').val(item);
+        $('.head-bot-li').removeClass('head-bot-act');
+        ths.addClass('head-bot-act');
+        $('.main-list').hide();
+        $('#main-'+item).show();
+    });
+    /* 根据当前链接激活相应的海报列表 */
+    var lurl= location.search;
+    var pos = lurl.indexOf('=');
+    var type = lurl.substring(pos+1, lurl.length);
+    if(type == 'server'){
+        $('.head-provide').trigger('click');
+    }else if(type == 'consumer'){
+        $('.head-need').trigger('click');
+    }else{}
+
+    /* 获取个人信息 */
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/profile',
@@ -31,10 +50,8 @@ $(function(){
             yyAlert("服务超时,请稍候再试!");
         }
     });
-    //*/
 
-    ///*
-    // 获取当前用户提供的所有海报列表
+    /* 获取当前用户提供的所有海报列表 */
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/server',
@@ -54,10 +71,8 @@ $(function(){
             yyAlert("服务超时,请稍候再试!");
         }
     });
-    //*/
 
-    ///*
-    // 获取当前用户所有预约的海报列表
+    /* 获取当前用户所有预约的海报列表 */
     $.ajax({
         type: 'GET',
         url: '/api/v1/account/posters/consumer',
@@ -76,7 +91,13 @@ $(function(){
             yyAlert("服务超时,请稍候再试!");
         }
     });
-    //*/
+
+    /* 退出暂时放在个人设置那里 */
+    $('#user-setting').on('click',function(){
+        yyAlert("您确定要退出吗?",function(){
+            location.href='/mobile/account/logout';
+        });
+    });
 
     /* 菜单栏的固定置顶 */
     $(document).scroll(function(){
@@ -209,16 +230,7 @@ $(function(){
     $('#body-share').on('click',function(){
         moveShareBtn(false);
     });
-    /* poster-list switchover */
-    $('.head-bot-li').on('click',function(){
-        var ths =$(this);
-        var item = ths.attr('data-item');
-        $('#pageType').val(item);
-        $('.head-bot-li').removeClass('head-bot-act');
-        ths.addClass('head-bot-act');
-        $('.main-list').hide();
-        $('#main-'+item).show();
-    });
+
 	/* 海报分享菜单的显示与隐藏 */
     function moveCtrl(obj,type){
         if(type){

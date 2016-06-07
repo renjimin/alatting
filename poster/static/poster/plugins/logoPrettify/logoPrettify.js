@@ -9,7 +9,7 @@ $(function(){
 			ctx = canvas.getContext('2d');
 			$("#logoPrettify").show();
 			api.bindEvents();
-			if(url){
+			if(url && !hasImage ){
 				api.setImage(url);
 				hasImage = true;
 			}
@@ -31,18 +31,13 @@ $(function(){
 				api.switchPannel($(e.target).data("pannel"));
 			});
 			$("#logoPrettify .uploadImage").on("change",function(){
-				var file = this.files[0];
-				var reader = new FileReader();
-				reader.onload = function(){
-					var url = reader.result;
+				var file=this.files[0];
+				var reader=new FileReader();
+				reader.onload=function(){
+					var url=reader.result;
 					api.setImage(url);
 				};
 				reader.readAsDataURL(file);
-			});
-			$("#logoPrettify .uploadCanvas").on("click",function(){
-				var image = new Image();
-				image.src = canvas.toDataURL("image/png");
-				return image;
 			});
 		};
 		api.switchPannel = function(pannelID){
@@ -133,9 +128,12 @@ $(function(){
 			module.init = function(){
 				if(!hasImage)return;
 				$.fn.imagecrop.init(canvas);
+				$('#cropConfirm').on('click',function(){
+					$.fn.imagecrop.cropSave();
+				});
 			};
 			module.destory = function(){
-				
+				$.fn.imagecrop.destory();
 			};
 			return module;
 		}();
@@ -373,7 +371,7 @@ $(function(){
 
 $(
 	$.fn.imagecrop = function(){
-		var api = {},canvas;
+		var api = {},canvas,cropCanvas;
 		var defaults = {			
 			img: null,
 			sx: 0,
@@ -433,35 +431,86 @@ $(
 				var _this = this;
 				
 				function cropInit(){
-					var crop = document.createElement('canvas');
-					var cropcover = document.getElementById('imgCropCover');
+					var cropcover = document.getElementById('imgCropCover'),
+					cropCon = document.getElementById('imgCrop-con');
+					
+					if(cropCanvas == undefined){
+						cropCanvas = document.createElement('canvas');
+						cropCon.appendChild(cropCanvas);
+
+					}
+					
 					cropcover.style.width = canvas.style.width;
 					cropcover.style.height = canvas.style.height;
 					cropcover.style.top = canvas.offsetTop == "" ? 0 :  canvas.offsetTop+ 'px';
 					cropcover.style.left = canvas.offsetLeft == "" ? 0 :  canvas.offsetLeft + 'px';
-					document.getElementById('imgCrop-con').appendChild(crop);
-					
-					crop.width = defaults.swidth;
-					crop.height = defaults.sheight;
-					crop.style.left = '0';
-					crop.style.top = '0';
+
+					cropCanvas.width = defaults.swidth;
+					cropCanvas.height = defaults.sheight;
+					cropCanvas.style.left = cropCon.style.left = '0';
+					cropCanvas.style.top = cropCon.style.top = '0';
 					cropcover.style.display = "block";
 					/* 画裁剪图 */
 					var imageClone = defaults.img;
-					var cropCtx = crop.getContext('2d');
+					var cropCtx = cropCanvas.getContext('2d');
 
 					var bbox = canvas.getBoundingClientRect();
 					var scale = bbox.width/canvas.width;
 					cropCtx.drawImage(imageClone, 0, 0, defaults.swidth/scale, defaults.sheight/scale, 0, 0, defaults.swidth, defaults.sheight);
-					_this.dropCrop(crop,cropCtx);				
+					
+					_this.dropCrop(cropCanvas,cropCtx);
+
 					
 				}
 				cropInit();
 			},
+			closeCrop:function(){
+				var cropcover = document.getElementById('imgCropCover');
+				cropcover.style.display = "none";
+			},
 			dropCrop:function(crop,cropCtx){
-				var clickFlag = 0, dx, dy, left, top;
+				var dx, dy, left, top;
 				var moveele = $("#imgCrop-con")[0];
+				var bbox = canvas.getBoundingClientRect();
+				var scale = canvas.width/bbox.width;
 				$("#imgCrop-con").find('canvas').on({
+					 'touchstart':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						dx = touch.clientX;
+						dy = touch.clientY;						
+						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
+						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+					},
+					'touchmove':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						
+						var pic = moveele;
+						var x = touch.clientX;
+						var y = touch.clientY;
+
+						var rLeft = left + (x - dx);
+						var rTop = top + (y - dy);
+						if(rLeft < 0) rLeft = 0;
+						if(rTop < 0) rTop = 0;
+						if(rLeft > parseInt(canvas.style.width) - pic.offsetWidth) rLeft = parseInt(canvas.style.width) - pic.offsetWidth;
+						if(rTop > parseInt(canvas.style.height) - pic.offsetHeight) rTop = parseInt(canvas.style.height) - pic.offsetHeight;
+
+						pic.style.left = rLeft + "px";
+						pic.style.top = rTop + "px";						
+
+						defaults.x = rLeft*scale;
+						defaults.y = rTop*scale;
+						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+
+					}
+				});
+				/* 1 */
+				var width,height;
+				$("#imgCrop-con").find('.imgCrop-bar-1').on({
 					 'touchstart':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						e.preventDefault();
@@ -470,66 +519,189 @@ $(
 						dy = touch.clientY;
 						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
 						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+						width = defaults.swidth;height = defaults.sheight;
 					},
 					'touchmove':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						e.preventDefault();
-						var touch = e.touches[0];
+						var touch = e.touches[0];						
 						var x = touch.clientX;
-						var y = touch.clientY;
-
-						var pic = moveele;
-						var x = e.clientX;
-						var y = e.clientY;
+						var y = touch.clientY;						
 
 						var rLeft = left + (x - dx);
 						var rTop = top + (y - dy);
 						if(rLeft < 0) rLeft = 0;
 						if(rTop < 0) rTop = 0;
+						if(rLeft > parseInt(canvas.style.width) - moveele.offsetWidth) rLeft = parseInt(canvas.style.width) - moveele.offsetWidth;
+						if(rTop > parseInt(canvas.style.height) - moveele.offsetHeight) rTop = parseInt(canvas.style.height) - moveele.offsetHeight;
+						defaults.swidth = width - (x - dx);
+						defaults.sheight = height - (y - dy);
+						if(defaults.swidth > parseInt(canvas.style.width)) defaults.swidth = parseInt(canvas.style.width);
+						if(defaults.sheight > parseInt(canvas.style.height)) defaults.sheight = parseInt(canvas.style.height);
 
-						pic.style.left = rLeft + "px";
-						pic.style.top = rTop + "px";
-						
-						var nleft = rLeft*defaults.imgwidth/defaults.width,
-							ntop = rTop*defaults.imgheight/defaults.height;
-						
-						cropCtx.drawImage(defaults.img, rLeft , rTop, defaults.swidth, defaults.sheight, 0, 0, defaults.swidth, defaults.sheight);
+						crop.width = defaults.swidth;
+						crop.height = defaults.sheight;
+						moveele.style.left = rLeft + "px";
+						moveele.style.top = rTop + "px";						
 
-					},
-					'touchend':function(e){
-						if (e.originalEvent) e = e.originalEvent;
+						defaults.x = rLeft*scale;
+						defaults.y = rTop*scale;
+						
+						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+
 					}
 				});
-				
-				this.addEvent("#imgCropCover", "touchmove", function(e){
-					var x = e.clientX;
-					var y = e.clientY;
+				/* 2 */
+				$("#imgCrop-con").find('.imgCrop-bar-2').on({
+					 'touchstart':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						dx = touch.clientX;
+						dy = touch.clientY;
+						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
+						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+						width = defaults.swidth;height = defaults.sheight;
+					},
+					'touchmove':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];						
+						var x = touch.clientX;
+						var y = touch.clientY;						
 
-					if(clickFlag){
-					
-						if(e.target.tagName.toLowerCase() == "canvas"){
-							
-						}else{
-							var currentClass = e.target.className;
-							
-						}
+						var rLeft = left;
+						var rTop = top + (y - dy);
+						if(rLeft < 0) rLeft = 0;
+						if(rTop < 0) rTop = 0;
+						if(rLeft > parseInt(canvas.style.width) - moveele.offsetWidth) rLeft = parseInt(canvas.style.width) - moveele.offsetWidth;
+						if(rTop > parseInt(canvas.style.height) - moveele.offsetHeight) rTop = parseInt(canvas.style.height) - moveele.offsetHeight;
+						defaults.swidth = width + (x - dx);
+						defaults.sheight = height - (y - dy);
+						if(defaults.swidth > parseInt(canvas.style.width)) defaults.swidth = parseInt(canvas.style.width);
+						if(defaults.sheight > parseInt(canvas.style.height)) defaults.sheight = parseInt(canvas.style.height);
+
+						crop.width = defaults.swidth;
+						crop.height = defaults.sheight;
+						moveele.style.left = rLeft + "px";
+						moveele.style.top = rTop + "px";						
+
+						defaults.x = rLeft*scale;
+						defaults.y = rTop*scale;
 						
-						
+						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+
 					}
-				})
-				
+				});
+				/* 3 */
+				$("#imgCrop-con").find('.imgCrop-bar-3').on({
+					 'touchstart':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						dx = touch.clientX;
+						dy = touch.clientY;
+						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
+						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+						width = defaults.swidth;height = defaults.sheight;
+					},
+					'touchmove':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];						
+						var x = touch.clientX;
+						var y = touch.clientY;						
+
+						var rLeft = left;
+						var rTop = top;
+						if(rLeft < 0) rLeft = 0;
+						if(rTop < 0) rTop = 0;
+						if(rLeft > parseInt(canvas.style.width) - moveele.offsetWidth) rLeft = parseInt(canvas.style.width) - moveele.offsetWidth;
+						if(rTop > parseInt(canvas.style.height) - moveele.offsetHeight) rTop = parseInt(canvas.style.height) - moveele.offsetHeight;
+						defaults.swidth = width + (x - dx);
+						defaults.sheight = height + (y - dy);
+						if(defaults.swidth > parseInt(canvas.style.width)) defaults.swidth = parseInt(canvas.style.width);
+						if(defaults.sheight > parseInt(canvas.style.height)) defaults.sheight = parseInt(canvas.style.height);
+
+						crop.width = defaults.swidth;
+						crop.height = defaults.sheight;
+						moveele.style.left = rLeft + "px";
+						moveele.style.top = rTop + "px";						
+
+						defaults.x = rLeft*scale;
+						defaults.y = rTop*scale;
+						
+						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+
+					}
+				});
+				/* 4 */
+				$("#imgCrop-con").find('.imgCrop-bar-4').on({
+					 'touchstart':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						dx = touch.clientX;
+						dy = touch.clientY;
+						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
+						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+						width = defaults.swidth;height = defaults.sheight;
+					},
+					'touchmove':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];						
+						var x = touch.clientX;
+						var y = touch.clientY;						
+
+						var rLeft = left + (x - dx);
+						var rTop = top;
+						if(rLeft < 0) rLeft = 0;
+						if(rTop < 0) rTop = 0;
+						if(rLeft > parseInt(canvas.style.width) - moveele.offsetWidth) rLeft = parseInt(canvas.style.width) - moveele.offsetWidth;
+						if(rTop > parseInt(canvas.style.height) - moveele.offsetHeight) rTop = parseInt(canvas.style.height) - moveele.offsetHeight;
+						defaults.swidth = width - (x - dx);
+						defaults.sheight = height + (y - dy);
+						if(defaults.swidth > parseInt(canvas.style.width)) defaults.swidth = parseInt(canvas.style.width);
+						if(defaults.sheight > parseInt(canvas.style.height)) defaults.sheight = parseInt(canvas.style.height);
+
+						crop.width = defaults.swidth;
+						crop.height = defaults.sheight;
+						moveele.style.left = rLeft + "px";
+						moveele.style.top = rTop + "px";						
+
+						defaults.x = rLeft*scale;
+						defaults.y = rTop*scale;
+						
+						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+
+					}
+				});
 
 			}
 		}
 		api.init = function(canvasObj){			
 			imgCrop.init(canvasObj);
 		}
-		api.windowToCanvas = function(x,y,canvas){
-			var bbox = canvas.getBoundingClientRect();
-			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
-					y: Math.round((y - bbox.top)  * (canvas.height / bbox.height))
-				};
-		};
+		api.cropSave = function(){
+			var src = cropCanvas.toDataURL("image/png");			
+			var canvasCtx = canvas.getContext('2d');
+			var cropCanvasCtx = cropCanvas.getContext('2d');
+
+
+			var imgData = cropCanvasCtx.getImageData(0,0,cropCanvas.width,cropCanvas.height);
+			canvas.width = cropCanvas.width;
+			canvas.height = cropCanvas.height;
+			canvas.style.width = cropCanvas.width + 'px';
+			canvas.style.height = cropCanvas.height + 'px';
+			canvasCtx.putImageData(imgData,0,0);
+
+			//convasCtx.drawImage(defaults.img, 0 , 0, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+		}
+		api.destory = function(){
+			imgCrop.closeCrop();
+		}
+		
 		return api;
 	}()
 );
