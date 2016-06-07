@@ -20,7 +20,6 @@ addEventListener("message", function(event) {
 			var segment = stack.pop();
 			processSegment(segment);
 		}
-
 		dataToReturn = createMask();
 	} else {
 		dataToReturn = searchEachPoint();

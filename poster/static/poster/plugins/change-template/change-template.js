@@ -13,6 +13,14 @@
         return $(".yunye-template");
     };
 
+    var getTemplateBoxLayout = function(){
+        return $(".template-box");
+    };
+
+    var getPageCss = function(){
+        return $("#posterPageCss");
+    };
+
     var getLayout = function () {
         return $(".change-template-layout");
     };
@@ -54,13 +62,23 @@
                 event.stopPropagation();
             });
         },
+        resetEditArea: function(resp){
+            $.fn.yyTools.mask();
+            var html = resp.temp_html,
+                css = resp.temp_css;
+            html = $.base64.decode(html);
+            css = $.base64.decode(css);
+            getParentLayout().remove();
+            getTemplateBoxLayout().append(html);
+            getPageCss().empty().append(css);
+            fullcontainer = $('.yunye-template').eq(0);
+            addDefaultButtons();
+            window.onresize();
+        },
         update: function (templateId) {
             var self = this;
-            yyConfirm("更换模板会丢弃当前已编辑的模板内容，您确定要继续吗？", function () {
+            yyConfirm("更换模板会丢弃当前已编辑的模板主体内容，您确定要继续吗？", function () {
                 self.destroy();
-                //清理本地页面编辑缓存
-                $.fn.yunyeStorage.cleanPage();
-                window.onunload = function(){};
                 //显示遮罩
                 $.fn.yyTools.mask(1);
 
@@ -72,11 +90,11 @@
                         "poster_id": self.posterId,
                         "template_id": templateId
                     },
-                    success: function(posterPage){
-                        $.fn.yyTools.mask();
-                        yyAlert("模板更换成功, 确定后将刷新当页面！", function(){
-                            window.location.reload();
-                        });
+                    success: function(resp){
+                        $.fn.yunyeStorage.cleanPage();
+                        yunyeEditorGlobal.templateId = templateId;
+                        self.resetEditArea(resp);
+                        yyAlert("模板更换成功!");
                     },
                     error: function () {
                         $.fn.yyTools.mask();
@@ -94,13 +112,14 @@
                     "poster_id": self.posterId,
                     "template_id": templateId
                 },
-                success: function(posterPage){
+                success: function(resp){
                     $.fn.yyTools.mask();
-                    yyConfirm("新建页面成功，是否立即跳转到新页面？", function(){
-                        window.location.href = "/poster/{0}/edit/{1}".format(
-                            self.posterId,
-                            posterPage.id
-                        );
+                    yyConfirm("新建页面成功，是否立即编辑新页面？", function(){
+                        self.posterPageId = resp.id;
+                        yunyeEditorGlobal.posterPageId = resp.id;
+                        yunyeEditorGlobal.posterPageId = templateId;
+                        $.fn.yunyeStorage.init();
+                        self.resetEditArea(resp);
                     });
                 },
                 error: function () {
@@ -130,7 +149,6 @@
         setMiddleHeight: function () {
             var h = getLayout().outerHeight() - this.getHeaderHeight() - this.getFooterHeight() - 100;
             this.getMiddle().css({"height": h + "px"});
-            console.log(h);
         },
         getTemplateList: function ($container) {
             getLayout().click(function (event) {
