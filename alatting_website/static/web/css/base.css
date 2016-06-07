@@ -821,6 +821,7 @@ body.active .poster-item {
     width: 50%;
     float: right;
     margin: 2% 3% 0 0;
+    height: 97%;
 }
 
 .imgshow-img img {

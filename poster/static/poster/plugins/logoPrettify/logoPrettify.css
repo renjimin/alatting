@@ -91,7 +91,7 @@
 
 
 /* 裁剪 */
-.imgCrop-cover{ position:absolute;width:100%;height:100%;top:0;left:0;}
+.imgCrop-cover{ position:absolute;width:100%;height:100%;top:0;left:0;display: none;z-index:20;}
 .imgCrop-cover-main{position:absolute;width:100%;height:100%;top:0;left:0;background-color:rgba(0,0,0,.5);}
 .imgCrop-cover canvas{left:0;top:0;z-index:20;}
 
