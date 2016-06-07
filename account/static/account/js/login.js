@@ -266,15 +266,19 @@ $(document).ready(function () {
 					ths.addClass('open');
 					ths.children('ul').show();
 				};*/
-				ths.on('touchstart', '.sli-server', function (event) {
-					event.stopPropagation();
-					selectedname = $(this).attr('data-name');
-					$("#id_sub_category_ids").val($(this).attr('data-id'));
-					//$('.div-server').fadeOut(200);
-				});
+				if($('.regist-industryinput').val().length==0){
+					ths.on('touchstart', '.sli-server', function (event) {
+						event.stopPropagation();
+						selectedname = $(this).attr('data-name');
+						$("#id_sub_category_ids").val($(this).attr('data-id'));
+						//$('.div-server').fadeOut(200);
+					});
+				}else{
+					yyAlert("您已输入了行业");
+					return false;
+				}
 			});
 			selected.on('touchstart', '.glyphicon-ok-circle', function () {
-				console.log(selectedname);
 				if(selectedname.length>0){
 					$('.selectserver').text(selectedname);
 					$('.regist-industryinput').attr('disabled',true);
