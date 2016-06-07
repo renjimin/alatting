@@ -225,61 +225,64 @@ $(document).ready(function () {
         }else{
             $('.div-server').fadeIn(200);
         };
-        selected.on('click', '.li-server', function () {
-            var ths = $(this);
-            var sid = $(this).attr('data-id');
-            var ssbox = '';
-            main_name = $(this).attr('data-name');
-            if($('.li-server').hasClass('open')){
-                $('.li-server').removeClass('open');
-                $('.li-server').children('ul').hide();
-            }
-            if (ths.hasClass('open')) {
-                ths.removeClass('open');
-                ths.children('ul').hide();
-            }else{
-                ths.addClass('open');
-                ths.children('ul').show();
-            };
-            //ths.addClass('open');
-            $("#id_main_category").val(sid);
-             if (ths.find("li").length == 0) {
-                selectTrade(sid, function (data) {
-                    ssbox = '<ul class = "sul-server">'
-                    for (var i = 0; i < data.length; i++) {
-                        ssbox += '<li class = "sli-server" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '</li>';
-                        // console.log(data.length);
-                    } ;
-                    ssbox += '</ul>'
-                        ths.append(ssbox);
+        if($('.li-server').length ==0){
+            selected.on('click', '.li-server', function () {
+                var ths = $(this);
+                var sid = $(this).attr('data-id');
+                var ssbox = '';
+                main_name = $(this).attr('data-name');
+                if($('.li-server').hasClass('open')){
+                    $('.li-server').removeClass('open');
+                    $('.li-server').children('ul').hide();
+                }
+                if (ths.hasClass('open')) {
+                    ths.removeClass('open');
+                    ths.children('ul').hide();
+                }else{
+                    ths.addClass('open');
+                    ths.children('ul').show();
+                };
+                //ths.addClass('open');
+                $("#id_main_category").val(sid);
+                 if (ths.find("li").length == 0) {
+                    selectTrade(sid, function (data) {
+                        ssbox = '<ul class = "sul-server">'
+                        for (var i = 0; i < data.length; i++) {
+                            ssbox += '<li class = "sli-server" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '</li>';
+                            // console.log(data.length);
+                        } ;
+                        ssbox += '</ul>'
+                            ths.append(ssbox);
+                    });
+                 }else{
+                    
+                 }
+                /*if (ths.hasClass('open')) {
+                    ths.removeClass('open');
+                    ths.children('ul').hide();
+                }else{
+                    ths.addClass('open');
+                    ths.children('ul').show();
+                };*/
+                $('.li-server').on('click', '.sli-server', function (event) {
+                    event.stopPropagation();
+                    selectedname = $(this).attr('data-name');
+                    $('.selectserver').text(selectedname);
+                    $("#id_sub_category_ids").val($(this).attr('data-id'));
+                    //$('.div-server').fadeOut(200);
                 });
-             }else{
-
-             }
-            /*if (ths.hasClass('open')) {
-                ths.removeClass('open');
-                ths.children('ul').hide();
-            }else{
-                ths.addClass('open');
-                ths.children('ul').show();
-            };*/
-            $('.li-server').on('click', '.sli-server', function (event) {
-                event.stopPropagation();
-                selectedname = $(this).attr('data-name');
-                $('.selectserver').text(selectedname);
-                $("#id_sub_category_ids").val($(this).attr('data-id'));
-                //$('.div-server').fadeOut(200);
             });
-        });
-        selected.on('click', '.glyphicon-ok-circle', function () {
-            if(selectedname.length>0){
-                $('.selectserver').text(selectedname);
-                $('.regist-industryinput').attr('disabled',true);
-            }else{
-            	$('.selectserver').text(main_name);
+console.log(selectedname)
+            selected.on('click', '.glyphicon-ok-circle', function () {
+                if(selectedname.length>0){
+                    $('.selectserver').text(selectedname);
+                    $('.regist-industryinput').attr('disabled',true);
+                }else{
+                    $('.selectserver').text(main_name);
+                }
+                $('.div-server').fadeOut(200);
+            })
             }
-            $('.div-server').fadeOut(200);
-        })
     });
 
     $('.selectprovider').click(function () {
@@ -326,7 +329,7 @@ $(document).ready(function () {
                 };
             })
             selected.off('click','.sli-provider').on('click', '.sli-provider',function (event) {
-                var selectedname = $(this).attr('data-name');
+                //var selectedname = $(this).attr('data-name');
                 var ths = $(this);
                 event.stopPropagation();
                 if ($(event.target).hasClass("glyphicon")) {
