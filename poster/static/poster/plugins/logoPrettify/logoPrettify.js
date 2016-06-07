@@ -200,6 +200,7 @@ $(function(){
 			var offset = 0;
 			self.selectedOutline = self.createOutlineMask(imageData, 0xC0);
 
+			clearInterval(this.antsInterval);
 			self.antsInterval = setInterval(function() {
 				context.putImageData(self.renderMarchingAnts(imageData, self.selectedOutline, offset -= 2), 0, 0);
 			}, 167);
@@ -266,10 +267,10 @@ $(function(){
 		api.contiguous = true;
 
 		api.active = function(){
-			$("#selectCanvas").on("click",function(e){
+			$("#selectCanvas").off("click").on("click",function(e){
 				api.buildSelection(e);
 			});
-			$(".editCanvasContainer").on("click",function(e){
+			$(".editCanvasContainer").off("click").on("click",function(e){
 				if(document.getElementById("selectCanvas").selectedPixels)api.destorySelection();
 			});
 		};
@@ -294,7 +295,7 @@ $(function(){
 				marchingAnts.ants(selectionCanvas, pixels);
 			});
 		};
-		api.destorySelection = function(e){
+		api.destorySelection = function(){
 			var selectionCanvas = document.getElementById("selectCanvas");
 			var selectionContext = selectionCanvas.getContext('2d');
 			marchingAnts.deselect();
