@@ -20,8 +20,12 @@ $(function(){
         }
         if($('#type-model').hasClass('open')){
             $('#type-model').removeClass('open');
+            $('#type-model').off('touchstart');
         }else{
             $('#type-model').addClass('open');
+            $('#type-model').on('touchstart',function(e){
+                e.stopPropagation();
+            });
         }
     });
     $('#hide-cate').click(function(){
