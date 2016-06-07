@@ -374,11 +374,11 @@ $(function () {
 							'background': 'url(' + img + ')',
 							'background-size': '100% 100%'
 						});
-						$('.header,.yunye-template,.bar-header,.bar-footer').css('background', 'none');
+						$('.header,.yunye-template').css('background', 'none');
 						storageAPI.setCss(".header", {'background': 'none'});
 						storageAPI.setCss(".yunye-template", {'background': 'none'});
-						storageAPI.setCss(".bar-header", {'background': 'none'});
-						storageAPI.setCss(".bar-footer", {'background': 'none'});
+						//storageAPI.setCss(".bar-header", {'background': 'none'});
+						//storageAPI.setCss(".bar-footer", {'background': 'none'});
 						$(".system-item").fadeOut(500);
 					});
 				}
@@ -390,10 +390,10 @@ $(function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
 					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
 						$('body').css('background', color);
-						$('.bar-header,.bar-footer,.yunye-template,.header').css('background', color);
+						$('.yunye-template,.header').css('background', color);
 						storageAPI.setCss("body", {'background': color});
-						storageAPI.setCss(".bar-header", {'background': color});
-						storageAPI.setCss(".bar-footer", {'background': color});
+						//storageAPI.setCss(".bar-header", {'background': color});
+						//storageAPI.setCss(".bar-footer", {'background': color});
 						storageAPI.setCss(".yunye-template", {'background': color});
 						storageAPI.setCss(".header", {'background': color});
 					});
@@ -534,7 +534,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday6" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :	"Saturday" ,
+					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :	"Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
