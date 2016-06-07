@@ -14,7 +14,7 @@
             var bIsAndroid = ua.match(/android/i) == "android";
             var bIsWM = ua.match(/windows mobile/i) == "windows mobile";
             if (bIsIpad || bIsIphoneOs || bIsAndroid || bIsWM) {
-                window.location.href = document.location.origin +  "/mobile/posters/{{ poster.id }}/edit/{{ posterpage.id }}"
+                window.location.href = document.location.origin +  "/mobile/posters/{{ poster.id }}/edit"
             }
         })();
     </script>

@@ -30,12 +30,15 @@
         <form method="post" action="{% url 'poster:posterpage' %}"
               id="selForm">
             <input type="hidden" name="poster_id"
-                   value="{{ request.GET.poster_id }}"/>
+                   value="{{ poster_id }}"/>
             <input type="hidden" name="template_id" id="template_id" value=""/>
+            {% if request.GET.back != "0" %}
+                <a href="javascript:void(0);"
+                   class="btn btn-default history-back"
+                   data-back-url="{% url 'survey:start' poster_id=poster_id %}?role=creator">返回</a>
+            {% endif %}
             <a href="javascript:void(0);"
-               class="btn btn-default history-back" data-back-url="{% url 'survey:start' poster_id=request.GET.poster_id %}?role=creator">返回</a>
-            <a href="javascript:void(0);"
-               class="btn btn-default create-template">创建</a>
+               class="btn btn-default create-template">确定</a>
         </form>
     </footer>
 {% endblock %}

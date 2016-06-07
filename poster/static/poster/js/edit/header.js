@@ -2,12 +2,15 @@ $(function () {
     var storageAPI = $.fn.yunyeStorage,
         saveData = function () {
             function parseStyle(string) {
-                var atrributes = string.split(";");
+                var attrs = [];
+                if(string){
+                    attrs = string.split(";")
+                }
                 var returns = {};
-                for (var i in atrributes) {
-                    if (i == atrributes.length - 1)return returns;
-                    var key = $.trim(atrributes[i].split(":")[0]),
-                        value = $.trim(atrributes[i].split(":")[1]);
+                for (var i in attrs) {
+                    if (i == attrs.length - 1)return returns;
+                    var key = $.trim(attrs[i].split(":")[0]),
+                        value = $.trim(attrs[i].split(":")[1]);
                     returns[key] = value;
                 }
             }
@@ -143,9 +146,8 @@ $(function () {
                             success: function (posterPage) {
                                 $.fn.yyTools.mask();
                                 yyConfirm("复制页面成功, 是否立即跳转到新页面！", function () {
-                                    window.location.href = "/poster/{0}/edit/{1}".format(
-                                        yunyeEditorGlobal.posterId,
-                                        posterPage.id
+                                    window.location.href = "/poster/{0}/edit".format(
+                                        yunyeEditorGlobal.posterId
                                     );
                                 });
                             },
