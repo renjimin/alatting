@@ -88,3 +88,8 @@
 	margin-top: -40px;
 	padding-top: 40px;
 }
+#selectCanvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
