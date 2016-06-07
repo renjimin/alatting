@@ -83,19 +83,19 @@ $(function(){
 			module.init = function(){
 				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
-					$("#selectCanvas").show();
 					$.fn.magicWand.active();
 				});
 				$("#editPannel_1 .deleteSelection").on("click",function(){
 					if(!hasImage)return;
-					$("#selectCanvas").hide();
 					$.fn.Selection.deleteSelectedPixels();
 				});
+				$("#selectCanvas").show();
 			};
 			module.destory = function(){
 				$("#editPannel_1 .magicWand").off("click");
 				$("#editPannel_1 .deleteSelection").off("click");
 				$.fn.magicWand.deactive();
+				$("#selectCanvas").hide();
 			};
 			return module;
 		}();
