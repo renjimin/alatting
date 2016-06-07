@@ -288,7 +288,7 @@ $(document).ready(function () {
                  selectTrade(0, function (data) {
                     var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
                     for (var i = 0; i < data.length; i++) {
-                        sbox += '<li class = "li-provider" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
+                        sbox += '<li class = "li-provider" data-name = "'+data[i].name+'" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
                     }
                     sbox += '</ul></div>';
                     selected.append(sbox);
