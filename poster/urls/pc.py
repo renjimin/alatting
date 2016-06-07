@@ -16,7 +16,7 @@ urlpatterns = [
 
 # 编辑海报
 urlpatterns += [
-    url(r'^(?P<poster_pk>[\d]+)/edit/(?P<pk>[\d]+)$',
+    url(r'^(?P<poster_pk>[\d]+)/edit$',
         login_required(PosterEditView.as_view()),
         name='edit'),
 ]

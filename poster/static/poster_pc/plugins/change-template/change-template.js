@@ -97,9 +97,8 @@
                 success: function(posterPage){
                     $.fn.yyTools.mask();
                     yyConfirm("新建页面成功，是否立即跳转到新页面？", function(){
-                        window.location.href = "/poster/{0}/edit/{1}".format(
-                            self.posterId,
-                            posterPage.id
+                        window.location.href = "/poster/{0}/edit".format(
+                            self.posterId
                         );
                     });
                 },

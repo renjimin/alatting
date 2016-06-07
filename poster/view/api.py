@@ -606,7 +606,7 @@ class ServiceBargainListView(ListCreateAPIView):
         qs = qs.filter(poster_id=poster.id)
         if self.request.user.person.user_type == Person.USER_TYPE_CONSUMER:
             qs = qs.filter(consumer=self.request.user)
-        return qs.order_by('-created_at')
+        return qs.order_by('created_at')
 
     def _server_create(self, poster, serializer):
         if poster.creator != self.request.user:

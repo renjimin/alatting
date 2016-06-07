@@ -40,9 +40,10 @@ class QuestionnaireBlankView(View):
 	def post(self, request, **kwargs):
 		role = self.request.GET.get('role', '')
 		if role == "creator":
-			return HttpResponseRedirect('%s?poster_id=%s' % (
-			reverse('poster:select_template'),
-			self.kwargs['poster_id']))
+			return HttpResponseRedirect(
+                reverse('posters:select_template',
+                        kwargs={'poster_pk': self.kwargs['poster_id']}
+                        ))
 		else:
 			kwargs = {'pk': self.kwargs['poster_id']}
 			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
@@ -334,7 +335,10 @@ class QuestionnaireView(View):
 		RunInfo.objects.filter(subject=hist.subject, questionset__in = hist.questionnaire.questionsets,
 			poster=hist.poster).delete()
 		if hist.questionnaire.role == "creator":
-			return HttpResponseRedirect('%s?poster_id=%s' % (reverse('poster:select_template'), hist.poster.pk))
+			return HttpResponseRedirect(
+                reverse('posters:select_template',
+                        kwargs={'poster_pk': hist.poster.id}
+                        ))
 		else:
 			kwargs = {'pk': runinfo.poster.pk}
 			return HttpResponseRedirect(reverse('posters:show', kwargs=kwargs))
