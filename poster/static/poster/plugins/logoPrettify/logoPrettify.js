@@ -18,7 +18,7 @@ $(function(){
 			$(".closeLogoPrettify").off("click");
 			$(".editMenuGroup button").off("click");
 			$("#logoPrettify").hide();
-			if(api[currentPannel] && api[currentPannel].destory)api[pannelID].destory();
+			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
@@ -77,9 +77,14 @@ $(function(){
 					if(!hasImage)return;
 					$.fn.magicWand.active();
 				});
+				$("#editPannel_1 .deleteSelection").on("click",function(){
+					if(!hasImage)return;
+					$.fn.Selection.deleteSelectedPixels();
+				});
 			};
 			module.destory = function(){
-				$("#editPannel_1 .fa.fa-fa-magic").off("click");
+				$("#editPannel_1 .magicWand").off("click");
+				$("#editPannel_1 .deleteSelection").off("click");
 			};
 			return module;
 		}();
@@ -294,6 +299,36 @@ $(function(){
 			tempCanvas.height = h;
 			tempContext.drawImage(dataCanvas, 0, 0, dataW, dataH, 0, 0, w, h);
 			return tempContext.getImageData(0, 0, w, h);
+		};
+		return api;
+	}();
+});
+
+$(function(){
+	$.fn.Selection = function(){
+		var api = {};
+
+		api.deleteSelectedPixels = function() {
+			var canvas = document.querySelector('#editCanvas');
+			var ctx = canvas.getContext('2d');
+			var selectionCanvas = document.querySelector('#selectCanvas');
+			if(!selectionCanvas.selectedPixels) return;
+
+			var w = canvas.width;
+			var h = canvas.height;
+			var displayW = selectionCanvas.width;
+			var displayH = selectionCanvas.height;
+
+			var tempCanvas = document.createElement('canvas');
+			var tempContext = tempCanvas.getContext('2d');
+			tempCanvas.width = w;
+			tempCanvas.height = h;
+			tempContext.putImageData(selectionCanvas.selectedPixels, 0, 0);
+
+			ctx.save();
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.drawImage(tempCanvas, 0, 0, w, h, 0, 0, displayW, displayH);
+			ctx.restore();
 		};
 		return api;
 	}();
