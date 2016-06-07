@@ -22,10 +22,10 @@ $(function(){
             $('#type-model').removeClass('open');
             $('#type-model').off('touchstart');
         }else{
-            $('#type-model').css('top',$('body').scrollTop()+'px');
+            //$('#type-model').css('top',$('body').scrollTop()+'px');
             $('#type-model').addClass('open');
             var top,startY;
-            $('#type-model .type-model-containar').on({
+            /*$('#type-model .type-model-containar').on({
                 'touchstart':function(e){
                     if (e.originalEvent) e = e.originalEvent;
                     e.preventDefault();e.stopPropagation();
@@ -44,7 +44,7 @@ $(function(){
                     event.preventDefault();
                     event.stopPropagation();
                 }
-            });
+            });*/
         }
     });
     $('#hide-cate').click(function(){
