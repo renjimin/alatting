@@ -134,9 +134,9 @@ function liked(){
 		yyAlert("Thanks for your like!");
 	}).fail(function(jqXHR){
 		if(jqXHR.status == 401 || jqXHR.status == 403){
-			window.location.href = loginURL
+			window.location.href = loginURL;
 		}
-	})
+	});
 }
 
 function fun(){
@@ -144,7 +144,7 @@ function fun(){
 		$(".abutton-fun").addClass("clicked");
 		yyAlert("Glad you have fun!");
 	}).fail(function(jqXHR){
-	})
+	});
 }
 
 function bookmarked(){
@@ -163,9 +163,9 @@ function bookmarked(){
 		yyAlert("Thanks for your favorites!");
 	}).fail(function(jqXHR){
 		if(jqXHR.status == 401 || jqXHR.status == 403){
-			window.location.href = loginURL
+			window.location.href = loginURL;
 		}
-	})
+	});
 }
 function subscribed(){
 	$.post(subscribedURL).done(function(object){
@@ -173,7 +173,7 @@ function subscribed(){
 		yyAlert("Thanks for your subsription!");
 	}).fail(function(jqXHR){
 		if(jqXHR.status == 401 || jqXHR.status == 403){
-			window.location.href = loginURL
+			window.location.href = loginURL;
 		}
-	})
+	});
 }

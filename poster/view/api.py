@@ -491,6 +491,7 @@ class CategoryListView(ListAPIView):
         audit_status=Category.AUDIT_STATUS_PASS
     )
     serializer_class = CategorySerializer
+    permission_classes = ()
 
     def get_queryset(self):
         qs = super(CategoryListView, self).get_queryset()

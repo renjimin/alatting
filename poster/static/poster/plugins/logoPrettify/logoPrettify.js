@@ -18,7 +18,10 @@ $(function(){
 			$(".closeLogoPrettify").off("click");
 			$(".editMenuGroup button").off("click");
 			$("#logoPrettify").hide();
-			if(api[currentPannel] && api[currentPannel].destory)api[pannelID].destory();
+			
+			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
+			currentPannel = null;
+			$("#logoPrettify .editMenuGroup section").hide();
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
@@ -28,13 +31,18 @@ $(function(){
 				api.switchPannel($(e.target).data("pannel"));
 			});
 			$("#logoPrettify .uploadImage").on("change",function(){
-				var file=this.files[0];
-				var reader=new FileReader();
-				reader.onload=function(){
-					var url=reader.result;
+				var file = this.files[0];
+				var reader = new FileReader();
+				reader.onload = function(){
+					var url = reader.result;
 					api.setImage(url);
 				};
 				reader.readAsDataURL(file);
+			});
+			$("#logoPrettify .uploadCanvas").on("click",function(){
+				var image = new Image();
+				image.src = canvas.toDataURL("image/png");
+				return image;
 			});
 		};
 		api.switchPannel = function(pannelID){
@@ -77,9 +85,15 @@ $(function(){
 					if(!hasImage)return;
 					$.fn.magicWand.active();
 				});
+				$("#editPannel_1 .deleteSelection").on("click",function(){
+					if(!hasImage)return;
+					$.fn.Selection.deleteSelectedPixels();
+				});
 			};
 			module.destory = function(){
-				$("#editPannel_1 .fa.fa-fa-magic").off("click");
+				$("#editPannel_1 .magicWand").off("click");
+				$("#editPannel_1 .deleteSelection").off("click");
+				$.fn.magicWand.deactive();
 			};
 			return module;
 		}();
@@ -87,7 +101,7 @@ $(function(){
 			var module = {};
 			module.init = function(){
 				if(!hasImage)return;
-				
+				$.fn.imagecrop.init(canvas);
 			};
 			module.destory = function(){
 				
@@ -253,9 +267,13 @@ $(function(){
 			$("#selectCanvas").on("click",function(e){
 				api.buildSelection(e);
 			});
+			$(".editCanvasContainer").on("click",function(e){
+				if(document.getElementById("selectCanvas").selectedPixels)api.destorySelection();
+			});
 		};
 		api.deactive = function(){
 			$("#selectCanvas").off("click");
+			api.destorySelection();
 		};
 		api.buildSelection = function(e){
 			var canvas = document.getElementById("editCanvas");
@@ -273,6 +291,13 @@ $(function(){
 				var pixels = api.scaleImageData(selectedPixels, selectionCanvas.width, selectionCanvas.height);
 				marchingAnts.ants(selectionCanvas, pixels);
 			});
+		};
+		api.destorySelection = function(e){
+			var selectionCanvas = document.getElementById("selectCanvas");
+			var selectionContext = selectionCanvas.getContext('2d');
+			marchingAnts.deselect();
+			selectionContext.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
+			selectionCanvas.selectedPixels = null;
 		};
 		api.windowToCanvas = function(x,y,canvas){
 			var bbox = canvas.getBoundingClientRect();
@@ -299,8 +324,195 @@ $(function(){
 	}();
 });
 
+$(function(){
+	$.fn.Selection = function(){
+		var api = {};
+
+		api.deleteSelectedPixels = function() {
+			var canvas = document.querySelector('#editCanvas');
+			var ctx = canvas.getContext('2d');
+			var selectionCanvas = document.querySelector('#selectCanvas');
+			if(!selectionCanvas.selectedPixels) return;
+
+			var w = canvas.width;
+			var h = canvas.height;
+			var displayW = selectionCanvas.width;
+			var displayH = selectionCanvas.height;
+
+			var tempCanvas = document.createElement('canvas');
+			var tempContext = tempCanvas.getContext('2d');
+			tempCanvas.width = w;
+			tempCanvas.height = h;
+			tempContext.putImageData(selectionCanvas.selectedPixels, 0, 0);
+
+			ctx.save();
+			ctx.globalCompositeOperation = 'destination-out';
+			ctx.drawImage(tempCanvas, 0, 0, w, h, 0, 0, displayW, displayH);
+			ctx.restore();
+		};
+		return api;
+	}();
+});
+
 $(
 	$.fn.imagecrop = function(){
-		
+		var api = {},canvas;
+		var defaults = {			
+			img: null,
+			sx: 0,
+			sy: 0,
+			swidth: 100,
+			sheight: 100,
+			x: 0,
+			y: 0,
+			width: 400,
+			height: 400,
+			imgwidth: 0,
+			imgheight: 0
+		}
+		var imgCrop = {
+			pic:null,
+			addEvent: function(selector, eventType, func){
+				var proName = "";
+				switch(true){
+					case /^\./.test(selector) :
+						proName = "className";
+						selector = selector.replace(".", "");
+						break;
+					case /^\#/.test(selector) :
+						proName = "id";
+						selector = selector.replace("#", "");
+						break;
+					default: 
+						proName = "tagName";
+				}
+				document.body.addEventListener(eventType,function(e){
+						function check(node){
+							if(! node.parentNode) return;
+
+							if(node[proName] == selector){
+								func.call(node, e);
+							};
+							check(node.parentNode);
+						}
+						check(e.target);
+				}, false);
+			},
+			eventAtt:function(){
+			},
+			init:function(canvasObj){
+				var _this = this;
+				canvas = canvasObj;
+				var image = new Image();
+				image.src = canvas.toDataURL("image/png");
+
+				defaults.img = image
+
+				_this.initView();
+				_this.eventAtt();
+				
+			},
+			initView:function(){
+				var _this = this;
+				
+				function cropInit(){
+					var crop = document.createElement('canvas');
+					var cropcover = document.getElementById('imgCropCover');
+					cropcover.style.width = canvas.style.width;
+					cropcover.style.height = canvas.style.height;
+					cropcover.style.top = canvas.offsetTop == "" ? 0 :  canvas.offsetTop+ 'px';
+					cropcover.style.left = canvas.offsetLeft == "" ? 0 :  canvas.offsetLeft + 'px';
+					document.getElementById('imgCrop-con').appendChild(crop);
+					
+					crop.width = defaults.swidth;
+					crop.height = defaults.sheight;
+					crop.style.left = '0';
+					crop.style.top = '0';
+					cropcover.style.display = "block";
+					/* 画裁剪图 */
+					var imageClone = defaults.img;
+					var cropCtx = crop.getContext('2d');
+
+					var bbox = canvas.getBoundingClientRect();
+					var scale = bbox.width/canvas.width;
+					cropCtx.drawImage(imageClone, 0, 0, defaults.swidth/scale, defaults.sheight/scale, 0, 0, defaults.swidth, defaults.sheight);
+					_this.dropCrop(crop,cropCtx);				
+					
+				}
+				cropInit();
+			},
+			dropCrop:function(crop,cropCtx){
+				var clickFlag = 0, dx, dy, left, top;
+				var moveele = $("#imgCrop-con")[0];
+				$("#imgCrop-con").find('canvas').on({
+					 'touchstart':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						dx = touch.clientX;
+						dy = touch.clientY;
+						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
+						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+					},
+					'touchmove':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						var x = touch.clientX;
+						var y = touch.clientY;
+
+						var pic = moveele;
+						var x = e.clientX;
+						var y = e.clientY;
+
+						var rLeft = left + (x - dx);
+						var rTop = top + (y - dy);
+						if(rLeft < 0) rLeft = 0;
+						if(rTop < 0) rTop = 0;
+
+						pic.style.left = rLeft + "px";
+						pic.style.top = rTop + "px";
+						
+						var nleft = rLeft*defaults.imgwidth/defaults.width,
+							ntop = rTop*defaults.imgheight/defaults.height;
+						
+						cropCtx.drawImage(defaults.img, rLeft , rTop, defaults.swidth, defaults.sheight, 0, 0, defaults.swidth, defaults.sheight);
+
+					},
+					'touchend':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+					}
+				});
+				
+				this.addEvent("#imgCropCover", "touchmove", function(e){
+					var x = e.clientX;
+					var y = e.clientY;
+
+					if(clickFlag){
+					
+						if(e.target.tagName.toLowerCase() == "canvas"){
+							
+						}else{
+							var currentClass = e.target.className;
+							
+						}
+						
+						
+					}
+				})
+				
+
+			}
+		}
+		api.init = function(canvasObj){			
+			imgCrop.init(canvasObj);
+		}
+		api.windowToCanvas = function(x,y,canvas){
+			var bbox = canvas.getBoundingClientRect();
+			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
+					y: Math.round((y - bbox.top)  * (canvas.height / bbox.height))
+				};
+		};
+		return api;
 	}()
 );
