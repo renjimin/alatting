@@ -64,6 +64,8 @@ $(function(){
 			}
 			$("#selectCanvas").width($("#editCanvas").width());
 			$("#selectCanvas").height($("#editCanvas").height());
+			$("#selectCanvas").css("top",$("#editCanvas").offset().top);
+			$("#selectCanvas").css("left",$("#editCanvas").offset().left);
 		};
 		api.uploadImage = function(){
 			
@@ -80,7 +82,7 @@ $(function(){
 				$("#editPannel_1 .fa.fa-fa-magic").off("click");
 			};
 			return module;
-		};
+		}();
 		api.editPannel_4 = function(){
 			var module = {};
 			module.init = function(){
@@ -203,8 +205,8 @@ $(function(){
 		this.width = src.width;
 		this.height = src.height;
 		this.pickedPoint = {
-				x: point.x,
-				y: point.y
+			x: point.x,
+			y: point.y
 		};
 		this.visited = [];
 		this.marked = [];
@@ -216,8 +218,8 @@ $(function(){
 		this.stack = [];
 	};
 	$.fn.selectionBuilder.prototype.mask = function(callback) {
-		 var self = this;
-		var worker = new Worker('http://localhost:8000/static/poster/plugins/logoPrettify/selection_builder.worker.js');
+		var self = this;
+		var worker = new Worker(window.location.origin + "/static/poster/plugins/logoPrettify/selection_builder.worker.js");
 		var canvas = document.createElement('canvas');
 		var context = canvas.getContext('2d');
 		var imgData = context.createImageData(self.width, self.height);
@@ -248,7 +250,6 @@ $(function(){
 		api.contiguous = true;
 
 		api.active = function(){
-			console.log(1);
 			$("#selectCanvas").on("click",function(e){
 				api.buildSelection(e);
 			});
@@ -257,14 +258,12 @@ $(function(){
 			$("#selectCanvas").off("click");
 		};
 		api.buildSelection = function(e){
-			console.log(e);
 			var canvas = document.getElementById("editCanvas");
 			var canvasContext = canvas.getContext('2d');
 			var selectionCanvas = document.getElementById("selectCanvas");
 			var selectionContext = selectionCanvas.getContext('2d');
 			var point = api.windowToCanvas(e.clientX, e.clientY, canvas);
 			var src = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
-			console.log(point);
 
 			marchingAnts.deselect();
 			selectionContext.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
@@ -277,8 +276,8 @@ $(function(){
 		};
 		api.windowToCanvas = function(x,y,canvas){
 			var bbox = canvas.getBoundingClientRect();
-			return { x: Math.round(x - bbox.left * (canvas.width  / bbox.width)),
-					y: Math.round(y - bbox.top  * (canvas.height / bbox.height))
+			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
+					y: Math.round((y - bbox.top)  * (canvas.height / bbox.height))
 				};
 		};
 		api.scaleImageData = function(data, w, h) {
