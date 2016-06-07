@@ -94,6 +94,7 @@ class StartShowView(RedirectView):
         else:
             main_category = category
 
+        poster = Poster.objects.latest('id')
         role = self.request.GET.get('role', '')
         qu = Questionnaire.objects.filter(main_category=main_category,
                                           role=role).first()
@@ -104,7 +105,6 @@ class StartShowView(RedirectView):
                 role
             )
 
-        poster = Poster.objects.latest('id')
         su = self.request.user
         prev_run = RunInfo.objects.filter(
             subject=su,
