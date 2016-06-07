@@ -96,7 +96,7 @@ $(function(){
 			var module = {};
 			module.init = function(){
 				if(!hasImage)return;
-				$(canvas).imagecrop();
+				$.fn.imagecrop.init(canvas);
 			};
 			module.destory = function(){
 				
@@ -351,8 +351,8 @@ $(function(){
 
 $(
 	$.fn.imagecrop = function(){
-		var s = this;
-		var defaults = {
+		var api = {},canvas;
+		var defaults = {			
 			img: null,
 			sx: 0,
 			sy: 0,
@@ -397,10 +397,14 @@ $(
 			},
 			init:function(canvasObj){
 				var _this = this;
-				window.onload=function(){
-					_this.initView();
-					_this.eventAtt();
-				}
+				canvas = canvasObj;
+				var image = new Image();
+				image.src = canvas.toDataURL("image/png");
+
+				defaults.img = image
+
+				_this.initView();
+				_this.eventAtt();
 				
 			},
 			initView:function(){
@@ -409,73 +413,80 @@ $(
 				function cropInit(){
 					var crop = document.createElement('canvas');
 					var cropcover = document.getElementById('imgCropCover');
-					console.log(s.width)
-					cropcover.width = s.width + 'px';
-					cropcover.height = s.height + 'px';
-					cropcover.style.top = s.style.top;
-					cropcover.style.left = s.style.left;
+					cropcover.style.width = canvas.style.width;
+					cropcover.style.height = canvas.style.height;
+					cropcover.style.top = canvas.offsetTop == "" ? 0 :  canvas.offsetTop+ 'px';
+					cropcover.style.left = canvas.offsetLeft == "" ? 0 :  canvas.offsetLeft + 'px';
 					document.getElementById('imgCrop-con').appendChild(crop);
 					
 					crop.width = defaults.swidth;
 					crop.height = defaults.sheight;
 					crop.style.left = '0';
 					crop.style.top = '0';
-					
-					var imageClone = new Image();
-								
-					imageClone.onload = function(){				
-						var cropCtx = crop.getContext('2d');
-						cropCtx.drawImage(imageClone, 0, 0, defaults.swidth, defaults.swidth, 0, 0, defaults.swidth, defaults.sheight);
-						
-						_this.dropCrop(crop,cropCtx);
-					}
-					imageClone.src = imageObj.src;
-					defaults.img = imageClone;
+					cropcover.style.display = "block";
+					/* 画裁剪图 */
+					var imageClone = defaults.img;
+					var cropCtx = crop.getContext('2d');
+
+					var bbox = canvas.getBoundingClientRect();
+					var scale = bbox.width/canvas.width;
+					cropCtx.drawImage(imageClone, 0, 0, defaults.swidth/scale, defaults.sheight/scale, 0, 0, defaults.swidth, defaults.sheight);
+					_this.dropCrop(crop,cropCtx);				
 					
 				}
 				cropInit();
 			},
 			dropCrop:function(crop,cropCtx){
 				var clickFlag = 0, dx, dy, left, top;
-				var moveele = document.getElementById('imgCrop-con');
-				
-				this.addEvent("#imgCrop-cover", "mousedown", function(e){			
-					
-					dx = e.clientX;
-					dy = e.clientY;
-					
-					left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
-					top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
-					clickFlag = 1;
-				});
-				this.addEvent("#imgCrop-cover", "mouseup", function(e){
-					clickFlag = 0;
-				});
+				var moveele = $("#imgCrop-con")[0];
+				$("#imgCrop-con").find('canvas').on({
+					 'touchstart':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						dx = touch.clientX;
+						dy = touch.clientY;
+						left = parseInt(moveele.style.left == '' ? 0 : moveele.style.left);
+						top = parseInt(moveele.style.top == '' ? 0 : moveele.style.top);
+					},
+					'touchmove':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+						e.preventDefault();
+						var touch = e.touches[0];
+						var x = touch.clientX;
+						var y = touch.clientY;
 
-				document.getElementById("imgCrop-cover").onmousemove = function(e){
-					
+						var pic = moveele;
+						var x = e.clientX;
+						var y = e.clientY;
+
+						var rLeft = left + (x - dx);
+						var rTop = top + (y - dy);
+						if(rLeft < 0) rLeft = 0;
+						if(rTop < 0) rTop = 0;
+
+						pic.style.left = rLeft + "px";
+						pic.style.top = rTop + "px";
+						
+						var nleft = rLeft*defaults.imgwidth/defaults.width,
+							ntop = rTop*defaults.imgheight/defaults.height;
+						
+						cropCtx.drawImage(defaults.img, rLeft , rTop, defaults.swidth, defaults.sheight, 0, 0, defaults.swidth, defaults.sheight);
+
+					},
+					'touchend':function(e){
+						if (e.originalEvent) e = e.originalEvent;
+					}
+				});
+				
+				this.addEvent("#imgCropCover", "touchmove", function(e){
 					var x = e.clientX;
 					var y = e.clientY;
 
 					if(clickFlag){
 					
 						if(e.target.tagName.toLowerCase() == "canvas"){
-							var pic = moveele;
-							var x = e.clientX;
-							var y = e.clientY;
-
-							var rLeft = left + (x - dx);
-							var rTop = top + (y - dy);
-							if(rLeft < 0) rLeft = 0;
-							if(rTop < 0) rTop = 0;
-
-							pic.style.left = rLeft + "px";
-							pic.style.top = rTop + "px";
 							
-							var nleft = rLeft*defaults.imgwidth/defaults.width,
-								ntop = rTop*defaults.imgheight/defaults.height;
-							
-							cropCtx.drawImage(defaults.img, rLeft , rTop, defaults.swidth, defaults.sheight, 0, 0, defaults.swidth, defaults.sheight);
 						}else{
 							var currentClass = e.target.className;
 							
@@ -483,13 +494,20 @@ $(
 						
 						
 					}
-				};
+				})
+				
 
 			}
 		}
-		s.init = function(canvasObj){
+		api.init = function(canvasObj){			
 			imgCrop.init(canvasObj);
 		}
-		return s;
+		api.windowToCanvas = function(x,y,canvas){
+			var bbox = canvas.getBoundingClientRect();
+			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
+					y: Math.round((y - bbox.top)  * (canvas.height / bbox.height))
+				};
+		};
+		return api;
 	}()
 );
