@@ -18,7 +18,10 @@ $(function(){
 			$(".closeLogoPrettify").off("click");
 			$(".editMenuGroup button").off("click");
 			$("#logoPrettify").hide();
+			
 			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
+			currentPannel = null;
+			$("#logoPrettify .editMenuGroup section").hide();
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
@@ -85,6 +88,7 @@ $(function(){
 			module.destory = function(){
 				$("#editPannel_1 .magicWand").off("click");
 				$("#editPannel_1 .deleteSelection").off("click");
+				$.fn.magicWand.deactive();
 			};
 			return module;
 		}();
@@ -258,9 +262,13 @@ $(function(){
 			$("#selectCanvas").on("click",function(e){
 				api.buildSelection(e);
 			});
+			$(".editCanvasContainer").on("click",function(e){
+				if(document.getElementById("selectCanvas").selectedPixels)api.destorySelection();
+			});
 		};
 		api.deactive = function(){
 			$("#selectCanvas").off("click");
+			api.destorySelection();
 		};
 		api.buildSelection = function(e){
 			var canvas = document.getElementById("editCanvas");
@@ -278,6 +286,13 @@ $(function(){
 				var pixels = api.scaleImageData(selectedPixels, selectionCanvas.width, selectionCanvas.height);
 				marchingAnts.ants(selectionCanvas, pixels);
 			});
+		};
+		api.destorySelection = function(e){
+			var selectionCanvas = document.getElementById("selectCanvas");
+			var selectionContext = selectionCanvas.getContext('2d');
+			marchingAnts.deselect();
+			selectionContext.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
+			selectionCanvas.selectedPixels = null;
 		};
 		api.windowToCanvas = function(x,y,canvas){
 			var bbox = canvas.getBoundingClientRect();
