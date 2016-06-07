@@ -18,6 +18,7 @@ from alatting_website.model.resource import Image, Video, Music
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     VideoSerializer, MusicSerializer
 from poster.serializer.poster import PosterSerializer
+from survey.models import RunInfo
 from utils.file import get_image_path, get_video_path, get_music_path
 from utils.message import get_message
 from utils.userinput import what
@@ -120,19 +121,30 @@ class PostersConsumerListView(ListAPIView):
     )
     serializer_class = PosterSerializer
 
+    # def get_queryset(self):
+    #     sub_ids = UserCategory.objects.filter(
+    #         user=self.request.user,
+    #         data_status=UserCategory.DATA_STATUS_USABLE
+    #     ).values_list('sub_category_id', flat=True)
+    #     if sub_ids:
+    #         qs = super(PostersConsumerListView, self).get_queryset()
+    #         return qs.filter(
+    #             sub_category_id__in=sub_ids
+    #         ).exclude(
+    #             creator=self.request.user
+    #         ).order_by('-created_at')
+    #     return Poster.objects.none()
+
     def get_queryset(self):
-        sub_ids = UserCategory.objects.filter(
-            user=self.request.user,
-            data_status=UserCategory.DATA_STATUS_USABLE
-        ).values_list('sub_category_id', flat=True)
-        if sub_ids:
-            qs = super(PostersConsumerListView, self).get_queryset()
-            return qs.filter(
-                sub_category_id__in=sub_ids
-            ).exclude(
-                creator=self.request.user
-            ).order_by('-created_at')
-        return Poster.objects.none()
+        qs = super(PostersConsumerListView, self).get_queryset()
+        run_info_poster_ids = RunInfo.objects.filter(
+            subject=self.request.user
+        ).values_list('poster_id', flat=True)
+        return qs.filter(
+            id__in=run_info_poster_ids
+        ).exclude(
+            creator=self.request.user
+        ).order_by('-created_at')
 
 
 class ProfileView(RetrieveUpdateAPIView):
