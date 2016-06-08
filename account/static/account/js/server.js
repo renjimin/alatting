@@ -5,7 +5,7 @@
 $(function(){
     var id = $('#posterid').val();
     var ch =$(window).height()-$('.main-title').outerHeight();
-    $('.main-user-ctrl').css('height',ch+'px');
+    $('#main-user-ctrl,#body-comments').css('height',ch+'px');
     var lastPrice,consumer_id;
     ///*
     // 获取当前海报所有预约用户填写的调查问卷
@@ -46,6 +46,21 @@ $(function(){
             h+= '</div>';
         return h;
     }
+    /* 展示所用用户对海报的评价 */
+    $('#title-name').on('click',function(){
+        if($('#body-comments').css('display') == 'none'){
+            $('#main-list').css({height:ch+'px','min-height':'0px','overflow':'hidden'});
+            $('#body-comments').show();
+            if($('#body-comments').children().length == 0){
+                getCommentsList();
+            }
+        }else{
+            if($('#main-user-ctrl').css('display') == 'none'){
+                $('#main-list').attr('style','');
+            }
+            $('#body-comments').hide();
+        }
+    });
 
     // 展示或隐藏更多的调查问卷信息
     $('.mlist').on('click','.mli-toggle',function(){
@@ -71,14 +86,14 @@ $(function(){
         var $mli = ths.parent().clone();
         $('.main-goback').after($mli);
         consumer_id = ths.parent().attr('data-csid');
-        $('.main-user-ctrl').fadeIn(200);
+        $('#main-user-ctrl').fadeIn(200);
         getBargainsList();
         getChatsList();
     });
     // 返回所有用户预约信息页面
     $('#main-goback').on('click',function(){
         $('#main-list').attr('style','');
-        $('.main-user-ctrl').fadeOut(200).children('.main-li').remove();
+        $('#main-user-ctrl').fadeOut(200).children('.main-li').remove();
         $('#main-plist').empty();
         $('#message-list').empty();
     });
@@ -324,4 +339,37 @@ $(function(){
         });
     }
 
+    function getCommentsList(){
+        $.ajax({
+            type: 'GET',
+            url: '/api/v1/poster/'+id+'/servicecomments',
+            success:function(data){
+                if(!$.isEmptyObject(data)){
+                    var h = '<ul>';
+                    for(var i=0;i<data.length;i++){
+                        var hdicon = data[i]['creator']['person']['avatar'];
+                        hdicon = (hdicon)?hdicon:'/static/account/img/headicon-default.jpg';
+                        h+= '<li>';
+                        h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
+                        h+= '   <div class="com-main">';
+                        h+= '       <div class="com-main-top">';
+                        h+= '           <span class="com-username">username</span>';
+                        h+= '           <span class="com-pstar p-star p-star-8"></span>';
+                        h+= '       </div>';
+                        h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
+                        h+= '       <div class="com-main-bot"><span class="com-time">'+data[i]['created_at']+'</span></div>';
+                        h+= '   </div>';
+                        h+= '</li>';
+                    }
+                    h += '</ul>';
+                    $('#body-comments').append(h);
+                }else{
+                    $('#body-comments').append('<span class="error-msg">当前没有任何信息</span>');
+                }
+            },
+            error: function(xhr, status, statusText){
+                $('#body-comments').append('<span class="error-msg">服务超时</span>');
+            }
+        });
+    }
 });

@@ -15,13 +15,13 @@
     <div class="body-main">
         <div class="main-title">
             <div class="title-close" id="page-close"><i class="fa fa-close"></i></div>
-            <div class="title-name">黄裕祥钢琴教学</div>
+            <div class="title-name" id="title-name">黄裕祥钢琴教学</div>
             <div class="title-star p-star p-star-4"></div>
             <input type="hidden" id="posterid" value="{{ poster.id }}">
         </div>
         <div class="main-list mlist" id="main-list">
         </div>
-        <div class="main-user-ctrl mlist">
+        <div class="main-user-ctrl mlist" id="main-user-ctrl">
             <div class="main-goback">
                 <span><i class="fa fa-angle-left"></i></span>
                 <span id="main-goback">返回</span>
@@ -135,6 +135,40 @@
                     <input type="button" id="plyMess" value="发送">
                 </div>
             </div>
+        </div>
+        <div class="body-comments" id="body-comments">
+            <ul>
+                <li>
+                    <div class="com-headicon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="img"></div>
+                    <div class="com-main">
+                        <div class="com-main-top">
+                            <span class="com-username">username</span>
+                            <span class="com-pstar p-star p-star-8"></span>
+                        </div>
+                        <div class="com-main-cont">
+                            <p>这是神社茅塞顿开分类管理个</p>
+                        </div>
+                        <div class="com-main-bot">
+                            <span class="com-time">2016-06-06 13:34:31</span>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="com-headicon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="img"></div>
+                    <div class="com-main">
+                        <div class="com-main-top">
+                            <span class="com-username">username</span>
+                            <span class="com-pstar p-star p-star-8"></span>
+                        </div>
+                        <div class="com-main-cont">
+                            <p>这是神社茅塞顿开分类管理个</p>
+                        </div>
+                        <div class="com-main-bot">
+                            <span class="com-time">2016-06-06 13:34:31</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
     <div class="body-loading" id="body-loading">
