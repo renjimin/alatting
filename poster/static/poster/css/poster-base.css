@@ -1597,11 +1597,15 @@ to {
 	overflow: hidden;
 }
 
+
 .cnd-element {
 	position: absolute;
 	z-index: 100;
 }
 .cnd-element.active{height:auto;}
+.element-box-contents{
+	padding:10px;
+}
 .cnd-element .btn{
 	white-space: normal;
     word-break: break-all;
