@@ -52,7 +52,7 @@ $(function () {
 			storageAPI.setCss(".header", parseStyle($('.header').attr("style")));
 			storageAPI.setCss(".header-logo h2", parseStyle($('.header-logo h2').attr("style")));
 			storageAPI.setCss(".header-logo img", parseStyle($('.header-logo img').attr("style")));
-		   
+
 			if ($('#logo_title').attr("style"))storageAPI.setCss("logo_title", parseStyle($('#logo_title').attr("style")));
 			storageAPI.setHead("unique_name", $('#logo_title').html());
 			if ($('#short_description').attr("style"))storageAPI.setCss("#short_description", parseStyle($('#short_description').attr("style")));
