@@ -7,7 +7,7 @@ $(function(){
 			canvas = document.getElementById("editCanvas");
 			ctx = canvas.getContext('2d');
 			selectCanvas = document.getElementById("selectCanvas");
-			canvas.originCanvas = document.createElement("canvas");
+			if( !canvas.originCanvas )canvas.originCanvas = document.createElement("canvas");
 			
 			$("#logoPrettify").show();
 			api.bindEvents();
@@ -87,13 +87,11 @@ $(function(){
 					if(!hasImage)return;
 					$.fn.Selection.deleteSelectedPixels();
 				});
-				$("#selectCanvas").show();
 			};
 			module.destory = function(){
 				$("#editPannel_1 .magicWand").off("click");
 				$("#editPannel_1 .deleteSelection").off("click");
 				$.fn.magicWand.deactive();
-				$("#selectCanvas").hide();
 			};
 			return module;
 		}();
@@ -124,6 +122,18 @@ $(function(){
 			};
 			module.destory = function(){
 				$("#editPannel_2 canvas").off("click");
+			};
+			return module;
+		}();
+		api.editPannel_3 = function(){
+			var module = {};
+			module.init = function(){
+				if(!hasImage)return;
+				$.fn.imgHue.init(canvas);
+				
+			};
+			module.destory = function(){
+				
 			};
 			return module;
 		}();
@@ -166,7 +176,10 @@ $(function(){
 				});
 			};
 			module.destory = function(){
-				
+				isClearing = false;
+				$("#selectCanvas").off("mousedown touchstart");
+				$("#selectCanvas").off("mousemove touchmove");
+				$("#selectCanvas").off("mouseup touchend");
 			};
 			return module;
 		}();
@@ -483,6 +496,11 @@ $(
 
 					var bbox = canvas.getBoundingClientRect();
 					var scale = bbox.width/canvas.width;
+					var style = $.fn.canvasHelper.getStyle($(canvas).attr('style'));
+					if(style['-webkit-filter']){
+						$(cropCanvas).attr('style','-webkit-filter:'+style['-webkit-filter']);
+					}
+
 					cropCtx.drawImage(imageClone, 0, 0, defaults.swidth/scale, defaults.sheight/scale, 0, 0, defaults.swidth, defaults.sheight);
 					
 					_this.dropCrop(cropCanvas,cropCtx);
@@ -788,6 +806,80 @@ $(function(){
 	}();
 });
 $(function(){
+	$.fn.imgHue = function(){
+		var api = {},canvas,pic,_img;
+		var filters = [  
+			{ name: "saturate", cname: "饱和度", def: "1", unit: "", min: 0, max: 1.0 , step: "0.01"},   
+			{ name: "brightness", cname: "亮度", def: "1", unit: "", min: 0, max: 1.0 , step: "0.01"},  
+			{ name: "contrast", cname: "对比度", def: "1", unit: "", min: 0, max: 1 , step: "0.01"},  
+			{ name: "hue-rotate", cname: "色调", def: "0", unit: "deg", min: 0, max: 360 , step: "1"} 
+		]; 
+		api.init = function(canvasObj){
+			canvas = canvasObj;
+			_img = new Image();
+			_img.onload = function(){
+				api.initView();
+				api.initAttEvent();
+			}
+			_img.src = canvas.toDataURL("image/png");			
+		}
+		api.initView = function(){
+			var container = $('#hueList');
+			
+			container.empty();
+			$.each(filters, function() {  
+				container.append("<li class='hue-item'><input value='"+this.def+"' type='range' class='range' id='"+this.name+"' min='"+this.min+"' max='"+this.max+"' step='"+this.step+"'><span class='hue-text'>"+this.cname+"</span></li>");  
+			});
+		}
+		api.initAttEvent = function(){
+			var startX = 0,endX = 0,val;
+			$('#hueList .range').on({
+				'mousedown touchstart':function(e){
+					if (e.originalEvent) e = e.originalEvent;event.preventDefault();
+					startX = e.type === 'touchstart' ?  e.touches[0].pageX : e.pageX;
+					val = e.currentTarget.value;
+				},
+				'mousemove touchmove':function(e){
+					if (e.originalEvent) e = e.originalEvent;event.preventDefault();
+					endX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+					var le = (endX - startX)*parseFloat($(e.currentTarget).attr('step')) + parseInt(val);
+					var newl = 	le * parseInt($(e.currentTarget).attr('max'))/($(e.currentTarget).width()*parseFloat($(e.currentTarget).attr('step')));	
+					e.currentTarget.value = newl;
+					changeView(newl);
+				}
+			})
+			function changeView(value){
+				var cssString = "";  
+                                  
+				$.each(filters, function() {  
+					var value = jQuery('#'+this.name).val(); 
+					// Update CSS string  
+					cssString += " " + this.name + "(" + value + this.unit + ")";  
+				}); 
+				var cs =  $(canvas).attr('style');
+				var style = $.fn.canvasHelper.getStyle(cs);
+				style['-webkit-filter'] = cssString;
+				var csss = JSON.stringify(style);
+				csss = csss.replace(/,/g,';');
+				csss = csss.substr(1,csss.length-2);
+				csss = csss.replace(/"/g,'');
+				csss += ';';						
+				$(canvas).attr('style', csss);
+				/*$(_img).attr('style', "-webkit-filter: " + cssString);
+				var bbox = canvas.getBoundingClientRect();
+				var scale = canvas.width/bbox.width;
+				var canvasCtx = canvas.getContext('2d');
+				canvasCtx.clearRect(0,0,canvas.width*scale,canvas.height*scale);console.log(_img);
+				canvasCtx.drawImage(_img,0,0);*/
+			}
+		}
+		api.changView = function(){
+
+		}
+		return api;
+	}();
+});
+$(function(){
 	$.fn.imgFilter1 = function(){
 		var api = {};
 
@@ -931,6 +1023,18 @@ $(function(){
 			tempContext.drawImage(dataCanvas, 0, 0, dataW, dataH, 0, 0, w, h);
 			return tempContext.getImageData(0, 0, w, h);
 		};
+
+		api.getStyle = function(csss){
+			var csobj={};
+			csss = csss.substr(0,csss.length-1);
+			csss = csss.split(';');
+			for(var i=0;i<csss.length;i++){
+				var sa= csss[i].split(':');
+				csobj[sa[0]]=sa[1];
+			}			
+			return csobj;
+		}
+		
 		api.windowToCanvas = function(x,y,canvas){
 			var bbox = canvas.getBoundingClientRect();
 			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),

@@ -106,6 +106,10 @@ $(function(){
         });
     });
     //*/
+    $('#make-comt').on('click',function(){
+        $('.body-li').hide();
+        $('#body-makecomt').show();
+    });
     ///*
     //拒绝服务提供者的报价
     $('#refuse-price').on('click',function(){
@@ -219,16 +223,16 @@ $(function(){
             return;
         }
         $.ajax({
-                type: 'POST',
-                data:{content:cont,rating:star},
-                url: '/api/v1/poster/'+id+'/servicecomments',
-                success:function(){
-                    yyAlert('感谢您的评价，欢迎再次预约服务!');
-                },
-                error: function(xhr, status, statusText){
-                    yyAlert('网络错误,请稍候再试!');
-                }
-            });
+            type: 'POST',
+            data:{content:cont,rating:star},
+            url: '/api/v1/poster/'+id+'/servicecomments',
+            success:function(){
+                yyAlert('感谢您的评价，欢迎再次预约服务!');
+            },
+            error: function(xhr, status, statusText){
+                yyAlert('网络错误,请稍候再试!');
+            }
+        });
     });
     /* 取消评论 */
     $('#cancel-comt').on('click',function(){
@@ -243,14 +247,14 @@ $(function(){
 
     /* 点击头部海报名称显示当前海报的所有用户评价信息 */
     $('#body-main-title').on('click',function(){
-        $('.body-li').hide();
         if($('#body-comments').css('display') == 'none'){
+            $('.body-li').hide();
             $('#body-comments').show();
             if($('#body-comments').children().length == 0){
                 getCommentsList();
             }
         }else{
-            $('#body-comments').hide();
+            $('.body-li').hide();
             $('#body-main').show();
         }
     });
@@ -320,7 +324,7 @@ $(function(){
                     h += '</ul></div>';
                     $('#main-plist').append(h);
                     //showPriceli(data[num-1]);
-                    lastPrice=data[0];
+                    lastPrice=data[num-1];
                     showPriceli(lastPrice);
 
                 }else{

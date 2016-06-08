@@ -234,7 +234,7 @@ $(document).ready(function () {
 				var sid = $(this).attr('data-id');
 				var ssbox = '';
 				main_name = $(this).attr('data-name');
-				if($('.li-server').hasClass('open')){
+				/*if($('.li-server').hasClass('open')){
 					$('.li-server').removeClass('open');
 					$('.li-server').children('ul').hide();
 				}
@@ -244,12 +244,11 @@ $(document).ready(function () {
 				}else{
 					ths.addClass('open');
 					ths.children('ul').show();
-				};
+					ths.find('span').addClass('open');
+				};*/
 				//ths.addClass('open');
 				$("#id_main_category").val(sid);
-				console.log(ths.find("ul").length)
 				 if (ths.find("ul").length == 0) {
-				 	console.log(33)
 					selectTrade(sid, function (data) {
 						ssbox = '<ul class = "sul-server">'
 						for (var i = 0; i < data.length; i++) {
@@ -269,18 +268,29 @@ $(document).ready(function () {
 					ths.addClass('open');
 					ths.children('ul').show();
 				};*/
-				if($('.regist-industryinput').val().length==0){
-					ths.on('touchstart click', '.sli-server', function (event) {
-						event.stopPropagation();
-						selectedname = $(this).attr('data-name');
-						$("#id_sub_category_ids").val($(this).attr('data-id'));
-						//$('.div-server').fadeOut(200);
-					});
-				}else{
-					yyAlert("您已输入了行业");
-					return false;
-				}
+
+				ths.on('touchstart click', '.sli-server', function (event) {
+					event.stopPropagation();
+					selectedname = $(this).attr('data-name');
+					$("#id_sub_category_ids").val($(this).attr('data-id'));
+					if($('.regist-industryinput').val().length!=0){
+						$('.regist-industryinput').prop('value','');
+						$('.regist-industryinput').attr('placeholder', '请输入');
+					}
+				});
 			});
+			selected.on('touchstart click', '.glyphicon-chevron-down', function (event) {
+				//event.preventDefault();
+				if ($(this).hasClass('open')) {
+					$(this).removeClass('open');
+					$(this).parents('a').siblings('ul').hide();
+				}else{
+					$(this).addClass('open');
+					$(this).children('ul').show();
+					$(this).find('span').addClass('open');
+					$(this).parents('a').siblings('ul').show();
+				};
+			})
 			selected.on('touchstart click', '.glyphicon-ok-circle', function () {
 				if(selectedname.length>0){
 					$('.selectserver').text(selectedname);
@@ -341,8 +351,9 @@ $(document).ready(function () {
 				})
 				selected.off('touchstart click','.sli-provider').on('touchstart click', '.sli-provider',function (event) {
 					//var selectedname = $(this).attr('data-name');
+					console.log(22)
 					var ths = $(this);
-					event.stopPropagation();
+					event.preventDefault();
 					if ($(event.target).hasClass("glyphicon")) {
 						if ($(event.target).hasClass('glyphicon-unchecked')) {
 							$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
@@ -352,13 +363,15 @@ $(document).ready(function () {
 					}
 				});
 			});
-			selected.off("touchstart click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function () {
+			selected.off("touchstart click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function (event) {
 			   // console.log($('.div-provider .glyphicon-check').parents('li'));
-				var i = $('.div-provider .glyphicon-check');
+			   	event.preventDefault();
+				var i = $('.sli-provider .glyphicon-check');
 				var meid = "";
 				for(var n=0;n<i.length;n++){
 					$(i[n]).parent('li').attr('data-id');
 					meid += $(i[n]).parent('li').attr('data-id')+",";
+					console.log($(i[n]).parent('li'))
 					messbox += $(i[n]).parent('li').attr('data-name')+","
 				}
 				meid = meid.substring(0,meid.length-1);
