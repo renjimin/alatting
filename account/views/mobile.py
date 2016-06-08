@@ -137,7 +137,8 @@ class RegisterView(FormView):
                 q.update(kw)
                 self.success_url += '?%s' % q.urlencode()
         else:
-            self.success_url += '?sub_id=%s' % sub_id
+            self.success_url = reverse('website:mobile_index')
+            self.success_url += '?q=%s' % sub_id
         return self.success_url
 
 

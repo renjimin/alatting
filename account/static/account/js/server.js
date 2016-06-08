@@ -225,7 +225,8 @@ $(function(){
             success:function(data){
                 if(!$.isEmptyObject(data)){
                     var h = '<div class="main-plist-ul"><ul>';
-                    for(var i=0;i<data.length;i++){
+                    var num = data.length;
+                    for(var i=0;i<num;i++){
                         if(data[i]["accepted"]){
                             h+= '<li class="plist-over">';
                         }else{
@@ -247,7 +248,7 @@ $(function(){
                     h += '</ul></div>';
                     $('#main-plist').append(h);
 
-                    lastPrice=data[0];
+                    lastPrice=data[num-1];
                     showPriceli(lastPrice);
                 }else{
                     $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
