@@ -43,16 +43,17 @@ class MobileIndexView(TemplateView):
 
     def get_q_filter(self, qs):
         q = self.request.GET.get('q', '')
-        try:
-            sub_ids = q.split(',')
-            if sub_ids:
-                qs = qs.filter(
-                    sub_category_id__in=sub_ids
-                ).exclude(
-                    creator=self.request.user
-                )
-        except Exception as e:
-            logger.exception(e)
+        if q:
+            try:
+                sub_ids = q.split(',')
+                if sub_ids:
+                    qs = qs.filter(
+                        sub_category_id__in=sub_ids
+                    ).exclude(
+                        creator=self.request.user
+                    )
+            except Exception as e:
+                logger.exception(e)
         return qs.order_by('-created_at')
 
     def get_poster_list(self):

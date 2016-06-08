@@ -608,31 +608,19 @@ class ServiceBargainListView(ListCreateAPIView):
             qs = qs.filter(consumer=self.request.user)
         return qs.order_by('created_at')
 
-    def _server_create(self, poster, serializer):
-        if poster.creator != self.request.user:
-            raise PermissionDenied()
-        consumer_id = serializer.validated_data.get('consumer_id')
-        if not consumer_id:
-            raise ValidationError('参数不足，没有提供需求者ID!')
+    def perform_create(self, serializer):
+        poster = self.get_poster_object()
+        if poster.creator == self.request.user:
+            consumer_id = serializer.validated_data.get('consumer_id')
+            if not consumer_id:
+                raise ValidationError('报价失败，没有提供需求者信息!')
+        else:
+            consumer_id = self.request.user.id
         serializer.save(
             poster=poster,
             creator=self.request.user,
             consumer_id=consumer_id
         )
-
-    def _consumer_create(self, poster, serializer):
-        serializer.save(
-            poster=poster,
-            creator=self.request.user,
-            consumer_id=self.request.user.id
-        )
-
-    def perform_create(self, serializer):
-        poster = self.get_poster_object()
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            self._server_create(poster, serializer)
-        else:
-            self._consumer_create(poster, serializer)
 
 
 class ServiceBargainDetailView(RetrieveUpdateDestroyAPIView):
@@ -655,6 +643,8 @@ class ChatListView(ListCreateAPIView):
     model = Chat
     serializer_class = ChatSerializer
     queryset = Chat.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_fields = ('receiver_id', )
 
     def get_poster_object(self):
         return get_object_or_404(Poster, pk=self.kwargs.get('pk'))
@@ -665,10 +655,13 @@ class ChatListView(ListCreateAPIView):
         qs = qs.filter(
             poster_id=poster.id
         )
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+        if poster.creator == self.request.user:
             user_id = self.request.GET.get('user_id')
+            senders = [user_id]
+            if self.request.GET.get('receiver_id'):
+                senders.append(self.request.GET.get('receiver_id'))
             qs = qs.filter(
-                Q(receiver_id=user_id) | Q(sender_id=user_id)
+                Q(receiver_id=user_id) | Q(sender_id__in=senders)
             )
         else:
             user_id = self.request.user.id
@@ -680,7 +673,7 @@ class ChatListView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         poster = self.get_poster_object()
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+        if poster.creator == self.request.user:
             receiver_id = self.request.data.get('receiver_id')
         else:
             receiver_id = poster.creator.id

@@ -122,11 +122,11 @@ $(function () {
 					$("body").changeTemplate(
 						'destroy'
 					).changeTemplate({
-							"target": "create",
-							"initAfter": function () {
-								$("#change-templates-list").css('height', "70%");
-							}
-						});
+                        "target": "create",
+                        "initAfter": function () {
+                            $("#change-templates-list").css('height', "70%");
+                        }
+                    });
 				}
 			},
 			{
