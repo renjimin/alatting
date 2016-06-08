@@ -99,8 +99,7 @@ var scale = function(box,options){
             var touch = e.touches[0];
             touchEvents.startX = touch.pageX;
             touchEvents.startY = touch.pageY;
-            /* 展开操作面板 */
-            showControlPannel(s.o);
+            
             
             $('.cnd-element').removeClass('active');
             s.o.addClass('active').css('z-index',scaleIndex++);
@@ -129,6 +128,8 @@ var scale = function(box,options){
         'touchend':function(e){
             if (e.originalEvent) e = e.originalEvent;
             $(e.currentTarget).removeClass('drag-active');
+            /* 展开操作面板 */
+            showControlPannel(s.o);
         }
     });
 
