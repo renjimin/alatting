@@ -228,7 +228,8 @@ $(document).ready(function () {
 			$('.div-server').fadeIn(200);
 		};
 		if($('.li-server').length ==0){
-			selected.on('touchstart', '.li-server', function () {
+			selected.on('touchstart click', '.li-server', function (e) {
+				e.preventDefault();
 				var ths = $(this);
 				var sid = $(this).attr('data-id');
 				var ssbox = '';
@@ -246,7 +247,9 @@ $(document).ready(function () {
 				};
 				//ths.addClass('open');
 				$("#id_main_category").val(sid);
-				 if (ths.find("li").length == 0) {
+				console.log(ths.find("ul").length)
+				 if (ths.find("ul").length == 0) {
+				 	console.log(33)
 					selectTrade(sid, function (data) {
 						ssbox = '<ul class = "sul-server">'
 						for (var i = 0; i < data.length; i++) {
@@ -267,7 +270,7 @@ $(document).ready(function () {
 					ths.children('ul').show();
 				};*/
 				if($('.regist-industryinput').val().length==0){
-					ths.on('touchstart', '.sli-server', function (event) {
+					ths.on('touchstart click', '.sli-server', function (event) {
 						event.stopPropagation();
 						selectedname = $(this).attr('data-name');
 						$("#id_sub_category_ids").val($(this).attr('data-id'));
@@ -278,7 +281,7 @@ $(document).ready(function () {
 					return false;
 				}
 			});
-			selected.on('touchstart', '.glyphicon-ok-circle', function () {
+			selected.on('touchstart click', '.glyphicon-ok-circle', function () {
 				if(selectedname.length>0){
 					$('.selectserver').text(selectedname);
 					$('.regist-industryinput').attr('disabled',true);
@@ -293,77 +296,80 @@ $(document).ready(function () {
 
 	$('.selectprovider').click(function () {
 		var selected = $('body');
-			if ($('.div-provider').length ==0) {
-				 selectTrade(0, function (data) {
-					var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
-					for (var i = 0; i < data.length; i++) {
-						sbox += '<li class = "li-provider" data-name = "'+data[i].name+'" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
-					}
-					sbox += '</ul></div>';
-					selected.append(sbox);
-				});
-			}else{
-				$('.div-provider').fadeIn(200);
-			}
+		if ($('.div-provider').length ==0) {
+			 selectTrade(0, function (data) {
+				var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
+				for (var i = 0; i < data.length; i++) {
+					sbox += '<li class = "li-provider" data-name = "'+data[i].name+'" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
+				}
+				sbox += '</ul></div>';
+				selected.append(sbox);
+			});
+		}else{
+			$('.div-provider').fadeIn(200);
+		}
 
 		var messbox = "";
 		var messid = "";
 		var meid = "";
-		selected.off('touchstart','.li-provider').on('touchstart', '.li-provider',function () {
-			var ths = $(this)
-			var sid = $(this).attr('data-id');
-			$("#id_main_category").val(sid);
-			var ssbox = ' <ul>';
-			if (ths.find('li').length == 0) {
-				selectTrade(sid, function (data) {
-					for (var i = 0; i < data.length; i++) {
-						ssbox += '<li class = "sli-provider" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
-					};
-					ssbox += '</ul>';
-					ths.append(ssbox);
-				});
-			}else{
-
-			}
-			ths.children('.glyphicon').off('click').on('touchstart',function(event){
-				if ($(event.target).hasClass('glyphicon-unchecked')) {
-					$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
-					$(event.target).next().find('.glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+		if($('.li-provider').length ==0){
+			selected.off('touchstart click','.li-provider').on('touchstart click', '.li-provider',function (e) {
+				e.preventDefault();
+				var ths = $(this)
+				var sid = $(this).attr('data-id');
+				$("#id_main_category").val(sid);
+				var ssbox = ' <ul>';
+				if (ths.find('ul').length == 0) {
+					selectTrade(sid, function (data) {
+						for (var i = 0; i < data.length; i++) {
+							ssbox += '<li class = "sli-provider" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
+						};
+						ssbox += '</ul>';
+						ths.append(ssbox);
+					});
 				}else{
-					$(event.target).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
-					$(event.target).next().find('.glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
-				};
-			})
-			selected.off('touchstart','.sli-provider').on('touchstart', '.sli-provider',function (event) {
-				//var selectedname = $(this).attr('data-name');
-				var ths = $(this);
-				event.stopPropagation();
-				if ($(event.target).hasClass("glyphicon")) {
+
+				}
+				ths.children('.glyphicon').off('touchstart click').on('touchstart click',function(event){
 					if ($(event.target).hasClass('glyphicon-unchecked')) {
 						$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+						$(event.target).next().find('.glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 					}else{
 						$(event.target).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+						$(event.target).next().find('.glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
 					};
-				}
+				})
+				selected.off('touchstart click','.sli-provider').on('touchstart click', '.sli-provider',function (event) {
+					//var selectedname = $(this).attr('data-name');
+					var ths = $(this);
+					event.stopPropagation();
+					if ($(event.target).hasClass("glyphicon")) {
+						if ($(event.target).hasClass('glyphicon-unchecked')) {
+							$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
+						}else{
+							$(event.target).removeClass('glyphicon-check').addClass('glyphicon-unchecked');
+						};
+					}
+				});
 			});
-		});
-		selected.off("touchstart", '.glyphicon-ok-circle').on('touchstart', '.glyphicon-ok-circle', function () {
-		   // console.log($('.div-provider .glyphicon-check').parents('li'));
-			var i = $('.div-provider .glyphicon-check');
-			var meid = "";
-			for(var n=0;n<i.length;n++){
-				$(i[n]).parent('li').attr('data-id');
-				meid += $(i[n]).parent('li').attr('data-id')+",";
-				messbox += $(i[n]).parent('li').attr('data-name')+","
-			}
-			meid = meid.substring(0,meid.length-1);
-			messbox = messbox.substring(0,messbox.length-1);
-			if(messbox.length>0){
-				$('.selectprovider').text(messbox);
-			}
-			$("#id_sub_category_ids").val(meid);
-			$('.div-provider').fadeOut(200);
-		});
+			selected.off("touchstart click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function () {
+			   // console.log($('.div-provider .glyphicon-check').parents('li'));
+				var i = $('.div-provider .glyphicon-check');
+				var meid = "";
+				for(var n=0;n<i.length;n++){
+					$(i[n]).parent('li').attr('data-id');
+					meid += $(i[n]).parent('li').attr('data-id')+",";
+					messbox += $(i[n]).parent('li').attr('data-name')+","
+				}
+				meid = meid.substring(0,meid.length-1);
+				messbox = messbox.substring(0,messbox.length-1);
+				if(messbox.length>0){
+					$('.selectprovider').text(messbox);
+				}
+				$("#id_sub_category_ids").val(meid);
+				$('.div-provider').fadeOut(200);
+			});
+		}
 	});
 
 	/*忘记密码后获取验证码*/
