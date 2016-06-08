@@ -503,8 +503,8 @@ $(function () {
 		//点击被保护列表中的对象返回
 		window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
 		var list = window.clickItmList;
-		for (var i in list) {
-			if ($(event.target).closest(list[i]).length != 0)return;
+		for (var i in list) {var listitem = list[i];
+			if ($(event.target).closest(listitem).length != 0)return;
 		}
 		//点击页面空白区域行为
 		$('#dp').removeClass('open');

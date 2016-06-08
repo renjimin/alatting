@@ -97,7 +97,8 @@ $(function(){
 		api.editPannel_2 = function(){
 			var module = {};
 			module.init = function(){
-				$.fn.imgFilter.invertColor(canvas,document.getElementById('invertColor'));
+				$.fn.imgFilter.init(canvas);
+				/*$.fn.imgFilter.invertColor(canvas,document.getElementById('invertColor'));
 				$.fn.imgFilter.grayColor(canvas,document.getElementById('grayColor'));
 				$.fn.imgFilter.rilievo(canvas,document.getElementById('rilievo'));
 				$.fn.imgFilter.mirror(canvas,document.getElementById('mirror'));
@@ -116,7 +117,7 @@ $(function(){
 							$.fn.imgFilter.mirror(canvas,canvas);
 							break;
 					}
-				});
+				});*/
 			};
 			module.destory = function(){
 				$("#editPannel_2 canvas").off("click");
@@ -130,6 +131,9 @@ $(function(){
 				$.fn.imagecrop.init(canvas);
 				$('#cropConfirm').on('click',function(){
 					$.fn.imagecrop.cropSave();
+				});
+				$('#cropCancel').on('click',function(){
+					$.fn.imagecrop.destory();
 				});
 			};
 			module.destory = function(){
@@ -515,6 +519,7 @@ $(
 
 						defaults.x = rLeft*scale;
 						defaults.y = rTop*scale;
+						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 
 					}
@@ -557,7 +562,7 @@ $(
 
 						defaults.x = rLeft*scale;
 						defaults.y = rTop*scale;
-						
+						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 
 					}
@@ -599,7 +604,7 @@ $(
 
 						defaults.x = rLeft*scale;
 						defaults.y = rTop*scale;
-						
+						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 
 					}
@@ -641,7 +646,7 @@ $(
 
 						defaults.x = rLeft*scale;
 						defaults.y = rTop*scale;
-						
+						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 
 					}
@@ -683,7 +688,7 @@ $(
 
 						defaults.x = rLeft*scale;
 						defaults.y = rTop*scale;
-						
+						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 
 					}
@@ -695,7 +700,7 @@ $(
 			imgCrop.init(canvasObj);
 		}
 		api.cropSave = function(){
-			var src = cropCanvas.toDataURL("image/png");			
+			var src = cropCanvas.toDataURL("image/png");
 			var canvasCtx = canvas.getContext('2d');
 			var cropCanvasCtx = cropCanvas.getContext('2d');
 
@@ -716,9 +721,62 @@ $(
 		return api;
 	}()
 );
-
 $(function(){
 	$.fn.imgFilter = function(){
+		var api = {},canvas,pic,_img;
+		api.init = function(canvasObj){
+			canvas = canvasObj;
+			_img = new Image();
+			_img.onload = function(){
+				pic = AlloyImage(this);
+				api.initView();
+			}
+			_img.src = canvas.toDataURL("image/png");			
+		}
+		api.initView = function(){
+			var filterBox = document.getElementById('fliterList').getElementsByTagName('ul')[0];
+			var EasyReflection = {
+				"美肤" : "softenFace",
+				"素描" : "sketch",
+				"自然增强" : "softEnhancement",
+				"紫调" : "purpleStyle",
+				"柔焦" : "soften",
+				"复古" : "vintage",
+				"黑白" : "gray",
+				"仿lomo" : "lomo",
+				"亮白增强" : "strongEnhancement",
+				"灰白" : "strongGray",
+				"灰色" : "lightGray",
+				"暖秋" : "warmAutumn",
+				"木雕" : "carveStyle",
+				"粗糙" : "rough"
+			};
+			var effectModel = '<li class="e_item"><a class="imglink"><img src="{pic}" alt="" /><span>{effect}</span></a></li>';
+			var html = '<li class="e_item"><a class="imglink"><img src="'+_img.src+'" alt="" /><span>原图</span></a></li>';
+			for(var i in EasyReflection){
+				var cloneImg = new Image(),
+				PS = pic.clone();
+				PS.ps(i).replace(cloneImg).complete(function(){
+					var newSrc = cloneImg.src;
+					html += effectModel.replace("{effect}",i.length < 3 ? i + "" : i).replace("{pic}", newSrc); 
+				});
+				
+			}
+
+			filterBox.innerHTML = html;
+			var canvasCtx = canvas.getContext('2d');
+			$('.e_item').on('click',function(){
+				var img = $(this).find('img')[0];
+				canvasCtx.drawImage(img,0,0);
+			});
+			
+
+		}
+		return api;
+	}();
+});
+$(function(){
+	$.fn.imgFilter1 = function(){
 		var api = {};
 
 		api.invertColor = function(source,target){
