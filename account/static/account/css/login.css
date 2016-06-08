@@ -187,7 +187,10 @@ input {
     padding: 16px 19px;
     margin: -16px 6px;
  }
-
+.li-server .open{
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+}
  .selectserver,.selectprovider{
     display:none;
     overflow:hidden;
