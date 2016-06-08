@@ -76,11 +76,11 @@ $(function(){
 
     /* 浏览海报信息 */
     $('#ctrl-view').on('click',function(){
-        location.href = '/mobile/posters/12/';
+        location.href = '/mobile/posters/'+id+'/';
     });
     /* 显示海报统计信息 */
     $('#ctrl-statistics').on('click',function(){
-        console.log('statistics:'+id);
+        location.href = '/mobile/account/posters/'+id+'/statistics.html';
     });
 
 
@@ -388,7 +388,7 @@ $(function(){
                         h+= '<li>';
                         h+= '   <div class="mess-checkbox"></div>';
                         h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span>'+data[i]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span>'+data[i]["sender"]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';

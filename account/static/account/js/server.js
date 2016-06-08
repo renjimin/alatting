@@ -313,7 +313,7 @@ $(function(){
                         h+= '<li>';
                         h+= '   <div class="mess-checkbox"></div>';
                         h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span>'+data[i]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span>'+data[i]["sender"]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';

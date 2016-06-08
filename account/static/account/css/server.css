@@ -455,6 +455,9 @@
     color:#5a5a5a;
     font-weight: 600;
 }
+.mess-info-title span{
+    margin-right: 10px;
+}
 .mess-info-cont p{
     margin-bottom: 5px;
 }
