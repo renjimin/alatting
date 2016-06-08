@@ -10,7 +10,7 @@ import pytz
 
 from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import PermissionDenied, ValidationError
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,10 +20,10 @@ from rest_framework.generics import (
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
 from account.models import Person
+from alatting.exceptions import BargainsNoConsumerError, ChatsNoConsumerError
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
-from alatting_website.model.statistics import PosterStatistics
 from alatting_website.models import Category, CategoryKeyword, Template
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
@@ -608,31 +608,19 @@ class ServiceBargainListView(ListCreateAPIView):
             qs = qs.filter(consumer=self.request.user)
         return qs.order_by('created_at')
 
-    def _server_create(self, poster, serializer):
-        if poster.creator != self.request.user:
-            raise PermissionDenied()
-        consumer_id = serializer.validated_data.get('consumer_id')
-        if not consumer_id:
-            raise ValidationError('参数不足，没有提供需求者ID!')
+    def perform_create(self, serializer):
+        poster = self.get_poster_object()
+        if poster.creator == self.request.user:
+            consumer_id = serializer.validated_data.get('consumer_id')
+            if not consumer_id:
+                raise BargainsNoConsumerError
+        else:
+            consumer_id = self.request.user.id
         serializer.save(
             poster=poster,
             creator=self.request.user,
             consumer_id=consumer_id
         )
-
-    def _consumer_create(self, poster, serializer):
-        serializer.save(
-            poster=poster,
-            creator=self.request.user,
-            consumer_id=self.request.user.id
-        )
-
-    def perform_create(self, serializer):
-        poster = self.get_poster_object()
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            self._server_create(poster, serializer)
-        else:
-            self._consumer_create(poster, serializer)
 
 
 class ServiceBargainDetailView(RetrieveUpdateDestroyAPIView):
@@ -665,13 +653,15 @@ class ChatListView(ListCreateAPIView):
         qs = qs.filter(
             poster_id=poster.id
         )
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            user_id = self.request.GET.get('user_id')
+        user_id = self.request.user.id
+        if poster.creator == self.request.user:
+            senders = [user_id]
+            if self.request.GET.get('receiver_id'):
+                senders.append(self.request.GET.get('receiver_id'))
             qs = qs.filter(
-                Q(receiver_id=user_id) | Q(sender_id=user_id)
+                Q(receiver_id=user_id) | Q(sender_id__in=senders)
             )
         else:
-            user_id = self.request.user.id
             qs = qs.filter(
                 Q(sender_id=user_id) |
                 Q(sender_id=poster.creator.id) | Q(receiver_id=user_id)
@@ -680,8 +670,10 @@ class ChatListView(ListCreateAPIView):
 
     def perform_create(self, serializer):
         poster = self.get_poster_object()
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+        if poster.creator == self.request.user:
             receiver_id = self.request.data.get('receiver_id')
+            if not receiver_id:
+                raise ChatsNoConsumerError
         else:
             receiver_id = poster.creator.id
         serializer.save(

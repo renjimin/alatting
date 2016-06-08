@@ -171,6 +171,9 @@ class ServiceBargainSerializer(serializers.ModelSerializer):
 
 
 class ChatSerializer(serializers.ModelSerializer):
+    sender = AccountProfileSimpleSerializer(read_only=True)
+    receiver = AccountProfileSimpleSerializer(read_only=True)
+
     class Meta:
         model = Chat
         read_only_fields = ('poster', 'sender', 'receiver')
