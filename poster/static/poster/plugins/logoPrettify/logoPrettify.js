@@ -52,7 +52,7 @@ $(function(){
 					$('.header-logo').append($(image));
 					$('.header-logo').imgoperationlogo();
 					api.destory();
-				}
+				};
 				image.src = canvas.toDataURL("image/png");
 			});
 		};
@@ -78,22 +78,29 @@ $(function(){
 				$("#editCanvas").height(    ($(".body-container").height() - 220) * 0.8    ) ;
 				$("#editCanvas").width(    $("#editCanvas").height() * scale    ) ;
 			}
-			$("#selectCanvas").width($("#editCanvas").width());
-			$("#selectCanvas").height($("#editCanvas").height());
-			$("#selectCanvas").css("top",$("#editCanvas").offset().top);
-			$("#selectCanvas").css("left",$("#editCanvas").offset().left);
+			api.scaleCanvas();
 			canvas.originCanvas.width = selectCanvas.width = canvas.width = $("#editCanvas").width();
 			canvas.originCanvas.height = selectCanvas.height = canvas.height = $("#editCanvas").height();
 			ctx.drawImage(image,0,0,width,height,0,0,$("#editCanvas").width(),$("#editCanvas").height());
-			canvas.originCanvas.getContext("2d").putImageData(ctx.getImageData(0, 0, canvas.width, canvas.height), 0 , 0);
 			hasImage = true;
 		};
 		api.uploadImage = function(){
 			
 		};
+		api.scaleCanvas = function(){
+			selectCanvas.style.width = canvas.style.width;
+			selectCanvas.style.height = canvas.style.height;
+			selectCanvas.style.top = canvas.offsetTop === "" ? 0 :  canvas.offsetTop+ 'px';
+			selectCanvas.style.left = canvas.offsetLeft === "" ? 0 :  canvas.offsetLeft + 'px';
+		};
 		api.editPannel_1 = function(){
 			var module = {};
 			module.init = function(){
+				api.scaleCanvas();
+				var tempData = $.fn.canvasHelper.scaleImageData(ctx.getImageData(0, 0, canvas.width, canvas.height),$("#editCanvas").width(),$("#editCanvas").height());
+				selectCanvas.width = canvas.width;
+				selectCanvas.height = canvas.height;
+				ctx.putImageData(tempData,0,0);
 				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
 					$.fn.magicWand.active();
@@ -175,6 +182,7 @@ $(function(){
 
 			module.init = function(){
 				if(!hasImage)return;
+				canvas.originCanvas.getContext("2d").putImageData(ctx.getImageData(0, 0, canvas.width, canvas.height), 0 , 0);
 				$.fn.imgFilter1.blur(canvas.originCanvas,canvas);
 				$("#selectCanvas").on("mousedown touchstart",function(){
 					isClearing = true;
@@ -1040,7 +1048,7 @@ $(function(){
 				csobj[sa[0]]=sa[1];
 			}			
 			return csobj;
-		}
+		};
 
 		api.windowToCanvas = function(x,y,canvas){
 			var bbox = canvas.getBoundingClientRect();
