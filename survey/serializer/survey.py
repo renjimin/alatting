@@ -32,6 +32,8 @@ class RunInfoHistorySerializer(serializers.ModelSerializer):
 		fields = ('subject', 'completed', 'runid', 'ans')
 
 	def get_ans(self, RunInfoHistory):
-		ans = Answer.objects.filter(runid=RunInfoHistory.runid)
+		ans = Answer.objects.filter(poster_id=RunInfoHistory.poster.id,
+			question__questionset__questionnaire__role=RunInfoHistory.questionnaire.role, 
+			runid=RunInfoHistory.runid)
 		serializer = AnswerSerializer(instance=ans, many=True)
 		return serializer.data
