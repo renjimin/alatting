@@ -9,7 +9,7 @@ $(function(){
 			selectCanvas = document.getElementById("selectCanvas");
 			canvas.originCanvas = document.createElement("canvas");
 			
-			$("#logoPrettify").show();
+			$("#logoPrettify").addClass('open');
 			api.bindEvents();
 			if(url && !hasImage ){
 				api.setImage(url);
@@ -19,7 +19,7 @@ $(function(){
 		api.destory = function(){
 			$(".closeLogoPrettify").off("click");
 			$(".editMenuGroup button").off("click");
-			$("#logoPrettify").hide();
+			$("#logoPrettify").removeClass('open');
 			
 			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
 			currentPannel = null;
@@ -30,6 +30,7 @@ $(function(){
 				api.destory();
 			});
 			$(".editMenuGroup button").on("click",function(e){
+				$(this).addClass('active').siblings().removeClass('active');
 				api.switchPannel($(e.target).data("pannel"));
 			});
 			$("#logoPrettify .uploadImage").on("change",function(){
@@ -44,8 +45,9 @@ $(function(){
 		};
 		api.switchPannel = function(pannelID){
 			if(currentPannel == pannelID)return;
-			$("#"+currentPannel).hide();
+			$("#"+currentPannel).hide();			
 			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
+
 			if(pannelID && $("#"+pannelID))$("#"+pannelID).show();
 			if(api[pannelID] && api[pannelID].init)api[pannelID].init();
 			currentPannel = pannelID;
@@ -1033,7 +1035,7 @@ $(function(){
 			}			
 			return csobj;
 		}
-		
+
 		api.windowToCanvas = function(x,y,canvas){
 			var bbox = canvas.getBoundingClientRect();
 			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
