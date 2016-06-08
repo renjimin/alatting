@@ -43,6 +43,7 @@
 	min-height: 20px;
 	padding: 0 7px;
 	position: relative;
+	outline:none!important;
 	/*
 	
 	
@@ -69,6 +70,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 10;
 }
 #logoPrettify .editMenuGroup{
 	position: absolute;

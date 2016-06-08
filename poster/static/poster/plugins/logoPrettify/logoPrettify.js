@@ -42,6 +42,19 @@ $(function(){
 				};
 				reader.readAsDataURL(file);
 			});
+			$("#logoPrettify .uploadCanvas").on("click",function(){
+				var image = new Image();
+				image.onload = function(){
+					$('.header-logo h2').hide();
+					$('.header-logo img').remove();
+					image.style.width = canvas.width + 'px';
+					image.style.height = canvas.height + 'px';
+					$('.header-logo').append($(image));
+					$('.header-logo').imgoperationlogo();
+					api.destory();
+				}
+				image.src = canvas.toDataURL("image/png");
+			});
 		};
 		api.switchPannel = function(pannelID){
 			if(currentPannel == pannelID)return;
@@ -822,7 +835,7 @@ $(function(){
 				api.initView();
 				api.initAttEvent();
 			}
-			_img.src = canvas.toDataURL("image/png");			
+			_img.src = canvas.toDataURL("image/png");
 		}
 		api.initView = function(){
 			var container = $('#hueList');
@@ -854,7 +867,7 @@ $(function(){
                                   
 				$.each(filters, function() {  
 					var value = jQuery('#'+this.name).val(); 
-					// Update CSS string  
+					
 					cssString += " " + this.name + "(" + value + this.unit + ")";  
 				}); 
 				var cs =  $(canvas).attr('style');
@@ -865,18 +878,10 @@ $(function(){
 				csss = csss.substr(1,csss.length-2);
 				csss = csss.replace(/"/g,'');
 				csss += ';';						
-				$(canvas).attr('style', csss);
-				/*$(_img).attr('style', "-webkit-filter: " + cssString);
-				var bbox = canvas.getBoundingClientRect();
-				var scale = canvas.width/bbox.width;
-				var canvasCtx = canvas.getContext('2d');
-				canvasCtx.clearRect(0,0,canvas.width*scale,canvas.height*scale);console.log(_img);
-				canvasCtx.drawImage(_img,0,0);*/
+				$(canvas).attr('style', csss);				
 			}
 		}
-		api.changView = function(){
-
-		}
+		
 		return api;
 	}();
 });

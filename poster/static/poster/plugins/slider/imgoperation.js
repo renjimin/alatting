@@ -196,17 +196,16 @@
 				oh = _option.data.height;
 			}
 			oh = i.height();
-
 			if (s.width() / s.height() >= ow / oh) {
 				imgH = s.height();
-				imgW = ow * imgH / oh;				
+				imgW = ow * imgH / oh;			
 			} else {
 				imgW = s.width();
 				imgH = oh * imgW / ow;
 			}
 
-			i.attr("width", imgW);
-			i.attr("height", imgH);
+			i.css("width", imgW);
+			i.css("height", imgH);
 
 			v.attr("width", imgW);
 			v.attr("height", imgH);
@@ -237,7 +236,6 @@
 					touchEvents.startX = touch.pageX;
 					touchEvents.startY = touch.pageY;
 					$(e.currentTarget).addClass('drag-active');
-					console.log(imgl);
 
 					s.opt.width = $(e.currentTarget).width();
 					s.opt.height = $(e.currentTarget).height();
@@ -275,7 +273,7 @@
 						var ew = s.opt.width + parseInt(endDiagonal.x) - parseInt(startDiagonal.x),
 							eh = ew * s.opt.height / s.opt.width;
 
-						i.css({
+						i.attr({
 							'width': ew,
 							'height': eh
 						});
