@@ -68,19 +68,9 @@ class StartView(RedirectView):
             reverse('survey:questionnaireblank', kwargs=kwargs), role)
 
         su = self.request.user
-        prev_run = RunInfo.objects.filter(subject=su,
-                                          questionset__in=qu.questionsets,
-                                          poster=poster).order_by(
-            "-id").first()
-        if prev_run:
-            qs = qu.questionsets()[0]
-            run = prev_run
-            run.questionset = qs
-            run.save()
-        else:
-            qs = qu.questionsets()[0]
-            run = RunInfo(subject=su, questionset=qs, poster=poster)
-            run.save()
+        qs = qu.questionsets()[0]
+        run = RunInfo(subject=su, questionset=qs, poster=poster)
+        run.save()
 
         kwargs = {'runid': run.id}
         return reverse('survey:questionnaire', kwargs=kwargs)
@@ -106,20 +96,9 @@ class StartShowView(RedirectView):
             )
 
         su = self.request.user
-        prev_run = RunInfo.objects.filter(
-            subject=su,
-            questionset__in=qu.questionsets,
-            poster=poster
-        ).order_by("-id").first()
-        if prev_run:
-            qs = qu.questionsets()[0]
-            run = prev_run
-            run.questionset = qs
-            run.save()
-        else:
-            qs = qu.questionsets()[0]
-            run = RunInfo(subject=su, questionset=qs, poster=poster)
-            run.save()
+        qs = qu.questionsets()[0]
+        run = RunInfo(subject=su, questionset=qs, poster=poster)
+        run.save()
 
         kwargs = {'runid': run.id}
         return reverse('survey:questionnaire', kwargs=kwargs)
