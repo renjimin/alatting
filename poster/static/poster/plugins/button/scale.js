@@ -176,8 +176,7 @@ var scale = function(box,options){
 						}else if( ox > 0 && oy > 0)/*右下角，2象限*/
 						{
 								angle = 180 -  angle;
-						}
-						console.log(s.opt.currentAngle)
+						}						
 						var offsetAngle = parseInt(s.opt.currentAngle) + angle;
 						offsetAngle> 360 ? offsetAngle = offsetAngle - 360 : false;
 						s.o.css({'transform': 'rotate('+offsetAngle+'deg)','-webkit-transform': 'rotate('+offsetAngle+'deg)','-moz-transform': 'rotate('+offsetAngle+'deg)','-o-transform': 'rotate('+offsetAngle+'deg)','-ms-transform': 'rotate('+offsetAngle+'deg)'});
