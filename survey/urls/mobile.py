@@ -34,7 +34,7 @@ urlpatterns += [
 	url(r'^create_choice_input/(?P<q_id>\d+)/$', ChoiceInputCreateView.as_view(), name='create_choice_input'),
 ]
 
-#测试调查问卷
+#测试调查问卷, 在最后一张海报（latest（'id'））上面填写调查问卷
 urlpatterns += [
 #show/cat_id/?role=creator or start/cat_id/?role=consumer
 	url(r'^show/(?P<cat_id>\d+)/$', 
