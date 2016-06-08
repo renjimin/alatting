@@ -10,7 +10,7 @@ import pytz
 
 from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import PermissionDenied, ValidationError
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,10 +20,10 @@ from rest_framework.generics import (
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
 from account.models import Person
+from alatting.exceptions import BargainsNoConsumerError, ChatsNoConsumerError
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
-from alatting_website.model.statistics import PosterStatistics
 from alatting_website.models import Category, CategoryKeyword, Template
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
@@ -613,7 +613,7 @@ class ServiceBargainListView(ListCreateAPIView):
         if poster.creator == self.request.user:
             consumer_id = serializer.validated_data.get('consumer_id')
             if not consumer_id:
-                raise ValidationError('报价失败，没有提供需求者信息!')
+                raise BargainsNoConsumerError
         else:
             consumer_id = self.request.user.id
         serializer.save(
@@ -643,8 +643,6 @@ class ChatListView(ListCreateAPIView):
     model = Chat
     serializer_class = ChatSerializer
     queryset = Chat.objects.all()
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('receiver_id', )
 
     def get_poster_object(self):
         return get_object_or_404(Poster, pk=self.kwargs.get('pk'))
@@ -655,8 +653,8 @@ class ChatListView(ListCreateAPIView):
         qs = qs.filter(
             poster_id=poster.id
         )
+        user_id = self.request.user.id
         if poster.creator == self.request.user:
-            user_id = self.request.GET.get('user_id')
             senders = [user_id]
             if self.request.GET.get('receiver_id'):
                 senders.append(self.request.GET.get('receiver_id'))
@@ -664,7 +662,6 @@ class ChatListView(ListCreateAPIView):
                 Q(receiver_id=user_id) | Q(sender_id__in=senders)
             )
         else:
-            user_id = self.request.user.id
             qs = qs.filter(
                 Q(sender_id=user_id) |
                 Q(sender_id=poster.creator.id) | Q(receiver_id=user_id)
@@ -675,6 +672,8 @@ class ChatListView(ListCreateAPIView):
         poster = self.get_poster_object()
         if poster.creator == self.request.user:
             receiver_id = self.request.data.get('receiver_id')
+            if not receiver_id:
+                raise ChatsNoConsumerError
         else:
             receiver_id = poster.creator.id
         serializer.save(

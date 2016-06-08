@@ -130,14 +130,38 @@
 ```json
 [
     {
-        "id": 4,
+        "id": 6,
+        "sender": {
+            "id": 5,
+            "username": "admin",
+            "first_name": "",
+            "last_name": "",
+            "email": "admin@admin.com",
+            "person": {
+                "gender": "Male",
+                "phonenumber": "13800138000",
+                "avatar": "http://0.0.0.0:8020/media/avatars/2016/05/30/b2365b2b586449d184e7475371268ba7.jpg",
+                "user_type": "consumer"
+            }
+        },
+        "receiver": {
+            "id": 14,
+            "username": "cnpython@163.com_eb075ae2",
+            "first_name": "",
+            "last_name": "",
+            "email": "cnpython@163.com",
+            "person": {
+                "gender": "unknown",
+                "phonenumber": "cnpython@163",
+                "avatar": "http://0.0.0.0:8020/media/avatars/avatar.png",
+                "user_type": "consumer"
+            }
+        },
         "data_status": 1,
-        "created_at": "2016-06-03 18:04:03",
-        "updated_at": "2016-06-03 18:04:03",
-        "content": "多少钱服务33",
-        "poster": 50,
-        "sender": 12,
-        "receiver": 5
+        "created_at": "2016-06-08 17:45:53",
+        "updated_at": "2016-06-08 17:45:53",
+        "content": "多少钱服务2222",
+        "poster": 46
     },
     ...
 ]
@@ -160,14 +184,38 @@
 **Response**
 ```json
 {
-    "id": 4,
+    "id": 6,
+    "sender": {
+        "id": 5,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com",
+        "person": {
+            "gender": "Male",
+            "phonenumber": "13800138000",
+            "avatar": "http://0.0.0.0:8020/media/avatars/2016/05/30/b2365b2b586449d184e7475371268ba7.jpg",
+            "user_type": "consumer"
+        }
+    },
+    "receiver": {
+        "id": 14,
+        "username": "cnpython@163.com_eb075ae2",
+        "first_name": "",
+        "last_name": "",
+        "email": "cnpython@163.com",
+        "person": {
+            "gender": "unknown",
+            "phonenumber": "cnpython@163",
+            "avatar": "http://0.0.0.0:8020/media/avatars/avatar.png",
+            "user_type": "consumer"
+        }
+    },
     "data_status": 1,
-    "created_at": "2016-06-03 18:04:03",
-    "updated_at": "2016-06-03 18:04:03",
-    "content": "留言的内容",
-    "poster": 50,
-    "sender": 12,
-    "receiver": 123
+    "created_at": "2016-06-08 17:45:53",
+    "updated_at": "2016-06-08 17:45:53",
+    "content": "多少钱服务2222",
+    "poster": 46
 }
 ```
 
@@ -187,14 +235,38 @@
 **Response**
 ```json
 {
-    "id": 4,
+    "id": 6,
+    "sender": {
+        "id": 5,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "admin@admin.com",
+        "person": {
+            "gender": "Male",
+            "phonenumber": "13800138000",
+            "avatar": "http://0.0.0.0:8020/media/avatars/2016/05/30/b2365b2b586449d184e7475371268ba7.jpg",
+            "user_type": "consumer"
+        }
+    },
+    "receiver": {
+        "id": 14,
+        "username": "cnpython@163.com_eb075ae2",
+        "first_name": "",
+        "last_name": "",
+        "email": "cnpython@163.com",
+        "person": {
+            "gender": "unknown",
+            "phonenumber": "cnpython@163",
+            "avatar": "http://0.0.0.0:8020/media/avatars/avatar.png",
+            "user_type": "consumer"
+        }
+    },
     "data_status": 1,
-    "created_at": "2016-06-03 18:04:03",
-    "updated_at": "2016-06-03 18:04:03",
-    "content": "需求者留言的内容",
-    "poster": 50,
-    "sender": 12,
-    "receiver": 5
+    "created_at": "2016-06-08 17:45:53",
+    "updated_at": "2016-06-08 17:45:53",
+    "content": "多少钱服务2222",
+    "poster": 46
 }
 ```
 
