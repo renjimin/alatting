@@ -280,7 +280,7 @@ $(document).ready(function () {
 				});
 			});
 			selected.on('touchstart click', '.glyphicon-chevron-down', function (event) {
-				//event.preventDefault();
+				event.preventDefault();
 				if ($(this).hasClass('open')) {
 					$(this).removeClass('open');
 					$(this).parents('a').siblings('ul').hide();
@@ -291,7 +291,8 @@ $(document).ready(function () {
 					$(this).parents('a').siblings('ul').show();
 				};
 			})
-			selected.on('touchstart click', '.glyphicon-ok-circle', function () {
+			selected.on('touchstart click', '.glyphicon-ok-circle', function (event) {
+				event.preventDefault();
 				if(selectedname.length>0){
 					$('.selectserver').text(selectedname);
 					$('.regist-industryinput').attr('disabled',true);
@@ -341,6 +342,7 @@ $(document).ready(function () {
 
 				}
 				ths.children('.glyphicon').off('touchstart click').on('touchstart click',function(event){
+					event.preventDefault();
 					if ($(event.target).hasClass('glyphicon-unchecked')) {
 						$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 						$(event.target).next().find('.glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
@@ -350,8 +352,6 @@ $(document).ready(function () {
 					};
 				})
 				selected.off('touchstart click','.sli-provider').on('touchstart click', '.sli-provider',function (event) {
-					//var selectedname = $(this).attr('data-name');
-					console.log(22)
 					var ths = $(this);
 					event.preventDefault();
 					if ($(event.target).hasClass("glyphicon")) {

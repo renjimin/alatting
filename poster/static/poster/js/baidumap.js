@@ -13,7 +13,7 @@ $(function() {
 		} else {
 			_localAdress = yunyeEditorGlobal.address;
 		}
-		console.log(_localAdress);
+		//console.log(_localAdress);
 		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
 			onSearchComplete: function() {
 				if (pp = local.getResults().getPoi(0)) {
@@ -33,7 +33,7 @@ $(function() {
 					var geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r) {
 						if (this.getStatus() == BMAP_STATUS_SUCCESS) {
-							yyAlert("没找到你要输入的地址,自动定位到当前位置");
+							//yyAlert("没找到你要输入的地址,自动定位到当前位置");
 							var mk = new BMap.Marker(r.point);
 							baiduMap.clearOverlays();
 							baiduMap.addOverlay(mk);
