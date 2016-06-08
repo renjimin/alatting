@@ -169,7 +169,7 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	$('.header-info').click(function(){
+	$('.desc').click(function(){
 		$('#text-model').animate({'bottom':'0px'},200);
 		$('.text-element').removeClass('text-element-act');
 		$('.ele-rotate-ctrl').remove();
@@ -293,6 +293,24 @@ $(function () {
 						});
 						$(".system-item").fadeOut(500);
 					})
+				}
+			},
+			{
+				icon: "glyphicon glyphicon-picture",
+				text: "上传图片",
+				callback: function () {
+					$.fn.uploads.showDialog(function (data) {
+						$('.bar-header,.bar-footer').css('background', 'url(' + data.file+ ')');
+						$('.bar-header,.bar-footer').css('background-size', '100% 100%');
+						storageAPI.setCss(".bar-header", {
+							'background': 'url(' + data.file + ')',
+							'background-size': '100% 100%'
+						});
+						storageAPI.setCss(".bar-footer", {
+							'background': 'url(' + data.file + ')',
+							'background-size': '100% 100%'
+						});
+					});
 				}
 			},
 			{
