@@ -137,6 +137,17 @@ $(function(){
 			};
 			return module;
 		}();
+		api.editPannel_5 = function(){
+			var module = {};
+			module.init = function(){
+				if(!hasImage)return;
+				$.fn.imgFilter.blur(canvas,canvas);
+			};
+			module.destory = function(){
+				
+			};
+			return module;
+		}();
 
 		return api;
 	}();
@@ -770,6 +781,46 @@ $(function(){
 						binaryData[midx + 3] = 255;
 					} 
 				} 
+			});
+		};
+		api.blur = function(source,target){
+			helper(source,target,function(binaryData,len,w,h){
+				var tempCanvasData = source.getContext("2d").getImageData(0, 0, source.width, source.height).data;  
+				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0;  
+				for ( var x = 0; x < w; x++){
+					for ( var y = 0; y < h; y++){ 
+						var idx = (x + y * w) * 4;         
+						for(var subCol=-2; subCol<=2; subCol++) {  
+							var colOff = subCol + x;  
+							if(colOff <0 || colOff >= w) {  
+								colOff = 0;  
+							}  
+							for(var subRow=-2; subRow<=2; subRow++) {
+								var rowOff = subRow + y;  
+								if(rowOff < 0 || rowOff >= h) {  
+									rowOff = 0;  
+								}  
+								var idx2 = (colOff + rowOff * w) * 4;      
+								var r = tempCanvasData[idx2 + 0];      
+								var g = tempCanvasData[idx2 + 1];      
+								var b = tempCanvasData[idx2 + 2];  
+								sumred += r;  
+								sumgreen += g;  
+								sumblue += b;  
+							}  
+						}  
+						var nr = (sumred / 25.0);  
+						var ng = (sumgreen / 25.0);  
+						var nb = (sumblue / 25.0); 
+						sumred = 0.0;  
+						sumgreen = 0.0;  
+						sumblue = 0.0;
+						binaryData[idx + 0] = nr;
+						binaryData[idx + 1] = ng;
+						binaryData[idx + 2] = nb;
+						binaryData[idx + 3] = 255;
+					}
+				}
 			});
 		};
 		function helper(source,target,rgbHandler){
