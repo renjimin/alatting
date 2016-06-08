@@ -163,9 +163,10 @@ var scale = function(box,options){
 						var oy = mouseY - s.opt.cy;
 						var to = Math.abs( ox/oy );
 						var angle = Math.atan( to )/( 2 * Math.PI ) * 360;/*鼠标相对于旋转中心的角度*/
+
 						if( ox < 0 && oy < 0)/*相对在左上角，第四象限，js中坐标系是从左上角开始的，这里的象限是正常坐标系*/
 						{
-								angle = 360 - angle;
+								angle =  - angle;
 						}else if( ox < 0 && oy > 0)/*左下角,3象限*/
 						{
 								angle =  180 + angle;
@@ -176,8 +177,9 @@ var scale = function(box,options){
 						{
 								angle = 180 -  angle;
 						}
-						var offsetAngle = angle - parseInt(s.opt.currentAngle);
-
+						console.log(s.opt.currentAngle)
+						var offsetAngle = parseInt(s.opt.currentAngle) + angle;
+						offsetAngle> 360 ? offsetAngle = offsetAngle - 360 : false;
 						s.o.css({'transform': 'rotate('+offsetAngle+'deg)','-webkit-transform': 'rotate('+offsetAngle+'deg)','-moz-transform': 'rotate('+offsetAngle+'deg)','-o-transform': 'rotate('+offsetAngle+'deg)','-ms-transform': 'rotate('+offsetAngle+'deg)'});
 						
 						s.o.attr('data-rotate',offsetAngle);
