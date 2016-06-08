@@ -56,9 +56,7 @@
 				};
 
 			i.css({
-				'position': 'relative',
-				'top': '0',
-				'left': '0'
+				'position': 'relative'
 			});
 			i.on({
 				'touchstart': function(e) {
