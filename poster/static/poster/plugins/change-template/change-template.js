@@ -74,6 +74,12 @@
             fullcontainer = $('.yunye-template').eq(0);
             addDefaultButtons();
             window.onresize();
+            if(window.templateMainActionInit){
+                window.templateMainActionInit();
+            }
+            if(window.templateEventInit){
+                window.templateEventInit();
+            }
         },
         update: function (templateId) {
             var self = this;
