@@ -190,8 +190,8 @@ class RunInfo(models.Model):
     questionset = models.ForeignKey(QuestionSet, blank=True, null=True) 
     created = models.DateTimeField(auto_now_add=True)
 
-    def __unicode__(self):
-        return "%s" % (self.pk)
+    def __str__(self):
+        return "%s" % self.pk
 
     class Meta:
         verbose_name_plural = 'Run Info'
@@ -214,12 +214,14 @@ class RunInfoHistory(models.Model):
     runid = models.CharField(max_length=32)
     isactive = models.BooleanField(default=False)
 
-    def __unicode__(self):
-        return "%s" % (self.subject, self.completed)
+    def __str__(self):
+        return "%s_%s" % (self.subject, self.completed)
 
     def answers(self):
-        "Returns the query for the answers."
-        return Answer.objects.filter(subject=self.subject, runinfo=self.runinfo)
+        """Returns the query for the answers."""
+        return Answer.objects.filter(
+            subject=self.subject, runinfo=self.runinfo
+        )
 
     class Meta:
         verbose_name_plural = 'Run Info History'

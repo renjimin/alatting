@@ -363,13 +363,15 @@ $(document).ready(function () {
 					}
 				});
 			});
-			selected.off("touchstart click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function () {
+			selected.off("touchstart click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function (event) {
 			   // console.log($('.div-provider .glyphicon-check').parents('li'));
-				var i = $('.div-provider .glyphicon-check');
+			   	event.preventDefault();
+				var i = $('.sli-provider .glyphicon-check');
 				var meid = "";
 				for(var n=0;n<i.length;n++){
 					$(i[n]).parent('li').attr('data-id');
 					meid += $(i[n]).parent('li').attr('data-id')+",";
+					console.log($(i[n]).parent('li'))
 					messbox += $(i[n]).parent('li').attr('data-name')+","
 				}
 				meid = meid.substring(0,meid.length-1);
