@@ -1,7 +1,7 @@
 # coding=utf-8
-import datetime			   
+import datetime
 from django.shortcuts import render_to_response, \
-get_object_or_404, render, redirect
+    get_object_or_404, render, redirect
 from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.views.generic import View, TemplateView, RedirectView
@@ -30,6 +30,7 @@ class IndexView(TemplateView):
 
 
 class QuestionnaireBlankView(View):
+
     def get(self, request, **kwargs):
         poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
         qs_title = "没有此类别的调查问卷"
@@ -57,6 +58,7 @@ class QuestionnaireBlankView(View):
 
 
 class StartView(RedirectView):
+
     def get_redirect_url(self, *args, **kwargs):
         poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
         role = self.request.GET.get('role', '')
@@ -65,7 +67,7 @@ class StartView(RedirectView):
         if not qu:
             kwargs = {'poster_id': poster.pk}
             return '%s?role=%s' % (
-            reverse('survey:questionnaireblank', kwargs=kwargs), role)
+                reverse('survey:questionnaireblank', kwargs=kwargs), role)
 
         su = self.request.user
         qs = qu.questionsets()[0]
@@ -77,6 +79,7 @@ class StartView(RedirectView):
 
 
 class StartShowView(RedirectView):
+
     def get_redirect_url(self, *args, **kwargs):
         category = get_object_or_404(Category, pk=self.kwargs['cat_id'])
         if category.parent:
@@ -105,6 +108,7 @@ class StartShowView(RedirectView):
 
 
 class QuestionnaireView(View):
+
     def get_progress(self, runinfo):
         position = 0
         total = 0
@@ -197,7 +201,6 @@ class QuestionnaireView(View):
         answer.save()
         return True
 
-
     def get(self, request, **kwargs):
         runid = self.kwargs['runid']
         runinfo = RunInfo.objects.get(pk=runid)
@@ -210,7 +213,6 @@ class QuestionnaireView(View):
             runinfo.save()
 
         return self.show_questionnaire(request, runinfo)
-
 
     def post(self, request, **kwargs):
         runid = self.kwargs['runid']
@@ -245,18 +247,18 @@ class QuestionnaireView(View):
             ans = {}
             if question in extra:
                 ans = extra.get(question)
-            #choice-radio: name="question_{{ question.sortid }}"
-            #text/textarea: "question_{{ question.sortid }}"
-            #ans: {'ANSWER': ...}
-            if len(qssortid)==2:
+            # choice-radio: name="question_{{ question.sortid }}"
+            # text/textarea: "question_{{ question.sortid }}"
+            # ans: {'ANSWER': ...}
+            if len(qssortid) == 2:
                 ans['ANSWER'] = value
-            #checkbox: name="question_{{ question.sortid }}_{{choice.sortid}}"
-            #ans: {choice.sortid: ..., choice.sortid: ... }
-            elif len(qssortid)==3:
+            # checkbox: name="question_{{ question.sortid }}_{{choice.sortid}}"
+            # ans: {choice.sortid: ..., choice.sortid: ... }
+            elif len(qssortid) == 3:
                 ans[qssortid[2]] = value
-            #input in choice-radio: name="question_{{ question.sortid }}_choice_radio"
-            #input in choice-radio: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
-            #ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
+            # input in choice-radio: name="question_{{ question.sortid }}_choice_radio"
+            # input in choice-radio: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
+            # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
             elif len(qssortid) == 4 and qssortid[3] in ['radio', 'comment']:
                 if qssortid[3] == 'radio':
                     if value.startswith("_entry_"):
@@ -279,7 +281,7 @@ class QuestionnaireView(View):
                         ans[choice_sortid] = {}
                     ans[choice_sortid]['COMMENT'] = value
             extra[question] = ans
-        #generate none for each empty quesiton, and place in extra
+        # generate none for each empty quesiton, and place in extra
         expected = questionset.questions()
         empty_ids = []
         for q in expected:
