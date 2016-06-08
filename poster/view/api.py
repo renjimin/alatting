@@ -20,7 +20,8 @@ from rest_framework.generics import (
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
 from account.models import Person
-from alatting.exceptions import BargainsNoConsumerError, ChatsNoConsumerError
+from alatting.exceptions import BargainsNoConsumerError, ChatsNoConsumerError, \
+    PosterPageNotFoundError
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
@@ -134,6 +135,7 @@ class PosterPageListView(ListCreateAPIView):
     def perform_create(self, serializer):
         poster_id = self.request.data.get('poster_id')
         template_id = self.request.data.get('template_id')
+        action = self.request.POST.get('action', 'create')
         pages = PosterPage.objects.filter(
             poster_id=poster_id
         ).order_by('-index')
@@ -142,16 +144,28 @@ class PosterPageListView(ListCreateAPIView):
         else:
             index = 0
 
-        template = get_object_or_404(Template, pk=template_id)
-        html = read_template_file_content(template.html_path())
-        css = read_template_file_content(template.css_path())
-        js = read_template_file_content(template.js_path())
+        if action == 'copy':
+            from_page = PosterPage.objects.filter(
+                id=self.request.POST.get('posterpage_id'),
+                poster__creator=self.request.user
+            ).first()
+            if not from_page:
+                raise PosterPageNotFoundError
+            html = from_page.temp_html
+            css = from_page.temp_css
+            script = from_page.temp_script
+        else:
+            template = get_object_or_404(Template, pk=template_id)
+            html = read_template_file_content(template.html_path())
+            css = read_template_file_content(template.css_path())
+            script = read_template_file_content(template.js_path())
+
         posterpage = serializer.save(
             index=index,
             name="p%s_t%s_i%s" % (poster_id, template_id, index),
             temp_html=html,
             temp_css=css,
-            temp_script=js
+            temp_script=script
         )
         posterpage.check_and_create_static_file_dir()
 
@@ -328,17 +342,18 @@ class PosterSaveContentMixin(object):
         ).order_by('-index')
         for page in pages:
             try:
-                static_map = pages_json['{:d}'.format(page.id)]
-                if 'html' in static_map.keys() \
-                        and len(static_map['html']) != 0:
-                    html = str(base64.b64decode(static_map['html']),
-                               encoding='utf-8', errors='ignore')
-                    page.temp_html = html
-                if 'css' in static_map.keys() \
-                        and len(static_map['css']) != 0:
-                    page.temp_css = self._css_handler(page.temp_css,
-                                                      static_map['css'])
-                page.save()
+                static_map = pages_json.get('{:d}'.format(page.id), {})
+                if static_map:
+                    if 'html' in static_map.keys() \
+                            and len(static_map['html']) != 0:
+                        html = str(base64.b64decode(static_map['html']),
+                                   encoding='utf-8', errors='ignore')
+                        page.temp_html = html
+                    if 'css' in static_map.keys() \
+                            and len(static_map['css']) != 0:
+                        page.temp_css = self._css_handler(page.temp_css,
+                                                          static_map['css'])
+                    page.save()
             except KeyError:
                 pass
 

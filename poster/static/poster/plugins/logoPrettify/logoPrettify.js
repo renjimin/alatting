@@ -407,6 +407,7 @@ $(function(){
 		api.deleteSelectedPixels = function() {
 			var canvas = document.querySelector('#editCanvas');
 			var ctx = canvas.getContext('2d');
+			var originCtx = canvas.originCanvas.getContext('2d');
 			var selectionCanvas = document.querySelector('#selectCanvas');
 			if(!selectionCanvas.selectedPixels) return;
 
@@ -425,6 +426,11 @@ $(function(){
 			ctx.globalCompositeOperation = 'destination-out';
 			ctx.drawImage(tempCanvas, 0, 0, w, h, 0, 0, displayW, displayH);
 			ctx.restore();
+
+			originCtx.save();
+			originCtx.globalCompositeOperation = 'destination-out';
+			originCtx.drawImage(tempCanvas, 0, 0, w, h, 0, 0, displayW, displayH);
+			originCtx.restore();
 		};
 		return api;
 	}();
@@ -805,8 +811,8 @@ $(function(){
 				"木雕" : "carveStyle",
 				"粗糙" : "rough"
 			};
-			var effectModel = '<li class="e_item"><a class="imglink"><img src="{pic}" alt="" /><span>{effect}</span></a></li>';
-			var html = '<li class="e_item"><a class="imglink"><img src="'+_img.src+'" alt="" /><span>原图</span></a></li>';
+			var effectModel = '<li class="e_item"><a class="imglink"><img src="{pic}" alt="" /></a><span>{effect}</span></li>';
+			var html = '<li class="e_item"><a class="imglink"><img src="'+_img.src+'" alt="" /></a><span>原图</span></li>';
 			for(var i in EasyReflection){
 				var cloneImg = new Image(),
 				PS = pic.clone();
@@ -996,7 +1002,7 @@ $(function(){
 						binaryData[idx + 0] = nr;
 						binaryData[idx + 1] = ng;
 						binaryData[idx + 2] = nb;
-						binaryData[idx + 3] = 255;
+						binaryData[idx + 3] = tempCanvasData[idx2 + 3];
 					}
 				}
 			});
