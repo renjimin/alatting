@@ -217,7 +217,7 @@ $(document).ready(function () {
 		main_name = "";
 		if ($('.div-server').length ==0) {
 			selectTrade(0, function (data) {
-				var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
+				var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-remove-circle"></i><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
 				for (var i = 0; i < data.length; i++) {
 					sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></a></li>';
 				}
@@ -301,6 +301,13 @@ $(document).ready(function () {
 					$('.regist-industryinput').attr('disabled',false);
 				}
 				$('.div-server').fadeOut(200);
+			});
+			selected.on('touchstart click', '.glyphicon-remove-circle', function (event) {
+				event.preventDefault();
+				$('.selectserver').text("请选择行业");
+				$("#id_main_category").val("");
+				$("#id_sub_category_ids").val("");
+				$('.div-server').fadeOut(200);
 			})
 		}
 	});
@@ -309,7 +316,7 @@ $(document).ready(function () {
 		var selected = $('body');
 		if ($('.div-provider').length ==0) {
 			 selectTrade(0, function (data) {
-				var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
+				var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-remove-circle"></i><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
 				for (var i = 0; i < data.length; i++) {
 					sbox += '<li class = "li-provider" data-name = "'+data[i].name+'" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
 				}
@@ -382,6 +389,14 @@ $(document).ready(function () {
 				$("#id_sub_category_ids").val(meid);
 				$('.div-provider').fadeOut(200);
 			});
+			selected.off("touchstart click", '.glyphicon-remove-circle').on('touchstart click', '.glyphicon-remove-circle', function (event) {
+				console.log(33)
+				event.preventDefault();
+				$('.selectprovider').text("我要找的服务(可多选)");
+				$("#id_main_category").val("");
+				$("#id_sub_category_ids").val("");
+				$('.div-provider').fadeOut(200);
+			})			
 		}
 	});
 
