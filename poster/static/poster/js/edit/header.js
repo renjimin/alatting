@@ -25,7 +25,7 @@ $(function () {
 				var tranf = '';
 				if(rotate){
 					rotate = parseFloat(rotate).toFixed(2);
-					tranf += 'rotate('+rotate+') ';
+					tranf += 'rotate('+rotate+'deg) ';
 				}
 				if(scale){
 					tranf += 'scale('+scale+')';
@@ -86,7 +86,7 @@ $(function () {
 			csobj['-ms-transform']=value;
 			csobj['-o-transform']=value;
 			csss = JSON.stringify(csobj);
-			csss = csss.replace(/,/g,';');
+			csss = csss.replace(/","/g,';');
 			csss = csss.substr(1,csss.length-2);
 			csss = csss.replace(/"/g,'');
 			csss += ';';

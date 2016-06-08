@@ -1,4 +1,5 @@
 # coding=utf-8
+import logging
 
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect
@@ -7,6 +8,7 @@ from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
 from django.db.models.query import Prefetch
 from django.utils.http import urlquote_plus, urlquote
+from account.models import UserCategory
 from alatting_website.model.poster import PosterMoreLink
 from alatting_website.models import Poster, Rating, PosterStatistics, Category
 from alatting_website.model.statistics import PosterLike, PosterFun, PosterFavorites, PosterSubscribe
@@ -17,6 +19,9 @@ from utils.clip import SvgClip
 from alatting_website.logic.poster_service import PosterService
 import datetime, pytz, json
 from collections import OrderedDict
+
+
+logger = logging.getLogger('common')
 
 
 def get_first_category_list():
@@ -36,13 +41,28 @@ class MobileIndexView(TemplateView):
                 sort_key = '-created_at'
         return sort_key
 
+    def get_q_filter(self, qs):
+        q = self.request.GET.get('q', '')
+        try:
+            sub_ids = q.split(',')
+            if sub_ids:
+                qs = qs.filter(
+                    sub_category_id__in=sub_ids
+                ).exclude(
+                    creator=self.request.user
+                )
+        except Exception as e:
+            logger.exception(e)
+        return qs.order_by('-created_at')
+
     def get_poster_list(self):
         qs = Poster.objects.filter(
             status=Poster.STATUS_PUBLISHED
-        ).order_by('-created_at')
+        )
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)
+        qs = self.get_q_filter(qs)
         return qs
 
     def get_context_data(self, **kwargs):

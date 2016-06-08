@@ -145,20 +145,18 @@ class Chat(AlattingBaseModel):
 
 
 class ServiceComment(AlattingBaseModel):
-    RATING_0 = 0
-    RATING_20 = 20
-    RATING_40 = 40
-    RATING_60 = 60
-    RATING_80 = 80
-    RATING_100 = 100
+    RATING_1 = 1
+    RATING_2 = 2
+    RATING_3 = 3
+    RATING_4 = 4
+    RATING_5 = 5
 
     RATING_CHOICES = (
-        (RATING_0, RATING_0),
-        (RATING_20, RATING_20),
-        (RATING_40, RATING_40),
-        (RATING_60, RATING_60),
-        (RATING_80, RATING_80),
-        (RATING_100, RATING_100)
+        (RATING_1, RATING_1),
+        (RATING_2, RATING_2),
+        (RATING_3, RATING_3),
+        (RATING_4, RATING_4),
+        (RATING_5, RATING_5)
     )
 
     poster = BigForeignKey(
@@ -176,7 +174,7 @@ class ServiceComment(AlattingBaseModel):
     )
     rating = models.PositiveSmallIntegerField(
         verbose_name='评分',
-        default=RATING_0,
+        default=RATING_5,
         choices=RATING_CHOICES
     )
 
