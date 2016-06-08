@@ -11,6 +11,17 @@ TRUE_FALSE = (
 )
 
 
+DAY_CN_NAME = (
+    ('Monday', '周一'),
+    ('Tuesday', '周二'),
+    ('Wednesday', '周三'),
+    ('Thursday', '周四'),
+    ('Friday', '周五'),
+    ('Saturday', '周六'),
+    ('Sunday', '周日'),
+)
+
+
 class DataStatus(object):
     UNUSABLE = 0
     USABLE = 1
