@@ -114,10 +114,14 @@
 	display: inline-block;
 	width: 60px;
 	border:2px solid transparent;
+	text-align: center;
+}
+.fliter-list li.empty{
+	padding:15px 0;
+	width: 320px;
 }
 .fliter-list li span{
 	display: block;
-	text-align: center;
 }
 .fliter-list li img{
 	max-width: 100%;
@@ -129,6 +133,16 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+/* hue-list */
+.hue-list{
+	overflow: hidden;
+}
+.hue-list .hue-item{
+	width:50%;
+	float: left;
+	padding:5px 10px;
+	text-align: center;
 }
 
 #editPannel_2 canvas{

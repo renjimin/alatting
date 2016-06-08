@@ -5,8 +5,10 @@ $(function(){
 
 		api.init = function(url){
 			canvas = document.getElementById("editCanvas");
-			selectCanvas = document.getElementById("selectCanvas");
 			ctx = canvas.getContext('2d');
+			selectCanvas = document.getElementById("selectCanvas");
+			canvas.originCanvas = document.createElement("canvas");
+			
 			$("#logoPrettify").show();
 			api.bindEvents();
 			if(url && !hasImage ){
@@ -53,10 +55,6 @@ $(function(){
 			image.src = url;
 			var width = image.naturalWidth,
 				height = image.naturalHeight;
-			selectCanvas.width = canvas.width = width;
-			selectCanvas.height = canvas.height = height;
-			ctx.drawImage(image,0,0,width,height,0,0,width,height);
-			hasImage = true;
 			var 	scale = width/height;
 			if(scale>1){
 				$("#editCanvas").width(    ($(".body-container").width()) * 0.8    ) ;
@@ -69,6 +67,11 @@ $(function(){
 			$("#selectCanvas").height($("#editCanvas").height());
 			$("#selectCanvas").css("top",$("#editCanvas").offset().top);
 			$("#selectCanvas").css("left",$("#editCanvas").offset().left);
+			canvas.originCanvas.width = selectCanvas.width = canvas.width = $("#editCanvas").width();
+			canvas.originCanvas.height = selectCanvas.height = canvas.height = $("#editCanvas").height();
+			ctx.drawImage(image,0,0,width,height,0,0,$("#editCanvas").width(),$("#editCanvas").height());
+			canvas.originCanvas.getContext("2d").putImageData(ctx.getImageData(0, 0, canvas.width, canvas.height), 0 , 0);
+			hasImage = true;
 		};
 		api.uploadImage = function(){
 			
@@ -124,6 +127,18 @@ $(function(){
 			};
 			return module;
 		}();
+		api.editPannel_3 = function(){
+			var module = {};
+			module.init = function(){
+				if(!hasImage)return;
+				$.fn.imgHue.init(canvas);
+				
+			};
+			module.destory = function(){
+				
+			};
+			return module;
+		}();
 		api.editPannel_4 = function(){
 			var module = {};
 			module.init = function(){
@@ -138,6 +153,32 @@ $(function(){
 			};
 			module.destory = function(){
 				$.fn.imagecrop.destory();
+			};
+			return module;
+		}();
+		api.editPannel_5 = function(){
+			var module = {};
+			var isClearing = false;
+
+			module.init = function(){
+				if(!hasImage)return;
+				$.fn.imgFilter1.blur(canvas.originCanvas,canvas);
+				$("#selectCanvas").on("mousedown touchstart",function(){
+					isClearing = true;
+				});
+				$("#selectCanvas").on("mousemove touchmove",function(e){
+					if( !isClearing )return;
+					var x = e.clientX||e.originalEvent.touches[0].clientX,
+						y = e.clientY||e.originalEvent.touches[0].clientY,
+						pos = $.fn.canvasHelper.windowToCanvas(x, y, canvas);
+					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(pos.x-10, pos.y-10, 20, 20), pos.x-10,  pos.y-10);
+				});
+				$("#selectCanvas").on("mouseup touchend",function(){
+					isClearing = false;
+				});
+			};
+			module.destory = function(){
+				
 			};
 			return module;
 		}();
@@ -314,7 +355,7 @@ $(function(){
 			var canvasContext = canvas.getContext('2d');
 			var selectionCanvas = document.getElementById("selectCanvas");
 			var selectionContext = selectionCanvas.getContext('2d');
-			var point = api.windowToCanvas(e.clientX, e.clientY, canvas);
+			var point = $.fn.canvasHelper.windowToCanvas(e.clientX, e.clientY, canvas);
 			var src = canvasContext.getImageData(0, 0, canvas.width, canvas.height);
 
 			marchingAnts.deselect();
@@ -332,12 +373,6 @@ $(function(){
 			marchingAnts.deselect();
 			selectionContext.clearRect(0, 0, selectionCanvas.width, selectionCanvas.height);
 			selectionCanvas.selectedPixels = null;
-		};
-		api.windowToCanvas = function(x,y,canvas){
-			var bbox = canvas.getBoundingClientRect();
-			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
-					y: Math.round((y - bbox.top)  * (canvas.height / bbox.height))
-				};
 		};
 		return api;
 	}();
@@ -460,6 +495,11 @@ $(
 
 					var bbox = canvas.getBoundingClientRect();
 					var scale = bbox.width/canvas.width;
+					var style = $.fn.canvasHelper.getStyle($(canvas).attr('style'));
+					if(style['-webkit-filter']){
+						$(cropCanvas).attr('style','-webkit-filter:'+style['-webkit-filter']);
+					}
+
 					cropCtx.drawImage(imageClone, 0, 0, defaults.swidth/scale, defaults.sheight/scale, 0, 0, defaults.swidth, defaults.sheight);
 					
 					_this.dropCrop(cropCanvas,cropCtx);
@@ -765,6 +805,80 @@ $(function(){
 	}();
 });
 $(function(){
+	$.fn.imgHue = function(){
+		var api = {},canvas,pic,_img;
+		var filters = [  
+			{ name: "saturate", cname: "饱和度", def: "1", unit: "", min: 0, max: 1.0 , step: "0.01"},   
+			{ name: "brightness", cname: "亮度", def: "1", unit: "", min: 0, max: 1.0 , step: "0.01"},  
+			{ name: "contrast", cname: "对比度", def: "1", unit: "", min: 0, max: 1 , step: "0.01"},  
+			{ name: "hue-rotate", cname: "色调", def: "0", unit: "deg", min: 0, max: 360 , step: "1"} 
+		]; 
+		api.init = function(canvasObj){
+			canvas = canvasObj;
+			_img = new Image();
+			_img.onload = function(){
+				api.initView();
+				api.initAttEvent();
+			}
+			_img.src = canvas.toDataURL("image/png");			
+		}
+		api.initView = function(){
+			var container = $('#hueList');
+			
+			container.empty();
+			$.each(filters, function() {  
+				container.append("<li class='hue-item'><input value='"+this.def+"' type='range' class='range' id='"+this.name+"' min='"+this.min+"' max='"+this.max+"' step='"+this.step+"'><span class='hue-text'>"+this.cname+"</span></li>");  
+			});
+		}
+		api.initAttEvent = function(){
+			var startX = 0,endX = 0,val;
+			$('#hueList .range').on({
+				'mousedown touchstart':function(e){
+					if (e.originalEvent) e = e.originalEvent;event.preventDefault();
+					startX = e.type === 'touchstart' ?  e.touches[0].pageX : e.pageX;
+					val = e.currentTarget.value;
+				},
+				'mousemove touchmove':function(e){
+					if (e.originalEvent) e = e.originalEvent;event.preventDefault();
+					endX = e.type === 'touchmove' ? e.targetTouches[0].pageX : e.pageX;
+					var le = (endX - startX)*parseFloat($(e.currentTarget).attr('step')) + parseInt(val);
+					var newl = 	le * parseInt($(e.currentTarget).attr('max'))/($(e.currentTarget).width()*parseFloat($(e.currentTarget).attr('step')));	
+					e.currentTarget.value = newl;
+					changeView(newl);
+				}
+			})
+			function changeView(value){
+				var cssString = "";  
+                                  
+				$.each(filters, function() {  
+					var value = jQuery('#'+this.name).val(); 
+					// Update CSS string  
+					cssString += " " + this.name + "(" + value + this.unit + ")";  
+				}); 
+				var cs =  $(canvas).attr('style');
+				var style = $.fn.canvasHelper.getStyle(cs);
+				style['-webkit-filter'] = cssString;
+				var csss = JSON.stringify(style);
+				csss = csss.replace(/,/g,';');
+				csss = csss.substr(1,csss.length-2);
+				csss = csss.replace(/"/g,'');
+				csss += ';';						
+				$(canvas).attr('style', csss);
+				/*$(_img).attr('style', "-webkit-filter: " + cssString);
+				var bbox = canvas.getBoundingClientRect();
+				var scale = canvas.width/bbox.width;
+				var canvasCtx = canvas.getContext('2d');
+				canvasCtx.clearRect(0,0,canvas.width*scale,canvas.height*scale);console.log(_img);
+				canvasCtx.drawImage(_img,0,0);*/
+			}
+		}
+		api.changView = function(){
+
+		}
+		return api;
+	}();
+});
+$(function(){
 	$.fn.imgFilter1 = function(){
 		var api = {};
 
@@ -830,6 +944,46 @@ $(function(){
 				} 
 			});
 		};
+		api.blur = function(source,target){
+			helper(source,target,function(binaryData,len,w,h){
+				var tempCanvasData = source.getContext("2d").getImageData(0, 0, source.width, source.height).data;  
+				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0;  
+				for ( var x = 0; x < w; x++){
+					for ( var y = 0; y < h; y++){ 
+						var idx = (x + y * w) * 4;         
+						for(var subCol=-3; subCol<=3; subCol++) {  
+							var colOff = subCol + x;  
+							if(colOff <0 || colOff >= w) {  
+								colOff = 0;  
+							}  
+							for(var subRow=-3; subRow<=3; subRow++) {
+								var rowOff = subRow + y;  
+								if(rowOff < 0 || rowOff >= h) {  
+									rowOff = 0;  
+								}  
+								var idx2 = (colOff + rowOff * w) * 4;      
+								var r = tempCanvasData[idx2 + 0];      
+								var g = tempCanvasData[idx2 + 1];      
+								var b = tempCanvasData[idx2 + 2];  
+								sumred += r;  
+								sumgreen += g;  
+								sumblue += b;  
+							}  
+						}  
+						var nr = (sumred / 25.0);  
+						var ng = (sumgreen / 25.0);  
+						var nb = (sumblue / 25.0); 
+						sumred = 0.0;  
+						sumgreen = 0.0;  
+						sumblue = 0.0;
+						binaryData[idx + 0] = nr;
+						binaryData[idx + 1] = ng;
+						binaryData[idx + 2] = nb;
+						binaryData[idx + 3] = 255;
+					}
+				}
+			});
+		};
 		function helper(source,target,rgbHandler){
 			var canvas = source; 
 			var ctx = canvas.getContext("2d");
@@ -853,7 +1007,7 @@ $(function(){
 	$.fn.canvasHelper = function(){
 		var api = {};
 
-		api.scaleImageData = function(data, w, h) {
+		api.scaleImageData = function(data, w, h){
 			var dataW = data.width;
 			var dataH = data.height;
 			var dataCanvas = document.createElement('canvas');
@@ -867,6 +1021,24 @@ $(function(){
 			tempCanvas.height = h;
 			tempContext.drawImage(dataCanvas, 0, 0, dataW, dataH, 0, 0, w, h);
 			return tempContext.getImageData(0, 0, w, h);
+		};
+
+		api.getStyle = function(csss){
+			var csobj={};
+			csss = csss.substr(0,csss.length-1);
+			csss = csss.split(';');
+			for(var i=0;i<csss.length;i++){
+				var sa= csss[i].split(':');
+				csobj[sa[0]]=sa[1];
+			}			
+			return csobj;
+		}
+		
+		api.windowToCanvas = function(x,y,canvas){
+			var bbox = canvas.getBoundingClientRect();
+			return { x: Math.round((x - bbox.left) * (canvas.width  / bbox.width)),
+					y: Math.round((y - bbox.top)  * (canvas.height / bbox.height))
+				};
 		};
 		return api;
 	}();
