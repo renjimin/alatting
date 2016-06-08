@@ -78,16 +78,17 @@ $(function(){
 				$("#editCanvas").height(    ($(".body-container").height() - 220) * 0.8    ) ;
 				$("#editCanvas").width(    $("#editCanvas").height() * scale    ) ;
 			}
-			api.scaleCanvas();
+			api.scaleSelectCanvas();
 			canvas.originCanvas.width = selectCanvas.width = canvas.width = $("#editCanvas").width();
 			canvas.originCanvas.height = selectCanvas.height = canvas.height = $("#editCanvas").height();
 			ctx.drawImage(image,0,0,width,height,0,0,$("#editCanvas").width(),$("#editCanvas").height());
+			canvas.originCanvas.getContext("2d").putImageData(ctx.getImageData(0, 0, canvas.width, canvas.height), 0 , 0);
 			hasImage = true;
 		};
 		api.uploadImage = function(){
 			
 		};
-		api.scaleCanvas = function(){
+		api.scaleSelectCanvas = function(){
 			selectCanvas.style.width = canvas.style.width;
 			selectCanvas.style.height = canvas.style.height;
 			selectCanvas.style.top = canvas.offsetTop === "" ? 0 :  canvas.offsetTop+ 'px';
@@ -96,11 +97,11 @@ $(function(){
 		api.editPannel_1 = function(){
 			var module = {};
 			module.init = function(){
-				api.scaleCanvas();
-				var tempData = $.fn.canvasHelper.scaleImageData(ctx.getImageData(0, 0, canvas.width, canvas.height),$("#editCanvas").width(),$("#editCanvas").height());
+				api.scaleSelectCanvas();
+
 				selectCanvas.width = canvas.width;
 				selectCanvas.height = canvas.height;
-				ctx.putImageData(tempData,0,0);
+				
 				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
 					$.fn.magicWand.active();
@@ -154,9 +155,6 @@ $(function(){
 				$.fn.imgHue.init(canvas);
 				
 			};
-			module.destory = function(){
-				
-			};
 			return module;
 		}();
 		api.editPannel_4 = function(){
@@ -182,7 +180,7 @@ $(function(){
 
 			module.init = function(){
 				if(!hasImage)return;
-				canvas.originCanvas.getContext("2d").putImageData(ctx.getImageData(0, 0, canvas.width, canvas.height), 0 , 0);
+
 				$.fn.imgFilter1.blur(canvas.originCanvas,canvas);
 				$("#selectCanvas").on("mousedown touchstart",function(){
 					isClearing = true;
@@ -748,28 +746,31 @@ $(
 				});
 
 			}
-		}
+		};
 		api.init = function(canvasObj){			
 			imgCrop.init(canvasObj);
-		}
+		};
 		api.cropSave = function(){
 			var src = cropCanvas.toDataURL("image/png");
 			var canvasCtx = canvas.getContext('2d');
 			var cropCanvasCtx = cropCanvas.getContext('2d');
 
-
+			var scale = canvas.width/canvas.getBoundingClientRect().width;
+			var originCanvasData = canvas.originCanvas.getContext('2d').getImageData(defaults.x , defaults.y , defaults.swidth*scale, defaults.sheight*scale);
 			var imgData = cropCanvasCtx.getImageData(0,0,cropCanvas.width,cropCanvas.height);
-			canvas.width = cropCanvas.width;
-			canvas.height = cropCanvas.height;
+			
+			canvas.originCanvas.width = canvas.width = cropCanvas.width;
+			canvas.originCanvas.height = canvas.height = cropCanvas.height;
 			canvas.style.width = cropCanvas.width + 'px';
 			canvas.style.height = cropCanvas.height + 'px';
 			canvasCtx.putImageData(imgData,0,0);
+			canvas.originCanvas.getContext('2d').putImageData(originCanvasData,0,0);
 
 			//convasCtx.drawImage(defaults.img, 0 , 0, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
-		}
+		};
 		api.destory = function(){
 			imgCrop.closeCrop();
-		}
+		};
 		
 		return api;
 	}()
