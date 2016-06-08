@@ -195,8 +195,7 @@ class Poster(models.Model):
         page_id = self.get_first_poster_page_id()
         if page_id:
             return reverse('posters_pc:edit', kwargs={
-                'poster_pk': self.id,
-                'pk': page_id
+                'poster_pk': self.id
             })
         else:
             return 1
@@ -275,12 +274,18 @@ class PosterPage(AbstractPageTemplate):
         return full_dir_path
 
     def render_html_to_string(self):
+        if not self.html:
+            return ""
         return read_template_file_content(self.html.url)
 
     def render_css_to_string(self):
+        if not self.css:
+            return ""
         return read_template_file_content(self.css.url)
 
     def render_script_to_string(self):
+        if not self.script:
+            return ""
         return read_template_file_content(self.script.url)
 
 

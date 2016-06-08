@@ -9,7 +9,7 @@ $(function(){
 			ctx = canvas.getContext('2d');
 			$("#logoPrettify").show();
 			api.bindEvents();
-			if(url){
+			if(url && !hasImage ){
 				api.setImage(url);
 				hasImage = true;
 			}
