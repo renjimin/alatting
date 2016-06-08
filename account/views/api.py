@@ -10,7 +10,7 @@ from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, \
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from account.email import send_verify_email
-from account.models import Person, UserFriends, LoginMessage, UserCategory
+from account.models import Person, UserFriends, LoginMessage
 from account.serializers import AccountProfileSerializer, \
     AccountFriendsListSerializer
 from alatting_website.model.poster import Poster
@@ -18,8 +18,7 @@ from alatting_website.model.resource import Image, Video, Music
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     VideoSerializer, MusicSerializer
 from poster.serializer.poster import PosterSerializer
-from survey.models import RunInfo
-from utils.file import get_image_path, get_video_path, get_music_path
+from survey.models import RunInfoHistory
 from utils.message import get_message
 from utils.userinput import what
 
@@ -137,9 +136,10 @@ class PostersConsumerListView(ListAPIView):
 
     def get_queryset(self):
         qs = super(PostersConsumerListView, self).get_queryset()
-        run_info_poster_ids = RunInfo.objects.filter(
-            subject=self.request.user
-        ).values_list('poster_id', flat=True)
+        run_info_poster_ids = RunInfoHistory.objects.filter(
+            subject=self.request.user,
+            questionnaire__role="consumer",
+            isactive=True).values_list('poster_id', flat=True)
         return qs.filter(
             id__in=run_info_poster_ids
         ).exclude(

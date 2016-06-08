@@ -3,6 +3,7 @@
 from collections import OrderedDict
 import datetime
 import json
+import logging
 from django.core.urlresolvers import reverse
 from django.http import Http404
 from django.utils.http import urlquote
@@ -10,6 +11,7 @@ import pytz
 from alatting_website.model.resource import Image
 from alatting_website.model.statistics import PosterStatistics
 from poster.forms import PosterCreateForm
+from utils.constants import DAY_CN_NAME
 from utils.file import read_template_file_content, handle_uploaded_file, \
     get_image_path, rotate_image
 from utils.utils import Utils
@@ -20,6 +22,9 @@ from django.views.generic import DetailView, View, ListView, UpdateView, \
     CreateView
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.models import CategoryKeyword, Template, Address
+
+
+logger = logging.getLogger('common')
 
 
 class PosterEditView(DetailView):
@@ -121,21 +126,21 @@ class PosterView(DetailView):
                     hours = hours_all[day_now]
             if hours:
                 if 'enabled' in hours and hours['enabled']:
-                    if 'time_start' in hours and hours['time_start']:
+                    if 'start' in hours and hours['start']:
                         time_start = timezone.localize(
                             datetime.datetime.strptime(
-                                day_now + ' ' + hours['time_start'],
-                                '%Y-%m-%d %I:%M %p'
+                                day_now + ' ' + hours['start'],
+                                '%Y-%m-%d %H:%M'
                             )
                         )
                         time_end = timezone.localize(
                             datetime.datetime.strptime(
-                                day_now + ' ' + hours['time_end'],
-                                '%Y-%m-%d %I:%M %p')
+                                day_now + ' ' + hours['end'],
+                                '%Y-%m-%d %H:%M')
                         )
-                        hours_info = 'Hours Today: %s - %s' % (
-                            time_start.strftime('%I:%M %p'),
-                            time_end.strftime('%I:%M %p')
+                        hours_info = '营业时间：%s - %s ' % (
+                            time_start.strftime('%H:%M'),
+                            time_end.strftime('%H:%M')
                         )
                         if time_start <= now <= time_end:
                             hours_available = True
@@ -143,28 +148,37 @@ class PosterView(DetailView):
             # extract details of hours
             for day, day_hours in hours_all.items():
                 if 'enabled' in day_hours and day_hours['enabled']:
-                    if 'time_start' in day_hours and day_hours['time_start']:
+                    if 'start' in day_hours and day_hours['start']:
                         hours_detail = u'%s - %s' % (
-                            day_hours['time_start'], day_hours['time_end']
+                            day_hours['start'], day_hours['end']
                         )
                     else:
                         hours_detail = '8:00 am - 6:00 pm'
                     if 'message'in day_hours and day_hours['message']:
                         hours_detail += '<br/>' + day_hours['message']
                 else:
-                    if 'time_start' in day_hours and day_hours['time_start']:
+                    if 'start' in day_hours and day_hours['start']:
                         hours_detail = u'%s - %s (暂停营业)' % (
-                            day_hours['time_start'],
-                            day_hours['time_end']
+                            day_hours['start'],
+                            day_hours['end']
                         )
                     else:
                         hours_detail = u'休息'
                 hours_details[day] = hours_detail
-        except ValueError:
-                pass
+        except ValueError as e:
+                logger.exception(e)
         obj.hours_status = u'营业中' if hours_available else '休息'
         obj.hours = hours_info
         obj.hours_details = hours_details
+        self.trans_hours(obj)
+
+    def trans_hours(self,obj):
+        hours_details_cn = []
+        for en, cn in DAY_CN_NAME:
+            for day, value in obj.hours_details.items():
+                if day == en:
+                    hours_details_cn.append((cn, value.replace('am', '上午')))
+        obj.hours_details_cn = hours_details_cn
 
     def update_statistics(self, obj):
         queryset = PosterStatistics.objects.filter(pk=obj.pk)
