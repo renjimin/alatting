@@ -133,7 +133,7 @@ $(function(){
     //*/
     // 打开出价面板
     $('.bid-price').on('click',function(){
-        $('#price-quote').hide();
+        $('.price-li').hide();
         $('#price-bid').show();
     });
     // 服务需求者出价
@@ -189,6 +189,8 @@ $(function(){
     });
     /* 发送消息 */
     $('#plyMess').on('click',function(){
+        var ths = $(this);
+        ths.prop('disabled','disabled');
         var cont = $('#mess').val();
             cont = cont.replace(/<\/?.+?>/g,"");
             cont = cont.replace(/&nbsp;/g,"");
@@ -197,6 +199,17 @@ $(function(){
             return;
         }
         console.log('cont:'+cont);
+        $.ajax({
+            type: 'POST',
+            data:{content:cont},
+            url: '/api/v1/poster/'+id+'/chats',
+            success:function(){
+                ths.removeProp('disabled');
+            },
+            error: function(xhr, status, statusText){
+                yyAlert('网络错误,请稍候再试!');
+            }
+        });
     });
 
     /* 服务需求者给服务提供者评价 */
@@ -375,7 +388,7 @@ $(function(){
                         h+= '<li>';
                         h+= '   <div class="mess-checkbox"></div>';
                         h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span>'+data[i]["username"]+'</span><span>'+data[i]["cteate_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span>'+data[i]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';

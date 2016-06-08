@@ -199,6 +199,8 @@ $(function(){
 
     /* 服务提供者发送消息 */
     $('#plyMess').on('click',function(){
+        var ths = $(this);
+        ths.prop('disabled','disabled');
         var cont = $('#mess').val();
             cont = cont.replace(/<\/?.+?>/g,"");
             cont = cont.replace(/&nbsp;/g,"");
@@ -207,6 +209,17 @@ $(function(){
             return;
         }
         console.log('cont:'+cont);
+        $.ajax({
+            type: 'POST',
+            data:{content:cont,"receiver_id":consumer_id,},
+            url: '/api/v1/poster/'+id+'/chats',
+            success:function(){
+                ths.removeProp('disabled');
+            },
+            error: function(xhr, status, statusText){
+                yyAlert('网络错误,请稍候再试!');
+            }
+        });
     });
 
     function showLoading(type){
