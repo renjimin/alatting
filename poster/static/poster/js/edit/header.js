@@ -66,6 +66,10 @@ $(function () {
 				info.start = inputs.eq(i * 2).val();
 				info.end = inputs.eq(i * 2 + 1).val();
 				info.enabled = $(".weekly td:eq(" + (i * 6 + 4) + ")").hasClass("off") ? 0 : 1;
+				if(!info.enabled){
+					delete info.start;
+					delete info.end;
+				}
 			}
 			storageAPI.setHead("lifetime", lifetime);
 			storageAPI.setHead("updated_at", yunyeEditorGlobal.updated_at);
@@ -122,11 +126,11 @@ $(function () {
 					$("body").changeTemplate(
 						'destroy'
 					).changeTemplate({
-							"target": "create",
-							"initAfter": function () {
-								$("#change-templates-list").css('height', "70%");
-							}
-						});
+                        "target": "create",
+                        "initAfter": function () {
+                            $("#change-templates-list").css('height', "70%");
+                        }
+                    });
 				}
 			},
 			{
