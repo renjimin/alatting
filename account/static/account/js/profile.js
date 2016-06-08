@@ -68,7 +68,8 @@ $(function(){
             showLoading(false);
         },
         error: function(xhr, status, statusText){
-            yyAlert("服务超时,请稍候再试!");
+            showLoading(false);
+            $('#main-provide').append('<span class="error-msg">网络错误,请稍候再试!</span>');
         }
     });
 
@@ -88,13 +89,13 @@ $(function(){
             }
         },
         error: function(xhr, status, statusText){
-            yyAlert("服务超时,请稍候再试!");
+            $('#main-need').append('<span class="error-msg">网络错误,请稍候再试!</span>');
         }
     });
 
     /* 退出暂时放在个人设置那里 */
     $('#user-setting').on('click',function(){
-        yyAlert("您确定要退出吗?",function(){
+        yyConfirm("您确定要退出吗?",function(){
             location.href='/mobile/account/logout';
         });
     });
