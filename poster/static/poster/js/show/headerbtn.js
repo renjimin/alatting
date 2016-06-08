@@ -32,6 +32,8 @@ $(function(){
 			$(target).show();
 			if(target_element == "div.location"){
 				togleMap();
+			}else{
+				//hideMap();
 			}
 		}
 		return false;
