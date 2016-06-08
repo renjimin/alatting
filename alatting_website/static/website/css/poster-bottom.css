@@ -415,6 +415,10 @@ bottom-menu
     width: 60%;
     background: #cfd6de;
 }
+input.ng-invalid,textarea.ng-invalid{
+    background: none;
+    border: none;
+}
 
 .bubble-time {
     padding-left: 2%;
@@ -454,7 +458,9 @@ bottom-menu
     float: right;
     padding-top: 2%;
 }
-
+.icon-btn img{
+    margin-bottom: 4px;
+}
 input.ng-invalid,
 textarea.ng-invalid {
   border-color: #ff3b30;
@@ -716,6 +722,7 @@ textarea.ng-invalid {
         height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+
     }
     .navbar-absolute-bottom {
         width: 600px;
@@ -733,6 +740,7 @@ textarea.ng-invalid {
         height: 100%;
         overflow-y: auto;
         overflow-x: hidden;
+        margin-top: 80%;
     }
 
 }
