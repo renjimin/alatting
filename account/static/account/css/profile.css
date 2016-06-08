@@ -98,7 +98,7 @@ header {
     top: 15px;
     right: 15px;
     width: 30px;
-    height: 30px;
+    height: 40px;
     font-size:24px;
 }
 .user-setting{
@@ -119,9 +119,9 @@ header {
     vertical-align: bottom;
 }
 .user-icon{
-    height:100px;
-    width: 100px;
-    margin: 10px 0;
+    height:80px;
+    width: 80px;
+    margin: 20px 0;
 }
 .user-icon img{
     display: block;
@@ -132,7 +132,7 @@ header {
     height: 100%;
 }
 .user-name{
-    font-size: 25px;
+    font-size: 20px;
     max-width: 100px;
     overflow: hidden;
 }
@@ -166,8 +166,9 @@ header {
     vertical-align: middle;
 }
 .head-bot-li .glyphicon{
-    font-size: 20px;
-    top: -1px;
+    font-size: 18px;
+    top: 1px;
+    display: none;
 }
 .head-bot-name{
     font-size: 16px;
@@ -175,6 +176,9 @@ header {
 .head-bot-act{
     color:#191919;
     background: #e3e3e3;
+}
+.head-bot-act .glyphicon{
+    display: inline;
 }
 /*main-list*/
 .main-list{
@@ -371,6 +375,16 @@ header {
 }
 .body-vip .vip-canvas{
     background:rgb(51,51,51);
+    position: relative;
+}
+.body-vip .vip-sign{
+    position: absolute;
+    width: 90px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    margin-top: -60px;
+    margin-left: -45px;
 }
 .body-vip .process{
     margin:0 auto;
@@ -381,12 +395,22 @@ header {
 .body-vip .vip-lv{
     height:50px;
     background:rgb(51,51,51);
+    text-align: center;
 }
 .body-vip .vip-lv span{
-    color:rgb(255,200,37);
-    text-align: center;
-    margin-left: 40%;
+    display: inline-block;
+    vertical-align: bottom;
+    line-height: 30px;
 }
+.lv-icon{
+    width: 40px;
+    height: 30px;
+}
+.lv-name{
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .body-vip .vip-footer{
     background: #ffffff;
     height: 80px;
