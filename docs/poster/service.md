@@ -114,7 +114,7 @@
 ```
 
 
-## 交流记录列表API
+## 留言记录列表API
 
     GET /api/v1/poster/{:poster_id}/chats
     
@@ -141,6 +141,61 @@
     },
     ...
 ]
+```
+
+
+## 服务者提交留言
+
+    POST /api/v1/poster/{:poster_id}/chats
+
+
+**Request**
+```json
+{
+    "receiver_id": 123,     //接收者ID（需求者）
+    "content": "留言的内容"
+}
+```
+
+**Response**
+```json
+{
+    "id": 4,
+    "data_status": 1,
+    "created_at": "2016-06-03 18:04:03",
+    "updated_at": "2016-06-03 18:04:03",
+    "content": "留言的内容",
+    "poster": 50,
+    "sender": 12,
+    "receiver": 123
+}
+```
+
+
+## 需求者提交留言
+
+    POST /api/v1/poster/{:poster_id}/chats
+
+
+**Request**
+```json
+{
+    "content": "需求者留言的内容"
+}
+```
+
+**Response**
+```json
+{
+    "id": 4,
+    "data_status": 1,
+    "created_at": "2016-06-03 18:04:03",
+    "updated_at": "2016-06-03 18:04:03",
+    "content": "需求者留言的内容",
+    "poster": 50,
+    "sender": 12,
+    "receiver": 5
+}
 ```
 
 
@@ -184,10 +239,10 @@
     
 注意：海报创建人不允许对自己创建的海报进行评价
     
-**Response**
+**Request**
 ```json
 {
     "content": "adfasdfasdf",                   //评价内容
-    "rating": 100                               //评分
+    "rating": 5                               //评分, 1-5颗星
 }
 ```

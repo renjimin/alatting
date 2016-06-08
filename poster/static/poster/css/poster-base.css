@@ -1594,6 +1594,7 @@ to {
 }
 .body-container{
 	height:100%;
+	overflow: hidden;
 }
 
 .cnd-element {
@@ -1641,10 +1642,11 @@ to {
 }
 .poster-video-widget .video-play {
     position: absolute !important;
-    left: 35%;
-    top: 30%;
-    width: auto;
-    height: 30%;
+    left: 40%;
+    top: 50%;
+    width: 20%;
+    height: auto;
+    margin-top: -35px;
 }
 .vjs-controls-disabled .vjs-poster {
     display: inline-block;

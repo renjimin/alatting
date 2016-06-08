@@ -1,8 +1,9 @@
 <div id="logoPrettify">
 	<div class="editMenuHeader">
-		<button class="btn">上传照片<input class="uploadImage" type="file" value="上传照片" /></button>
-		<button class="btn closeLogoPrettify">关闭</button>
-		<button class="btn uploadCanvas">确认</button>
+		<button class="btn closeLogoPrettify"><i class="glyphicon glyphicon-menu-left"></i></button>
+		<h3 class="title">图片编辑</h3>	
+		<button class="btn btn-info uploadCanvas pull-right">确认</button>
+		
 	</div>
 	
 	<div class="editCanvasBox">
@@ -25,7 +26,8 @@
 
 	<div class="editMenuGroup">
 		<div class="editMenuHeader">
-			<div class="btnGroup">
+			<button class="btn btn-info pull-left">上传照片<input class="uploadImage" type="file" value="上传照片" /></button>
+			<div class="btnGroup pull-right">
 				<button class="" data-pannel="editPannel_1">抠图</button>
 				<button class="" data-pannel="editPannel_2">滤镜</button>
 				<button class="" data-pannel="editPannel_3">色调</button>
@@ -39,16 +41,26 @@
 			<a class="deleteSelection" href="javascript:;" style="position: absolute;top: 50%;left: 40%;font-size:25px;color:#000;"><i class="fa fa-trash"></i></a>
 		</section>
 		<section id="editPannel_2">
+			<div class="fliter-list" id="fliterList">
+				<ul>
+					<li class="empty">loading...</li>	
+				</ul>				
+			</div>
 			<canvas id="invertColor"></canvas>
 			<canvas id="grayColor"></canvas>
 			<canvas id="rilievo"></canvas>
 			<canvas id="mirror"></canvas>
 		</section>
 		<section id="editPannel_3">
-			
+			<ul class="hue-list" id="hueList">
+				<li class="hue-item"><input type="range"></li>
+			</ul>
 		</section>
 		<section id="editPannel_4">
-			<button class="btn btn-primary" id="cropConfirm">确认裁剪</button><button class="btn btn-primary" id="cropCancel">取消</button>
+			<div class="cropBtnGroup">
+				<button class="btn btn-primary" id="cropConfirm">确认裁剪</button>
+				<button class="btn btn-default" id="cropCancel">取消</button>
+			</div>
 		</section>
 		<section id="editPannel_5">
 			

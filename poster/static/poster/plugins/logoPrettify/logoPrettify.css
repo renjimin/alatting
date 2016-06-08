@@ -1,25 +1,52 @@
 #logoPrettify{
-	display: none;
 	position: absolute;
 	width: 100%;
 	height: 100%;
 	top: 0;
 	background: #fff;
 	z-index: 200;
+	transition: all .2s;
+	-webkit-transition:all .2s;
+	left: 100%;
+	opacity: 0;
+	visibility: hidden;
+}
+#logoPrettify.open{
+	left: 0;
+	opacity: 1;
+	visibility: visible;
 }
 #logoPrettify .editMenuHeader{
 	width: 100%;
 	height: 40px;
-	background-image: -webkit-linear-gradient(top,#FFFFFF,#EBF4F9 100%);
+	/*background-image: -webkit-linear-gradient(top,#FFFFFF,#EBF4F9 100%);*/
+	background-color:#fff;
+	border-bottom:1px solid #eee;
 	padding: 7px;
 }
 #logoPrettify .editMenuGroup .editMenuHeader{
 	background:#DEECF8;
 }
+#logoPrettify .editMenuHeader .title{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	font-size:16px;
+	text-align: center;
+	margin: 0;
+}
 #logoPrettify button{
-	position: relative;
 	height: 24px;
 	min-height: 20px;
+	padding: 0 7px;
+	position: relative;
+	outline:none!important;
+	/*
+	
+	
 	color: #333;
 	border: 1px solid #ccc;
 	text-shadow: 0 1px 0 #fff;
@@ -33,8 +60,17 @@
 	-moz-text-shadow: 0 1px 0 #fff;
 	text-shadow: 0 1px 0 #fff;
 	outline: none;
-	padding: 0 7px;
-	overflow: hidden;
+	overflow: hidden;*/
+}
+#logoPrettify .closeLogoPrettify{
+	background:none;
+	border:0;
+	height: 40px;
+	width: 40px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
 }
 #logoPrettify .editMenuGroup{
 	position: absolute;
@@ -59,8 +95,9 @@
 #logoPrettify .btnGroup button:last-child{
 	border-radius: 0 5px 5px 0;
 }
-#logoPrettify .btnGroup button:hover{
-	border-color:rgb(86,209,255);
+#logoPrettify .btnGroup button.active{
+	background-color:#5bc0de;
+	color:#fff;
 }
 .uploadImage{
 	position: absolute;
@@ -76,9 +113,9 @@
 	display: inline-block;
 }
 .editCanvasContainer{
-	width: 80%;
-	height: 80%;
-	margin:10%;
+	width: 90%;
+	height: 90%;
+	margin:5%;
 	text-align: center; 
 }
 .editMenuGroup section{
@@ -96,16 +133,54 @@
 .imgCrop-cover canvas{left:0;top:0;z-index:20;    display: block;}
 
 .imgCrop-con{position:absolute;left:0;top:0;}
-.imgCrop-bar{width:12px;height:12px;border-radius:50%;background:#009ad6;position:absolute;z-index:50;}
-.imgCrop-bar-1{left:0;top:0;margin-top:-6px;margin-left:-6px;}
-.imgCrop-bar-2{right:0;top:0;margin-top:-6px;margin-right:-6px;}
-.imgCrop-bar-3{right:0;bottom:0;margin-bottom:-6px;margin-right:-6px;}
-.imgCrop-bar-4{left:0;bottom:0;margin-bottom:-6px;margin-left:-6px;}
-
+.imgCrop-bar{width:16px;height:16px;border-radius:50%;background:#009ad6;position:absolute;z-index:50;    box-shadow: 0 0 3px #222;}
+.imgCrop-bar-1{left:0;top:0;margin-top:-8px;margin-left:-8px;}
+.imgCrop-bar-2{right:0;top:0;margin-top:-8px;margin-right:-8px;}
+.imgCrop-bar-3{right:0;bottom:0;margin-bottom:-8px;margin-right:-8px;}
+.imgCrop-bar-4{left:0;bottom:0;margin-bottom:-8px;margin-left:-8px;}
+.cropBtnGroup{padding:15px; text-align: center;}
+/* filter */
+.fliter-list{
+	width: 100%;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+.fliter-list ul{
+	width: 900px;
+}
+.fliter-list li{
+	display: inline-block;
+	width: 60px;
+	border:2px solid transparent;
+	text-align: center;
+}
+.fliter-list li.empty{
+	padding:15px 0;
+	width: 320px;
+}
+.fliter-list li span{
+	display: block;
+}
+.fliter-list li img{
+	max-width: 100%;
+}
+.fliter-list li.active{
+	border-color:red;
+}
 #selectCanvas{
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+/* hue-list */
+.hue-list{
+	overflow: hidden;
+}
+.hue-list .hue-item{
+	width:50%;
+	float: left;
+	padding:5px 10px;
+	text-align: center;
 }
 
 #editPannel_2 canvas{

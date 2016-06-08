@@ -318,6 +318,17 @@
 .price-accept{
     background: #ececec;
 }
+.price-accept .make-comt{
+    position: absolute;
+    right: 0px;
+    top: 70px;
+    width: 50px;
+    height: 30px;
+    border:1px solid #e5e5e5;
+    background: #ffffff;
+    line-height: 28px;
+    text-align: center;
+}
 .accept-consult{
     height: 30px;
     width: 120px;
