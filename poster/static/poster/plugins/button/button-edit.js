@@ -62,7 +62,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opts.backgroundOpacity+')';
             o.css({
                 'color':'#'+opts.color,
-                'font-size':opts.fontSize/templateScale+'px',
+                'font-size':opts.fontSize+'px',
                 'font-family':opts.fontFamily,
                 'background':back,
                 'opacity':opts.opacity,
@@ -557,7 +557,7 @@ var addSystemimg = function(eleobj){
 				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius"></div>'
+				+'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
 				+'<div class="nbar nbar-se nbar-radius"></div>'
 				+'<div class="nbar nbar-sw nbar-radius"></div>'
 				+'<div class="nbar nbar-ne nbar-radius"></div>'
