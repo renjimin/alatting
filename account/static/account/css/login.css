@@ -213,6 +213,12 @@ input {
     padding: 10px 10px;
     margin: 5px 0;  
  }
+ .glyphicon-remove-circle{
+    float: left;
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 5px 0;
+ }
  .li-provider  .glyphicon{
     float:right;
     font-size: 1.2em;
