@@ -720,27 +720,25 @@ $(function(){
 				pic = AlloyImage(this);
 				api.initView();
 			}
-			_img.src = canvas.toDataURL("image/png");
-			
-			
+			_img.src = canvas.toDataURL("image/png");			
 		}
 		api.initView = function(){
 			var filterBox = document.getElementById('fliterList').getElementsByTagName('ul')[0];
 			var EasyReflection = {
-				"美肤" : "e1",
-				"素描" : "e2",
-				"自然增强" : "e3",
-				"紫调" : "e4",
-				"柔焦" : "e5",
-				"复古" : "e6",
-				"黑白" : "e7",
-				"仿lomo" : "e8",
-				"亮白增强" : "e9",
-				"灰白" : "e10",
-				"灰色" : "e11",
-				"暖秋" : "e12",
-				"木雕" : "e13",
-				"粗糙" : "e14"
+				"美肤" : "softenFace",
+				"素描" : "sketch",
+				"自然增强" : "softEnhancement",
+				"紫调" : "purpleStyle",
+				"柔焦" : "soften",
+				"复古" : "vintage",
+				"黑白" : "gray",
+				"仿lomo" : "lomo",
+				"亮白增强" : "strongEnhancement",
+				"灰白" : "strongGray",
+				"灰色" : "lightGray",
+				"暖秋" : "warmAutumn",
+				"木雕" : "carveStyle",
+				"粗糙" : "rough"
 			};
 			var effectModel = '<li class="e_item"><a class="imglink"><img src="{pic}" alt="" /><span>{effect}</span></a></li>';
 			var html = '<li class="e_item"><a class="imglink"><img src="'+_img.src+'" alt="" /><span>原图</span></a></li>';
@@ -755,6 +753,11 @@ $(function(){
 			}
 
 			filterBox.innerHTML = html;
+			var canvasCtx = canvas.getContext('2d');
+			$('.e_item').on('click',function(){
+				var img = $(this).find('img')[0];
+				canvasCtx.drawImage(img,0,0);
+			});
 			
 
 		}
