@@ -30,7 +30,8 @@ class Questionnaire(models.Model):
         return '%s' % (self.name)
 
     def questionsets(self):
-        qs_set = QuestionSet.objects.filter(questionnaire=self).order_by('sortid')
+        qs_set = QuestionSet.objects.filter(
+            questionnaire=self).order_by('sortid')
         return qs_set
 
     def questions(self):
@@ -39,18 +40,21 @@ class Questionnaire(models.Model):
             questions += questionset.questions()
         return questions
 
+
 class QuestionSet(models.Model):
+
     "Which questions to display on a question page"
     questionnaire = models.ForeignKey(Questionnaire)
-    sortid = models.IntegerField() # used to decide which order to display in
+    sortid = models.IntegerField()  # 排序
     heading = models.CharField(max_length=64)
-   
+
     def questions(self):
         res = Question.objects.filter(questionset=self.id).order_by('sortid')
         return res
 
     def questions_count(self):
-        res = Question.objects.filter(questionset=self.id).order_by('sortid').count()
+        res = Question.objects.filter(
+            questionset=self.id).order_by('sortid').count()
         return res
 
     def next(self):
@@ -75,14 +79,12 @@ class QuestionSet(models.Model):
         try:
             return self.questionnaire.questionsets().latest('sortid') == self
         except NameError:
-            # should only occur if not yet saved
             return True
 
     def is_first(self):
         try:
             return self.questionnaire.questionsets()[0] == self
         except NameError:
-            # should only occur if not yet saved
             return True
 
     def changeform_link(self):
@@ -107,13 +109,9 @@ class Question(models.Model):
     required = models.BooleanField(default=True)
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)
-    type = models.CharField(u"Type of question", max_length=32,
-        choices = QuestionChoices,
-        help_text = u"Determines the means of answering the question. " \
-        "An open question gives the user a single-line textfield, " \
-        "multiple-choice gives the user a number of choices he/she can " \
-        "choose from. If a question is multiple-choice, enter the choices " \
-        "this user can choose from below'.")
+    type = models.CharField(max_length=32,
+                            choices=QuestionChoices,
+                            help_text=u"问题类型，例如单选、多选、单选选项中包含输入框、单行文本框、多行文本框")
 
     def questionnaire(self):
         return self.questionset.questionnaire
@@ -130,7 +128,6 @@ class Question(models.Model):
         return res
 
     def get_type(self):
-        "Get the type name"
         t = self.type
         return t
 
@@ -138,7 +135,7 @@ class Question(models.Model):
         return "questionnaire/" + self.get_type() + ".html"
 
     def changeform_link(self):
-        if self.id and self.type in ['choice','choice-input', 'checkbox']:
+        if self.id and self.type in ['choice', 'choice-input', 'checkbox']:
             changeform_url = reverse(
                 'admin:survey_question_change', args=(self.id,)
             )
@@ -146,6 +143,7 @@ class Question(models.Model):
         return u''
     changeform_link.allow_tags = True
     changeform_link.short_description = ''   # omit column header
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question)
@@ -161,7 +159,7 @@ class Choice(models.Model):
         return '(%s) %d. %s' % (self.question.text, self.sortid, self.text)
 
     def changeform_link(self):
-        if self.id and self.question.type=='choice-input':
+        if self.id and self.question.type == 'choice-input':
             changeform_url = reverse(
                 'admin:survey_choice_change', args=(self.id,)
             )
@@ -169,6 +167,7 @@ class Choice(models.Model):
         return u''
     changeform_link.allow_tags = True
     changeform_link.short_description = ''   # omit column header
+
 
 class Input(models.Model):
     placeholder = models.CharField(max_length=256, default='请输入')
@@ -184,10 +183,11 @@ class Input(models.Model):
 
 
 class RunInfo(models.Model):
+
     "Store the active/waiting questionnaire runs here"
     subject = models.ForeignKey(User)
-    poster = BigForeignKey(Poster,blank=True, null=True)
-    questionset = models.ForeignKey(QuestionSet, blank=True, null=True) 
+    poster = BigForeignKey(Poster, blank=True, null=True)
+    questionset = models.ForeignKey(QuestionSet, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -199,16 +199,16 @@ class RunInfo(models.Model):
 
 class Answer(models.Model):
     id = BigAutoField(primary_key=True)
-    subject = models.ForeignKey(User, help_text = u'The user who supplied this answer')
-    poster = BigForeignKey(Poster,blank=True, null=True)
-    question = models.ForeignKey(Question, help_text = u"The question that this is an answer to")
+    subject = models.ForeignKey(User, help_text=u'谁在回答问题')
+    poster = BigForeignKey(Poster, blank=True, null=True)
+    question = models.ForeignKey(Question, help_text=u" 回答的哪道问题")
     answer = models.TextField(blank=True, null=True)
     runid = models.CharField(max_length=32)
 
 
 class RunInfoHistory(models.Model):
     subject = models.ForeignKey(User)
-    poster = BigForeignKey(Poster,blank=True, null=True)
+    poster = BigForeignKey(Poster, blank=True, null=True)
     completed = models.DateTimeField(auto_now_add=True)
     questionnaire = models.ForeignKey(Questionnaire)
     runid = models.CharField(max_length=32)
@@ -218,7 +218,6 @@ class RunInfoHistory(models.Model):
         return "%s_%s" % (self.subject, self.completed)
 
     def answers(self):
-        """Returns the query for the answers."""
         return Answer.objects.filter(
             subject=self.subject, runinfo=self.runinfo
         )
