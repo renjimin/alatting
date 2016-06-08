@@ -7,7 +7,7 @@ $(function(){
 			canvas = document.getElementById("editCanvas");
 			ctx = canvas.getContext('2d');
 			selectCanvas = document.getElementById("selectCanvas");
-			canvas.originCanvas = document.createElement("canvas");
+			if( !canvas.originCanvas )canvas.originCanvas = document.createElement("canvas");
 			
 			$("#logoPrettify").show();
 			api.bindEvents();
@@ -87,13 +87,11 @@ $(function(){
 					if(!hasImage)return;
 					$.fn.Selection.deleteSelectedPixels();
 				});
-				$("#selectCanvas").show();
 			};
 			module.destory = function(){
 				$("#editPannel_1 .magicWand").off("click");
 				$("#editPannel_1 .deleteSelection").off("click");
 				$.fn.magicWand.deactive();
-				$("#selectCanvas").hide();
 			};
 			return module;
 		}();
@@ -178,7 +176,10 @@ $(function(){
 				});
 			};
 			module.destory = function(){
-				
+				isClearing = false;
+				$("#selectCanvas").off("mousedown touchstart");
+				$("#selectCanvas").off("mousemove touchmove");
+				$("#selectCanvas").off("mouseup touchend");
 			};
 			return module;
 		}();
