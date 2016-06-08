@@ -23,17 +23,18 @@ $(function(){
 	//4 abuttons in the first layer
 	////contact (phone & email & hours)
 	$('a.abutton-contact').click(function(e){
-		hideMap();
+		//hideMap();
 		var target_element = 'div.' + $(this).attr('for');
 		var target_container = $('.info-toggle');
 		var target = $(target_container).find(target_element);
 		if($(target).css('display') == 'none') {
 			$(target_container).find('div.contact-info').hide();
 			$(target).show();
+			console.log($(target))
 			if(target_element == "div.location"){
 				togleMap();
 			}else{
-				//hideMap();
+				hideMap();
 			}
 		}
 		return false;
