@@ -101,7 +101,30 @@
 .imgCrop-bar-2{right:0;top:0;margin-top:-6px;margin-right:-6px;}
 .imgCrop-bar-3{right:0;bottom:0;margin-bottom:-6px;margin-right:-6px;}
 .imgCrop-bar-4{left:0;bottom:0;margin-bottom:-6px;margin-left:-6px;}
-
+/* filter */
+.fliter-list{
+	width: 100%;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+.fliter-list ul{
+	width: 900px;
+}
+.fliter-list li{
+	display: inline-block;
+	width: 60px;
+	border:2px solid transparent;
+}
+.fliter-list li span{
+	display: block;
+	text-align: center;
+}
+.fliter-list li img{
+	max-width: 100%;
+}
+.fliter-list li.active{
+	border-color:red;
+}
 #selectCanvas{
 	position: absolute;
 	top: 0;
