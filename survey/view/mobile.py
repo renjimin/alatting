@@ -33,10 +33,8 @@ class QuestionnaireBlankView(View):
 
     def get(self, request, **kwargs):
         poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
-        qs_title = "没有此类别的调查问卷"
         role = self.request.GET.get('role', '')
-        contextdict = {'qs_title': qs_title,
-                       'poster_id': poster.pk,
+        contextdict = {'poster_id': poster.pk,
                        'role': role}
         return render_to_response('survey/mobile/questionset_blank.html',
                                   contextdict)
