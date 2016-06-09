@@ -13,8 +13,8 @@
     {% endblock %}
     {% block base_header_js %}
         <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
-        <script src="{% static 'website/js/base.js' %}"></script>
         <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+        
     {% endblock %}
     {% block base_header_extra %}
     {% endblock %}
@@ -33,7 +33,7 @@
             </div> 
         </header>
         <div class="qs-body">
-            <form class="form" action="{{ request.path }}" method="POST">
+            <form class="form" id="qs-form" action="{{ request.path }}" method="POST">
                 <div class="qs-list">
                     <div class="step">
                         {% for question, qdict in qlist %}
@@ -66,9 +66,9 @@
                         <div>
                             <a class="back btn btn-default" href="{{ prev_url }}">上一步</a>
                             {% if islast_consumer_repeat %}
-                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer_repeat();" value="下一步">
+                                <input type="submit" class="next btn btn-default" id="qs_islast_consumer_repeat" value="下一步">
                             {% elif  islast_consumer%}
-                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer();" value="下一步">
+                                <input type="submit" class="next btn btn-default"  id="qs_islast_consumer" value="下一步">
                             {% else %}
                                 <input type="submit" class="next btn btn-default" value="下一步">
                             {% endif %}
@@ -82,7 +82,6 @@
 {% block base_body_footer %}
 {% endblock %}
 {% block base_footer_js %}
-    <script src="{% static 'website/js/footer.js' %}"></script>
     <script src="{% static 'survey/js/survey-base.js' %}"></script>
 {% endblock %}
 </div>
