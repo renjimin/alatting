@@ -369,7 +369,9 @@ class AnswerDetailView(TemplateView):
                 poster_id=poster_id, questionnaire__role=role,
                 isactive=True).order_by('-completed'):
             results.setdefault(his, [])
-            for ans in Answer.objects.filter(runid=his.runid):
+            for ans in Answer.objects.filter(poster_id=poster_id, 
+                question__questionset__questionnaire__role=role, 
+                runid=his.runid):
                 results[his].append(ans)
         context['results'] = results
         return context
