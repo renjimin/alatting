@@ -335,9 +335,6 @@ class QuestionnaireView(View):
         hist.isactive = True
         hist.save()
 
-        RunInfo.objects.filter(subject=hist.subject,
-                               questionset__in=hist.questionnaire.questionsets,
-                               poster=hist.poster).delete()
         if hist.questionnaire.role == "creator":
             return redirect(
                 reverse('posters:select_template',
