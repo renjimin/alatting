@@ -135,7 +135,7 @@ class Question(models.Model):
         return "questionnaire/" + self.get_type() + ".html"
 
     def changeform_link(self):
-        if self.id and self.type in ['choice', 'choice-input', 'checkbox']:
+        if self.id and self.type in ['choice', 'choice-input', 'checkbox', 'checkbox-input']:
             changeform_url = reverse(
                 'admin:survey_question_change', args=(self.id,)
             )
@@ -159,7 +159,7 @@ class Choice(models.Model):
         return '(%s) %d. %s' % (self.question.text, self.sortid, self.text)
 
     def changeform_link(self):
-        if self.id and self.question.type == 'choice-input':
+        if self.id and self.question.type in ['choice-input', 'checkbox-input']:
             changeform_url = reverse(
                 'admin:survey_choice_change', args=(self.id,)
             )
@@ -170,7 +170,7 @@ class Choice(models.Model):
 
 
 class Input(models.Model):
-    placeholder = models.CharField(max_length=256, default='请输入')
+    placeholder = models.CharField(max_length=256, default='')
     question = models.ForeignKey(Question, blank=True, null=True)
     choice = models.ForeignKey(Choice, blank=True, null=True)
     InputChoices = [

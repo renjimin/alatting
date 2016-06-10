@@ -130,7 +130,7 @@ class QuestionnaireView(View):
             return None
 
     def process_value(self, ans, question, qssortid, value):
-        # choice-radio: name="question_{{ question.sortid }}"
+        # choice: name="question_{{ question.sortid }}"
         # text/textarea: "question_{{ question.sortid }}"
         # ans: {'ANSWER': ...}
         if len(qssortid) == 2:
@@ -139,11 +139,11 @@ class QuestionnaireView(View):
         # ans: {choice.sortid: ..., choice.sortid: ... }
         elif len(qssortid) == 3:
             ans[qssortid[2]] = value
-        # input in choice-radio: name="question_{{ question.sortid }}_choice_radio"
-        # input in choice-radio: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
+        # choice-input: name="question_{{ question.sortid }}_radio_choice"
+        # choice-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
         # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
-        elif len(qssortid) == 4 and qssortid[3] in ['radio', 'comment']:
-            if qssortid[3] == 'radio':
+        elif len(qssortid) == 4 and qssortid[3] in ['choice', 'comment']:
+            if qssortid[3] == 'choice':
                 if value.startswith("_entry_"):
                     choice_selected_value = value.replace("_entry_", "")
                 else:
@@ -155,6 +155,20 @@ class QuestionnaireView(View):
                     ans[choice_selected_sortid] = {}
                 ans[choice_selected_sortid]['ANSWER'] = value
             elif qssortid[3] == 'comment':
+                choice_sortid = int(qssortid[2])
+                if choice_sortid not in ans:
+                    ans[choice_sortid] = {}
+                ans[choice_sortid]['COMMENT'] = value
+        # checkbox-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_checkbox_choice"
+        # checkbox-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_checkbox_comment"
+        # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
+        elif len(qssortid) == 5 and qssortid[3]=='checkbox':
+            if qssortid[4] == 'choice':
+                choice_sortid = int(qssortid[2])
+                if choice_sortid not in ans:
+                    ans[choice_sortid] = {}
+                ans[choice_sortid]['ANSWER'] = value
+            elif qssortid[4] == 'comment':
                 choice_sortid = int(qssortid[2])
                 if choice_sortid not in ans:
                     ans[choice_sortid] = {}
@@ -265,7 +279,7 @@ class QuestionnaireView(View):
             key, value = item[0], item[1]
 
             if key.startswith('question_'):
-                qssortid = key.split("_", 3)
+                qssortid = key.split("_")
             question = Question.objects.filter(
                 sortid=qssortid[1],
                 questionset=questionset,

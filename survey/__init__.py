@@ -13,6 +13,7 @@ QuestionChoices = [
 	('choice', '单选'),
 	('choice-input', '单选，选项中有输入框'),
 	('checkbox', '多选'),
+	('checkbox-input', '多选，选项中有输入框'),
 	('text', '单行文本框'),
 	('textarea', '多行文本框')
 ]  
@@ -98,7 +99,45 @@ def process_checkbox(question, answer):
 				else:
 					raise AnswerException(question.errmsg)
 	return ','.join(multiple)
-
+#checkbox-input
+def question_checkbox_input(request, question):
+	choices = []
+	for choice in question.choices():
+		choices.append(choice) 
+		choice.inps = []	 
+		for inp in choice.inputs():
+			choice.inps.append(inp)
+	return {
+		'choices': choices,
+	}
+def process_checkbox_input(question, answer):
+	multiple = []
+	if answer:
+		answer_selected = False
+		for k, v in answer.items():
+			if 'ANSWER' in v:
+				answer_selected = True
+		if answer_selected:
+			for k, v in answer.items():
+				if 'ANSWER' in v:
+					if v['ANSWER'].startswith("_entry_"):
+						if not answer[k]['COMMENT']:
+							raise AnswerException('请输入文本框')
+						else: 
+							radio_val = v['ANSWER'].replace("_entry_", "")
+							multiple.append(radio_val + ":" + v['COMMENT'])
+					else:
+						multiple.append(v['ANSWER'])
+	if question.required and not multiple:
+		raise AnswerException('必须选择一个选项')
+	if question.regex:
+		if question.required:
+			for opt in multiple:
+				if regex_check(question.regex, opt):
+					pass
+				else:
+					raise AnswerException(question.errmsg)
+	return ','.join(multiple)
 #text, textarea
 def question_text(request, question):
 	return []
@@ -131,6 +170,9 @@ Processors['choice-input'] = process_choice_input
 #checkbox
 QuestionProcessors['checkbox'] = question_checkbox
 Processors['checkbox'] = process_checkbox
+#checkbox
+QuestionProcessors['checkbox-input'] = question_checkbox_input
+Processors['checkbox-input'] = process_checkbox_input
 #text, textarea
 QuestionProcessors['text'] = question_text
 Processors['text'] = process_text
