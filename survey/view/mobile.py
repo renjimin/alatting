@@ -129,6 +129,38 @@ class QuestionnaireView(View):
         else:
             return None
 
+    def process_value(self, ans, question, qssortid, value):
+        # choice-radio: name="question_{{ question.sortid }}"
+        # text/textarea: "question_{{ question.sortid }}"
+        # ans: {'ANSWER': ...}
+        if len(qssortid) == 2:
+            ans['ANSWER'] = value
+        # checkbox: name="question_{{ question.sortid }}_{{choice.sortid}}"
+        # ans: {choice.sortid: ..., choice.sortid: ... }
+        elif len(qssortid) == 3:
+            ans[qssortid[2]] = value
+        # input in choice-radio: name="question_{{ question.sortid }}_choice_radio"
+        # input in choice-radio: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
+        # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
+        elif len(qssortid) == 4 and qssortid[3] in ['radio', 'comment']:
+            if qssortid[3] == 'radio':
+                if value.startswith("_entry_"):
+                    choice_selected_value = value.replace("_entry_", "")
+                else:
+                    choice_selected_value = value
+                choice_selected = Choice.objects.filter(question=question,
+                                                        value=choice_selected_value).first()
+                choice_selected_sortid = choice_selected.sortid
+                if choice_selected_sortid not in ans:
+                    ans[choice_selected_sortid] = {}
+                ans[choice_selected_sortid]['ANSWER'] = value
+            elif qssortid[3] == 'comment':
+                choice_sortid = int(qssortid[2])
+                if choice_sortid not in ans:
+                    ans[choice_sortid] = {}
+                ans[choice_sortid]['COMMENT'] = value
+        return ans
+
     def show_questionnaire(self, request, runinfo, errors={}):
         questionset = runinfo.questionset
         questionnaire = questionset.questionnaire
@@ -245,39 +277,7 @@ class QuestionnaireView(View):
             ans = {}
             if question in extra:
                 ans = extra.get(question)
-            # choice-radio: name="question_{{ question.sortid }}"
-            # text/textarea: "question_{{ question.sortid }}"
-            # ans: {'ANSWER': ...}
-            if len(qssortid) == 2:
-                ans['ANSWER'] = value
-            # checkbox: name="question_{{ question.sortid }}_{{choice.sortid}}"
-            # ans: {choice.sortid: ..., choice.sortid: ... }
-            elif len(qssortid) == 3:
-                ans[qssortid[2]] = value
-            # input in choice-radio: name="question_{{ question.sortid }}_choice_radio"
-            # input in choice-radio: name="question_{{ question.sortid }}_{{ choice.sortid}}_comment"
-            # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
-            elif len(qssortid) == 4 and qssortid[3] in ['radio', 'comment']:
-                if qssortid[3] == 'radio':
-                    if value.startswith("_entry_"):
-                        choice_selected_value = value.replace("_entry_", "")
-                    else:
-                        choice_selected_value = value
-                    choice_selected = Choice.objects.filter(question=question,
-                                                            value=choice_selected_value).first()
-                    choice_selected_sortid = choice_selected.sortid
-                    if choice_selected_sortid not in ans:
-                        ans[choice_selected_sortid] = {}
-                    # if value.startswith("_entry_"):
-                    #   ans[choice_selected_sortid]['ANSWER'] = "_entry_"
-                    # else:
-                    #   ans[choice_selected_sortid]['ANSWER'] = value
-                    ans[choice_selected_sortid]['ANSWER'] = value
-                elif qssortid[3] == 'comment':
-                    choice_sortid = int(qssortid[2])
-                    if choice_sortid not in ans:
-                        ans[choice_sortid] = {}
-                    ans[choice_sortid]['COMMENT'] = value
+            ans = self.process_value(ans, question, qssortid, value)
             extra[question] = ans
         # generate none for each empty quesiton, and place in extra
         expected = questionset.questions()
