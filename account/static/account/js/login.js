@@ -390,13 +390,12 @@ $(document).ready(function () {
 				$('.div-provider').fadeOut(200);
 			});
 			selected.off("touchstart click", '.glyphicon-remove-circle').on('touchstart click', '.glyphicon-remove-circle', function (event) {
-				console.log(33)
 				event.preventDefault();
 				$('.selectprovider').text("我要找的服务(可多选)");
 				$("#id_main_category").val("");
 				$("#id_sub_category_ids").val("");
 				$('.div-provider').fadeOut(200);
-			})			
+			})
 		}
 	});
 
