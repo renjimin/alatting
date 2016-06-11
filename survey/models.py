@@ -109,6 +109,8 @@ class Question(models.Model):
     required = models.BooleanField(default=True)
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)
+    placeholder = models.CharField(max_length=256, blank=True, null=True,
+        default="请输入")
     type = models.CharField(max_length=32,
                             choices=QuestionChoices,
                             help_text=u"问题类型，例如单选、多选、单选选项中包含输入框、单行文本框、多行文本框")
