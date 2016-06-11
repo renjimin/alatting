@@ -173,8 +173,7 @@ class Choice(models.Model):
 
 class Input(models.Model):
     placeholder = models.CharField(max_length=256, default='')
-    question = models.ForeignKey(Question, blank=True, null=True)
-    choice = models.ForeignKey(Choice, blank=True, null=True)
+    choice = models.OneToOneField(Choice, blank=True, null=True)
     InputChoices = [
         ('text', 'input type[text]'),
         ('textarea', 'input type[textarea]')
