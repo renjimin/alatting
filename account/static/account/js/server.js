@@ -8,6 +8,18 @@ $(function(){
     $('#main-user-ctrl,#body-comments').css('height',ch+'px');
     var lastPrice,consumer_id,head_default='/static/account/img/headicon-default.jpg';
 
+    /* 获取海报详情信息 */
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/poster/posters/'+id,
+        success:function(data){
+            $('#title-name').html(data['unique_name']);
+        },
+        error: function(xhr, status,statusText){
+            $('#title-name').html('获取数据错误');
+        }
+    });
+
     /* 获取当前海报所有预约用户填写的调查问卷 */
     $.ajax({
         type: 'GET',
@@ -352,6 +364,7 @@ $(function(){
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
+                        var rating = 2*data[i]['rating'];
                         var hdicon = data[i]['creator']['person']['avatar'];
                         hdicon = (hdicon)?hdicon:head_default;
                         h+= '<li>';
@@ -359,7 +372,7 @@ $(function(){
                         h+= '   <div class="com-main">';
                         h+= '       <div class="com-main-top">';
                         h+= '           <span class="com-username">username</span>';
-                        h+= '           <span class="com-pstar p-star p-star-8"></span>';
+                        h+= '           <span class="com-pstar p-star p-star-'+hdicon+'"></span>';
                         h+= '       </div>';
                         h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
                         h+= '       <div class="com-main-bot"><span class="com-time">'+data[i]['created_at']+'</span></div>';

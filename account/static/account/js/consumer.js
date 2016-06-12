@@ -16,20 +16,52 @@ $(function(){
         sDesc:'',
         sUrl:localhostPaht+'/mobile/poster/'+id+'/'
     };
-    var lastPrice,head_default='/static/account/img/headicon-default.jpg';;
+    var lastPrice,head_default='/static/account/img/headicon-default.jpg';
+
+    /* 获取海报详情信息 */
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/poster/posters/'+id,
+        success:function(data){
+            $('#body-main-title').children('.title-name').html(data['unique_name']);
+        },
+        error: function(xhr, status,statusText){
+            $('#body-main-title').children('.title-name').html('获取数据错误');
+        }
+    });
     getBargainsList();
     getChatsList();
     getAnsList();
 
     /* 收藏当前海报 */
     $('#ctrl-favorite').on('click',function(){
-        var status = $(this).attr('data-fav');
+        var ths = $(this);
+        var status = ths.attr('data-fav');
         if(status == 0){
-            $(this).find('.fa').css('color','#feba01');
-            $(this).attr('data-fav','1');
+            $.ajax({
+                type: 'POST',
+                url: '/api/v1/posters/'+id+'/favorites/bookmark/',
+                success:function(){
+                    ths.find('.fa').css('color','#feba01');
+                    ths.attr('data-fav','1');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
         }else{
-            $(this).find('.fa').css('color','#808080');
-            $(this).attr('data-fav','0');
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/v1/posters/'+id+'/favorites/bookmark/',
+                success:function(){
+                    ths.find('.fa').css('color','#808080');
+                    ths.attr('data-fav','0');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
+
         }
     });
 
@@ -434,12 +466,13 @@ $(function(){
                     for(var i=0;i<data.length;i++){
                         var hdicon = data[i]['creator']['person']['avatar'];
                         hdicon = (hdicon)?hdicon:head_default;
+                        var rating = 2*data[i]['rating'];
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';
                         h+= '       <div class="com-main-top">';
                         h+= '           <span class="com-username">username</span>';
-                        h+= '           <span class="com-pstar p-star p-star-8"></span>';
+                        h+= '           <span class="com-pstar p-star p-star-'+rating+'"></span>';
                         h+= '       </div>';
                         h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
                         h+= '       <div class="com-main-bot"><span class="com-time">'+data[i]['created_at']+'</span></div>';
