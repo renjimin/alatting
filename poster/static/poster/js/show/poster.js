@@ -34,6 +34,7 @@ $(function(){
 				$('.yunye-template').attr('style',templateScaleOpt);
 				$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
 		};
+
 /*
 		$('.swiper-container').each(function(){
 			$(this).find('.swiper-slide').magnificPopup({
@@ -51,6 +52,7 @@ $(function(){
 			});
 		})
 
+
 */
 $('.yunye-template > .content > div').each(function(){
 	$(this).magnificPopup({
@@ -66,9 +68,10 @@ $('.yunye-template > .content > div').each(function(){
 						}
 				}
 		});
+
 });
 		
-		
+
 });
 function posterDetail(){
 	return true;

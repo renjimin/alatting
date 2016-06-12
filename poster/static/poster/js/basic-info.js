@@ -65,14 +65,19 @@ $(function () {
             yyAlert('email格式不正确!');
             return false;
         }
-        var reg2 = /^0\d{2,3}-?\d{7,8}$/;
+        var reg2 = /^0\d{2,3}|^[4]00\-?\d{7}$/;
+        var reg4 = /^[4]00\d{7}$/;
         if (posttelephone == '') {
             yyAlert('请输入电话号码!');
             return false;
-        } else if (!reg2.test(posttelephone)) {
+        // }else if(posttelephone.substring(0,3)=="400"&&posttelephone.replace("-","").length!=10){
+        //     yyAlert('400电话号码格式不正确!');
+        //     return false;
+        }else if(!reg2.test(posttelephone)){
             yyAlert('电话号码格式不正确!');
             return false;
         }
+
         var reg3 = /^1[3|4|5|7|8][0-9]\d{4,8}$/;
         if (postphone == '') {
             yyAlert('请输入手机号码!');
