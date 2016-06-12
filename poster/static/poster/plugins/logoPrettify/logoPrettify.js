@@ -1,4 +1,10 @@
 $(function(){
+	$.fn.logoHistory = function(){
+
+	};
+});
+
+$(function(){
 	$.fn.logoPrettify = function(){
 		var api = {};
 		var canvas,selectCanvas,ctx,currentPannel,hasImage;
@@ -32,7 +38,7 @@ $(function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
 				api.destory();
 			});
-			$(".editMenuGroup button").on("click",function(e){
+			$(".editMenuGroup .btnGroup button").on("click",function(e){
 				$(this).addClass('active').siblings().removeClass('active');
 				api.switchPannel($(e.target).data("pannel"));
 			});
@@ -370,6 +376,9 @@ $(function(){
 			});
 			$(".editCanvasContainer").off("click").on("click",function(e){
 				if(document.getElementById("selectCanvas").selectedPixels)api.destorySelection();
+			});
+			$("#mwTolerance").on("change",function(e){
+				api.tolerance = $("#mwTolerance").val()/255;
 			});
 		};
 		api.deactive = function(){
@@ -775,6 +784,8 @@ $(
 			canvas.style.height = cropCanvas.height + 'px';
 			canvasCtx.putImageData(imgData,0,0);
 			canvas.originCanvas.getContext('2d').putImageData(originCanvasData,0,0);
+
+			api.destory();
 
 			//convasCtx.drawImage(defaults.img, 0 , 0, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 		};
