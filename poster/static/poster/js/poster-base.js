@@ -109,7 +109,6 @@ $(function () {
 		
 		$('.yunye-template').attr('style',templateScaleOpt);
 		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
-		$('#button-model .btn-container').attr('style',templateScaleOpt);
 	}
 	//失去焦点预判输入
 	$('#emailInput').blur(function(){
@@ -447,6 +446,7 @@ $(function () {
 			$('.text-element').removeClass('text-element-act');
 			$('.ele-rotate-ctrl').remove();
 		}
+		$('.bar-footer').removeClass('footer-hide');
 	});
 
 	$('body').on('click', function (event) {
