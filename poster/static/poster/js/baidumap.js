@@ -23,13 +23,11 @@ $(function() {
 					baiduMap.clearOverlays();
 					baiduMap.addOverlay(new BMap.Marker(pp)); //添加标注
 					baiduMap.centerAndZoom(pp, 14);
-					console.log(pp)
 					var add = {
 						address: $("#suggestId").val(),
 						city: local.getResults().city,
 						province: local.getResults().province
 					}
-					console.log(add)
 					$.fn.yunyeStorage.setHead("address", add);
 				} else {
 					$("#suggestId").val("");
