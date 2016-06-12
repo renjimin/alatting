@@ -291,7 +291,7 @@ $(function () {
 							'background-size': '100% 100%'
 						});
 						$(".system-item").fadeOut(500);
-					})
+					});
 				}
 			},
 			{
@@ -321,7 +321,7 @@ $(function () {
 						$('.bar-header,.bar-footer').css('background', color);
 						storageAPI.setCss(".bar-header", {'background': color});
 						storageAPI.setCss(".bar-footer", {'background': color});
-						storageAPI.setCss(".bottom-container > .bottom-menu", {'background': color})
+						storageAPI.setCss(".bottom-container > .bottom-menu", {'background': color});
 					});
 				}
 			},
