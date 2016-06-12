@@ -43,7 +43,8 @@
 .weekly table tr td:nth-child(3){
 	padding-right: 20px;
 }
-#contact_pannel .toggle-line{
+
+#contact_pannel .toggle-line , #dpw_clock .toggle-line{
 	width: 45px;
 	height: 18px;
 	background-color: #fff;
@@ -55,19 +56,19 @@
 #contact_pannel td.off .toggle-line,#dateState.off .toggle-line{
 	background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
 }
-#contact_pannel td.off .toggle-line:after, #dateState.off .toggle-line:after {
-    content: "off";
-    left: 20px;
-    position: absolute;
-    line-height: 18px;
+#contact_pannel td.off .toggle-line:after, #dateState.off .toggle-line:after ,#dpw_clock td.off .toggle-line:after {
+	content: "off";
+	left: 20px;
+	position: absolute;
+	line-height: 18px;
 }
-#contact_pannel .toggle-line:after {
-    content: "on";
-    position: absolute;
-    left: 4px;
-    line-height: 18px;
+#contact_pannel .toggle-line:after , #dateState .toggle-line:after, #dpw_clock .toggle-line:after  {
+	content: "on";
+	position: absolute;
+	left: 4px;
+	line-height: 18px;
 }
-#contact_pannel .toggle-btn{
+#contact_pannel .toggle-btn , #dpw_clock .toggle-btn{
 	width: 20px;
 	height: 20px;
 	background-color: #fff;
@@ -81,7 +82,7 @@
 	transition: margin-left .2s ,left .2s;
 	box-shadow: 1px 1px 1px #999;
 }
-#contact_pannel td.off .toggle-btn,#dateState.off .toggle-btn{
+#contact_pannel td.off .toggle-btn,#dateState.off .toggle-btn ,#dpw_clock td.off .toggle-btn{
 	left: -1px;
 	margin-left: 0px;
 }
@@ -92,3 +93,6 @@
 #dateState .toggle-line{
 	margin-top: 8.5px;
 }
+
+
+	 

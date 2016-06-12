@@ -100,13 +100,14 @@ var scale = function(box,options){
 						touchEvents.startX = touch.pageX;
 						touchEvents.startY = touch.pageY;
 						
-						
 						$('.cnd-element').removeClass('active');
+						$(document).trigger('clsdp');
 						s.o.addClass('active').css('z-index',scaleIndex++);
 						$(e.currentTarget).addClass('drag-active');
 						/* 移除文字编辑焦点 */
 						$('.text-element').removeClass('text-element-act');
 						$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+
 
 				},
 				'touchmove':function(e){
@@ -129,6 +130,7 @@ var scale = function(box,options){
 						if (e.originalEvent) e = e.originalEvent;
 						$(e.currentTarget).removeClass('drag-active');
 						/* 展开操作面板 */
+						
 						showControlPannel(s.o);
 				}
 		});
@@ -485,7 +487,7 @@ $(function(){
 			box.empty();
 			editSvg.find('path').each(function(){
 				var html = $('<div class="form-group">\
-					<label class="col-xs-3 control-label">部件'+$(this).index()+'</label>\
+					<label class="col-xs-3 control-label">部件'+($(this).index()+1)+'</label>\
 					<div class="col-xs-9">\
 						<input type="text" data-index = "'+$(this).index()+'" value="'+$(this).attr('fill')+'" class="jscolor">\
 					</div>\

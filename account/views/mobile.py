@@ -227,3 +227,7 @@ class PosterServerIndexView(AccountPosterBaseView):
 
 class PosterConsumerIndexView(AccountPosterBaseView):
     template_name = 'account/mobile/consumer.html'
+
+
+class PosterStatisticsIndexView(AccountPosterBaseView):
+    template_name = 'account/mobile/statistics.html'

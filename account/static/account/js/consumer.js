@@ -16,7 +16,7 @@ $(function(){
         sDesc:'',
         sUrl:localhostPaht+'/mobile/poster/'+id+'/'
     };
-    var lastPrice;
+    var lastPrice,head_default='/static/account/img/headicon-default.jpg';;
     getBargainsList();
     getChatsList();
     getAnsList();
@@ -76,17 +76,16 @@ $(function(){
 
     /* 浏览海报信息 */
     $('#ctrl-view').on('click',function(){
-        location.href = '/mobile/posters/12/';
+        location.href = '/mobile/posters/'+id+'/';
     });
     /* 显示海报统计信息 */
     $('#ctrl-statistics').on('click',function(){
-        console.log('statistics:'+id);
+        location.href = '/mobile/account/posters/'+id+'/statistics.html';
     });
 
 
     /* 讨价还价功能模块 */
-    ///*
-    //接受服务提供者的报价
+    /* 接受服务提供者的报价 */
     $('#accept-price').on('click',function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
             $.ajax({
@@ -105,13 +104,11 @@ $(function(){
             });
         });
     });
-    //*/
     $('#make-comt').on('click',function(){
         $('.body-li').hide();
         $('#body-makecomt').show();
     });
-    ///*
-    //拒绝服务提供者的报价
+    /* 拒绝服务提供者的报价 */
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             $.ajax({
@@ -130,13 +127,12 @@ $(function(){
             });
         });
     });
-    //*/
-    // 打开出价面板
+    /* 打开出价面板 */
     $('.bid-price').on('click',function(){
-        $('#price-quote').hide();
+        $('.price-li').hide();
         $('#price-bid').show();
     });
-    // 服务需求者出价
+    /* 服务需求者出价 */
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
         var reg = new RegExp("^[0-9]*$");
@@ -162,12 +158,11 @@ $(function(){
             });
         }
     });
-    // 取消出价，回到报价面板
+    /* 取消出价，回到报价面板 */
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
         $('#price-quote').show();
     });
-
 
     /* 打开我的资讯信息层 */
     $('#quote-consult').on('click',function(){
@@ -189,6 +184,8 @@ $(function(){
     });
     /* 发送消息 */
     $('#plyMess').on('click',function(){
+        var ths = $(this);
+        ths.prop('disabled','disabled');
         var cont = $('#mess').val();
             cont = cont.replace(/<\/?.+?>/g,"");
             cont = cont.replace(/&nbsp;/g,"");
@@ -197,6 +194,17 @@ $(function(){
             return;
         }
         console.log('cont:'+cont);
+        $.ajax({
+            type: 'POST',
+            data:{content:cont},
+            url: '/api/v1/poster/'+id+'/chats',
+            success:function(){
+                ths.removeProp('disabled');
+            },
+            error: function(xhr, status, statusText){
+                yyAlert('网络错误,请稍候再试!');
+            }
+        });
     });
 
     /* 服务需求者给服务提供者评价 */
@@ -293,7 +301,7 @@ $(function(){
         }
     }
 
-    //获取双发讨价还价的历史记录
+    /* 获取双发讨价还价的历史记录 */
     function getBargainsList(){
         $.ajax({
             type: 'GET',
@@ -336,7 +344,7 @@ $(function(){
             }
         });
     }
-    //展示当前讨价还价的状态
+    /* 展示当前讨价还价的状态 */
     function showPriceli(lastPriceData){
         $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
         $('.price-li').hide();
@@ -363,7 +371,7 @@ $(function(){
             $('#price-quote').show();
         }
     }
-    //获取双方交流的信息列表
+    /* 获取双方交流的信息列表 */
     function getChatsList(){
         $.ajax({
             type: 'GET',
@@ -372,10 +380,11 @@ $(function(){
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
-                        h+= '<li>';
-                        h+= '   <div class="mess-checkbox"></div>';
+                        var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
+                        h+= '<li class="mess-li">';
+                        h+= '   <div class="mess-image"><img src="'+img+'" alt="headicon"></div>';
                         h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span>'+data[i]["username"]+'</span><span>'+data[i]["cteate_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+data[i]["sender"]["username"]+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';
@@ -392,7 +401,7 @@ $(function(){
         });
     }
 
-    //获取服务需求方提交的服务调查问卷信息,即我的资讯信息
+    /* 获取服务需求方提交的服务调查问卷信息,即我的资讯信息 */
     function getAnsList(){
         $.ajax({
             type: 'GET',
@@ -415,6 +424,7 @@ $(function(){
         });
     }
 
+    /* 获取用户评论信息 */
     function getCommentsList(){
         $.ajax({
             type: 'GET',
@@ -424,7 +434,7 @@ $(function(){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
                         var hdicon = data[i]['creator']['person']['avatar'];
-                        hdicon = (hdicon)?hdicon:'/static/account/img/headicon-default.jpg';
+                        hdicon = (hdicon)?hdicon:head_default;
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';

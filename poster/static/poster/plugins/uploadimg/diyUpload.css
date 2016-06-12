@@ -2,7 +2,7 @@
 /* CSS Document*/
 
 /*webuploader css*/
-.webuploader-container
+#uploaderContainer
 {
     position: relative;
     margin:15px 0 0;
@@ -407,10 +407,14 @@
     background-color: rgba(255,255,255,.98);
 
     filter: Alpha(opacity=90);
+    opacity: 0;
+    visibility: hidden;
 }
 .upload-image-dialog.open
 {
     left: 0;
+    opacity: 1;
+    visibility: visible;
 }
 
 .upload-image-header

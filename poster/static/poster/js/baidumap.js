@@ -23,13 +23,11 @@ $(function() {
 					baiduMap.clearOverlays();
 					baiduMap.addOverlay(new BMap.Marker(pp)); //添加标注
 					baiduMap.centerAndZoom(pp, 14);
-					console.log(pp)
 					var add = {
 						address: $("#suggestId").val(),
 						city: local.getResults().city,
 						province: local.getResults().province
 					}
-					console.log(add)
 					$.fn.yunyeStorage.setHead("address", add);
 				} else {
 					$("#suggestId").val("");
@@ -45,7 +43,7 @@ $(function() {
 							// var add = {
 							// 	address:
 							// }
-							$.fn.yunyeStorage.setHead("address", '');
+							//$.fn.yunyeStorage.setHead("address", '');
 						} else {
 							//yyAlert("没找到你要输入的地址和自动定位失败,地址设为光谷",function(){
 							local.search("光谷");
