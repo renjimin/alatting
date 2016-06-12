@@ -372,7 +372,7 @@ $(function(){
                         h+= '   <div class="com-main">';
                         h+= '       <div class="com-main-top">';
                         h+= '           <span class="com-username">username</span>';
-                        h+= '           <span class="com-pstar p-star p-star-'+hdicon+'"></span>';
+                        h+= '           <span class="com-pstar p-star p-star-'+rating+'"></span>';
                         h+= '       </div>';
                         h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
                         h+= '       <div class="com-main-bot"><span class="com-time">'+data[i]['created_at']+'</span></div>';
