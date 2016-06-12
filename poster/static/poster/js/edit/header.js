@@ -61,7 +61,7 @@ $(function () {
 			var lifetime = yunyeEditorGlobal.lifetime;
 			var inputs = $(".weekly input");
 			for (var i = 0; i < (inputs.length) / 2; i++) {
-				var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+				var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 					info = lifetime.lifetime_weekly[weekName];
 				info.start = inputs.eq(i * 2).val();
 				info.end = inputs.eq(i * 2 + 1).val();

@@ -177,7 +177,7 @@ $(function() {
 			if(info.enabled){$('#dateState').removeClass("off")}else{$('#dateState').addClass("off")}
 		}
 	}
-	$(".glyphicon.glyphicon-cog").click(function(event) {
+	$(".glyphicon.glyphicon-transfer").click(function(event) {
 		if($(".weekly").is(":visible")){
 			$(".calender").show();
 			$(".weekly").hide();
