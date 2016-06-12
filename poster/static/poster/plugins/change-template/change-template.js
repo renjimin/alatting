@@ -73,6 +73,7 @@
             getParentLayout().remove();
             getTemplateBoxLayout().append(html);
             getPageCss().empty().append(css);
+            $.fn.yunyeStorage.setHtml('.yunye-template');
             fullcontainer = $('.yunye-template').eq(0);
             addDefaultButtons();
             window.onresize();

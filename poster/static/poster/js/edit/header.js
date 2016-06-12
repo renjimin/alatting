@@ -167,13 +167,16 @@ $(function () {
 						yyAlert("无法继续操作，需要yunyeStorage");
 						return false;
 					}
-					$("body").changeTemplate(
-						"destroy"
-					).changeTemplate({
-                        "target": "create",
-                        "initAfter": function () {
-                            $("#change-templates-list").css('height', "70%");
-                        }
+                    postSaveData(function () {
+                        $.fn.yyTools.mask();
+                        $("body").changeTemplate(
+                            "destroy"
+                        ).changeTemplate({
+                                "target": "create",
+                                "initAfter": function () {
+                                    $("#change-templates-list").css('height', "70%");
+                                }
+                            });
                     });
 				}
 			},
