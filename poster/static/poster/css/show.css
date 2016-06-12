@@ -76,6 +76,9 @@
 .cnd-element .nbar{
     display:none;
 }
+#short_description{
+    width: 100%;
+}
 
 @media only screen and (max-width: 767px) and (min-width: 360px){
     .comments-submenu {

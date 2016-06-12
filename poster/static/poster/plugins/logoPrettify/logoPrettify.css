@@ -44,6 +44,7 @@
 	padding: 0 7px;
 	position: relative;
 	outline:none!important;
+	overflow:hidden;
 	/*
 	
 	
@@ -59,8 +60,7 @@
 	-webkit-text-shadow: 0 1px 0 #fff;
 	-moz-text-shadow: 0 1px 0 #fff;
 	text-shadow: 0 1px 0 #fff;
-	outline: none;
-	overflow: hidden;*/
+	outline: none;*/
 }
 #logoPrettify .closeLogoPrettify{
 	background:none;
