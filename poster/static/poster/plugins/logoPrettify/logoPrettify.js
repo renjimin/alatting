@@ -50,6 +50,7 @@ $(function(){
 					image.style.width = canvas.width + 'px';
 					image.style.height = canvas.height + 'px';
 					$('.header-logo').append($(image));
+					$('.header-logo img').css("display","inline-block");
 					$('.header-logo').imgoperationlogo();
 					api.destory();
 				};
