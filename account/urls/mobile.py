@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from account.views.mobile import (
     LoginView, RegisterView, ResetPasswordView, ProfileView,
-    PosterServerIndexView, PosterConsumerIndexView, PosterIndexView)
+    PosterServerIndexView, PosterConsumerIndexView, PosterIndexView, PosterStatisticsIndexView)
 from account.views.pc import alatting_logout
 
 
@@ -36,4 +36,8 @@ urlpatterns += [
     url(r'^posters/(?P<poster_pk>[\d]+)/consumer.html$',
         login_required(PosterConsumerIndexView.as_view()),
         name='posters_consumer'),
+
+    url(r'^posters/(?P<poster_pk>[\d]+)/statistics.html$',
+        login_required(PosterStatisticsIndexView.as_view()),
+        name='posters_statistics'),
 ]

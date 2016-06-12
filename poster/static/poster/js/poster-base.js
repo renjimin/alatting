@@ -268,61 +268,6 @@ $(function () {
 			}
 		]
 	});
-
-	/* 模版空白设置背景 */
-	$('.yunye-template').registerPopUp({
-		id: 'dpw_template',
-		offsetYPercent: 50,
-		offsetY: 30,
-		followMouse: true,
-		list: [
-			{
-				icon: "icon ico-system-pic",
-				text: "系统背景",
-				callback: function () {
-					$(this).bgselect({}, function (ths, img) {
-						$('.yunye-template').css('background', 'url(' + img + ')');
-						$('.yunye-template').css('background-size', '100% 100%');
-						storageAPI.setCss(".yunye-template", {
-							'background': 'url(' + img + ')',
-							'background-size': '100% 100%'
-						});
-						$(".system-item").fadeOut(500);
-					})
-				}
-			},
-			{
-				icon: "glyphicon glyphicon-adjust",
-				text: " 颜色",
-				callback: function () {
-					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.yunye-template').css('background', color);
-						storageAPI.setCss(".yunye-template", {'background': color});
-					});
-				}
-			},
-			{
-				icon: "glyphicon glyphicon-picture",
-				text: "上传图片",
-				callback: function () {
-					$.fn.uploads.showDialog(function (data) {
-						if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
-							yyAlert("上传图片格式错误");
-							return false;
-						}
-						$('.yunye-template').css('background', 'url(' + data.file + ')');
-						$('.yunye-template').css('background-size', '100% 100%');
-						storageAPI.setCss(".yunye-template", {
-							'background': 'url(' + data.file + ')',
-							'background-size': '100% 100%'
-						});
-					});
-				}
-			},
-			{icon: "glyphicon glyphicon-camera", text: "拍照"}
-		]
-	});
 	$('.btn-bg').registerPopUp({
 		id: 'dpw_bg',
 		offsetXPercent: 50,
@@ -570,5 +515,63 @@ $(function () {
 		}
 	});
 
+    /* 模版空白设置背景 */
+	window.templateMainActionInit = function(){
+        $('.yunye-template').registerPopUp({
+            id: 'dpw_template',
+            offsetYPercent: 50,
+            offsetY: 30,
+            followMouse: true,
+            list: [
+                {
+                    icon: "icon ico-system-pic",
+                    text: "系统背景",
+                    callback: function () {
+                        $(this).bgselect({}, function (ths, img) {
+                            $('.yunye-template').css('background', 'url(' + img + ')');
+                            $('.yunye-template').css('background-size', '100% 100%');
+                            storageAPI.setCss(".yunye-template", {
+                                'background': 'url(' + img + ')',
+                                'background-size': '100% 100%'
+                            });
+                            $(".system-item").fadeOut(500);
+                        })
+                    }
+                },
+                {
+                    icon: "glyphicon glyphicon-adjust",
+                    text: " 颜色",
+                    callback: function () {
+                        $("#colorBox").css('top', $('.content').offset().top).show();
+                        $(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
+                            $('.yunye-template').css('background', color);
+                            storageAPI.setCss(".yunye-template", {'background': color});
+                        });
+                    }
+                },
+                {
+                    icon: "glyphicon glyphicon-picture",
+                    text: "上传图片",
+                    callback: function () {
+                        $.fn.uploads.showDialog(function (data) {
+                            if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
+                                yyAlert("上传图片格式错误");
+                                return false;
+                            }
+                            $('.yunye-template').css('background', 'url(' + data.file + ')');
+                            $('.yunye-template').css('background-size', '100% 100%');
+                            storageAPI.setCss(".yunye-template", {
+                                'background': 'url(' + data.file + ')',
+                                'background-size': '100% 100%'
+                            });
+                        });
+                    }
+                },
+                {icon: "glyphicon glyphicon-camera", text: "拍照"}
+            ]
+        });
+    };
+
+    window.templateMainActionInit();
 	$(".change-template-layout").hide();
 });
