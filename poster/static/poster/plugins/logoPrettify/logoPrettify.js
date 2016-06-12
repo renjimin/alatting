@@ -215,29 +215,31 @@ $(function(){
 							dx = pos.x - ox;
 							dy = pos.y - oy;
 							dis = Math.sqrt(dx*dx + dy*dy);
-							partNum = Math.floor(dis/2);
+							partNum = Math.floor(dis/1);
 							xDiff = dx/partNum;
 							yDiff = dy/partNum;
 							for( var i = 1 ; i < partNum ; i++ ){
 								ox += xDiff ;
 								oy += yDiff ;
-								if( ox-10 < 0)ox = 10;
-								if( oy-10 < 0)oy = 10;
-								if( ox+10 > canvas.width)ox = canvas.width-10;
-								if( oy+10 > canvas.height)oy = canvas.height-10;
-								ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-10, oy-10, 20, 20), ox-10,  oy-10);
+								setSection();
 							}
 						}else{
 							ox += pos.x;
 							oy += pos.y;
-							ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-10, oy-10, 20, 20), ox-10,  oy-10);
+							setSection();
 						}
-						
 					})
 					.on("mouseup touchend",function(){
 						isClearing = false;
 						ox = oy =0;
 					});
+				function setSection(){
+					if( ox-10 < 0)ox = 10;
+					if( oy-10 < 0)oy = 10;
+					if( ox+10 > canvas.width)ox = canvas.width-10;
+					if( oy+10 > canvas.height)oy = canvas.height-10;
+					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-10, oy-10, 20, 20), ox-10,  oy-10);
+				}
 			};
 			module.destory = function(){
 				isClearing = false;
@@ -1018,7 +1020,7 @@ $(function(){
 		api.blur = function(source,target){
 			helper(source,target,function(binaryData,len,w,h){
 				var tempCanvasData = source.getContext("2d").getImageData(0, 0, source.width, source.height).data;  
-				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0;  
+				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0,suma = 0.0;  
 				for ( var x = 0; x < w; x++){
 					for ( var y = 0; y < h; y++){ 
 						var idx = (x + y * w) * 4;         
@@ -1035,22 +1037,26 @@ $(function(){
 								var idx2 = (colOff + rowOff * w) * 4;      
 								var r = tempCanvasData[idx2 + 0];      
 								var g = tempCanvasData[idx2 + 1];      
-								var b = tempCanvasData[idx2 + 2];  
+								var b = tempCanvasData[idx2 + 2];
+								var a = tempCanvasData[idx2 + 3];
 								sumred += r;  
 								sumgreen += g;  
 								sumblue += b;  
+								suma += a;  
 							}  
 						}  
 						var nr = (sumred / 25.0);  
 						var ng = (sumgreen / 25.0);  
 						var nb = (sumblue / 25.0); 
+						var na = (suma / 25.0); 
 						sumred = 0.0;  
 						sumgreen = 0.0;  
 						sumblue = 0.0;
+						suma = 0.0;
 						binaryData[idx + 0] = nr;
 						binaryData[idx + 1] = ng;
 						binaryData[idx + 2] = nb;
-						binaryData[idx + 3] = tempCanvasData[idx2 + 3];
+						binaryData[idx + 3] = na;
 					}
 				}
 			});
