@@ -60,7 +60,6 @@
                 $('.imgshow-dialog').find('.address').html(data.address);
                 $('.imgshow-dialog').find('.worktime').html(data.worktime);
                 $('.imgshow-dialog').find('iframe').attr('src',data.src);
-
                 /*var img = data.img.clone();
                 if(img.attr('src') == ''){
                     img.attr('src',img.attr('data-src'));
@@ -79,7 +78,8 @@
                     'phone':s.find('.phone').text(),
                     'email':s.find('.email').text(),
                     'address':s.find('.address').text(),
-                    'worktime':s.find('.worktime').text()
+                    'worktime':s.find('.worktime').text(),
+                    'src':s.find('.img').find('a').attr('data-src')
                 }
                 s.initData(datas);
                 s.open();

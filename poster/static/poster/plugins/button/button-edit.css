@@ -111,6 +111,8 @@ input[type="range"]::-webkit-slider-thumb {
     left: 0;
     width: 100%;
     height: 30%;
+     padding-top: 40px;
+     overflow: hidden;
 }
 
 .button-edit-container .btn {
@@ -148,8 +150,10 @@ input[type="range"]::-webkit-slider-thumb {
     top: 50%;
     left: 0;
     width: 100%;
-    padding: 50px 0;
+    padding: 0;
     text-align: center;
+    width: 600px;
+    transform-origin: top left!important;
 }
 
 .model-header {
