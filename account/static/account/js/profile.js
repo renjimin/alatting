@@ -11,7 +11,7 @@ $(function(){
     $.template('serverProvideTmpl',serverProvideTmpl);
     var serverNeedTmpl = $('#serverNeedTmpl').html();
     $.template('serverNeedTmpl',serverNeedTmpl);
-    var defImg = '/static/account/img/hb001.png';
+    var defImg = '/static/account/img/poster_default.jpg';
     var userinfo;
 
     /* 头部两类海报列表切换 */
