@@ -10,7 +10,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
-            'fontSize':14/templateScale,
+            'fontSize':14,
             'fontFamily':'Microsoft YaHei',
             'background':'ffffff',
             'backgroundOpacity':'1',
@@ -92,7 +92,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
                     'href': $(b).attr('href'),
                     'text': $(b).text(),
                     'color': $(b).css('color')==null?'000000':$(b).css('color'),
-                    'fontSize': parseInt($(b).css('font-size')),
+                    'fontSize': parseInt(parseInt($(b).css('font-size'))*templateScale),
                     'fontFamily': $(b).css('font-family').replace(/'/g,"").split(',')[0],
                     'background': $(b).attr('data-background'),
                     'backgroundOpacity': $(b).attr('data-backgroundOpacity'),
@@ -121,7 +121,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
             $('.button-color').css('background',opts.color);
-            for(i=parseInt(12/templateScale);i<parseInt(30/templateScale);i++){
+            for(i=12;i<30;i++){
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
             $('.button-fontSize').val(opts.fontSize);
@@ -161,6 +161,12 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             $('.button-fontFamily').off('change').on('change',function(){
                 opts.fontFamily = $(this).val();
                 elebtn.css('font-family',opts.fontFamily);
+            });
+            $('.button-fontFamily,.button-fontSize').off('click').on('click',function(){
+                setTimeout(function(){
+                    var st = $('body').scrollTop();
+                    $('body').animate({scrollTop:0},0);
+                },50);
             });
             $('.button-borderStyle').off('change').on('change',function(){
                 opts.borderStyle = $(this).val();
@@ -338,8 +344,8 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
         }
 
         var g = yunyeEditorGlobal;
-        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1" onclick="return posterDetail()">详情</a>'),
-              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2" onclick="return posterOrder()">预约</a>');
+        var detailBtn = $('<a class="element btn btn-default" href="'+g.globalButton.detail+'" data-action="1" onclick="return posterDetail()" style="font-size:22px;">详情</a>'),
+              orderBtn = $('<a class="element btn btn-default" href="'+g.globalButton.order+'" data-action="2" onclick="return posterOrder()" style="font-size:22px;">预约</a>');
         var cnd = '<div class="cnd-element button-element sys-button">'
                 +'<div class="element-box">'
                 +'    <div class="element-box-contents">'
@@ -415,9 +421,10 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
                 ele.css('transform','rotate(0)');
                 currentElebox.parent().parent().css('transform','rotate('+ele.data('rotate')+'deg)').attr('data-rotate',ele.data('rotate'));
             }
+            ele.css({'font-size':parseInt(parseInt(ele.css('font-size')) / templateScale)+'px'});
             currentElebox.empty().append(ele);
         }
-        $('#button-model').removeClass('open')
+        $('#button-model').removeClass('open');
     }
 var editButtonBasic = function(){
     var e = window.event || event;
@@ -435,6 +442,10 @@ var editButtonBasic = function(){
         addButton();
     }
     ele.addClass('open').siblings().removeClass('open');
+    if(!$('.bar-footer').hasClass('footer-hide')){
+        $('.bar-footer').addClass('footer-hide');
+    }
+    
 }
 var editButtonBorder = function(){
     var e = window.event || event;
@@ -452,6 +463,9 @@ var editButtonBorder = function(){
         addButton();
     }
     ele.addClass('open').siblings().removeClass('open');
+    if(!$('.bar-footer').hasClass('footer-hide')){
+        $('.bar-footer').addClass('footer-hide');
+    }
 }
 var copyButton = function(){
     if($('.button-element.active').hasClass('sys-button')){
