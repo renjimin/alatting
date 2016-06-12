@@ -149,9 +149,8 @@ $(function(){
     /* 服务提供者出价 */
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
-        var reg = new RegExp("^[0-9]*$");
-        if(!reg.test(price) || price == ''){
-            yyAlert('请输入数字!');
+        if(!$.isNumeric(price) || price <= 0){
+            yyAlert('请输入大于0的数字!');
         }else{
             console.log('bid-price:'+price);
             $.ajax({
