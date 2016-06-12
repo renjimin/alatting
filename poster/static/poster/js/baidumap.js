@@ -43,7 +43,7 @@ $(function() {
 							// var add = {
 							// 	address:
 							// }
-							$.fn.yunyeStorage.setHead("address", '');
+							//$.fn.yunyeStorage.setHead("address", '');
 						} else {
 							//yyAlert("没找到你要输入的地址和自动定位失败,地址设为光谷",function(){
 							local.search("光谷");

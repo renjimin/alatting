@@ -6,6 +6,9 @@ $(function(){
 
 	window.init = function() {
 		window.baiduMap = new BMap.Map("allmap");		// 创建Map实例
+		baiduMap.addControl(new BMap.NavigationControl());
+		baiduMap.addControl(new BMap.OverviewMapControl());
+		baiduMap.addControl(new BMap.ScaleControl());
 		var _localAdress = yunyeEditorGlobal.address;
 
 		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
