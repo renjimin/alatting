@@ -100,7 +100,6 @@ var scale = function(box,options){
 						touchEvents.startX = touch.pageX;
 						touchEvents.startY = touch.pageY;
 						
-						
 						$('.cnd-element').removeClass('active');
 						s.o.addClass('active').css('z-index',scaleIndex++);
 						$(e.currentTarget).addClass('drag-active');
@@ -485,7 +484,7 @@ $(function(){
 			box.empty();
 			editSvg.find('path').each(function(){
 				var html = $('<div class="form-group">\
-					<label class="col-xs-3 control-label">部件'+$(this).index()+'</label>\
+					<label class="col-xs-3 control-label">部件'+($(this).index()+1)+'</label>\
 					<div class="col-xs-9">\
 						<input type="text" data-index = "'+$(this).index()+'" value="'+$(this).attr('fill')+'" class="jscolor">\
 					</div>\
