@@ -50,11 +50,19 @@ $(function(){
 				image.onload = function(){
 					$('.header-logo h2').hide();
 					$('.header-logo img').remove();
-					image.style.width = canvas.width + 'px';
-					image.style.height = canvas.height + 'px';
+					//image.style.width = canvas.width + 'px';
+					//image.style.height = canvas.height + 'px';
+					if(canvas.width / canvas.height > $('.header-logo').width()/$('.header-logo').height() && canvas.width > $('.header-logo').width()){
+						image.style.width = $('.header-logo').width() + 'px';
+						image.style.height = 'auto';
+						image.style.top = $('.header-logo').height()/2 - ($('.header-logo').width()*canvas.height/canvas.width)/2 + 'px';
+					}else if(canvas.width / canvas.height < $('.header-logo').width()/$('.header-logo').height() && canvas.height > $('.header-logo').height()){
+						image.style.height = $('.header-logo').height() + 'px';
+						image.style.width = 'auto';
+					}
 					$('.header-logo').append($(image));
-					$('.header-logo img').css("display","inline-block");
-					$('.header-logo').imgoperationlogo();
+					$('.header-logo img').css({"display":"inline-block"});
+					//$('.header-logo').imgoperationlogo();
 					api.destory();
 				};
 				image.src = canvas.toDataURL("image/png");
