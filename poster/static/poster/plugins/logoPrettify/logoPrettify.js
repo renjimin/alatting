@@ -21,7 +21,10 @@ $(function(){
 			$(".editMenuGroup button").off("click");
 			$("#logoPrettify").removeClass('open');
 			
-			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
+			if(api[currentPannel] && api[currentPannel].destory){
+				api[currentPannel].destory();
+				$("[data-pannel="+currentPannel+"]").removeClass("active");
+			}
 			currentPannel = null;
 			$("#logoPrettify .editMenuGroup section").hide();
 		};
@@ -59,7 +62,7 @@ $(function(){
 		};
 		api.switchPannel = function(pannelID){
 			if(currentPannel == pannelID)return;
-			$("#"+currentPannel).hide();			
+			$("#"+currentPannel).hide();
 			if(api[currentPannel] && api[currentPannel].destory)api[currentPannel].destory();
 
 			if(pannelID && $("#"+pannelID))$("#"+pannelID).show();
