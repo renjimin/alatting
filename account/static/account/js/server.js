@@ -6,7 +6,7 @@ $(function(){
     var id = $('#posterid').val();
     var ch =$(window).height()-$('.main-title').outerHeight();
     $('#main-user-ctrl,#body-comments').css('height',ch+'px');
-    var lastPrice,consumer_id;
+    var lastPrice,consumer_id,head_default='/static/account/img/headicon-default.jpg';
     ///*
     // 获取当前海报所有预约用户填写的调查问卷
     $.ajax({
@@ -25,7 +25,7 @@ $(function(){
     });
     //*/
     function getMainLiHtml(d){
-        var headIcon = (d.subject.person)?d.subject.person.avatar:'/static/account/img/headicon-default.jpg';
+        var headIcon = (d.subject.person)?d.subject.person.avatar:head_default;
         var ans = d.ans;
         var h = '<div class="main-li" data-csid="'+d.subject.id+'">';
             h+= '   <div class="mli-header">';
@@ -129,10 +129,6 @@ $(function(){
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             console.log('refuse-price');
-            //$('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
-            //$('.price-li').hide();
-            //$('#price-refuse').show();
-            //return;
             $.ajax({
                 type: 'PATCH',
                 data:{accepted:false,refused:true},
@@ -310,10 +306,11 @@ $(function(){
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
-                        h+= '<li>';
-                        h+= '   <div class="mess-checkbox"></div>';
+                        var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
+                        h+= '<li class="mess-li">';
+                        h+= '   <div class="mess-image"><img src="'+img+'" alt="headicon"></div>';
                         h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span>'+data[i]["sender"]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+data[i]["sender"]["username"]+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';
@@ -362,7 +359,7 @@ $(function(){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
                         var hdicon = data[i]['creator']['person']['avatar'];
-                        hdicon = (hdicon)?hdicon:'/static/account/img/headicon-default.jpg';
+                        hdicon = (hdicon)?hdicon:head_default;
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';

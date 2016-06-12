@@ -16,7 +16,7 @@ $(function(){
         sDesc:'',
         sUrl:localhostPaht+'/mobile/poster/'+id+'/'
     };
-    var lastPrice;
+    var lastPrice,head_default='/static/account/img/headicon-default.jpg';;
     getBargainsList();
     getChatsList();
     getAnsList();
@@ -385,10 +385,11 @@ $(function(){
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
-                        h+= '<li>';
-                        h+= '   <div class="mess-checkbox"></div>';
+                        var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
+                        h+= '<li class="mess-li">';
+                        h+= '   <div class="mess-image"><img src="'+img+'" alt="headicon"></div>';
                         h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span>'+data[i]["sender"]["username"]+'</span><span>'+data[i]["created_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+data[i]["sender"]["username"]+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';
@@ -437,7 +438,7 @@ $(function(){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
                         var hdicon = data[i]['creator']['person']['avatar'];
-                        hdicon = (hdicon)?hdicon:'/static/account/img/headicon-default.jpg';
+                        hdicon = (hdicon)?hdicon:head_default;
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';
