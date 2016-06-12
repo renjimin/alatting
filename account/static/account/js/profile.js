@@ -185,8 +185,7 @@ $(function(){
     $('.body-main').on('click','.ctrl-statistics',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
-        console.log('statistics:'+id);
-
+        location.href = '/mobile/account/posters/'+id+'/statistics.html';
     });
     /* 分享当前海报 */
     $('.body-main').on('click','.ctrl-share',function(event){

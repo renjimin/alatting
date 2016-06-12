@@ -6,7 +6,9 @@ $(function() {
 
 	window.init = function() {
 		window.baiduMap = new BMap.Map("allmap"); // 创建Map实例
-
+		baiduMap.addControl(new BMap.NavigationControl());
+		baiduMap.addControl(new BMap.OverviewMapControl());
+		baiduMap.addControl(new BMap.ScaleControl()); 
 		var _localAdress;
 		if (!(yunyeEditorGlobal.updated_at > $.fn.yunyeStorage.getHead("updated_at")) && $.fn.yunyeStorage.getHead("address")) {
 			_localAdress = $.fn.yunyeStorage.getHead("address").address;
@@ -21,11 +23,13 @@ $(function() {
 					baiduMap.clearOverlays();
 					baiduMap.addOverlay(new BMap.Marker(pp)); //添加标注
 					baiduMap.centerAndZoom(pp, 14);
+					console.log(pp)
 					var add = {
 						address: $("#suggestId").val(),
 						city: local.getResults().city,
 						province: local.getResults().province
 					}
+					console.log(add)
 					$.fn.yunyeStorage.setHead("address", add);
 				} else {
 					$("#suggestId").val("");
@@ -38,11 +42,19 @@ $(function() {
 							baiduMap.clearOverlays();
 							baiduMap.addOverlay(mk);
 							baiduMap.centerAndZoom(r.point, 14);
+							// var add = {
+							// 	address:
+							// }
 							$.fn.yunyeStorage.setHead("address", '');
 						} else {
 							//yyAlert("没找到你要输入的地址和自动定位失败,地址设为光谷",function(){
-								local.search("光谷");
-								$.fn.yunyeStorage.setHead("address", '');
+							local.search("光谷");
+							var add = {
+								address: '光谷',
+								city: '武汉市',
+								province: '湖北省'
+							}
+							$.fn.yunyeStorage.setHead("address", add);
 							//});
 
 						}
