@@ -1153,9 +1153,11 @@ function imgTouch(img){
 					$('.mfp-arrow-right').click();
 				});
 				return;
+			}else{
+				$(e.currentTarget).css('transition','all .2s');
+				$(e.currentTarget).css('transform','translateX(0px)');
 			}
-			//$(e.currentTarget).css('transition','all .2s');
-			//$(e.currentTarget).css('transform','translateX(0px)');
+			
 		}
 	});
 }
