@@ -14,4 +14,4 @@ def dictget(thedict, key):
 @register.filter(name="choicesplit")
 def choicesplit(value, sep = ":"):
     parts = value.split(sep)
-    return (parts[0], sep.join(parts[1:]))
+    return parts

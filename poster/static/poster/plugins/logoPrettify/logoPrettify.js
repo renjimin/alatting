@@ -805,8 +805,8 @@ $(function(){
 				"木雕" : "carveStyle",
 				"粗糙" : "rough"
 			};
-			var effectModel = '<li class="e_item"><a class="imglink"><img src="{pic}" alt="" /><span>{effect}</span></a></li>';
-			var html = '<li class="e_item"><a class="imglink"><img src="'+_img.src+'" alt="" /><span>原图</span></a></li>';
+			var effectModel = '<li class="e_item"><a class="imglink"><img src="{pic}" alt="" /></a><span>{effect}</span></li>';
+			var html = '<li class="e_item"><a class="imglink"><img src="'+_img.src+'" alt="" /></a><span>原图</span></li>';
 			for(var i in EasyReflection){
 				var cloneImg = new Image(),
 				PS = pic.clone();
