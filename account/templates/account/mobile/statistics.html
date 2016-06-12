@@ -1,0 +1,128 @@
+{% extends 'website/mobile/base.html' %}
+{% load static %}
+{% block base_header_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/statistics.css' %}"/>
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'account/js/statistics.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+    <div class="body-header">
+        <div class="header-left">
+            <div class="hd-ctrl-li ctrl-favorite" id="ctrl-favorite" data-fav="0">
+                <span class="ctrl-icon"><i class="fa fa-star"></i></span><br>
+                <span class="ctrl-name">收藏</span>
+            </div>
+            <div class="hd-ctrl-li ctrl-share" id="ctrl-share">
+                <span class="ctrl-icon"><i class="fa fa-share-square-o"></i></span><br>
+                <span class="ctrl-name">分享</span>
+            </div>
+            <div class="hd-ctrl-li ctrl-view" id="ctrl-view">
+                <span class="ctrl-icon"><i class="fa fa-eye"></i></span><br>
+                <span class="ctrl-name">查看</span>
+            </div>
+            <div class="hd-ctrl-li ctrl-statistics hd-ctrl-act" id="ctrl-statistics">
+                <span class="ctrl-icon"><i class="fa fa-bar-chart"></i></span><br>
+                <span class="ctrl-name">统计</span>
+            </div>
+            <input type="hidden" id="consumerid" value="{{ request.GET.consumerid }}">
+        </div>
+        <div class="header-right">
+            <div class="hd-close" id="page-close"><i class="fa fa-times"></i></div>
+            <div class="hd-left-img">
+                {% if poster.snapshot %}
+                    <img src="{{ poster.snapshot.url }}">
+                {% else  %}
+                    <img src="/static/account/img/hb001.png" alt="img">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="body-main-title" id="body-main-title">
+        <div class="title-star p-star p-star-4"></div>
+        <div class="title-name">postername</div>
+        <input type="hidden" id="posterid" value="{{ poster.id }}">
+    </div>
+    <div class="boody-statistics" id="body-statistics">
+        <div class="st-canvas">
+            <div class="st-title">
+                <i class="fa fa-bar-chart"></i>数据统计
+            </div>
+            <div class="st-cv-li st-cv-fun">
+                <canvas class="canvas" id="canvas-fun" width="120" height="120"></canvas>
+                <div class="st-cv-name">有趣</div>
+                <div class="st-cv-num">0</div>
+            </div>
+            <div class="st-cv-li st-cv-point">
+                <canvas class="canvas" id="canvas-point" width="120" height="120"></canvas>
+                <div class="st-cv-name">人气</div>
+                <div class="st-cv-num">0</div>
+            </div>
+            <div class="st-cv-li st-cv-credit ">
+                <canvas class="canvas" id="canvas-credit" width="120" height="120"></canvas>
+                <div class="st-cv-name">信用</div>
+                <div class="st-cv-num">0</div>
+            </div>
+            <div class="st-cv-line cv-line-left"><i class="fa fa-ellipsis-h"></i></div>
+            <div class="st-cv-line cv-line-right"><i class="fa fa-ellipsis-h"></i></div>
+            <div class="st-cv-line cv-line-bot"><i class="fa fa-ellipsis-h"></i></div>
+        </div>
+        <div class="st-info">
+            <ul>
+                <li class="st-info-li st-info-favortes">
+                    <div class="st-info-icon"><img src="/static/website/images/icons/favorite.png"></div>
+                    <div class="st-info-change">0</div>
+                    <div class="st-info-num">0</div>
+                </li>
+                <li class="st-info-li st-info-views">
+                    <div class="st-info-icon"><img src="/static/website/images/icons/eye.png"></div>
+                    <div class="st-info-change">0</div>
+                    <div class="st-info-num">0</div>
+                </li>
+                <li class="st-info-li st-info-likes">
+                    <div class="st-info-icon"><img src="/static/website/images/icons/like.png"></div>
+                    <div class="st-info-change">0</div>
+                    <div class="st-info-num">0</div>
+                </li>
+                <li class="st-info-li st-info-shares">
+                    <div class="st-info-icon"><img src="/static/website/images/icons/stats_share.png"></div>
+                    <div class="st-info-change">0</div>
+                    <div class="st-info-num">0</div>
+                </li>
+                <li class="st-info-li st-info-fun">
+                    <div class="st-info-icon"><img src="/static/website/images/icons/fun.png"></div>
+                    <div class="st-info-change">0</div>
+                    <div class="st-info-num">0</div>
+                </li>
+                <li class="st-info-li st-info-ratings">
+                    <div class="st-info-icon"><img src="/static/website/images/icons/rate_selected.png"></div>
+                    <div class="st-info-change">0</div>
+                    <div class="st-info-num">0</div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="body-share" id="body-share">
+        <div class="hd-ctrl-li share-share">
+            <span class="ctrl-icon"><i class="fa fa-share-square-o"></i></span><br>
+            <span class="ctrl-name">分享</span>
+        </div>
+        <div class="share-li share-weixin" id="share-weixin"><i class="fa fa-weixin"></i></div>
+        <div class="share-li share-qq" id="share-qq"><i class="fa fa-qq"></i></div>
+        <div class="share-li share-weibo" id="share-weibo"><i class="fa fa-weibo"></i></div>
+        <div class="share-li share-comment" id="share-comment"><i class="fa fa-comment"></i></div>
+        <div class="share-li share-envelope" id="share-envelope"><i class="fa fa-envelope"></i></div>
+    </div>
+{#    <div class="body-loading" id="body-loading">#}
+{#        <img src="{% static 'poster/images/loading.gif' %}" alt="loading">#}
+{#    </div>#}
+{% endblock %}
+
+{% block base_body_footer %}
+{% endblock %}

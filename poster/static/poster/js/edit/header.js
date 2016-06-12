@@ -97,6 +97,50 @@ $(function () {
 			ele.attr('style',csss);
 		};
 
+    var saveDataCallback = function(){
+        $.fn.yyTools.mask();
+        yyAlert("保存成功");
+    };
+
+    var postSaveData = function(callback){
+        $.fn.yyTools.mask(1);
+		try{
+			saveData();
+		}catch (e){
+			$.fn.yyTools.mask();
+			yyAlert("缓存数据保存失败，暂时无法提交！");
+			if(console){
+                console.log(e);
+            }
+			return;
+		}
+		var full_json = JSON.stringify(storageAPI.getPosterData());
+		var url = yunyeEditorGlobal.API.save.format(
+			yunyeEditorGlobal.posterId
+		);
+		$.ajax({
+			type: 'PATCH',
+			dataType: 'json',
+			data: {"data": full_json},
+			url: url,
+			success: function (data) {
+				callback();
+			},
+			error: function (xhr, status, statusText) {
+                $.fn.yyTools.mask();
+                yyAlert("保存失败，服务器内部错误");
+			}
+		});
+    };
+
+    var copyPageCallback = function(){
+        $("body").changeTemplate(
+            "destroy"
+        ).changeTemplate(
+            "copy"
+        );
+    };
+
 	$(".back-to-home").click(function () {
 		var url = $(this).data("url");
 		yyConfirm("您确定要退出海报编辑吗？<br>确定后将自动保存已编辑的数据！", function () {
@@ -107,7 +151,7 @@ $(function () {
 		});
 	});
 
-	$('.btn-page').registerPopUp({
+    $('.btn-page').registerPopUp({
 		id: 'dpw_btn_page',
 		offsetXPercent: 50,
 		offsetYPercent: 50,
@@ -123,13 +167,16 @@ $(function () {
 						yyAlert("无法继续操作，需要yunyeStorage");
 						return false;
 					}
-					$("body").changeTemplate(
-						'destroy'
-					).changeTemplate({
-                        "target": "create",
-                        "initAfter": function () {
-                            $("#change-templates-list").css('height', "70%");
-                        }
+                    postSaveData(function () {
+                        $.fn.yyTools.mask();
+                        $("body").changeTemplate(
+                            "destroy"
+                        ).changeTemplate({
+                                "target": "create",
+                                "initAfter": function () {
+                                    $("#change-templates-list").css('height', "70%");
+                                }
+                            });
                     });
 				}
 			},
@@ -137,68 +184,26 @@ $(function () {
 				icon: "glyphicon glyphicon-duplicate",
 				text: "复制页面",
 				callback: function () {
-					if (!$.fn.yunyeStorage) {
-						yyAlert("无法继续操作，需要yunyeStorage");
-						return false;
-					}
-					yyConfirm("您确定要复制当前页面吗？", function () {
-						$.fn.yyTools.mask(1);
-						$.ajax({
-							type: "POST",
-							url: yunyeEditorGlobal.API.createPage,
-							dataType: "json",
-							data: {
-								"poster_id": yunyeEditorGlobal.posterId,
-								"template_id": yunyeEditorGlobal.templateId
-							},
-							success: function (posterPage) {
-								$.fn.yyTools.mask();
-								yyConfirm("复制页面成功, 是否立即跳转到新页面！", function () {
-									window.location.href = "/poster/{0}/edit".format(
-										yunyeEditorGlobal.posterId
-									);
-								});
-							},
-							error: function () {
-								$.fn.yyTools.mask();
-							}
-						});
-					});
+                    if (!$.fn.yunyeStorage) {
+                        yyAlert("无法继续操作，需要yunyeStorage");
+                        return false;
+                    }
+                    yyConfirm("您确定要复制当前页面吗？", function () {
+                            $.fn.yyTools.mask(1);
+                            postSaveData(copyPageCallback);
+                        },
+                        {
+                            'okText': "确定",
+                            'cancelText': "取消"
+                        }
+                    );
 				}
 			}
 		]
 	});
 
 	$(".btn.btn-save").on("click", function () {
-		$.fn.yyTools.mask(1);
-		try{
-			saveData();
-		}catch (e){
-			$.fn.yyTools.mask();
-			yyAlert("待保存数据处理失败，暂时无法提交！");
-			console.log(e);
-			return;
-		}
-		var full_json = JSON.stringify(storageAPI.getPosterData());
-		var url = yunyeEditorGlobal.API.save.format(
-			yunyeEditorGlobal.posterId
-		);
-		$.ajax({
-			type: 'PATCH',
-			dataType: 'json',
-			data: {"data": full_json},
-			url: url,
-			success: function (data) {
-				$.fn.yyTools.mask();
-				yyAlert("保存成功");
-			},
-			error: function (xhr, status, statusText) {
-				if (xhr.status == 500) {
-					$.fn.yyTools.mask();
-					yyAlert("保存失败，服务器内部错误");
-				}
-			}
-		});
+        postSaveData(saveDataCallback);
 	});
 
 	$(".btn.btn-post").on("click", function () {
