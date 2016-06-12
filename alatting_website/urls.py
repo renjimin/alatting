@@ -1,6 +1,7 @@
 # coding=utf-8
 
 from django.conf.urls import include, url
+from django.views.generic import TemplateView
 from alatting_website.views import (
     PosterView, MobileIndexView, IndexCategoryView,
     PosterCodeView, SvgClipView, DemoView,
@@ -12,15 +13,16 @@ from alatting_website.feeds import PosterUpdateFeed
 
 # 首页配置
 urlpatterns = [
-    url(r'^$', MobileIndexView.as_view(), name='index'),
+    url(r'^$',
+        TemplateView.as_view(template_name='company/index.html'),
+        name='index'),
+
+    url(r'^mobile.html$',
+        TemplateView.as_view(template_name='company/mobile.html'),
+        name='mobile_index'),
+
     url(r'^mobile/$',
-        MobileIndexView.as_view(), name='mobile_index'),
-    url(r'^mobile/index.html$',
-        MobileIndexView.as_view(), name='mobile_index'),
-    url(r'^mobile/poster/index.html$',
-        MobileIndexView.as_view(), name='mobile_poster_index'),
-    url(r'^mobile/posters/index.html$',
-        MobileIndexView.as_view(), name='mobile_posters_index'),
+        MobileIndexView.as_view(), name='mobile_poster_index')
 ]
 
 

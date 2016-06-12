@@ -16,20 +16,52 @@ $(function(){
         sDesc:'',
         sUrl:localhostPaht+'/mobile/poster/'+id+'/'
     };
-    var lastPrice,head_default='/static/account/img/headicon-default.jpg';;
+    var lastPrice,head_default='/static/account/img/headicon-default.jpg';
+
+    /* 获取海报详情信息 */
+    $.ajax({
+        type: 'GET',
+        url: '/api/v1/poster/posters/'+id,
+        success:function(data){
+            $('#body-main-title').children('.title-name').html(data['unique_name']);
+        },
+        error: function(xhr, status,statusText){
+            $('#body-main-title').children('.title-name').html('获取数据错误');
+        }
+    });
     getBargainsList();
     getChatsList();
     getAnsList();
 
     /* 收藏当前海报 */
     $('#ctrl-favorite').on('click',function(){
-        var status = $(this).attr('data-fav');
+        var ths = $(this);
+        var status = ths.attr('data-fav');
         if(status == 0){
-            $(this).find('.fa').css('color','#feba01');
-            $(this).attr('data-fav','1');
+            $.ajax({
+                type: 'POST',
+                url: '/api/v1/posters/'+id+'/favorites/bookmark/',
+                success:function(){
+                    ths.find('.fa').css('color','#feba01');
+                    ths.attr('data-fav','1');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
         }else{
-            $(this).find('.fa').css('color','#808080');
-            $(this).attr('data-fav','0');
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/v1/posters/'+id+'/favorites/bookmark/',
+                success:function(){
+                    ths.find('.fa').css('color','#808080');
+                    ths.attr('data-fav','0');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
+
         }
     });
 
@@ -85,8 +117,7 @@ $(function(){
 
 
     /* 讨价还价功能模块 */
-    ///*
-    //接受服务提供者的报价
+    /* 接受服务提供者的报价 */
     $('#accept-price').on('click',function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
             $.ajax({
@@ -105,13 +136,11 @@ $(function(){
             });
         });
     });
-    //*/
     $('#make-comt').on('click',function(){
         $('.body-li').hide();
         $('#body-makecomt').show();
     });
-    ///*
-    //拒绝服务提供者的报价
+    /* 拒绝服务提供者的报价 */
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
             $.ajax({
@@ -130,18 +159,16 @@ $(function(){
             });
         });
     });
-    //*/
-    // 打开出价面板
+    /* 打开出价面板 */
     $('.bid-price').on('click',function(){
         $('.price-li').hide();
         $('#price-bid').show();
     });
-    // 服务需求者出价
+    /* 服务需求者出价 */
     $('#set-price').on('click',function(){
         var price = $.trim($('#bPrice').val());
-        var reg = new RegExp("^[0-9]*$");
-        if(!reg.test(price) || price == ''){
-            yyAlert('请输入数字!');
+        if(!$.isNumeric(price) || price <= 0){
+            yyAlert('请输入大于0的数字!');
         }else{
             console.log('bid-price:'+price);
             $.ajax({
@@ -162,12 +189,11 @@ $(function(){
             });
         }
     });
-    // 取消出价，回到报价面板
+    /* 取消出价，回到报价面板 */
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
         $('#price-quote').show();
     });
-
 
     /* 打开我的资讯信息层 */
     $('#quote-consult').on('click',function(){
@@ -306,7 +332,7 @@ $(function(){
         }
     }
 
-    //获取双发讨价还价的历史记录
+    /* 获取双发讨价还价的历史记录 */
     function getBargainsList(){
         $.ajax({
             type: 'GET',
@@ -349,7 +375,7 @@ $(function(){
             }
         });
     }
-    //展示当前讨价还价的状态
+    /* 展示当前讨价还价的状态 */
     function showPriceli(lastPriceData){
         $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
         $('.price-li').hide();
@@ -376,7 +402,7 @@ $(function(){
             $('#price-quote').show();
         }
     }
-    //获取双方交流的信息列表
+    /* 获取双方交流的信息列表 */
     function getChatsList(){
         $.ajax({
             type: 'GET',
@@ -406,7 +432,7 @@ $(function(){
         });
     }
 
-    //获取服务需求方提交的服务调查问卷信息,即我的资讯信息
+    /* 获取服务需求方提交的服务调查问卷信息,即我的资讯信息 */
     function getAnsList(){
         $.ajax({
             type: 'GET',
@@ -429,6 +455,7 @@ $(function(){
         });
     }
 
+    /* 获取用户评论信息 */
     function getCommentsList(){
         $.ajax({
             type: 'GET',
@@ -439,12 +466,13 @@ $(function(){
                     for(var i=0;i<data.length;i++){
                         var hdicon = data[i]['creator']['person']['avatar'];
                         hdicon = (hdicon)?hdicon:head_default;
+                        var rating = 2*data[i]['rating'];
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';
                         h+= '       <div class="com-main-top">';
                         h+= '           <span class="com-username">username</span>';
-                        h+= '           <span class="com-pstar p-star p-star-8"></span>';
+                        h+= '           <span class="com-pstar p-star p-star-'+rating+'"></span>';
                         h+= '       </div>';
                         h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
                         h+= '       <div class="com-main-bot"><span class="com-time">'+data[i]['created_at']+'</span></div>';
