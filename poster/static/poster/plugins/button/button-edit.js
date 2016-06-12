@@ -501,6 +501,8 @@ $(function(){
 
         },
     });
+    /* button */
+    //console.log(templateScaleFun)
 })
 var selectSysImg = function(obj){
     $('#systemimg-model').removeClass('open');

@@ -441,7 +441,8 @@ var scale = function(box,options){
 				editBtn.on('touchend',function(e){
 						if (e.originalEvent) e = e.originalEvent;e.preventDefault();
 						if(!$('#feedback-toggle').hasClass('open')){
-								$('#feedback-toggle').click();
+								$('#feedback-toggle').addClass('open');
+								$('#feedback-panel').addClass('open');
 
 						}
 						elebtn = $(e.currentTarget).parent().find('.element');
@@ -457,11 +458,11 @@ var scale = function(box,options){
 
 		function showControlPannel(obj){
 				if(obj.hasClass('button-element') && !$('#feedback-toggle').hasClass('open')){						
-						$('#feedback-panel').addClass('open').siblings().removeClass('open');
-						$('#feedback-toggle').addClass('open').siblings().removeClass('open');
+						$('#feedback-panel').addClass('open').siblings('.dropdown-panel').removeClass('open');
+						$('#feedback-toggle').addClass('open').siblings('.dropdown-toggle').removeClass('open');
 				}else if(obj.hasClass('systemimg-element') && !$('#rate-toggle').hasClass('open')){
-					$('#rate-panel').addClass('open').siblings().removeClass('open');
-					$('#rate-toggle').addClass('open').siblings().removeClass('open');
+					$('#rate-panel').addClass('open').siblings('.dropdown-panel').removeClass('open');
+					$('#rate-toggle').addClass('open').siblings('.dropdown-toggle').removeClass('open');
 				}
 		}
 
