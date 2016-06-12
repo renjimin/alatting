@@ -249,12 +249,12 @@ $(function() {
 				weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" :  "Saturday" ;
 			if(end.val() < start.val()){
 				$(event.target).blur();
-				start.val(options.lifetime_special[weekName].start);
-				end.val(options.lifetime_special[weekName].end);
+				start.val(yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].start);
+				end.val(yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].end);
 				yyConfirm("结束时间不能早于开始时间");
 			}else{
-				yunyeEditorGlobal.lifetime.lifetime_special[weekName].start = start.val();
-				yunyeEditorGlobal.lifetime.lifetime_special[weekName].end = end.val();
+				yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].start = start.val();
+				yunyeEditorGlobal.lifetime.lifetime_weekly[weekName].end = end.val();
 			}
 		}
 	});
