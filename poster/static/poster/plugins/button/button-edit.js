@@ -10,7 +10,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             'href':'javascript:void(0)',
             'text':'请输入文字',
             'color':'000',
-            'fontSize':14/templateScale + 'px',
+            'fontSize':14/templateScale,
             'fontFamily':'Microsoft YaHei',
             'background':'ffffff',
             'backgroundOpacity':'1',
@@ -62,7 +62,7 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             var back = 'rgba('+rgb.r+','+rgb.g+','+rgb.b+','+opts.backgroundOpacity+')';
             o.css({
                 'color':'#'+opts.color,
-                'font-size':opts.fontSize/templateScale+'px',
+                'font-size':opts.fontSize+'px',
                 'font-family':opts.fontFamily,
                 'background':back,
                 'opacity':opts.opacity,
@@ -86,18 +86,19 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
                 if($2==null || $2 == ''){
                     $2 = 0;
                 }
+
                 eleopts = {
                     'buttonAction':$(b).attr('data-action'),
                     'href': $(b).attr('href'),
                     'text': $(b).text(),
                     'color': $(b).css('color')==null?'000000':$(b).css('color'),
                     'fontSize': parseInt($(b).css('font-size')),
-                    'fontFamily': $(b).css('font-family').replace(/'/g,""),
+                    'fontFamily': $(b).css('font-family').replace(/'/g,"").split(',')[0],
                     'background': $(b).attr('data-background'),
                     'backgroundOpacity': $(b).attr('data-backgroundOpacity'),
                     'opacity': $(b).css('opacity'),
                     'boxShadow':$(b).css('box-shadow-spread'),
-                    'borderRadius':$(b).css('border-radius'),
+                    'borderRadius':parseInt($(b).css('border-radius')),
                     'rotate':$2,
                     'borderColor':$(b).css('border-color'),
                     'borderStyle':$(b).css('border-style'),
@@ -119,8 +120,8 @@ setTimeout(function(){fullcontainer=$('.yunye-template').eq(0);addDefaultButtons
             $('.button-action').val(opts.buttonAction);
             $('.button-href').val(href);
             $('.button-text').val(opts.text);
-            $('.button-color').css('background','#'+opts.color);
-            for(i=12;i<30;i++){
+            $('.button-color').css('background',opts.color);
+            for(i=parseInt(12/templateScale);i<parseInt(30/templateScale);i++){
                 $('.button-fontSize').append('<option value="'+i+'">'+i+'px</option>')
             }
             $('.button-fontSize').val(opts.fontSize);
@@ -501,6 +502,8 @@ $(function(){
 
         },
     });
+    /* button */
+    //console.log(templateScaleFun)
 })
 var selectSysImg = function(obj){
     $('#systemimg-model').removeClass('open');
@@ -557,7 +560,7 @@ var addSystemimg = function(eleobj){
 				+'<div class="nbar nbar-s"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-e"><div class="nbar-radius"></div></div>'
 				+'<div class="nbar nbar-w"><div class="nbar-radius"></div></div>'
-				+'<div class="nbar nbar-nw nbar-radius"></div>'
+				+'<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>'
 				+'<div class="nbar nbar-se nbar-radius"></div>'
 				+'<div class="nbar nbar-sw nbar-radius"></div>'
 				+'<div class="nbar nbar-ne nbar-radius"></div>'

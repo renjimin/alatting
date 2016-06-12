@@ -187,7 +187,10 @@ input {
     padding: 16px 19px;
     margin: -16px 6px;
  }
-
+.li-server .open{
+    -webkit-transform: rotate(-180deg);
+    -moz-transform: rotate(-180deg);
+}
  .selectserver,.selectprovider{
     display:none;
     overflow:hidden;
@@ -209,6 +212,12 @@ input {
     font-size: 1.2em;
     padding: 10px 10px;
     margin: 5px 0;  
+ }
+ .glyphicon-remove-circle{
+    float: left;
+    font-size: 1.2em;
+    padding: 10px 10px;
+    margin: 5px 0;
  }
  .li-provider  .glyphicon{
     float:right;

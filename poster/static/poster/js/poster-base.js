@@ -97,10 +97,10 @@ $(function () {
 	function templateScaleFun(){
 		var templateScale = $('body').width()/$('.yunye-template').width();
 		 var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
-			 +	 '-moz-transform:scale('+templateScale+','+templateScale+');'
-			 +	 '-o-transform:scale('+templateScale+','+templateScale+');'
-			 +	'-ms-transform:scale('+templateScale+','+templateScale+');'
-			 +		'transform:scale('+templateScale+','+templateScale+');';
+			 +   '-moz-transform:scale('+templateScale+','+templateScale+');'
+			 +   '-o-transform:scale('+templateScale+','+templateScale+');'
+			 +  '-ms-transform:scale('+templateScale+','+templateScale+');'
+			 +      'transform:scale('+templateScale+','+templateScale+');';
 			 if($('.template-box').length <= 0){
 				var templateBox = $('<div class="template-box"></div>');
 				$('.yunye-template').parent().append(templateBox);
@@ -109,6 +109,7 @@ $(function () {
 		
 		$('.yunye-template').attr('style',templateScaleOpt);
 		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
+		$('#button-model .btn-container').attr('style',templateScaleOpt);
 	}
 	//失去焦点预判输入
 	$('#emailInput').blur(function(){
@@ -168,7 +169,7 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	$('.header-info').click(function(){
+	$('.desc').click(function(){
 		$('#text-model').animate({'bottom':'0px'},200);
 		$('.text-element').removeClass('text-element-act');
 		$('.ele-rotate-ctrl').remove();
@@ -267,61 +268,6 @@ $(function () {
 			}
 		]
 	});
-
-	/* 模版空白设置背景 */
-	$('.yunye-template').registerPopUp({
-		id: 'dpw_template',
-		offsetYPercent: 50,
-		offsetY: 30,
-		followMouse: true,
-		list: [
-			{
-				icon: "icon ico-system-pic",
-				text: "系统背景",
-				callback: function () {
-					$(this).bgselect({}, function (ths, img) {
-						$('.yunye-template').css('background', 'url(' + img + ')');
-						$('.yunye-template').css('background-size', '100% 100%');
-						storageAPI.setCss(".yunye-template", {
-							'background': 'url(' + img + ')',
-							'background-size': '100% 100%'
-						});
-						$(".system-item").fadeOut(500);
-					})
-				}
-			},
-			{
-				icon: "glyphicon glyphicon-adjust",
-				text: " 颜色",
-				callback: function () {
-					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.yunye-template').css('background', color);
-						storageAPI.setCss(".yunye-template", {'background': color});
-					});
-				}
-			},
-			{
-				icon: "glyphicon glyphicon-picture",
-				text: "上传图片",
-				callback: function () {
-					$.fn.uploads.showDialog(function (data) {
-						if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
-							yyAlert("上传图片格式错误");
-							return false;
-						}
-						$('.yunye-template').css('background', 'url(' + data.file + ')');
-						$('.yunye-template').css('background-size', '100% 100%');
-						storageAPI.setCss(".yunye-template", {
-							'background': 'url(' + data.file + ')',
-							'background-size': '100% 100%'
-						});
-					});
-				}
-			},
-			{icon: "glyphicon glyphicon-camera", text: "拍照"}
-		]
-	});
 	$('.btn-bg').registerPopUp({
 		id: 'dpw_bg',
 		offsetXPercent: 50,
@@ -347,6 +293,24 @@ $(function () {
 						});
 						$(".system-item").fadeOut(500);
 					})
+				}
+			},
+			{
+				icon: "glyphicon glyphicon-picture",
+				text: "顶/底图片",
+				callback: function () {
+					$.fn.uploads.showDialog(function (data) {
+						$('.bar-header,.bar-footer').css('background', 'url(' + data.file+ ')');
+						$('.bar-header,.bar-footer').css('background-size', '100% 100%');
+						storageAPI.setCss(".bar-header", {
+							'background': 'url(' + data.file + ')',
+							'background-size': '100% 100%'
+						});
+						storageAPI.setCss(".bar-footer", {
+							'background': 'url(' + data.file + ')',
+							'background-size': '100% 100%'
+						});
+					});
 				}
 			},
 			{
@@ -403,7 +367,7 @@ $(function () {
 				icon: "glyphicon glyphicon-transfer",
 				text: "更换模版",
 				callback: function () {
-						$(".yunye-template").changeTemplate('destroy').changeTemplate();
+					$(".yunye-template").changeTemplate('destroy').changeTemplate();
 				}
 			}
 		]
@@ -490,15 +454,15 @@ $(function () {
 		// var click_list = ['#closebg'];
 		// var item = '';
 		// for (var i in click_list) {
-		//	 if ($(event.target).closest(click_list[i]).length != 0) {
-		//		 item = click_list[i];
-		//		 break;
-		//	 }
+		//   if ($(event.target).closest(click_list[i]).length != 0) {
+		//       item = click_list[i];
+		//       break;
+		//   }
 		// }
 		// switch (item) {
-		//	 case "#closebg":
-		//		 //$(".system-item").fadeOut(200);
-		//		 break;
+		//   case "#closebg":
+		//       //$(".system-item").fadeOut(200);
+		//       break;
 		// }
 		//点击被保护列表中的对象返回
 		window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
@@ -534,7 +498,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :	"Saturday" ,
+					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
@@ -551,5 +515,63 @@ $(function () {
 		}
 	});
 
+	/* 模版空白设置背景 */
+	window.templateMainActionInit = function(){
+		$('.yunye-template').registerPopUp({
+			id: 'dpw_template',
+			offsetYPercent: 50,
+			offsetY: 30,
+			followMouse: true,
+			list: [
+				{
+					icon: "icon ico-system-pic",
+					text: "系统背景",
+					callback: function () {
+						$(this).bgselect({}, function (ths, img) {
+							$('.yunye-template').css('background', 'url(' + img + ')');
+							$('.yunye-template').css('background-size', '100% 100%');
+							storageAPI.setCss(".yunye-template", {
+								'background': 'url(' + img + ')',
+								'background-size': '100% 100%'
+							});
+							$(".system-item").fadeOut(500);
+						})
+					}
+				},
+				{
+					icon: "glyphicon glyphicon-adjust",
+					text: " 颜色",
+					callback: function () {
+						$("#colorBox").css('top', $('.content').offset().top).show();
+						$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
+							$('.yunye-template').css('background', color);
+							storageAPI.setCss(".yunye-template", {'background': color});
+						});
+					}
+				},
+				{
+					icon: "glyphicon glyphicon-picture",
+					text: "上传图片",
+					callback: function () {
+						$.fn.uploads.showDialog(function (data) {
+							if(!/\.(gif|jpg|jpeg|bmp|png)$/.test(data.file)){
+								yyAlert("上传图片格式错误");
+								return false;
+							}
+							$('.yunye-template').css('background', 'url(' + data.file + ')');
+							$('.yunye-template').css('background-size', '100% 100%');
+							storageAPI.setCss(".yunye-template", {
+								'background': 'url(' + data.file + ')',
+								'background-size': '100% 100%'
+							});
+						});
+					}
+				},
+				{icon: "glyphicon glyphicon-camera", text: "拍照"}
+			]
+		});
+	};
+
+	window.templateMainActionInit();
 	$(".change-template-layout").hide();
 });

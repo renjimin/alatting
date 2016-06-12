@@ -1,3 +1,5 @@
 {% for choice in qdict.choices %}
-	<label class="checkbox-inline"><input name="question_{{ question.sortid }}_{{choice.sortid}}" type="checkbox" value="{{choice.value}}" {% if choice.value in qdict.prev_ans %} checked {% endif %}>{{choice.text}}</label>
+<div class="checkbox">
+	<label class="checkbox-label"><input name="question_{{ question.sortid }}_{{choice.sortid}}" type="checkbox" value="{{choice.value}}" {% if choice.value in qdict.prev_ans %} checked {% endif %}>{{choice.text}}</label>
+</div>
 {% endfor %}

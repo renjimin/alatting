@@ -10,7 +10,7 @@ import pytz
 
 from django.conf import settings
 from rest_framework import status
-from rest_framework.exceptions import PermissionDenied, ValidationError
+from rest_framework.exceptions import PermissionDenied
 from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,10 +20,11 @@ from rest_framework.generics import (
     ListCreateAPIView, RetrieveUpdateDestroyAPIView, RetrieveAPIView
 )
 from account.models import Person
+from alatting.exceptions import BargainsNoConsumerError, ChatsNoConsumerError, \
+    PosterPageNotFoundError
 from alatting_website.logic.poster_service import PosterService
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
-from alatting_website.model.statistics import PosterStatistics
 from alatting_website.models import Category, CategoryKeyword, Template
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
@@ -134,6 +135,7 @@ class PosterPageListView(ListCreateAPIView):
     def perform_create(self, serializer):
         poster_id = self.request.data.get('poster_id')
         template_id = self.request.data.get('template_id')
+        action = self.request.POST.get('action', 'create')
         pages = PosterPage.objects.filter(
             poster_id=poster_id
         ).order_by('-index')
@@ -142,16 +144,28 @@ class PosterPageListView(ListCreateAPIView):
         else:
             index = 0
 
-        template = get_object_or_404(Template, pk=template_id)
-        html = read_template_file_content(template.html_path())
-        css = read_template_file_content(template.css_path())
-        js = read_template_file_content(template.js_path())
+        if action == 'copy':
+            from_page = PosterPage.objects.filter(
+                id=self.request.POST.get('posterpage_id'),
+                poster__creator=self.request.user
+            ).first()
+            if not from_page:
+                raise PosterPageNotFoundError
+            html = from_page.temp_html
+            css = from_page.temp_css
+            script = from_page.temp_script
+        else:
+            template = get_object_or_404(Template, pk=template_id)
+            html = read_template_file_content(template.html_path())
+            css = read_template_file_content(template.css_path())
+            script = read_template_file_content(template.js_path())
+
         posterpage = serializer.save(
             index=index,
             name="p%s_t%s_i%s" % (poster_id, template_id, index),
             temp_html=html,
             temp_css=css,
-            temp_script=js
+            temp_script=script
         )
         posterpage.check_and_create_static_file_dir()
 
@@ -328,17 +342,18 @@ class PosterSaveContentMixin(object):
         ).order_by('-index')
         for page in pages:
             try:
-                static_map = pages_json['{:d}'.format(page.id)]
-                if 'html' in static_map.keys() \
-                        and len(static_map['html']) != 0:
-                    html = str(base64.b64decode(static_map['html']),
-                               encoding='utf-8', errors='ignore')
-                    page.temp_html = html
-                if 'css' in static_map.keys() \
-                        and len(static_map['css']) != 0:
-                    page.temp_css = self._css_handler(page.temp_css,
-                                                      static_map['css'])
-                page.save()
+                static_map = pages_json.get('{:d}'.format(page.id), {})
+                if static_map:
+                    if 'html' in static_map.keys() \
+                            and len(static_map['html']) != 0:
+                        html = str(base64.b64decode(static_map['html']),
+                                   encoding='utf-8', errors='ignore')
+                        page.temp_html = html
+                    if 'css' in static_map.keys() \
+                            and len(static_map['css']) != 0:
+                        page.temp_css = self._css_handler(page.temp_css,
+                                                          static_map['css'])
+                    page.save()
             except KeyError:
                 pass
 
@@ -608,31 +623,19 @@ class ServiceBargainListView(ListCreateAPIView):
             qs = qs.filter(consumer=self.request.user)
         return qs.order_by('created_at')
 
-    def _server_create(self, poster, serializer):
-        if poster.creator != self.request.user:
-            raise PermissionDenied()
-        consumer_id = serializer.validated_data.get('consumer_id')
-        if not consumer_id:
-            raise ValidationError('参数不足，没有提供需求者ID!')
+    def perform_create(self, serializer):
+        poster = self.get_poster_object()
+        if poster.creator == self.request.user:
+            consumer_id = serializer.validated_data.get('consumer_id')
+            if not consumer_id:
+                raise BargainsNoConsumerError
+        else:
+            consumer_id = self.request.user.id
         serializer.save(
             poster=poster,
             creator=self.request.user,
             consumer_id=consumer_id
         )
-
-    def _consumer_create(self, poster, serializer):
-        serializer.save(
-            poster=poster,
-            creator=self.request.user,
-            consumer_id=self.request.user.id
-        )
-
-    def perform_create(self, serializer):
-        poster = self.get_poster_object()
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            self._server_create(poster, serializer)
-        else:
-            self._consumer_create(poster, serializer)
 
 
 class ServiceBargainDetailView(RetrieveUpdateDestroyAPIView):
@@ -665,23 +668,27 @@ class ChatListView(ListCreateAPIView):
         qs = qs.filter(
             poster_id=poster.id
         )
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
-            user_id = self.request.GET.get('user_id')
+        user_id = self.request.user.id
+        if poster.creator == self.request.user:
+            senders = [user_id]
+            if self.request.GET.get('receiver_id'):
+                senders.append(self.request.GET.get('receiver_id'))
             qs = qs.filter(
-                Q(receiver_id=user_id) | Q(sender_id=user_id)
+                Q(receiver_id=user_id) | Q(sender_id__in=senders)
             )
         else:
-            user_id = self.request.user.id
             qs = qs.filter(
                 Q(sender_id=user_id) |
                 Q(sender_id=poster.creator.id) | Q(receiver_id=user_id)
             )
-        return qs.order_by('-created_at')
+        return qs.order_by('created_at')
 
     def perform_create(self, serializer):
         poster = self.get_poster_object()
-        if self.request.user.person.user_type == Person.USER_TYPE_SERVER:
+        if poster.creator == self.request.user:
             receiver_id = self.request.data.get('receiver_id')
+            if not receiver_id:
+                raise ChatsNoConsumerError
         else:
             receiver_id = poster.creator.id
         serializer.save(

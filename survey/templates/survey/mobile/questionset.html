@@ -13,8 +13,8 @@
     {% endblock %}
     {% block base_header_js %}
         <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
-        <script src="{% static 'website/js/base.js' %}"></script>
         <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+        
     {% endblock %}
     {% block base_header_extra %}
     {% endblock %}
@@ -25,18 +25,15 @@
 {% endblock %}
 {% block base_body %}
     <div class="qs container-fluid">
-        <header class="qs-header">
+        <header class="qs-header">     
+            <div class="progress-btm">{{qs_title}}</div>
             <div class="progress">
                 <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                style="width: {{progress}}%;"></div>
-            </div>      
-            <div class="progress-btm">请输入详细信息</div>
+                style="width: {{progress}}%;">{{progress}}%</div>
+            </div> 
         </header>
         <div class="qs-body">
-            <form class="form" action="{{ request.path }}" method="POST">
-                <div class="qs-title">
-                    {{qs_title}}
-                </div>
+            <form class="form" id="qs-form" action="{{ request.path }}" method="POST">
                 <div class="qs-list">
                     <div class="step">
                         {% for question, qdict in qlist %}
@@ -60,20 +57,17 @@
                         {% endwith %}
                         {% endfor %}
                     </div>
-                    {% if consumer_is_poster_creator %}
-                        <div class="disable-reminder">浏览状态,不能提交答案</div>
-                    {% endif %}
-                    <div class="required-reminder-text">&#x2a;必填</div>
+                    <div class="required-reminder-text"><span class="required-reminder">&#x2a;</span>必填</div>
                     
                     <div class="qs-footer">
                         <div>
-                            <a class="back btn btn-default" href="{{ prev_url }}">返回</a>
+                            <a class="back btn btn-default" href="{{ prev_url }}">上一步</a>
                             {% if islast_consumer_repeat %}
-                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer_repeat();" value="确认">
+                                <input type="submit" class="next btn btn-default" id="qs_islast_consumer_repeat" value="下一步">
                             {% elif  islast_consumer%}
-                                <input type="submit" class="next btn btn-default"  onclick="return islast_consumer();" value="确认">
+                                <input type="submit" class="next btn btn-default"  id="qs_islast_consumer" value="下一步">
                             {% else %}
-                                <input type="submit" class="next btn btn-default" value="确认">
+                                <input type="submit" class="next btn btn-default" value="下一步">
                             {% endif %}
                         </div>
                     </div>  
@@ -85,7 +79,6 @@
 {% block base_body_footer %}
 {% endblock %}
 {% block base_footer_js %}
-    <script src="{% static 'website/js/footer.js' %}"></script>
     <script src="{% static 'survey/js/survey-base.js' %}"></script>
 {% endblock %}
 </div>

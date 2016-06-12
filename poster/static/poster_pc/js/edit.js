@@ -53,17 +53,17 @@ function(module, exports, __require__) {
 			if( !_.contains(primary, instance.ready))primary.push(instance.ready);
 		}
 		return instance;
-	}
+	};
 	Editor.require = function(moduleName){
 		if(Editor.modules[moduleName])return Editor.modules[moduleName];
 		return null;
-	}
+	};
 	Editor.ready = function(){
 		_.each(primary, __callReady);
 		function __callReady(readyFn) {
 			isFunction(readyFn) && readyFn();
 		}
-	}
+	};
 
 	$(Editor.ready);
 	window.Editor = Editor;
@@ -89,7 +89,7 @@ function(module, exports, __require__){
 		});
 		var editorModule = Editor.require(pannelName);
 		if(editorModule && editorModule.init && $.isFunction(editorModule.init))editorModule.init();
-	}
+	};
 	api.destory = function(pannelName){
 		var pannel = $("#" + pannelName);
 		menuList = pannel.find(".nav-item");
@@ -99,7 +99,7 @@ function(module, exports, __require__){
 		});
 		var editorModule = Editor.require(pannelName);
 		if(editorModule && editorModule.destory && $.isFunction(editorModule.destory))editorModule.destory();
-	}
+	};
 	module.exports = api;
 },
 //[模块3]切换右侧面板模块
@@ -117,10 +117,10 @@ function(module, exports, __require__){
 			$("#" + pannelName).show();
 			if($("[data-pannel="+currentPannel+"]"))$("[data-pannel="+currentPannel+"]").addClass("active");
 			__require__(2).init(currentPannel);
-		}
+		};
 		api.getCurrentPannel = function(){
 			return currentPannel;
-		}
+		};
 		return api;
 	});
 },

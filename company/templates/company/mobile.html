@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, maximum-scale=1, user-scalable=0">
+		<meta name="baidu-site-verification" content="ZioXZhkBh3" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+		<title>武汉云页移动科技有限公司</title>
+		<link rel="shortcut icon" href="{% static "company/images/logo.ico" %}">
+		<link rel="stylesheet" href="{% static "company/css/style.css" %}" />
+		<link rel="stylesheet" href="{% static "company/css/main.css" %}" />
+		<link rel="stylesheet" href="{% static "company/css/mobile.css" %}" />
+		<script type="text/javascript" src="{% static "company/js/jquery.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "company/js/jquery-ui.min.js" %}"></script>
+		<script type="text/javascript" src="{% static "company/js/page.js" %}"></script>
+		<script type="text/javascript" src="{% static "company/js/owl.carousel.js" %}"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+
+		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="{% static "company/js/html5shiv.js" %}"></script>
+		<script type="text/javascript" src="{% static "company/js/respond.min.js" %}"></script>
+		<![endif]-->
+
+		<script>
+			$(function() {
+				$('#dowebok').fullpage({
+					sectionsColor: ['#fff', '#4BBFC3', '#fff', '#6dcce0', '#f90', '#ccc', ],
+					anchors: ['page1', 'page2', 'page3', 'page5', 'page4', 'page6', ],
+					menu: '#menu',
+				});
+				
+			});
+		</script>
+	</head>
+
+	<body>
+		<div class="warp">
+			<div class="container">
+			<div class="header">
+					<div class="logo"><img src="{% static "company/images/logo1.png" %}" alt="武汉云页科技" title="武汉云页科技"></div>
+					<a href="javascript:void(0);" title="" class="navbar"><b></b></a>
+					
+					<nav class="header-nav">
+					  <div class="nav-collapse">
+						<ul id="menu">
+							<li data-menuanchor="page1" class="active"><a href="#page1">首页</a></li>
+							<li data-menuanchor="page2" class=""><a href="#page2">公司简介</a></li>
+							<li data-menuanchor="page3" class=""><a href="#page3">主要产品</a></li>
+							<li data-menuanchor="page5" class=""><a href="#page5">智能海报</a></li>
+							<li data-menuanchor="page4" class=""><a href="#page4">服务邦</a></li>
+							<li data-menuanchor="page6" class=""><a href="#page6">关于我们</a></li>
+						</ul>
+					  </div>
+					</nav>
+				<div class="clear"></div>
+			</div>
+			</div>
+
+			<div id="dowebok">
+				<div class="section section1">
+					<div><img src="{% static "company/images/posterbg.jpg" %}" alt="" title="" width="100%"/></div>
+					<div class="yunye-instro">
+						<h3>武汉云页移动科技有限公司</h3>
+						<p>武汉云页移动科技有限公司是一家总部位于武汉光谷以智能营销以及服务的表达、推广、搜索和交易为主营业务的移动互联网公司，公司以智能海报为可视化载体，以不确定性人工智能、云计算和大数据分析技术为驱动力，力图打造服务行业里的阿里巴巴，愿景是成为中国最大的服务领域里的电子商务平台。公司成立于2016年1月，注册类别为内资公司，性质为有限责任公司，办公地点是东湖新技术开发区珞喻路889号武汉光谷中心花园A栋8层02号，面积是95平方米，注册资本更新后为1000万元。</p>
+					</div>
+				</div>
+
+				<div class="section section2">
+	
+					<div class="instroimg"><img src="{% static "company/images/textus2.jpg" %}"/></div>
+					<div class="yunye-company">
+						<h4>公司介绍</h4>
+						<p>武汉云页移动科技有限公司,公司创始人操保华先生是美国Alatting公司的创始人兼董事长，美国华侨。操保华先生早年毕业于武汉大学计算机系，师从于人工智能专家李德毅院士，后以全额奖学金留学于美国南加州大学，获得计算机科学理学硕士学位。曾在计算机领域的顶级研究机构IBM中国研究院担任下一代互联网和云计算的科学家，曾担任美国ASCII MEDIA公司的技术总监。发表科研论文20多篇，以第一作者发明美国专利7项，中国专利20多项，可公开查询到6项.</p>
+					</div>
+					
+				</div>
+
+				<div class="section">
+					<div class="proimg"><img src="{% static "company/images/product.png" %}"/></div>
+					<div class="mainproduct">
+						<p>主要产品</p>
+						<p><b>Poster-K </b>: 智能海报全能王，H5网页应用和移动应用，通过人机交互来创建各行各业的智能服务海报。</p>
+						<p><b>S-poster</b>: 智能海报，服务的可视化载体，带语义和交互的智能移动网页，支持二维码和社交O2O。</p>
+						<p><b>E-Card</b>: 智能名片，由智能海报自动转化产生，扫面名片可以直接打开母版智能海报，便打印分发。</p>
+						<p><b>S-Market</b>: 服务邦，以智能海报为主体的服务搜索和交易的电子商务平台，服务超市，购买服务。</p>
+					</div>
+				</div>
+
+				<div class="section section-posters">
+					<div class="container" style="height: 600px;">
+						<div class="tits">智能海报</div>
+						<div id="owl-demo" class="slides">
+                            {% url "account:login" as login %}
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster5.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster1.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster12.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster9.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster7.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster8.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster2.jpg" %}" alt=""></a>
+							<!--<a class="item"><img src="{% static "company/images/poster3.jpg" %}" alt=""></a>-->
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster4.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster6.jpg" %}" alt=""></a>
+							<a class="item" href="{{ login }}"><img src="{% static "company/images/poster10.jpg" %}" alt=""></a>
+
+						</div>
+
+					</div>
+
+				</div>
+
+				<div class="section section2">
+					<div class="container">
+							<div class="computer">
+                                <a href="{% url 'website:mobile_poster_index' %}">
+                                    <img src="{% static "company/images/computer.png" %}"/>
+                                </a>
+                            </div>
+							<div class="service">
+								<h2>服务邦</h2>
+								<p>基于智能海报服务页、云计算、人工智能、大数据分析的服务搜索创新平台系统。</p>
+								<p>特征与用途：用来管理服务页，分析服务页，从事基于服务页的服务交易和贸易。功能：大数据监控和分析各个行业数据和趋势，产生大数据分析报告和咨询报告，提供服务交易的第三方担保和贸易纠纷解决方案。</p>
+							</div>
+					</div>
+				</div>
+
+				<div class="section section2">
+					<div class="copyright">
+						<div class="map"><img src="{% static "company/images/map.png" %}"/></div>
+						<p>公司地址：武汉市珞喻路889号光谷国际广场A座802</p>
+						<p>email：service@yunye123.com</p>
+						<p>电话：027-87345395</p>
+						<p class="last">©2016 <a href="http://yunye123.com/">武汉云页移动科技有限公司 版权所有</a> 鄂ICP备16006518号-1</p>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</body>
+	<script>
+		$(function() {
+			$('#owl-demo').owlCarousel({
+				items: 1,
+				dots: false,
+				nav: true,
+				loop: true,
+				navigationText: ["", ""]
+			});
+			
+		
+			var navPanel = $('.header-nav'),
+			    iconNav = $('.navbar');
+			    
+			
+			iconNav.click(function(event){
+				
+			  if(iconNav.hasClass('open')){
+			  	iconNav.removeClass('open');			    
+				navPanel.removeClass('open');
+			  }else{
+			    iconNav.addClass('open');
+			    navPanel.addClass('open');  
+			  }
+		
+			})
+			$('#menu a').click(function(){
+				iconNav.removeClass('open');			    
+				navPanel.removeClass('open');
+			});
+
+			$('#menu,.navbar').on('click',function(event){
+				event.stopPropagation();
+			});
+			$('body').on('click',function(){
+				iconNav.removeClass('open');			    
+				navPanel.removeClass('open');
+			});
+		
+		});
+	</script>
+
+</html>

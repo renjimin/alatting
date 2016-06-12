@@ -137,7 +137,8 @@ class RegisterView(FormView):
                 q.update(kw)
                 self.success_url += '?%s' % q.urlencode()
         else:
-            self.success_url += '?sub_id=%s' % sub_id
+            self.success_url = reverse('website:mobile_poster_index')
+            self.success_url += '?q=%s' % sub_id
         return self.success_url
 
 
@@ -226,3 +227,7 @@ class PosterServerIndexView(AccountPosterBaseView):
 
 class PosterConsumerIndexView(AccountPosterBaseView):
     template_name = 'account/mobile/consumer.html'
+
+
+class PosterStatisticsIndexView(AccountPosterBaseView):
+    template_name = 'account/mobile/statistics.html'

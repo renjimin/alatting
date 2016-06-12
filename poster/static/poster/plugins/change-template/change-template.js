@@ -48,6 +48,7 @@
                 event.stopPropagation();
             });
         },
+
         confirm: function () {
             var self = this;
             $(".change-template-confirm-btn").click(function (event) {
@@ -62,6 +63,7 @@
                 event.stopPropagation();
             });
         },
+
         resetEditArea: function(resp){
             $.fn.yyTools.mask();
             var html = resp.temp_html,
@@ -71,39 +73,52 @@
             getParentLayout().remove();
             getTemplateBoxLayout().append(html);
             getPageCss().empty().append(css);
+            $.fn.yunyeStorage.setHtml('.yunye-template');
             fullcontainer = $('.yunye-template').eq(0);
             addDefaultButtons();
             window.onresize();
+            if(window.templateMainActionInit){
+                window.templateMainActionInit();
+            }
+            if(window.templateEventInit){
+                window.templateEventInit();
+            }
         },
+
         update: function (templateId) {
             var self = this;
-            yyConfirm("更换模板会丢弃当前已编辑的模板主体内容，您确定要继续吗？", function () {
-                self.destroy();
-                //显示遮罩
-                $.fn.yyTools.mask(1);
+            yyConfirm(
+                "更换模板会丢弃当前已编辑的模板主体内容，您确定要继续吗？",
+                function () {
+                    self.destroy();
+                    //显示遮罩
+                    $.fn.yyTools.mask(1);
 
-                $.ajax({
-                    type: "PATCH",
-                    url: updateTemplateAPI,
-                    dataType: "json",
-                    data: {
-                        "poster_id": self.posterId,
-                        "template_id": templateId
-                    },
-                    success: function(resp){
-                        $.fn.yunyeStorage.cleanPage();
-                        yunyeEditorGlobal.templateId = templateId;
-                        self.resetEditArea(resp);
-                        yyAlert("模板更换成功!");
-                    },
-                    error: function () {
-                        $.fn.yyTools.mask();
-                    }
-                });
-            });
+                    $.ajax({
+                        type: "PATCH",
+                        url: updateTemplateAPI,
+                        dataType: "json",
+                        data: {
+                            "poster_id": self.posterId,
+                            "template_id": templateId
+                        },
+                        success: function (resp) {
+                            $.fn.yunyeStorage.cleanPage();
+                            yunyeEditorGlobal.templateId = templateId;
+                            self.resetEditArea(resp);
+                            yyAlert("模板更换成功!");
+                        },
+                        error: function () {
+                            $.fn.yyTools.mask();
+                        }
+                    });
+                }
+            );
         },
+
         create: function (templateId) {
             var self = this;
+            self.destroy();
             $.ajax({
                 type: "POST",
                 url: createPageAPI,
@@ -114,13 +129,20 @@
                 },
                 success: function(resp){
                     $.fn.yyTools.mask();
-                    yyConfirm("新建页面成功，是否立即编辑新页面？", function(){
-                        self.posterPageId = resp.id;
-                        yunyeEditorGlobal.posterPageId = resp.id;
-                        yunyeEditorGlobal.posterPageId = templateId;
-                        $.fn.yunyeStorage.init();
-                        self.resetEditArea(resp);
-                    });
+                    yyConfirm(
+                        "新建页面成功，是否立即编辑新页面？",
+                        function () {
+                            self.posterPageId = resp.id;
+                            yunyeEditorGlobal.posterPageId = resp.id;
+                            yunyeEditorGlobal.templateId = templateId;
+                            $.fn.yunyeStorage.init();
+                            self.resetEditArea(resp);
+                        },
+                        {
+                            'okText': "是",
+                            'cancelText': "否"
+                        }
+                    );
                 },
                 error: function () {
                     $.fn.yyTools.mask();
@@ -128,28 +150,72 @@
             });
         },
 
+        copy: function(){
+            var self = this;
+            $.ajax({
+                type: "POST",
+                url: createPageAPI,
+                dataType: "json",
+                data: {
+                    "poster_id": self.posterId,
+                    "template_id": self.templateId,
+                    "posterpage_id": self.posterPageId,
+                    "action": 'copy'
+                },
+                success: function(resp){
+                    $.fn.yyTools.mask();
+                    yyConfirm(
+                        "复制页面成功, 是否立即编辑新页面？",
+                        function () {
+                            self.posterPageId = resp.id;
+                            yunyeEditorGlobal.posterPageId = resp.id;
+                            $.fn.yunyeStorage.init();
+                            self.resetEditArea(resp);
+                        },
+                        {
+                            'okText': "是",
+                            'cancelText': "否"
+                        }
+                    );
+                },
+                error: function (xhr, status, statusText) {
+                    $.fn.yyTools.mask();
+                    if(xhr && xhr.responseJSON){
+                        yyAlert(xhr.responseJSON.detail);
+                    }
+                }
+            });
+        },
+
         getSelectedTemplateId: function () {
             return $(this.ulListId).find("li.active").eq(0).data('id');
         },
+
         getHeader: function () {
             return $(getLayout().find(".change-template-header"));
         },
+
         getHeaderHeight: function () {
             return this.getHeader().outerHeight();
         },
+
         getFooter: function () {
             return $(getLayout().find(".change-template-footer"));
         },
+
         getFooterHeight: function () {
             return this.getFooter().outerHeight();
         },
+
         getMiddle: function () {
             return $(getLayout().find(".change-templates-list"));
         },
+
         setMiddleHeight: function () {
             var h = getLayout().outerHeight() - this.getHeaderHeight() - this.getFooterHeight() - 100;
             this.getMiddle().css({"height": h + "px"});
         },
+
         getTemplateList: function ($container) {
             getLayout().click(function (event) {
                 event.stopPropagation();
@@ -173,6 +239,7 @@
                 });
             });
         },
+
         init: function ($container) {
             var self = this;
             self.$container = $container;
@@ -184,13 +251,14 @@
                 self.settings.initAfter();
             }
         },
+
         destroy: function () {
             destroy();
         }
     });
 
     var methods = {
-        'init': function (options) {
+        "init": function (options) {
             if(!$.fn.yunyeStorage){
                 yyAlert("需要yunyeStorage组件");
                 return;
@@ -211,6 +279,15 @@
         "destroy": function () {
             return this.each(function () {
                 destroy();
+            });
+        },
+        "copy": function(){
+            return this.each(function () {
+                var $this = $(this);
+                var ct = new ChangeTemplate({
+                    "target": "copy"
+                });
+                ct.copy();
             });
         }
     };
