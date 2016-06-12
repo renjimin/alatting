@@ -681,7 +681,7 @@ class ChatListView(ListCreateAPIView):
                 Q(sender_id=user_id) |
                 Q(sender_id=poster.creator.id) | Q(receiver_id=user_id)
             )
-        return qs.order_by('-created_at')
+        return qs.order_by('created_at')
 
     def perform_create(self, serializer):
         poster = self.get_poster_object()
