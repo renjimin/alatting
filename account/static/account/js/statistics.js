@@ -162,13 +162,33 @@ $(function (){
 
     /* 收藏当前海报 */
     $('#ctrl-favorite').on('click',function(){
-        var status = $(this).attr('data-fav');
+        var ths = $(this);
+        var status = ths.attr('data-fav');
         if(status == 0){
-            $(this).find('.fa').css('color','#feba01');
-            $(this).attr('data-fav','1');
+            $.ajax({
+                type: 'POST',
+                url: '/api/v1/posters/'+id+'/favorites/bookmark/',
+                success:function(){
+                    ths.find('.fa').css('color','#feba01');
+                    ths.attr('data-fav','1');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
         }else{
-            $(this).find('.fa').css('color','#808080');
-            $(this).attr('data-fav','0');
+            $.ajax({
+                type: 'DELETE',
+                url: '/api/v1/posters/'+id+'/favorites/bookmark/',
+                success:function(){
+                    ths.find('.fa').css('color','#808080');
+                    ths.attr('data-fav','0');
+                },
+                error: function(xhr, status, statusText){
+                    yyAlert('网络错误,请稍候再试!');
+                }
+            });
+
         }
     });
     /* 浏览海报信息 */
