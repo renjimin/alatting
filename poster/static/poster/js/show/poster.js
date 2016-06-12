@@ -34,7 +34,7 @@ $(function(){
 				$('.yunye-template').attr('style',templateScaleOpt);
 				$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
 		};
-
+/*
 		$('.swiper-container').each(function(){
 			$(this).find('.swiper-slide').magnificPopup({
 				delegate: 'img',
@@ -50,9 +50,10 @@ $(function(){
 				}
 			});
 		})
-/*
 
-		$('div.swiper-slide').magnificPopup({
+*/
+$('.yunye-template > .content > div').each(function(){
+	$(this).magnificPopup({
 				delegate: 'img',
 				type: 'image',
 				gallery: {
@@ -65,7 +66,9 @@ $(function(){
 						}
 				}
 		});
-		*/
+});
+		
+		
 });
 function posterDetail(){
 	return true;
