@@ -5,7 +5,8 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import JsonResponse, QueryDict
-from django.shortcuts import get_object_or_404, render_to_response, render
+from django.shortcuts import get_object_or_404, render_to_response, render, \
+    redirect
 from django.views.generic import FormView
 
 from account.form.forms import RegisterForm, pwd_validate, \
@@ -18,6 +19,7 @@ from alatting_website.models import (
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from account.models import LoginMessage, Person
+from utils.utils import is_mobile
 
 
 def not_found(request):
@@ -215,6 +217,20 @@ class LoginView(FormView):
         else:
             return render_to_response(self.template_name,
                                       {'error': "用户名或密码错误"})
+
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            next_url = request.GET.get('next', None)
+            return redirect(
+                self.get_success_url() if not next_url else next_url
+            )
+        return super(LoginView, self).get(request, *args, **kwargs)
+
+    def get_success_url(self):
+        if is_mobile(self.request):
+            return reverse('website:mobile_poster_index')
+        else:
+            return reverse('posters_pc:index')
 
 
 class PosterIndexView(AccountPosterBaseView):
