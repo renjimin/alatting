@@ -293,14 +293,19 @@ $(document).ready(function () {
 			})
 			selected.on('touchstart click', '.glyphicon-ok-circle', function (event) {
 				event.preventDefault();
-				if(selectedname.length>0){
-					$('.selectserver').text(selectedname);
-					$('.regist-industryinput').attr('disabled',true);
+				if(main_name.length>0){
+					if(selectedname.length>0){
+						$('.selectserver').text(selectedname);
+						$('.regist-industryinput').attr('disabled',true);
+					}else{
+						$('.selectserver').text(main_name);
+						$('.regist-industryinput').attr('disabled',false);
+					}
+					$('.div-server').fadeOut(200);
 				}else{
-					$('.selectserver').text(main_name);
-					$('.regist-industryinput').attr('disabled',false);
+					$('.div-server').fadeOut(200);
 				}
-				$('.div-server').fadeOut(200);
+
 			});
 			selected.on('touchstart click', '.glyphicon-remove-circle', function (event) {
 				event.preventDefault();
