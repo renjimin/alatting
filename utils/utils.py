@@ -31,3 +31,9 @@ class Utils:
         else:
             ip = request.META.get('REMOTE_ADDR')
         return ip
+
+
+def is_mobile(request):
+    agent = request.META.get('HTTP_USER_AGENT').lower()
+    return 'ipad' in agent or 'iphone os' in agent \
+           or 'android' in agent or 'windows mobile' in agent
