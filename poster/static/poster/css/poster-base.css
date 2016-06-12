@@ -1485,6 +1485,7 @@ to {
 	width: 80%;
 	min-height: 20px;
 	margin: auto;
+	word-break: break-all;
 }
 
 

@@ -256,10 +256,9 @@ $(document).ready(function () {
 							// console.log(data.length);
 						} ;
 						ssbox += '</ul>'
+						//ssbox += '<li class = "sli-server" ><input type = "text" placeholder = "如果上边没找到,请这里输入二级行业"></li></ul>'
 							ths.append(ssbox);
 					});
-				 }else{
-					
 				 }
 				/*if (ths.hasClass('open')) {
 					ths.removeClass('open');
