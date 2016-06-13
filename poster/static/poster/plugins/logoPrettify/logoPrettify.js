@@ -144,26 +144,6 @@ $(function(){
 			var module = {};
 			module.init = function(){
 				$.fn.imgFilter.init(canvas);
-				/*$.fn.imgFilter.invertColor(canvas,document.getElementById('invertColor'));
-				$.fn.imgFilter.grayColor(canvas,document.getElementById('grayColor'));
-				$.fn.imgFilter.rilievo(canvas,document.getElementById('rilievo'));
-				$.fn.imgFilter.mirror(canvas,document.getElementById('mirror'));
-				$("#editPannel_2 canvas").on("click",function(e){
-					switch(e.target.id){
-						case "invertColor":
-							$.fn.imgFilter.invertColor(canvas,canvas);
-							break;
-						case "grayColor":
-							$.fn.imgFilter.grayColor(canvas,canvas);
-							break;
-						case "rilievo":
-							$.fn.imgFilter.rilievo(canvas,canvas);
-							break;
-						case "mirror":
-							$.fn.imgFilter.mirror(canvas,canvas);
-							break;
-					}
-				});*/
 			};
 			module.destory = function(){
 				$("#editPannel_2 canvas").off("click");
@@ -208,7 +188,11 @@ $(function(){
 				$("#editPannel_5 input").on("change",function(e){
 					var value = $("#editPannel_5 input").val();
 					var level  = value<20 ? 2 : value<40 ? 3 : value<60 ? 4 : value<80 ? 5 : value<100 ? 6 : 7;
-					$.fn.imgFilter1.blur(canvas.originCanvas,canvas,level);
+					var img = new Image();
+					img.onload = function(){
+						stackBlurImage(img,{width:canvas.width,height:canvas.height},canvas,value,true,function(){return;});
+					};
+					img.src = canvas.originCanvas.toDataURL("image/png");
 				});
 				$("#selectCanvas")
 					.on("mousedown touchstart",function(){
