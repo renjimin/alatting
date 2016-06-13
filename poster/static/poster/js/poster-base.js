@@ -182,7 +182,7 @@ $(function () {
 
 	//限制简述长度
 	var limitShortDesciptin = function(e){
-		console.log($("#tt-content").data("target"));
+		if(e.target.getAttribute('data-target')  !== "short_description")return;
 		var str = e.currentTarget.value;
 		var len,cStr = 0,eStr = 0,i ;
 		for (i = 0; i < str.length ; i++) {    
@@ -220,7 +220,7 @@ $(function () {
 						textCopy: false,
 						pluginType: 'other'
 					});
-					$("#tt-content").off("input propertychange",limitShortDesciptin).on("input propertychange",limitShortDesciptin);
+					$(".tt-cont-main").off("input propertychange",limitShortDesciptin).on("input propertychange","#tt-content",limitShortDesciptin);
 					$('#ted-edit').trigger('click');
 				}
 			},
