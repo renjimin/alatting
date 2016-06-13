@@ -213,7 +213,7 @@ class ChoiceInline(admin.StackedInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline, ]
     list_display = (
-        'id', 'text', 'short_text', 'questionset', 'sortid', 'required')
+        'id', 'text', 'short_text', 'type', 'questionset', 'sortid', 'required')
 
 
 class QuestionInline(admin.StackedInline):
@@ -238,7 +238,7 @@ class QuestionSetLinkInline(admin.TabularInline):
 @admin.register(Questionnaire)
 class QuestionnaireAdmin(admin.ModelAdmin):
     inlines = [QuestionSetLinkInline, ]
-    list_display = ('id', 'name', 'main_category', 'role')
+    list_display = ('id', 'name', 'main_category', 'sub_category', 'role')
 
 
 @admin.register(Answer)
