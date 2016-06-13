@@ -43,7 +43,7 @@
             </label>
             <a href="{% url 'account:reset_password' %}" class="fotgetpwd">忘记密码?</a>
         </div>
-        <input type="hidden" name="next" value="{{ next }}"/>
+        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
     </form>
     {% endwith %}
 {% endblock %}

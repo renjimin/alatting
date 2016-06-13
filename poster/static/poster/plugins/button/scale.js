@@ -164,24 +164,13 @@ var scale = function(box,options){
 						var mouseY = touch.pageY - offsetY;
 						var ox = mouseX - s.opt.cx;/*cx,cy为圆心*/
 						var oy = mouseY - s.opt.cy;
-						var to = Math.abs( ox/oy );
-						var angle = Math.atan( to )/( 2 * Math.PI ) * 360;/*鼠标相对于旋转中心的角度*/
-
-						if( ox < 0 && oy < 0)/*相对在左上角，第四象限，js中坐标系是从左上角开始的，这里的象限是正常坐标系*/
-						{
-								angle =  - angle;
-						}else if( ox < 0 && oy > 0)/*左下角,3象限*/
-						{
-								angle =  180 + angle;
-						}else if( ox > 0 && oy < 0)/*右上角，1象限*/
-						{
-								angle = angle;
-						}else if( ox > 0 && oy > 0)/*右下角，2象限*/
-						{
-								angle = 180 -  angle;
-						}						
-						var offsetAngle = parseInt(s.opt.currentAngle) + angle;
-						offsetAngle> 360 ? offsetAngle = offsetAngle - 360 : false;
+						var sx = touchEvents.startX - offsetX - s.opt.cx;
+						var sy = touchEvents.startY - offsetY - s.opt.cy;
+						var angle = Math.atan2(oy,ox)/( 2 * Math.PI ) * 360 - Math.atan2(sy,sx)/( 2 * Math.PI ) * 360;/*鼠标相对于起始点的角度*/						
+						
+						var offsetAngle =  angle + parseInt(s.opt.currentAngle);
+						offsetAngle > 360 ? offsetAngle = offsetAngle - 360 : false;
+						offsetAngle < 0 ? offsetAngle = offsetAngle + 360 : false;
 						s.o.css({'transform': 'rotate('+offsetAngle+'deg)','-webkit-transform': 'rotate('+offsetAngle+'deg)','-moz-transform': 'rotate('+offsetAngle+'deg)','-o-transform': 'rotate('+offsetAngle+'deg)','-ms-transform': 'rotate('+offsetAngle+'deg)'});
 						
 						s.o.attr('data-rotate',offsetAngle);
