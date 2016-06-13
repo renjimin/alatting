@@ -8,7 +8,9 @@ $(function(){
 	$.fn.logoPrettify = function(){
 		var api = {};
 		var canvas,selectCanvas,ctx,currentPannel,hasImage;
-
+		var touchmovePrevetFunction = function(e){
+			if($(e.target).closest("section").length == 0)e.preventDefault();
+		};
 		api.init = function(url){
 			canvas = document.getElementById("editCanvas");
 			ctx = canvas.getContext('2d');
@@ -21,9 +23,7 @@ $(function(){
 				api.setImage(url);
 				hasImage = true;
 			}
-			document.addEventListener("touchmove",function(e){
-				if($(e.target).closest("section").length == 0)e.preventDefault();
-			});
+			document.addEventListener("touchmove",touchmovePrevetFunction);
 		};
 		api.destory = function(){
 			$(".closeLogoPrettify").off("click");
@@ -36,7 +36,7 @@ $(function(){
 			}
 			currentPannel = null;
 			$("#logoPrettify .editMenuGroup section").hide();
-			document.removeEventListener("touchmove");
+			document.removeEventListener("touchmove",touchmovePrevetFunction);
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
