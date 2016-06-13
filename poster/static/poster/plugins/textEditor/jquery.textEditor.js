@@ -228,7 +228,7 @@
             $element.attr('data-color',color).css('color',color);
         });
         /* 复位颜色 */
-        $('#js-color-reset').off('click').on('click',function(){
+        $('#ted-color-reset').off('click').on('click',function(){
             $element.attr('data-color',domColor).css('color',domColor);
         });
         /*---设置颜色值---*/
