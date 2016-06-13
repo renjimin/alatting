@@ -15,6 +15,13 @@ $(function () {
 		//简述
 		if(g.short_description)$("#short_description").html(g.short_description);
 		if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
+		if(g.short_description.length>40){
+			$("#short_description").css("fontSize","12px");
+		}else if(g.short_description.length > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
 		//logo
 		if(pageHeadData.logo_title)$('.header-logo h2').html(pageHeadData.logo_title);
 		if(storageAPI.getHead("logo_img"))$('.header-logo img').attr("src",storageAPI.getHead("logo_img"));
@@ -28,7 +35,7 @@ $(function () {
 		//日历
 		var inputs = $(".weekly input");
 		for (var i = 0; i < (inputs.length) / 2; i++) {
-			var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+			var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 			inputs.eq(i * 2).val(info.start);
 			inputs.eq(i * 2 + 1).val(info.end);
@@ -182,23 +189,20 @@ $(function () {
 			 } else {    
 				eStr++;
 			}
-			len = cStr*2 +eStr;
-			if( (cStr*2 +eStr) > 57){
+			len = cStr*1.75 +eStr;
+			if( len > 49){
 				$("#tt-content").val(str.substr(0,i));
 				break;
 			}
 		}
-		if(len > 46 ){
+		if(len > 40 ){
 			$("#short_description").css("fontSize","12px");
-		}else if(len > 38 ){
+		}else if(len > 32 ){
 			$("#short_description").css("fontSize","14px");
 		}else{
 			$("#short_description").css("fontSize","16px");
 		}
-	};
-	var shortDesciptinBlur = function(){
-		$("#tt-content").off("input propertychange",limitShortDesciptin);
-		$("#tt-content").off("blur",shortDesciptinBlur);
+		oldShort = $("#tt-content").val();
 	};
 	$('.desc').registerPopUp({
 		id: 'dpw_desc',
@@ -215,8 +219,7 @@ $(function () {
 						textCopy: false,
 						pluginType: 'other'
 					});
-					$("#tt-content").on("input propertychange",limitShortDesciptin);
-					$("#tt-content").on("blur",shortDesciptinBlur);
+					$("#tt-content").off("input propertychange",limitShortDesciptin).on("input propertychange",limitShortDesciptin);
 					$('#ted-edit').trigger('click');
 				}
 			},
