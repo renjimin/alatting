@@ -58,11 +58,15 @@
 			i.css({
 				'position': 'relative'
 			});
+			var moveAble = false;
 			i.on({
 				'touchstart': function(e) {
 					if (e.originalEvent) e = e.originalEvent;
 					$(e.currentTarget).css({
 						'transition': 'none'
+					});
+					$(e.currentTarget).fadeTo(500,0.5,function(){
+						moveAble = true;
 					});
 					var imgl = i.css('left') == undefined ? 0 : i.css('left');
 					var imgt = i.css('top') == undefined ? 0 : i.css('top');
@@ -89,6 +93,7 @@
 					if (e.originalEvent) e = e.originalEvent;
 					e.preventDefault();
 					e.stopPropagation();
+					if(!moveAble) return;
 					var touch = e.touches[0];
 					touchEvents.currentX = touch.pageX;
 					touchEvents.currentY = touch.pageY;
@@ -121,7 +126,8 @@
 
 				'touchend': function(e) {
 					if (e.originalEvent) e = e.originalEvent;
-					$(e.currentTarget).removeClass('drag-active');
+					$(e.currentTarget).stop(true,false).fadeTo(100,1);
+					if(!moveAble) return;moveAble = false;
 					var moveEndX = i.css('left') == undefined ? 0 : i.css('left');
 					var moveEndY = i.css('top') == undefined ? 0 : i.css('top');
 					var endX = moveEndX,
@@ -196,7 +202,7 @@
 			oh = i.height();
 			if (s.width() / s.height() >= ow / oh) {
 				imgH = s.height();
-				imgW = ow * imgH / oh;			
+				imgW = ow * imgH / oh;
 			} else {
 				imgW = s.width();
 				imgH = oh * imgW / ow;
@@ -298,19 +304,19 @@
 						endH = imgH;
 					}
 
-					if(parseInt(moveEndX) + $(e.currentTarget).parent().width()/2 - endW/2 < 0){
-						endX = endW/2 - $(e.currentTarget).parent().width()/2;
+					if (parseInt(moveEndX) + $(e.currentTarget).parent().width() / 2 - endW / 2 < 0) {
+						endX = endW / 2 - $(e.currentTarget).parent().width() / 2;
 					}
-					if(parseInt(moveEndX) - $(e.currentTarget).parent().width()/2 + endW/2 > 0){
-						endX = $(e.currentTarget).parent().width()/2 - endW/2;
+					if (parseInt(moveEndX) - $(e.currentTarget).parent().width() / 2 + endW / 2 > 0) {
+						endX = $(e.currentTarget).parent().width() / 2 - endW / 2;
 					}
-					if(parseInt(moveEndY) + $(e.currentTarget).parent().height()/2 - endH/2 < 0){
-						endY = endH/2 - $(e.currentTarget).parent().height()/2;
+					if (parseInt(moveEndY) + $(e.currentTarget).parent().height() / 2 - endH / 2 < 0) {
+						endY = endH / 2 - $(e.currentTarget).parent().height() / 2;
 					}
-					if(parseInt(moveEndY) - $(e.currentTarget).parent().height()/2 + endH/2 > 0){
-						endY = $(e.currentTarget).parent().height()/2 - endH/2;
+					if (parseInt(moveEndY) - $(e.currentTarget).parent().height() / 2 + endH / 2 > 0) {
+						endY = $(e.currentTarget).parent().height() / 2 - endH / 2;
 					}
-					
+
 
 
 					i.css('top', endY + 'px');

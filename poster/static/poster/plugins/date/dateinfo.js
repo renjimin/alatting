@@ -204,28 +204,31 @@ $(function() {
 		}
 	});
 	$('#dateState').click(function(event){
-		var target = $('#dateState'),
-			index = $("#calender td").index($("td.hover")),
+		var index = $("#calender td").index($("td.hover")),
 			start = $('.calenderTable input').eq(0).val(),
 			end = $('.calenderTable input').eq(1).val(),
 			enabled,
 			specificDay = $("#year").val() + "-" + $("#month").val() + "-" + $("td.hover").html(),
 			darry = specificDay.split("-"),
 			i = new Date(parseInt(darry[0]), parseInt(darry[1]) - 1, parseInt(darry[2])).getDay(),
-			weekName = (i == 0) ? "Sunday" : (i == 1) ? "Monday" : (i == 2) ? "Tuesday" : (i == 3) ? "Wednesday" : (i == 4) ? "Thursday" : (i == 5) ? "Friday" :  "Saturday" ,
+			weekName = (i === 0) ? "Sunday" : (i == 1) ? "Monday" : (i == 2) ? "Tuesday" : (i == 3) ? "Wednesday" : (i == 4) ? "Thursday" : (i == 5) ? "Friday" :  "Saturday" ,
 			info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
-		if(target.hasClass("off")){
-			target.removeClass("off");
+		if( $('#dateState').hasClass("off") ){
+			$('#dateState').removeClass("off");
 			enabled = 1;
 		}else{
-			target.addClass("off");
+			$('#dateState').addClass("off");
 			enabled = 0;
 		}
 		if(start==info.start && end==info.end && enabled==info.enabled){
 			$("td.hover").removeClass("special");
+			if(enabled){
+				$("td.hover").removeClass("off");
+			}else{
+				$("td.hover").addClass("off");
+			}
 			delete yunyeEditorGlobal.lifetime.lifetime_special[specificDay];
 		}else{
-			console.log(enabled);
 			if(enabled){
 				$("td.hover").removeClass("off").addClass("special");
 			}else{
