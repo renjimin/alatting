@@ -1672,14 +1672,13 @@ to {
 }
 
 #dpw_address{
-	padding: 5px;
+	padding: 3px;
 }
 #dpw_address li{
-	border-bottom: 5px solid #e1e1e1;
-	margin-bottom: 5px;
+	border-bottom: 3px solid #e1e1e1;
 }
 #dpw_address li span{
-	width: calc(100% - 44px);
+	width: calc(100% - 40px);
 }
 .info-toggle{
 	position: absolute;

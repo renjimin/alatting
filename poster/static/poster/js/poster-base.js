@@ -15,6 +15,13 @@ $(function () {
 		//简述
 		if(g.short_description)$("#short_description").html(g.short_description);
 		if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
+		if(g.short_description.length>40){
+			$("#short_description").css("fontSize","12px");
+		}else if(g.short_description.length > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
 		//logo
 		if(pageHeadData.logo_title)$('.header-logo h2').html(pageHeadData.logo_title);
 		if(storageAPI.getHead("logo_img"))$('.header-logo img').attr("src",storageAPI.getHead("logo_img"));
@@ -28,7 +35,7 @@ $(function () {
 		//日历
 		var inputs = $(".weekly input");
 		for (var i = 0; i < (inputs.length) / 2; i++) {
-			var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+			var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 			inputs.eq(i * 2).val(info.start);
 			inputs.eq(i * 2 + 1).val(info.end);
@@ -171,17 +178,32 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	/*$('.desc').click(function(){
-		$('#text-model').animate({'bottom':'0px'},200);
-		$('.text-element').removeClass('text-element-act');
-		$('.ele-rotate-ctrl').remove();
-		$("#short_description").tEditor({
-			textDelete: false,
-			textCopy: false,
-			pluginType: 'other'
-		});
-		$('#ted-edit').trigger('click');
-	});*/
+
+	//限制简述长度
+	var limitShortDesciptin = function(e){
+		var str = e.currentTarget.value;
+		var len,cStr = 0,eStr = 0,i ;
+		for (i = 0; i < str.length ; i++) {    
+			if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
+				cStr++;
+			 } else {    
+				eStr++;
+			}
+			len = cStr*1.75 +eStr;
+			if( len > 49){
+				$("#tt-content").val(str.substr(0,i));
+				break;
+			}
+		}
+		if(len > 40 ){
+			$("#short_description").css("fontSize","12px");
+		}else if(len > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
+		oldShort = $("#tt-content").val();
+	};
 	$('.desc').registerPopUp({
 		id: 'dpw_desc',
 		offsetYPercent: 100,
@@ -197,6 +219,7 @@ $(function () {
 						textCopy: false,
 						pluginType: 'other'
 					});
+					$("#tt-content").off("input propertychange",limitShortDesciptin).on("input propertychange",limitShortDesciptin);
 					$('#ted-edit').trigger('click');
 				}
 			},
@@ -527,10 +550,6 @@ $(function () {
 	$('#dpw_title input').on('change', function (event) {
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
 		storageAPI.setHead("unique_name", event.currentTarget.value);
-	});
-	$('#dpw_desc textarea').on('change', function (event) {
-		$('.header-info .desc span').html(event.currentTarget.value);
-		storageAPI.setHead("short_description", event.currentTarget.value);
 	});
 	$('.dayinfo input').on('change', function (event) {
 		var inputs = $('#dpw_clock input');
