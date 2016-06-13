@@ -483,7 +483,8 @@ $(function () {
 
 	$(document).on("clsdp", function (e,target) {
 		$("#colorBox").hide();
-		$('#text-model').animate({'bottom':'-265px'},200);
+		editor('close');
+		//$('#text-model').animate({'bottom':'-265px'},200);
 		$('#systemimg-model,#button-model,.tab-item').removeClass('open');
 		$('.cnd-element').removeClass('active');
 		$(".music-link-layout-wrap").remove();

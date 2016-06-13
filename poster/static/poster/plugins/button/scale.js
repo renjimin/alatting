@@ -447,13 +447,13 @@ var scale = function(box,options){
 				$.fn.sysImgEdit.init($(e.currentTarget).parent());
 			})
 		}
-		if(ele.hasClass('text-editor-content')){console.log(1)
+		if(ele.hasClass('text-editor-content')){
 			editBtn.on('touchend',function(e){
-				if (e.originalEvent) e = e.originalEvent;e.preventDefault();console.log(2)
+				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
 				ele.tEditor({textDelete: false,
 						textCopy: false,
 						pluginType: 'other'});
-				$('#text-model').animate({'bottom':'0px'},200);
+				editor('open',ele);
 			})
 		}
 
@@ -473,6 +473,34 @@ var scale = function(box,options){
 
 
 
+}
+var fluidSt = 0;
+function editor(method,obj){
+
+	switch(method){
+		case 'open':textEditorOpen();break;
+		case 'close':textEditorClose();break;
+		default:break;
+	}
+	
+	function textEditorOpen(){
+		var oh = obj.height(),
+			ot = obj.offset().top,
+			th = $('#text-model').height(),
+			bh = $('body').height();
+			fluidSt = $('.container-fluid').scrollTop();
+		$('#text-model').addClass('open').animate({'bottom':'0px'},200);
+		$('.container-fluid').css({'height':bh - th +'px'}).animate({scrollTop:fluidSt+ ot - (bh -  th)/2 + oh/2+'px'},200);
+	}
+	function textEditorClose(){
+		var bt = $('body').height(),
+		th = $('#text-model').height();
+		if(parseInt($('#text-model').css('bottom')) < 0) return;
+		$('#text-model').removeClass('open')
+		$('#text-model').animate({'bottom':-th+'px'},200);
+
+		$('.container-fluid').css({'height':'100%'}).animate({scrollTop:fluidSt+'px'},200);
+	}
 }
 $(function(){
 	$.fn.sysImgEdit = function(){
