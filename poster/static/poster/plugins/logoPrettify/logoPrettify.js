@@ -283,7 +283,7 @@ $(function(){
 			}
 			function match(x, y) {
 				var alpha = get(x, y);
-				return alpha == null || alpha >= threshold;
+				return alpha === null || alpha >= threshold;
 			}
 			function isEdge(x, y) {
 				return !match(x - 1, y - 1) || !match(x + 0, y - 1) || !match(x + 1, y - 1) || !match(x - 1, y + 0) || false || !match(x + 1, y + 0) || !match(x - 1, y + 1) || !match(x + 0, y + 1) || !match(x + 1, y + 1);
@@ -310,7 +310,7 @@ $(function(){
 			for (var y = 0; y < height; y++) {
 				for (var x = 0; x < width; x++) {
 					var offset = ((y * width) + x) * 4;
-					var isEdge = outline[offset] == 0x00;
+					var isEdge = outline[offset] === 0x00;
 
 					if (isEdge) {
 						var value = this.ant(x, y, antOffset);

@@ -171,17 +171,35 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	/*$('.desc').click(function(){
-		$('#text-model').animate({'bottom':'0px'},200);
-		$('.text-element').removeClass('text-element-act');
-		$('.ele-rotate-ctrl').remove();
-		$("#short_description").tEditor({
-			textDelete: false,
-			textCopy: false,
-			pluginType: 'other'
-		});
-		$('#ted-edit').trigger('click');
-	});*/
+
+	//限制简述长度
+	var limitShortDesciptin = function(e){
+		var str = e.currentTarget.value;
+		var len,cStr = 0,eStr = 0,i ;
+		for (i = 0; i < str.length ; i++) {    
+			if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
+				cStr++;
+			 } else {    
+				eStr++;
+			}
+			len = cStr*2 +eStr;
+			if( (cStr*2 +eStr) > 57){
+				$("#tt-content").val(str.substr(0,i));
+				break;
+			}
+		}
+		if(len > 46 ){
+			$("#short_description").css("fontSize","12px");
+		}else if(len > 38 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
+	};
+	var shortDesciptinBlur = function(){
+		$("#tt-content").off("input propertychange",limitShortDesciptin);
+		$("#tt-content").off("blur",shortDesciptinBlur);
+	};
 	$('.desc').registerPopUp({
 		id: 'dpw_desc',
 		offsetYPercent: 100,
@@ -197,6 +215,8 @@ $(function () {
 						textCopy: false,
 						pluginType: 'other'
 					});
+					$("#tt-content").on("input propertychange",limitShortDesciptin);
+					$("#tt-content").on("blur",shortDesciptinBlur);
 					$('#ted-edit').trigger('click');
 				}
 			},
@@ -526,10 +546,6 @@ $(function () {
 	$('#dpw_title input').on('change', function (event) {
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
 		storageAPI.setHead("unique_name", event.currentTarget.value);
-	});
-	$('#dpw_desc textarea').on('change', function (event) {
-		$('.header-info .desc span').html(event.currentTarget.value);
-		storageAPI.setHead("short_description", event.currentTarget.value);
 	});
 	$('.dayinfo input').on('change', function (event) {
 		var inputs = $('#dpw_clock input');
