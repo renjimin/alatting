@@ -518,6 +518,7 @@ var openSystemimg = function() {
 	if ($('#systemimg-model').hasClass('open')) {
 		$('#systemimg-model').removeClass('open');
 		ele.removeClass('open');
+		$('.bar-footer').removeClass('footer-hide');
 	} else {
 		if ($('#systemimg-model .systemimg-list ul li').length <= 0) {
 			$.ajax({
@@ -536,6 +537,7 @@ var openSystemimg = function() {
 		}
 		$('#systemimg-model').css('max-height', $(window).height() - 87 + 'px').addClass('open');
 		ele.addClass('open');
+		$('.bar-footer').addClass('footer-hide');
 	}
 
 }
