@@ -21,6 +21,9 @@ $(function(){
 				api.setImage(url);
 				hasImage = true;
 			}
+			document.addEventListener("touchmove",function(e){
+				if($(e.target).closest("section").length == 0)e.preventDefault();
+			});
 		};
 		api.destory = function(){
 			$(".closeLogoPrettify").off("click");
@@ -33,6 +36,7 @@ $(function(){
 			}
 			currentPannel = null;
 			$("#logoPrettify .editMenuGroup section").hide();
+			document.removeEventListener("touchmove");
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
