@@ -48,7 +48,7 @@ class Poster(models.Model):
     id = BigAutoField(primary_key=True)
     creator = models.ForeignKey(User, related_name="poster_creator")
     unique_name = models.CharField(max_length=255)
-    url = models.CharField(max_length=255, default='')
+    url = models.CharField(max_length=255, default='', blank=True)
 
     #qr_image
     logo_image = models.ForeignKey(
@@ -120,6 +120,11 @@ class Poster(models.Model):
         upload_to=file.get_snapshot_path,
         default='',
         blank=True
+    )
+    slug = models.SlugField(
+        verbose_name=u'slug',
+        max_length=100,
+        null=True
     )
 
     objects = InheritanceManager()
