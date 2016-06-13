@@ -1,6 +1,33 @@
 /**
  *
  */
+;
+(function() {
+	var isTouch = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click',
+		_on = $.fn.on;
+	$.fn.on = function() {
+		if (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))) {
+			if (window.location.href.indexOf("?mobile") < 0) {
+				try {
+					if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+						arguments[0] = (arguments[0] === 'click') ? isTouch : arguments[0];
+						return _on.apply(this, arguments);
+					} else if (/iPad/i.test(navigator.userAgent)) {
+						arguments[0] = (arguments[0] === 'click') ? isTouch : arguments[0];
+						return _on.apply(this, arguments);
+					} else {
+						arguments[0] = (arguments[0] === 'click')
+						return _on.apply(this, arguments);
+					}
+				} catch (e) {}
+			}
+		}else{
+			arguments[0] ='click' ;
+			return _on.apply(this, arguments);
+		}
+		console.log(arguments[0]);
+	};
+})();
 $(document).ready(function () {
 	var openCellphone = false;
 
@@ -217,9 +244,9 @@ $(document).ready(function () {
 		main_name = "";
 		if ($('.div-server').length ==0) {
 			selectTrade(0, function (data) {
-				var sbox = '<div class="div-server"><div><i  class="glyphicon glyphicon-remove-circle"></i><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
+				var sbox = '<div class="div-server"><div class = "server-title"><i  class="glyphicon glyphicon-remove-circle"></i><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-server">';
 				for (var i = 0; i < data.length; i++) {
-					sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<span class="glyphicon glyphicon-chevron-down"></span></a></li>';
+					sbox += '<li class = "li-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<i class="glyphicon glyphicon-chevron-down"></i></a></li>';
 				}
 				sbox += '</ul></div>';
 				selected.append(sbox);
@@ -228,8 +255,8 @@ $(document).ready(function () {
 			$('.div-server').fadeIn(200);
 		};
 		if($('.li-server').length ==0){
-			selected.on('touchstart click', '.li-server', function (e) {
-				e.preventDefault();
+			selected.on('click', '.li-server', function (e) {
+				//e.preventDefault();
 				var ths = $(this);
 				var sid = $(this).attr('data-id');
 				var ssbox = '';
@@ -248,14 +275,14 @@ $(document).ready(function () {
 				};*/
 				//ths.addClass('open');
 				$("#id_main_category").val(sid);
-				 if (ths.find("ul").length == 0) {
+				 if (ths.find("dl").length == 0) {
 					selectTrade(sid, function (data) {
-						ssbox = '<ul class = "sul-server">'
+						ssbox = '<dl class = "sul-server">'
 						for (var i = 0; i < data.length; i++) {
-							ssbox += '<li class = "sli-server" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '</li>';
+							ssbox += '<dd class = "sli-server" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '</dd>';
 							// console.log(data.length);
 						} ;
-						ssbox += '</ul>'
+						ssbox += '</dl>'
 						//ssbox += '<li class = "sli-server" ><input type = "text" placeholder = "如果上边没找到,请这里输入二级行业"></li></ul>'
 							ths.append(ssbox);
 					});
@@ -268,8 +295,8 @@ $(document).ready(function () {
 					ths.children('ul').show();
 				};*/
 
-				ths.on('touchstart click', '.sli-server', function (event) {
-					event.stopPropagation();
+				ths.on('click', '.sli-server', function (event) {
+					//event.stopPropagation();
 					selectedname = $(this).attr('data-name');
 					$("#id_sub_category_ids").val($(this).attr('data-id'));
 					if($('.regist-industryinput').val().length!=0){
@@ -278,20 +305,20 @@ $(document).ready(function () {
 					}
 				});
 			});
-			selected.on('touchstart click', '.glyphicon-chevron-down', function (event) {
-				event.preventDefault();
+			selected.on('click', '.glyphicon-chevron-down', function (event) {
+				//event.preventDefault();
 				if ($(this).hasClass('open')) {
 					$(this).removeClass('open');
-					$(this).parents('a').siblings('ul').hide();
+					$(this).parents('a').siblings('dl').hide();
 				}else{
 					$(this).addClass('open');
 					$(this).children('ul').show();
 					$(this).find('span').addClass('open');
-					$(this).parents('a').siblings('ul').show();
+					$(this).parents('a').siblings('dl').show();
 				};
 			})
-			selected.on('touchstart click', '.glyphicon-ok-circle', function (event) {
-				event.preventDefault();
+			selected.on('click', '.glyphicon-ok-circle', function (event) {
+				//event.preventDefault();
 				if(main_name.length>0){
 					if(selectedname.length>0){
 						$('.selectserver').text(selectedname);
@@ -306,8 +333,8 @@ $(document).ready(function () {
 				}
 
 			});
-			selected.on('touchstart click', '.glyphicon-remove-circle', function (event) {
-				event.preventDefault();
+			selected.on('click', '.glyphicon-remove-circle', function (event) {
+				//event.preventDefault();
 				$('.selectserver').text("请选择行业");
 				$("#id_main_category").val("");
 				$("#id_sub_category_ids").val("");
@@ -315,12 +342,14 @@ $(document).ready(function () {
 			})
 		}
 	});
-
+	var messbox = "";
 	$('.selectprovider').click(function () {
+		messbox = "";
+		console.log(messbox)
 		var selected = $('body');
 		if ($('.div-provider').length ==0) {
 			 selectTrade(0, function (data) {
-				var sbox = '<div class="div-provider"><div><i  class="glyphicon glyphicon-remove-circle"></i><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
+				var sbox = '<div class="div-provider"><div class = "server-title"><i  class="glyphicon glyphicon-remove-circle"></i><i  class="glyphicon glyphicon-ok-circle"></i></div><ul class="ul-provider">';
 				for (var i = 0; i < data.length; i++) {
 					sbox += '<li class = "li-provider" data-name = "'+data[i].name+'" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
 				}
@@ -331,29 +360,28 @@ $(document).ready(function () {
 			$('.div-provider').fadeIn(200);
 		}
 
-		var messbox = "";
 		var messid = "";
 		var meid = "";
 		if($('.li-provider').length ==0){
-			selected.off('touchstart click','.li-provider').on('touchstart click', '.li-provider',function (e) {
-				e.preventDefault();
+			selected.off('click','.li-provider').on('click', '.li-provider',function (e) {
+				//e.preventDefault();
 				var ths = $(this)
 				var sid = $(this).attr('data-id');
 				$("#id_main_category").val(sid);
-				var ssbox = ' <ul>';
-				if (ths.find('ul').length == 0) {
+				var ssbox = ' <dl>';
+				if (ths.find('dl').length == 0) {
 					selectTrade(sid, function (data) {
 						for (var i = 0; i < data.length; i++) {
-							ssbox += '<li class = "sli-provider" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<span class="glyphicon glyphicon-unchecked"></span></li>';
+							ssbox += '<dd class = "sli-provider" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<i class="glyphicon glyphicon-unchecked"></i></dd>';
 						};
-						ssbox += '</ul>';
+						ssbox += '</dl>';
 						ths.append(ssbox);
 					});
 				}else{
 
 				}
-				ths.children('.glyphicon').off('touchstart click').on('touchstart click',function(event){
-					event.preventDefault();
+				ths.children('.glyphicon').off('click').on('click',function(event){
+					//event.preventDefault();
 					if ($(event.target).hasClass('glyphicon-unchecked')) {
 						$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
 						$(event.target).next().find('.glyphicon').removeClass('glyphicon-unchecked').addClass('glyphicon-check');
@@ -362,9 +390,9 @@ $(document).ready(function () {
 						$(event.target).next().find('.glyphicon').removeClass('glyphicon-check').addClass('glyphicon-unchecked');
 					};
 				})
-				selected.off('touchstart click','.sli-provider').on('touchstart click', '.sli-provider',function (event) {
+				selected.off('click','.sli-provider').on('click', '.sli-provider',function (event) {
 					var ths = $(this);
-					event.preventDefault();
+					//event.preventDefault();
 					if ($(event.target).hasClass("glyphicon")) {
 						if ($(event.target).hasClass('glyphicon-unchecked')) {
 							$(event.target).removeClass('glyphicon-unchecked').addClass('glyphicon-check');
@@ -374,27 +402,29 @@ $(document).ready(function () {
 					}
 				});
 			});
-			selected.off("touchstart click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function (event) {
-			   // console.log($('.div-provider .glyphicon-check').parents('li'));
-			   	event.preventDefault();
+			selected.off("click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function (event) {
+				 // console.log($('.div-provider .glyphicon-check').parents('li'));
+				//event.preventDefault();
 				var i = $('.sli-provider .glyphicon-check');
 				var meid = "";
 				for(var n=0;n<i.length;n++){
-					$(i[n]).parent('li').attr('data-id');
-					meid += $(i[n]).parent('li').attr('data-id')+",";
-					console.log($(i[n]).parent('li'))
-					messbox += $(i[n]).parent('li').attr('data-name')+","
+					$(i[n]).parent('dd').attr('data-id');
+					meid += $(i[n]).parent('dd').attr('data-id')+",";
+					//console.log($(i[n]).parent('dd'))
+					messbox += $(i[n]).parent('dd').attr('data-name')+","
 				}
 				meid = meid.substring(0,meid.length-1);
 				messbox = messbox.substring(0,messbox.length-1);
 				if(messbox.length>0){
 					$('.selectprovider').text(messbox);
+				}else{
+					$('.selectprovider').text("我要找的服务(可多选)");
 				}
 				$("#id_sub_category_ids").val(meid);
 				$('.div-provider').fadeOut(200);
 			});
-			selected.off("touchstart click", '.glyphicon-remove-circle').on('touchstart click', '.glyphicon-remove-circle', function (event) {
-				event.preventDefault();
+			selected.off("click", '.glyphicon-remove-circle').on('click', '.glyphicon-remove-circle', function (event) {
+				//event.preventDefault();
 				$('.selectprovider').text("我要找的服务(可多选)");
 				$("#id_main_category").val("");
 				$("#id_sub_category_ids").val("");
