@@ -59,8 +59,10 @@
                                     <li class="list-li">
                                         <div class="selectserver">请选择行业</div>
                                         <div class="selectprovider" style ="display:none">我要找的服务(可多选)</div>
-                                        <input type="hidden" name="main_category_id" id = "id_main_category" value="{{ form.main_category_id.value}}">
-                                        <input type="hidden" name="sub_category_ids" id = "id_sub_category_ids" value="{{ form.sub_category_ids.value }}">
+                                        <input type="hidden" name="main_category_id"
+                                               id="id_main_category" value="{{ form.main_category_id.value|default_if_none:''}}">
+                                        <input type="hidden" name="sub_category_ids"
+                                               id="id_sub_category_ids" value="{{ form.sub_category_ids.value|default_if_none:'' }}">
                                     </li>
                                     <li class = "list-li">
                                         <span class= "regist-industry">找不到行业?</span>
