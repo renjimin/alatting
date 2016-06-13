@@ -31,7 +31,9 @@
         var option = _this.option;
         var $element = $(_this.$element);
         var pluginBox = $('#'+pluginName);
-        var move=false;
+        var move=false,color;
+        var storage = window.localStorage;
+        var domColor = ($element.attr('data-color'))?$element.attr('data-color'):'';
         /*适应yunye-template缩放*/
         var rate = $('body').width()/$('.container-fluid').find('.yunye-template').width();
         /*载入控件dom*/
@@ -64,6 +66,30 @@
         }else{
             var canvas = document.getElementById("bot-cbox-canvas");
             var ctx=canvas.getContext("2d");
+        }
+        if(storage.getItem('colorSet')){
+            var colorSet = storage.getItem('colorSet');
+            colorSet = colorSet.split(';');
+            var his= $('#ted-color-his').children('.ted-his-li');
+            var num  = colorSet.length;
+            for(var i=0;i<num;i++){
+                his.eq(i).css('background',colorSet[i]).attr('data-color',colorSet[i]);
+            }
+        }else{
+            var colorSet = [];
+        }
+        var putColorStor = function(colorset,color){
+            var num = colorset.length;
+            if(num==3){
+                colorset.shift();
+            }
+            colorset.push(color);
+            var his= $('#ted-color-his').children('.ted-his-li');
+            for(var i=0;i<num;i++){
+                his.eq(i).css('background',colorset[i]).attr('data-color',colorset[i]);
+            }
+            colorset = colorset.join(';');
+            storage.setItem('colorSet',colorset);
         }
 
         if(option.textCopy){
@@ -147,7 +173,8 @@
             var color = $(this).attr('data-color');
             $('.color-li').removeClass('color-act');
             $(this).addClass('color-act');
-            $element.css('color',color);
+            $element.attr('data-color',color).css('color',color);
+            putColorStor(colorSet,color);
         });
         pluginBox.off('click','#bot-cbox-canvas').on('click','#bot-cbox-canvas',function(e){
             var canvasOffset = $(canvas).offset();
@@ -157,34 +184,116 @@
             var pixel = imageData.data;
             var color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
             $('.color-li').removeClass('color-act');
-            $element.css('color',color);
+            $('#ted-color-tips').css({left:canvasX+'px','top':canvasY+'px'});
+            $element.attr('data-color',color).css('color',color);
+            putColorStor(colorSet,color);
         });
-
+        var _x,_y;
         pluginBox.off('touchstart touchmove touchend','#bot-cbox-canvas').on('touchstart touchmove touchend','#bot-cbox-canvas',function(event){
             if(event.type == "touchstart" ){
-                move=true;
                 $('.color-li').removeClass('color-act');
             }else if(event.type == "touchmove" ){
                 event.preventDefault();
                 var e = event.originalEvent.targetTouches[0];
+                move=true;
                 if(move){
                     $('#bot-color-selected').show();
+                    $('#ted-color-tips').hide();
                     var canvasOffset = $(canvas).offset();
                     var canvasX = Math.floor(e.pageX - canvasOffset.left);
                     var canvasY = Math.floor(e.pageY - canvasOffset.top);
+                    _x = canvasX;
+                    _y = canvasY;
                     var imageData = ctx.getImageData(canvasX, canvasY, 1, 1);
                     var pixel = imageData.data;
-                    var color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
+                    color = "rgba(" + pixel[0] + "," + pixel[1] + "," + pixel[2] + "," + pixel[3] + ")";
                     var s_left = canvasX-20;
                     var s_top = canvasY-45;
                     $('#bot-color-selected').css({'left':s_left+'px',top:s_top+'px','background':color});
                     $element.css('color',color);
                 }
             }else{
+                if(move){
+                    $element.attr('data-color',color);
+                    putColorStor(colorSet,color);
+                }
                 move=false;
+                $('#ted-color-tips').css({left:_x+'px','top':_y+'px'}).show();
                 $('#bot-color-selected').hide();
             }
         });
+        /*历史色块的选择*/
+        pluginBox.off('click','.ted-his-li').on('click','.ted-his-li',function(){
+            var color = $(this).attr('data-color');
+            $element.attr('data-color',color).css('color',color);
+        });
+        /* 复位颜色 */
+        $('#ted-color-reset').off('click').on('click',function(){
+            $element.attr('data-color',domColor).css('color',domColor);
+        });
+        /*---设置颜色值---*/
+        $('#ted-color-setval').off('click').on('click', function () {
+            $('.ted-color-cvbox').fadeIn(200);
+        });
+        $('.cvbox-li-rgb input').off('input propertychange').on('input propertychange',function(){
+            var rgb = {
+                r:(parseInt($('#ted-cv-r').val()))?parseInt($('#ted-cv-r').val()):0,
+                g:(parseInt($('#ted-cv-g').val()))?parseInt($('#ted-cv-g').val()):0,
+                b:(parseInt($('#ted-cv-b').val()))?parseInt($('#ted-cv-b').val()):0
+            };
+            if(rgb.r>=0 && rgb.r<=255 && rgb.g>=0 && rgb.g<=255 && rgb.b>=0 && rgb.b<=255){
+                var rColor = rgbToHex(rgb);
+                $('#ted-cv-hex').val(rColor);
+                color = '#'+rColor;
+                $element.attr('data-color',color).css('color',color);
+            }
+        });
+        $('#ted-cv-hex').off('input propertychange').on('input propertychange',function(){
+            var hColor = $(this).val();
+            hColor = hColor.toLowerCase();
+            var reg = /^([0-9a-fA-f]{6})$/;
+            if(hColor && reg.test(hColor)){
+                color = '#'+hColor;
+                var rgb = hexToRgb(hColor);
+                $('#ted-cv-r').val(rgb.r);
+                $('#ted-cv-g').val(rgb.g);
+                $('#ted-cv-b').val(rgb.b);
+                $element.attr('data-color',color).css('color',color);
+            }
+        });
+        $('#ted-cv-set').off('click').on('click',function(){
+            if(color){
+                putColorStor(colorSet,color);
+                color = '';
+            }
+            $('.ted-color-cvbox').fadeOut(200);
+        });
+
+        /* RGB格式转为16进制颜色 */
+        function rgbToHex(rgb) {
+			var hex = [rgb.r.toString(16),rgb.g.toString(16),rgb.b.toString(16)];
+			$.each(hex, function(nr, val) {
+				if (val.length === 1) hex[nr] = '0' + val;
+			});
+			return hex.join('');
+		}
+        /* 16进制颜色转为RGB格式 */
+        function hexToRgb(str) {
+            /* 16进制颜色值的正则表达式 */
+            var reg = /^([0-9a-fA-f]{6})$/;
+            var sColor = str.toLowerCase();
+            if (sColor && reg.test(sColor)) {
+                /* 处理六位的颜色值 */
+                var sColorChange = [];
+                for (var i = 0; i < 6; i += 2) {
+                    sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
+                }
+                return { 'r': sColorChange[0], 'g': sColorChange[1], 'b': sColorChange[2] };
+            } else {
+                return sColor;
+            }
+        }
+
 
         /*设置文字加粗*/
         pluginBox.off('click','#ted-fontweight').on('click','#ted-fontweight',function(){
@@ -471,11 +580,11 @@
         cdiv += '</div></div></div>';
         cdiv += '<div class="ted-base-bot"><div class="base-bot-name">字间宽</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="wordspace"></div></div></div></div>';
         cdiv += '<div class="ted-base-bot"><div class="base-bot-name">行高</div><div class="base-bot-value">0</div><div class="base-bot-slide"><div class="slideline"><div class="sl-bar" data-item="lineheight"></div></div></div></div></div>';
-        cdiv += '<div class="ted-ctrl-li ted-ctrl-color" id="ted-ctrl-color"><div class="ted-color-top"><ul class="color-list">';
+        cdiv += '<div class="ted-ctrl-li ted-ctrl-color" id="ted-ctrl-color"><div class="ted-color-his" id="ted-color-his"><div class="ted-color-set" id="ted-color-reset">复位</div><div class="ted-color-set" id="ted-color-setval">颜色值</div><div class="ted-his-li"></div><div class="ted-his-li"></div><div class="ted-his-li"></div></div><div class="ted-color-main"><div class="ted-color-top"><ul class="color-list">';
         for(var i=0;i<option.colorArr.length;i++){
             cdiv += '<li class="color-li" style="background:'+option.colorArr[i]+';" data-color="'+option.colorArr[i]+'"></li>';
         }
-        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="bot-color-selected" class="ted-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div>';
+        cdiv += '</ul></div><div class="ted-color-bot"><div class="bot-cbox"><div id="ted-color-tips"></div><div id="bot-color-selected" class="ted-color-selected"></div><canvas id="bot-cbox-canvas" width="800" height="200"></canvas></div></div></div></div>';
         cdiv += '<div class="ted-ctrl-li ted-ctrl-font" id="ted-ctrl-font"><div class="font-list"><ul>';
         for(var i=0;i<option.fontFamily.length;i++){
             cdiv += '<li class="ted-font-li" style="font-family:\''+option.fontFamily[i]+'\';" data-fm="'+option.fontFamily[i]+'">'+option.fontFamily[i]+'</li>';
@@ -491,6 +600,8 @@
         cdiv += '</ul></div></div></div></div></div></div>';
         cdiv += '<div class="ted-menu"><ul><li class="ted-menu-li ted-menu-base ted-menu-act" data-item="base">基本</li><li class="ted-menu-li ted-menu-color" data-item="color">颜色</li><li class="ted-menu-li ted-menu-font " data-item="font">字体</li><li class="ted-menu-li ted-menu-effects" data-item="effects">特效</li></ul></div>';
         cdiv += '<div class="ted-text-content"><div class="tt-cont-back"></div><div class="tt-cont-main"><div class="tt-cont-confirm" id="tt-cont-confirm"><span class="glyphicon glyphicon-chevron-left"></span></div><textarea type="text" id="tt-content" placeholder="点击输入文字"></textarea></div></div>';
+        cdiv += '<div class="ted-color-cvbox"><div class="ted-cvbox-li cvbox-li-rgb"><div class="ted-cvbox-lili">R:<input type="text" id="ted-cv-r"></div><div class="ted-cvbox-lili">G:<input type="text" id="ted-cv-g"></div><div class="ted-cvbox-lili">B:<input type="text" id="ted-cv-b"></div></div><div class="cvbox-li cvbox-li-hex"><div class="ted-cvbox-lili">#:<input type="text" id="ted-cv-hex"></div><div class="ted-cvbox-lili"></div><div class="ted-cvbox-lili">&nbsp;&nbsp;&nbsp;<input type="button" id="ted-cv-set" value="关闭"></div></div></div>';
+
         return cdiv;
     }
 
