@@ -18,6 +18,12 @@ class Questionnaire(models.Model):
         limit_choices_to={'parent__isnull': True},
         null=True
     )
+    sub_category = models.ForeignKey(
+        Category,
+        related_name='sub_cat_qs',
+        limit_choices_to={'parent__isnull': False},
+        null=True
+    )
     ROLE_CHOICES = (
         ('creator', ' 服务提供者'),
         ('consumer', '服务使用者')
