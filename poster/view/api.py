@@ -198,10 +198,10 @@ class PosterPageDetailView(RetrieveUpdateAPIView):
 class CheckPosterUniqueNameView(APIView):
 
     def get(self, request, *args, **kwargs):
-        name = request.GET.get('name', None)
+        slug = request.GET.get('slug', None)
         exists = True
-        if name:
-            if not Poster.objects.filter(unique_name=name).exists():
+        if slug:
+            if not Poster.objects.filter(slug=slug).exists():
                 exists = False
         return Response({'exists': exists})
 

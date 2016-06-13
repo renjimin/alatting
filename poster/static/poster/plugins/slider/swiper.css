@@ -83,7 +83,6 @@
   overflow: hidden;
 }
 .swiper-slide img{
-    min-width:100%;
     top:0;
     left:0;
 }

@@ -21,9 +21,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from alatting_website.views import MobileIndexView
+from alatting_website.views import PosterSlugShowView
+
 
 # pc端路由
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'', include('alatting_website.urls', namespace='website')),
@@ -34,7 +36,9 @@ urlpatterns = [
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 
+
 # 移动端路由
+
 urlpatterns += [
     url(r'^mobile/account/',
         include('account.urls.mobile', namespace='account')),
@@ -52,15 +56,22 @@ urlpatterns += [
     # url('^', include('django.contrib.auth.urls', namespace='auth'))
 ]
 
+
 # 以下是AJAX API路由配置
+
 urlpatterns += [
     url(r'^api/v1/account/',
         include('account.urls.api', namespace='account_api')),
 
     url(r'^api/v1/poster/',
         include('poster.urls.api', namespace='poster_api')),
-
 ]
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+urlpatterns += [
+    url(r'^(?P<slug>[-\w]+)$', PosterSlugShowView.as_view(),
+        name='poster_slug_show'),
+]

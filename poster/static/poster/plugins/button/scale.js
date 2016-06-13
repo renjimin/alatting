@@ -447,6 +447,15 @@ var scale = function(box,options){
 				$.fn.sysImgEdit.init($(e.currentTarget).parent());
 			})
 		}
+		if(ele.hasClass('text-editor-content')){console.log(1)
+			editBtn.on('touchend',function(e){
+				if (e.originalEvent) e = e.originalEvent;e.preventDefault();console.log(2)
+				ele.tEditor({textDelete: false,
+						textCopy: false,
+						pluginType: 'other'});
+				$('#text-model').animate({'bottom':'0px'},200);
+			})
+		}
 
 		function showControlPannel(obj){
 				if(obj.hasClass('button-element') && !$('#feedback-toggle').hasClass('open')){						
@@ -455,6 +464,9 @@ var scale = function(box,options){
 				}else if(obj.hasClass('systemimg-element') && !$('#rate-toggle').hasClass('open')){
 					$('#rate-panel').addClass('open').siblings('.dropdown-panel').removeClass('open');
 					$('#rate-toggle').addClass('open').siblings('.dropdown-toggle').removeClass('open');
+				}else if(obj.hasClass('text-element') && !$('#share-toggle').hasClass('open')){
+					$('#share-panel').addClass('open').siblings('.dropdown-panel').removeClass('open');
+					$('#share-toggle').addClass('open').siblings('.dropdown-toggle').removeClass('open');
 				}
 				$('.bar-footer').addClass('footer-hide');
 		}
