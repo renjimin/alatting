@@ -41,16 +41,18 @@ $(function(){
         },1000);
     }
     */
-    postcontainer.on('click','#ele-editor-ctrl',function(event){
-        $(document).trigger('clsdp',event.currentTarget);
+    postcontainer.on('touchend click','#ele-editor-ctrl',function(event){
         event.stopPropagation();
-        var bot = parseInt($('#text-model').css('bottom'));
-        if(bot<0){
-            $('#text-model').addClass('open');
-            $('#text-model').animate({'bottom':'0px'},200);
-        }else{
-            $('#text-model').removeClass('open')
-            $('#text-model').animate({'bottom':'-300px'},200);
+        if(event.type=='touchend'){
+            $(document).trigger('clsdp',event.currentTarget);
+            var bot = parseInt($('#text-model').css('bottom'));
+            if(bot<0){
+                $('#text-model').addClass('open');
+                $('#text-model').animate({'bottom':'0px'},200);
+            }else{
+                $('#text-model').removeClass('open')
+                $('#text-model').animate({'bottom':'-300px'},200);
+            }
         }
     });
 
