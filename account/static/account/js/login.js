@@ -165,7 +165,32 @@ $(document).ready(function () {
 			}
 		})
 	});
-
+	/**
+	*注册失败填写表单
+	*/
+	if($("#id_main_category").val()){
+		if($.trim($("#id_input_category").val())){
+			selectTrade(0,function(data){
+				for (var i = 0; i <data.length; i++) {
+					$('.selectserver').text(data[$("#id_main_category").val()].name);
+				}
+			})
+		}else{
+			console.log($("#id_main_category").val())
+			selectTrade($("#id_main_category").val(),function(data){
+				console.log(data)
+				for (var i = 0; i <data.length; i++) {
+					if(data[i].id == $("#id_sub_category_ids").val()){
+						$('.selectserver').text(data[i].name);
+						$("#id_input_category").attr("disabled", false);
+					}
+				}
+			})
+		}
+	}
+	/**
+	*注册点击事件
+	*/
 	$("#btnregist").click(function () {
 		var username = $.trim($("#id_username").val());
 		var code = $.trim($("#id_message").val());
@@ -337,7 +362,7 @@ $(document).ready(function () {
 				$('.selectserver').text("请选择行业");
 				$("#id_main_category").val("");
 				$("#id_sub_category_ids").val("");
-                $("#id_input_category").attr("disabled", false);
+                		$("#id_input_category").attr("disabled", false);
 				$('.div-server').fadeOut(200);
 			})
 		}
@@ -402,7 +427,7 @@ $(document).ready(function () {
 					}
 				});
 			});
-			selected.off("click", '.glyphicon-ok-circle').on('touchstart click', '.glyphicon-ok-circle', function (event) {
+			selected.off("click", '.glyphicon-ok-circle').on('click', '.glyphicon-ok-circle', function (event) {
 				 // console.log($('.div-provider .glyphicon-check').parents('li'));
 				//event.preventDefault();
 				var i = $('.sli-provider .glyphicon-check');
