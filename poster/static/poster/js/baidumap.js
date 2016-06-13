@@ -10,7 +10,7 @@ $(function() {
 		baiduMap.addControl(new BMap.OverviewMapControl());
 		baiduMap.addControl(new BMap.ScaleControl()); 
 		var _localAdress;
-		if (!(yunyeEditorGlobal.updated_at > $.fn.yunyeStorage.getHead("updated_at")) && $.fn.yunyeStorage.getHead("address")) {
+		if (yunyeEditorGlobal.updated_at <= $.fn.yunyeStorage.getHead("updated_at") && $.fn.yunyeStorage.getHead("address")) {
 			_localAdress = $.fn.yunyeStorage.getHead("address").address;
 		} else {
 			_localAdress = yunyeEditorGlobal.address;
@@ -18,7 +18,7 @@ $(function() {
 		//console.log(_localAdress);
 		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
 			onSearchComplete: function() {
-				if ( local.getResults().getPoi(0)) {
+				if ( local.getResults().getPoi(0) ) {
 					var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
 					baiduMap.clearOverlays();
 					baiduMap.addOverlay(new BMap.Marker(pp)); //添加标注
