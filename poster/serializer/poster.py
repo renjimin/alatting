@@ -79,6 +79,23 @@ class PosterPageSerializer(serializers.ModelSerializer):
     temp_html = serializers.SerializerMethodField()
     temp_css = serializers.SerializerMethodField()
 
+    image_url = serializers.SerializerMethodField()
+
+    css_url = serializers.SerializerMethodField()
+
+    def get_css_url(self, obj):
+        if obj.css:
+            return obj.css.url
+        return ''
+
+    def get_image_url(self, obj):
+        if obj.template:
+            try:
+                return '/media/{}'.format(obj.template.image.file.name)
+            except Exception:
+                return ''
+        return ''
+
     def get_temp_html(self, obj):
         html = obj.temp_html
         if html:

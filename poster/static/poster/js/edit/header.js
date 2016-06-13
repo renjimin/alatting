@@ -14,6 +14,8 @@ $(function () {
 			   
 			}
 			/*去掉海报元素的编辑控件-zj*/
+            $('.yunye-template').attr('data-page-id',
+                yunyeEditorGlobal.posterPageId);
 			$('.cnd-element').removeClass('active');
 			$('.text-element').removeClass('text-element-act');
 			$('.ele-rotate-ctrl').remove();
@@ -174,7 +176,7 @@ $(function () {
                         ).changeTemplate({
                                 "target": "create",
                                 "initAfter": function () {
-                                    $("#change-templates-list").css('height', "70%");
+                                    $("#changeTemplatesList").css('height', "70%");
                                 }
                             });
                     });
@@ -197,6 +199,24 @@ $(function () {
                             'cancelText': "取消"
                         }
                     );
+				}
+			},
+            {
+				icon: "glyphicon glyphicon-retweet",
+				text: "切换页面",
+				callback: function () {
+                    postSaveData(function () {
+                        $("body").changeTemplate(
+                            "destroy"
+                        ).changeTemplate(
+                            "showPageList", {
+                                "target": "showPageList",
+                                "initAfter": function () {
+                                    $("#changeTemplatesList").css('height', "70%");
+                                }
+                            }
+                        );
+                    });
 				}
 			}
 		]
