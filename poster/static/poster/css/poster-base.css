@@ -248,7 +248,7 @@ html {
 
 .header {
 	position: relative;
-
+	z-index: 10;
 	background-color: #c5c5c5;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -947,7 +947,7 @@ to {
 
 .bar {
 	position: absolute;
-	z-index: 9;
+	z-index: 100;
 	right: 0;
 	left: 0;
 
@@ -1576,8 +1576,9 @@ to {
 }
 /* template css */
 .yunye-template {
-    background-color: #fff;
-    position: relative;
+	background-color: #fff;
+	position: relative;
+	z-index: 20;
 	/*padding-bottom: 120%;*/
 	width:600px;
 	height:747px;
@@ -1596,7 +1597,7 @@ to {
 	left: 0;
 }
 .template-box{
-	overflow:hidden;
+	/*overflow:hidden;*/
 }
 .body-container{
 	height:100%;width: 100%;position: relative;
