@@ -516,7 +516,7 @@ $(function () {
 		window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
 		var list = window.clickItmList;
 		for (var i in list) {var listitem = list[i];
-			if ($(event.target).closest(listitem).length != 0)return;
+			if ($(event.target).closest(listitem).length !== 0)return;
 		}
 		//点击页面空白区域行为
 		$('#dp').removeClass('open');
@@ -546,7 +546,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+					weekName = (week === 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
@@ -583,7 +583,7 @@ $(function () {
 								'background-size': '100% 100%'
 							});
 							$(".system-item").fadeOut(500);
-						})
+						});
 					}
 				},
 				{

@@ -9,7 +9,7 @@ $(function(){
 		var api = {};
 		var canvas,selectCanvas,ctx,currentPannel,hasImage;
 		var touchmovePrevetFunction = function(e){
-			if($(e.target).closest("section").length == 0)e.preventDefault();
+			if($(e.target).closest("section").length === 0)e.preventDefault();
 		};
 		api.init = function(url){
 			canvas = document.getElementById("editCanvas");
