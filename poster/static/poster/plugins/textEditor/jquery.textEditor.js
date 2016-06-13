@@ -11,7 +11,13 @@
     '#1b315e','#11264f','#45224a','#543044','#63434f','#594c6d','#6950a1','#6f60aa','#9b95c9','#afb4db',
     '#fffffb','#f6f5ec','#f2eada','#d3d7d4','#a1a3a6','#999d9c','#72777b','#4f5555','#3e4145','#281f1d',
     '#130c0e'];
-    var fontFamily= ['Helvetica','Microsoft YaHei','楷体','幼圆','隶书','华文新宋','华文彩云','华文行楷','苹果丽黑','华康中黑字体','华康娃娃体','华康少女字体'];
+    var fontFamily=
+        ['Helvetica','Microsoft YaHei','Helvetica Neue','Arial Bold Italic','Arial Black','Arial Narrow','Avant Garde','Avantgarde',
+        'Century Gothic','AppleGothic','Calibri','Candara','Segoe UI','Optima','Candara','Calibri','Franklin Gothic Medium','Franklin Gothic',
+        'Futura','Trebuchet MS','Impact','Haettenschweiler','Optima','Tahoma','Verdana','Geneva','Baskerville','Baskerville Old Face',
+        'Times New Roman','Garamond','Big Caslon','Bodoni MT','Cambria','Didot','Didot LT STD','Lucida Bright','Palatino','Palatino Linotype',
+        'Perpetua','Baskerville','Rockwell','Courier','Andale Mono','Courier New','Lucida Console','Lucida Sans Typewriter','Brush Script MT',
+        'Copperplate'];
     pluginName = "teditor";
     defaults = {
         colorArr:colorArr,
