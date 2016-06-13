@@ -273,9 +273,9 @@ $(function () {
 				text: " 颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.header-bar').css('background', color);
-						storageAPI.setCss(".header-bar", {'background': color});
+					$('.header').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
+						storageAPI.setCss(".header", {'background': color});
 					});
 				}
 			},
@@ -366,8 +366,8 @@ $(function () {
 				text: " 顶/底颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.bar-header,.bar-footer').css('background', color);
+					$('.bar-header,.bar-footer').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss(".bar-header", {'background': color});
 						storageAPI.setCss(".bar-footer", {'background': color});
 						storageAPI.setCss(".bottom-container > .bottom-menu", {'background': color});
@@ -400,9 +400,8 @@ $(function () {
 				text: " 主体颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('body').css('background', color);
-						$('.yunye-template,.header').css('background', color);
+					$('body,.yunye-template,.header').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss("body", {'background': color});
 						//storageAPI.setCss(".bar-header", {'background': color});
 						//storageAPI.setCss(".bar-footer", {'background': color});
@@ -431,8 +430,8 @@ $(function () {
 				text: "颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.qrcode-inner .qrcode,.abutton-group a').css('background', color);
+					$('.qrcode-inner .qrcode,.abutton-group a').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss(".qrcode-inner .qrcode", {'background': color});
 						storageAPI.setCss(".abutton-group a", {'background': color});
 					});
@@ -592,8 +591,8 @@ $(function () {
 					text: " 颜色",
 					callback: function () {
 						$("#colorBox").css('top', $('.content').offset().top).show();
-						$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-							$('.yunye-template').css('background', color);
+						$('.yunye-template').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+							ths.css('background', color);
 							storageAPI.setCss(".yunye-template", {'background': color});
 						});
 					}
