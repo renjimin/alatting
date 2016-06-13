@@ -31,10 +31,7 @@
     line-height: 30px;
     background:#e4e4e4;
     margin-top: 10px;
-
 }
-
-
 .js-color-main{
     margin-right: 60px;
     padding: 10px;
@@ -101,6 +98,10 @@
     box-shadow:  0 0 5px #333;
 }
 #js-color-reset{
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    margin-top: 10px;
     text-align: center;
     background: #626262;
     color: #d8d8d8;

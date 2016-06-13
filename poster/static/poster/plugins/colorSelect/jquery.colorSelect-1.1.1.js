@@ -19,8 +19,8 @@
             clbox:'cbox',
         }
         this.func = func;
+        this.domColor = (ele.attr('data-color'))?ele.attr('data-color'):'';
         this.select = $.extend({},this.defOption,option);
-
     }
 
     ColorSl.prototype.init = function(){
@@ -29,19 +29,11 @@
         var ele = this.$element;
         var fun = this.func;
         var storage = window.localStorage;
-        if(storage.getItem('colorSet')){
-            var colorSet = storage.getItem('colorSet');
-            var his= $('#js-color-his').children('.js-his-li');
-            var num  = colorSet.length;
-            for(var i=0;i<num;i++){
-                his.eq(i+1).css('background',colorSet[i]).data('data-color',colorSet[i]);
-            }
-        }else{
-            var colorSet = [];
-        }
+        var domColor = this.domColor;
+
         if(!ch){
             var cdiv= '<div class="js-colorselect"><div class="js-color-title">颜色面板<span class="glyphicon glyphicon-remove" id="csclose"></span></div>';
-            cdiv+= '<div class="js-color-his" id="js-color-his"><div class="js-his-li" id="js-color-reset">复位</div><div class="js-his-li"></div><div class="js-his-li"></div><div class="js-his-li"></div></div>';
+            cdiv+= '<div class="js-color-his" id="js-color-his"><div id="js-color-reset">复位</div><div class="js-his-li"></div><div class="js-his-li"></div><div class="js-his-li"></div></div>';
             cdiv+= '<div class="js-color-main"><div class="js-color-box"><ul class="color-list">';
             for(var i=0;i<this.select.colorArr.length;i++){
                 cdiv += '<li class="color-li" style="background:'+this.select.colorArr[i]+'" data-color="'+this.select.colorArr[i]+'"></li>';
@@ -76,6 +68,30 @@
             var ctx=canvas.getContext("2d");
             box.fadeIn(200);
         }
+        if(storage.getItem('colorSet')){
+            var colorSet = storage.getItem('colorSet');
+            colorSet = colorSet.split(';');
+            var his= $('#js-color-his').children('.js-his-li');
+            var num  = colorSet.length;
+            for(var i=0;i<num;i++){
+                his.eq(i).css('background',colorSet[i]).attr('data-color',colorSet[i]);
+            }
+        }else{
+            var colorSet = [];
+        }
+        var putColorStor = function(colorset,color){
+            var num = colorset.length;
+            if(num==3){
+                colorset.shift();
+            }
+            colorset.push(color);
+            var his= $('#js-color-his').children('.js-his-li');
+            for(var i=0;i<num;i++){
+                his.eq(i).css('background',colorset[i]).attr('data-color',colorset[i]);
+            }
+            colorset = colorset.join(';');
+            storage.setItem('colorSet',colorset);
+        }
 
         $("#js-color-canvas").off('click').on('click',function(e){
             var canvasOffset = $(canvas).offset();
@@ -89,6 +105,7 @@
             var tipsX = Math.floor(e.pageX - colorOffset.left);
             var tipsY = Math.floor(e.pageY - colorOffset.top);
             $('#js-color-tips').css({left:tipsX+'px','top':tipsY+'px'});
+            ele.attr('data-color',color);
             putColorStor(colorSet,color);
             fun(ele,color);
         });
@@ -121,6 +138,7 @@
             },
             touchend:function(){
                 if(move){
+                    ele.attr('data-color',color);
                     putColorStor(colorSet,color);
                 }
                 move=false;
@@ -134,29 +152,30 @@
         });
 
         /*色块的选择*/
-        box.off('click').on('click','.color-li',function(){
+        box.off('click','.color-li').on('click','.color-li',function(){
             var color = $(this).attr('data-color');
             $('.color-li').removeClass('color-act');
             $(this).addClass('color-act');
+            ele.attr('data-color',color);
             putColorStor(colorSet,color);
             fun(ele,color);
+        });
+        /*历史色块的选择*/
+        box.off('click','.js-his-li').on('click','.js-his-li',function(){
+            var color = $(this).attr('data-color');
+            ele.attr('data-color',color);
+            fun(ele,color);
+        });
+        /* 复位颜色 */
+        $('#js-color-reset').off('click').on('click',function(){
+            ele.attr('data-color',domColor);
+            fun(ele,domColor);
         });
         /*色块的关闭*/
         $('#csclose').off('click').on('click', function () {
             box.fadeOut(200);
         });
-        function putColorStor(colorset,color){
-            var num = colorset.length;
-            if(num==3){
-                colorset.shift();
-            }
-            colorset.push(color);
-            storage.setItem('colorSet',colorset);
-            var his= $('#js-color-his').children('.js-his-li');
-            for(var i=0;i<num;i++){
-                his.eq(i+1).css('background',colorset[i]).data('data-color',colorset[i]);
-            }
-        }
+
     }
 
     $.fn.colorSelect= function(option,func){
