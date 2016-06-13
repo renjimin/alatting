@@ -148,7 +148,8 @@
             cont = cont.replace(/<br>/g,'\n');
             $('#tt-content').val(cont);
         });
-        pluginBox.off('input propertychange','#tt-content').on('input propertychange','#tt-content',function(){
+        $('#tt-content').attr('data-target',$element.attr('class')||$element.attr('id'));
+        $('#tt-content').off('input propertychange').on('input propertychange',function(){
             var cont = $('#tt-content').val();
             cont = cont.replace(/<\/?.+?>/g,"");
             cont = cont.replace(/&nbsp;/g,"");
