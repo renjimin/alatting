@@ -48,7 +48,7 @@
 					$(e.currentTarget).css({
 						'transition': 'none'
 					});
-					$(e.currentTarget).fadeTo(500,0.5,function(){
+					$(e.currentTarget).stop(true,false).fadeTo(500,0.5,function(){
 						moveAble = true;
 					});
 
@@ -70,6 +70,7 @@
 
 				'touchmove': function(e) {
 					if (e.originalEvent) e = e.originalEvent;
+					$(e.currentTarget).stop(false,false);
 					if(!moveAble) return;
 					e.preventDefault();e.stopPropagation();
 					var touch = e.touches[0];

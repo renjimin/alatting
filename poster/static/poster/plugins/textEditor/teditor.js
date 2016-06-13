@@ -13,14 +13,15 @@ $(function(){
 
     $('#text-slide-down').on('click',function(e){
         e.stopPropagation();
-        $('#text-model').animate({'bottom':'-300px'},200);
+        editor('close');
+        //$('#text-model').animate({'bottom':'-300px'},200);
     });
     postcontainer.on('click','.el-content',function(event){
         event.stopPropagation();
         var ths = $(this).parent();
         $('.cnd-element').removeClass('active');
         $('.text-element').removeClass('text-element-act').css('z-index','100');
-        ths.addClass('text-element-act').css('z-index','110');
+        ths.addClass('text-element-act').addClass('active').css('z-index','110');
         ths.tEditor({});
         ths.domRotate({ebox:postcontainer});
     });
@@ -40,14 +41,18 @@ $(function(){
         },1000);
     }
     */
-    postcontainer.on('click','#ele-editor-ctrl',function(event){
-        $(document).trigger('clsdp',event.currentTarget);
+    postcontainer.on('touchend click','#ele-editor-ctrl',function(event){
         event.stopPropagation();
-        var bot = parseInt($('#text-model').css('bottom'));
-        if(bot<0){
-            $('#text-model').animate({'bottom':'0px'},200);
-        }else{
-            $('#text-model').animate({'bottom':'-300px'},200);
+        if(event.type=='touchend'){
+            $(document).trigger('clsdp',event.currentTarget);
+            var bot = parseInt($('#text-model').css('bottom'));
+            if(bot<0){
+                $('#text-model').addClass('open');
+                $('#text-model').animate({'bottom':'0px'},200);
+            }else{
+                $('#text-model').removeClass('open')
+                $('#text-model').animate({'bottom':'-300px'},200);
+            }
         }
     });
 

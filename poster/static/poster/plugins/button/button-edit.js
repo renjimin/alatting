@@ -518,6 +518,7 @@ var openSystemimg = function() {
 	if ($('#systemimg-model').hasClass('open')) {
 		$('#systemimg-model').removeClass('open');
 		ele.removeClass('open');
+		$('.bar-footer').removeClass('footer-hide');
 	} else {
 		if ($('#systemimg-model .systemimg-list ul li').length <= 0) {
 			$.ajax({
@@ -536,6 +537,7 @@ var openSystemimg = function() {
 		}
 		$('#systemimg-model').css('max-height', $(window).height() - 87 + 'px').addClass('open');
 		ele.addClass('open');
+		$('.bar-footer').addClass('footer-hide');
 	}
 
 }
@@ -581,11 +583,15 @@ var uploadSystemimg = function(eleobj) {
 }
 
 function deleteElement() {
-	var imgactive = $('.systemimg-element.active');
+	var imgactive = $('.cnd-element.active');
 
 	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 		imgactive.remove();
+		if(imgactive.hasClass('text-element-act')){
+			$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+		}
 	});
+
 }
 $(function() {
 		document.onkeyup = function(event) {
@@ -642,6 +648,7 @@ $(function() {
 
 })
 
+
 function textEditor(type) {
 	var s = this;
 	if (type == undefined || type == null) {
@@ -653,7 +660,7 @@ function textEditor(type) {
 
 	function addText() {
 		var eleobj = $('<div  type="text" class="element text-editor-content" value="" style="font-size:20px">请输入文字</div>')
-		var cnd = $('<div class="cnd-element text-element actived" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
+		var cnd = $('<div class="cnd-element text-element" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
 
 		cnd.find('.element-box-contents').append(eleobj);
 		cnd.css('opacity', '0');

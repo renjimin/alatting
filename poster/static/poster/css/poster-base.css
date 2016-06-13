@@ -173,6 +173,7 @@ html {
 .ico-edit-music {
 	background-image: url(../../poster/images/edit-tool-music.png);
 }
+
 /*clear*/
 
 .rate-level:after {
@@ -258,37 +259,33 @@ html {
 	position: relative;
 	z-index: 20;
 
-	padding: 15px 0 0;
+	padding: 0;
 	pointer-events:none;
 }
 .header-qrcode {
 	float: left;
-	margin:0 10px;
+	padding: 7.5px 10px;
 	pointer-events: auto;
-	position: relative;
+	position: absolute;
 	z-index: 10;
+	left: 0;
+	top: 0;
 }
 .header-logo {
-	position: absolute;
-	left: 0;
+	position: relative;
 	overflow: hidden;
-
-	width: 100%;
-	height: 100%;
-	margin-top: -15px;
-	padding: 15px 100px 0 100px;
-
+	height: 95px;
+	padding: 7.5px 0;
+	margin: 0 98px;
 	text-align: center;
-	pointer-events:none;
+	pointer-events: auto;
 }
 .header-abutton {
-	float: right;
-
-	width: 80px;
-    height: 80px;
-	margin:0 10px;
-	position: relative;
+	padding: 7.5px 10px;
+	position: absolute;
 	z-index: 10;
+	right: 0;
+	top: 0;
 }
 .qrcode-inner,
 .abutton-inner {
@@ -296,7 +293,9 @@ html {
 	height: 100%;
 	margin: 0 auto;
 	border-radius: 50%;
-	overflow: hidden;;
+	overflow: hidden;
+	width: 80px;
+	height: 80px;
 }
 .qrcode-inner .circle {
 	position: absolute;
@@ -605,7 +604,7 @@ to {
 	transform: scale(1);
 }
 .header-info {
-	padding: 10px;
+	padding: 6px 10px;
 	text-align: center;
 	font-size: 1.1em;
 }
@@ -1671,14 +1670,13 @@ to {
 }
 
 #dpw_address{
-	padding: 5px;
+	padding: 3px;
 }
 #dpw_address li{
-	border-bottom: 5px solid #e1e1e1;
-	margin-bottom: 5px;
+	border-bottom: 3px solid #e1e1e1;
 }
 #dpw_address li span{
-	width: calc(100% - 44px);
+	width: calc(100% - 40px);
 }
 .info-toggle{
 	position: absolute;

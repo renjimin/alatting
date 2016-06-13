@@ -341,14 +341,14 @@ function(module, exports, __require__){
 					str += "</tr>";
 				});
 				str = "<table class='colorBox'>"+ str +"</table>";
-				str += "<div class='colorPannel'><div class='colorGrid' style='background-color: rgb(255, 0, 0);'><div class='color-picker'><div></div></div></div><div class='colorSlider'><div class='color-picker'></div></div>"
-					+"<table><tr><td style='background:#000000;'></td><td style='background:#ffffff;'></td><td style='background:#ffecce;'></td></tr>"
-					+"<tr><td style='background:#ff8001;'></td><td style='background:#458026;'></td><td style='background:#ffff01;'></td></tr>"
-					+"<tr><td style='background:#fe0000'></td><td style='background:#008001;'></td><td style='background:#0000fe;'></td></tr>"
-					+"<tr style='margin-bottom: 15px;display: block;'><td style='background:#ee82ef;'></td></tr>"
-					+"<tr><td style='background:'></td><td style='background:#666666;'></td><td style='background:#8e3b2d;'></td></tr>"
-					+"<tr><td style='background:#c1c1c1;'></td><td style='background:#cecece;'></td><td style='background:#f4f4f4;'></td></tr></table>"
-					+"<div class='colorPrev' style='background-color: rgb(128, 64, 64);'></div><input type='' value='#804040'/></div>";
+				str += "<div class='colorPannel'><div class='colorGrid' style='background-color: rgb(255, 0, 0);'><div class='color-picker'><div></div></div></div><div class='colorSlider'><div class='color-picker'></div></div>";
+				str += "<table><tr><td style='background:#000000;'></td><td style='background:#ffffff;'></td><td style='background:#ffecce;'></td></tr>";
+				str += "<tr><td style='background:#ff8001;'></td><td style='background:#458026;'></td><td style='background:#ffff01;'></td></tr>";
+				str += "<tr><td style='background:#fe0000'></td><td style='background:#008001;'></td><td style='background:#0000fe;'></td></tr>";
+				str += "<tr style='margin-bottom: 15px;display: block;'><td style='background:#ee82ef;'></td></tr>";
+				str += "<tr><td style='background:'></td><td style='background:#666666;'></td><td style='background:#8e3b2d;'></td></tr>";
+				str += "<tr><td style='background:#c1c1c1;'></td><td style='background:#cecece;'></td><td style='background:#f4f4f4;'></td></tr></table>";
+				str += "<div class='colorPrev' style='background-color: rgb(128, 64, 64);'></div><input type='' value='#804040'/></div>";
 				div.empty().append(str);
 			}
 			container = div;
