@@ -26,6 +26,9 @@
         this.defaults=defaults;
         this.option= $.extend({},this.defaults,option);
     }
+    Plugin.prototype.open = function(){
+        $('#text-model').animate({'bottom':'0px'},200);
+    }
     Plugin.prototype.init=function(){
         var _this = this;
         var option = _this.option;

@@ -56,7 +56,7 @@ $(function () {
                 {
                     icon: "glyphicon glyphicon-picture",
                     text: "上传图片",
-                    callback: function (obj) {
+                    callback: function (obj) {console.log(obj);
                         $.fn.uploads.showDialog(function (data, file) {
                             if (obj) {
                                 obj.empty().append('<img src="' + data.file + '"/>');

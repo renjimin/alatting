@@ -103,7 +103,7 @@ var scale = function(box,options){
 						$('.cnd-element').removeClass('active');
 						
 						s.o.css('z-index',scaleIndex++);
-						$(e.currentTarget).addClass('drag-active');
+						$(e.currentTarget).addClass('drag-active').css('transition','none');
 						/* 移除文字编辑焦点 */
 						$('.text-element').removeClass('text-element-act');
 						$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
@@ -128,8 +128,19 @@ var scale = function(box,options){
 				},
 				'touchend':function(e){
 						if (e.originalEvent) e = e.originalEvent;
-						$(e.currentTarget).removeClass('drag-active');
-						/* 展开操作面板 */						
+						$(e.currentTarget).removeClass('drag-active').css('transition','all .2s');
+						if(s.opt.tx < 0){
+							s.o.css({'left':'0'});
+						}else if(s.opt.tx + s.opt.width > $('.yunye-template').width()){
+							s.o.css({'left':$('.yunye-template').width() - s.opt.width+'px'});
+						}
+						if(s.opt.ty < 0){
+							s.o.css({'top':'0'});
+						}else if(s.opt.ty + s.opt.height > $('.yunye-template').height()){
+							s.o.css({'top':$('.yunye-template').height() - s.opt.height+'px'});
+						}
+
+						/* 展开操作面板 */
 						$(document).trigger('clsdp');
 						showControlPannel(s.o);
 						s.o.addClass('active')
@@ -447,13 +458,13 @@ var scale = function(box,options){
 				$.fn.sysImgEdit.init($(e.currentTarget).parent());
 			})
 		}
-		if(ele.hasClass('text-editor-content')){console.log(1)
+		if(ele.hasClass('text-editor-content')){
 			editBtn.on('touchend',function(e){
-				if (e.originalEvent) e = e.originalEvent;e.preventDefault();console.log(2)
+				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
 				ele.tEditor({textDelete: false,
 						textCopy: false,
 						pluginType: 'other'});
-				$('#text-model').animate({'bottom':'0px'},200);
+				editor('open',ele);
 			})
 		}
 
@@ -473,6 +484,34 @@ var scale = function(box,options){
 
 
 
+}
+var fluidSt = 0;
+function editor(method,obj){
+
+	switch(method){
+		case 'open':textEditorOpen();break;
+		case 'close':textEditorClose();break;
+		default:break;
+	}
+	
+	function textEditorOpen(){
+		var oh = obj.height(),
+			ot = obj.offset().top,
+			th = $('#text-model').height(),
+			bh = $('body').height();
+			fluidSt = $('.container-fluid').scrollTop();
+		$('#text-model').addClass('open').animate({'bottom':'0px'},200);
+		$('.container-fluid').css({'height':bh - th +'px'}).animate({scrollTop:fluidSt+ ot - (bh -  th)/2 + oh/2+'px'},200);
+	}
+	function textEditorClose(){
+		var bt = $('body').height(),
+		th = $('#text-model').height();
+		if(parseInt($('#text-model').css('bottom')) < 0) return;
+		$('#text-model').removeClass('open')
+		$('#text-model').animate({'bottom':-th+'px'},200);
+
+		$('.container-fluid').css({'height':'100%'}).animate({scrollTop:fluidSt+'px'},200);
+	}
 }
 $(function(){
 	$.fn.sysImgEdit = function(){
