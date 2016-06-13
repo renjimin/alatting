@@ -1,7 +1,7 @@
 $(function(){
     $('#text-element-act').tEditor({});
     var postcontainer = $('.container-fluid').find('.yunye-template');
-    $('#share-toggle').on('click',function(e){
+    $('#share-panel .share-edit').on('click',function(e){
         e.stopPropagation();
         $('.dropdown-panel').removeClass('open');
         $('.dropdown-toggle').removeClass('open');

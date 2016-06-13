@@ -138,7 +138,7 @@ $(function () {
 
 
 	//弹出菜单
-	$(".dropdown-toggle:not(#share-toggle)").registerDropDown();
+	$(".dropdown-toggle").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({
 		id: 'dpw_phone',
 		offsetYPercent: 50,
