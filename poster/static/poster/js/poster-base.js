@@ -95,7 +95,7 @@ $(function () {
 		},
 		lifetime_special : {}
 	};
-	if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
+	if (yunyeEditorGlobal.updated_at <= pageHeadData.updated_at) {
 		initData();
 	}
 	templateScaleFun();
@@ -182,6 +182,7 @@ $(function () {
 
 	//限制简述长度
 	var limitShortDesciptin = function(e){
+		console.log($("#tt-content").data("target"));
 		var str = e.currentTarget.value;
 		var len,cStr = 0,eStr = 0,i ;
 		for (i = 0; i < str.length ; i++) {    
@@ -203,7 +204,6 @@ $(function () {
 		}else{
 			$("#short_description").css("fontSize","16px");
 		}
-		oldShort = $("#tt-content").val();
 	};
 	$('.desc').registerPopUp({
 		id: 'dpw_desc',
@@ -247,7 +247,7 @@ $(function () {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
-					})
+					});
 				}
 			}],
 		followMouse: true
