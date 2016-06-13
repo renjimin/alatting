@@ -25,7 +25,6 @@
 			arguments[0] ='click' ;
 			return _on.apply(this, arguments);
 		}
-		console.log(arguments[0]);
 	};
 })();
 $(document).ready(function () {
