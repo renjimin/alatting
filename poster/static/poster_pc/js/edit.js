@@ -237,9 +237,9 @@ function(module, exports, __require__){
 							yyAlert("发布失败，服务器内部错误");
 						}
 					}
-				})
+				});
 			});
-		}
+		};
 		return api;
 	});
 },
@@ -263,7 +263,7 @@ function(module, exports, __require__){
 					api.setValue(valueName,element.val(),element);
 				});
 			}
-		}
+		};
 		api.setValue = function(valueName,value,valueItem){
 			binders[valueName].value = value;
 			_.each(binders[valueName].elements,function(obj){
@@ -282,10 +282,10 @@ function(module, exports, __require__){
 					item.html( compiledValue );
 				}
 			});
-		}
+		};
 		api.getValue = function(valueName){
 			return binders[valueName].value;
-		}
+		};
 		return api;
 	});
 },
@@ -299,10 +299,10 @@ function(module, exports, __require__){
 		api.init = function(){
 			var nowTime = daterModule.getToday();
 			calendarModule.init(nowTime.year,nowTime.month);
-		}
+		};
 		api.destory = function(){
 			calendarModule.offEvent();
-		}
+		};
 		return api;
 	});
 },
@@ -315,10 +315,10 @@ function(module, exports, __require__){
 		api.init = function(){
 			palette.init($("#header_background_pannel .palette"),$(".header"),"background");
 			system_context.init($("#header_background_pannel .system_context"),$(".header"),"background");
-		}
+		};
 		api.destory = function(){
 			palette.destory();
-		}
+		};
 		return api;
 	});
 },
@@ -334,13 +334,13 @@ function(module, exports, __require__){
 			if( !div.html().trim() ){
 				var str = "";
 				_.each(colorSet,function(arr){
-					str += "<tr>"
+					str += "<tr>";
 					_.each(arr,function(color){
-						str += "<td style='background:"+ color +";'></td>"
+						str += "<td style='background:"+ color +";'></td>";
 					});
-					str += "</tr>"
+					str += "</tr>";
 				});
-				str = "<table class='colorBox'>"+ str +"</table>"
+				str = "<table class='colorBox'>"+ str +"</table>";
 				str += "<div class='colorPannel'><div class='colorGrid' style='background-color: rgb(255, 0, 0);'><div class='color-picker'><div></div></div></div><div class='colorSlider'><div class='color-picker'></div></div>"
 					+"<table><tr><td style='background:#000000;'></td><td style='background:#ffffff;'></td><td style='background:#ffecce;'></td></tr>"
 					+"<tr><td style='background:#ff8001;'></td><td style='background:#458026;'></td><td style='background:#ffff01;'></td></tr>"
@@ -348,13 +348,13 @@ function(module, exports, __require__){
 					+"<tr style='margin-bottom: 15px;display: block;'><td style='background:#ee82ef;'></td></tr>"
 					+"<tr><td style='background:'></td><td style='background:#666666;'></td><td style='background:#8e3b2d;'></td></tr>"
 					+"<tr><td style='background:#c1c1c1;'></td><td style='background:#cecece;'></td><td style='background:#f4f4f4;'></td></tr></table>"
-					+"<div class='colorPrev' style='background-color: rgb(128, 64, 64);'></div><input type='' value='#804040'/></div>"
+					+"<div class='colorPrev' style='background-color: rgb(128, 64, 64);'></div><input type='' value='#804040'/></div>";
 				div.empty().append(str);
 			}
 			container = div;
 			api.initColorBox(target,cssName);
 			api.initPannel(target,cssName);
-		}
+		};
 		api.destory = function(div){
 			container.find(".colorBox").off("click");
 			container.find(".colorPannel table").off("click");
@@ -364,7 +364,7 @@ function(module, exports, __require__){
 				.off('mousemove.colorPannel touchmove.colorPannel')
 				.off('mouseup.colorPannel touchend.colorPannel');
 			container = null;
-		}
+		};
 		api.initColorBox = function(targetToChange,cssName){
 			container.find(".colorBox").on("click",function(e){
 				var index = $(e.currentTarget).find("td").index($(e.target));
@@ -395,7 +395,7 @@ function(module, exports, __require__){
 				container.find(".colorPannel .colorPrev").css('background',bgC);
 				targetToChange.css(cssName,bgC);
 			});
-		}
+		};
 		api.initPannel = function(targetToChange,cssName){
 			$(document)
 			.on('mousedown.colorPannel touchstart.colorPannel', '.colorGrid, .colorSlider', function(event) {
@@ -463,7 +463,7 @@ function(module, exports, __require__){
 				if( value > max ) value = max;
 				return value;
 			}
-		}
+		};
 		function hsb2rgb(hsb) {
 			var rgb = {};
 			var h = Math.round(hsb.h);
@@ -516,7 +516,7 @@ function(module, exports, __require__){
 		var nowWeek = new Date(nowYear, nowMonth - 1, 1).getDay();//获得当前星期
 		var nowLastday = api.getMonthNum(nowMonth, nowYear);//获得最后一天
 		return {year:nowYear,month:nowMonth,day:today,week:nowWeek,lastday:nowLastday};
-	}
+	};
 	api.getMonthNum = function(month,year){
 		month = parseInt(month - 1);
 		var LeapYear = ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) ? true: false;
@@ -526,7 +526,7 @@ function(module, exports, __require__){
 			});
 		});
 		return monthNum;
-	}
+	};
 	module.exports = api;
 },
 //[模块11]calendar模块
@@ -541,7 +541,7 @@ function(module, exports, __require__){
 			api.gotoYM(year, month);
 		}
 		api.bindEvent();
-	}
+	};
 	api.gotoYM = function(year, month){
 		var week = new Date(year, month - 1, 1).getDay();
 		var lastday = daterModule.getMonthNum(month,year);
@@ -570,7 +570,7 @@ function(module, exports, __require__){
 				}
 			}
 		}
-	}
+	};
 	api.bindEvent = function(){
 		$("#calender td").on('click',function(event) {
 			if( event.target.innerHTML  == "&nbsp;" )return;
@@ -591,11 +591,11 @@ function(module, exports, __require__){
 				$(".weekly").show();
 			}
 		});
-	}
+	};
 	api.offEvent = function(){
 		$("#calender td").off('click');
 		$(".fa.fa-cog").off("click");
-	}
+	};
 	module.exports = api;
 },
 //[模块12]文字编辑模块
@@ -712,7 +712,7 @@ function(module, exports, __require__){
 					}
 				}
 			}
-		}
+		};
 		api.destory = function(div){
 			_.each([textColorInput,borderColorInput,textSizeInput,borderSizeInput,textOpacityInput,textShadowInput],function(item){
 				item.off("input propertychange change");
@@ -721,7 +721,7 @@ function(module, exports, __require__){
 			.off("mousedown."+ID+" touchstart."+ID,".range.text-opacity,.range.text-boxShadow")
 			.off("mousemove."+ID+" touchmove."+ID)
 			.off("mouseup."+ID+" touchend."+ID);
-		}
+		};
 		return api;
 	});
 },

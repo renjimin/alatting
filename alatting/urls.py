@@ -36,8 +36,6 @@ urlpatterns = [
 
 # 移动端路由
 urlpatterns += [
-    # url(r'', include('alatting_website.urls', namespace='website')),
-    # url(r'', include('alatting.api_urls', namespace='api')),
     url(r'^mobile/account/',
         include('account.urls.mobile', namespace='account')),
 
@@ -62,7 +60,6 @@ urlpatterns += [
     url(r'^api/v1/poster/',
         include('poster.urls.api', namespace='poster_api')),
 
-    # url(r'^api/.*', 'account.views.not_found'),
 ]
 
 

@@ -1127,6 +1127,10 @@ to {
 	border-top-width: 1px;
 	border-bottom-width: 0;
 	background-position: top;
+	transition: all .2s;
+}
+.bar-footer.footer-hide{
+	bottom:-44px;
 }
 .container-fluid {
 	position: relative;
