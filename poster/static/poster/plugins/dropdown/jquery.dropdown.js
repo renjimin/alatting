@@ -88,7 +88,7 @@
 			str += '</ul>';
 			dpw.append(str);
 			for(var i in _option.list){
-				$("#dp #" + _option.id+'_'+i ).click(function(event){
+				$("#dp #" + _option.id+'_'+i ).off('click').on('click',function(event){
 					var l = event.currentTarget.id.split('_');
 					var cb = _option.list[l[l.length-1]].callback;
 					if(cb){
