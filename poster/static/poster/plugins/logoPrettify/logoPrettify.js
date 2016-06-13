@@ -21,6 +21,9 @@ $(function(){
 				api.setImage(url);
 				hasImage = true;
 			}
+			document.addEventListener("touchmove",function(e){
+				if($(e.target).closest("section").length == 0)e.preventDefault();
+			});
 		};
 		api.destory = function(){
 			$(".closeLogoPrettify").off("click");
@@ -33,6 +36,7 @@ $(function(){
 			}
 			currentPannel = null;
 			$("#logoPrettify .editMenuGroup section").hide();
+			document.removeEventListener("touchmove");
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
@@ -200,8 +204,12 @@ $(function(){
 			module.init = function(){
 				if(!hasImage)return;
 
-				$.fn.imgFilter1.blur(canvas.originCanvas,canvas);
 				ox = oy =0;
+				$("#editPannel_5 input").on("change",function(e){
+					var value = $("#editPannel_5 input").val();
+					var level  = value<20 ? 2 : value<40 ? 3 : value<60 ? 4 : value<80 ? 5 : value<100 ? 6 : 7;
+					$.fn.imgFilter1.blur(canvas.originCanvas,canvas,level);
+				});
 				$("#selectCanvas")
 					.on("mousedown touchstart",function(){
 						isClearing = true;
@@ -795,7 +803,6 @@ $(
 						defaults.y = rTop*scale;
 						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
-
 					}
 				});
 
@@ -811,21 +818,21 @@ $(
 
 			var scale = canvas.width/canvas.getBoundingClientRect().width;
 			var originCanvasData = canvas.originCanvas.getContext('2d').getImageData(defaults.x , defaults.y , defaults.swidth*scale, defaults.sheight*scale);
-			var imgData = cropCanvasCtx.getImageData(0,0,cropCanvas.width,cropCanvas.height);
+			var imgData = cropCanvasCtx.getImageData(0,0,cropCanvas.width*scale,cropCanvas.height*scale);
 			
-			canvas.originCanvas.width = canvas.width = cropCanvas.width;
-			canvas.originCanvas.height = canvas.height = cropCanvas.height;
+			canvas.originCanvas.width = canvas.width = cropCanvas.width*scale;
+			canvas.originCanvas.height = canvas.height = cropCanvas.height*scale;
 			canvas.style.width = cropCanvas.width + 'px';
 			canvas.style.height = cropCanvas.height + 'px';
 			canvasCtx.putImageData(imgData,0,0);
 			canvas.originCanvas.getContext('2d').putImageData(originCanvasData,0,0);
 
 			api.destory();
-
-			//convasCtx.drawImage(defaults.img, 0 , 0, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
 		};
 		api.destory = function(){
 			imgCrop.closeCrop();
+			defaults.x = 0;
+			defaults.y = 0;
 		};
 		
 		return api;
@@ -1017,19 +1024,21 @@ $(function(){
 				} 
 			});
 		};
-		api.blur = function(source,target){
+		api.blur = function(source,target,level){
+			if( !level )level = 2;
+			var level2 = level * level;
 			helper(source,target,function(binaryData,len,w,h){
 				var tempCanvasData = source.getContext("2d").getImageData(0, 0, source.width, source.height).data;  
 				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0,suma = 0.0;  
 				for ( var x = 0; x < w; x++){
 					for ( var y = 0; y < h; y++){ 
 						var idx = (x + y * w) * 4;         
-						for(var subCol=-3; subCol<=3; subCol++) {  
+						for(var subCol = -1*level ; subCol <= level ; subCol++) {  
 							var colOff = subCol + x;  
 							if(colOff <0 || colOff >= w) {  
 								colOff = 0;  
 							}  
-							for(var subRow=-3; subRow<=3; subRow++) {
+							for(var subRow = -1*level ; subRow <= level; subRow++) {
 								var rowOff = subRow + y;  
 								if(rowOff < 0 || rowOff >= h) {  
 									rowOff = 0;  
@@ -1045,10 +1054,10 @@ $(function(){
 								suma += a;  
 							}  
 						}  
-						var nr = (sumred / 25.0);  
-						var ng = (sumgreen / 25.0);  
-						var nb = (sumblue / 25.0); 
-						var na = (suma / 25.0); 
+						var nr = (sumred / level2);  
+						var ng = (sumgreen / level2);  
+						var nb = (sumblue / level2); 
+						var na = (suma / level2); 
 						sumred = 0.0;  
 						sumgreen = 0.0;  
 						sumblue = 0.0;

@@ -57,8 +57,12 @@ class RegisterForm(forms.Form):
     )
     input_category = forms.CharField(
         max_length=10,
-        widget=forms.HiddenInput,
-        required=False
+        required=False,
+        label=u'输入行业名称',
+        widget=forms.TextInput(
+            attrs={'placeholder': u'请输入',
+                   'class': 'regist-industryinput'}
+        )
     )
 
 

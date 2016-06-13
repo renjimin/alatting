@@ -138,6 +138,9 @@ input {
     box-shadow: 0 6px 6px rgba(0,0,0,.1) inset;
     margin-top: 12%;
  }
+ .li-provider  dl{
+    margin-top: 10px;
+ }
  .div-server .li-server{
     display: block;
     padding: 0;
@@ -148,8 +151,9 @@ input {
     padding: 10px 10px;
     position: relative;
     color:black;
+    border-bottom: 1px solid #ccc;
  }
-  .div-server .li-server a:hover{
+  .div-server .li-server:active{
     background:#AFAFAF;
  }
  .div-provider .li-provider{
@@ -212,6 +216,11 @@ input {
     font-size: 1.2em;
     padding: 10px 10px;
     margin: 5px 0;  
+ }
+ .server-title{
+    position: fixed;
+    width: 100%;
+    background: #777;
  }
  .glyphicon-remove-circle{
     float: left;
