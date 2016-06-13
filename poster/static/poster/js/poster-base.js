@@ -40,8 +40,8 @@ $(function () {
 		}
 
 		/**读取缓存背景图片*/
-		if (storageAPI.getCss(".header")) {
-			$('.header').css(storageAPI.getCss(".header"));
+		if (storageAPI.getCss(".header-bar")) {
+			$('.header-bar').css(storageAPI.getCss(".header-bar"));
 		}
 		if (storageAPI.getCss(".yunye-template")) {
 			$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
@@ -60,6 +60,9 @@ $(function () {
 		}
 		if (storageAPI.getCss(".abutton-group a")) {
 			$(".abutton-group a").css(storageAPI.getCss(".abutton-group a"));
+		}
+		if(storageAPI.getCss(".header-info")){
+			$(".header-info").css(storageAPI.getCss(".header-info"));
 		}
 
 		/*读取主体部分*/
@@ -168,7 +171,7 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	$('.desc').click(function(){
+	/*$('.desc').click(function(){
 		$('#text-model').animate({'bottom':'0px'},200);
 		$('.text-element').removeClass('text-element-act');
 		$('.ele-rotate-ctrl').remove();
@@ -178,6 +181,52 @@ $(function () {
 			pluginType: 'other'
 		});
 		$('#ted-edit').trigger('click');
+	});*/
+	$('.desc').registerPopUp({
+		id: 'dpw_desc',
+		offsetYPercent: 100,
+		list: [{
+				icon: "glyphicon glyphicon-font",
+				text: "输入文字",
+				callback: function () {
+					$('#text-model').animate({'bottom':'0px'},200);
+					$('.text-element').removeClass('text-element-act');
+					$('.ele-rotate-ctrl').remove();
+					$("#short_description").tEditor({
+						textDelete: false,
+						textCopy: false,
+						pluginType: 'other'
+					});
+					$('#ted-edit').trigger('click');
+				}
+			},
+			{
+				icon: "glyphicon glyphicon-adjust",
+				text: " 简介颜色",
+				callback: function () {
+					$("#colorBox").css('top', $('.content').offset().top).show();
+					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						$('.header-info').css('background', color);
+						storageAPI.setCss(".header-info", {'background': color});
+					});
+				}
+			},
+			{
+				icon: "glyphicon glyphicon-picture",
+				text: " 上传图片",
+				callback: function () {
+					//$.fn.logoPrettify.init($('.header-info').css('background', 'url'));
+					$.fn.uploads.showDialog(function (data) {
+						$('.header-info').css('background', 'url(' + data.file + ')');
+						$('.header-info').css('background-size', '100% 100%');
+						storageAPI.setCss(".header-info", {
+							'background': 'url(' + data.file + ')',
+							'background-size': '100% 100%'
+						});
+					})
+				}
+			}],
+		followMouse: true
 	});
 	$('.header-logo').registerPopUp({
 		id: 'dpw_menu',
@@ -225,8 +274,8 @@ $(function () {
 				callback: function () {
 					$("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
 					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.header').css('background', color);
-						storageAPI.setCss(".header", {'background': color});
+						$('.header-bar').css('background', color);
+						storageAPI.setCss(".header-bar", {'background': color});
 					});
 				}
 			},
@@ -234,10 +283,10 @@ $(function () {
 				icon: "icon ico-system-pic",
 				text: "背景图片",
 				callback: function () {
-					$('.header').bgselect({}, function (ths, img) {
+					$('.header-bar').bgselect({}, function (ths, img) {
 						ths.css('background', 'url(' + img + ')');
 						ths.css('background-size', '100% 100%');
-						storageAPI.setCss(".header", {
+						storageAPI.setCss(".header-bar", {
 							'background': 'url(' + img + ')',
 							'background-size': '100% 100%'
 						});
@@ -254,9 +303,9 @@ $(function () {
 							yyAlert("上传图片格式错误");
 							return false;
 						}
-						$('.header').css('background', 'url(' + data.file + ')');
-						$('.header').css('background-size', '100% 100%');
-						storageAPI.setCss(".header", {
+						$('.header-bar').css('background', 'url(' + data.file + ')');
+						$('.header-bar').css('background-size', '100% 100%');
+						storageAPI.setCss(".header-bar", {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
