@@ -2,7 +2,7 @@
 import logging
 
 from django.http.response import HttpResponse, HttpResponseNotFound
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.views.generic import TemplateView, View, FormView, ListView
 from django.views.generic.detail import DetailView
 from django.core.urlresolvers import reverse
@@ -13,7 +13,7 @@ from alatting_website.model.poster import PosterMoreLink
 from alatting_website.models import Poster, Rating, PosterStatistics, Category
 from alatting_website.model.statistics import PosterLike, PosterFun, PosterFavorites, PosterSubscribe
 from utils.db.utils import Utils as DBUtils
-from utils.utils import Utils
+from utils.utils import Utils, is_mobile
 from utils.qrcode import QrCode
 from utils.clip import SvgClip
 from alatting_website.logic.poster_service import PosterService
@@ -444,3 +444,18 @@ class SvgClipView(View):
         else:
             response = HttpResponse(xml, content_type='image/svg+xml')
         return response
+
+
+class PosterSlugShowView(View):
+    def get(self, request, *args, **kwargs):
+        poster = get_object_or_404(Poster, slug=self.kwargs.get('slug'))
+        if is_mobile(request):
+            url = reverse("posters:show", kwargs={
+                'pk': poster.id
+            })
+        else:
+            url = reverse("posters_pc:show", kwargs={
+                'pk': poster.id
+            })
+        return redirect(url)
+
