@@ -312,6 +312,7 @@ $(document).ready(function () {
 				$('.selectserver').text("请选择行业");
 				$("#id_main_category").val("");
 				$("#id_sub_category_ids").val("");
+                $("#id_input_category").attr("disabled", false);
 				$('.div-server').fadeOut(200);
 			})
 		}
@@ -382,9 +383,8 @@ $(document).ready(function () {
 				var meid = "";
 				for(var n=0;n<i.length;n++){
 					$(i[n]).parent('li').attr('data-id');
-					meid += $(i[n]).parent('li').attr('data-id')+",";
-					console.log($(i[n]).parent('li'))
-					messbox += $(i[n]).parent('li').attr('data-name')+","
+					meid += $(i[n]).parent('li').attr('data-id') + ",";
+					messbox += $(i[n]).parent('li').attr('data-name') + ",";
 				}
 				meid = meid.substring(0,meid.length-1);
 				messbox = messbox.substring(0,messbox.length-1);

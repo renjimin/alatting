@@ -57,14 +57,14 @@
                                         {{ form.password2 }}
                                     </li>
                                     <li class="list-li">
-                                        <div class = "selectserver">请选择行业</div>
-                                        <div class = "selectprovider"style ="display:none">我要找的服务(可多选)</i></div>
-                                        <input type="hidden" name="main_category_id" id = "id_main_category">
-                                        <input type="hidden" name="sub_category_ids" id = "id_sub_category_ids">
+                                        <div class="selectserver">请选择行业</div>
+                                        <div class="selectprovider" style ="display:none">我要找的服务(可多选)</div>
+                                        <input type="hidden" name="main_category_id" id = "id_main_category" value="{{ form.main_category_id.value}}">
+                                        <input type="hidden" name="sub_category_ids" id = "id_sub_category_ids" value="{{ form.sub_category_ids.value }}">
                                     </li>
                                     <li class = "list-li">
                                         <span class= "regist-industry">找不到行业?</span>
-                                        <input  id = "id_input_category" name="input_category" class = "regist-industryinput" type= "text" placeholder = "请输入">
+                                        {{ form.input_category }}
                                     </li>
                                 </ul>
                                 <button type="button" id="btnregist"
