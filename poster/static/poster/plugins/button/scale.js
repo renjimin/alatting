@@ -103,7 +103,7 @@ var scale = function(box,options){
 						$('.cnd-element').removeClass('active');
 						
 						s.o.css('z-index',scaleIndex++);
-						$(e.currentTarget).addClass('drag-active');
+						$(e.currentTarget).addClass('drag-active').css('transition','none');
 						/* 移除文字编辑焦点 */
 						$('.text-element').removeClass('text-element-act');
 						$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
@@ -128,8 +128,19 @@ var scale = function(box,options){
 				},
 				'touchend':function(e){
 						if (e.originalEvent) e = e.originalEvent;
-						$(e.currentTarget).removeClass('drag-active');
-						/* 展开操作面板 */						
+						$(e.currentTarget).removeClass('drag-active').css('transition','all .2s');
+						if(s.opt.tx < 0){
+							s.o.css({'left':'0'});
+						}else if(s.opt.tx + s.opt.width > $('.yunye-template').width()){
+							s.o.css({'left':$('.yunye-template').width() - s.opt.width+'px'});
+						}
+						if(s.opt.ty < 0){
+							s.o.css({'top':'0'});
+						}else if(s.opt.ty + s.opt.height > $('.yunye-template').height()){
+							s.o.css({'top':$('.yunye-template').height() - s.opt.height+'px'});
+						}
+
+						/* 展开操作面板 */
 						$(document).trigger('clsdp');
 						showControlPannel(s.o);
 						s.o.addClass('active')
