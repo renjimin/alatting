@@ -21,18 +21,20 @@ $(function(){
     });
 
     /* 获取当前海报所有预约用户填写的调查问卷 */
+    showLoadTips($('#main-list'),'show');
     $.ajax({
         type: 'GET',
         url: '/api/v1/poster/'+id+'/consumer/answers',
         success:function(data){
+            showLoadTips($('#main-list'),'success');
             for(var i=0;i<data.length;i++){
                 var mli = getMainLiHtml(data[i]);
                 $('#main-list').append(mli);
             }
-            showLoading(false);
+
         },
         error: function(xhr,status,statusText){
-            yyAlert("data error");
+            showLoadTips($('#main-list'),'error');
         }
     });
     function getMainLiHtml(d){
@@ -223,20 +225,14 @@ $(function(){
         });
     });
 
-    function showLoading(type){
-        if(type){
-            $('#body-loading').show();
-        }else{
-            $('#body-loading').hide();
-        }
-    }
-
     /* 获取双发讨价还价的历史记录 */
     function getBargainsList(){
+        showLoadTips($('#main-plist'),'show');
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumer_id,
             success:function(data){
+                showLoadTips($('#main-plist'),'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<div class="main-plist-ul"><ul>';
                     var num = data.length;
@@ -269,7 +265,7 @@ $(function(){
                 }
             },
             error: function(xhr, status, statusText){
-                $('#main-plist').append('<span class="error-msg">服务超时</span>');
+                showLoadTips($('#main-plist'),'error');
             }
         });
     }
@@ -304,10 +300,12 @@ $(function(){
 
     /* 获取双方交流的信息列表 */
     function getChatsList(){
+        showLoadTips($('#message-list'),'show');
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumer_id,
             success:function(data){
+                showLoadTips($('#message-list'),'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
@@ -327,7 +325,7 @@ $(function(){
                 }
             },
             error: function(xhr, status, statusText){
-                $('#message-list').append('<span class="error-msg">服务超时</span>');
+                showLoadTips($('#message-list'),'error');
             }
         });
     }
@@ -357,10 +355,12 @@ $(function(){
 
     /* 获取用户评论信息 */
     function getCommentsList(){
+        showLoadTips($('#body-comments'),'show');
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/servicecomments',
             success:function(data){
+                showLoadTips($('#body-comments'),'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
@@ -386,8 +386,22 @@ $(function(){
                 }
             },
             error: function(xhr, status, statusText){
-                $('#body-comments').append('<span class="error-msg">服务超时</span>');
+                showLoadTips($('#body-comments'),'error');
             }
         });
+    }
+
+    /* 加载动画的显示与隐藏 */
+    function showLoadTips($obj,type){
+        if(type == 'show'){
+            $obj.append('<div class="data-loading"><i class="fa fa-spinner fa-pulse fa-5x"></i><br>数据加载中,请稍等...</div>');
+        }
+        if(type == 'success'){
+            $obj.children('.data-loading').remove();
+        }
+        if(type == 'error'){
+            $obj.children('.data-loading').remove();
+            $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
+        }
     }
 });

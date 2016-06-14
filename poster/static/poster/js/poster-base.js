@@ -191,7 +191,7 @@ $(function () {
 			 } else {    
 				eStr++;
 			}
-			len = cStr*1.75 +eStr;
+			len = cStr*2 +eStr;
 			if( len > 49){
 				$("#tt-content").val(str.substr(0,i));
 				break;
