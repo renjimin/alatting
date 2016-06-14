@@ -126,7 +126,13 @@ $(function(){
 				
 				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
-					$.fn.magicWand.active();
+					if($("#editPannel_1 .magicWand").hasClass("active")){
+						$("#editPannel_1 .magicWand").removeClass("active");
+						$.fn.magicWand.deactive();
+					}else{
+						$("#editPannel_1 .magicWand").addClass("active");
+						$.fn.magicWand.active();
+					}
 				});
 				$("#editPannel_1 .deleteSelection").on("click",function(){
 					if(!hasImage)return;
@@ -226,11 +232,11 @@ $(function(){
 						ox = oy =0;
 					});
 				function setSection(){
-					if( ox-10 < 0)ox = 10;
-					if( oy-10 < 0)oy = 10;
-					if( ox+10 > canvas.width)ox = canvas.width-10;
-					if( oy+10 > canvas.height)oy = canvas.height-10;
-					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-10, oy-10, 20, 20), ox-10,  oy-10);
+					if( ox-8 < 0)ox = 8;
+					if( oy-8 < 0)oy = 8;
+					if( ox+8 > canvas.width)ox = canvas.width-8;
+					if( oy+8 > canvas.height)oy = canvas.height-8;
+					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-8, oy-8, 16, 16), ox-8,  oy-8);
 				}
 			};
 			module.destory = function(){
