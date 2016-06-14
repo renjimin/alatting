@@ -7,7 +7,8 @@
 (function ($) {
     var templateListAPI = yunyeEditorGlobal.API.templates,
         updateTemplateAPI = yunyeEditorGlobal.API.updateTemplate,
-        createPageAPI = yunyeEditorGlobal.API.createPage;
+        createPageAPI = yunyeEditorGlobal.API.createPage,
+        posterpageListAPI = yunyeEditorGlobal.API.posterpages;
 
     var getParentLayout = function () {
         return $(".yunye-template");
@@ -30,14 +31,15 @@
     };
 
     var ChangeTemplate = function (options) {
-        this.layoutTmpl = $("#changeTemplateLayoutTmpl");
-        this.listTmpl = $("#changeTemplateListTmpl");
-        this.ulListId = "#change-templates-list";
+        this.layoutTmplId = "#changeTemplateLayoutTmpl";
+        this.listTmplId = "#changeTemplateListTmpl";
+        this.ulListId = "#changeTemplatesList";
         this.settings = options;
         this.target = options.target;
         this.posterId = yunyeEditorGlobal.posterId;
         this.posterPageId = yunyeEditorGlobal.posterPageId;
         this.templateId = yunyeEditorGlobal.templateId;
+        this.pageDataList = [];
     };
 
     ChangeTemplate.prototype = $.extend(ChangeTemplate.prototype, {
@@ -64,10 +66,57 @@
             });
         },
 
-        resetEditArea: function(resp){
+        confirmSelectPage: function(){
+            var self = this;
+            $(".change-template-confirm-btn").click(function (event) {
+                var tmpId = self.getSelectedTemplateId();
+                if(!tmpId){
+                    yyAlert("请选择要切换的页面!");
+                    return;
+                }
+                var page = {};
+                $.each(self.pageDataList, function(i, page){
+                    if(page.id == tmpId){
+                        self.posterPageId = page.id;
+                        yunyeEditorGlobal.posterPageId = page.id;
+                        yunyeEditorGlobal.templateId = page.template.id;
+                        $.fn.yunyeStorage.init();
+                        self.resetEditArea(page);
+                        return false;
+                    }
+                });
+                self.destroy();
+                event.stopPropagation();
+            });
+        },
+
+        confirmSelectPublishPage: function(){
+            var self = this;
+            $(".change-template-confirm-btn").click(function (event) {
+                var tmpId = self.getSelectedTemplateId();
+                if(!tmpId){
+                    yyAlert("请选择页面!");
+                    return;
+                }
+
+                $.each(self.pageDataList, function(i, page){
+                    if(page.id == tmpId){
+                        yunyeEditorGlobal.posterPageId = tmpId;
+                        $("#pageStyle").attr('href', page.css_url);
+                        $(".yunye-template").hide();
+                        $(".yunye-template[data-page-id='"+ tmpId +"']").show();
+                        return false;
+                    }
+                });
+                self.destroy();
+                event.stopPropagation();
+            });
+        },
+
+        resetEditArea: function(page){
             $.fn.yyTools.mask();
-            var html = resp.temp_html,
-                css = resp.temp_css;
+            var html = page.temp_html,
+                css = page.temp_css;
             html = $.base64.decode(html);
             css = $.base64.decode(css);
             getParentLayout().remove();
@@ -227,8 +276,9 @@
                 url += "?exclude=" + self.templateId
             }
             $.getJSON(url, function (json) {
+                self.resetTitle('选择模板');
                 $(self.ulListId).empty();
-                self.listTmpl.tmpl(json).appendTo(self.ulListId);
+                $(self.listTmplId).tmpl(json).appendTo(self.ulListId);
 
                 $(self.ulListId).find("li").click(function (event) {
                     if (!$(self.ulListId).hasClass('cover-item')) {
@@ -243,7 +293,7 @@
         init: function ($container) {
             var self = this;
             self.$container = $container;
-            self.$container.append(self.layoutTmpl.tmpl());
+            self.$container.append($(self.layoutTmplId).tmpl());
             self.getTemplateList($container);
             self.cancel();
             self.confirm();
@@ -254,6 +304,98 @@
 
         destroy: function () {
             destroy();
+        },
+
+        resetTitle: function(str){
+            $('.change-template-header').text(str);
+        },
+
+        getPosterPageList: function($container){
+            getLayout().click(function (event) {
+                event.stopPropagation();
+            });
+
+            var self = this,
+                url = posterpageListAPI;
+            url += "?poster_id={0}&exclude={1}".format(
+                self.posterId, self.posterPageId
+            );
+            $.getJSON(url, function (json) {
+                $.fn.yyTools.mask();
+                if(json.length == 0){
+                    yyAlert("没有可以切换的页面，您可以新建或复制页面!");
+                    return
+                }
+                
+                self.resetTitle('选择页面');
+                self.pageDataList = json;
+                $(self.ulListId).empty();
+                $(self.listTmplId).tmpl(json).appendTo(self.ulListId);
+
+                $(self.ulListId).find("li").click(function (event) {
+                    if (!$(self.ulListId).hasClass('cover-item')) {
+                        $(self.ulListId).addClass('cover-item');
+                    }
+                    $(this).addClass('active').siblings().removeClass('active');
+                    event.stopPropagation();
+                });
+            });
+        },
+
+        showPageList: function($container){
+            var self = this;
+            self.$container = $container;
+            self.$container.append($(self.layoutTmplId).tmpl());
+            self.getPosterPageList($container);
+            self.cancel();
+            self.confirmSelectPage();
+            if(self.settings.initAfter && $.isFunction(self.settings.initAfter)){
+                self.settings.initAfter();
+            }
+        },
+
+        getPublishPageList: function($container){
+            getLayout().click(function (event) {
+                event.stopPropagation();
+            });
+
+            var self = this,
+                url = posterpageListAPI;
+            url += "?poster_id={0}&exclude={1}".format(
+                self.posterId, self.posterPageId
+            );
+            $.getJSON(url, function (json) {
+                $.fn.yyTools.mask();
+                if(json.length == 0){
+                    yyAlert("没有可以切换的页面，您可以新建或复制页面!");
+                    return
+                }
+
+                self.resetTitle('选择页面');
+                self.pageDataList = json;
+                $(self.ulListId).empty();
+                $(self.listTmplId).tmpl(json).appendTo(self.ulListId);
+
+                $(self.ulListId).find("li").click(function (event) {
+                    if (!$(self.ulListId).hasClass('cover-item')) {
+                        $(self.ulListId).addClass('cover-item');
+                    }
+                    $(this).addClass('active').siblings().removeClass('active');
+                    event.stopPropagation();
+                });
+            });
+        },
+
+        showPublishPageList:function($container){
+            var self = this;
+            self.$container = $container;
+            self.$container.append($(self.layoutTmplId).tmpl());
+            self.getPublishPageList($container);
+            self.cancel();
+            self.confirmSelectPublishPage();
+            if(self.settings.initAfter && $.isFunction(self.settings.initAfter)){
+                self.settings.initAfter();
+            }
         }
     });
 
@@ -289,7 +431,21 @@
                 });
                 ct.copy();
             });
-        }
+        },
+        "showPageList": function(options){
+            return this.each(function () {
+                var $this = $(this);
+                var ct = new ChangeTemplate(options);
+                ct.showPageList($this);
+            });
+        },
+        "showPublishPageList": function(options){
+            return this.each(function () {
+                var $this = $(this);
+                var ct = new ChangeTemplate(options);
+                ct.showPublishPageList($this);
+            });
+        },
     };
 
     $.fn.changeTemplate = function (method) {

@@ -15,6 +15,13 @@ $(function () {
 		//简述
 		if(g.short_description)$("#short_description").html(g.short_description);
 		if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
+		if(g.short_description.length>40){
+			$("#short_description").css("fontSize","12px");
+		}else if(g.short_description.length > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
 		//logo
 		if(pageHeadData.logo_title)$('.header-logo h2').html(pageHeadData.logo_title);
 		if(storageAPI.getHead("logo_img"))$('.header-logo img').attr("src",storageAPI.getHead("logo_img"));
@@ -28,7 +35,7 @@ $(function () {
 		//日历
 		var inputs = $(".weekly input");
 		for (var i = 0; i < (inputs.length) / 2; i++) {
-			var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+			var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 			inputs.eq(i * 2).val(info.start);
 			inputs.eq(i * 2 + 1).val(info.end);
@@ -88,7 +95,7 @@ $(function () {
 		},
 		lifetime_special : {}
 	};
-	if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
+	if (yunyeEditorGlobal.updated_at <= pageHeadData.updated_at) {
 		initData();
 	}
 	templateScaleFun();
@@ -99,17 +106,18 @@ $(function () {
 	
 	function templateScaleFun(){
 		var templateScale = $('body').width()/$('.yunye-template').width();
-		 var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
-			 +   '-moz-transform:scale('+templateScale+','+templateScale+');'
-			 +   '-o-transform:scale('+templateScale+','+templateScale+');'
-			 +  '-ms-transform:scale('+templateScale+','+templateScale+');'
-			 +      'transform:scale('+templateScale+','+templateScale+');';
-			 if($('.template-box').length <= 0){
-				var templateBox = $('<div class="template-box"></div>');
-				$('.yunye-template').parent().append(templateBox);
-				templateBox.append($('.yunye-template'));
-			 }
-		
+		var templateScaleOpt = "";
+		templateScaleOpt += '-webkit-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += '-moz-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += '-o-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += '-ms-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += 'transform:scale('+templateScale+','+templateScale+');';
+
+		if($('.template-box').length <= 0){
+			var templateBox = $('<div class="template-box"></div>');
+			$('.yunye-template').parent().append(templateBox);
+			templateBox.append($('.yunye-template'));
+		}
 		$('.yunye-template').attr('style',templateScaleOpt);
 		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
 	}
@@ -138,7 +146,7 @@ $(function () {
 
 
 	//弹出菜单
-	$(".dropdown-toggle:not(#share-toggle)").registerDropDown();
+	$(".dropdown-toggle").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({
 		id: 'dpw_phone',
 		offsetYPercent: 50,
@@ -171,17 +179,32 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	/*$('.desc').click(function(){
-		$('#text-model').animate({'bottom':'0px'},200);
-		$('.text-element').removeClass('text-element-act');
-		$('.ele-rotate-ctrl').remove();
-		$("#short_description").tEditor({
-			textDelete: false,
-			textCopy: false,
-			pluginType: 'other'
-		});
-		$('#ted-edit').trigger('click');
-	});*/
+
+	//限制简述长度
+	var limitShortDesciptin = function(e){
+		if(e.target.getAttribute('data-target')  !== "short_description")return;
+		var str = e.currentTarget.value;
+		var len,cStr = 0,eStr = 0,i ;
+		for (i = 0; i < str.length ; i++) {    
+			if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
+				cStr++;
+			 } else {    
+				eStr++;
+			}
+			len = cStr*2 +eStr;
+			if( len > 49){
+				$("#tt-content").val(str.substr(0,i));
+				break;
+			}
+		}
+		if(len > 40 ){
+			$("#short_description").css("fontSize","12px");
+		}else if(len > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
+	};
 	$('.desc').registerPopUp({
 		id: 'dpw_desc',
 		offsetYPercent: 100,
@@ -197,6 +220,7 @@ $(function () {
 						textCopy: false,
 						pluginType: 'other'
 					});
+					$(".tt-cont-main").off("input propertychange",limitShortDesciptin).on("input propertychange","#tt-content",limitShortDesciptin);
 					$('#ted-edit').trigger('click');
 				}
 			},
@@ -223,7 +247,7 @@ $(function () {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
-					})
+					});
 				}
 			}],
 		followMouse: true
@@ -250,7 +274,7 @@ $(function () {
 			},
 			{
 				icon: "glyphicon glyphicon-picture",
-				text: " 上传图片",
+				text: " 编辑图片",
 				callback: function () {
 					$.fn.logoPrettify.init($('.header-logo img').attr("src"));
 				}
@@ -379,12 +403,12 @@ $(function () {
 				text: "主体背景",
 				callback: function () {
 					$(this).bgselect({}, function (ths, img) {
-						$('body').css('background', 'url(' + img + ')');
-						$('body').css('background-size', '100% 100%');
+						$('body').css('background-image', 'url(' + img + ')');
+						$('body').css('background-size', '100% 100%!important');
 						$('.yunye-template,.header').css('background', 'url()');
 						storageAPI.setCss("body", {
-							'background': 'url(' + img + ')',
-							'background-size': '100% 100%'
+							'background-image': 'url(' + img + ')',
+							'background-size': '100% 100%!important'
 						});
 						$('.header,.yunye-template').css('background', 'none');
 						storageAPI.setCss(".header", {'background': 'none'});
@@ -483,7 +507,8 @@ $(function () {
 
 	$(document).on("clsdp", function (e,target) {
 		$("#colorBox").hide();
-		$('#text-model').animate({'bottom':'-265px'},200);
+		editor('close');
+		//$('#text-model').animate({'bottom':'-265px'},200);
 		$('#systemimg-model,#button-model,.tab-item').removeClass('open');
 		$('.cnd-element').removeClass('active');
 		$(".music-link-layout-wrap").remove();
@@ -516,7 +541,7 @@ $(function () {
 		window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
 		var list = window.clickItmList;
 		for (var i in list) {var listitem = list[i];
-			if ($(event.target).closest(listitem).length != 0)return;
+			if ($(event.target).closest(listitem).length !== 0)return;
 		}
 		//点击页面空白区域行为
 		$('#dp').removeClass('open');
@@ -526,10 +551,6 @@ $(function () {
 	$('#dpw_title input').on('change', function (event) {
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
 		storageAPI.setHead("unique_name", event.currentTarget.value);
-	});
-	$('#dpw_desc textarea').on('change', function (event) {
-		$('.header-info .desc span').html(event.currentTarget.value);
-		storageAPI.setHead("short_description", event.currentTarget.value);
 	});
 	$('.dayinfo input').on('change', function (event) {
 		var inputs = $('#dpw_clock input');
@@ -546,7 +567,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+					weekName = (week === 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
@@ -583,7 +604,7 @@ $(function () {
 								'background-size': '100% 100%'
 							});
 							$(".system-item").fadeOut(500);
-						})
+						});
 					}
 				},
 				{

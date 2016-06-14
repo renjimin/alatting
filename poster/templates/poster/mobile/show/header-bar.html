@@ -1,10 +1,13 @@
 <div class="bar-header bar edit-bar-header">
-    <a href="{% url 'website:index' %}"  class="btn-back back-to-home">
+    <!--<a href="{% url 'website:index' %}"  class="btn-back back-to-home">
+        <i class="icon-back"></i>
+    </a>-->
+    <a href="javascript:void(0);" onclick="history.back()"  class="btn-back back-to-home">
         <i class="icon-back"></i>
     </a>
-    {% comment %}<button class="button button-clear btn-page">
+    <button class="button button-clear btn-page">
         <i class="ico-pages"></i>
-    </button>{% endcomment %}
+    </button>
     <div class="title header-bar-title">
         <p>{{ poster.unique_name }}</p>
     </div>

@@ -13,6 +13,7 @@ $(function(){
     $.template('serverNeedTmpl',serverNeedTmpl);
     var defImg = '/static/account/img/poster_default.jpg';
     var userinfo;
+    showLoadTips($('.main-list'),'show');
 
     /* 头部两类海报列表切换 */
     $('.head-bot-li').on('click',function(){
@@ -47,7 +48,7 @@ $(function(){
             userinfo = data;
         },
         error: function(xhr,status,statusText){
-            yyAlert("服务超时,请稍候再试!");
+            yyAlert("获取个人信息失败,请稍候再试!");
         }
     });
 
@@ -56,6 +57,7 @@ $(function(){
         type: 'GET',
         url: '/api/v1/account/posters/server',
         success:function(data){
+            showLoadTips($('#main-provide'),'success');
             for(var i=0;i<data.length;i++){
                 var pd = {
                     posterid:data[i].id,
@@ -65,11 +67,9 @@ $(function(){
                 };
                 $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
             }
-            showLoading(false);
         },
         error: function(xhr, status, statusText){
-            showLoading(false);
-            $('#main-provide').append('<span class="error-msg">网络错误,请稍候再试!</span>');
+            showLoadTips($('#main-provide'),'error');
         }
     });
 
@@ -78,6 +78,7 @@ $(function(){
         type: 'GET',
         url: '/api/v1/account/posters/consumer',
         success:function(data){
+            showLoadTips($('#main-need'),'success');
             for(var i=0;i<data.length;i++){
                 var pd = {
                     posterid:data[i].id,
@@ -89,7 +90,7 @@ $(function(){
             }
         },
         error: function(xhr, status, statusText){
-            $('#main-need').append('<span class="error-msg">网络错误,请稍候再试!</span>');
+            showLoadTips($('#main-need'),'error');
         }
     });
 
@@ -114,7 +115,7 @@ $(function(){
     });
     /* 创建新的海报 */
     $('#ctrl-add').on('click',function(){
-        location.href='/?main_category_id=1';
+        location.href='/mobile/?main_category_id=1';
     });
     /* 显示用户的会员等级 */
     $('.user-level').on('click',function(event){
@@ -156,7 +157,7 @@ $(function(){
         moveCtrl($(this),false);
     });
     /* 查看当前海报的信息 */
-    $('.body-main').on('click','.ctrl-view',function(event){
+    $('.body-main').on('click','.ctrl-detail',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         var pageType= $('#pageType').val();
@@ -223,7 +224,20 @@ $(function(){
         if(url){
             location.href = url;
         }
-        console.log('edit:none');
+    });
+    /* 预览海报 */
+    $('.body-main').on('click','.ctrl-view',function(event){
+        event.stopPropagation();
+        var id= $(this).parent().attr('data-id');
+        location.href = '/mobile/posters/'+id+'/';
+    });
+    /* 编辑海报折扣 */
+    $('.body-main').on('click','.ctrl-discount',function(event){
+        event.stopPropagation();
+        /*
+        var id= $(this).parent().attr('data-id');
+        location.href = '/mobile/posters/'+id+'/';
+        */
     });
     /* 删除海报 */
     $('.body-main').on('click','.ctrl-delete',function(event){
@@ -254,7 +268,7 @@ $(function(){
     function moveCtrl(obj,type){
         if(type){
             obj.fadeIn(200);
-            obj.children().animate({top:'50%',left:'50%'},300);
+            obj.children('.p-ctrl-li ').animate({top:'50%',left:'50%'},300);
         }else{
             obj.fadeOut(200);
             obj.children('.ctrl-lefttop').animate({top:'0',left:'0'},300);
@@ -365,11 +379,17 @@ $(function(){
             context.fill();
         });
     }
-    function showLoading(type){
-        if(type){
-            $('#body-loading').show();
-        }else{
-            $('#body-loading').hide();
+    /* 加载动画的显示与隐藏 */
+    function showLoadTips($obj,type){
+        if(type == 'show'){
+            $obj.append('<div class="data-loading"><i class="fa fa-spinner fa-pulse fa-5x"></i><br>数据加载中,请稍等...</div>');
+        }
+        if(type == 'success'){
+            $obj.children('.data-loading').remove();
+        }
+        if(type == 'error'){
+            $obj.children('.data-loading').remove();
+            $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
         }
     }
 })

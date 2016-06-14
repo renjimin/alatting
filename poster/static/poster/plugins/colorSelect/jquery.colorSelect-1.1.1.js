@@ -30,16 +30,18 @@
         var fun = this.func;
         var storage = window.localStorage;
         var domColor = this.domColor;
+        var hex;
 
         if(!ch){
             var cdiv= '<div class="js-colorselect"><div class="js-color-title">颜色面板<span class="glyphicon glyphicon-remove" id="csclose"></span></div>';
-            cdiv+= '<div class="js-color-his" id="js-color-his"><div id="js-color-reset">复位</div><div class="js-his-li"></div><div class="js-his-li"></div><div class="js-his-li"></div></div>';
+            cdiv+= '<div class="js-color-his" id="js-color-his"><div class="js-color-set" id="js-color-reset">复位</div><div class="js-color-set" id="js-color-setval">颜色值</div><div class="js-his-li"></div><div class="js-his-li"></div><div class="js-his-li"></div></div>';
             cdiv+= '<div class="js-color-main"><div class="js-color-box"><ul class="color-list">';
             for(var i=0;i<this.select.colorArr.length;i++){
                 cdiv += '<li class="color-li" style="background:'+this.select.colorArr[i]+'" data-color="'+this.select.colorArr[i]+'"></li>';
             }
             cdiv += '</ul></div>';
             cdiv += '<div class="js-color-canvas"><div id="js-color-tips"></div><div id="js-color-selected"></div><canvas id="js-color-canvas" width="800" height="200"></canvas></div></div>';
+            cdiv += '<div class="js-color-cvbox"><div class="cvbox-li cvbox-li-rgb"><div class="cvbox-li-li">R:<input type="text" id="cv-r"></div><div class="cvbox-li-li">G:<input type="text" id="cv-g"></div><div class="cvbox-li-li">B:<input type="text" id="cv-b"></div></div><div class="cvbox-li cvbox-li-hex"><div class="cvbox-li-li">#:<input type="text" id="cv-hex"></div><div class="cvbox-li-li"></div><div class="cvbox-li-li">&nbsp;&nbsp;&nbsp;<input type="button" id="cv-set" value="关闭"></div></div></div>';
             box.append(cdiv);
 
             var canvas = document.getElementById("js-color-canvas");
@@ -175,6 +177,70 @@
         $('#csclose').off('click').on('click', function () {
             box.fadeOut(200);
         });
+
+        /*设置颜色值*/
+        $('#js-color-setval').off('click').on('click', function () {
+            $('.js-color-cvbox').fadeIn(200);
+        });
+        $('.cvbox-li-rgb input').off('input propertychange').on('input propertychange',function(){
+            var rgb = {
+                r:(parseInt($('#cv-r').val()))?parseInt($('#cv-r').val()):0,
+                g:(parseInt($('#cv-g').val()))?parseInt($('#cv-g').val()):0,
+                b:(parseInt($('#cv-b').val()))?parseInt($('#cv-b').val()):0
+            };
+            if(rgb.r>=0 && rgb.r<=255 && rgb.g>=0 && rgb.g<=255 && rgb.b>=0 && rgb.b<=255){
+                var rColor = rgbToHex(rgb);
+                $('#cv-hex').val(rColor);
+                hex = '#'+rColor;
+                fun(ele,hex);
+            }
+        });
+        $('#cv-hex').off('input propertychange').on('input propertychange',function(){
+            var hColor = $(this).val();
+            hColor = hColor.toLowerCase();
+            var reg = /^([0-9a-fA-f]{6})$/;
+            if(hColor && reg.test(hColor)){
+                hex = '#'+hColor;
+                var rgb = hexToRgb(hColor);
+                $('#cv-r').val(rgb.r);
+                $('#cv-g').val(rgb.g);
+                $('#cv-b').val(rgb.b);
+                fun(ele,hex);
+            }
+        });
+        $('#cv-set').off('click').on('click',function(){
+            if(hex){
+                putColorStor(colorSet,hex);
+                hex = '';
+            }
+            $('.js-color-cvbox').fadeOut(200);
+        });
+
+        /* RGB格式转为16进制颜色 */
+        function rgbToHex(rgb) {
+			var hex = [rgb.r.toString(16),rgb.g.toString(16),rgb.b.toString(16)];
+			$.each(hex, function(nr, val) {
+				if (val.length === 1) hex[nr] = '0' + val;
+			});
+			return hex.join('');
+		}
+        /* 16进制颜色转为RGB格式 */
+        function hexToRgb(str) {
+            /* 16进制颜色值的正则表达式 */
+            var reg = /^([0-9a-fA-f]{6})$/;
+            var sColor = str.toLowerCase();
+            if (sColor && reg.test(sColor)) {
+                /* 处理六位的颜色值 */
+                var sColorChange = [];
+                for (var i = 0; i < 6; i += 2) {
+                    sColorChange.push(parseInt("0x" + sColor.slice(i, i + 2)));
+                }
+                return { 'r': sColorChange[0], 'g': sColorChange[1], 'b': sColorChange[2] };
+            } else {
+                return sColor;
+            }
+        }
+
 
     }
 

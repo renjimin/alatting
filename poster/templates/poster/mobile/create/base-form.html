@@ -35,6 +35,17 @@
                            placeholder="例:3551海报" maxlength="20"
                            value="{{ form.unique_name.value|default_if_none:'' }}"/>
                 </li>
+                <li>
+                    <label>
+                        <i class="icon">
+                            <img src="{% static 'poster/images/icon1.gif' %}">
+                        </i>
+                        链接名称
+                    </label>
+                    <input type="text" id="id_slug" name="slug" class="slug-name"
+                           placeholder="请输入英文或数字" maxlength="50"
+                           value="{{ form.slug.value|default_if_none:'' }}"/>
+                </li>
                 <li class="big-text">
                     <label style="line-height: 10em;">
                         <span class="post-ds">
@@ -115,11 +126,11 @@
 {% block base_body_footer %}
     {% if form.errors %}
         <script>
-            yyAlert('基本信息保存失败!');
             {% for field, errors in form.errors.items %}
-                {% for error in errors%}
-                    console.log("{{ field }}---{{error}}");
-                {% endfor %}
+                {% if forloop.counter0 == 0 and errors %}
+                    yyAlert("{{errors.0}}");
+                    //console.log("{{ field }}---{{error}}");
+                {% endif %}
             {% endfor %}
         </script>
     {% endif %}

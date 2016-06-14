@@ -36,6 +36,45 @@ $(function () {
         updateAction = true;
     }
 
+    var checkSlugName = function (callback) {
+        var slug = $.trim($('.slug-name').val());
+        if (updateAction) {
+            if(callback){
+                callback();
+            }
+        } else {
+            var url = '/api/v1/poster/check/unique/';
+            if (slug == '') {
+                $.fn.yyTools.mask();
+                return false;
+            }
+            $.ajax({
+                url: url,
+                data: {slug: encodeURIComponent(slug)},
+                type: "GET",
+                success: function (resp) {
+                    if (resp.exists) {
+                        $.fn.yyTools.mask();
+                        yyAlert('海报的链接名称已经存在,请更换!');
+                    } else {
+                        if (callback) {
+                            callback();
+                        }
+                    }
+                },
+                error: function (xhr, status, responseText) {
+                    $.fn.yyTools.mask();
+                    if(xhr && xhr.responseJSON && xhr.responseJSON.detail){
+                        yyAlert(xhr.responseJSON.detail);
+                    }else{
+                        yyAlert('网络错误,请稍后再试!');
+                    }
+                    return false;
+                }
+            });
+        }
+    };
+
     var checkPosterFormValues = function () {
         var postname = $.trim($('.post-name').val()),
             postdesc = $.trim($('.post-desc').val()),
@@ -43,10 +82,19 @@ $(function () {
             postemail = $.trim($('.post-email').val()),
             posttelephone = $.trim($('.post-telephone').val()),
             postphone = $.trim($('.post-phone').val()),
-            postaddress = $.trim($('.post-address').val());
+            postaddress = $.trim($('.post-address').val()),
+            slug = $.trim($('.slug-name').val());
 
         if(postname == ""){
             yyAlert('请输入海报名称!');
+            return false;
+        }
+        if(slug == ""){
+            yyAlert('请输入海报链接名称!');
+            return false;
+        }
+        if(!slug.match(/^([a-zA-Z0-9_-])*$/)){
+            yyAlert('链接名称应由字母、数字、下划线或横线组成!');
             return false;
         }
         if (postdesc == '') {
@@ -91,7 +139,10 @@ $(function () {
             return false;
         }
         $.fn.yyTools.mask(1);
-        $("#form-info").submit();
+
+        checkSlugName(function(){
+            $("#form-info").submit();
+        });
     };
 
     $(".poster-form-back-btn").click(function () {

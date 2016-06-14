@@ -87,10 +87,10 @@ header {
     position: absolute;
     z-index: 2;
     top: 15px;
-    left: 15px;
+    left: 10px;
     width: 30px;
     height: 30px;
-    font-size: 30px;
+    font-size: 25px;
 }
 .user-level{
     position: absolute;
@@ -105,10 +105,10 @@ header {
     position: absolute;
     z-index: 2;
     top: 55px;
-    left: 15px;
+    left: 10px;
     width: 30px;
     height: 30px;
-    font-size:30px;
+    font-size:25px;
 }
 .user-info{
     line-height: 120px;
@@ -119,9 +119,9 @@ header {
     vertical-align: bottom;
 }
 .user-icon{
-    height:80px;
-    width: 80px;
-    margin: 20px 0;
+    height:70px;
+    width: 70px;
+    margin: 25px 0;
 }
 .user-icon img{
     display: block;
@@ -132,8 +132,8 @@ header {
     height: 100%;
 }
 .user-name{
-    font-size: 20px;
-    max-width: 100px;
+    font-size: 16px;
+    max-width: 80px;
     overflow: hidden;
 }
 
@@ -186,7 +186,6 @@ header {
     margin-top: 40px;
     min-height: 700px;
     padding: 10px 5px 70px;
-    box-shadow: 0 3px 10px #7c7c7c inset;
     position: relative;
 }
 .main-li{
@@ -291,7 +290,7 @@ header {
 .p-ctrl-li .ctrl-icon{
     width: 30px;
     height: 30px;
-    font-size: 28px;
+    font-size: 24px;
     color: #808080;
     top: 5px;
 }
@@ -319,6 +318,25 @@ header {
     top: 100%;
     left: 100%;
 }
+.p-ctrl-bot{
+    position: absolute;
+    bottom: 0px;
+    height: 40px;
+    width: 40px;
+    font-size: 28px;
+    color: #a4a4a4;
+    text-align: center;
+}
+.p-ctrl-bot .fa{
+    display: inline;
+}
+.cbot-left{
+    left: 0px;
+}
+.cbot-right{
+    right: 0px;
+}
+
 .ctrl-name{
     font-size: 14px;
     color: #737373;

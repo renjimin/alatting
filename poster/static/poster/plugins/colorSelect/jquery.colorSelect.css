@@ -30,7 +30,7 @@
     width: 100%;
     line-height: 30px;
     background:#e4e4e4;
-    margin-top: 10px;
+    margin-top: 7.5px;
 }
 .js-color-main{
     margin-right: 60px;
@@ -61,7 +61,7 @@
     border: 2px solid #000000;
 }
 .js-color-canvas{
-    height: 100px;
+    height: 130px;
     overflow: hidden;
 }
 #js-color-selected{
@@ -97,15 +97,60 @@
     -moz-box-shadow:  0 0 5px #333;
     box-shadow:  0 0 5px #333;
 }
-#js-color-reset{
+.js-color-set{
     height: 30px;
     width: 100%;
     line-height: 30px;
-    margin-top: 10px;
+    margin-top: 7.5px;
+    font-size: 14px;
     text-align: center;
     background: #626262;
     color: #d8d8d8;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+/*js-color-cvbox*/
+.js-color-cvbox{
+    display: none;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    z-index: 1000;
+    padding: 20px;
+    width: 100%;
+    height: 200px;
+    background: rgba(55,55,55,0.9);
+    color:#ababab;
+    text-align: center;
+}
+.cvbox-li{
+    width: 40%;
+    height: 100%;
+    float: left;
+}
+.cvbox-li-li{
+    padding:10px;
+    height: 50px;
+    line-height: 30px;
+}
+.cvbox-li-li input{
+    display: inline-block;
+    height: 24px;
+    width: 80px;
+    padding: 0 5px;
+    color:#5e5e5e;
+    margin-left: 10px;
+    border: 1px solid #e4e4e4;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    outline: none;
+}
+#cv-set{
+    line-height: 24px;
+    background: #707070;
+    color: #d8d8d8;
+    border: none;
 }

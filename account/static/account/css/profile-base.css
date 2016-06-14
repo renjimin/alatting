@@ -5,9 +5,7 @@
     color: #808080;
     font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.body-container .fa{
-    display: block;
-}
+
 .body-container ul{
     padding: 0;
     outline: none;
@@ -132,7 +130,10 @@
     margin-left: -16px;
     margin-top: -16px;
 }
-
+.data-loading{
+    padding: 50px 0;
+    text-align: center;
+}
 .error-msg{
     display: block;
     text-align: center;

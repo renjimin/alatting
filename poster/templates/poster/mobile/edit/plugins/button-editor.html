@@ -1,6 +1,6 @@
 <div class="type-model button-model" id="button-model">
     <div class="model-header">
-        <a href="javascript:void(0);" class="btn-back" onclick="$('#button-model').removeClass('open')"><i class="glyphicon glyphicon-menu-left"></i></a>
+        <a href="javascript:void(0);" class="btn-back" onclick="colseButtonPannel()"><i class="glyphicon glyphicon-menu-left"></i></a>
         <a href="javascript:void(0);" class="btn-right pull-right"
            id="buttonConfirm">确定</a>
     </div>
@@ -167,7 +167,7 @@
                             <label class="col-xs-2 control-label">边框</label>
 
                             <div class="col-xs-4">
-                                <input class="form-color button-borderColor  jscolor"/>
+                                <input class="form-color button-borderColor  jscolor" readonly="readonly" />
                             </div>
                             <div class="col-xs-3">
                                 <select class="form-control button-borderStyle">
