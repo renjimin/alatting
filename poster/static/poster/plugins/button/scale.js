@@ -129,15 +129,15 @@ var scale = function(box,options){
 				'touchend':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						$(e.currentTarget).removeClass('drag-active').css('transition','all .2s');
-						if(s.opt.tx < 0){
-							s.o.css({'left':'0'});
-						}else if(s.opt.tx + s.opt.width > $('.yunye-template').width()){
-							s.o.css({'left':$('.yunye-template').width() - s.opt.width+'px'});
+						if(s.opt.tx < -10){
+							s.o.css({'left':'-10px'});
+						}else if(s.opt.tx + s.opt.width > $('.yunye-template').width()  -20){
+							s.o.css({'left':$('.yunye-template').width() - s.opt.width - 10 +'px'});
 						}
-						if(s.opt.ty < 0){
-							s.o.css({'top':'0'});
-						}else if(s.opt.ty + s.opt.height > $('.yunye-template').height()){
-							s.o.css({'top':$('.yunye-template').height() - s.opt.height+'px'});
+						if(s.opt.ty < -10){
+							s.o.css({'top':'-10px'});
+						}else if(s.opt.ty + s.opt.height > $('.yunye-template').height()-20){
+							s.o.css({'top':$('.yunye-template').height() - s.opt.height-10+'px'});
 						}
 
 						/* 展开操作面板 */
