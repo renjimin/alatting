@@ -1,0 +1,25 @@
+.content {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+.content > div {
+    overflow: hidden;
+}
+
+.content-top,.content-middle1,.content-middle2,.content-bottom{
+    height: 25%;
+}
+
+.content-cnn {
+    background: rgba(24, 17, 0, 0.3);
+    width: 100%;
+    height: 100%;
+}
+
+.content-conb {
+    background: rgba(24, 17, 0, 0.3);
+    width: 100%;
+    height: 100%;
+}
