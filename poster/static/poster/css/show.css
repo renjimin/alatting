@@ -79,6 +79,10 @@
 #short_description{
     width: 100%;
 }
+.cnd-element .element img {
+    width: 100%;
+    height: 100%;
+}
 
 @media only screen and (max-width: 767px) and (min-width: 360px){
     .comments-submenu {

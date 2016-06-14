@@ -129,19 +129,19 @@ var scale = function(box,options){
 				'touchend':function(e){
 						if (e.originalEvent) e = e.originalEvent;
 						$(e.currentTarget).removeClass('drag-active').css('transition','all .2s');
-						if(s.opt.tx < 0){
-							s.o.css({'left':'0'});
-						}else if(s.opt.tx + s.opt.width > $('.yunye-template').width()){
-							s.o.css({'left':$('.yunye-template').width() - s.opt.width+'px'});
+						if(s.opt.tx < -10){
+							s.o.css({'left':'-10px'});
+						}else if(s.opt.tx + s.opt.width > $('.yunye-template').width()  -20){
+							s.o.css({'left':$('.yunye-template').width() - s.opt.width - 10 +'px'});
 						}
-						if(s.opt.ty < 0){
-							s.o.css({'top':'0'});
-						}else if(s.opt.ty + s.opt.height > $('.yunye-template').height()){
-							s.o.css({'top':$('.yunye-template').height() - s.opt.height+'px'});
+						if(s.opt.ty < -10){
+							s.o.css({'top':'-10px'});
+						}else if(s.opt.ty + s.opt.height > $('.yunye-template').height()-20){
+							s.o.css({'top':$('.yunye-template').height() - s.opt.height-10+'px'});
 						}
 
 						/* 展开操作面板 */
-						$(document).trigger('clsdp');
+						//$(document).trigger('clsdp');
 						showControlPannel(s.o);
 						s.o.addClass('active')
 				}
@@ -499,9 +499,15 @@ function editor(method,obj){
 			bh = $('body').height();
 			fluidSt = $('.container-fluid').scrollTop();
 
-			obj.tEditor({textDelete: false,
+			if(obj){
+				obj.tEditor({textDelete: false,
 						textCopy: false,
 						pluginType: 'other'});
+			}
+			if($('body').hasClass('textOpenBody')){				
+				return;
+			}
+			$('body').addClass('textOpenBody');
 		$('#text-model').addClass('open').animate({'bottom':'0px'},200);
 		$('body').css({'height':bh - th +'px','min-height':'0'});
 		$('.container-fluid').css({'height':bh - th +'px'}).animate({scrollTop:fluidSt+ ot - (bh -  th)/2 + oh/2+'px'},200);
@@ -515,6 +521,7 @@ function editor(method,obj){
 		$('#text-model').animate({'bottom':-th+'px'},200);
 		$('body').css({'height':'100%','min-height':'100%'});
 		$('.container-fluid').css({'height':'100%'}).animate({scrollTop:fluidSt+'px'},200);
+		$('body').removeClass('textOpenBody');
 	}
 }
 $(function(){
