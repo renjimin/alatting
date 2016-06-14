@@ -593,10 +593,12 @@ var uploadSystemimg = function(eleobj) {
 function deleteElement() {
 	var imgactive = $('.cnd-element.active');
 	if(imgactive.hasClass('sys-button')) return;
+
 	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 		imgactive.remove();
 		if(imgactive.hasClass('text-element-act')){
 			$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+			$('.ele-rotate-ctrl').remove();
 		}
 	});
 
@@ -694,6 +696,7 @@ function textEditor(type) {
 
 		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 			imgactive.remove();
+			$('.ele-rotate-ctrl').remove();
 		});
 
 	}
