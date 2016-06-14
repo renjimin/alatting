@@ -683,6 +683,7 @@ function textEditor(type) {
 		}
 		var imgclone = $('.text-element.active').clone();
 		$('.text-element').removeClass('active');
+		imgclone.trigger('click')
 		imgclone.stop(true, false).animate({ 'top': parseInt(imgclone.css('top')) + 30 + 'px', 'left': parseInt(imgclone.css('left')) + 30 + 'px' }, 200);
 		fullcontainer.append(imgclone);
 		scale(imgclone);
