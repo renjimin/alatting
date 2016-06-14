@@ -1,4 +1,8 @@
 $(function () {
+    if( !$(".bar-header .btn-music audio source").attr("src")){
+            $(".bar-header .btn-music").hide();
+    }
+
     $('.slider-content').each(function () {
         $(this).imgslidershow();
     });
