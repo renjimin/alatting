@@ -401,7 +401,7 @@ function buttonConfirm(ele) {
 			currentElebox.parent().parent().css('transform', 'rotate(' + ele.data('rotate') + 'deg)').attr('data-rotate', ele.data('rotate'));
 		}
 		ele.css({ 'font-size': parseInt(parseInt(ele.css('font-size')) / templateScale) + 'px' });
-		currentElebox.empty().append(ele);
+		currentElebox.empty().append(ele);console.log(ele)
 	}
 	$('#button-model').removeClass('open');
 }
@@ -554,9 +554,9 @@ var addSystemimg = function(eleobj) {
 	var cnd = $('<div class="cnd-element systemimg-element">' + '<div class="element-box">' + '	<div class="element-box-contents">' + '		' + '	</div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
 
 	cnd.find('.element-box-contents').append(eleobj);
-	cnd.hide();
+	cnd.css('opacity','0');
 	fullcontainer.append(cnd);
-	cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).show();
+	cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - $(window).height()*.6 / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - $(window).width() *.6/ 2 + 'px' }).css('opacity','1');
 	scale(cnd);
 }
 
@@ -592,7 +592,7 @@ var uploadSystemimg = function(eleobj) {
 
 function deleteElement() {
 	var imgactive = $('.cnd-element.active');
-
+	if(imgactive.hasClass('sys-button')) return;
 	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 		imgactive.remove();
 		if(imgactive.hasClass('text-element-act')){
@@ -606,12 +606,8 @@ $(function() {
 			var e = event || window.event;
 			var keyCode = e.keyCode || e.which;
 			switch (keyCode) {
-				case 8:
-					/* 回退键 */
-					deleteElement();
-					break;
 				case 46:
-					/* 删除键 */
+					/* delete键 */
 					deleteElement();
 					break;
 				default:
@@ -668,15 +664,15 @@ function textEditor(type) {
 
 	function addText() {
 		var eleobj = $('<div  type="text" class="element text-editor-content" value="" style="font-size:20px">请输入文字</div>')
-		var cnd = $('<div class="cnd-element text-element" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
+		var cnd = $('<div class="cnd-element text-element active" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
 
 		cnd.find('.element-box-contents').append(eleobj);
 		cnd.css('opacity', '0');
 		fullcontainer.append(cnd);
 		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).css('opacity', '1');
-		scale(cnd);
-		
-
+		scale(cnd);	
+		editor('open',eleobj);
+		$('#ted-edit').click();
 	}
 
 	function copyText() {
@@ -699,16 +695,6 @@ function textEditor(type) {
 		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 			imgactive.remove();
 		});
-
-	}
-
-	function resetButton() {
-		if ($('.text-element.actived').hasClass('sys-text')) {
-			return;
-		}
-		var imgactive = $('.text-element.actived');
-
-		addButton('reset');
 
 	}
 

@@ -3,32 +3,41 @@
 	    height: 400px;
 	    position: relative;
 	}
-
+	
 	.content > div {
 	    overflow: hidden;
 	}
-
+	
 	.content > .content-top {
 	   width: 100%;
 	   height: 75%;
-	   background: rgba(24,17,0,0.3);
-
+	   background: rgba(255,255,255,0.3);
+	
 	}
-
-	.content > .content-top .content-topcon{
+	
+	.content > .content-top {
 		width: 90%;
-		height: 97%;
+		height: 70%;
 		margin: 0 auto;
-		background: rgba(255,255,255,0.3);
 		margin-top: 3%;
+	}
+	
+	.content > .content-middle{
+	    width: 100%;
+	    height: 15%;
 	}
 	.content > .content-bottom{
 	    width: 100%;
-	    height: 25%;
+	    height: 15%;
 	}
-
-	.content > .content-bottom .content-bg3{
-	    width: 100%;
-	    height: 100%;
-	    background: rgba(24,17,0,0.3);
+	
+	.content-cnn{
+		background: rgba(24,17,0,0.3);
+		width: 100%;
+		height: 100%;
+	}
+	.content-conb{
+		background: rgba(255,255,255,0.3);
+		width: 100%;
+		height: 100%;
 	}

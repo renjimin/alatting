@@ -127,7 +127,13 @@ $(function(){
 				
 				$("#editPannel_1 .magicWand").on("click",function(){
 					if(!hasImage)return;
-					$.fn.magicWand.active();
+					if($("#editPannel_1 .magicWand").hasClass("active")){
+						$("#editPannel_1 .magicWand").removeClass("active");
+						$.fn.magicWand.deactive();
+					}else{
+						$("#editPannel_1 .magicWand").addClass("active");
+						$.fn.magicWand.active();
+					}
 				});
 				$("#editPannel_1 .deleteSelection").on("click",function(){
 					if(!hasImage)return;
@@ -227,11 +233,11 @@ $(function(){
 						ox = oy =0;
 					});
 				function setSection(){
-					if( ox-10 < 0)ox = 10;
-					if( oy-10 < 0)oy = 10;
-					if( ox+10 > canvas.width)ox = canvas.width-10;
-					if( oy+10 > canvas.height)oy = canvas.height-10;
-					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-10, oy-10, 20, 20), ox-10,  oy-10);
+					if( ox-8 < 0)ox = 8;
+					if( oy-8 < 0)oy = 8;
+					if( ox+8 > canvas.width)ox = canvas.width-8;
+					if( oy+8 > canvas.height)oy = canvas.height-8;
+					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-8, oy-8, 16, 16), ox-8,  oy-8);
 				}
 			};
 			module.destory = function(){
@@ -828,7 +834,7 @@ $(function(){
 	$.fn.imgFilter = function(){
 		var api = {},canvas,pic,_img,status = true;
 		api.init = function(canvasObj){
-			if(!status) return;
+			//if(!status) return;
 			canvas = canvasObj;
 			_img = new Image();
 			_img.onload = function(){
@@ -840,6 +846,7 @@ $(function(){
 		}
 		api.initView = function(){
 			var filterBox = document.getElementById('fliterList').getElementsByTagName('ul')[0];
+			filterBox.innerHTML = "";
 			var EasyReflection = {
 				"美肤" : "softenFace",
 				"素描" : "sketch",
@@ -870,9 +877,12 @@ $(function(){
 
 			filterBox.innerHTML = html;
 			var canvasCtx = canvas.getContext('2d');
+			var bbox = canvas.getBoundingClientRect();
+			var scale = canvas.width/bbox.width;
 			$('.e_item').on('click',function(){
 				var img = $(this).find('img')[0];
-				canvasCtx.drawImage(img,0,0);
+				canvasCtx.clearRect(0,0,canvas.width,canvas.height);
+				canvasCtx.drawImage(img,0,0,canvas.width*scale,canvas.height*scale);
 			});
 			
 

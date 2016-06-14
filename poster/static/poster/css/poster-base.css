@@ -1501,7 +1501,6 @@ to {
 	position: relative;
 	z-index: 20;
 	display: block;
-	width: 80%;
 	min-height: 20px;
 	margin: auto;
 	word-break: break-all;
