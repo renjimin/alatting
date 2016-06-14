@@ -401,7 +401,7 @@ function buttonConfirm(ele) {
 			currentElebox.parent().parent().css('transform', 'rotate(' + ele.data('rotate') + 'deg)').attr('data-rotate', ele.data('rotate'));
 		}
 		ele.css({ 'font-size': parseInt(parseInt(ele.css('font-size')) / templateScale) + 'px' });
-		currentElebox.empty().append(ele);console.log(ele)
+		currentElebox.empty().append(ele);
 	}
 	$('#button-model').removeClass('open');
 }
@@ -593,10 +593,12 @@ var uploadSystemimg = function(eleobj) {
 function deleteElement() {
 	var imgactive = $('.cnd-element.active');
 	if(imgactive.hasClass('sys-button')) return;
+
 	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 		imgactive.remove();
 		if(imgactive.hasClass('text-element-act')){
 			$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
+			$('.ele-rotate-ctrl').remove();
 		}
 	});
 
@@ -681,6 +683,7 @@ function textEditor(type) {
 		}
 		var imgclone = $('.text-element.active').clone();
 		$('.text-element').removeClass('active');
+		imgclone.trigger('click')
 		imgclone.stop(true, false).animate({ 'top': parseInt(imgclone.css('top')) + 30 + 'px', 'left': parseInt(imgclone.css('left')) + 30 + 'px' }, 200);
 		fullcontainer.append(imgclone);
 		scale(imgclone);
@@ -694,6 +697,7 @@ function textEditor(type) {
 
 		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 			imgactive.remove();
+			$('.ele-rotate-ctrl').remove();
 		});
 
 	}

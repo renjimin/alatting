@@ -412,12 +412,12 @@ $(function () {
 				text: "主体背景",
 				callback: function () {
 					$(this).bgselect({}, function (ths, img) {
-						$('body').css('background', 'url(' + img + ')');
-						$('body').css('background-size', '100% 100%');
+						$('body').css('background-image', 'url(' + img + ')');
+						$('body').css('background-size', '100% 100%!important');
 						$('.yunye-template,.header').css('background', 'url()');
 						storageAPI.setCss("body", {
-							'background': 'url(' + img + ')',
-							'background-size': '100% 100%'
+							'background-image': 'url(' + img + ')',
+							'background-size': '100% 100%!important'
 						});
 						$('.header,.yunye-template').css('background', 'none');
 						storageAPI.setCss(".header", {'background': 'none'});

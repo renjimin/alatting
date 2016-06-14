@@ -178,7 +178,6 @@
     display: none;
 }
 .plist-end .fa{
-    display: inline-block;
     font-size: 20px;
     margin-left: 3px;
 }
@@ -309,9 +308,6 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-.price-btn-li .fa{
-    display: inline-block;
-}
 .bid-consult{
     position: absolute;
     font-size: 12px;
@@ -343,8 +339,6 @@
 }
 .accept-consult .fa{
     font-size: 20px;
-    display: inline-block;
-    vertical-align: middle;
 }
 .accept-tips{
     height: 50px;
@@ -354,8 +348,6 @@
     line-height: 50px;
 }
 .accept-tips .fa{
-    display: inline-block;
-    vertical-align: middle;
     font-size: 30px;
 }
 .price-refuse .price-btn{
