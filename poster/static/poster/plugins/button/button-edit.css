@@ -488,7 +488,10 @@ input[type="range"]::-webkit-slider-thumb {
 .systemimg-model .type-model-inner {
 	padding-top: 36px;
 }
-
+.text-editor-content{
+	white-space: normal;
+	word-break: break-all;
+}
 .yy-model {
 	width: 100%;
 	height: 100%;
