@@ -165,7 +165,9 @@
             }else if(option.pluginType == 'other'){
                 $element.html(cont);
             }else{}
-            moveCtrlPos($element);
+            if(option.pluginType == 'main'){
+                moveCtrlPos($element);
+            }
         });
         pluginBox.off('click','#tt-cont-confirm').on('click','#tt-cont-confirm',function(){
             $('.ted-text-content').fadeOut(200);
@@ -313,7 +315,9 @@
             }else{
                 $element.css('font-weight',600);
             }
-            moveCtrlPos($element);
+            if(option.pluginType == 'main'){
+                moveCtrlPos($element);
+            }
         });
         /*设置文字倾斜*/
         pluginBox.off('click','#ted-fontstyle').on('click','#ted-fontstyle',function(){
