@@ -18,36 +18,6 @@ $(function () {
     $('.yunye-template').attr('style', templateScaleOpt);
     $('.template-box').height($('.yunye-template').height() * templateScale).css({'min-height': $(window).height() - 84 - $('.header').height() + 'px'});
 
-<<<<<<< HEAD
-*/
-$('.yunye-template > .content > div').each(function(){
-	$(this).magnificPopup({
-				delegate: 'img',
-				type: 'image',
-				gallery: {
-						enabled: true,
-						tCounter: ""
-				},
-				callbacks: {
-						elementParse: function (item) {
-								item.src = item.el.attr('src');
-						}
-				}
-
-			});
-	})
-
-
-		
-
-
-});
-		
-
-
-function posterDetail(){
-	return true;
-=======
     window.onresize = function () {
         var templateScale = $('body').width() / $('.yunye-template').width();
         var templateScaleOpt = '-webkit-transform:scale(' + templateScale + ',' + templateScale + ');'
@@ -116,7 +86,6 @@ function posterDetail(){
 
 function posterDetail() {
     return true;
->>>>>>> c0c695800ca0eeef625bfb9996729428453b0152
 }
 
 function posterOrder() {
