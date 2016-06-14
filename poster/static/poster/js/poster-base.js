@@ -43,7 +43,7 @@ $(function () {
 		if(g.email)$('#dpw_email').find('input').val(g.email);
 		//日历
 		var inputs = $(".weekly input");
-		for (var i = 0; i < (inputs.length) / 2; i++) {
+		for ( i = 0 ; i < (inputs.length) / 2; i++) {
 			var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 			inputs.eq(i * 2).val(info.start);
