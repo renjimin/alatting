@@ -131,7 +131,7 @@ class QuestionnaireView(View):
         # checkbox-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_checkbox_choice"
         # checkbox-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_checkbox_comment"
         # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
-        elif len(qssortid) == 5 and qssortid[3]=='checkbox':
+        elif len(qssortid) == 5 and qssortid[3] == 'checkbox':
             if qssortid[4] == 'choice':
                 choice_sortid = int(qssortid[2])
                 if choice_sortid not in ans:
@@ -151,16 +151,24 @@ class QuestionnaireView(View):
         questions = questionset.questions()
         qlist = []
         for question in questions:
-            Type = question.get_type()
-            prev_ans = self.get_pre_ans(runinfo, question)
-            qdict = {
-                'template': 'questionnaire/%s.html' % (Type),
-                'qtype': Type,
-                'prev_ans': prev_ans,
-            }
-            if Type in QuestionProcessors:
-                qdict.update(QuestionProcessors[Type](request, question))
-            qlist.append((question, qdict))
+            is_visible = False
+            if question.audit_status in [0, 1]:
+                if question.poster:
+                    if question.poster.pk == runinfo.poster.pk:
+                        is_visible = True
+            if question.audit_status==2:
+                is_visible = True
+            if is_visible:
+                Type = question.get_type()
+                prev_ans = self.get_pre_ans(runinfo, question)
+                qdict = {
+                    'template': 'questionnaire/%s.html' % (Type),
+                    'qtype': Type,
+                    'prev_ans': prev_ans,
+                }
+                if Type in QuestionProcessors:
+                    qdict.update(QuestionProcessors[Type](request, question))
+                qlist.append((question, qdict))
 
         prev_url = "javascript:void(0)"
         if questionset.prev():
@@ -357,9 +365,9 @@ class AnswerDetailView(TemplateView):
                 poster_id=poster_id, questionnaire__role=role,
                 isactive=True).order_by('-completed'):
             results.setdefault(his, [])
-            for ans in Answer.objects.filter(poster_id=poster_id, 
-                question__questionset__questionnaire=qu, 
-                runid=his.runid):
+            for ans in Answer.objects.filter(poster_id=poster_id,
+                                             question__questionset__questionnaire=qu,
+                                             runid=his.runid):
                 results[his].append(ans)
         context['results'] = results
         return context
