@@ -90,7 +90,7 @@ header {
     left: 10px;
     width: 30px;
     height: 30px;
-    font-size: 30px;
+    font-size: 25px;
 }
 .user-level{
     position: absolute;
@@ -108,7 +108,7 @@ header {
     left: 10px;
     width: 30px;
     height: 30px;
-    font-size:30px;
+    font-size:25px;
 }
 .user-info{
     line-height: 120px;
@@ -290,7 +290,7 @@ header {
 .p-ctrl-li .ctrl-icon{
     width: 30px;
     height: 30px;
-    font-size: 28px;
+    font-size: 24px;
     color: #808080;
     top: 5px;
 }
