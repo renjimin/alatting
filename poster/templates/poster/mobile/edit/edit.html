@@ -43,7 +43,8 @@
                 createPage: "{% url 'poster_api:poster_pages' %}",
                 save: "{% url 'poster_api:poster_save' poster.id %}",
                 publish: "{% url 'poster_api:poster_publish' poster.id %}",
-                show: "{% url 'posters:show' poster.id %}"
+                show: "{% url 'posters:show' poster.id %}",
+                posterpages: "{% url "poster_api:poster_pages" %}"
             },
             globalButton: {
                 detail: "{% url 'survey:answer' poster_id=poster.id %}?role=creator",

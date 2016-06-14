@@ -177,7 +177,6 @@ class LoginView(FormView):
     """用户登陆，支持邮箱登陆、手机号登陆"""
     template_name = "account/mobile/login.html"
     form_class = LoginForm
-    success_url = settings.LOGIN_REDIRECT_URL
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -210,7 +209,7 @@ class LoginView(FormView):
         if user is not None:
             request = super(LoginView, self).get_context_data().get('view').request
             login(request, user)
-            next_url = self.request.GET.get('next', None)
+            next_url = self.request.POST.get('next', None)
             if next_url:
                 self.success_url = next_url
             return super(LoginView, self).form_valid(form)
@@ -227,10 +226,12 @@ class LoginView(FormView):
         return super(LoginView, self).get(request, *args, **kwargs)
 
     def get_success_url(self):
-        if is_mobile(self.request):
-            return reverse('website:mobile_poster_index')
-        else:
-            return reverse('posters_pc:index')
+        if not hasattr(self, 'success_url') or not self.success_url:
+            if is_mobile(self.request):
+                return reverse('website:mobile_poster_index')
+            else:
+                return reverse('posters_pc:index')
+        return self.success_url
 
 
 class PosterIndexView(AccountPosterBaseView):

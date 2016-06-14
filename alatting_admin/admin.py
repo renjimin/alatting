@@ -19,6 +19,7 @@ from survey.models import (
 
 
 class AlattingAdminModelMixin(object):
+
     def get_list_display(self, request):
         fields = super(AlattingAdminModelMixin, self).get_list_display(request)
         if fields and fields[0] == '__str__':
@@ -189,40 +190,55 @@ class SystemMusicAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 class SystemBackgroundAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
 
+
 class InputInline(admin.StackedInline):
     model = Input
+
+
 @admin.register(Choice)
 class ChoiceAdmin(admin.ModelAdmin):
-    inlines = [InputInline,]
+    inlines = [InputInline, ]
+    list_display = (
+        'id', 'text', 'value', 'question', 'sortid')
 
 
 class ChoiceInline(admin.StackedInline):
     model = Choice
-    fields = ('question', 'sortid', 'value','text',
-        'changeform_link')
+    fields = ('question', 'sortid', 'value', 'text',
+              'changeform_link')
     readonly_fields = ('changeform_link', )
+
+
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
-    inlines = [ChoiceInline,]
+    inlines = [ChoiceInline, ]
+    list_display = (
+        'id', 'text', 'short_text', 'type', 'questionset', 'sortid', 'required')
 
 
 class QuestionInline(admin.StackedInline):
     model = Question
-    fields = ('questionset', 'sortid', 'text','short_text',
-        'required','regex','errmsg', 'type','changeform_link')
+    fields = ('questionset', 'sortid', 'text', 'short_text',
+              'required', 'regex', 'errmsg', 'type', 'changeform_link')
     readonly_fields = ('changeform_link', )
+
+
 @admin.register(QuestionSet)
 class QuestionSetAdmin(admin.ModelAdmin):
-    inlines = [QuestionInline,]
+    inlines = [QuestionInline, ]
+    list_display = ('id', 'heading', 'questionnaire', 'sortid')
 
 
 class QuestionSetLinkInline(admin.TabularInline):
     model = QuestionSet
-    fields = ('questionnaire', 'sortid', 'heading','changeform_link')
+    fields = ('questionnaire', 'sortid', 'heading', 'changeform_link')
     readonly_fields = ('changeform_link', )
+
+
 @admin.register(Questionnaire)
 class QuestionnaireAdmin(admin.ModelAdmin):
-    inlines = [QuestionSetLinkInline,]
+    inlines = [QuestionSetLinkInline, ]
+    list_display = ('id', 'name', 'main_category', 'sub_category', 'role')
 
 
 @admin.register(Answer)

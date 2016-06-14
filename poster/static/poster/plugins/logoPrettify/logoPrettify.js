@@ -1,8 +1,16 @@
 $(function(){
+	$.fn.logoHistory = function(){
+
+	};
+});
+
+$(function(){
 	$.fn.logoPrettify = function(){
 		var api = {};
 		var canvas,selectCanvas,ctx,currentPannel,hasImage;
-
+		var touchmovePrevetFunction = function(e){
+			if($(e.target).closest("section").length === 0)e.preventDefault();
+		};
 		api.init = function(url){
 			canvas = document.getElementById("editCanvas");
 			ctx = canvas.getContext('2d');
@@ -15,6 +23,7 @@ $(function(){
 				api.setImage(url);
 				hasImage = true;
 			}
+			document.addEventListener("touchmove",touchmovePrevetFunction);
 		};
 		api.destory = function(){
 			$(".closeLogoPrettify").off("click");
@@ -27,12 +36,14 @@ $(function(){
 			}
 			currentPannel = null;
 			$("#logoPrettify .editMenuGroup section").hide();
+			document.removeEventListener("touchmove",touchmovePrevetFunction);
+			$.fn.imgFilter.destroy();
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
 				api.destory();
 			});
-			$(".editMenuGroup button").on("click",function(e){
+			$(".editMenuGroup .btnGroup button").on("click",function(e){
 				$(this).addClass('active').siblings().removeClass('active');
 				api.switchPannel($(e.target).data("pannel"));
 			});
@@ -134,26 +145,6 @@ $(function(){
 			var module = {};
 			module.init = function(){
 				$.fn.imgFilter.init(canvas);
-				/*$.fn.imgFilter.invertColor(canvas,document.getElementById('invertColor'));
-				$.fn.imgFilter.grayColor(canvas,document.getElementById('grayColor'));
-				$.fn.imgFilter.rilievo(canvas,document.getElementById('rilievo'));
-				$.fn.imgFilter.mirror(canvas,document.getElementById('mirror'));
-				$("#editPannel_2 canvas").on("click",function(e){
-					switch(e.target.id){
-						case "invertColor":
-							$.fn.imgFilter.invertColor(canvas,canvas);
-							break;
-						case "grayColor":
-							$.fn.imgFilter.grayColor(canvas,canvas);
-							break;
-						case "rilievo":
-							$.fn.imgFilter.rilievo(canvas,canvas);
-							break;
-						case "mirror":
-							$.fn.imgFilter.mirror(canvas,canvas);
-							break;
-					}
-				});*/
 			};
 			module.destory = function(){
 				$("#editPannel_2 canvas").off("click");
@@ -189,30 +180,66 @@ $(function(){
 		api.editPannel_5 = function(){
 			var module = {};
 			var isClearing = false;
+			var ox,oy,dx,dy,dis,partNum,xDiff,yDiff;
 
 			module.init = function(){
 				if(!hasImage)return;
 
-				$.fn.imgFilter1.blur(canvas.originCanvas,canvas);
-				$("#selectCanvas").on("mousedown touchstart",function(){
-					isClearing = true;
+				ox = oy =0;
+				$("#editPannel_5 input").on("change",function(e){
+					var value = $("#editPannel_5 input").val();
+					var level  = value<20 ? 2 : value<40 ? 3 : value<60 ? 4 : value<80 ? 5 : value<100 ? 6 : 7;
+					var img = new Image();
+					img.onload = function(){
+						stackBlurImage(img,{width:canvas.width,height:canvas.height},canvas,value,true,function(){return;});
+					};
+					img.src = canvas.originCanvas.toDataURL("image/png");
 				});
-				$("#selectCanvas").on("mousemove touchmove",function(e){
-					if( !isClearing )return;
-					var x = e.clientX||e.originalEvent.touches[0].clientX,
-						y = e.clientY||e.originalEvent.touches[0].clientY,
-						pos = $.fn.canvasHelper.windowToCanvas(x, y, canvas);
-					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(pos.x-10, pos.y-10, 20, 20), pos.x-10,  pos.y-10);
-				});
-				$("#selectCanvas").on("mouseup touchend",function(){
-					isClearing = false;
-				});
+				$("#selectCanvas")
+					.on("mousedown touchstart",function(){
+						isClearing = true;
+					})
+					.on("mousemove touchmove",function(e){
+						if( !isClearing )return;
+						var x = e.clientX||e.originalEvent.touches[0].clientX,
+							y = e.clientY||e.originalEvent.touches[0].clientY,
+							pos = $.fn.canvasHelper.windowToCanvas(x, y, canvas);
+						if(ox && oy){
+							dx = pos.x - ox;
+							dy = pos.y - oy;
+							dis = Math.sqrt(dx*dx + dy*dy);
+							partNum = Math.floor(dis/1);
+							xDiff = dx/partNum;
+							yDiff = dy/partNum;
+							for( var i = 1 ; i < partNum ; i++ ){
+								ox += xDiff ;
+								oy += yDiff ;
+								setSection();
+							}
+						}else{
+							ox += pos.x;
+							oy += pos.y;
+							setSection();
+						}
+					})
+					.on("mouseup touchend",function(){
+						isClearing = false;
+						ox = oy =0;
+					});
+				function setSection(){
+					if( ox-10 < 0)ox = 10;
+					if( oy-10 < 0)oy = 10;
+					if( ox+10 > canvas.width)ox = canvas.width-10;
+					if( oy+10 > canvas.height)oy = canvas.height-10;
+					ctx.putImageData(canvas.originCanvas.getContext("2d").getImageData(ox-10, oy-10, 20, 20), ox-10,  oy-10);
+				}
 			};
 			module.destory = function(){
 				isClearing = false;
 				$("#selectCanvas").off("mousedown touchstart");
 				$("#selectCanvas").off("mousemove touchmove");
 				$("#selectCanvas").off("mouseup touchend");
+
 			};
 			return module;
 		}();
@@ -258,7 +285,7 @@ $(function(){
 			}
 			function match(x, y) {
 				var alpha = get(x, y);
-				return alpha == null || alpha >= threshold;
+				return alpha === null || alpha >= threshold;
 			}
 			function isEdge(x, y) {
 				return !match(x - 1, y - 1) || !match(x + 0, y - 1) || !match(x + 1, y - 1) || !match(x - 1, y + 0) || false || !match(x + 1, y + 0) || !match(x - 1, y + 1) || !match(x + 0, y + 1) || !match(x + 1, y + 1);
@@ -285,7 +312,7 @@ $(function(){
 			for (var y = 0; y < height; y++) {
 				for (var x = 0; x < width; x++) {
 					var offset = ((y * width) + x) * 4;
-					var isEdge = outline[offset] == 0x00;
+					var isEdge = outline[offset] === 0x00;
 
 					if (isEdge) {
 						var value = this.ant(x, y, antOffset);
@@ -378,6 +405,9 @@ $(function(){
 			});
 			$(".editCanvasContainer").off("click").on("click",function(e){
 				if(document.getElementById("selectCanvas").selectedPixels)api.destorySelection();
+			});
+			$("#mwTolerance").on("change",function(e){
+				api.tolerance = $("#mwTolerance").val()/255;
 			});
 		};
 		api.deactive = function(){
@@ -759,7 +789,6 @@ $(
 						defaults.y = rTop*scale;
 						cropCtx.clearRect(0,0,defaults.swidth*scale,defaults.sheight*scale);
 						cropCtx.drawImage(defaults.img, defaults.x , defaults.y, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
-
 					}
 				});
 
@@ -775,19 +804,21 @@ $(
 
 			var scale = canvas.width/canvas.getBoundingClientRect().width;
 			var originCanvasData = canvas.originCanvas.getContext('2d').getImageData(defaults.x , defaults.y , defaults.swidth*scale, defaults.sheight*scale);
-			var imgData = cropCanvasCtx.getImageData(0,0,cropCanvas.width,cropCanvas.height);
+			var imgData = cropCanvasCtx.getImageData(0,0,cropCanvas.width*scale,cropCanvas.height*scale);
 			
-			canvas.originCanvas.width = canvas.width = cropCanvas.width;
-			canvas.originCanvas.height = canvas.height = cropCanvas.height;
+			canvas.originCanvas.width = canvas.width = cropCanvas.width*scale;
+			canvas.originCanvas.height = canvas.height = cropCanvas.height*scale;
 			canvas.style.width = cropCanvas.width + 'px';
 			canvas.style.height = cropCanvas.height + 'px';
 			canvasCtx.putImageData(imgData,0,0);
 			canvas.originCanvas.getContext('2d').putImageData(originCanvasData,0,0);
 
-			//convasCtx.drawImage(defaults.img, 0 , 0, defaults.swidth*scale, defaults.sheight*scale, 0, 0, defaults.swidth, defaults.sheight);
+			api.destory();
 		};
 		api.destory = function(){
 			imgCrop.closeCrop();
+			defaults.x = 0;
+			defaults.y = 0;
 		};
 		
 		return api;
@@ -795,13 +826,15 @@ $(
 );
 $(function(){
 	$.fn.imgFilter = function(){
-		var api = {},canvas,pic,_img;
+		var api = {},canvas,pic,_img,status = true;
 		api.init = function(canvasObj){
+			if(!status) return;
 			canvas = canvasObj;
 			_img = new Image();
 			_img.onload = function(){
 				pic = AlloyImage(this);
 				api.initView();
+				status = false;
 			}
 			_img.src = canvas.toDataURL("image/png");			
 		}
@@ -842,6 +875,12 @@ $(function(){
 				canvasCtx.drawImage(img,0,0);
 			});
 			
+
+		}
+		api.destroy = function(){
+			status = true;
+			var filterBox = document.getElementById('fliterList').getElementsByTagName('ul')[0];
+			filterBox.innerHTML = "";
 
 		}
 		return api;
@@ -979,19 +1018,21 @@ $(function(){
 				} 
 			});
 		};
-		api.blur = function(source,target){
+		api.blur = function(source,target,level){
+			if( !level )level = 2;
+			var level2 = level * level;
 			helper(source,target,function(binaryData,len,w,h){
 				var tempCanvasData = source.getContext("2d").getImageData(0, 0, source.width, source.height).data;  
-				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0;  
+				var sumred = 0.0, sumgreen = 0.0, sumblue = 0.0,suma = 0.0;  
 				for ( var x = 0; x < w; x++){
 					for ( var y = 0; y < h; y++){ 
 						var idx = (x + y * w) * 4;         
-						for(var subCol=-3; subCol<=3; subCol++) {  
+						for(var subCol = -1*level ; subCol <= level ; subCol++) {  
 							var colOff = subCol + x;  
 							if(colOff <0 || colOff >= w) {  
 								colOff = 0;  
 							}  
-							for(var subRow=-3; subRow<=3; subRow++) {
+							for(var subRow = -1*level ; subRow <= level; subRow++) {
 								var rowOff = subRow + y;  
 								if(rowOff < 0 || rowOff >= h) {  
 									rowOff = 0;  
@@ -999,22 +1040,26 @@ $(function(){
 								var idx2 = (colOff + rowOff * w) * 4;      
 								var r = tempCanvasData[idx2 + 0];      
 								var g = tempCanvasData[idx2 + 1];      
-								var b = tempCanvasData[idx2 + 2];  
+								var b = tempCanvasData[idx2 + 2];
+								var a = tempCanvasData[idx2 + 3];
 								sumred += r;  
 								sumgreen += g;  
 								sumblue += b;  
+								suma += a;  
 							}  
 						}  
-						var nr = (sumred / 25.0);  
-						var ng = (sumgreen / 25.0);  
-						var nb = (sumblue / 25.0); 
+						var nr = (sumred / level2);  
+						var ng = (sumgreen / level2);  
+						var nb = (sumblue / level2); 
+						var na = (suma / level2); 
 						sumred = 0.0;  
 						sumgreen = 0.0;  
 						sumblue = 0.0;
+						suma = 0.0;
 						binaryData[idx + 0] = nr;
 						binaryData[idx + 1] = ng;
 						binaryData[idx + 2] = nb;
-						binaryData[idx + 3] = tempCanvasData[idx2 + 3];
+						binaryData[idx + 3] = na;
 					}
 				}
 			});

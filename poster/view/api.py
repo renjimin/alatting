@@ -128,6 +128,14 @@ class PosterPageListView(ListCreateAPIView):
     model = PosterPage
     queryset = PosterPage.objects.all()
     serializer_class = PosterPageSerializer
+    filter_backends = (filters.DjangoFilterBackend, )
+    filter_fields = ('poster_id', )
+
+    def get_queryset(self):
+        qs = super(PosterPageListView, self).get_queryset()
+        if self.request.GET.get('exclude', ''):
+            qs = qs.exclude(pk=self.request.GET.get('exclude'))
+        return qs.order_by('index')
 
     def post(self, request, *args, **kwargs):
         return super(PosterPageListView, self).post(request, *args, **kwargs)
@@ -198,10 +206,10 @@ class PosterPageDetailView(RetrieveUpdateAPIView):
 class CheckPosterUniqueNameView(APIView):
 
     def get(self, request, *args, **kwargs):
-        name = request.GET.get('name', None)
+        slug = request.GET.get('slug', None)
         exists = True
-        if name:
-            if not Poster.objects.filter(unique_name=name).exists():
+        if slug:
+            if not Poster.objects.filter(slug=slug).exists():
                 exists = False
         return Response({'exists': exists})
 

@@ -64,6 +64,7 @@
         var posterStatsDataURL = "{% url 'api:statistics-poster' poster_id=object.id %}";
         var createScreenShotURL =  "{% url 'website:posterCapture' object.id%}";
         var yunyeEditorGlobal = {
+            posterPageId: "{{ index_page.id }}",
             posterId: "{{ poster.id }}",
             address: "{{ poster.address }}",
             mobile: "{{ poster.mobile }}",
@@ -73,7 +74,14 @@
             logo_title: "{{ poster.logo_title }}",
             logo_image: "{{ poster.logo_image.file.url }}",
             lifetime: "{{ poster.lifetime }}",
-            updated_at: "{{ poster.updated_at }}"
+            updated_at: "{{ poster.updated_at }}",
+            API: {
+                templates: "{% url 'poster_api:templates' %}",
+                save: "{% url 'poster_api:poster_save' poster.id %}",
+                publish: "{% url 'poster_api:poster_publish' poster.id %}",
+                show: "{% url 'posters:show' poster.id %}",
+                posterpages: "{% url "poster_api:poster_pages" %}"
+            }
         }
     </script>
     <script src="{% static 'libs/common/jquery1.11.3.min.js' %}"></script>
@@ -96,8 +104,9 @@
         .bottom-container .bottom-menu {
             background: #000;
         }
-        {{ index_page.render_css_to_string|safe }}
     </style>
+    <link rel="stylesheet" id="pageStyle" href="{{ index_page.css.url }}"/>
+
     <link rel="stylesheet" href="{% static 'poster/css/show.css' %}"/>
 {% endblock %}
 
@@ -107,7 +116,9 @@
 
 {% block base_body_inner %}
     {% include "poster/mobile/show/header.html" %}
-    {{ index_page.render_html_to_string|safe }}
+    {% for page in pages %}
+        {{ page.render_html_to_string|safe }}
+    {% endfor %}
 {% endblock %}
 
 {% block base_body_footer %}
@@ -117,6 +128,11 @@
     {% if not request.GET.capture %}
         {% include 'poster/mobile/show/comment.html' %}
     {% endif %}
+    <script src="{% static 'libs/common/jquery.tmpl.min.js' %}"></script>
+    <script src="{% static 'poster/plugins/change-template/change-template.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'poster/plugins/change-template/change-template.css' %}">
+    {% include "poster/mobile/edit/plugins/change-template.html" %}
+
     <script src="{% static 'libs/common/Chart1.0.1.min.js' %}"></script>
     <script src="{% static 'libs/dotnut/js/dotnut.js' %}"></script>
     <script src="{% static 'libs/star_rating/js/star-rating.min.js' %}"></script>

@@ -41,7 +41,7 @@
         };
 
         this.getPageInitData = function(){
-            var pd = {}, key = self.posterPageId;
+            var pd = {}, key = self.getPosterPageId();
             pd[key] = self.getPageCleanData();
             return pd;
         };
@@ -73,7 +73,7 @@
         };
 
         this.getPosterPageData = function(){
-            return self.getPosterPagesData()[self.posterPageId];
+            return self.getPosterPagesData()[self.getPosterPageId()];
         };
 
         this.getHtmlObj = function(){
@@ -96,7 +96,7 @@
 
         this.setAttr = function (target, name, value) {
             var posterData = self.getPosterData();
-            posterData["pages"][self.posterPageId][target][name] = value;
+            posterData["pages"][self.getPosterPageId()][target][name] = value;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);
         };
@@ -129,7 +129,7 @@
             // base64 encode html
             var posterData = self.getPosterData(),
                 b64 = $.base64.encode($(domSelector)[0].outerHTML);
-            posterData['pages'][self.posterPageId]['html'] = b64;
+            posterData['pages'][self.getPosterPageId()]['html'] = b64;
             self.storage.set(self.storageKey, posterData);
             return self.storage.get(self.storageKey);
         };
@@ -140,7 +140,7 @@
         };
 
         this.cleanPage = function(){
-            var pageId = self.posterPageId;
+            var pageId = self.getPosterPageId();
             if(arguments.length > 0){
                 pageId = arguments[0];
             }
@@ -171,7 +171,7 @@
                 storage.set(key, self.getInitData());
             }else{
                 var poster = storage.get(key);
-                var page = poster['pages'][self.posterPageId];
+                var page = poster['pages'][self.getPosterPageId()];
                 if(!page){
                     poster["pages"] = $.extend(
                         poster["pages"], self.getPageInitData()

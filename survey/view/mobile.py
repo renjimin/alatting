@@ -17,13 +17,6 @@ from account.models import Person
 from survey.form.forms import *
 
 
-class IndexView(TemplateView):
-    template_name = 'survey/mobile/questionset.html'
-
-    def get_context_data(self, **kwargs):
-        context = super(IndexView, self).get_context_data(**kwargs)
-        return context
-
 '''
 显示空白调查问卷
 '''
@@ -61,40 +54,16 @@ class StartView(RedirectView):
         poster = get_object_or_404(Poster, pk=self.kwargs['poster_id'])
         role = self.request.GET.get('role', '')
         qu = Questionnaire.objects.filter(main_category=poster.main_category,
+                                          sub_category=poster.sub_category,
                                           role=role).first()
+        if not qu:
+            qu = Questionnaire.objects.filter(main_category=poster.main_category,
+                                              sub_category__isnull=True,
+                                              role=role).first()
         if not qu:
             kwargs = {'poster_id': poster.pk}
             return '%s?role=%s' % (
                 reverse('survey:questionnaireblank', kwargs=kwargs), role)
-
-        su = self.request.user
-        qs = qu.questionsets()[0]
-        run = RunInfo(subject=su, questionset=qs, poster=poster)
-        run.save()
-
-        kwargs = {'runid': run.id}
-        return reverse('survey:questionnaire', kwargs=kwargs)
-
-
-class StartShowView(RedirectView):
-
-    def get_redirect_url(self, *args, **kwargs):
-        category = get_object_or_404(Category, pk=self.kwargs['cat_id'])
-        if category.parent:
-            main_category = category.parent
-        else:
-            main_category = category
-
-        poster = Poster.objects.latest('id')
-        role = self.request.GET.get('role', '')
-        qu = Questionnaire.objects.filter(main_category=main_category,
-                                          role=role).first()
-        if not qu:
-            kwargs = {'poster_id': poster.pk}
-            return '%s?role=%s' % (
-                reverse('survey:questionnaireblank', kwargs=kwargs),
-                role
-            )
 
         su = self.request.user
         qs = qu.questionsets()[0]
@@ -371,7 +340,15 @@ class AnswerDetailView(TemplateView):
         poster_id = self.kwargs['poster_id']
         role = self.request.GET.get('role', '')
 
-        poster = Poster.objects.filter(pk=poster_id).first()
+        poster = get_object_or_404(Poster, pk=poster_id)
+        qu = Questionnaire.objects.filter(main_category=poster.main_category,
+                                          sub_category=poster.sub_category,
+                                          role=role).first()
+        if not qu:
+            qu = Questionnaire.objects.filter(main_category=poster.main_category,
+                                              sub_category__isnull=True,
+                                              role=role).first()
+
         context['poster'] = poster
         context['person'] = Person.objects.filter(user=poster.creator).first()
 
@@ -381,7 +358,7 @@ class AnswerDetailView(TemplateView):
                 isactive=True).order_by('-completed'):
             results.setdefault(his, [])
             for ans in Answer.objects.filter(poster_id=poster_id, 
-                question__questionset__questionnaire__role=role, 
+                question__questionset__questionnaire=qu, 
                 runid=his.runid):
                 results[his].append(ans)
         context['results'] = results

@@ -15,6 +15,13 @@ $(function () {
 		//简述
 		if(g.short_description)$("#short_description").html(g.short_description);
 		if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
+		if(g.short_description.length>40){
+			$("#short_description").css("fontSize","12px");
+		}else if(g.short_description.length > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
 		//logo
 		if(pageHeadData.logo_title)$('.header-logo h2').html(pageHeadData.logo_title);
 		if(storageAPI.getHead("logo_img"))$('.header-logo img').attr("src",storageAPI.getHead("logo_img"));
@@ -28,7 +35,7 @@ $(function () {
 		//日历
 		var inputs = $(".weekly input");
 		for (var i = 0; i < (inputs.length) / 2; i++) {
-			var weekName = (i == 6) ? "Sunday" : (i == 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
+			var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 			inputs.eq(i * 2).val(info.start);
 			inputs.eq(i * 2 + 1).val(info.end);
@@ -40,8 +47,8 @@ $(function () {
 		}
 
 		/**读取缓存背景图片*/
-		if (storageAPI.getCss(".header")) {
-			$('.header').css(storageAPI.getCss(".header"));
+		if (storageAPI.getCss(".header-bar")) {
+			$('.header-bar').css(storageAPI.getCss(".header-bar"));
 		}
 		if (storageAPI.getCss(".yunye-template")) {
 			$('.yunye-template').css(storageAPI.getCss(".yunye-template"));
@@ -60,6 +67,9 @@ $(function () {
 		}
 		if (storageAPI.getCss(".abutton-group a")) {
 			$(".abutton-group a").css(storageAPI.getCss(".abutton-group a"));
+		}
+		if(storageAPI.getCss(".header-info")){
+			$(".header-info").css(storageAPI.getCss(".header-info"));
 		}
 
 		/*读取主体部分*/
@@ -85,7 +95,7 @@ $(function () {
 		},
 		lifetime_special : {}
 	};
-	if (!(yunyeEditorGlobal.updated_at > pageHeadData.updated_at)) {
+	if (yunyeEditorGlobal.updated_at <= pageHeadData.updated_at) {
 		initData();
 	}
 	templateScaleFun();
@@ -96,20 +106,20 @@ $(function () {
 	
 	function templateScaleFun(){
 		var templateScale = $('body').width()/$('.yunye-template').width();
-		 var templateScaleOpt ='-webkit-transform:scale('+templateScale+','+templateScale+');'
-			 +   '-moz-transform:scale('+templateScale+','+templateScale+');'
-			 +   '-o-transform:scale('+templateScale+','+templateScale+');'
-			 +  '-ms-transform:scale('+templateScale+','+templateScale+');'
-			 +      'transform:scale('+templateScale+','+templateScale+');';
-			 if($('.template-box').length <= 0){
-				var templateBox = $('<div class="template-box"></div>');
-				$('.yunye-template').parent().append(templateBox);
-				templateBox.append($('.yunye-template'));
-			 }
-		
+		var templateScaleOpt = "";
+		templateScaleOpt += '-webkit-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += '-moz-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += '-o-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += '-ms-transform:scale('+templateScale+','+templateScale+');';
+		templateScaleOpt += 'transform:scale('+templateScale+','+templateScale+');';
+
+		if($('.template-box').length <= 0){
+			var templateBox = $('<div class="template-box"></div>');
+			$('.yunye-template').parent().append(templateBox);
+			templateBox.append($('.yunye-template'));
+		}
 		$('.yunye-template').attr('style',templateScaleOpt);
 		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
-		$('#button-model .btn-container').attr('style',templateScaleOpt);
 	}
 	//失去焦点预判输入
 	$('#emailInput').blur(function(){
@@ -136,7 +146,7 @@ $(function () {
 
 
 	//弹出菜单
-	$(".dropdown-toggle:not(#share-toggle)").registerDropDown();
+	$(".dropdown-toggle").registerDropDown();
 	$(".abutton-contact .ico-phone").registerDropDown({
 		id: 'dpw_phone',
 		offsetYPercent: 50,
@@ -169,16 +179,78 @@ $(function () {
 		});
 		$('#ted-edit').trigger('click');
 	});
-	$('.desc').click(function(){
-		$('#text-model').animate({'bottom':'0px'},200);
-		$('.text-element').removeClass('text-element-act');
-		$('.ele-rotate-ctrl').remove();
-		$("#short_description").tEditor({
-			textDelete: false,
-			textCopy: false,
-			pluginType: 'other'
-		});
-		$('#ted-edit').trigger('click');
+
+	//限制简述长度
+	var limitShortDesciptin = function(e){
+		if(e.target.getAttribute('data-target')  !== "short_description")return;
+		var str = e.currentTarget.value;
+		var len,cStr = 0,eStr = 0,i ;
+		for (i = 0; i < str.length ; i++) {    
+			if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
+				cStr++;
+			 } else {    
+				eStr++;
+			}
+			len = cStr*1.75 +eStr;
+			if( len > 49){
+				$("#tt-content").val(str.substr(0,i));
+				break;
+			}
+		}
+		if(len > 40 ){
+			$("#short_description").css("fontSize","12px");
+		}else if(len > 32 ){
+			$("#short_description").css("fontSize","14px");
+		}else{
+			$("#short_description").css("fontSize","16px");
+		}
+	};
+	$('.desc').registerPopUp({
+		id: 'dpw_desc',
+		offsetYPercent: 100,
+		list: [{
+				icon: "glyphicon glyphicon-font",
+				text: "输入文字",
+				callback: function () {
+					$('#text-model').animate({'bottom':'0px'},200);
+					$('.text-element').removeClass('text-element-act');
+					$('.ele-rotate-ctrl').remove();
+					$("#short_description").tEditor({
+						textDelete: false,
+						textCopy: false,
+						pluginType: 'other'
+					});
+					$(".tt-cont-main").off("input propertychange",limitShortDesciptin).on("input propertychange","#tt-content",limitShortDesciptin);
+					$('#ted-edit').trigger('click');
+				}
+			},
+			{
+				icon: "glyphicon glyphicon-adjust",
+				text: " 简介颜色",
+				callback: function () {
+					$("#colorBox").css('top', $('.content').offset().top).show();
+					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						$('.header-info').css('background', color);
+						storageAPI.setCss(".header-info", {'background': color});
+					});
+				}
+			},
+			{
+				icon: "glyphicon glyphicon-picture",
+				text: " 上传图片",
+				callback: function () {
+					//$.fn.logoPrettify.init($('.header-info').css('background', 'url'));
+					$.fn.uploads.showDialog(function (data) {
+						$('.header-info').css('background', 'url(' + data.file + ')');
+						$('.header-info').css('background-size', '100% 100%');
+						storageAPI.setCss(".header-info", {
+							'background': 'url(' + data.file + ')',
+							'background-size': '100% 100%'
+						});
+					});
+				}
+			}],
+		followMouse: true
 	});
 	$('.header-logo').registerPopUp({
 		id: 'dpw_menu',
@@ -225,8 +297,8 @@ $(function () {
 				text: " 颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.mask').height() + $('.mask').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.header').css('background', color);
+					$('.header').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss(".header", {'background': color});
 					});
 				}
@@ -235,10 +307,10 @@ $(function () {
 				icon: "icon ico-system-pic",
 				text: "背景图片",
 				callback: function () {
-					$('.header').bgselect({}, function (ths, img) {
+					$('.header-bar').bgselect({}, function (ths, img) {
 						ths.css('background', 'url(' + img + ')');
 						ths.css('background-size', '100% 100%');
-						storageAPI.setCss(".header", {
+						storageAPI.setCss(".header-bar", {
 							'background': 'url(' + img + ')',
 							'background-size': '100% 100%'
 						});
@@ -255,9 +327,9 @@ $(function () {
 							yyAlert("上传图片格式错误");
 							return false;
 						}
-						$('.header').css('background', 'url(' + data.file + ')');
-						$('.header').css('background-size', '100% 100%');
-						storageAPI.setCss(".header", {
+						$('.header-bar').css('background', 'url(' + data.file + ')');
+						$('.header-bar').css('background-size', '100% 100%');
+						storageAPI.setCss(".header-bar", {
 							'background': 'url(' + data.file + ')',
 							'background-size': '100% 100%'
 						});
@@ -292,7 +364,7 @@ $(function () {
 							'background-size': '100% 100%'
 						});
 						$(".system-item").fadeOut(500);
-					})
+					});
 				}
 			},
 			{
@@ -318,11 +390,11 @@ $(function () {
 				text: " 顶/底颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.bar-header,.bar-footer').css('background', color);
+					$('.bar-header,.bar-footer').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss(".bar-header", {'background': color});
 						storageAPI.setCss(".bar-footer", {'background': color});
-						storageAPI.setCss(".bottom-container > .bottom-menu", {'background': color})
+						storageAPI.setCss(".bottom-container > .bottom-menu", {'background': color});
 					});
 				}
 			},
@@ -352,9 +424,8 @@ $(function () {
 				text: " 主体颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('body').css('background', color);
-						$('.yunye-template,.header').css('background', color);
+					$('body,.yunye-template,.header').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss("body", {'background': color});
 						//storageAPI.setCss(".bar-header", {'background': color});
 						//storageAPI.setCss(".bar-footer", {'background': color});
@@ -383,8 +454,8 @@ $(function () {
 				text: "颜色",
 				callback: function () {
 					$("#colorBox").css('top', $('.content').offset().top).show();
-					$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-						$('.qrcode-inner .qrcode,.abutton-group a').css('background', color);
+					$('.qrcode-inner .qrcode,.abutton-group a').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+						ths.css('background', color);
 						storageAPI.setCss(".qrcode-inner .qrcode", {'background': color});
 						storageAPI.setCss(".abutton-group a", {'background': color});
 					});
@@ -436,7 +507,8 @@ $(function () {
 
 	$(document).on("clsdp", function (e,target) {
 		$("#colorBox").hide();
-		$('#text-model').animate({'bottom':'-265px'},200);
+		editor('close');
+		//$('#text-model').animate({'bottom':'-265px'},200);
 		$('#systemimg-model,#button-model,.tab-item').removeClass('open');
 		$('.cnd-element').removeClass('active');
 		$(".music-link-layout-wrap").remove();
@@ -447,6 +519,7 @@ $(function () {
 			$('.text-element').removeClass('text-element-act');
 			$('.ele-rotate-ctrl').remove();
 		}
+		$('.bar-footer').removeClass('footer-hide');
 	});
 
 	$('body').on('click', function (event) {
@@ -468,7 +541,7 @@ $(function () {
 		window.clickItmList = window.clickItmList || ["#dp", "#colorBox"];
 		var list = window.clickItmList;
 		for (var i in list) {var listitem = list[i];
-			if ($(event.target).closest(listitem).length != 0)return;
+			if ($(event.target).closest(listitem).length !== 0)return;
 		}
 		//点击页面空白区域行为
 		$('#dp').removeClass('open');
@@ -478,10 +551,6 @@ $(function () {
 	$('#dpw_title input').on('change', function (event) {
 		$('.edit-bar-header .title p').html(event.currentTarget.value);
 		storageAPI.setHead("unique_name", event.currentTarget.value);
-	});
-	$('#dpw_desc textarea').on('change', function (event) {
-		$('.header-info .desc span').html(event.currentTarget.value);
-		storageAPI.setHead("short_description", event.currentTarget.value);
 	});
 	$('.dayinfo input').on('change', function (event) {
 		var inputs = $('#dpw_clock input');
@@ -498,7 +567,7 @@ $(function () {
 					year = parseInt($("#year").val()),
 					month = parseInt($("#month").val()),
 					week = new Date($("#year").val() , parseInt($("#month").val()) - 1, $(".hover").html()).getDay(),
-					weekName = (week == 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
+					weekName = (week === 0) ? "Sunday" : (week == 1) ? "Monday" : (week == 2) ? "Tuesday" : (week == 3) ? "Wednesday" : (week == 4) ? "Thursday" : (week == 5) ? "Friday" :  "Saturday" ,
 					info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 				if( start==info.start && end==info.end && enabled==info.enabled){
 					$(".calender .hover").removeClass("special");
@@ -535,7 +604,7 @@ $(function () {
 								'background-size': '100% 100%'
 							});
 							$(".system-item").fadeOut(500);
-						})
+						});
 					}
 				},
 				{
@@ -543,8 +612,8 @@ $(function () {
 					text: " 颜色",
 					callback: function () {
 						$("#colorBox").css('top', $('.content').offset().top).show();
-						$(this).colorSelect({clbox: 'colorBox'}, function (ths, color) {
-							$('.yunye-template').css('background', color);
+						$('.yunye-template').colorSelect({clbox: 'colorBox'}, function (ths, color) {
+							ths.css('background', color);
 							storageAPI.setCss(".yunye-template", {'background': color});
 						});
 					}

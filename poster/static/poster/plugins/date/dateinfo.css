@@ -1,7 +1,7 @@
 *{padding:0; margin:0}
 .calender{ width:100%; top:0; left:0; border:4px #D6D6D6 solid; background:#EBEBEB; z-index:999;}
 .calendertb{width:100%;}
-.calendertb td{width:35px; height:35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
+.calendertb td{width:35px;height: 4vh;max-height: 35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
 .calendertb td.weekendhover{background:#D6D6D6;}
 .calendertb th{width:35px; height:30px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; color:#979797; }
 .tdtoday{ background:#0080FF;color:#fff;width:35px; height:35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
@@ -35,6 +35,8 @@
 .weekly table td{
 	text-align: center;
 	position: relative;
+	height: 4vh;
+	max-height: 35px;
 }
 .weekly table tr td:nth-child(1){
 	border:1px #CCCCCC solid;
