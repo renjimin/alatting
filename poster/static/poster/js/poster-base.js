@@ -274,7 +274,7 @@ $(function () {
 			},
 			{
 				icon: "glyphicon glyphicon-picture",
-				text: " 上传图片",
+				text: " 编辑图片",
 				callback: function () {
 					$.fn.logoPrettify.init($('.header-logo img').attr("src"));
 				}
