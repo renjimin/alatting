@@ -190,7 +190,7 @@
 					imgW = _option.data.width * s.height() / _option.data.height;
 					imgH = s.height();
 				}
-				s.wraper.append('<div class="swiper-slide" id="slideImg' + _option.data.imgid + '"><img src="' + _option.data.file + '" width="' + imgW + '" height="' + imgH + '" data-id="' + _option.data.imgid + '" ></div>');
+				s.wraper.append('<div class="swiper-slide swiper-no-swiping" id="slideImg' + _option.data.imgid + '"><img src="' + _option.data.file + '" width="' + imgW + '" height="' + imgH + '" data-id="' + _option.data.imgid + '" ></div>');
 				s.swiper = new Swiper('.swiper-container', {
 					noSwiping : true,
 					nextButton: '.swiper-button-next',

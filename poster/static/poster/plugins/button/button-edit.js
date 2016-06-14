@@ -52,7 +52,7 @@ var addButton = function(ele, options) {
 	$('#buttonConfirm').unbind();
 	$('#buttonConfirm').on('click', function() {
 		var newbtn = $("#button-model").find('.element').eq(0);
-		//console.log(newbtn);
+		console.log(newbtn);
 		buttonConfirm(newbtn);
 	});
 	s.upload = function(o) {
@@ -401,7 +401,7 @@ function buttonConfirm(ele) {
 			currentElebox.parent().parent().css('transform', 'rotate(' + ele.data('rotate') + 'deg)').attr('data-rotate', ele.data('rotate'));
 		}
 		ele.css({ 'font-size': parseInt(parseInt(ele.css('font-size')) / templateScale) + 'px' });
-		currentElebox.empty().append(ele);
+		currentElebox.empty().append(ele);console.log(ele)
 	}
 	$('#button-model').removeClass('open');
 }
@@ -674,8 +674,7 @@ function textEditor(type) {
 		cnd.css('opacity', '0');
 		fullcontainer.append(cnd);
 		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).css('opacity', '1');
-		scale(cnd);
-		
+		scale(cnd);	
 
 	}
 
@@ -699,16 +698,6 @@ function textEditor(type) {
 		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 			imgactive.remove();
 		});
-
-	}
-
-	function resetButton() {
-		if ($('.text-element.actived').hasClass('sys-text')) {
-			return;
-		}
-		var imgactive = $('.text-element.actived');
-
-		addButton('reset');
 
 	}
 

@@ -501,6 +501,7 @@ function editor(method,obj){
 			bh = $('body').height();
 			fluidSt = $('.container-fluid').scrollTop();
 		$('#text-model').addClass('open').animate({'bottom':'0px'},200);
+		$('body').css({'height':bh - th +'px','min-height':'0'});
 		$('.container-fluid').css({'height':bh - th +'px'}).animate({scrollTop:fluidSt+ ot - (bh -  th)/2 + oh/2+'px'},200);
 	}
 	function textEditorClose(){
@@ -509,7 +510,7 @@ function editor(method,obj){
 		if(parseInt($('#text-model').css('bottom')) < 0) return;
 		$('#text-model').removeClass('open')
 		$('#text-model').animate({'bottom':-th+'px'},200);
-
+		$('body').css({'height':'100%','min-height':'100%'});
 		$('.container-fluid').css({'height':'100%'}).animate({scrollTop:fluidSt+'px'},200);
 	}
 }

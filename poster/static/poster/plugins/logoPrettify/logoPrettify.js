@@ -828,7 +828,7 @@ $(function(){
 	$.fn.imgFilter = function(){
 		var api = {},canvas,pic,_img,status = true;
 		api.init = function(canvasObj){
-			if(!status) return;
+			//if(!status) return;
 			canvas = canvasObj;
 			_img = new Image();
 			_img.onload = function(){
@@ -840,6 +840,7 @@ $(function(){
 		}
 		api.initView = function(){
 			var filterBox = document.getElementById('fliterList').getElementsByTagName('ul')[0];
+			filterBox.innerHTML = "";
 			var EasyReflection = {
 				"美肤" : "softenFace",
 				"素描" : "sketch",
@@ -870,9 +871,12 @@ $(function(){
 
 			filterBox.innerHTML = html;
 			var canvasCtx = canvas.getContext('2d');
+			var bbox = canvas.getBoundingClientRect();
+			var scale = canvas.width/bbox.width;
 			$('.e_item').on('click',function(){
 				var img = $(this).find('img')[0];
-				canvasCtx.drawImage(img,0,0);
+				canvasCtx.clearRect(0,0,canvas.width,canvas.height);
+				canvasCtx.drawImage(img,0,0,canvas.width*scale,canvas.height*scale);
 			});
 			
 
