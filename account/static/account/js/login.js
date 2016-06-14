@@ -58,7 +58,24 @@ $(document).ready(function () {
 			$('.list li:last').hide();
 		}
 	});
-
+/**
+*电脑注册切换页面
+*/
+	$(".regist-header a").click(function () {
+		$(".regist-header a").removeClass("active");
+		$(this).addClass("active");
+		if ($(this).attr('data-item') == "server") {
+			$("#id_user_type").val('server');
+			$('.selectprovider-PC').hide();
+			$('.selectserver-PC').show();
+			$('.regist-form div:last').show();
+		} else {
+			$("#id_user_type").val('consumer');
+			$('.selectprovider-PC').show();
+			$('.selectserver-PC').hide();
+			$('.regist-form div:last').hide();
+		}
+	});
 	function isLocalStorageSupported() {
 		var testKey = 'test',
 			storage = window.localStorage;
@@ -586,7 +603,7 @@ $(".selectserver-PC").click(function () {
 			success: function (data) {
 				var sbox = '<ul>';
 				for (var i = 0; i < data.length; i++) {
-					sbox += '<li class = "pcli-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<i class="glyphicon glyphicon-chevron-down"></i></a></li>';
+					sbox += '<li class = "pcli-server" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<i class="fa fa-angle-right"></i></a></li>';
 				}
 				sbox += '</ul>';
 				$('#pcul-server').append(sbox);
@@ -649,7 +666,7 @@ $("#pc-server").on('click', '.fa-check-circle', function (event) {
 	console.log(333)
 	if(main_name.length>0){
 		if(selectedname.length>0){
-			$('.selectserver').text(selectedname);
+			$('.selectserver-PC').text(selectedname);
 			$('.regist-industryinput').attr('disabled',true);
 		}else{
 			$('.selectserver').text(main_name);
@@ -667,6 +684,124 @@ $("#pc-server").on('click', '.fa-times-circle', function (event) {
 	$("#id_sub_category_ids").val("");
           		$("#id_input_category").attr("disabled", false);
 	$('.pc-server').fadeOut(200);
+});
+
+
+/**
+*
+*/
+$(".selectprovider-PC").click(function () {
+	var selected = $('body');
+	selectedname = "";
+	main_name = "";
+	$('#pc-provider').show();
+	if ($('#pcul-provider').children().length ==0) {
+		$.ajax({
+			type: 'GET',
+			url: '/api/v1/poster/categorys?parent=0',
+			success: function (data) {
+				var sbox = '<ul>';
+				for (var i = 0; i < data.length; i++) {
+					sbox += '<li class = "pcli-provider" data-name = "' + data[i].name + '" data-id="' + data[i].id + '"><a >' + data[i].name + '<i class="fa fa-angle-right"></i></a></li>';
+				}
+				sbox += '</ul>';
+				$('#pcul-provider').append(sbox);
+			},
+			error: function (xhr, status, statusText) {
+				if (xhr.status == 403) {
+					yyAlert("请登录后再操作。如果您已登录请刷新页面，谢谢！");
+				}
+			}
+		});
+	}
+});
+/**
+*
+*/
+$('#pcul-provider').on('click', '.pcli-provider', function (e) {
+	var ths = $(this);
+	var sid = $(this).attr('data-id');
+	var ssbox = '';
+	main_name = $(this).attr('data-name');
+	$("#id_main_category").val(sid);
+	$('.pcli-provider').removeClass('active');
+	ths.addClass('active');
+	 if ($('#pcsul-'+sid).length == 0) {
+		$.ajax({
+			type: 'GET',
+			url: '/api/v1/poster/categorys?parent='+sid,
+			success: function (data) {
+				ssbox = '<dl class = "pcsul-provider" id = "pcsul-'+sid+'">'
+				for (var i = 0; i < data.length; i++) {
+					ssbox += '<dd class = "pcsli-provider" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '</dd><i class = "fa fa-square-o"></i>';
+				} ;
+				ssbox += '<dd class = "pcsli-provider">全选</dd><i class = "fa fa-square-o checkall"></i></dl>';
+				$('.pcsul-provider').hide();
+				$('#pcright-provider').append(ssbox);
+			},
+			error: function (xhr, status, statusText) {
+				if (xhr.status == 403) {
+					yyAlert("请登录后再操作。如果您已登录请刷新页面，谢谢！");
+				}
+			}
+		});
+	 }else{
+	 	$('.pcsul-provider').hide();
+	 	$('#pcsul-'+sid).show();
+	 }
+});
+$('#pcright-provider').on('click', '.pcsli-provider', function (event) {
+	console.log($(this).siblings('.fa'))
+	selectedname = $(this).attr('data-name');
+	$('.pcsli-provider').removeClass('active');
+	$(this).addClass('active');
+	$("#id_sub_category_ids").val($(this).attr('data-id'));
+	if($('.regist-industryinput').val().length!=0){
+		$('.regist-industryinput').prop('value','');
+		$('.regist-industryinput').attr('placeholder', '请输入');
+	}
+});
+// $(".pcright-provider").off('click').on('click', '.fa',function(event){
+// 	//event.preventDefault();
+// 	if ($(event.target).hasClass('fa-check-square-o')) {
+// 		$(event.target).removeClass('fa-check-square-o').addClass('fa-square-o');
+// 		$(event.target).next().find('.fa').removeClass('fa-check-square-o').addClass('fa-square-o');
+// 	}else{
+// 		$(event.target).removeClass('fa-square-o').addClass('fa-check-square-o');
+// 		$(event.target).next().find('.fa').removeClass('fa-square-o').addClass('fa-check-square-o');
+// 	};
+// })
+$('#pcright-provider').on("click",".pcsul-provider .checkall",function(){
+	
+	if($(this).hasClass("fa-check-square-o")){
+		console.log($(this));
+		$(".pcsul-provider i").removeClass('fa-check-square-o').addClass('fa-square-o');
+	}else{
+		console.log("fff");
+		$(".pcsul-provider i").addClass('fa-check-square-o').removeClass('fa-square-o');
+	}
+})
+$("#pc-provider").on('click', '.fa-check-circle', function (event) {
+	if(main_name.length>0){
+		if(selectedname.length>0){
+			$('.selectprovider-PC').text(selectedname);
+			$('.regist-industryinput').attr('disabled',true);
+		}else{
+			$('.selectprovider').text(main_name);
+			$('.regist-industryinput').attr('disabled',false);
+		}
+		$('.pc-provider').fadeOut(200);
+	}else{
+		$('.pc-provider').fadeOut(200);
+	}
+});
+$("#pc-provider").on('click', '.fa-times-circle', function (event) {
+	//event.preventDefault();
+	$('.selectprovider').text("请选择行业");
+	$("#id_main_category").val("");
+	$("#id_sub_category_ids").val("");
+          		$("#id_input_category").attr("disabled", false);
+	$('.pc-provider').fadeOut(200);
 });
 
 

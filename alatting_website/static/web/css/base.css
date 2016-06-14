@@ -1233,7 +1233,7 @@ body.active .poster-item {
 .regist-form div:nth-child(3) i{
     font-size: 16px;
     position: absolute;
-    top: 173px;
+    top: 117px;
     left: 53px;
     float: left;
     color: #ccd5db;
@@ -1241,12 +1241,20 @@ body.active .poster-item {
 .regist-form div:nth-child(4) i{
     font-size: 16px;
     position: absolute;
-    top: 227px;
+    top: 172px;
     left: 53px;
     float: left;
     color: #ccd5db;
 }
 .regist-form div:nth-child(5) i{
+    font-size: 16px;
+    position: absolute;
+    top: 227px;
+    left: 53px;
+    float: left;
+    color: #ccd5db;
+}
+.regist-form div:nth-child(6) i{
     font-size: 16px;
     position: absolute;
     top: 283px;
@@ -1267,7 +1275,7 @@ body.active .poster-item {
     left: 276px;
     float: right;
 }
-.selectserver-PC{
+.selectserver-PC,.selectprovider-PC{
     width: 100%;
     height: 40px;
     border-radius: 3px;
@@ -1372,23 +1380,23 @@ body.active .poster-item {
     z-index: 100;
     display: none;
 }
-.pcserver-title{
+.pcserver-title, .pcprovider-title{
     height: 40px;
     border-bottom: 1px solid #ccc;
 }
-.pcserver-title .fa-times-circle{
+.pcserver-title .fa-times-circle,.pcprovider-title .fa-times-circle {
     font-size: 24px;
     float: left;
     line-height: 40px;
     margin-left: 20px;
 }
-.pcserver-title .fa-check-circle{
+.pcserver-title .fa-check-circle,.pcprovider-title .fa-check-circle{
     font-size: 24px;
     float: right;
     line-height: 40px;
     margin-right: 20px;
 }
-.pcul-server{
+.pcul-server,.pcul-provider{
     position: relative;
     width: 420px;
     height: 480px;
@@ -1396,21 +1404,42 @@ body.active .poster-item {
     padding: 0;
     border-right: 1px solid #ccc;
 }
-.pcright-server{
+.pcul-server .fa-angle-right,.pcul-provider .fa-angle-right {
+    float: right;
+    font-size: 20px;
+}
+.pcright-server,.pcright-provider{
     position: relative;
     width: 420px;
     height: 480px;
     float: left;
 }
-.pcli-server,.pcsli-server{
+.pcli-server,.pcli-provider{
     padding: 10px 100px;
+    font-size: 18px;
+}
+.pcsli-server,.pcsli-provider{
+    padding: 10px 100px;
+    font-size: 16px;
 }
 .pcsli-server:hover{
+    background: #e8e8e8;
+}
+.pcsli-provider:hover{
     background: #e8e8e8;
 }
 .pcli-server a{
     display: block;
 }
+/*.pcsul-server,.pcsul-provider{
+    padding: 10px 100px;
+}*/
 .pcli-server:hover,.pcsul-server .active,#pcul-server .active{
     background: #e8e8e8;
+}
+.pcright-provider .fa-square-o,.fa-check-square-o{
+    float: right;
+    margin-right: 20px;
+    font-size: 16px;
+    margin-top: -28px;
 }

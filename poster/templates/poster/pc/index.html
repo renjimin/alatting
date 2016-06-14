@@ -51,9 +51,10 @@
                 <form method="post" class="regist-form" id="btnRegist">
                     {% csrf_token %}
                     <div class="regist-header">
-                        <a href="#" class="regist-tab active">我要提供服务</a>
-                        <a href="#" class="regist-tab">我要找服务</a>
+                        <a href="#" class="regist-tab active" data-item="server">我要提供服务</a>
+                        <a href="#" class="regist-tab" data-item="consumer">我要找服务</a>
                     </div>
+                    <input id = "id_user_type" name = "user_type" type= "hidden">
                     <div class="regist-text">
                         <input type="text" name="username" id="id_username"
                                placeholder="{% if open_cellphone %}邮&nbsp;箱/手机号{% else %}邮箱{% endif %}">
@@ -80,7 +81,7 @@
                     </div>
                     <div class="regist-text">
                         <div class="selectserver-PC">请选择行业</div>
-                        <div class="selectprovider" style="display:none">我要找的服务(可多选)</div>
+                        <div class="selectprovider-PC" style="display:none">我要找的服务(可多选)</div>
                     </div>
                     <div class="regist-text">
                         <span class="regist-industry">找不到行业?</span>
@@ -147,6 +148,15 @@
                 </div>
             </div>
             <div class="login-close">×</div>
+        </div>
+    </div>
+    <div class="pc-provider" id="pc-provider">
+        <div class = "pcprovider-title"><i  class="fa fa-times-circle"></i><i  class="fa fa-check-circle"></i></div>
+        <div class="pcprovider-main">
+            <div class="pcul-provider" id="pcul-provider">
+            </div>
+            <div class="pcright-provider" id="pcright-provider">
+            </div>
         </div>
     </div>
     <div class="pc-server" id="pc-server">
