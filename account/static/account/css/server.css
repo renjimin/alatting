@@ -1,7 +1,5 @@
 
-.body-container .fa{
-    display: inline-block;
-}
+
 /*body-main*/
 .body-main{
     background: #ffffff;
@@ -245,7 +243,6 @@
     display: none;
 }
 .plist-end .fa{
-    display: inline-block;
     font-size: 20px;
     margin-left: 3px;
 }
@@ -376,9 +373,6 @@
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
-.price-btn-li .fa{
-    display: inline-block;
-}
 .bid-consult{
     position: absolute;
     font-size: 12px;
@@ -411,8 +405,6 @@
     line-height: 50px;
 }
 .accept-tips .fa{
-    display: inline-block;
-    vertical-align: middle;
     font-size: 30px;
 }
 

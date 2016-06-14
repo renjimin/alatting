@@ -22,7 +22,7 @@
     border: 1px dashed transparent;
     -ms-word-break:keep-all;
     word-break: keep-all;
-    white-space: nowrap;
+    white-space:pre;
     font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .el-content{
