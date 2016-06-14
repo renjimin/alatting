@@ -186,7 +186,6 @@ header {
     margin-top: 40px;
     min-height: 700px;
     padding: 10px 5px 70px;
-    box-shadow: 0 3px 10px #7c7c7c inset;
     position: relative;
 }
 .main-li{
@@ -319,6 +318,25 @@ header {
     top: 100%;
     left: 100%;
 }
+.p-ctrl-bot{
+    position: absolute;
+    bottom: 0px;
+    height: 40px;
+    width: 40px;
+    font-size: 28px;
+    color: #a4a4a4;
+    text-align: center;
+}
+.p-ctrl-bot .fa{
+    display: inline;
+}
+.cbot-left{
+    left: 0px;
+}
+.cbot-right{
+    right: 0px;
+}
+
 .ctrl-name{
     font-size: 14px;
     color: #737373;

@@ -157,7 +157,7 @@ $(function(){
         moveCtrl($(this),false);
     });
     /* 查看当前海报的信息 */
-    $('.body-main').on('click','.ctrl-view',function(event){
+    $('.body-main').on('click','.ctrl-detail',function(event){
         event.stopPropagation();
         var id= $(this).parent().attr('data-id');
         var pageType= $('#pageType').val();
@@ -224,7 +224,20 @@ $(function(){
         if(url){
             location.href = url;
         }
-        console.log('edit:none');
+    });
+    /* 预览海报 */
+    $('.body-main').on('click','.ctrl-view',function(event){
+        event.stopPropagation();
+        var id= $(this).parent().attr('data-id');
+        location.href = '/mobile/posters/'+id+'/';
+    });
+    /* 编辑海报折扣 */
+    $('.body-main').on('click','.ctrl-discount',function(event){
+        event.stopPropagation();
+        /*
+        var id= $(this).parent().attr('data-id');
+        location.href = '/mobile/posters/'+id+'/';
+        */
     });
     /* 删除海报 */
     $('.body-main').on('click','.ctrl-delete',function(event){
@@ -255,7 +268,7 @@ $(function(){
     function moveCtrl(obj,type){
         if(type){
             obj.fadeIn(200);
-            obj.children().animate({top:'50%',left:'50%'},300);
+            obj.children('.p-ctrl-li ').animate({top:'50%',left:'50%'},300);
         }else{
             obj.fadeOut(200);
             obj.children('.ctrl-lefttop').animate({top:'0',left:'0'},300);
