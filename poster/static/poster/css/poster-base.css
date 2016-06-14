@@ -639,6 +639,15 @@ to {
 .dropdown-toggle.open i {
 	color: yellow;
 }
+.dropdown-toggle.open .ico-edit-text{
+	background-image:url(../../poster/images/edit-tool-text1.png);
+}
+.dropdown-toggle.open .ico-edit-pic{
+	background-image:url(../../poster/images/edit-tool-pic1.png);
+}
+.dropdown-toggle.open .ico-edit-button{
+	background-image:url(../../poster/images/edit-tool-button1.png);
+}
 .dropdown-panel {
 	position: absolute;
 	bottom: 100%;
