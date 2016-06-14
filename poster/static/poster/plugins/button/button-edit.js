@@ -401,7 +401,7 @@ function buttonConfirm(ele) {
 			currentElebox.parent().parent().css('transform', 'rotate(' + ele.data('rotate') + 'deg)').attr('data-rotate', ele.data('rotate'));
 		}
 		ele.css({ 'font-size': parseInt(parseInt(ele.css('font-size')) / templateScale) + 'px' });
-		currentElebox.empty().append(ele);console.log(ele)
+		currentElebox.empty().append(ele);
 	}
 	$('#button-model').removeClass('open');
 }
