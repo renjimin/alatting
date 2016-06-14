@@ -22,7 +22,7 @@ class Questionnaire(models.Model):
         Category,
         related_name='sub_cat_qs',
         limit_choices_to={'parent__isnull': False},
-        null=True
+        blank=True, null=True
     )
     ROLE_CHOICES = (
         ('creator', ' 服务提供者'),
