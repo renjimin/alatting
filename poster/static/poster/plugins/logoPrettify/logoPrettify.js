@@ -37,6 +37,7 @@ $(function(){
 			currentPannel = null;
 			$("#logoPrettify .editMenuGroup section").hide();
 			document.removeEventListener("touchmove",touchmovePrevetFunction);
+			$.fn.imgFilter.destroy();
 		};
 		api.bindEvents = function(){
 			$("#logoPrettify .closeLogoPrettify").on("click",function(){
@@ -238,6 +239,7 @@ $(function(){
 				$("#selectCanvas").off("mousedown touchstart");
 				$("#selectCanvas").off("mousemove touchmove");
 				$("#selectCanvas").off("mouseup touchend");
+
 			};
 			return module;
 		}();
@@ -824,13 +826,15 @@ $(
 );
 $(function(){
 	$.fn.imgFilter = function(){
-		var api = {},canvas,pic,_img;
+		var api = {},canvas,pic,_img,status = true;
 		api.init = function(canvasObj){
+			if(!status) return;
 			canvas = canvasObj;
 			_img = new Image();
 			_img.onload = function(){
 				pic = AlloyImage(this);
 				api.initView();
+				status = false;
 			}
 			_img.src = canvas.toDataURL("image/png");			
 		}
@@ -871,6 +875,12 @@ $(function(){
 				canvasCtx.drawImage(img,0,0);
 			});
 			
+
+		}
+		api.destroy = function(){
+			status = true;
+			var filterBox = document.getElementById('fliterList').getElementsByTagName('ul')[0];
+			filterBox.innerHTML = "";
 
 		}
 		return api;
