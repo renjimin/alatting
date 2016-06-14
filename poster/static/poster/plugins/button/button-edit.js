@@ -52,7 +52,7 @@ var addButton = function(ele, options) {
 	$('#buttonConfirm').unbind();
 	$('#buttonConfirm').on('click', function() {
 		var newbtn = $("#button-model").find('.element').eq(0);
-		console.log(newbtn);
+		//console.log(newbtn);
 		buttonConfirm(newbtn);
 	});
 	s.upload = function(o) {
@@ -592,7 +592,7 @@ var uploadSystemimg = function(eleobj) {
 
 function deleteElement() {
 	var imgactive = $('.cnd-element.active');
-
+	if(imgactive.hasClass('sys-button')) return;
 	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
 		imgactive.remove();
 		if(imgactive.hasClass('text-element-act')){
@@ -608,10 +608,6 @@ $(function() {
 			switch (keyCode) {
 				case 8:
 					/* 回退键 */
-					deleteElement();
-					break;
-				case 46:
-					/* 删除键 */
 					deleteElement();
 					break;
 				default:
@@ -675,7 +671,7 @@ function textEditor(type) {
 		fullcontainer.append(cnd);
 		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).css('opacity', '1');
 		scale(cnd);	
-
+		
 	}
 
 	function copyText() {
