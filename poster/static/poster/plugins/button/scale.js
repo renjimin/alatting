@@ -461,9 +461,7 @@ var scale = function(box,options){
 		if(ele.hasClass('text-editor-content')){
 			editBtn.on('touchend',function(e){
 				if (e.originalEvent) e = e.originalEvent;e.preventDefault();
-				ele.tEditor({textDelete: false,
-						textCopy: false,
-						pluginType: 'other'});
+				
 				editor('open',ele);
 			})
 		}
@@ -500,9 +498,14 @@ function editor(method,obj){
 			th = $('#text-model').height(),
 			bh = $('body').height();
 			fluidSt = $('.container-fluid').scrollTop();
+
+			obj.tEditor({textDelete: false,
+						textCopy: false,
+						pluginType: 'other'});
 		$('#text-model').addClass('open').animate({'bottom':'0px'},200);
 		$('body').css({'height':bh - th +'px','min-height':'0'});
 		$('.container-fluid').css({'height':bh - th +'px'}).animate({scrollTop:fluidSt+ ot - (bh -  th)/2 + oh/2+'px'},200);
+		$('.bar-footer').addClass('footer-hide');
 	}
 	function textEditorClose(){
 		var bt = $('body').height(),

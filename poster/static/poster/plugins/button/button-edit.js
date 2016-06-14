@@ -554,9 +554,9 @@ var addSystemimg = function(eleobj) {
 	var cnd = $('<div class="cnd-element systemimg-element">' + '<div class="element-box">' + '	<div class="element-box-contents">' + '		' + '	</div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
 
 	cnd.find('.element-box-contents').append(eleobj);
-	cnd.hide();
+	cnd.css('opacity','0');
 	fullcontainer.append(cnd);
-	cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).show();
+	cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - $(window).height()*.6 / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - $(window).width() *.6/ 2 + 'px' }).css('opacity','1');
 	scale(cnd);
 }
 
@@ -606,8 +606,8 @@ $(function() {
 			var e = event || window.event;
 			var keyCode = e.keyCode || e.which;
 			switch (keyCode) {
-				case 8:
-					/* 回退键 */
+				case 46:
+					/* delete键 */
 					deleteElement();
 					break;
 				default:
@@ -664,14 +664,15 @@ function textEditor(type) {
 
 	function addText() {
 		var eleobj = $('<div  type="text" class="element text-editor-content" value="" style="font-size:20px">请输入文字</div>')
-		var cnd = $('<div class="cnd-element text-element" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
+		var cnd = $('<div class="cnd-element text-element active" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
 
 		cnd.find('.element-box-contents').append(eleobj);
 		cnd.css('opacity', '0');
 		fullcontainer.append(cnd);
 		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).css('opacity', '1');
 		scale(cnd);	
-		
+		editor('open',eleobj);
+		$('#ted-edit').click();
 	}
 
 	function copyText() {
