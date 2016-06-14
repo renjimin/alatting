@@ -11,6 +11,33 @@ $(document).ready(function(){
         'data_attribute':'src',
         'effect':'fadeIn'
     });
+    /*登陆注册事件*/
+    $('.login-toggle').click(function(event){
+        event.stopPropagation();
+        $('.login-div').show();
+    });
+    $('.login-close').click(function(event){
+        event.stopPropagation();
+        $('.login-div').hide();
+    });
+    $('.login-leftbtn').click(function(event){
+        event.stopPropagation();
+        var btnvalue = $('.login-leftbtn').text();
+        if(btnvalue == "注册"){
+            $('.login-form').show();
+            $('.regist-form').hide();
+            $('.login-leftbtn').text('登陆');
+        }else{
+            $('.login-form').hide();
+            $('.regist-form').show();
+            $('.login-leftbtn').text('注册');
+        }
+    });
+    $('.fotgetpwd').click(function(event){
+            $('.login-right').hide();
+            //$('.regist-form').hied();
+            $('.psd-right').show();
+    })
     /*顶部搜索按钮*/
     $('#searchBtn').click(function(event){
         event.stopPropagation();
@@ -21,7 +48,7 @@ $(document).ready(function(){
             $(this).addClass('active');
             $('#searchBar').addClass('open');
         }
-    });
+    });    
     $('#searchBar').on('click',function(event){
         event.stopPropagation();
     });
