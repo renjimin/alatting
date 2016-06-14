@@ -3,14 +3,13 @@
 from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from survey.view.mobile import (
-	IndexView, StartView, QuestionnaireView,
+	StartView, QuestionnaireView,
 	QuestionnaireBlankView, AnswerDetailView,
 	QuestionCreateView, ChoiceCreateView,
-	ChoiceInputCreateView, StartShowView
+	ChoiceInputCreateView
 )
 
 urlpatterns = [
-	url(r'^$', IndexView.as_view(), name='index'),
 #start/poster_id/?role=creator or start/poster_id/?role=consumer
 	url(r'^start/(?P<poster_id>\d+)/$', 
 		login_required(StartView.as_view(permanent=False)), name='start'),
@@ -32,11 +31,4 @@ urlpatterns += [
 	url(r'^create/$', QuestionCreateView.as_view(), name='create'),
 	url(r'^create_choice/(?P<q_id>\d+)/$', ChoiceCreateView.as_view(), name='create_choice'),
 	url(r'^create_choice_input/(?P<q_id>\d+)/$', ChoiceInputCreateView.as_view(), name='create_choice_input'),
-]
-
-#测试调查问卷, 在最后一张海报（latest（'id'））上面填写调查问卷
-urlpatterns += [
-#show/cat_id/?role=creator or start/cat_id/?role=consumer
-	url(r'^show/(?P<cat_id>\d+)/$', 
-		login_required(StartShowView.as_view(permanent=False)), name='show'),
 ]

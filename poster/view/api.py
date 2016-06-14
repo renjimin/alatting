@@ -128,6 +128,14 @@ class PosterPageListView(ListCreateAPIView):
     model = PosterPage
     queryset = PosterPage.objects.all()
     serializer_class = PosterPageSerializer
+    filter_backends = (filters.DjangoFilterBackend, )
+    filter_fields = ('poster_id', )
+
+    def get_queryset(self):
+        qs = super(PosterPageListView, self).get_queryset()
+        if self.request.GET.get('exclude', ''):
+            qs = qs.exclude(pk=self.request.GET.get('exclude'))
+        return qs.order_by('index')
 
     def post(self, request, *args, **kwargs):
         return super(PosterPageListView, self).post(request, *args, **kwargs)

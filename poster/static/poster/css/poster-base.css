@@ -225,8 +225,10 @@ html {
 	opacity: 1;
 }
 .bar-footer .tab-item:active,
+.bar-footer .tab-item:hover,
 .bar-footer .tab-item.open {
 	background: rgba(0,0,0,0.1);
+	color:#ffc128;
 }
 .bar-footer .tab-item .icon {
 	width: 1em;
@@ -264,7 +266,7 @@ html {
 }
 .header-qrcode {
 	float: left;
-	padding: 7.5px 10px;
+	padding: 10px;
 	pointer-events: auto;
 	position: absolute;
 	z-index: 10;
@@ -274,14 +276,14 @@ html {
 .header-logo {
 	position: relative;
 	overflow: hidden;
-	height: 95px;
-	padding: 7.5px 0;
+	height: 100px;
+	padding: 10px 0;
 	margin: 0 98px;
 	text-align: center;
 	pointer-events: auto;
 }
 .header-abutton {
-	padding: 7.5px 10px;
+	padding: 10px;
 	position: absolute;
 	z-index: 10;
 	right: 0;
@@ -338,6 +340,10 @@ html {
 	max-height: 100%;
 	position: relative;
 	pointer-events:auto;
+}
+.header-logo img[src=""]{
+	width: 100%;
+	height:100%;
 }
 .header-logo h2 {
 	display: inline-block;
@@ -637,7 +643,16 @@ to {
 	color: white;
 }
 .dropdown-toggle.open i {
-	color: yellow;
+	color: #ffc128;
+}
+.dropdown-toggle.open .ico-edit-text{
+	background-image:url(../../poster/images/edit-tool-text1.png);
+}
+.dropdown-toggle.open .ico-edit-pic{
+	background-image:url(../../poster/images/edit-tool-pic1.png);
+}
+.dropdown-toggle.open .ico-edit-button{
+	background-image:url(../../poster/images/edit-tool-button1.png);
 }
 .dropdown-panel {
 	position: absolute;

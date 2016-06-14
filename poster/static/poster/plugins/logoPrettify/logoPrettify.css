@@ -170,7 +170,7 @@
 .fliter-list li .imglink{
 	display: block;
 	width: 100%;
-	height: 80px;
+	max-height: 80px;
 	overflow: hidden;
 }
 .fliter-list li.active{

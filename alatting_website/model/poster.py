@@ -263,7 +263,7 @@ class PosterPage(AbstractPageTemplate):
 
     def get_static_file_path(self, with_root=False):
         dir_path = self.STATIC_DIR_STR.format(
-            year=datetime.datetime.now().year,
+            year=self.poster.created_at.year,
             poster_id=self.poster.id,
             page_id=self.id
         )

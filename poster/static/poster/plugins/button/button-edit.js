@@ -467,6 +467,14 @@ var deleteButton = function() {
 	});
 
 }
+function colseButtonPannel(){
+	$('#button-model').removeClass('open');
+	//$('.bar-footer').removeClass('footer-hide');
+}
+function colseSysimg(){
+	$('#systemimg-model').removeClass('open');
+	$('.bar-footer').removeClass('footer-hide');
+}
 
 
 $(function() {

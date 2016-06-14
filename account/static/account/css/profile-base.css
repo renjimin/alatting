@@ -132,7 +132,10 @@
     margin-left: -16px;
     margin-top: -16px;
 }
-
+.data-loading{
+    padding: 50px 0;
+    text-align: center;
+}
 .error-msg{
     display: block;
     text-align: center;
