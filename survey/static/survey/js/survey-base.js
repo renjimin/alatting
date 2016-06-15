@@ -40,3 +40,26 @@ function openPopup(form, text) {
 		form.submit();
 	}
 };
+$("#add-qs-1-next-btn").click(function(){
+	qs_text = $.trim($('#add-qs-1-qs').val());
+	qs_type = $.trim($('input[name="add-qs-1-type"]:checked').val());
+	if(qs_text == ""){
+        yyAlert('请输入问题!');
+        return false;
+    }
+    if(qs_type == ""){
+        yyAlert('请输入问题类型!');
+        return false;
+    }
+    alert(qs_type);
+    alert(qs_text);
+	var url = '/api/v1/survey/create';
+	$.ajax({
+		url:url,
+		data:{qs_text:qs_text,qs_type:qs_type},
+		type: "POST",
+		success:function(data){
+			alert(data['qs_text']);
+      	}
+    });
+});

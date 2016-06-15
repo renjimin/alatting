@@ -167,7 +167,40 @@
     vertical-align: baseline;
     min-width: 90px;
 }
-
+.qs-footer-add {
+    background-color: #a8a8a8; 
+}
+.qs-add {
+    max-width: 600px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    top: 0;
+    left: 0;
+}
+.qs-add-inner {
+    background: rgba(0,0,0,0.6);
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.qs-add-content {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;   
+}
+.add-qs-title {
+    background-color: #939393; 
+}
+.qs-add-content form {
+    background-color: #bdbdbd; 
+}
+.qs-add-content textarea {
+    border-radius: 10px;
+    min-height: 150px;
+}
 @media (min-width:600px) {
     .qs-footer {
         width:600px;
