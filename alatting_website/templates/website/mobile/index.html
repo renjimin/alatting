@@ -11,12 +11,13 @@
 {% endblock %}
 
 {% block base_body %}
+
 	<header class="home-header">
 		<div class="hrow">
 			<a href="javascript:void(0)" ng-click="openModal()" class="button button-clear btn-menu left-menu">
 				<i class="glyphicon glyphicon-menu-hamburger"></i>
 			</a>
-
+			
 			<div class="flexbox right-menu">
 				<a href="javascript:void(0);">
 					<i class="glyphicon glyphicon-calendar"></i>
@@ -36,9 +37,11 @@
 			</div>
 			
 		</div>
+
+
 		<div class="home-header-sort hrow flexbox">
-			<a href="/mobile/?sort=new" class="button button-clear btn-select">最新</a>
-			<a href="/mobile/?sort=hot" class="button button-clear btn-select">热门</a>
+			<a href="{{ request.path_info }}?sort=hot&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}"  class="button button-clear btn-select">最新</a>
+			<a href="{{ request.path_info }}?sort=new&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">热门</a>
 			<a href="/mobile/?sort=hot" class="button button-clear btn-select">特价</a>
 			<a href="/mobile/?sort=hot" class="button button-clear btn-select">推荐</a>
 			<a href="/mobile/?sort=hot" class="button button-clear btn-select">附近</a>
