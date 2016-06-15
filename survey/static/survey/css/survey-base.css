@@ -206,6 +206,15 @@
     border-radius: 7px;
     min-height: 150px;
 }
+.short-text-wrapper {
+    padding: 10px 0;
+}
+.short-text-wrapper input[type=text] {
+    min-width: 300px;
+    border-radius: 5px;
+    line-height: 25px;
+    text-align: left;
+}
 .add-qs-1-typelist {
     padding: 12px 0;
 }
@@ -214,6 +223,7 @@
     background: white;
     padding: 5px 10px;
     border-radius: 5px;
+    margin: 0 10px;
 }
 .form-inner {
     border-bottom: 1px solid #939393;
@@ -222,7 +232,8 @@
     padding: 10px 0;
 }
 .form-footer .btn {
-    min-width: 80px;
+    min-width: 100px;
+    margin: 0 10px;
 }
 @media (min-width:600px) {
     .qs-footer {
