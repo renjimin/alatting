@@ -5,8 +5,8 @@ from django.views.generic import TemplateView
 from alatting_website.views import (
     PosterView, MobileIndexView, IndexCategoryView,
     PosterCodeView, SvgClipView, DemoView,
-    CaptureView, TestView, PosterCaptureView
-)
+    CaptureView, TestView, PosterCaptureView,
+    SearchView)
 from alatting_website.view.edit_view import CreatePosterView
 from alatting_website.feeds import PosterUpdateFeed
 
@@ -22,7 +22,12 @@ urlpatterns = [
         name='mobile_index'),
 
     url(r'^mobile/$',
-        MobileIndexView.as_view(), name='mobile_poster_index')
+        MobileIndexView.as_view(), name='mobile_poster_index'),
+
+    url(r'^mobile/search/$', SearchView.as_view(), name='mobile_search'),
+
+    url(r'^mobile/category/$', IndexCategoryView.as_view(),
+        name='mobile_category'),
 ]
 
 
@@ -40,7 +45,6 @@ urlpatterns += [
     url(r'^api/svg_clip/(?P<layout_id>\d+)/(?P<shape_index>\d+).svg$',
         SvgClipView.as_view(), name='svg_clip'),
 
-    url(r'^search$', DemoView.as_view(), name='search'),
-    url(r'^category$', IndexCategoryView.as_view(), name='category'),
+    # url(r'^search$', DemoView.as_view(), name='search'),
 
 ]

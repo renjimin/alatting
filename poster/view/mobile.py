@@ -19,7 +19,7 @@ from utils.db.utils import Utils as DBUtils
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, View, ListView, UpdateView, \
-    CreateView
+    CreateView, TemplateView
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.models import CategoryKeyword, Template, Address
 

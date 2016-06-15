@@ -108,6 +108,18 @@ class IndexCategoryView(TemplateView):
         return ctx
 
 
+class SearchView(TemplateView):
+    template_name = 'website/mobile/search.html'
+
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        return super(SearchView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+
+        return super(SearchView, self).get_context_data(**kwargs)
+
+
 class PosterView(DetailView):
     template_name = 'website_old/poster.html'
     model = Poster
