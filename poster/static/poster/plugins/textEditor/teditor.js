@@ -27,12 +27,17 @@ $(function(){
             cdiv += '<li class="color-li" style="background:'+teditOption.colorArr[i]+';" data-color="'+teditOption.colorArr[i]+'"></li>';
         }
         $('#ted-color-list').append(cdiv);
-        $('#effects-color-list').append(cdiv);
-        var fdiv = '';
-        for(var i=0;i<teditOption.fontFamily.length;i++){
-            fdiv += '<li class="ted-font-li" style="font-family:\''+teditOption.fontFamily[i]+'\';" data-fm="'+teditOption.fontFamily[i]+'">'+teditOption.fontFamily[i]+'</li>';
+        cdiv='';
+        for(var i=0;i<teditOption.colorArr.length;i++){
+            cdiv += '<li class="ef-color-li" style="background:'+teditOption.colorArr[i]+';" data-color="'+teditOption.colorArr[i]+'"></li>';
         }
-        $('#ted-font-list').append(fdiv);
+        $('#effects-color-list').append(cdiv);
+        cdiv = '';
+        for(var i=0;i<teditOption.fontFamily.length;i++){
+            cdiv += '<li class="ted-font-li" style="font-family:\''+teditOption.fontFamily[i]+'\';" data-fm="'+teditOption.fontFamily[i]+'">'+teditOption.fontFamily[i]+'</li>';
+        }
+        $('#ted-font-list').append(cdiv);
+        cdiv = '';
 
         var canvas = document.getElementById("bot-cbox-canvas");
         var ctx=canvas.getContext("2d");
