@@ -203,6 +203,8 @@ class QuestionnaireView(View):
         if questionset.is_last() and questionnaire.role == "creator":
             islast_creator = True
 
+        poster_id = runinfo.poster.pk
+
         contextdict = {'qs_title': qs_title,
                        'questionset': questionset,
                        'qlist': qlist,
@@ -211,7 +213,8 @@ class QuestionnaireView(View):
                        'errors': errors,
                        'islast_consumer_repeat': islast_consumer_repeat,
                        'islast_consumer': islast_consumer,
-                       'islast_creator': islast_creator}
+                       'islast_creator': islast_creator,
+                       'poster_id': poster_id}
         return render_to_response('survey/mobile/questionset.html',
                                   contextdict)
 

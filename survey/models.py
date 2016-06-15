@@ -40,6 +40,11 @@ class Questionnaire(models.Model):
             questionnaire=self).order_by('sortid')
         return qs_set
 
+    def questionsets_count(self):
+        res = QuestionSet.objects.filter(
+            questionnaire=self).count()
+        return res
+
     def questions(self):
         questions = []
         for questionset in self.questionsets():

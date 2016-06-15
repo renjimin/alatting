@@ -41,25 +41,31 @@ function openPopup(form, text) {
 	}
 };
 $("#add-qs-1-next-btn").click(function(){
-	qs_text = $.trim($('#add-qs-1-qs').val());
+	poster_id = $.trim($('input[name="poster_id"]').val());
+	qs_text = $.trim($('#add-qs-1-text').val());
 	qs_type = $.trim($('input[name="add-qs-1-type"]:checked').val());
-	if(qs_text == ""){
-        yyAlert('请输入问题!');
-        return false;
-    }
-    if(qs_type == ""){
-        yyAlert('请输入问题类型!');
-        return false;
-    }
-    alert(qs_type);
-    alert(qs_text);
+	// if(qs_text == ""){
+ //        yyAlert('请填写问题描述!');
+ //        return false;
+ //    }
+ //    if(qs_type == ""){
+ //        yyAlert('请填写问题类型!');
+ //        return false;
+ //    }
 	var url = '/api/v1/survey/create';
+	var posted_data = {poster_id:poster_id, qs_text:qs_text, qs_type:qs_type};
 	$.ajax({
 		url:url,
-		data:{qs_text:qs_text,qs_type:qs_type},
+		data:posted_data,
 		type: "POST",
 		success:function(data){
-			alert(data['qs_text']);
+			alert("success");
+      	},
+      	error: function(data) {
+      		console.log("data");
+			console.log(data);
+			console.log(data.responseJSON);
+      		alert(data.responseJSON.error);
       	}
     });
 });
