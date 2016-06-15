@@ -61,8 +61,10 @@
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             var vGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-            vGrad.addColorStop(0, 'rgba(255,255,255,0)');
-            vGrad.addColorStop(1, 'rgba(255,255,255,1)');
+            vGrad.addColorStop(0, 'rgba(255,255,255,1)');
+            vGrad.addColorStop(1/2, 'rgba(255,255,255,0)');
+            vGrad.addColorStop(1/2, 'rgba(0,0,0,0)');
+            vGrad.addColorStop(2/2, 'rgba(0,0,0,1)');
             ctx.fillStyle = vGrad;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
         }else{

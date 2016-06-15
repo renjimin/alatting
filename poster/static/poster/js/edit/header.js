@@ -14,8 +14,8 @@ $(function () {
 			   
 			}
 			/*去掉海报元素的编辑控件-zj*/
-            $('.yunye-template').attr('data-page-id',
-                yunyeEditorGlobal.posterPageId);
+		$('.yunye-template').attr('data-page-id',
+		yunyeEditorGlobal.posterPageId);
 			$('.cnd-element').removeClass('active');
 			$('.text-element').removeClass('text-element-act');
 			$('.ele-rotate-ctrl').remove();
