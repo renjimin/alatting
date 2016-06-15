@@ -57,16 +57,23 @@ $(function(){
 				reader.readAsDataURL(file);
 			});
 			$("#logoPrettify .uploadCanvas").on("click",function(){
-				data=canvas.toDataURL("image/png").split(',')[1];
-
+				data = {
+							poster_id: yunyeEditorGlobal.posterId,
+							image_data:canvas.toDataURL("image/png").split(',')[1]
+						};
+				console.log(data);
 				$.ajax({
 					type: 'POST',
 					url: '/api/v1/poster/upload/b64image',
-					data: '{"poster_id": "'+ yunyeEditorGlobal.posterId + '" ,  "image_data": "' + data + '"}',
-					contentType: 'application/json; charset=utf-8',
+					data: data,
 					dataType: 'json',
 					success: function (msg) {
-						alert("Done, Picture Uploaded.");
+						$('.header-logo h2').hide();
+						$('.header-logo img').attr("src",msg.file).show();
+						api.destory();
+					},
+					error:function(x){
+						console.log(x);
 					}
 				});
 
