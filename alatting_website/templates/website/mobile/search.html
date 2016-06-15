@@ -1,0 +1,45 @@
+{% extends 'website/mobile/base.html' %}
+{% load static %}
+{% block base_header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'website/css/index.css' %}"/>
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'website/js/index.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+<input type="hidden" value="{% url 'website:mobile_search_result' %}" id="searchPath">
+<div class="search-container">
+	<div class="searchbar">
+		<i class="fa fa-search icon-search"></i>
+		<input type="text" class="text" placeholder="搜索" id="searchtxt">
+		<a class="searchdel" id="searchdel">x</a>
+		<a class="searchbtn" id="searchbtn">搜索</a>
+	</div>
+</div>
+<div class="search-type">	
+	<div class="title"><i class="fa fa-navicon"></i><span>行业类别</span></div>
+	<ul class="search-type-list">
+		{% for category in category_list %}
+		<li><a href="javascript:void(0);" class="link-item" data-id="{{ category.id }}"><span class="text">{{ category.name }}</span><i class="fa fa-square-o"></i><input type="hidden" class="typeid" value="0"></a>
+			<dl class="subnav">
+				{% with category.children.all as category_children %}
+                            {% for category2 in category_children %}
+				<dd><a href="javascript:void(0);" class="sublink-item" data-id="{{ category2.id }}"><span class="text">{{ category2.name }}</span><i class="fa fa-square-o"></i></a></dd>
+				{% endfor %}
+                            {% endwith %}
+			</dl>
+		</li>
+		{% empty %}
+                <li class="item empty-info">
+                    获取数据失败，请稍后重试！
+                </li>
+
+		{% endfor %}
+		<!--<li><a href="#" class="link-item"><span class="text">餐饮</span><i class="fa fa-square-o"></i><input type="hidden" class="typeid" value="0"></a></li>-->
+	</ul>
+</div>
+{% endblock %}

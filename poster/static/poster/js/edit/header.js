@@ -14,8 +14,7 @@ $(function () {
 			   
 			}
 			/*去掉海报元素的编辑控件-zj*/
-		$('.yunye-template').attr('data-page-id',
-		yunyeEditorGlobal.posterPageId);
+			$('.yunye-template').attr('data-page-id',yunyeEditorGlobal.posterPageId);
 			$('.cnd-element').removeClass('active');
 			$('.text-element').removeClass('text-element-act');
 			$('.ele-rotate-ctrl').remove();
@@ -86,7 +85,7 @@ $(function () {
 				var sa= csss[i].split(':');
 				csobj[sa[0]]=sa[1];
 			}
-			csobj['transform']=value;
+			csobj.transform = value;
 			csobj['-webkit-transform']=value;
 			csobj['-moz-transform']=value;
 			csobj['-ms-transform']=value;
@@ -266,10 +265,10 @@ $(function () {
 					yyAlert("发布失败，服务器内部错误");
 				}
 			}
-		})
+		});
 	});
 
 	window.onunload = function (event) {
 		saveData();
-	}
+	};
 });

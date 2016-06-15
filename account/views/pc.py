@@ -10,7 +10,7 @@ from account.views.base import ProfileBaseView, AccountPosterBaseView
 
 def alatting_logout(request):
     auth_views.logout(request)
-    return redirect(reverse('website:index'))
+    return redirect(reverse('posters_pc:index'))
 
 
 class LoginView(TemplateView):

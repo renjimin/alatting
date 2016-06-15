@@ -1,28 +1,33 @@
 <div class="footer">
     <ul class="footer-tab">
-        <li class="active">
-            <a href="{% url 'website:mobile_poster_index' %}">
+        {% url 'website:mobile_poster_index' as index_url%}
+        <li {% if index_url == request.path_info %}class="active"{% endif %}>
+            <a href="{{ index_url }}">
                 <span class="glyphicon glyphicon-home"
                       aria-hidden="true"></span>
                 主页
             </a>
         </li>
-        <li>
-            <a href="{% url 'website:mobile_poster_index' %}">
+        {% url 'website:mobile_search' as search_url %}
+        {% url 'website:mobile_search_result' as search_result_url %}
+        <li {% if search_url in request.path_info or search_result_url in request.path_info %}class="active"{% endif %}>
+            <a href="{{ search_url }}">
                 <span class="glyphicon glyphicon-search"
                       aria-hidden="true"></span>
                 搜索
             </a>
         </li>
-        <li id="ftcat">
-            <a href="{% url 'website:category' %}" onclick="return ftcatFunction();">
+        {% url 'website:mobile_category' as cate_url %}
+        <li id="ftcat" {% if cate_url in request.path_info %}class="active"{% endif %}>
+            <a href="{{ cate_url }}" onclick="return ftcatFunction();">
                 <span class="glyphicon glyphicon-list-alt"
                       aria-hidden="true"></span>
                 类别
             </a>
         </li>
-        <li>
-            <a href="{% url 'account:profile' %}">
+        {% url 'account:profile' as profile_url %}
+        <li {% if profile_url in request.path_info %}class="active"{% endif %}>
+            <a href="{{ profile_url }}">
                 <span class="glyphicon glyphicon-user"
                       aria-hidden="true"></span>
                 我的

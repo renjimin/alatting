@@ -15,7 +15,6 @@ $(function() {
 		} else {
 			_localAdress = yunyeEditorGlobal.address;
 		}
-		//console.log(_localAdress);
 		var local = new BMap.LocalSearch(baiduMap, { //智能搜索
 			onSearchComplete: function() {
 				if ( local.getResults().getPoi(0) ) {
@@ -47,6 +46,7 @@ $(function() {
 						} else {
 							//yyAlert("没找到你要输入的地址和自动定位失败,地址设为光谷",function(){
 							local.search("光谷");
+							$("#suggestId").val("光谷");
 							var add = {
 								address: '光谷',
 								city: '武汉市',
