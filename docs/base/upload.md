@@ -49,3 +49,43 @@
 }
 ```
 
+
+## Ajax上传base64的海报Logo文件
+
+    POST /api/v1/poster/upload/b64image
+    
+**说明：** 此接口用于更新海报LOGO图片，会强制保存成PNG后缀的文件
+
+
+**Request**
+
+{
+    "poster_id": 123,
+    "image_data": "base64编码的图片文件字符串"    //不需要带"data:image/png;base64, "
+}
+
+
+**Response**
+
+上传成功，状态码返回200
+
+```json
+{
+	"id": 27,                                   //文件ID
+	"format": "png",                            //文件格式                     
+	"file": "/media/images/2016/04/28/e88a8573601740039f42b24d40f3350c.png", //文件路径 
+	"uuid": "c4cc94b4a98c401489aa047d7657dffa", 
+	"created_at": "2016-04-28 07:44:05", 
+	"width": 108,                       //图片或视频才会有宽高属性     
+	"height": 108
+}
+```
+
+上传失败，状态码返回400
+
+```json
+{
+    "detail": "上传失败的具体原因,比如格式不正确等"
+}
+```
+

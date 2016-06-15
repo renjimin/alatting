@@ -10,7 +10,7 @@ from poster.view.api import (
     CategoryListView, SurveyConsumerAnswersView,
     SurveyConsumerAnsView, PosterListView, ServiceBargainListView,
     ServiceBargainDetailView, ChatListView, StatisticsDataView,
-    ServiceCommentListView)
+    ServiceCommentListView, UploadBase64ImageFileView)
 
 
 urlpatterns = [
@@ -36,6 +36,9 @@ urlpatterns = [
 
     url(r'^check/unique/$', CheckPosterUniqueNameView.as_view(),
         name='check_unique'),
+
+    url(r'^upload/b64image$',
+        UploadBase64ImageFileView.as_view(), name='upload_b64_image'),
 
     url(r'^upload/(?P<page_key>\w+)$',
         UploadFileView.as_view(), name='upload'),
