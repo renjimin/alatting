@@ -26,10 +26,14 @@ $(document).ready(function(){
         if(btnvalue == "注册"){
             $('.login-form').show();
             $('.regist-form').hide();
+            $('.psd-right').hide();
+            $('.login-right').show();
             $('.login-leftbtn').text('登陆');
         }else{
             $('.login-form').hide();
             $('.regist-form').show();
+            $('.psd-right').hide();
+            $('.login-right').show();
             $('.login-leftbtn').text('注册');
         }
     });
