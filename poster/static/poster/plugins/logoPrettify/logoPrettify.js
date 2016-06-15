@@ -57,26 +57,42 @@ $(function(){
 				reader.readAsDataURL(file);
 			});
 			$("#logoPrettify .uploadCanvas").on("click",function(){
-				var image = new Image();
-				image.onload = function(){
-					$('.header-logo h2').hide();
-					$('.header-logo img').remove();
-					//image.style.width = canvas.width + 'px';
-					//image.style.height = canvas.height + 'px';
-					if(canvas.width / canvas.height > $('.header-logo').width()/$('.header-logo').height() && canvas.width > $('.header-logo').width()){
-						image.style.width = $('.header-logo').width() + 'px';
-						image.style.height = 'auto';
-						image.style.top = $('.header-logo').height()/2 - ($('.header-logo').width()*canvas.height/canvas.width)/2 + 'px';
-					}else if(canvas.width / canvas.height < $('.header-logo').width()/$('.header-logo').height() && canvas.height > $('.header-logo').height()){
-						image.style.height = $('.header-logo').height() + 'px';
-						image.style.width = 'auto';
+				data=canvas.toDataURL("image/png").split(',')[1];
+
+				$.ajax({
+					type: 'POST',
+					url: '/api/v1/poster/upload/b64image',
+					data: '{"poster_id": "'+ yunyeEditorGlobal.posterId + '" ,  "image_data": "' + data + '"}',
+					contentType: 'application/json; charset=utf-8',
+					dataType: 'json',
+					success: function (msg) {
+						alert("Done, Picture Uploaded.");
 					}
-					$('.header-logo').append($(image));
-					$('.header-logo img').css({"display":"inline-block"});
-					//$('.header-logo').imgoperationlogo();
-					api.destory();
-				};
-				image.src = canvas.toDataURL("image/png");
+				});
+
+				// var image = new Image();
+
+				// image.onload = function(){
+				// 	$('.header-logo h2').hide();
+				// 	$('.header-logo img').remove();
+
+
+				// 	//image.style.width = canvas.width + 'px';
+				// 	//image.style.height = canvas.height + 'px';
+				// 	if(canvas.width / canvas.height > $('.header-logo').width()/$('.header-logo').height() && canvas.width > $('.header-logo').width()){
+				// 		image.style.width = $('.header-logo').width() + 'px';
+				// 		image.style.height = 'auto';
+				// 		image.style.top = $('.header-logo').height()/2 - ($('.header-logo').width()*canvas.height/canvas.width)/2 + 'px';
+				// 	}else if(canvas.width / canvas.height < $('.header-logo').width()/$('.header-logo').height() && canvas.height > $('.header-logo').height()){
+				// 		image.style.height = $('.header-logo').height() + 'px';
+				// 		image.style.width = 'auto';
+				// 	}
+				// 	$('.header-logo').append($(image));
+				// 	$('.header-logo img').css({"display":"inline-block"});
+				// 	//$('.header-logo').imgoperationlogo();
+				// 	api.destory();
+				// };
+				// image.src = canvas.toDataURL("image/png");
 			});
 		};
 		api.switchPannel = function(pannelID){

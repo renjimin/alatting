@@ -202,6 +202,7 @@ $(function () {
 			len = cStr*2 +eStr;
 			if( len > 49){
 				$("#tt-content").val(str.substr(0,i));
+				$("#short_description").html(str.substr(0,i));
 				break;
 			}
 		}
