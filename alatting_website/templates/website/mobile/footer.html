@@ -9,7 +9,8 @@
             </a>
         </li>
         {% url 'website:mobile_search' as search_url %}
-        <li {% if search_url in request.path_info %}class="active"{% endif %}>
+        {% url 'website:mobile_search_result' as search_result_url %}
+        <li {% if search_url in request.path_info or search_result_url in request.path_info %}class="active"{% endif %}>
             <a href="{{ search_url }}">
                 <span class="glyphicon glyphicon-search"
                       aria-hidden="true"></span>

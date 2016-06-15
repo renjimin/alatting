@@ -15,8 +15,8 @@
         <a href="javascript:void(0)" ng-click="openModal()" class="button button-clear btn-menu"><i class="glyphicon glyphicon-menu-hamburger"></i></a>
         {% block header_sort %}
         <div class="home-header-sort">
-            <a href="/mobile/?sort=hot" class="button button-clear btn-select">热门</a>
-            <a href="/mobile/?sort=new" class="button button-clear btn-select">最新</a>
+            <a href="{{ request.path_info }}?sort=hot&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">热门</a>
+            <a href="{{ request.path_info }}?sort=new&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">最新</a>
         </div>
         {% endblock %}
         
