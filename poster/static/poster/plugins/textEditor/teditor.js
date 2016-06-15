@@ -32,7 +32,7 @@ $(function(){
         for(var i=0;i<teditOption.fontFamily.length;i++){
             fdiv += '<li class="ted-font-li" style="font-family:\''+teditOption.fontFamily[i]+'\';" data-fm="'+teditOption.fontFamily[i]+'">'+teditOption.fontFamily[i]+'</li>';
         }
-        $('#ted-font-list').append(cdiv);
+        $('#ted-font-list').append(fdiv);
 
         var canvas = document.getElementById("bot-cbox-canvas");
         var ctx=canvas.getContext("2d");
@@ -51,9 +51,10 @@ $(function(){
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
         var vGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        vGrad.addColorStop(0, 'rgba(255,255,255,0)');
-        vGrad.addColorStop(1/2, 'rgba(255,255,255,1)');
-        vGrad.addColorStop(1, 'rgba(0,0,0,1)');
+        vGrad.addColorStop(0, 'rgba(255,255,255,1)');
+        vGrad.addColorStop(1/2, 'rgba(255,255,255,0)');
+        vGrad.addColorStop(1/2, 'rgba(0,0,0,0)');
+        vGrad.addColorStop(2/2, 'rgba(0,0,0,1)');
         ctx.fillStyle = vGrad;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     })();
