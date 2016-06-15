@@ -148,27 +148,19 @@ class QuestionnaireView(View):
         questionset = runinfo.questionset
         questionnaire = questionset.questionnaire
         qs_title = questionset.heading
-        questions = questionset.questions()
+        questions = questionset.questions_in_poster(runinfo.poster.pk)
         qlist = []
         for question in questions:
-            is_visible = False
-            if question.audit_status in [0, 1]:
-                if question.poster:
-                    if question.poster.pk == runinfo.poster.pk:
-                        is_visible = True
-            if question.audit_status==2:
-                is_visible = True
-            if is_visible:
-                Type = question.get_type()
-                prev_ans = self.get_pre_ans(runinfo, question)
-                qdict = {
-                    'template': 'questionnaire/%s.html' % (Type),
-                    'qtype': Type,
-                    'prev_ans': prev_ans,
-                }
-                if Type in QuestionProcessors:
-                    qdict.update(QuestionProcessors[Type](request, question))
-                qlist.append((question, qdict))
+            Type = question.get_type()
+            prev_ans = self.get_pre_ans(runinfo, question)
+            qdict = {
+                'template': 'questionnaire/%s.html' % (Type),
+                'qtype': Type,
+                'prev_ans': prev_ans,
+            }
+            if Type in QuestionProcessors:
+                qdict.update(QuestionProcessors[Type](request, question))
+            qlist.append((question, qdict))
 
         prev_url = "javascript:void(0)"
         if questionset.prev():
@@ -279,7 +271,7 @@ class QuestionnaireView(View):
             ans = self.process_value(ans, question, qssortid, value)
             extra[question] = ans
         # generate none for each empty quesiton, and place in extra
-        expected = questionset.questions()
+        expected = questionset.questions_in_poster(runinfo.poster.pk)
         empty_ids = []
         for q in expected:
             if q.sortid in posted_ids:

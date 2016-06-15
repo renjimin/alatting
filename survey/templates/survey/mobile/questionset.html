@@ -61,7 +61,7 @@
                     
                     <div class="qs-footer">
                         {% if islast_creator%}
-                            <div class="qs-footer-add">+ 添加问题</div>
+                            <div class="qs-footer-add-q" id="qs-footer-add-q">+ 添加问题</div>
                         {% endif %}
                         <div>
                             <a class="back btn btn-default" href="{{ prev_url }}">上一步</a>
@@ -76,28 +76,30 @@
                     </div>  
                 </div>
             </form>
-            <div class="qs-add">
+            <div class="qs-add hidden" id="qs-add">
                 <div class="qs-add-inner">
                     <div class="qs-add-content">
                         <div class="add-qs-title">+ 添加问题</div>
                         <form id="add-qs-1">
                             <div class="form-inner">
-                                <input type="text" name="poster_id" value="{{poster_id}}">
-                                <div class="add-qs-subtitle">
-                                    <p class="text-center">您所添加之问题，</br>经系统审核后将会显示于您的海报问卷中</p>
+                                <input type="text" name="poster_id" value="{{poster_id}}" class="hidden">
+                                <div class="add-qs-subtitle-1">
+                                    <div class="text-center">您所添加之问题，</br>经系统审核后将会显示于您的海报问卷中</div>
                                 </div>
                                 <textarea placeholder="请输入您的问题" id="add-qs-1-text"></textarea>
-                                <div class="add-qs-subtitle">
-                                    <p class="text-center">问题类别</p>
+                                <div class="add-qs-subtitle-2">
+                                    <div class="text-center">问题类别</div>
                                 </div>
-                                <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="text">单行文本框</label>
-                                <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="textarea">多行文本框</label>
-                                <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox">多选</label>
-                                <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice">单选</label>
-                                <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox-input">多选，选项中有输入框</label>
-                                <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice-input">单选，选项中有输入框</label> 
+                                <div class="add-qs-1-typelist">
+                                    <div class="radio-label-wrapper"><label class="radio-inline"><input type="radio" name="add-qs-1-type" value="text">单行文本框</label></div>
+                                    <div class="radio-label-wrapper"><label class="radio-inline"><input type="radio" name="add-qs-1-type" value="textarea">多行文本框</label></div>
+<!--                                     <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox">多选</label>
+                                    <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice">单选</label>
+                                    <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox-input">多选，选项中有输入框</label>
+                                    <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice-input">单选，选项中有输入框</label>  -->
+                                </div>
                             </div>
-                            <div>
+                            <div class="form-footer">
                                 <a class="btn btn-default" id="add-qs-1-back-btn">取消</a>
                                 <input type="submit" class="btn btn-default" id="add-qs-1-next-btn" value="下一步">
                             </div>

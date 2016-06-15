@@ -63,6 +63,21 @@ class QuestionSet(models.Model):
         res = Question.objects.filter(questionset=self.id).order_by('sortid')
         return res
 
+    def questions_in_poster(self, poster_id):
+        questions = Question.objects.filter(questionset=self.id).order_by('sortid')
+        res=[]
+        for question in questions:
+            is_visible = False
+            if question.audit_status in [0, 1]:
+                if question.poster:
+                    if question.poster.pk == poster_id:
+                        is_visible = True
+            if question.audit_status==2:
+                is_visible = True
+            if is_visible:
+                res.append(question)
+        return res
+
     def questions_count(self):
         res = Question.objects.filter(
             questionset=self.id).order_by('sortid').count()

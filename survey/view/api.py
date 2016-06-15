@@ -28,11 +28,7 @@ class QuestionCreateAPIView(APIView):
 			qu = Questionnaire.objects.filter(main_category=poster.main_category,
 											sub_category__isnull=True,
 											role='consumer').first()
-		qs = QuestionSet()
-		qs.questionnaire = qu 
-		qs.sortid = qu.questionsets_count()+1
-		qs.heading = qu.questionsets().first().heading
-		qs.save()
+		qs = qu.questionsets().last()
 
 		q = Question()
 		q.questionset = qs
@@ -40,6 +36,9 @@ class QuestionCreateAPIView(APIView):
 		q.type = qs_type
 		q.text = qs_text
 		q.short_text = "5"
+		q.required = False
+		q.audit_status = 0
+		q.poster = poster
 		q.save()
 		data = {'status': 'success'}
 		return Response(data, status=status.HTTP_200_OK)

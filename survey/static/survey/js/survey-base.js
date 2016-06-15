@@ -40,7 +40,12 @@ function openPopup(form, text) {
 		form.submit();
 	}
 };
-
+$('#qs-footer-add-q').on('click',function(e){
+	$('#qs-add').removeClass("hidden");
+});
+$('#add-qs-1-back-btn').on('click',function(e){
+	$('#qs-add').addClass("hidden");
+});
 $('#add-qs-1-next-btn').on('click',function(e){
 	e.preventDefault();
     e.stopPropagation();
@@ -62,7 +67,8 @@ $('#add-qs-1-next-btn').on('click',function(e){
 		data:posted_data,
 		type: "POST",
 		success:function(){
-			yyAlert("success");
+			yyAlert("成功添加问题");
+			$('#qs-add').addClass("hidden");
       	},
       	error: function(data) {
       		yyAlert(data.responseJSON.error);
