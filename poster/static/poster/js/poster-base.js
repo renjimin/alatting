@@ -6,7 +6,6 @@ $(function () {
 	var regtelephone = /^0\d{2,3}-?\d{7,8}$/;
 	var regemail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
 	var regphone = /^(13[0-9]|14[0-9]|15[0-9]|18[0-9])\d{8}$/i;    
-
 	var initData = function () {
 		var g = yunyeEditorGlobal;
 		//标题
