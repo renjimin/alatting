@@ -499,7 +499,9 @@ function editor(method,obj){
 			bh = $('body').height();
 			fluidSt = $('.container-fluid').scrollTop();
 
-			if(obj){
+			if(obj && obj.find('.el-content').length > 0){
+				obj.tEditor({});
+			}else{
 				obj.tEditor({textDelete: false,
 						textCopy: false,
 						pluginType: 'other'});
