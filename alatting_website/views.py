@@ -1,5 +1,6 @@
 # coding=utf-8
 import logging
+from django.db.models import Q
 
 from django.http.response import HttpResponse, HttpResponseNotFound
 from django.shortcuts import redirect, get_object_or_404
@@ -63,6 +64,8 @@ class MobileIndexView(TemplateView):
         sort_key = self.get_poster_sort_keys()
         if sort_key:
             qs = qs.order_by(sort_key)
+        else:
+            qs = qs.order_by('-created_at')
         qs = self.get_q_filter(qs)
         return qs
 
@@ -106,6 +109,38 @@ class IndexCategoryView(TemplateView):
         ctx['posters'] = self.get_poster_list()
         ctx['categorys'] = get_first_category_list()
         return ctx
+
+
+class SearchView(ListView):
+    model = Category
+    queryset = Category.objects.filter(parent__isnull=True).order_by('name')
+    template_name = 'website/mobile/search.html'
+
+
+class SearchResultView(MobileIndexView):
+    def _get_sub_ids_filter(self, qs):
+        sub_ids = self.request.GET.get('sub_ids', '')
+        if sub_ids:
+            qs = qs.filter(
+                sub_category__in=sub_ids.split(',')
+            )
+        return qs
+
+    def _get_q_filter(self, qs):
+        q = self.request.GET.get('q', '')
+        if q:
+            qs = qs.filter(
+                Q(unique_name__contains=q) | Q(slug__contains=q)
+            )
+        return qs
+
+    def get_q_filter(self, qs):
+        try:
+            qs = self._get_q_filter(qs)
+            qs = self._get_sub_ids_filter(qs)
+        except Exception as e:
+            logger.exception(e)
+        return qs
 
 
 class PosterView(DetailView):

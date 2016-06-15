@@ -3,7 +3,7 @@
 from django.http import Http404
 from rest_framework import viewsets
 from rest_framework import decorators
-from rest_framework import permissions
+from rest_framework import permissions, status
 from rest_framework.response import Response
 from alatting_website.model.poster import Poster
 from alatting_website.serializer.poster_serializer import PosterSerializer
@@ -121,21 +121,28 @@ class PosterFavoritesViewSet(viewsets.GenericViewSet):
         )
         return queryset
 
-    @decorators.list_route(methods=('post',))
+    @decorators.list_route(methods=('post', 'delete', ))
     def bookmark(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        queryset = self.get_queryset()
-        if len(queryset) == 1:
-            serializer.instance = queryset[0]
-            kwargs = dict()
-        else:
-            kwargs = dict(
+        if request.method == 'DELETE':
+            PosterFavorites.objects.filter(
                 poster_id=kwargs['poster_id'],
                 creator_id=request.user.id
-            )
-        serializer.save(**kwargs)
-        return Response(serializer.data)
+            ).delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        else:
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            queryset = self.get_queryset()
+            if len(queryset) == 1:
+                serializer.instance = queryset[0]
+                kwargs = dict()
+            else:
+                kwargs = dict(
+                    poster_id=kwargs['poster_id'],
+                    creator_id=request.user.id
+                )
+            serializer.save(**kwargs)
+            return Response(serializer.data)
 
 class PosterSubscribeViewSet(viewsets.GenericViewSet):
     queryset = PosterSubscribe.objects.all()
