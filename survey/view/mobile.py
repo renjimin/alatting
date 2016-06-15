@@ -131,7 +131,7 @@ class QuestionnaireView(View):
         # checkbox-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_checkbox_choice"
         # checkbox-input: name="question_{{ question.sortid }}_{{ choice.sortid}}_checkbox_comment"
         # ans: {choice.sortid: {'ANSWER': ..., 'COMMENT': ...}}
-        elif len(qssortid) == 5 and qssortid[3]=='checkbox':
+        elif len(qssortid) == 5 and qssortid[3] == 'checkbox':
             if qssortid[4] == 'choice':
                 choice_sortid = int(qssortid[2])
                 if choice_sortid not in ans:
@@ -148,7 +148,7 @@ class QuestionnaireView(View):
         questionset = runinfo.questionset
         questionnaire = questionset.questionnaire
         qs_title = questionset.heading
-        questions = questionset.questions()
+        questions = questionset.questions_in_poster(runinfo.poster.pk)
         qlist = []
         for question in questions:
             Type = question.get_type()
@@ -191,6 +191,12 @@ class QuestionnaireView(View):
         if questionset.is_last() and questionnaire.role == "consumer":
             islast_consumer = True
 
+        islast_creator = False
+        if questionset.is_last() and questionnaire.role == "creator":
+            islast_creator = True
+
+        poster_id = runinfo.poster.pk
+
         contextdict = {'qs_title': qs_title,
                        'questionset': questionset,
                        'qlist': qlist,
@@ -198,7 +204,9 @@ class QuestionnaireView(View):
                        'progress': progress,
                        'errors': errors,
                        'islast_consumer_repeat': islast_consumer_repeat,
-                       'islast_consumer': islast_consumer}
+                       'islast_consumer': islast_consumer,
+                       'islast_creator': islast_creator,
+                       'poster_id': poster_id}
         return render_to_response('survey/mobile/questionset.html',
                                   contextdict)
 
@@ -263,7 +271,7 @@ class QuestionnaireView(View):
             ans = self.process_value(ans, question, qssortid, value)
             extra[question] = ans
         # generate none for each empty quesiton, and place in extra
-        expected = questionset.questions()
+        expected = questionset.questions_in_poster(runinfo.poster.pk)
         empty_ids = []
         for q in expected:
             if q.sortid in posted_ids:
@@ -357,9 +365,9 @@ class AnswerDetailView(TemplateView):
                 poster_id=poster_id, questionnaire__role=role,
                 isactive=True).order_by('-completed'):
             results.setdefault(his, [])
-            for ans in Answer.objects.filter(poster_id=poster_id, 
-                question__questionset__questionnaire=qu, 
-                runid=his.runid):
+            for ans in Answer.objects.filter(poster_id=poster_id,
+                                             question__questionset__questionnaire=qu,
+                                             runid=his.runid):
                 results[his].append(ans)
         context['results'] = results
         return context

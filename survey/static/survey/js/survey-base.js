@@ -40,3 +40,38 @@ function openPopup(form, text) {
 		form.submit();
 	}
 };
+$('#qs-footer-add-q').on('click',function(e){
+	$('#qs-add').removeClass("hidden");
+});
+$('#add-qs-1-back-btn').on('click',function(e){
+	$('#qs-add').addClass("hidden");
+});
+$('#add-qs-1-next-btn').on('click',function(e){
+	e.preventDefault();
+    e.stopPropagation();
+    poster_id = $.trim($('input[name="poster_id"]').val());
+	qs_text = $.trim($('#add-qs-1-text').val());
+	qs_type = $.trim($('input[name="add-qs-1-type"]:checked').val());
+	if(qs_text == ""){
+        yyAlert('请填写问题描述!');
+        return false;
+    }
+    if(qs_type == ""){
+        yyAlert('请填写问题类型!');
+        return false;
+    }
+	var url = '/api/v1/survey/create';
+	var posted_data = {poster_id:poster_id, qs_text:qs_text, qs_type:qs_type};
+	$.ajax({
+		url:url,
+		data:posted_data,
+		type: "POST",
+		success:function(){
+			yyAlert("成功添加问题");
+			$('#qs-add').addClass("hidden");
+      	},
+      	error: function(data) {
+      		yyAlert(data.responseJSON.error);
+      	}
+    });
+});

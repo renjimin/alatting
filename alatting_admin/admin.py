@@ -213,7 +213,7 @@ class ChoiceInline(admin.StackedInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline, ]
     list_display = (
-        'id', 'text', 'short_text', 'type', 'questionset', 'sortid', 'required')
+        'id', 'text', 'short_text', 'type', 'questionset', 'sortid', 'required', 'audit_status')
 
 
 class QuestionInline(admin.StackedInline):
