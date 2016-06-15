@@ -54,7 +54,7 @@ class MobileIndexView(TemplateView):
                     )
             except Exception as e:
                 logger.exception(e)
-        return qs.order_by('-created_at')
+        return qs
 
     def get_poster_list(self):
         qs = Poster.objects.filter(

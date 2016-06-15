@@ -8,6 +8,7 @@ from django.http import JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, render_to_response, render, \
     redirect
 from django.views.generic import FormView
+from django.contrib.auth import views as auth_views
 
 from account.form.forms import RegisterForm, pwd_validate, \
     ResetPasswordForm, LoginForm
@@ -24,6 +25,11 @@ from utils.utils import is_mobile
 
 def not_found(request):
     return JsonResponse({'detail': u'Page Not Found'}, status=404)
+
+
+def mobile_logout(request):
+    auth_views.logout(request)
+    return redirect(reverse('website:mobile_poster_index'))
 
 
 class ProfileView(ProfileBaseView):
