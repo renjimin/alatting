@@ -10,9 +10,9 @@
 
 .content-top-left {
     width: 66%;
-    height: 60%;
-    -webkit-clip-path: polygon(0% 0%, 54% 0%, 100% 11%, 88% 100%, 0% 90%);
-    border-top-right-radius: 63px;
+    height: 63%;
+    -webkit-clip-path: polygon(0% 0%, 54% 0%, 100% 11%, 88% 100%, 0% 88%);
+    border-top-right-radius: 91px;
     position: absolute;
     left: 0;
 }
@@ -27,34 +27,34 @@
 }
 
 .content-top-right-middle {
-    width: 34%;
-    height: 48%;
-    -webkit-clip-path: polygon(15% 4%, 100% 11%, 100% 100%, 0% 80%);
-    border-top-left-radius: 65px;
+    width: 35%;
+    height: 47%;
+    -webkit-clip-path: polygon(15% 3%, 100% 11%, 100% 100%, 0% 84%);
+    border-top-left-radius: 86px;
     border-bottom-left-radius: 65px;
     position: absolute;
     right: 0;
-    top: 26%;
+    top: 24%;
 }
 
 .content-bottom-left {
-    width: 60%;
-    height: 40%;
-    -webkit-clip-path: polygon(0% 0%, 100% 15%, 75% 100%, 0% 100%);
-    border-top-right-radius: 77px;
+    width: 58%;
+    height: 38%;
+    -webkit-clip-path: polygon(0% 0%, 100% 21%, 79% 100%, 0% 100%);
+    border-top-right-radius: 91px;
     position: absolute;
     left: 0;
-    top: 60%;
+    top: 62%;
 }
 
 .content-bottom-right {
-    width: 45%;
-    height: 28%;
+    width: 46%;
+    height: 29%;
     -webkit-clip-path: polygon(25% 0%, 100% 26%, 100% 100%,0% 100%);
     border-top-left-radius: 89px;
     position: absolute;
     right: 0;
-    top: 72%;
+    top: 71%;
 }
 
 .content-bottom {

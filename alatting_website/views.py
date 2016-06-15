@@ -54,7 +54,7 @@ class MobileIndexView(TemplateView):
                     )
             except Exception as e:
                 logger.exception(e)
-        return qs.order_by('-created_at')
+        return qs
 
     def get_poster_list(self):
         qs = Poster.objects.filter(
@@ -106,6 +106,18 @@ class IndexCategoryView(TemplateView):
         ctx['posters'] = self.get_poster_list()
         ctx['categorys'] = get_first_category_list()
         return ctx
+
+
+class SearchView(TemplateView):
+    template_name = 'website/mobile/search.html'
+
+    def get(self, request, *args, **kwargs):
+        q = request.GET.get('q', '')
+        return super(SearchView, self).get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+
+        return super(SearchView, self).get_context_data(**kwargs)
 
 
 class PosterView(DetailView):

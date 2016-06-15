@@ -19,7 +19,7 @@ from utils.db.utils import Utils as DBUtils
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, View, ListView, UpdateView, \
-    CreateView
+    CreateView, TemplateView
 from alatting_website.model.poster import Poster, PosterPage, PosterKeyword
 from alatting_website.models import CategoryKeyword, Template, Address
 
@@ -390,16 +390,13 @@ class PosterPageCreateView(View):
     def post(self, request, *args, **kwargs):
         poster_id = request.POST.get('poster_id')
         template_id = request.POST.get('template_id')
-        pages = PosterPage.objects.filter(
-            poster__creator=self.request.user,
-            poster_id=poster_id, template_id=template_id
-        ).order_by('-index')
         template = get_object_or_404(Template, pk=template_id)
-        if pages.exists():
-            index = int(pages.first().index) + 1
-        else:
-            index = 0
+        PosterPage.objects.filter(
+            poster__creator=self.request.user,
+            poster_id=poster_id
+        ).delete()
 
+        index = 0
         html = read_template_file_content(template.html_path())
         css = read_template_file_content(template.css_path())
         js = read_template_file_content(template.js_path())

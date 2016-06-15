@@ -1,0 +1,15 @@
+{% extends 'website/mobile/base.html' %}
+{% load static %}
+{% block base_header_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'website/css/index.css' %}"/>
+{% endblock %}
+
+{% block base_header_js %}
+    {{ block.super }}
+    <script src="{% static 'website/js/index.js' %}"></script>
+{% endblock %}
+
+{% block base_body %}
+abc
+{% endblock %}
