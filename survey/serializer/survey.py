@@ -37,3 +37,14 @@ class RunInfoHistorySerializer(serializers.ModelSerializer):
 			runid=RunInfoHistory.runid)
 		serializer = AnswerSerializer(instance=ans, many=True)
 		return serializer.data
+
+
+class QuestionCreateSerializer(serializers.ModelSerializer):
+	def validate_text(self, value):
+		if not value:
+			raise serializers.ValidationError("text field required.")
+		return value
+
+	class Meta:
+		model = Question
+		fields = ('questionset', 'sortid', 'text', 'short_text','type')

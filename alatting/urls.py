@@ -65,6 +65,9 @@ urlpatterns += [
 
     url(r'^api/v1/poster/',
         include('poster.urls.api', namespace='poster_api')),
+
+    url(r'^api/v1/survey/',
+        include('survey.urls.api', namespace='survey_api')),
 ]
 
 
