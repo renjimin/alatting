@@ -2,7 +2,7 @@
 {% load static %}
 {% block base_header_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/uc-base.css' %}"/>
     <link rel="stylesheet" href="{% static 'account/css/profile.css' %}"/>
 {% endblock %}
 
@@ -17,11 +17,11 @@
         <div class="head-top">
             <div class="head-top-right">
                 <div class="top-rt-item myfavorite">
-                    <i class="fa fa-star"></i>br
+                    <i class="fa fa-star"></i><br>
                     <span class="rt-item-cont">我的收藏</span>
                 </div>
                 <div class="top-rt-item myshare">
-                    <i class="fa fa-share-square-o"></i>
+                    <i class="fa fa-share-square-o"></i><br>
                     <span class="rt-item-cont">已分享</span>
                 </div>
             </div>

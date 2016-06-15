@@ -1,0 +1,547 @@
+
+.body-container{
+    width: 100%;
+    background: #cccccc;
+    color: #808080;
+    font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.body-container ul{
+    padding: 0;
+    outline: none;
+    list-style: none;
+}
+
+/*------icon-star-------*/
+.p-star{
+    overflow: hidden;
+    background: url("../img/ic_score.png") no-repeat;
+}
+.p-star-0{
+    background-position: 0 -200px;
+}
+.p-star-1{
+    background-position: 0 -180px;
+}
+.p-star-2{
+    background-position: 0 -160px;
+}
+.p-star-3{
+    background-position: 0 -140px;
+}
+.p-star-4{
+    background-position: 0 -120px;
+}
+.p-star-5{
+    background-position: 0 -100px;
+}
+.p-star-6{
+    background-position: 0 -80px;
+}
+.p-star-7{
+    background-position: 0 -60px;
+}
+.p-star-8{
+    background-position: 0 -40px;
+}
+.p-star-9{
+    background-position: 0 -20px;
+}
+.p-star-10{
+    background-position: 0 0px;
+}
+/*----*/
+.level-diamond{
+    background: url("../img/icon-vip-diamond.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-gold{
+    background: url("../img/icon-vip-gold.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-silver{
+    background: url("../img/icon-vip-silver.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.level-bronze{
+    background: url("../img/icon-vip-bronze.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+/*----*/
+.icon-diamond{
+    background: url("../img/ic-vip-diamond.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.icon-gold{
+    background: url("../img/ic-vip-gold.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.icon-silver{
+    background: url("../img/ic-vip-silver.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+.icon-bronze{
+    background: url("../img/ic-vip-bronze.png") no-repeat;
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+/*----*/
+.name-diamond{
+    color:rgb(255,200,37);
+}
+.name-gold{
+    color:rgb(255,200,37);
+}
+.name-silver{
+    color:rgb(193,221,230);
+}
+.name-bronze{
+    color:rgb(228,148,76);
+}
+
+/*------loading------*/
+.body-loading{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+    background:rgba(0,0,0,0.6);
+}
+.body-loading img{
+    display: block;
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -16px;
+    margin-top: -16px;
+}
+.data-loading{
+    padding: 50px 0;
+    text-align: center;
+}
+.error-msg{
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    padding: 15px 10px;
+    line-height: 25px;
+}
+
+
+/*-----调查问卷答案列表信息------*/
+.survey-ans li{
+    height: 40px;
+    line-height: 40px;
+    background: #e5e5e5;
+    margin-bottom: 10px;
+    font-size: 15px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.survey-ans .sans-name{
+    display: block;
+    float: left;
+    width: 100px;
+    height: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    background: #cecece;
+    text-align: center;
+    color: #6d6d6d;
+    font-weight: 600;
+}
+.survey-ans .sans-cont{
+    display: block;
+    margin-left: 100px;
+    padding: 0 10px;
+}
+
+/*-------用户评论信息列表-------*/
+.user-comments ul{
+    padding: 0 15px;
+}
+.user-comments li{
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+.user-comments li:last-child{
+    border:none;
+}
+.com-headicon{
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border:1px solid #e5e5e5;
+    overflow: hidden;
+    float:left;
+}
+.com-headicon img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.com-main{
+    margin-left: 45px;
+}
+.com-main-top{
+    height: 40px;
+    padding: 10px 0;
+}
+.com-main-top span{
+    display: block;
+}
+.com-username{
+    float: left;
+    width: 120px;
+    height: 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #5e5e5e;
+}
+.com-pstar{
+    float: right;
+    width: 100px;
+    height: 20px;
+}
+.com-main-cont{
+    min-height: 60px;
+}
+.com-main-bot{
+    text-align: right;
+}
+
+/*--------报价与记录菜单---------*/
+.two-menu{
+    height: 40px;
+}
+.two-menu-li{
+    width: 50%;
+    float: left;
+    font-size: 16px;
+    line-height: 39px;
+    text-align: center;
+    background: #e5e5e5;
+}
+.two-menu-li .glyphicon{
+    display: none;
+}
+.two-menu-act{
+    background: #ffffff;
+}
+.two-menu-act .glyphicon{
+    display: inline;
+}
+
+/*---------双方消息列表与发送消息----------*/
+.mn-message{
+    padding: 0px 10px 30px;
+}
+.mn-mess-list{
+    min-height: 180px;
+}
+.mn-mess-li{
+    padding: 10px 0;
+    min-height: 100px;
+    border-bottom: 1px solid #e5e5e5;
+}
+.mn-mess-li:last-child{
+    border:none;
+}
+.mn-mess-image{
+    float: left;
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.mn-mess-image img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+.mn-mess-info{
+    margin-left: 50px;
+    height: 100%;
+}
+.mess-info-title{
+    height: 40px;
+    line-height: 40px;
+    color:#5a5a5a;
+    font-weight: 600;
+}
+.info-title-name{
+    display: block;
+    float: left;
+    max-width: 100px;
+    overflow: hidden;
+}
+.info-title-time{
+    display: block;
+    float: right;
+}
+.mess-info-cont p{
+    margin-bottom: 5px;
+}
+.mn-mess-textarea textarea{
+    width: 100%;
+    padding: 10px;
+    border-color:#e5e5e5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    resize: none;
+    outline:none;
+}
+.mn-mess-textarea input{
+    display: block;
+    margin-right: 0px;
+    height: 40px;
+    width: 100%;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #e5e5e5;
+    background: #f7f7f7;
+    text-align: center;
+    font-size: 16px;
+    outline: none;
+}
+
+/*--------讨价还价与记录---------*/
+.trade-price{
+    width: 100%;
+    height: 150px;
+    overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
+}
+.trade-price-li{
+    width: 100%;
+    height: 100%;
+    height: 150px;
+    overflow: auto;
+    position: relative;
+}
+.trade-price-quote,.trade-price-bid,.trade-price-accept,.trade-price-refuse{
+    display: none;
+}
+.trade-price-icon{
+    width: 100px;
+    height: 100px;
+    background: #dadada;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    z-index: auto;
+}
+.trade-price-icon span{
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 25px;
+}
+.trade-price-value{
+    height: 100px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+.trade-price-value span{
+    display: inline-block;
+}
+.trade-price-value .value-icon{
+    font-size: 30px;
+    font-weight: 600;
+    position: absolute;
+    top: 10px;
+    margin-left: -20px;
+}
+.trade-price-value .value-num{
+    font-size: 60px;
+    font-weight: 600;
+    height: 100px;
+    line-height: 100px;
+    color: #585858;
+}
+.trade-price-value .value-num input{
+    display:block;
+    width: 100px;
+    font-size: 30px;
+    font-weight: 300;
+    margin: 20px 0;
+    padding: 10px;
+    line-height: 40px;
+    height: 60px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
+    outline: none;
+}
+.trade-price-value .value-unit{
+    font-size: 18px;
+}
+.trade-price-btn{
+    padding: 10px 0;
+    height: 50px;
+    text-align: center;
+}
+.price-btn-li{
+    display: inline-block;
+    vertical-align: bottom;
+    width: 80px;
+    height: 30px;
+    background: #e5e5e5;
+    line-height: 30px;
+    font-size: 16px;
+    margin: 0 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+.trade-price-accept{
+    background: #ececec;
+}
+.bid-consult{
+    position: absolute;
+    font-size: 12px;
+    top: 3px;
+    right: 5px;
+}
+.trade-price-mess{
+    height: 30px;
+    width: 120px;
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    line-height: 30px;
+    font-size: 13px;
+    text-align: right;
+}
+.trade-price-accept .trade-price-btn{
+    background: #e0e0e0;
+    text-align: center;
+    font-size: 18px;
+    line-height: 30px;
+}
+.trade-price-refuse .trade-price-btn{
+    background: #f1f1f1;
+}
+.trade-price-refuse .trade-price-mess{
+    display: inline-block;
+    font-size: 16px;
+    color:#5e5e5e;
+    line-height: 30px;
+}
+.trade-make-comt{
+    width: 50px;
+    height: 30px;
+    line-height: 28px;
+    background: #fff;
+    text-align: center;
+    border: 1px solid #e5e5e5;
+    position: absolute;
+    bottom:50px;
+    right: 0px;
+}
+
+/*-------价格列表--------*/
+.trade-plist-ul{
+    width: 90%;
+    margin: 0 auto;
+    overflow-y:auto;
+}
+.trade-plist-ul ul{
+    width: 332px;
+    margin: 0 auto;
+    border: 1px solid #cacaca;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
+}
+.trade-plist-ul li{
+    width: 100%;
+    height: 35px;
+    line-height: 34px;
+    border-bottom: 1px solid #cacaca;
+    white-space: nowrap;
+}
+.trade-plist-ul li.plist-active{
+    background: #f2f2f2;
+}
+.trade-plist-ul li span{
+    display: block;
+    float: left;
+    height: 35px;
+    padding: 0 5px;
+    text-align: center;
+    border-right: 1px solid #cacaca;
+}
+.trade-plist-ul li span:last-child, .main-plist li:last-child{
+    border:none;
+}
+.trade-plist-ul .plist-name{
+    width: 70px;
+}
+.trade-plist-ul .plist-value{
+    width: 100px;
+}
+.trade-plist-ul .plist-time{
+    width: 160px;
+}
+.trade-plist-ul li.plist-over{
+    font-weight: 600;
+    color: #151515;
+    background: #c1c1c1;
+}
+
+/*------- 小部件 -------*/
+/*--海报菜单元素--*/
+.p-ctrl-li{
+    width: 70px;
+    height: 70px;
+    background: #f5f5f5;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    padding:10px 0;
+    text-align: center;
+    cursor: pointer;
+}
+.p-ctrl-li span{
+    display: inline-block;
+    vertical-align: bottom;
+}
+.p-ctrl-li .ctrl-icon{
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    color: #808080;
+    top: 5px;
+}

@@ -31,7 +31,6 @@ $(function(){
                 var mli = getMainLiHtml(data[i]);
                 $('#main-list').append(mli);
             }
-
         },
         error: function(xhr,status,statusText){
             showLoadTips($('#main-list'),'error');
@@ -47,10 +46,10 @@ $(function(){
             h+= '           <img src="'+headIcon+'" alt="img"><span>'+ d.subject.username+'</span>';
             h+= '       </div>';
             h+= '   </div>';
-            h+= '   <div class="mli-cont tips-info">';
+            h+= '   <div class="mli-cont survey-ans">';
             h+= '       <ul>';
         for(var i=0;i<ans.length;i++){
-            h+= '           <li><span class="tips-name">'+ans[i]["question"]["short_text"]+'</span><span class="tips-cont">'+ans[i]["answer"]+'</span></li>';
+            h+= '           <li><span class="sans-name">'+ans[i]["question"]["short_text"]+'</span><span class="sans-cont">'+ans[i]["answer"]+'</span></li>';
         }
             h+= '       </ul>';
             h+= '   </div>';
@@ -125,8 +124,8 @@ $(function(){
                 url: '/api/v1/poster/'+id+'/bargains/'+lastPrice['id'],
                 success:function(){
                     //yyAlert('您的出价发送成功!');
-                    $('#price-accept').find('.q-c-name').html('您接受对方的报价');
-                    $('.price-li').hide();
+                    $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
+                    $('.trade-price-li').hide();
                     $('#price-accept').show();
                 },
                 error: function(xhr, status, statusText){
@@ -138,7 +137,6 @@ $(function(){
     /* 拒绝服务需求者的报价 */
     $('#refuse-price').on('click',function(){
         yyConfirm('温馨提示：一旦拒绝对方报价，将只能等待对方再次报价，如果您不认可当前价格，可以直接出价。',function(){
-            console.log('refuse-price');
             $.ajax({
                 type: 'PATCH',
                 data:{accepted:false,refused:true},
@@ -146,7 +144,7 @@ $(function(){
                 success:function(){
                     //yyAlert('您的出价发送成功!');
                     $('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
-                    $('.price-li').hide();
+                    $('.trade-price-li').hide();
                     $('#price-refuse').show();
                 },
                 error: function(xhr, status, statusText){
@@ -157,7 +155,7 @@ $(function(){
     });
     /* 打开出价面板 */
     $('.bid-price').on('click',function(){
-        $('#price-quote').hide();
+        $('.trade-price-li').hide();
         $('#price-bid').show();
     });
     /* 服务提供者出价 */
@@ -166,18 +164,15 @@ $(function(){
         if(!$.isNumeric(price) || price <= 0){
             yyAlert('请输入大于0的数字!');
         }else{
-            console.log('bid-price:'+price);
             $.ajax({
                 type: 'POST',
                 data:{"consumer_id":consumer_id,price:price,note:''},
                 url: '/api/v1/poster/'+id+'/bargains',
                 success:function(){
                     //yyAlert('您的出价发送成功!');
-                    $('#price-quote').children('.price-icon').children().html('你的报价');
+                    $('#price-quote').children('.trade-price-icon').children().html('你的报价');
                     $('#price-quote').find('.value-num').html(price);
-                    $('#accept-price').hide();
-                    $('#refuse-price').hide();
-                    $('.price-li').hide();
+                    $('.trade-price-li').hide();
                     $('#price-quote').show();
                 },
                 error: function(xhr, status, statusText){
@@ -191,10 +186,10 @@ $(function(){
         $('#price-bid').hide();
         $('#price-quote').show();
     });
-    /* 报价与记录的切换 */
-    $('.main-menu-li').on('click',function(){
-        $('.main-menu-li').removeClass('main-menu-act');
-        $(this).addClass('main-menu-act');
+    /* 报价与记录信息页的切换 */
+    $('.two-menu-li').on('click',function(){
+        $('.two-menu-li').removeClass('two-menu-act');
+        $(this).addClass('two-menu-act');
         var item = $(this).attr('data-item');
         $('.mainli').hide();
         $('#main-'+item).show();
@@ -234,7 +229,7 @@ $(function(){
             success:function(data){
                 showLoadTips($('#main-plist'),'success');
                 if(!$.isEmptyObject(data)){
-                    var h = '<div class="main-plist-ul"><ul>';
+                    var h = '<div class="trade-plist-ul"><ul>';
                     var num = data.length;
                     for(var i=0;i<num;i++){
                         if(data[i]["accepted"]){
@@ -273,12 +268,12 @@ $(function(){
     /* 展示当前讨价还价的状态 */
     function showPriceli(lastPriceData){
         $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData['price']);
-        $('.price-li').hide();
+        $('.trade-price-li').hide();
         if(lastPriceData['accepted']){
             if(lastPriceData['consumer']['id'] == lastPriceData['creator']['id']){
-                $('#price-accept').find('.q-c-name').html('您已接受报价');
+                $('#price-accept').find('.trade-price-mess').html('您已接受报价');
             }else{
-                $('#price-accept').find('.q-c-name').html('对方已接受报价');
+                $('#price-accept').find('.trade-price-mess').html('对方已接受报价');
             }
             $('#price-accept').show();
         }else if(lastPriceData['refused']){
@@ -290,7 +285,7 @@ $(function(){
             $('#price-refuse').show();
         }else{
             if(lastPriceData['consumer']['id'] != lastPriceData['creator']['id']){
-                $('#price-quote').children('.price-icon').children().html('你的报价');
+                $('#price-quote').children('.trade-price-icon').children().html('你的报价');
                 $('#accept-price').hide();
                 $('#refuse-price').hide();
             }
@@ -310,9 +305,9 @@ $(function(){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
                         var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
-                        h+= '<li class="mess-li">';
-                        h+= '   <div class="mess-image"><img src="'+img+'" alt="headicon"></div>';
-                        h+= '   <div class="mess-info">';
+                        h+= '<li class="mn-mess-li">';
+                        h+= '   <div class="mn-mess-image"><img src="'+img+'" alt="headicon"></div>';
+                        h+= '   <div class="mn-mess-info">';
                         h+= '       <div class="mess-info-title"><span class="info-title-name">'+data[i]["sender"]["username"]+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
@@ -332,23 +327,24 @@ $(function(){
 
     /* 获取服务需求方提交的服务调查问卷信息 */
     function getAnsList(){
+        showLoadTips($('#tips-info'),'show');
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/consumer/ans',
             success:function(data){
+                showLoadTips($('#tips-info'),'success');
                 if(!$.isEmptyObject(data)){
                     var ans = data[0].ans;
                     var h = '<ul>';
                     for(var i=0;i<ans.length;i++){
-                        h+= '<li><span class="tips-name">'+ans[i]['question']['short_text']+'</span><span class="tips-cont">'+ans[i]['answer']+'</span></li>';
+                        h+= '<li><span class="sans-name">'+ans[i]['question']['short_text']+'</span><span class="sans-cont">'+ans[i]['answer']+'</span></li>';
                     }
                     h += '</ul>';
                     $('#tips-info').append(h);
-                    showLoading(false);
                 }
             },
             error: function(xhr, status, statusText){
-                $('#tips-info').append('<span class="error-msg">服务超时</span>');
+                showLoadTips($('#tips-info'),'error');
             }
         });
     }

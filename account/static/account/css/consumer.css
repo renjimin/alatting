@@ -67,6 +67,30 @@
     font-size: 20px;
 }
 
+/*quote-consult */
+.quote-consult {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    z-index: auto;
+    width: 60px;
+    height: 60px;
+    padding: 10px 0;
+    text-align: center;
+    cursor: pointer;
+}
+.quote-consult span{
+    display: inline-block;
+}
+.quote-consult .ctrl-icon{
+    width: 25px;
+    height: 25px;
+    font-size: 22px;
+}
+.quote-consult .ctrl-name{
+    font-size: 11px;
+}
+
 /*body-main-title*/
 .body-main-title{
     height: 40px;
@@ -95,345 +119,13 @@
 .body-li{
     background: #ffffff;
 }
-/*main-menu*/
-.main-menu{
-    height: 40px;
-}
-.main-menu-li{
-    width: 50%;
-    float: left;
-    font-size: 16px;
-    line-height: 39px;
-    text-align: center;
-    background: #e5e5e5;
-}
-.main-menu-li .glyphicon{
-    display: none;
-}
-.main-menu-act{
-    background: #ffffff;
-}
-.main-menu-act .glyphicon{
-    display: inline;
-}
+
 /*main-plist*/
 .main-plist{
     padding: 15px 0;
     min-height: 150px;
     border-bottom: 1px solid #eaeaea;
     display: none;
-}
-.main-plist-ul{
-    width: 90%;
-    margin: 0 auto;
-    overflow-y:auto;
-}
-.main-plist ul{
-    width: 332px;
-    margin: 0 auto;
-    border: 1px solid #cacaca;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    position: relative;
-}
-.main-plist li{
-    width: 100%;
-    height: 35px;
-    line-height: 34px;
-    border-bottom: 1px solid #cacaca;
-    white-space: nowrap;
-}
-.main-plist li.plist-active{
-    background: #f2f2f2;
-}
-.main-plist li span{
-    display: block;
-    float: left;
-    height: 35px;
-    padding: 0 5px;
-    text-align: center;
-    border-right: 1px solid #cacaca;
-}
-.main-plist li span:last-child, .main-plist li:last-child{
-    border:none;
-}
-.main-plist .plist-name{
-    width: 70px;
-}
-.main-plist .plist-value{
-    width: 100px;
-}
-.main-plist .plist-time{
-    width: 160px;
-}
-.plist-end{
-    border: none;
-    position: absolute;
-    bottom: 0px;
-    right: 0px;
-    width: 100px;
-    text-align: center;
-    font-size: 16px;
-    display: none;
-}
-.plist-end .fa{
-    font-size: 20px;
-    margin-left: 3px;
-}
-.main-plist li.plist-over{
-    font-weight: 600;
-    color: #151515;
-    background: #c1c1c1;
-}
-
-/*main-price*/
-.main-price{
-    width: 100%;
-    height: 150px;
-    border-bottom: 1px solid #eaeaea;
-}
-.price-li{
-    width: 100%;
-    height: 100%;
-    height: 150px;
-    overflow: auto;
-    position: relative;
-}
-.price-bid,.price-accept,.price-refuse{
-    display: none;
-}
-.price-icon{
-    width: 100px;
-    height: 100px;
-    background: #dadada;
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    position: absolute;
-    top: -50px;
-    left: -50px;
-    z-index: auto;
-}
-.price-icon span{
-    display: block;
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 25px;
-}
-.quote-consult {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    z-index: auto;
-    width: 60px;
-    height: 60px;
-    padding: 10px 0;
-    text-align: center;
-    cursor: pointer;
-}
-.quote-consult span{
-    display: inline-block;
-}
-.quote-consult .ctrl-icon{
-    width: 25px;
-    height: 25px;
-    font-size: 22px;
-}
-.quote-consult .ctrl-name{
-    font-size: 11px;
-}
-.quote-value{
-    height: 100px;
-    margin: 0 auto;
-    text-align: center;
-    position: relative;
-}
-.quote-value span{
-    display: inline-block;
-}
-.value-icon{
-    font-size: 30px;
-    font-weight: 600;
-    position: absolute;
-    top: 10px;
-    margin-left: -20px;
-}
-.value-num{
-    font-size: 60px;
-    font-weight: 600;
-    height: 100px;
-    line-height: 100px;
-    color: #585858;
-}
-.value-num input{
-    display:block;
-    width: 100px;
-    font-size: 30px;
-    font-weight: 300;
-    margin: 20px 0;
-    padding: 10px;
-    line-height: 40px;
-    height: 60px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #dddddd;
-    outline: none;
-}
-.value-unit{
-    font-size: 18px;
-}
-.price-btn{
-    padding: 10px 0;
-    text-align: center;
-}
-.price-btn-li{
-    display: inline-block;
-    vertical-align: bottom;
-    width: 80px;
-    height: 30px;
-    background: #e5e5e5;
-    line-height: 30px;
-    font-size: 16px;
-    margin: 0 5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-.bid-consult{
-    position: absolute;
-    font-size: 12px;
-    top: 3px;
-    right: 5px;
-}
-.price-accept{
-    background: #ececec;
-}
-.price-accept .make-comt{
-    position: absolute;
-    right: 0px;
-    top: 70px;
-    width: 50px;
-    height: 30px;
-    border:1px solid #e5e5e5;
-    background: #ffffff;
-    line-height: 28px;
-    text-align: center;
-}
-.accept-consult{
-    height: 30px;
-    width: 120px;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    line-height: 30px;
-    font-size: 15px;
-}
-.accept-consult .fa{
-    font-size: 20px;
-}
-.accept-tips{
-    height: 50px;
-    background: #e0e0e0;
-    text-align: center;
-    font-size: 18px;
-    line-height: 50px;
-}
-.accept-tips .fa{
-    font-size: 30px;
-}
-.price-refuse .price-btn{
-    background: #f1f1f1;
-}
-.price-refuse .bid-tips{
-    display: inline-block;
-    font-size: 16px;
-    color:#5e5e5e;
-    line-height: 30px;
-}
-/*main-message*/
-.main-message {
-    padding: 0px 10px 30px;
-}
-.message-list{
-    min-height: 180px;
-}
-.mess-li{
-    padding: 10px 0;
-    min-height: 100px;
-    border-bottom: 1px solid #e5e5e5;
-}
-.mess-li:last-child{
-    border:none;
-}
-.mess-image{
-    float: left;
-    width: 40px;
-    height: 40px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    overflow: hidden;
-}
-.mess-image img{
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-.mess-info{
-    margin-left: 50px;
-    height: 100%;
-}
-.mess-info-title{
-    height: 40px;
-    line-height: 40px;
-    color:#5a5a5a;
-    font-weight: 600;
-}
-.info-title-name{
-    display: block;
-    float: left;
-    max-width: 100px;
-    overflow: hidden;
-}
-.info-title-time{
-    display: block;
-    float: right;
-}
-.mess-info-cont p{
-    margin-bottom: 5px;
-}
-.mess-textarea textarea{
-    width: 100%;
-    padding: 10px;
-    border-color:#e5e5e5;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    resize: none;
-    outline:none;
-}
-.mess-textarea input{
-    display: block;
-    margin-right: 0px;
-    height: 40px;
-    width: 100%;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    border: 1px solid #e5e5e5;
-    background: #f7f7f7;
-    text-align: center;
-    font-size: 16px;
-    outline: none;
 }
 
 /*body-tips*/
@@ -485,34 +177,7 @@
     height: 300px;
     overflow: auto;
 }
-.tips-info li{
-    height: 40px;
-    line-height: 40px;
-    background: #e5e5e5;
-    margin-bottom: 10px;
-    font-size: 15px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-}
-.tips-info .tips-name{
-    display: block;
-    float: left;
-    width: 100px;
-    height: 100%;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    background: #cecece;
-    text-align: center;
-    color: #6d6d6d;
-    font-weight: 600;
-}
-.tips-info .tips-cont{
-    display: block;
-    margin-left: 100px;
-    padding: 0 10px;
-}
+
 /*body-share*/
 .body-share{
     display: none;
@@ -553,60 +218,6 @@
 .body-comments{
     min-height: 500px;
     display: none;
-}
-.body-comments ul{
-    padding: 0 15px;
-}
-.body-comments li{
-    padding: 10px 0;
-    border-bottom: 1px solid #e5e5e5;
-}
-.body-comments li:last-child{
-    border:none;
-}
-.com-headicon{
-    width: 40px;
-    height: 40px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    border:1px solid #e5e5e5;
-    overflow: hidden;
-    float:left;
-}
-.com-headicon img{
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-.com-main{
-    margin-left: 45px;
-}
-.com-main-top{
-    height: 40px;
-    padding: 10px 0;
-}
-.com-main-top span{
-    display: block;
-}
-.com-username{
-    float: left;
-    width: 120px;
-    height: 20px;
-    font-size: 15px;
-    font-weight: 600;
-    color: #5e5e5e;
-}
-.com-pstar{
-    float: right;
-    width: 100px;
-    height: 20px;
-}
-.com-main-cont{
-    min-height: 60px;
-}
-.com-main-bot{
-    text-align: right;
 }
 
 /*body-makecomt*/
