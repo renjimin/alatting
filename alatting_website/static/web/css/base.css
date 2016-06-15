@@ -1096,7 +1096,7 @@ body.active .poster-item {
     background: #fff
 }
 .login-div .login-left{
-    background: url(/static/account/img/posterbg.jpg);
+    background: url(/static/account/img/posterbg.png);
     background-size: 100% 100%;
 }
 .login-div .login-left, .login-right{
@@ -1318,6 +1318,22 @@ body.active .poster-item {
     top: 283px;
     left: 53px;
     float: left;
+    color: #ccd5db;
+}
+.regist-form div:nth-child(5) span{
+    font-size: 16px;
+    position: absolute;
+    top: 227px;
+    left: 345px;
+    float: right;
+    color: #ccd5db;
+}
+.regist-form div:nth-child(6) span{
+    font-size: 16px;
+    position: absolute;
+    top: 283px;
+    left: 345px;
+    float: right;
     color: #ccd5db;
 }
 .regist-header{
