@@ -138,8 +138,14 @@ $(document).ready(function () {
 	/*注册点击获取验证码*/
 	var userExists = false;
 	$("#btncode").click(function () {
+		var username = "";
 		var btncodeoff = document.getElementById("btncodeoff");
-		var username = $("#id_username").val();
+		if(IsPC()){
+			username = $("#rid_username").val();
+		}else{
+			username = $("#id_username").val();
+		}
+		console.log(username)
 		if (!checkUsername(username)) {
 			return false;
 		}
@@ -208,7 +214,7 @@ $(document).ready(function () {
 	*注册点击事件
 	*/
 	$("#btnregist").click(function () {
-		var username = $.trim($("#id_username").val());
+		var username = "";
 		var code = $.trim($("#id_message").val());
 		var password1 = $.trim($("#id_password1").val());
 		var password2 = $.trim($("#id_password2").val());
@@ -216,6 +222,12 @@ $(document).ready(function () {
 		var sub_category_ids = $.trim($("#id_sub_category_ids").val());
 		var id_input_category = $.trim($("#id_input_category").val());
 		var id_main_category = $.trim($("#id_main_category").val());
+		console.log(id_main_category)
+		if(IsPC()){
+			username = $.trim($("#rid_username").val());
+		}else{
+			username = $.trim($("#id_username").val());
+		}
 		if (!checkUsername(username)) {
 			return false;
 		}
@@ -542,6 +554,7 @@ $(document).ready(function () {
 				}
 			}
 		})
+		console.log(2323)
 	});
 	$("#btnFpwd").click(function () {
 		var password1 = $("#password1").val();
@@ -591,10 +604,10 @@ $(document).ready(function () {
 /**
 *
 */
+var selectedname = "";
+var main_name = "";
 $(".selectserver-PC").click(function () {
 	var selected = $('body');
-	selectedname = "";
-	main_name = "";
 	$('#pc-server').show();
 	if ($('#pcul-server').children().length ==0) {
 		$.ajax({
@@ -622,6 +635,7 @@ $('#pcul-server').on('click', '.pcli-server', function (e) {
 	var sid = $(this).attr('data-id');
 	var ssbox = '';
 	main_name = $(this).attr('data-name');
+	console.log(sid)
 	$("#id_main_category").val(sid);
 	$('.pcli-server').removeClass('active');
 	ths.addClass('active');
@@ -654,9 +668,9 @@ $('#pcright-server').on('click', '.pcsli-server', function (event) {
 	$('.pcsli-server').removeClass('active');
 	$(this).addClass('active');
 	$("#id_sub_category_ids").val($(this).attr('data-id'));
-	if($('.regist-industryinput').val().length!=0){
-		$('.regist-industryinput').prop('value','');
-		$('.regist-industryinput').attr('placeholder', '请输入');
+	if($('.writer-category').val().length!=0){
+		$('.writer-category').prop('value','');
+		$('.writer-category').attr('placeholder', '请输入');
 	}
 });
 
@@ -664,10 +678,10 @@ $("#pc-server").on('click', '.fa-check-circle', function (event) {
 	if(main_name.length>0){
 		if(selectedname.length>0){
 			$('.selectserver-PC').text(selectedname);
-			$('.regist-industryinput').attr('disabled',true);
+			$('.writer-category').attr('disabled',true);
 		}else{
 			$('.selectserver').text(main_name);
-			$('.regist-industryinput').attr('disabled',false);
+			$('.writer-category').attr('disabled',false);
 		}
 		$('.pc-server').fadeOut(200);
 	}else{
@@ -675,7 +689,6 @@ $("#pc-server").on('click', '.fa-check-circle', function (event) {
 	}
 });
 $("#pc-server").on('click', '.fa-times-circle', function (event) {
-	//event.preventDefault();
 	$('.selectserver').text("请选择行业");
 	$("#id_main_category").val("");
 	$("#id_sub_category_ids").val("");
@@ -724,12 +737,12 @@ $('#pcul-provider').on('click', '.pcli-provider', function (e) {
 	$("#id_main_category").val(sid);
 	$('.pcli-provider').removeClass('active');
 	ths.addClass('active');
-	 if ($('#pcsul-'+sid).length == 0) {
+	 if ($('#ppcsul-'+sid).length == 0) {
 		$.ajax({
 			type: 'GET',
 			url: '/api/v1/poster/categorys?parent='+sid,
 			success: function (data) {
-				ssbox = '<dl class = "pcsul-provider" id = "pcsul-'+sid+'" data-id="' + sid+ '">'
+				ssbox = '<dl class = "pcsul-provider" id = "ppcsul-'+sid+'" data-id="' + sid+ '">'
 				for (var i = 0; i < data.length; i++) {
 					ssbox += '<dd class = "pcsli-provider" data-name ="' + data[i].name + '" data-id="' + data[i].id + '">' + data[i].name + '<i class = "fa fa-square-o check"></i></dd>';
 				} ;
@@ -745,7 +758,7 @@ $('#pcul-provider').on('click', '.pcli-provider', function (e) {
 		});
 	 }else{
 	 	$('.pcsul-provider').hide();
-	 	$('#pcsul-'+sid).show();
+	 	$('#ppcsul-'+sid).show();
 	 }
 });
 $('#pcright-provider').on('click', '.pcsli-provider', function (event) {
@@ -792,7 +805,20 @@ $("#pc-provider").on('click', '.fa-times-circle', function (event) {
 	$("#id_sub_category_ids").val("");
 	$('.pc-provider').fadeOut(200);
 });
-
+function IsPC() {
+    var userAgentInfo = navigator.userAgent;
+    var Agents = ["Android", "iPhone",
+                "SymbianOS", "Windows Phone",
+                "iPad", "iPod"];
+    var flag = true;
+    for (var v = 0; v < Agents.length; v++) {
+        if (userAgentInfo.indexOf(Agents[v]) > 0) {
+            flag = false;
+            break;
+        }
+    }
+    return flag;
+}
 
 });
 

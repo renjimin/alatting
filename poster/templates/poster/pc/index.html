@@ -5,6 +5,7 @@
 
 {% block base_head_css %}
     <link rel="stylesheet" href="{% static 'web/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'website/css/base.css' %}">
 {% endblock %}
 
 {% block base_head_js %}
@@ -20,13 +21,15 @@
     <div class="yunye-view">
         <div class="login-center">
             <div class="login-left">
-                <button class="login-leftbtn" type="button">登陆</button>
+                <div class="header-circle1"></div>
+                <div class="header-circle2"></div>
+                <button class="login-leftbtn" type="button">登录</button>
             </div>
             <div class="login-right">
                 <form method="post" class="login-form" id="btnLogin">
                     {% csrf_token %}
                     <div class="login-header">
-                        <span class="header-span">登陆</span>
+                        <span class="header-span">登录</span>
                     </div>
                     <div class="login-text">
                         <input type="text" name="username" id="id_username"
@@ -56,12 +59,12 @@
                     </div>
                     <input id = "id_user_type" name = "user_type" type= "hidden">
                     <div class="regist-text">
-                        <input type="text" name="username" id="id_username"
+                        <input type="text" name="username" id="rid_username"
                                placeholder="{% if open_cellphone %}邮&nbsp;箱/手机号{% else %}邮箱{% endif %}">
                         <i class="fa fa-user"></i>
                     </div>
                     <div class="regist-text">
-                        <input class="codeinput" type="text" id="message" name="message" maxlength="4"
+                        <input class="codeinput" type="text" id="id_message" name="message" maxlength="4"
                                placeholder="验证码">
                         <i class="fa fa-lock"></i>
                         <input type="button" id="btncode" class="btn btn-success"
@@ -70,13 +73,13 @@
                                class="btn btn-default" value="获取验证码"/>
                     </div>
                     <div class="regist-text">
-                        <input type="password" name="password1" id="id_password1"
-                               placeholder="密码">
+                        <input type="password" name="password1" id="id_password1" maxlength="15"
+                               placeholder="请输入密码">
                         <i class="fa fa-lock"></i>
                     </div>
                     <div class="regist-text">
-                        <input type="password" name="password2" id="id_password2"
-                               placeholder="密码" required>
+                        <input type="password" name="password2" id="id_password2" maxlength="15"
+                               placeholder="请再次输入密码" >
                         <i class="fa fa-lock"></i>
                     </div>
                     <div class="regist-text">
@@ -85,15 +88,15 @@
                     </div>
                     <div class="regist-text">
                         <span class="regist-industry">找不到行业?</span>
-                        <input type="text" class="writer-category" 
-                               placeholder="请输入" required>
-                        <input type="hidden" name="main_category_id"
+                        <input type="text" class="writer-category" id = "id_input_category" name="input_category" 
+                               placeholder="请输入" >
+                        <input type="hidden" name="main_category_id" class="regist-industryinput" 
                                id="id_main_category" value="{{ form.main_category_id.value|default_if_none:''}}">
                         <input type="hidden" name="sub_category_ids"
                                id="id_sub_category_ids" value="{{ form.sub_category_ids.value|default_if_none:'' }}">
                     </div>
                     <button type="button" class="btn btn-success btn-lg btn-block"
-                            id="btnok">注 册
+                            id="btnregist">注 册
                     </button>
                     <input type="hidden" name="next" value="{{ request.GET.next }}"/>
                 </form>
@@ -105,7 +108,7 @@
                             <span>请输入你注册的{% if open_cellphone %}邮箱/手机号{% else %}邮箱{% endif %}</span>
                         </div>
                         <div class="psd-text">
-                            <input type="text" name="username" id="id_username"
+                            <input type="text" name="username" id="username"
                                    placeholder="{% if open_cellphone %}邮&nbsp;箱/手机号{% else %}邮箱{% endif %}">
                             <i class="fa fa-user"></i>
                         </div>
@@ -119,10 +122,10 @@
                                    class="btn btn-default" value="获取验证码"/>
                         </div>
                         <button type="button" class="btn btn-success btn-lg btn-block"
-                                id="btnok">找 回
+                                id="btnsure">找 回
                         </button>
                         <div class="rember-psd">
-                            <a href="" title="">我想起来了，去登录 </a>
+                            <a href="#" title="">我想起来了，去登录 </a>
                         </div>
                     </div>
                 </div>
@@ -131,18 +134,20 @@
                         <div class="reset-hearder">
                             <span>重置密码</span>
                         </div>
+                        <div class="list-li" style="display: none">
+                            username: <p id="resetUsername"></p>
+                            <input type="hidden" name="username" id="id_username"/>
+                        </div>
                         <div class="reset-text">
-                            <input type="password" name="password1" id="id_password1"
-                                   placeholder="密码">
+                            <input type="password" id="password1" name="password1" placeholder="请输入新密码">
                             <i class="fa fa-lock"></i>
                         </div>
                         <div class="reset-text">
-                            <input type="password" name="password2" id="id_password2"
-                                   placeholder="密码" required>
+                            <input type="password" id="password2" name="password2" placeholder="请再次输入新密码">
                             <i class="fa fa-lock"></i>
                         </div>
                         <button type="button" class="btn btn-success btn-lg btn-block"
-                                id="btnok">找 回
+                                id="btnFpwd">找 回
                         </button>
                     </form>
                 </div>

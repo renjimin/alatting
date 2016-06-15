@@ -1096,7 +1096,7 @@ body.active .poster-item {
     background: #fff
 }
 .login-div .login-left{
-    background: url(/static/account/img/yunye.png);
+    background: url(/static/account/img/posterbg.jpg);
     background-size: 100% 100%;
 }
 .login-div .login-left, .login-right{
@@ -1110,11 +1110,46 @@ body.active .poster-item {
     bottom: 50px;
     left: 50px;
     width: 90px;
-    height: 40px;
+    height: 90px;
     line-height: 35px;
     color: #fff;
     background-color: #ea1f64;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
+    border-radius: 50%;
+    border: none;
+    font-size: 18px;
+}
+.header-circle1{
+    border: 2px solid #ea1f64;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-animation: roll-out 1.6s ease infinite;
+    -moz-animation: roll-out 1.6s ease infinite;
+    -o-animation: roll-out 1.6s ease infinite;
+    -ms-animation: roll-out 1.6s ease infinite;
+    animation: roll-out 1.6s ease infinite;
+}
+.header-circle2{
+    border: 2px solid #ea1f64;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-animation: roll-in 1.6s ease infinite .15s;
+    -moz-animation: roll-in 1.6s ease infinite .15s;
+    -ms-animation: roll-in 1.6s ease infinite .15s;
+    -o-animation: roll-in 1.6s ease infinite .15s;
+    animation: roll-in 1.6s ease infinite .15s;
 }
 .login-div .login-form,.regist-form{
     padding: 40px;
@@ -1132,7 +1167,17 @@ body.active .poster-item {
 .login-div .login-text{
     padding-top: 60px;
 }
-.login-div #id_username, #id_password,#id_password1,#id_password2{
+.login-div #id_username, #id_password,#id_password1,#id_password2,#rid_username{
+    width: 100%;
+    padding: 0 10px 0 36px;
+    border-radius: 3px;
+    border: 1px solid #ccd5db;
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+    border: 1px solid #CCC!important;
+    height: 40px!important;
+    line-height: 27px!important;
+}
+.psd-div  #username{
     width: 100%;
     height: 40px;
     padding: 0 10px 0 36px;
@@ -1140,6 +1185,13 @@ body.active .poster-item {
     border: 1px solid #ccd5db;
 }
 .login-div #message{
+    width: 60%;
+    height: 40px;
+    padding: 0 10px 0 36px;
+    border-radius: 3px;
+    border: 1px solid #ccd5db;
+}
+.login-div #id_message{
     width: 60%;
     height: 40px;
     padding: 0 10px 0 36px;
@@ -1170,6 +1222,11 @@ body.active .poster-item {
 }
 .login-rember a{
     float: right;
+}
+.login-rember .logincheckbox{
+    height: 16px;
+    width: 16px;
+    -webkit-appearance: checkbox;
 }
 .login-div .login-remberpsd{
     padding-left: 5px;
@@ -1276,6 +1333,9 @@ body.active .poster-item {
     left: 276px;
     float: right;
 }
+.regist-form #btncodeoff{
+    display: none;
+}
 .selectserver-PC,.selectprovider-PC{
     width: 100%;
     height: 40px;
@@ -1336,6 +1396,9 @@ body.active .poster-item {
     top: 235px;
     left: 276px;
     float: right;
+}
+.psd-text #btncodeoff-psd{
+    display: none;
 }
 .psd-div .btn-block {
     width: 100%;
@@ -1450,4 +1513,148 @@ body.active .poster-item {
     margin-right: -50px;
     font-size: 16px;
     margin-top: 5px;
+}
+@-webkit-keyframes roll-in {
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(1,1)
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2.00,2.00)
+    }
+}
+
+@-webkit-keyframes roll-out {
+    0% {
+        opacity: .8;
+        -webkit-transform: scale(1,1)
+    }
+
+    80% {
+        opacity: 0;
+        -webkit-transform: scale(2.0,2.0)
+    }
+
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(2.0,2.0)
+    }
+}
+
+@-moz-keyframes roll-in {
+    0% {
+        opacity: 1;
+        -moz-transform: scale(1,1)
+    }
+
+    100% {
+        opacity: 0;
+        -moz-transform: scale(2.00,2.00)
+    }
+}
+
+@-moz-keyframes roll-out {
+    0% {
+        opacity: .8;
+        -moz-transform: scale(1,1)
+    }
+
+    80% {
+        opacity: 0;
+        -moz-transform: scale(2.0,2.0)
+    }
+
+    100% {
+        opacity: 0;
+        -moz-transform: scale(2.0,2.0)
+    }
+}
+
+@-o-keyframes roll-in {
+    0% {
+        opacity: 1;
+        -o-transform: scale(1,1)
+    }
+
+    100% {
+        opacity: 0;
+        -o-transform: scale(2.00,2.00)
+    }
+}
+
+@-o-keyframes roll-out {
+    0% {
+        opacity: .8;
+        -o-transform: scale(1,1)
+    }
+
+    80% {
+        opacity: 0;
+        -o-transform: scale(2.0,2.0)
+    }
+
+    100% {
+        opacity: 0;
+        -o-transform: scale(2.0,2.0)
+    }
+}
+
+@-ms-keyframes roll-in {
+    0% {
+        opacity: 1;
+        -ms-transform: scale(1,1)
+    }
+
+    100% {
+        opacity: 0;
+        -ms-transform: scale(2.00,2.00)
+    }
+}
+
+@-ms-keyframes roll-out {
+    0% {
+        opacity: .8;
+        -ms-transform: scale(1,1)
+    }
+
+    80% {
+        opacity: 0;
+        -ms-transform: scale(2.0,2.0)
+    }
+
+    100% {
+        opacity: 0;
+        -ms-transform: scale(2.0,2.0)
+    }
+}
+
+@keyframes roll-in {
+    0% {
+        opacity: 1;
+        transform: scale(1,1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.00,2.00)
+    }
+}
+
+@keyframes roll-out {
+    0% {
+        opacity: .8;
+        transform: scale(1,1)
+    }
+
+    80% {
+        opacity: 0;
+        transform: scale(2.0,2.0)
+    }
+
+    100% {
+        opacity: 0;
+        transform: scale(2.0,2.0)
+    }
 }
