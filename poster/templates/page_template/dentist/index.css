@@ -20,7 +20,7 @@
 .content-top-right {
     width: 30%;
     height: 26%;
-    -webkit-clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 0% 81%);
+    -webkit-clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 1% 81%);
     border-bottom-left-radius: 65px;
     position: absolute;
     right: 0;
