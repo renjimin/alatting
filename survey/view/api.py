@@ -15,7 +15,7 @@ class QuestionCreateAPIView(APIView):
 			return Response(data, status=status.HTTP_404_NOT_FOUND)
 		qs_type = request.data["qs_type"]
 		if not qs_type:
-			data = {'请填写问题类型'}
+			data = {'error':'请填写问题类型'}
 			return Response(data, status=status.HTTP_404_NOT_FOUND)
 		
 
