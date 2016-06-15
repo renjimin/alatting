@@ -12,7 +12,7 @@
 
 {% block base_body %}
     {% with false as open_cellphone %}
-    <form method="post" class="login" id="btnLogin">
+    <form method="post" class="login" id="btnLogin" autocomplete="off">
         {% csrf_token %}
         <div class="centerdiv">
             <img src="{% static 'account/img/yunye.png' %}">

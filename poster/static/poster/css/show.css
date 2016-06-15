@@ -38,6 +38,10 @@
     vertical-align: middle;
 
 }
+.text-editor-content{
+    white-space: normal;
+    word-break: break-all;
+}
 /*--文字预置样式---start-*/
 .text-element{
     position: absolute;
