@@ -21,12 +21,12 @@
     text-align: center;
     border: 1px dashed transparent;
     -ms-word-break:keep-all;
-    word-break: keep-all;
-    white-space:pre;
+    word-break: keep-all;    
     font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .el-content{
     padding: 15px;
+    white-space:pre;
 }
 .el-rotate{
     width: 1px;

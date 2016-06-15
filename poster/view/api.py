@@ -508,6 +508,65 @@ class UploadFileView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
+class UploadBase64ImageFileView(UploadFileView):
+    @staticmethod
+    def storage_b64_image_file(image_file_data, save_path):
+        save_full_path = os.path.join(
+            settings.MEDIA_ROOT, save_path
+        )
+        parent_path = os.path.dirname(save_full_path)
+        if not os.path.exists(parent_path):
+            os.makedirs(parent_path)
+        try:
+            os.remove(save_full_path)
+        except:
+            pass
+        save_full_path = UploadBase64ImageFileView.subname_to_png(
+            save_full_path
+        )
+        file_data = base64.b64decode(image_file_data)
+        fh = open(save_full_path, "wb")
+        fh.write(file_data)
+        fh.close()
+        return save_full_path
+
+    @staticmethod
+    def subname_to_png(name):
+        return name.replace(
+            name[name.rfind('.') + 1:], 'png'
+        )
+
+    def post(self, request, *args, **kwargs):
+        poster_id = request.POST.get('poster_id', None)
+        if not poster_id:
+            return self.response({'detail': '未提供海报信息!'})
+
+        poster = Poster.objects.filter(pk=poster_id).first()
+        if not poster:
+            return self.response({'detail': '未找到海报信息!'})
+
+        try:
+            image_data = request.POST.get('image_data')
+            instance = Image()
+            save_path = get_image_path(
+                instance,
+                os.path.basename(poster.logo_image.file.path)
+            )
+            self.storage_b64_image_file(image_data, save_path)
+            save_path = self.subname_to_png(save_path)
+            instance.file = save_path
+
+            instance.creator = self.request.user
+            instance.save()
+            poster.logo_image = instance
+            poster.save()
+            serializer = ImageSerializer(instance)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.exception(e)
+        return self.response({'detail': '服务内部错误,上传失败!'})
+
+
 class CategoryListView(ListAPIView):
     model = Category
     queryset = Category.objects.filter(
