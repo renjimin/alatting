@@ -1,8 +1,5 @@
 <div class="bar-header bar edit-bar-header">
-    <!--<a href="{% url 'website:index' %}"  class="btn-back back-to-home">
-        <i class="icon-back"></i>
-    </a>-->
-    <a href="javascript:void(0);" onclick="history.back()"  class="btn-back back-to-home">
+    <a href="{% url 'website:mobile_poster_index' %}" class="btn-back">
         <i class="icon-back"></i>
     </a>
     <button class="button button-clear btn-page">
@@ -13,7 +10,7 @@
     </div>
     <button class="button button-clear btn-music header-music" id="music">
         <i class="ico-music "></i>
-        <audio id="background_music" hidden  loop="true">
+        <audio id="background_music" hidden loop="true">
           <source src="{{ object.music|default_if_none:'' }}" type="audio/mpeg">
           您的浏览器不支持音频资源
         </audio>

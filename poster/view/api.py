@@ -546,11 +546,15 @@ class UploadBase64ImageFileView(UploadFileView):
             return self.response({'detail': '未找到海报信息!'})
 
         try:
+            if poster.logo_image:
+                base_name = os.path.basename(poster.logo_image.file.path)
+            else:
+                base_name = 'test.jpg'
             image_data = request.POST.get('image_data')
             instance = Image()
             save_path = get_image_path(
                 instance,
-                os.path.basename(poster.logo_image.file.path)
+                base_name
             )
             self.storage_b64_image_file(image_data, save_path)
             save_path = self.subname_to_png(save_path)
