@@ -15,9 +15,18 @@ $(function () {
 		//简述
 		if(g.short_description)$("#short_description").html(g.short_description);
 		if(storageAPI.getCss("#short_description"))$("#short_description").css(storageAPI.getCss("#short_description"));
-		if(g.short_description.length>40){
+		var len,cStr = 0,eStr = 0,i ;
+		for (i = 0; i < g.short_description.length.length ; i++) {    
+			if (g.short_description.length.charCodeAt(i)>127 || g.short_description.length.charCodeAt(i)==94) {    
+				cStr++;
+			 } else {    
+				eStr++;
+			}
+			len = cStr*2 +eStr;
+		}
+		if(len>40){
 			$("#short_description").css("fontSize","12px");
-		}else if(g.short_description.length > 32 ){
+		}else if(len > 32 ){
 			$("#short_description").css("fontSize","14px");
 		}else{
 			$("#short_description").css("fontSize","16px");
@@ -34,7 +43,7 @@ $(function () {
 		if(g.email)$('#dpw_email').find('input').val(g.email);
 		//日历
 		var inputs = $(".weekly input");
-		for (var i = 0; i < (inputs.length) / 2; i++) {
+		for ( i = 0 ; i < (inputs.length) / 2; i++) {
 			var weekName = (i == 6) ? "Sunday" : (i === 0) ? "Monday" : (i == 1) ? "Tuesday" : (i == 2) ? "Wednesday" : (i == 3) ? "Thursday" : (i == 4) ? "Friday" : "Saturday",
 				info = yunyeEditorGlobal.lifetime.lifetime_weekly[weekName];
 			inputs.eq(i * 2).val(info.start);
