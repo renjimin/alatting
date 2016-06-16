@@ -17,11 +17,25 @@
         <div class="centerdiv">
             <img src="{% static 'account/img/yunye.png' %}">
         </div>
+        
         <ul class="list-login">
-            <li class="item-input">
+            <li class="item-input" style="position:relative;">
                 <img src="{% static 'account/img/name.png' %}">
                 <input type="text" name="username" id="id_username"
-                       placeholder="{% if open_cellphone %}邮&nbsp;箱/手机号{% else %}邮箱{% endif %}" required>
+                       placeholder="{% if open_cellphone %}邮&nbsp;箱/手机号{% else %}邮箱{% endif %}">
+<!--                 <p id="id_username_P" style="position:absolute;top:0;left:0;color:white;pointer-events:none;padding-left: 38px;"></p>
+                <script type="text/javascript">
+                console.log($("#id_username").val());
+                    $("#id_username_P").html($("#id_username").val());
+                    $("#id_username_P").width($("#id_username").width());
+                    $("#id_username_P").height($("#id_username").height());
+
+                    $("#id_username").on("input propertychange",function(e){
+                        console.log(e.target.value);
+                        $("#id_username_P").html(e.target.value);
+                    });
+
+                </script> -->
             </li>
             <li class="item-input">
                 <img src="{% static 'account/img/password.png' %}">
