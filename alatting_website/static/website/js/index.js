@@ -141,13 +141,21 @@ function getAllSubids(){
 
 $(function(){
 	$("#btn-question").click(function(){
-		if($('#type-model').hasClass('open')){
-		
+		if($('#QA').is(":visible")){
+			$('#QA').hide();
 		}else{
-			
+			$('#QA').show();
 		}
 	});
 	$(".Qes").click(function(e){
-		console.log($(e.target).siblings(".Ans"));
+		var ans = $(e.currentTarget).siblings(".Ans");
+		if(ans.is(":visible")){
+			ans.hide();
+			$("#QA #arrow").hide();
+		}else{
+			$(".Ans").hide();
+			ans.show();
+			$("#QA #arrow").css("top",$(e.currentTarget).offset().top + $(e.currentTarget).height()).show();
+		}
 	});
 });

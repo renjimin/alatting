@@ -426,19 +426,23 @@ body,html {
 	top: 0;
 	width: 100%;
 	height: 100%;
-	padding-top: 37px;
+	padding: 37px 0 60px 0;
 	z-index: 20;
-	/*
+	overflow: hidden;
 	display: none;
-	*/
+	pointer-events: none;
 }
 #QAContent{
 	width: 100%;
 	height: 100%;
 	background: #ccc;
+	pointer-events: auto;
 }
 #QAContent .title{
 	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
 }
 #QAContent  ul{
 	width: 100%;
@@ -447,16 +451,15 @@ body,html {
 	border-bottom: 1px solid  #938F8F;
 }
 #QAContent  li{
-	padding: 10px;
+	padding: 15px 10px 15px 20px;
 }
-
 li.Qes {
-	list-style-type:circle;
+	list-style:url(../images/QUEIcon.png);
 	list-style-position:inside;
 	background-color:#B5B5B5;
 }
 li.Ans {
-	list-style-type:square;
+	list-style:url(../images/ANSIcon.png);
 	list-style-position:inside;
 	background-color:#D3D3D3;
 	display:none;
@@ -464,15 +467,23 @@ li.Ans {
 #QAContent li span.QAText{
 	display: block;
 	position: relative;
-	text-align: 0;
-	padding-left: 20px;
+	padding-left: 30px;
 	top: -20px;
-	margin-bottom: -20px;
+	margin:-7px 0 -20px 0;
 }
 #QAContent li span.QAFake{
 	display: inline-block;
 }
-
+#QAContent #arrow{
+	display:none;
+	position:absolute;
+	left:50%;
+	margin:15px 0 0 -10px;
+	transform:rotate(45deg);
+	z-index:100;
+	border: 10px solid;
+	border-color: transparent #b5b5b5 #b5b5b5 transparent;
+}
 
 /*适配*/
 @media (min-width: 600px) {
