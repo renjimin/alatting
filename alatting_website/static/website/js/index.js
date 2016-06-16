@@ -1,15 +1,15 @@
 $(function(){
-	$("#catelist .item-link").click(function(){
-		if($(this).parent().hasClass('open')){
-			 $(this).parent().find('.sublist').slideUp(200);
-			$(this).parent().removeClass('open');
-		}else{
-			$(this).parent().addClass('open');
-			$(this).parent().siblings().removeClass('open').find('.sublist').slideUp(200);
-			$(this).parent().find('.sublist').slideDown(200);
-		}
-	});
-	
+    $("#catelist .item-link").click(function(){
+        if($(this).parent().hasClass('open')){
+             $(this).parent().find('.sublist').slideUp(200);
+            $(this).parent().removeClass('open');
+        }else{
+            $(this).parent().addClass('open');
+            $(this).parent().siblings().removeClass('open').find('.sublist').slideUp(200);
+            $(this).parent().find('.sublist').slideDown(200);
+        }
+
+    });
     $('#btn-create').click(function(){
         var login_url = $(this).data('login');
         if(login_url != ""){
@@ -50,15 +50,9 @@ $(function(){
     $('#hide-cate').click(function(){
         $('#type-model').removeClass('open');
     });
-});
-
-function getAllSubids(){
-	var ids = "";
-	$('.search-type-list .sublink-item').each(function(){
-		if($(this).hasClass('active')){
-			ids = ids==""? $(this).attr('data-id'):ids+","+$(this).attr('data-id');
-		}
-	});
-	return ids;
-}
-
+})
+/*
+var cate = document.querySelector('#catelist').childNodes;
+cate.onclick = function(event){
+    alert(event.currentTarget.children.length);
+}*/
