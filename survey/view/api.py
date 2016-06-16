@@ -1,10 +1,11 @@
 from rest_framework.generics import CreateAPIView
+from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from survey.models import *
-import json
+
 
 class QuestionCreateAPIView(APIView):
 
@@ -48,12 +49,26 @@ class QuestionCreateAPIView(APIView):
 		q.audit_status = 0
 		q.poster = poster
 		q.save()
-		data = {'status': 'success'}
+		data = {'q_id': q.pk}
 		return Response(data, status=status.HTTP_200_OK)
 
+class ItemSerializer(serializers.Serializer):
+	"""Custom Serializer"""
+	c_texts = serializers.ListField(child=serializers.CharField())
 
-class ChoiceCreateAPIView(CreateAPIView):
+class ChoiceCreateAPIView(APIView):
 	def post(self, request, *args, **kwargs):
+		q_id = self.kwargs['q_id']
+		q = Question.objects.filter(pk=q_id).first()
+		item_serializer = ItemSerializer(data=request.data)
+		item_serializer.is_valid(raise_exception=True)
+		c_texts = item_serializer.data['c_texts']
 
-		data=json.dumps({'status':'success'})
-		return Response(data, status=status.HTTP_200_OK)
+		for c_text in c_texts:
+			c = Choice()
+			c.question = q
+			c.sortid = q.choices_count() + 1
+			c.text = c_text
+			c.value = c_text
+			c.save()
+		return Response(status=status.HTTP_200_OK)

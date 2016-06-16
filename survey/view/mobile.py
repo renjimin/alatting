@@ -196,6 +196,7 @@ class QuestionnaireView(View):
             islast_creator = True
 
         poster_id = runinfo.poster.pk
+        ChoiceFormSet = formset_factory(ChoiceForm, formset=BaseChoiceFormSet)
 
         contextdict = {'qs_title': qs_title,
                        'questionset': questionset,
@@ -206,7 +207,8 @@ class QuestionnaireView(View):
                        'islast_consumer_repeat': islast_consumer_repeat,
                        'islast_consumer': islast_consumer,
                        'islast_creator': islast_creator,
-                       'poster_id': poster_id}
+                       'poster_id': poster_id,
+                       'formset': ChoiceFormSet}
         return render_to_response('survey/mobile/questionset.html',
                                   contextdict)
 

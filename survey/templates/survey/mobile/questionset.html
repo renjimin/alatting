@@ -96,9 +96,9 @@
                                 <div class="add-qs-1-typelist">
                                     <div class="radio-label-wrapper"><label class="radio-inline"><input type="radio" name="add-qs-1-type" value="text">单行文本框</label></div>
                                     <div class="radio-label-wrapper"><label class="radio-inline"><input type="radio" name="add-qs-1-type" value="textarea">多行文本框</label></div>
-<!--                                     <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox">多选</label>
-                                    <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice">单选</label>
-                                    <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox-input">多选，选项中有输入框</label>
+                                    <div class="radio-label-wrapper"><label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox">多选</label></div>
+                                    <div class="radio-label-wrapper"><label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice">单选</label></div>
+ <!--                                    <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="checkbox-input">多选，选项中有输入框</label>
                                     <label class="radio-inline"><input type="radio" name="add-qs-1-type" value="choice-input">单选，选项中有输入框</label>  -->
                                 </div>
                             </div>
@@ -111,6 +111,29 @@
                     </div>
                 </div>
             </div>
+            <div class="qs-add-choice" id="qs-add-choice">
+                <div class="qs-add-choice-inner">
+                    <div class="qs-add-choice-content">
+                        <form id="qs-add-choice-formset">{% csrf_token %}
+                            <input type="text" name="qs-add-choice_q_id" id="qs-add-choice_q_id">
+                            <table border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    {% for form in formset %}
+                                        <tr>
+                                            <td>输入选项文本:{{ form.c_text }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            {{ formset.management_form }}
+                            <div class="form-footer">
+                                <a class="btn btn-default" id="add-qs-2-back-btn">上一步</a>
+                                <input type="submit" class="btn btn-default" id="add-qs-2-next-btn" value="确认">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -119,6 +142,7 @@
 {% block base_footer_js %}
     <script src="{% static 'survey/js/survey-base.js' %}"></script>
     <script src="{% static 'website/js/base.js' %}"></script>
+    <script src="{% static 'survey/js/jquery.formset.js' %}"></script>
 {% endblock %}
 </div>
 </body>

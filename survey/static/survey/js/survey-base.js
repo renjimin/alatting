@@ -1,3 +1,4 @@
+// 提交预约问卷答案提示   
 $("#qs_islast_consumer_repeat").on("click", function(event) {
     event.preventDefault();
     var form = $("#qs-form");
@@ -40,6 +41,8 @@ function openPopup(form, text) {
 		form.submit();
 	}
 };
+
+// 添加预约问卷问题  
 $('#qs-footer-add-q').on('click',function(e){
 	$('#qs-add').removeClass("hidden");
 });
@@ -81,12 +84,55 @@ $('#add-qs-1-next-btn').on('click',function(e){
 		url:url,
 		data:posted_data,
 		type: "POST",
-		success:function(){
-			yyAlert("成功添加问题");
-			$('#qs-add').addClass("hidden");
+		success:function(data){
+			if($.inArray(qs_type,['text', 'textarea'])>-1) {
+				yyAlert("成功添加问题");
+				$('#qs-add').addClass("hidden");
+			} else if($.inArray(qs_type,['choice', 'checkbox'])>-1) {
+				$("#qs-add-choice_q_id").val(data.q_id);
+				$('#qs-add').addClass("hidden");
+				$('#qs-add-choice').removeClass("hidden");
+			}
       	},
       	error: function(data) {
       		yyAlert(data.responseJSON.error);
+      	}
+    });
+});
+
+// 添加预约问卷选项
+$(function() {
+        $('#qs-add-choice-formset tbody tr').formset({
+        addText: '新增选项',
+        deleteText: '删除'
+    });
+})
+$('#add-qs-2-next-btn').on('click',function(e){
+	e.preventDefault();
+    e.stopPropagation();
+    q_id = $.trim($('#qs-add-choice_q_id').val());
+    var c_texts = [];
+    var dynamic_form_count = $('.dynamic-form').length;
+    for(var i=0;i<dynamic_form_count;i++){
+    	var dynamic_form_id = "id_form-"+i+"-c_text";
+    	var c_text = $.trim($('#'+dynamic_form_id).val());
+    	c_texts.push(c_text);
+    }
+    
+    var url = '/api/v1/survey/create_choice/'+q_id+'/';
+    var posted_data = {
+    	c_texts:c_texts
+    };
+    $.ajax({
+		url:url,
+		data:JSON.stringify(posted_data),
+		type: "POST",
+		contentType: "application/json; charset=utf-8",
+		success:function(data){
+			console.log("success");
+      	},
+      	error: function(data) {
+      		console.log("error");
       	}
     });
 });
