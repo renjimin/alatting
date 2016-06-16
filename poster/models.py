@@ -183,3 +183,17 @@ class ServiceComment(AlattingBaseModel):
 
     class Meta:
         verbose_name_plural = verbose_name = '服务评价'
+
+
+class CommonQA(AlattingBaseModel):
+    question = models.CharField(
+        verbose_name='问题',
+        max_length=200
+    )
+    answer = models.CharField(
+        verbose_name='回答',
+        max_length=1000
+    )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '常见问题'
