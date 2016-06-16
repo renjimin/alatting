@@ -147,4 +147,7 @@ $(function(){
 			
 		}
 	});
+	$(".Qes").click(function(e){
+		console.log($(e.target).siblings(".Ans"));
+	});
 });
