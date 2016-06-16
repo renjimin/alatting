@@ -517,6 +517,7 @@ header {
     float: left;
     width: 30%;
     background: rgb(214,214,214);
+    color: rgb(101,101,101);
 }
 .deal-footer .deal-right{
     text-align: center;
@@ -525,6 +526,7 @@ header {
     float: left;
     width: 70%;
     background: rgb(232,232,232);
+    color: rgb(101,101,101);
 }
 .deal-footer li{
     line-height: 40px;
