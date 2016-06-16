@@ -116,7 +116,7 @@ $(function(){
     });
 
 
-    /* 讨价还价功能模块 */
+    /*-------- 讨价还价功能模块 ---------*/
     /* 接受服务提供者的报价 */
     $('#accept-price').on('click',function(){
         yyConfirm('温馨提示：一旦接受报价，您就不能再出价，您确定要接受当前的报价吗？',function(){
@@ -126,8 +126,8 @@ $(function(){
                 url: '/api/v1/poster/'+id+'/bargains/'+lastPrice['id'],
                 success:function(){
                     //yyAlert('您的出价发送成功!');
-                    $('#price-accept').find('.q-c-name').html('您接受对方的报价');
-                    $('.price-li').hide();
+                    $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
+                    $('.trade-price-li').hide();
                     $('#price-accept').show();
                 },
                 error: function(xhr, status, statusText){
@@ -150,7 +150,7 @@ $(function(){
                 success:function(){
                     //yyAlert('您的出价发送成功!');
                     $('#price-refuse').find('.bid-tips').html('您拒绝了对方的报价,请等待对方再次出价').next().hide();
-                    $('.price-li').hide();
+                    $('.trade-price-li').hide();
                     $('#price-refuse').show();
                 },
                 error: function(xhr, status, statusText){
@@ -161,7 +161,7 @@ $(function(){
     });
     /* 打开出价面板 */
     $('.bid-price').on('click',function(){
-        $('.price-li').hide();
+        $('.trade-price-li').hide();
         $('#price-bid').show();
     });
     /* 服务需求者出价 */
@@ -176,12 +176,14 @@ $(function(){
                 data:{price:price,note:''},
                 url: '/api/v1/poster/'+id+'/bargains',
                 success:function(){
-                    $('#price-quote').children('.price-icon').children().html('你的报价');
+                    $('#price-quote').children('.trade-price-icon').children().html('你的报价');
                     $('#price-quote').find('.value-num').html(price);
-                    $('#accept-price').hide();
-                    $('#refuse-price').hide();
-                    $('.price-li').hide();
+                    $('.trade-price-li').hide();
                     $('#price-quote').show();
+                    if($('#cancel-price').css('display')== 'none'){
+                        $('#cancel-price').show().siblings('.trade-first-bid').remove();
+                    }
+                    modifyPlist(price);
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -189,6 +191,37 @@ $(function(){
             });
         }
     });
+    function modifyPlist(price){
+        var h= '<li class="plist-active">';
+            h+= '<span class="plist-name">我的报价</span>';
+            h+= '<span class="plist-value">'+price+'</span>';
+            h+= '<span class="plist-time">'+nowTime()+'</span>';
+            h+= '</li>';
+
+        if($('#main-plist').children().length == 0){
+            h = '<div class="trade-plist-ul"><ul>'+h+'</ul></div>';
+            $('#main-plist').append(h);
+        }else{
+            $('#main-plist ul').append(h);
+        }
+    }
+    function nowTime(){
+        var d = new Date();
+        var addZero = function(num){
+            if(num<10){
+                num = '0'+num;
+            }
+            return num;
+        }
+        var year = d.getFullYear();
+        var month = addZero(d.getMonth()+1);
+        var day = addZero(d.getDate());
+        var hours = addZero(d.getHours());
+        var minute = addZero(d.getMinutes());
+        var seconds = addZero(d.getSeconds());
+        return year+'-'+month+'-'+day+' '+hours+':'+minute+':'+seconds;
+    }
+
     /* 取消出价，回到报价面板 */
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
@@ -198,7 +231,6 @@ $(function(){
     /* 打开我的资讯信息层 */
     $('#quote-consult').on('click',function(){
         $('#body-tips').fadeIn(200);
-
     });
     /* 关闭我的资讯信息层 */
     $('#close-tips').on('click',function(){
@@ -206,9 +238,9 @@ $(function(){
     });
 
     /* 报价与记录信息页的切换 */
-    $('.main-menu-li').on('click',function(){
-        $('.main-menu-li').removeClass('main-menu-act');
-        $(this).addClass('main-menu-act');
+    $('.two-menu-li').on('click',function(){
+        $('.two-menu-li').removeClass('two-menu-act');
+        $(this).addClass('two-menu-act');
         var item = $(this).attr('data-item');
         $('.mainli').hide();
         $('#main-'+item).show();
@@ -324,14 +356,6 @@ $(function(){
         }
     }
 
-    function showLoading(type){
-        if(type){
-            $('#body-loading').show();
-        }else{
-            $('#body-loading').hide();
-        }
-    }
-
     /* 获取双发讨价还价的历史记录 */
     function getBargainsList(){
         showLoadTips($('#main-plist'),'show');
@@ -342,7 +366,7 @@ $(function(){
                 showLoadTips($('#main-plist'),'success');
                 if(!$.isEmptyObject(data)){
                     var num = data.length;
-                    var h = '<div class="main-plist-ul"><ul>';
+                    var h = '<div class="trade-plist-ul"><ul>';
                     for(var i=0;i<num;i++){
                         if(data[i]["accepted"]){
                             h+= '<li class="plist-over">';
@@ -364,11 +388,11 @@ $(function(){
                     }
                     h += '</ul></div>';
                     $('#main-plist').append(h);
-                    //showPriceli(data[num-1]);
+
                     lastPrice=data[num-1];
                     showPriceli(lastPrice);
-
                 }else{
+                    showPriceli();
                     $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
                 }
             },
@@ -379,13 +403,20 @@ $(function(){
     }
     /* 展示当前讨价还价的状态 */
     function showPriceli(lastPriceData){
+        $('.trade-price-li').hide();
+        if(lastPriceData == undefined){
+            $('#set-price').before('<span class="trade-first-bid">您还没有出价,请出价</span>');
+            $('#cancel-price').hide();
+            $('#price-bid').show();
+            return;
+        }
+
         $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
-        $('.price-li').hide();
         if(lastPriceData["accepted"]){
             if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
-                $('#price-accept').find('.q-c-name').html('您接受对方的报价');
+                $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
             }else{
-                $('#price-accept').find('.q-c-name').html('对方接受您的报价');
+                $('#price-accept').find('.trade-price-mess').html('对方接受您的报价');
             }
             $('#price-accept').show();
         }else if(lastPriceData["refused"]){
@@ -397,7 +428,7 @@ $(function(){
             $('#price-refuse').show();
         }else{
             if(lastPriceData["consumer"]['id'] == lastPriceData["creator"]['id']){
-                $('#price-quote').children('.price-icon').children().html('你的报价');
+                $('#price-quote').children('.trade-price-icon').children().html('你的报价');
                 $('#accept-price').hide();
                 $('#refuse-price').hide();
             }
@@ -416,10 +447,11 @@ $(function(){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
                         var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
-                        h+= '<li class="mess-li">';
-                        h+= '   <div class="mess-image"><img src="'+img+'" alt="headicon"></div>';
-                        h+= '   <div class="mess-info">';
-                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+data[i]["sender"]["username"]+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
+                        var username = getUserName(data[i]["sender"]);
+                        h+= '<li class="mn-mess-li">';
+                        h+= '   <div class="mn-mess-image"><img src="'+img+'" alt="headicon"></div>';
+                        h+= '   <div class="mn-mess-info">';
+                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+username+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';
@@ -448,14 +480,15 @@ $(function(){
                     var ans = data[0].ans;
                     var h = '<ul>';
                     for(var i=0;i<ans.length;i++){
-                        h+= '<li><span class="tips-name">'+ans[i]["question"]["short_text"]+'</span><span class="tips-cont">'+ans[i]["answer"]+'</span></li>';
+                        h+= '<li><span class="sans-name">'+ans[i]["question"]["short_text"]+'</span><span class="sans-cont">'+ans[i]["answer"]+'</span></li>';
                     }
                     h += '</ul>';
                     $('#tips-info').append(h);
-                    showLoading(false);
+                }else{
+                    $('#tips-info').append('<span class="error-msg">当前没有任何信息</span>');
                 }
             },
-            error: function(xhr, status, statusText){
+            error:function(xhr, status, statusText){
                 showLoadTips($('#tips-info'),'error');
             }
         });
@@ -475,11 +508,12 @@ $(function(){
                         var hdicon = data[i]['creator']['person']['avatar'];
                         hdicon = (hdicon)?hdicon:head_default;
                         var rating = 2*data[i]['rating'];
+                        var username = getUserName(data[i]['creator']);
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';
                         h+= '       <div class="com-main-top">';
-                        h+= '           <span class="com-username">username</span>';
+                        h+= '           <span class="com-username">'+username+'</span>';
                         h+= '           <span class="com-pstar p-star p-star-'+rating+'"></span>';
                         h+= '       </div>';
                         h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
@@ -511,5 +545,9 @@ $(function(){
             $obj.children('.data-loading').remove();
             $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
         }
+    }
+
+    function getUserName(d){
+        return (d.person.phonenumber)?d.person.phonenumber:d.email;
     }
 });

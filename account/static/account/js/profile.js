@@ -43,7 +43,8 @@ $(function(){
             if(data.person){
                 $('#uIcon').children('img').attr('src',data.person.avatar);
             }
-            $('#uName').html(data.username);
+            var username = getUserName(data);
+            $('#uName').html(username);
             $('#userid').val(data.id);
             userinfo = data;
         },
@@ -398,6 +399,10 @@ $(function(){
             $obj.children('.data-loading').remove();
             $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
         }
+    }
+
+    function getUserName(d){
+        return (d.person.phonenumber)?d.person.phonenumber:d.email;
     }
 })
 
