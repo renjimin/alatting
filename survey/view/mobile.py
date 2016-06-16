@@ -196,7 +196,7 @@ class QuestionnaireView(View):
             islast_creator = True
 
         poster_id = runinfo.poster.pk
-        ChoiceFormSet = formset_factory(ChoiceForm, formset=BaseChoiceFormSet)
+        ChoiceFormSet = formset_factory(ChoiceForm)
 
         contextdict = {'qs_title': qs_title,
                        'questionset': questionset,
@@ -373,87 +373,3 @@ class AnswerDetailView(TemplateView):
                 results[his].append(ans)
         context['results'] = results
         return context
-
-
-'''
-添加问题
-'''
-
-
-# class QuestionCreateView(FormView):
-#     template_name = "survey/mobile/create_question.html"
-#     form_class = QuestionForm
-
-#     def form_valid(self, form):
-#         if form.is_valid():
-#             q_type = form.cleaned_data['q_type']
-#             q_text = form.cleaned_data['q_text']
-#             q_short_text = form.cleaned_data['q_short_text']
-#             q = Question()
-#             qs = QuestionSet.objects.filter(pk=8).first()
-#             q.questionset = qs
-#             q.sortid = qs.questions_count() + 1
-#             q.type = q_type
-#             q.text = q_text
-#             q.short_text = q_short_text
-#             q.save()
-#             q_id = q.pk
-#         if q_type in ['choice', 'checkbox']:
-#             kwargs = {'q_id': q_id}
-#             return HttpResponseRedirect(
-#                 reverse('survey:create_choice', kwargs=kwargs))
-#         elif q_type in ['choice-input']:
-#             kwargs = {'q_id': q_id}
-#             return HttpResponseRedirect(
-#                 reverse('survey:create_choice_input', kwargs=kwargs))
-#         return HttpResponseRedirect(reverse("survey:index"))
-
-
-# class ChoiceCreateView(FormView):
-#     template_name = "survey/mobile/create_choice.html"
-#     form_class = formset_factory(ChoiceForm, formset=BaseChoiceFormSet)
-
-#     def form_valid(self, form):
-#         if form.is_valid():
-#             q_id = self.kwargs['q_id']
-#             q = Question.objects.filter(pk=q_id).first()
-#             for f in form:
-#                 cd = f.cleaned_data
-#                 c_text = cd.get('c_text')
-#                 c_value = cd.get('c_value')
-#                 c = Choice()
-#                 c.question = q
-#                 c.sortid = q.choices_count() + 1
-#                 c.text = c_text
-#                 c.value = c_value
-#                 c.save()
-#         return render_to_response(self.template_name)
-
-
-# class ChoiceInputCreateView(FormView):
-#     template_name = "survey/mobile/create_choice_input.html"
-#     form_class = formset_factory(ChoiceInputForm, formset=BaseChoiceFormSet)
-
-#     def form_valid(self, form):
-#         if form.is_valid():
-#             q_id = self.kwargs['q_id']
-#             q = Question.objects.filter(pk=q_id).first()
-#             for f in form:
-#                 cd = f.cleaned_data
-#                 c_text = cd.get('c_text')
-#                 c_value = cd.get('c_value')
-#                 c = Choice()
-#                 c.question = q
-#                 c.sortid = q.choices_count() + 1
-#                 c.text = c_text
-#                 c.value = c_value
-#                 c.save()
-#                 c_input = cd.get('c_input')
-#                 c_input_ph = cd.get('c_input_ph')
-#                 if c_input:
-#                     inp = Input()
-#                     inp.question = q
-#                     inp.choice = c
-#                     inp.placeholder = c_input_ph
-#                     inp.save()
-#         return render_to_response(self.template_name)
