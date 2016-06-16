@@ -134,6 +134,13 @@ $(function(){
         }
     });
 
+    /**交易记录*/
+    $('.deal-contain .fa-angle-right').click(function(){
+        $('.deal-contain img').attr('src','');
+    });
+    $('.deal-contain .fa-angle-left').click(function(){
+        $('.deal-contain img').attr('src','');
+    })
     /* 显示当前海报的操作控件 */
     $('.body-main').on('click','.p-cont',function(event){
         event.stopPropagation();
