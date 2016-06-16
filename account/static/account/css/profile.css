@@ -507,6 +507,9 @@
 .deal-footer .fa{
     padding: 0 5px;
 }
+.body-deal{
+    display: none;
+}
 /*body-share*/
 .body-share{
     width: 100%;

@@ -12,7 +12,6 @@ $(function(){
     var serverNeedTmpl = $('#serverNeedTmpl').html();
     $.template('serverNeedTmpl',serverNeedTmpl);
     var defImg = '/static/account/img/poster_default.jpg';
-    var userinfo;
     showLoadTips($('.main-list'),'show');
 
     /* 头部两类海报列表切换 */
@@ -46,7 +45,6 @@ $(function(){
             var username = getUserName(data);
             $('#uName').html(username);
             $('#userid').val(data.id);
-            userinfo = data;
         },
         error: function(xhr,status,statusText){
             yyAlert("获取个人信息失败,请稍候再试!");
@@ -387,22 +385,6 @@ $(function(){
             context.fill();
         });
     }
-    /* 加载动画的显示与隐藏 */
-    function showLoadTips($obj,type){
-        if(type == 'show'){
-            $obj.append('<div class="data-loading"><i class="fa fa-spinner fa-pulse fa-5x"></i><br>数据加载中,请稍等...</div>');
-        }
-        if(type == 'success'){
-            $obj.children('.data-loading').remove();
-        }
-        if(type == 'error'){
-            $obj.children('.data-loading').remove();
-            $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
-        }
-    }
 
-    function getUserName(d){
-        return (d.person.phonenumber)?d.person.phonenumber:d.email;
-    }
 })
 

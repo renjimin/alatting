@@ -2,7 +2,6 @@
  * Created by chulin on 16-5-26.
  */
 
-
 $(function(){
     var id = $('#posterid').val();
     var consumer_id= $('#consumerid').val();
@@ -29,8 +28,8 @@ $(function(){
             $('#body-main-title').children('.title-name').html('获取数据错误');
         }
     });
-    getBargainsList();
-    getChatsList();
+    getBargainsList($('#main-plist'),id,consumer_id);
+    getChatsList($('#message-list'),id,consumer_id);
     getAnsList();
 
     /* 收藏当前海报 */
@@ -166,6 +165,8 @@ $(function(){
     });
     /* 服务需求者出价 */
     $('#set-price').on('click',function(){
+        var ths = $(this);
+        ths.prop('disabled','disabled');
         var price = $.trim($('#bPrice').val());
         if(!$.isNumeric(price) || price <= 0){
             yyAlert('请输入大于0的数字!');
@@ -177,13 +178,17 @@ $(function(){
                 url: '/api/v1/poster/'+id+'/bargains',
                 success:function(){
                     $('#price-quote').children('.trade-price-icon').children().html('你的报价');
+                    $('#accept-price').hide();
+                    $('#refuse-price').hide();
                     $('#price-quote').find('.value-num').html(price);
                     $('.trade-price-li').hide();
                     $('#price-quote').show();
+
                     if($('#cancel-price').css('display')== 'none'){
                         $('#cancel-price').show().siblings('.trade-first-bid').remove();
                     }
                     modifyPlist(price);
+                    ths.removeProp('disabled');
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -318,11 +323,12 @@ $(function(){
 
     /* 点击头部海报名称显示当前海报的所有用户评价信息 */
     $('#body-main-title').on('click',function(){
-        if($('#body-comments').css('display') == 'none'){
+        var $bdcomt = $('#body-comments');
+        if($bdcomt.css('display') == 'none'){
             $('.body-li').hide();
-            $('#body-comments').show();
-            if($('#body-comments').children().length == 0){
-                getCommentsList();
+            $bdcomt.show();
+            if($bdcomt.children().length == 0){
+                getCommentsList($bdcomt,id);
             }
         }else{
             $('.body-li').hide();
@@ -357,13 +363,13 @@ $(function(){
     }
 
     /* 获取双发讨价还价的历史记录 */
-    function getBargainsList(){
-        showLoadTips($('#main-plist'),'show');
+    function getBargainsList($obj,id,consumerid){
+        showLoadTips($obj,'show');
         $.ajax({
             type: 'GET',
-            url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumer_id,
+            url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumerid,
             success:function(data){
-                showLoadTips($('#main-plist'),'success');
+                showLoadTips($obj,'success');
                 if(!$.isEmptyObject(data)){
                     var num = data.length;
                     var h = '<div class="trade-plist-ul"><ul>';
@@ -387,17 +393,17 @@ $(function(){
                         h+= '</li>';
                     }
                     h += '</ul></div>';
-                    $('#main-plist').append(h);
+                    $obj.append(h);
 
                     lastPrice=data[num-1];
                     showPriceli(lastPrice);
                 }else{
                     showPriceli();
-                    $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
+                    $obj.append('<span class="error-msg">当前没有任何报价信息</span>');
                 }
             },
             error: function(xhr, status, statusText){
-                showLoadTips($('#main-plist'),'error');
+                showLoadTips($obj,'error');
             }
         });
     }
@@ -436,13 +442,13 @@ $(function(){
         }
     }
     /* 获取双方交流的信息列表 */
-    function getChatsList(){
-        showLoadTips($('#message-list'),'show');
+    function getChatsList($obj,id,consumerid){
+        showLoadTips($obj,'show');
         $.ajax({
             type: 'GET',
-            url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumer_id,
+            url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumerid,
             success:function(data){
-                showLoadTips($('#message-list'),'success');
+                showLoadTips($obj,'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
@@ -457,13 +463,13 @@ $(function(){
                         h+= '</li>';
                     }
                     h += '</ul>';
-                    $('#message-list').append(h);
+                    $obj.append(h);
                 }else{
-                    $('#message-list').append('<span class="error-msg">当前没有任何信息</span>');
+                    $obj.append('<span class="error-msg">当前没有任何信息</span>');
                 }
             },
             error: function(xhr, status, statusText){
-                showLoadTips($('#message-list'),'error');
+                showLoadTips($obj,'error');
             }
         });
     }
@@ -495,13 +501,13 @@ $(function(){
     }
 
     /* 获取用户评论信息 */
-    function getCommentsList(){
-        showLoadTips($('#body-comments'),'show');
+    function getCommentsList($obj,id){
+        showLoadTips($obj,'show');
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/servicecomments',
             success:function(data){
-                showLoadTips($('#body-comments'),'success');
+                showLoadTips($obj,'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
@@ -522,13 +528,13 @@ $(function(){
                         h+= '</li>';
                     }
                     h += '</ul>';
-                    $('#body-comments').append(h);
+                    $obj.append(h);
                 }else{
-                    $('#body-comments').append('<span class="error-msg">当前没有任何信息</span>');
+                    $obj.append('<span class="error-msg">当前没有任何信息</span>');
                 }
             },
             error: function(xhr, status, statusText){
-                showLoadTips($('#body-comments'),'error');
+                showLoadTips($obj,'error');
             }
         });
     }
