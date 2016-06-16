@@ -454,18 +454,76 @@ header {
     position: fixed;
     left: 0;
     overflow: auto;
-    z-index: 199;
+    z-index: 1000;
 }
 .deal-header{
     text-align: center;
     vertical-align: middle;
     background: rgb(174,174,174);
+    -webkit-box-shadow: inset 0px 7px 20px 0 rgb(153,153,153);
+    -moz-box-shadow: inset 0px 7px 20px 0 rgb(153,153,153);
+              box-shadow: inset 0px 7px 20px 0 rgb(153,153,153);
+    padding: 10px 0;
+    border-bottom: 1px solid rgb(108,108,108);
 }
 .deal-header .glyphicon-file{
-    font-size: 24px;
+    font-size: 14px;
+    color: rgb(107,107,107);
 }
 .deal-header span{
-    font-size: 24px;
+    font-size: 14px;
+    font-weight: 800;
+    color: rgb(73,73,73);
+}
+.deal-contain{
+    height: 60%;
+    background: rgb(194,194,194);
+}
+.deal-contain img {
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: 24%;
+    right: 30%;
+    top: 12%;
+}
+.deal-contain .fa-angle-left{
+    font-size: 50px;
+    position: absolute;
+    top: 35%;
+    left:10%;
+}
+.deal-contain .fa-angle-right{
+    font-size: 50px;
+    position: absolute;
+    top: 35%;
+    right:10%;
+}
+.deal-footer{
+    height: 30%;
+}
+.deal-footer .deal-left{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    float: left;
+    width: 30%;
+    background: rgb(214,214,214);
+}
+.deal-footer .deal-right{
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    float: left;
+    width: 70%;
+    background: rgb(232,232,232);
+}
+.deal-footer li{
+    line-height: 40px;
+    text-align: center;
+    border-bottom: 1px solid rgb(122,122,122);
 }
 /*body-share*/
 .body-share{
