@@ -3,10 +3,40 @@ $(function(){
 		type:'GET',
 		url:'/api/v1/poster/qa',
 		success:function(msg){
-			console.log(msg);
+			var str = "";
+			for(var i in msg){
+				str += '<ul>';
+				str += '<li class="Qes">';
+				str += '<span class="QAFake"></span>';
+				str += '<span class="QAText">'+msg[i].question+'</span>';
+				str += '</li>';
+				str += '<li class="Ans">';
+				str += '<span class="QAFake"></span>';
+				str += '<span class="QAText">'+msg[i].answer+'</span>';
+				str += '</li>';
+				str += '</ul>';
+			}
+			$("#QAContent").append(str);
+			$("#btn-question").click(function(){
+				if($('#QA').is(":visible")){
+					$('#QA').hide();
+				}else{
+					$('#QA').show();
+				}
+			});
+			$(".Qes").click(function(e){
+				var ans = $(e.currentTarget).siblings(".Ans");
+				if(ans.is(":visible")){
+					ans.hide();
+					$("#QA #arrow").hide();
+				}else{
+					$(".Ans").hide();
+					ans.show();
+					$("#QA #arrow").css("top",$(e.currentTarget).offset().top + $(e.currentTarget).height()).show();
+				}
+			});
 		}
 	});
-
 	$("#catelist .item-link").click(function(){
 		if($(this).parent().hasClass('open')){
 			 $(this).parent().find('.sublist').slideUp(200);
@@ -33,25 +63,6 @@ $(function(){
 	});
 	$('#hide-cate').click(function(){
 		$('#type-model').removeClass('open');
-	});
-	$("#btn-question").click(function(){
-		if($('#QA').is(":visible")){
-			$('#QA').hide();
-		}else{
-			$('#QA').show();
-		}
-	});
-
-	$(".Qes").click(function(e){
-		var ans = $(e.currentTarget).siblings(".Ans");
-		if(ans.is(":visible")){
-			ans.hide();
-			$("#QA #arrow").hide();
-		}else{
-			$(".Ans").hide();
-			ans.show();
-			$("#QA #arrow").css("top",$(e.currentTarget).offset().top + $(e.currentTarget).height()).show();
-		}
 	});
 });
 
