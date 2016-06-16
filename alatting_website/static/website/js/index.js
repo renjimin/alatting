@@ -1,4 +1,12 @@
 $(function(){
+	$.ajax({
+		type:'GET',
+		url:'/api/v1/poster/qa',
+		success:function(msg){
+			console.log(msg);
+		}
+	});
+
 	$("#catelist .item-link").click(function(){
 		if($(this).parent().hasClass('open')){
 			 $(this).parent().find('.sublist').slideUp(200);
@@ -34,7 +42,7 @@ $(function(){
 		}
 	});
 
-	
+
 	$(".Qes").click(function(e){
 		var ans = $(e.currentTarget).siblings(".Ans");
 		if(ans.is(":visible")){
