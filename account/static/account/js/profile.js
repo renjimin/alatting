@@ -6,7 +6,7 @@ $(function(){
     var wh = $(window).height();
     var bh = $('.body-header').height();
     $('#body-vip').css({'height':(wh-bh)+'px','top':bh+'px'});
-
+    $('#body-deal').css({'height':(wh-bh)+'px','top':bh+'px'});
     var serverProvideTmpl = $('#serverProvideTmpl').html();
     $.template('serverProvideTmpl',serverProvideTmpl);
     var serverNeedTmpl = $('#serverNeedTmpl').html();

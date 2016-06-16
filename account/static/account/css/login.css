@@ -129,7 +129,7 @@ input {
     background: none;
     background: rgba(230,230,230,0.96);
     box-shadow: 0 6px 6px rgba(0,0,0,.1) inset;
-    margin-top: 12%;
+    /*margin-top: 12%;*/
  }
  .div-provider .ul-provider{
     padding:0;
@@ -162,7 +162,7 @@ input {
     border-bottom: 1px solid rgb(169,169,169);
  }
   .div-provider .li-provider:hover{
-    background:white;
+    /*background:white;*/
  }
 .div-server .li-server:hover{
     background:white;
@@ -221,7 +221,7 @@ input {
  .server-title{
     position: fixed;
     width: 100%;
-    background: #777;
+    background: #ccc;
     z-index: 20;
  }
  .glyphicon-remove-circle{

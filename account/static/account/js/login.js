@@ -314,18 +314,18 @@ $(document).ready(function() {
 				var sid = $(this).attr('data-id');
 				var ssbox = '';
 				main_name = $(this).attr('data-name');
-				/*if($('.li-server').hasClass('open')){
+				if($('.li-server').hasClass('open')){
 					$('.li-server').removeClass('open');
-					$('.li-server').children('ul').hide();
+					$('.li-server').children('dl').hide();
 				}
 				if (ths.hasClass('open')) {
 					ths.removeClass('open');
-					ths.children('ul').hide();
+					ths.children('dl').hide();
 				}else{
 					ths.addClass('open');
-					ths.children('ul').show();
+					ths.children('dl').show();
 					ths.find('span').addClass('open');
-				};*/
+				};
 				//ths.addClass('open');
 				$("#id_main_category").val(sid);
 				if (ths.find("dl").length == 0) {
@@ -434,6 +434,18 @@ $(document).ready(function() {
 				} else {
 
 				}
+				if($('.li-provider').hasClass('open')){
+					$('.li-provider').removeClass('open');
+					$('.li-provider').children('dl').hide();
+				}
+				if (ths.hasClass('open')) {
+					ths.removeClass('open');
+					ths.children('dl').hide();
+				}else{
+					ths.addClass('open');
+					ths.children('dl').show();
+					ths.find('span').addClass('open');
+				};
 				ths.children('.glyphicon').off('click').on('click', function(event) {
 					//event.preventDefault();
 					if ($(event.target).hasClass('glyphicon-unchecked')) {
