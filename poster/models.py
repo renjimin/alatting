@@ -212,11 +212,6 @@ class CustomerService(AlattingBaseModel):
         verbose_name='回复',
         max_length=1000
     )
-    replied_at = models.DateTimeField(
-        verbose_name='回复时间',
-        null=True,
-        blank=True
-    )
 
     class Meta:
         verbose_name_plural = verbose_name = '客户服务'

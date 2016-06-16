@@ -30,7 +30,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat, ServiceComment, CommonQA
+    ServiceBargain, Chat, ServiceComment, CommonQA, CustomerService
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -43,7 +43,7 @@ from poster.serializer.poster import (
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
     ChatSerializer, StatisticsDataSerializer, ServiceCommentSerializer,
-    CommonQASerializer)
+    CommonQASerializer, CustomerServiceSerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -808,3 +808,22 @@ class QAListView(ListAPIView):
         data_status=CommonQA.DATA_STATUS_USABLE
     )
     serializer_class = CommonQASerializer
+
+
+class CustomerServiceListView(ListCreateAPIView):
+    model = CustomerService
+    queryset = CustomerService.objects.filter(
+        data_status=CommonQA.DATA_STATUS_USABLE
+    )
+    serializer_class = CustomerServiceSerializer
+
+    def get_queryset(self):
+        qs = super(CustomerServiceListView, self).get_queryset()
+        if not self.request.user.is_superuser:
+            qs = qs.filter(user=self.request.user)
+        return qs.order_by('-created_at')
+
+    def perform_create(self, serializer):
+        serializer.save(
+            user_id=self.request.user.id
+        )

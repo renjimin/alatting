@@ -8,7 +8,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer
 from alatting_website.serializer.statistics_serializer import \
     PosterStatisticsSerializer, HistoryStatisticsSerializer
 from poster.models import SystemImage, SystemMusic, ServiceBargain, Chat, \
-    ServiceComment, CommonQA
+    ServiceComment, CommonQA, CustomerService
 from poster.serializer.resource import CategorySerializer, \
     CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
@@ -214,14 +214,21 @@ class ServiceCommentSerializer(serializers.ModelSerializer):
 
 
 class CommonQASerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CommonQA
-        read_only_fields = ['created_at', 'update_at']
+        read_only_fields = ['created_at', 'updated_at']
 
 
 class CustomerServiceSerializer(serializers.ModelSerializer):
+    user = AccountProfileSimpleSerializer(read_only=True)
+    updated_at = serializers.SerializerMethodField()
+
+    def get_updated_at(self, obj):
+        if not obj.reply:
+            return None
+        else:
+            return obj.updated_at
 
     class Meta:
-        model = CommonQA
-        read_only_fields = ['created_at', 'update_at', 'replied_at']
+        model = CustomerService
+        read_only_fields = ['created_at', 'updated_at', 'reply']
