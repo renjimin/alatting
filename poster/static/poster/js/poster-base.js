@@ -83,7 +83,7 @@ $(function () {
 		/*读取主体部分*/
 		if (storageAPI.getHtml()) {
 			$(".yunye-template").remove();
-			$(".container-fluid").append('<div class="template-box">'+storageAPI.getHtml()+'</div>');
+			$(".container-fluid").append(storageAPI.getHtml());
 		}
 	};
 
@@ -106,29 +106,9 @@ $(function () {
 	if (yunyeEditorGlobal.updated_at <= pageHeadData.updated_at) {
 		initData();
 	}
-	templateScaleFun();
 	
-	window.onresize = function(){
-		 templateScaleFun();
-	};
 	
-	function templateScaleFun(){
-		var templateScale = $('body').width()/$('.yunye-template').width();
-		var templateScaleOpt = "";
-		templateScaleOpt += '-webkit-transform:scale('+templateScale+','+templateScale+');';
-		templateScaleOpt += '-moz-transform:scale('+templateScale+','+templateScale+');';
-		templateScaleOpt += '-o-transform:scale('+templateScale+','+templateScale+');';
-		templateScaleOpt += '-ms-transform:scale('+templateScale+','+templateScale+');';
-		templateScaleOpt += 'transform:scale('+templateScale+','+templateScale+');';
-
-		if($('.template-box').length <= 0){
-			var templateBox = $('<div class="template-box"></div>');
-			$('.yunye-template').parent().append(templateBox);
-			templateBox.append($('.yunye-template'));
-		}
-		$('.yunye-template').attr('style',templateScaleOpt);
-		$('.template-box').height($('.yunye-template').height()*templateScale).css({'min-height':$(window).height() - 84 - $('.header').height()+'px'});
-	}
+	
 	//失去焦点预判输入
 	$('#emailInput').blur(function(){
 		var email = $('#emailInput').val();
@@ -607,10 +587,10 @@ $(function () {
 					callback: function () {
 						$(this).bgselect({}, function (ths, img) {
 							$('.yunye-template').css('background', 'url(' + img + ')');
-							$('.yunye-template').css('background-size', '100% 100%');
+							$('.yunye-template').css('background-size', '100% 100%!important');
 							storageAPI.setCss(".yunye-template", {
 								'background': 'url(' + img + ')',
-								'background-size': '100% 100%'
+								'background-size': '100% 100%!important'
 							});
 							$(".system-item").fadeOut(500);
 						});
@@ -637,10 +617,10 @@ $(function () {
 								return false;
 							}
 							$('.yunye-template').css('background', 'url(' + data.file + ')');
-							$('.yunye-template').css('background-size', '100% 100%');
+							$('.yunye-template').css('background-size', '100% 100%!important');
 							storageAPI.setCss(".yunye-template", {
 								'background': 'url(' + data.file + ')',
-								'background-size': '100% 100%'
+								'background-size': '100% 100%!important'
 							});
 						});
 					}
@@ -653,3 +633,16 @@ $(function () {
 	window.templateMainActionInit();
 	$(".change-template-layout").hide();
 });
+(function (doc, win) {
+var docEl = doc.documentElement,
+resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+recalc = function () {
+var clientWidth = docEl.clientWidth;
+if (!clientWidth) return;
+docEl.style.fontSize = 20 * (document.body.clientWidth / 320) + 'px';
+};
+
+if (!doc.addEventListener) return;
+win.addEventListener(resizeEvt, recalc, false);
+doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);

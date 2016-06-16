@@ -187,7 +187,7 @@ input[type="range"]::-webkit-slider-thumb {
 
 .button-model {
 	top: auto;
-	bottom: 44px;
+	bottom: 1.7rem;
 	overflow: auto;
 	height: auto;
 	padding-bottom: 0;
@@ -204,19 +204,19 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .nbar-radius {
-	width: 20px;
-	height: 20px;
+	width: 12px;
+	height: 12px;
 	border: 1px solid #08a1ef;
 	border-radius: 50%;
 	background-color: #fff;
 }
 
 .nbar-rotate {
-	top: -50px;
+	top: -30px;
 	left: 50%;
-	width: 20px;
-	height: 20px;
-	margin-left: -10px;
+	width: 12px;
+	height: 12px;
+	margin-left: -6px;
 	cursor: url(mouserotate.ico) 10 10, default;
 	transition: all .2s;
 	border: none;
@@ -235,22 +235,22 @@ input[type="range"]::-webkit-slider-thumb {
 	top: 0;
 	display: none;
 	width: 100%;
-	height: 10px;
+	height: 6px;
 	cursor: n-resize;
 	background: url(bar-1px.png) repeat-x;
 }
 
 .nbar-n div {
 	position: absolute;
-	top: -10px;
+	top: -6px;
 	left: 50%;
-	margin-left: -10px;
+	margin-left: -6px;
 }
 
 .nbar-s {
 	bottom: 0;
 	width: 100%;
-	height: 10px;
+	height: 6px;
 	cursor: s-resize;
 	background: url(bar-1px.png) repeat-x bottom;
 }
@@ -259,13 +259,13 @@ input[type="range"]::-webkit-slider-thumb {
 	position: absolute;
 	top: 0;
 	left: 50%;
-	margin-left: -10px;
+	margin-left: -6px;
 }
 
 .nbar-e {
 	top: 0;
 	right: 0;
-	width: 10px;
+	width: 6px;
 	height: 100%;
 	cursor: n-resize;
 	background: url(bar-1px.png) right repeat-y;
@@ -274,14 +274,14 @@ input[type="range"]::-webkit-slider-thumb {
 .nbar-e div {
 	position: absolute;
 	top: 50%;
-	right: -10px;
-	margin-top: -10px;
+	right: -6px;
+	margin-top: -6px;
 }
 
 .nbar-w {
 	top: 0;
 	left: 0;
-	width: 10px;
+	width: 6px;
 	height: 100%;
 	cursor: n-resize;
 	background: url(bar-1px.png) repeat-y;
@@ -290,40 +290,40 @@ input[type="range"]::-webkit-slider-thumb {
 .nbar-w div {
 	position: absolute;
 	top: 50%;
-	left: -10px;
-	margin-top: -10px;
+	left: -6px;
+	margin-top: -6px;
 }
 
 .nbar-nw {
-	top: -10px;
-	left: -10px;
+	top: -6px;
+	left: -6px;
 	cursor: nw-resize;
 }
 
 .nbar-se {
-	right: -10px;
-	bottom: -10px;
+	right: -6px;
+	bottom: -6px;
 	cursor: se-resize;
 }
 
 .nbar-sw {
-	bottom: -10px;
-	left: -10px;
+	bottom: -6px;
+	left: -6px;
 	cursor: sw-resize;
 }
 
 .nbar-ne {
-	top: -10px;
-	right: -10px;
+	top: -6px;
+	right: -6px;
 	cursor: ne-resize;
 }
 
 .nbar-edit {
-	width: 30px;
-	height: 30px;
+	width: 20px;
+	height: 20px;
 	text-align: center;
 	font-size: 12px;
-	line-height: 30px;
+	line-height: 20px;
 }
 
 .nbar-rotate.drag-active {
@@ -364,7 +364,9 @@ input[type="range"]::-webkit-slider-thumb {
 	height: 100%;
 }
 
-
+.element-box-contents {
+	padding: 6px;
+}
 /**/
 
 .systemimg-list ul {

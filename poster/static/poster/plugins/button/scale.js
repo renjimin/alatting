@@ -1,5 +1,6 @@
 var scaleIndex = 20;
 var templateScale = $('body').width() / $('.yunye-template').width();
+var remScale = 16/$('.yunye-template').innerWidth();
 var scale = function(box, options) {
 	var defaults = {
 		'box': '.cnd-element',
@@ -65,22 +66,21 @@ var scale = function(box, options) {
 		nbare = s.o.find('.nbar-e');
 		nbarw = s.o.find('.nbar-w');
 
-		if (s.o.position() == undefined) {
+		if (s.o.css('left') == 'auto' || s.o.css('left') == undefined) {
 			s.opt.left = 0;
-			s.opt.top = 0
-		} else if (s.opt.left != undefined) {
-			s.opt.left = parseInt(s.o.css('left'));
-			s.opt.top = parseInt(s.o.css('top'));
+			s.opt.top = 0;
 		} else {
-			s.opt.left = s.o.position().left;
-			s.opt.top = s.o.position().top;
+			s.opt.left = parseFloat(s.o.css('left')) * remScale;
+			s.opt.top = parseFloat(s.o.css('top')) * remScale;
 		}
+		s.opt.cx = parseFloat(s.opt.width) / 2; /*计算圆心相对坐标*/
+		s.opt.cy = parseFloat(s.opt.height) / 2;
 
-		s.opt.cx = parseInt(s.opt.width) / 2; /*计算圆心相对坐标*/
-		s.opt.cy = parseInt(s.opt.height) / 2;
+		s.opt.width = ele.outerWidth() == 0 ? parseFloat(ele.css('width'))*remScale : ele.outerWidth()*remScale;
+		s.opt.height = ele.outerHeight() == 0 ? parseFloat(ele.css('height'))*remScale : ele.outerHeight()*remScale;
 
-		s.opt.width = ele.innerWidth() == 0 ? parseInt(ele.css('width')) : ele.innerWidth();
-		s.opt.height = ele.innerHeight() == 0 ? parseInt(ele.css('height')) : ele.innerHeight();
+		//console.log(s.opt.height + '   '+ele.outerHeight()*remScale+'   '+parseFloat(ele.css('height'))*remScale)
+
 		s.opt.currentAngle = s.o.attr('data-rotate') == null ? '0' : s.o.attr('data-rotate');
 	}
 	s.initData(b);
@@ -119,29 +119,28 @@ var scale = function(box, options) {
 			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
 
-			var ex = (touchEvents.currentX - touchEvents.startX) / templateScale;
-			var ey = (touchEvents.currentY - touchEvents.startY) / templateScale;
+			var ex = (touchEvents.currentX - touchEvents.startX) * remScale;
+			var ey = (touchEvents.currentY - touchEvents.startY) * remScale;
 
-			var ox = s.opt.tx = parseInt(s.opt.left) + ex;
-			var oy = s.opt.ty = parseInt(s.opt.top) + ey;
+			var ox = s.opt.tx = s.opt.left + ex;
+			var oy = s.opt.ty = s.opt.top + ey;
 
-			s.o.css({ 'left': ox + 'px', 'top': oy + 'px' });
+			s.o.css({ 'left': ox + 'rem', 'top': oy + 'rem' });
 
 		},
 		'touchend': function(e) {
 			if (e.originalEvent) e = e.originalEvent;
 			$(e.currentTarget).removeClass('drag-active').css('transition', 'all .2s');
 			if (s.opt.tx < -s.opt.width/2) {
-				s.o.css({ 'left': -s.opt.width/2+'px' });
+				s.o.css({ 'left': '-6px' });
 			} else if (s.opt.tx + s.opt.width/2 > $('.yunye-template').width() ) {
-				s.o.css({ 'left': $('.yunye-template').width() - s.opt.width/2  + 'px' });
+				s.o.css({ 'left': $('.yunye-template').width() - s.opt.width/2  + '%' });
 			}
 			if (s.opt.ty < -s.opt.height/2) {
-				s.o.css({ 'top': '-10px' });
+				//s.o.css({ 'top': '-6px' });
 			} else if (s.opt.ty + s.opt.height/2 > $('.yunye-template').height()) {
-				s.o.css({ 'top': $('.yunye-template').height() - s.opt.height /2 + 'px' });
+				s.o.css({ 'top': $('.yunye-template').height() - s.opt.height /2 + '%' });
 			}
-
 			/* 展开操作面板 */
 			//$(document).trigger('clsdp');
 			showControlPannel(s.o);
@@ -214,16 +213,16 @@ var scale = function(box, options) {
 			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
 
-			var sx = touchEvents.currentX - touchEvents.startX;
-			var sy = touchEvents.currentY - touchEvents.startY;
+			var sx = (touchEvents.currentX - touchEvents.startX)*remScale;
+			var sy = (touchEvents.currentY - touchEvents.startY)*remScale;
 
 			if (sx > sy) {
 				sx = sy; /*以小单位为准*/
 			}
-			var tox = parseInt(s.opt.width) + sx; /* 计算宽度 */
-			var toy = parseInt(s.opt.height) * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变*/
+			var tox = s.opt.width + sx; /* 计算宽度 */
+			var toy = s.opt.height * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变*/
 
-			s.o.find('.element').css({ 'width': tox + 'px', 'height': toy + 'px' });
+			s.o.find('.element').css({ 'width': tox + 'rem', 'height': toy + 'rem' });
 		},
 		'touchend': function(e) {
 
@@ -248,16 +247,16 @@ var scale = function(box, options) {
 			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
 
-			var sx = touchEvents.currentX - touchEvents.startX;
-			var sy = touchEvents.currentY - touchEvents.startY;
+			var sx = (touchEvents.currentX - touchEvents.startX)*remScale;
+			var sy = (touchEvents.currentY - touchEvents.startY)*remScale;
 			/*if(Math.abs(sx) > Math.abs(sy)){
 					sx = sy;
 			}*/
-			var tox = parseInt(s.opt.width) + sx; /* 计算宽度 */
-			var toy = parseInt(s.opt.height) * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变,这里以x轴坐标为准*/
+			var tox = s.opt.width + sx; /* 计算宽度 */
+			var toy = s.opt.height * tox / s.opt.width; /*计算高度，保持宽高比例不变,这里以x轴坐标为准*/
 			if (tox < 0) return;
-			s.o.find('.element').css({ 'width': tox + 'px', 'height': toy + 'px' });
-			s.o.css('top', parseInt(s.opt.top) - toy + parseInt(s.opt.height) + 'px'); /* 以底线为基准向右上方缩放 */
+			s.o.find('.element').css({ 'width': tox + 'rem', 'height': toy + 'rem' });
+			s.o.css('top', s.opt.top - toy + s.opt.height + 'rem'); /* 以底线为基准向右上方缩放 */
 		},
 		'touchend': function(e) {
 
@@ -282,16 +281,16 @@ var scale = function(box, options) {
 			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
 
-			var sx = touchEvents.currentX - touchEvents.startX;
-			var sy = touchEvents.currentY - touchEvents.startY;
+			var sx = (touchEvents.currentX - touchEvents.startX)*remScale;
+			var sy = (touchEvents.currentY - touchEvents.startY)*remScale;
 			/*if(Math.abs(sx) > Math.abs(sy)){
 					sx = sy;
 			}*/
-			var tox = parseInt(s.opt.width) - sx; /* 计算宽度 */
-			var toy = parseInt(s.opt.height) * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变,这里以x轴坐标为准*/
+			var tox = s.opt.width - sx; /* 计算宽度 */
+			var toy = s.opt.height * tox / s.opt.width; /*计算高度，保持宽高比例不变,这里以x轴坐标为准*/
 			if (tox < 0) return;
-			s.o.find('.element').css({ 'width': tox + 'px', 'height': toy + 'px' });
-			s.o.css('left', parseInt(s.opt.left) + sx + 'px'); /* 以底线为基准向右上方缩放 */
+			s.o.find('.element').css({ 'width': tox + 'rem', 'height': toy + 'rem' });
+			s.o.css('left', s.opt.left + sx + 'rem'); /* 以底线为基准向右上方缩放 */
 		},
 		'touchend': function(e) {
 
@@ -316,14 +315,14 @@ var scale = function(box, options) {
 			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
 
-			var sx = touchEvents.currentX - touchEvents.startX;
-			var sy = touchEvents.currentY - touchEvents.startY;
+			var sx = (touchEvents.currentX - touchEvents.startX)*remScale;
+			var sy = (touchEvents.currentY - touchEvents.startY)*remScale;
 
-			var tox = parseInt(s.opt.width) - sx; /* 计算宽度 */
-			var toy = parseInt(s.opt.height) * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变,这里以x轴坐标为准*/
+			var tox = s.opt.width - sx; /* 计算宽度 */
+			var toy = s.opt.height * tox / s.opt.width; /*计算高度，保持宽高比例不变,这里以x轴坐标为准*/
 			if (tox < 0) return;
-			s.o.find('.element').css({ 'width': tox + 'px', 'height': toy + 'px' });
-			s.o.css({ 'top': parseInt(s.opt.top) - toy + parseInt(s.opt.height) + 'px', 'left': parseInt(s.opt.left) + sx + 'px' }); /* 以底线为基准向右上方缩放 */
+			s.o.find('.element').css({ 'width': tox + 'rem', 'height': toy + 'rem' });
+			s.o.css({ 'top': s.opt.top - toy + s.opt.height + 'rem', 'left': s.opt.left + sx + 'rem' }); /* 以底线为基准向右上方缩放 */
 		},
 		'touchend': function(e) {
 
@@ -339,23 +338,15 @@ var scale = function(box, options) {
 			s.initData($(e.currentTarget));
 			var touch = e.touches[0];
 			touchEvents.startX = touch.pageX;
-			touchEvents.startY = touch.pageY;
 		},
 		'touchmove': function(e) {
 			if (e.originalEvent) e = e.originalEvent;
 			e.preventDefault();
 			var touch = e.touches[0];
 			touchEvents.currentX = touch.pageX;
-			touchEvents.currentY = touch.pageY;
-
-			var sx = touchEvents.currentX - touchEvents.startX;
-
-			var tox = parseInt(s.opt.width) + sx;
-
-			s.o.find('.element').css({ 'width': tox + 'px' });
-		},
-		'touchend': function(e) {
-
+			var sx = (touchEvents.currentX - touchEvents.startX)*remScale;
+			var tox = s.opt.width + sx;
+			s.o.find('.element').css({ 'width': tox + 'rem' });
 		}
 	});
 	/*
@@ -367,24 +358,16 @@ var scale = function(box, options) {
 			e.preventDefault();
 			s.initData($(e.currentTarget));
 			var touch = e.touches[0];
-			touchEvents.startX = touch.pageX;
 			touchEvents.startY = touch.pageY;
 		},
 		'touchmove': function(e) {
 			if (e.originalEvent) e = e.originalEvent;
 			e.preventDefault();
 			var touch = e.touches[0];
-			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
-
-			var sy = touchEvents.currentY - touchEvents.startY;
-
-			var toy = parseInt(s.opt.height) + sy;
-
-			s.o.find('.element').css({ 'height': toy + 'px' });
-		},
-		'touchend': function(e) {
-
+			var sy = (touchEvents.currentY - touchEvents.startY)*remScale;
+			var toy = s.opt.height + sy;
+			s.o.find('.element').css({ 'height': toy + 'rem' });
 		}
 	});
 	/*
@@ -397,25 +380,18 @@ var scale = function(box, options) {
 			s.initData($(e.currentTarget));
 			var touch = e.touches[0];
 			touchEvents.startX = touch.pageX;
-			touchEvents.startY = touch.pageY;
 		},
 		'touchmove': function(e) {
 			if (e.originalEvent) e = e.originalEvent;
 			e.preventDefault();
 			var touch = e.touches[0];
 			touchEvents.currentX = touch.pageX;
-			touchEvents.currentY = touch.pageY;
-
-			var sx = touchEvents.currentX - touchEvents.startX;
-
-			var tox = parseInt(s.opt.width) - sx;
+			var sx = (touchEvents.currentX - touchEvents.startX)*remScale;
+			var tox = s.opt.width - sx;
 			if (tox >= 0) {
-				s.o.find('.element').css({ 'width': tox + 'px' });
-				s.o.css({ 'left': parseInt(s.opt.left) + sx + 'px' });
+				s.o.find('.element').css({ 'width': tox + 'rem' });
+				s.o.css({ 'left': s.opt.left + sx + 'rem' });
 			}
-		},
-		'touchend': function(e) {
-
 		}
 	});
 	/*
@@ -427,26 +403,19 @@ var scale = function(box, options) {
 			e.preventDefault();
 			s.initData($(e.currentTarget));
 			var touch = e.touches[0];
-			touchEvents.startX = touch.pageX;
 			touchEvents.startY = touch.pageY;
 		},
 		'touchmove': function(e) {
 			if (e.originalEvent) e = e.originalEvent;
 			e.preventDefault();
 			var touch = e.touches[0];
-			touchEvents.currentX = touch.pageX;
 			touchEvents.currentY = touch.pageY;
-
-			var sy = touchEvents.currentY - touchEvents.startY;
-
-			var toy = parseInt(s.opt.height) - sy;
+			var sy = (touchEvents.currentY - touchEvents.startY)*remScale;
+			var toy = s.opt.height - sy;
 			if (toy >= 0) {
-				s.o.find('.element').css({ 'height': toy + 'px' });
-				s.o.css({ 'top': parseInt(s.opt.top) + sy + 'px' });
+				s.o.find('.element').css({ 'height': toy + 'rem' });
+				s.o.css({ 'top': s.opt.top + sy + 'rem' });
 			}
-		},
-		'touchend': function(e) {
-
 		}
 	});
 
