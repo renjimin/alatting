@@ -51,8 +51,35 @@ $(function(){
         $('#type-model').removeClass('open');
     });
 })
-/*
-var cate = document.querySelector('#catelist').childNodes;
-cate.onclick = function(event){
-    alert(event.currentTarget.children.length);
-}*/
+
+function getAllSubids(){
+	var ids = "";
+	$('.search-type-list .sublink-item').each(function(){
+		if($(this).hasClass('active')){
+			ids = ids==""? $(this).attr('data-id'):ids+","+$(this).attr('data-id');
+		}
+	});
+	return ids;
+}
+
+
+$(function(){
+	$("#btn-question").click(function(){
+		if($('#QA').is(":visible")){
+			$('#QA').hide();
+		}else{
+			$('#QA').show();
+		}
+	});
+	$(".Qes").click(function(e){
+		var ans = $(e.currentTarget).siblings(".Ans");
+		if(ans.is(":visible")){
+			ans.hide();
+			$("#QA #arrow").hide();
+		}else{
+			$(".Ans").hide();
+			ans.show();
+			$("#QA #arrow").css("top",$(e.currentTarget).offset().top + $(e.currentTarget).height()).show();
+		}
+	});
+});
