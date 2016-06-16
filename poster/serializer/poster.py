@@ -8,7 +8,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer
 from alatting_website.serializer.statistics_serializer import \
     PosterStatisticsSerializer, HistoryStatisticsSerializer
 from poster.models import SystemImage, SystemMusic, ServiceBargain, Chat, \
-    ServiceComment
+    ServiceComment, CommonQA
 from poster.serializer.resource import CategorySerializer, \
     CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
@@ -211,3 +211,10 @@ class ServiceCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceComment
         read_only_fields = ('creator', 'poster')
+
+
+class CommonQASerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CommonQA
+        read_only_fields = ['created_at', 'update_at']

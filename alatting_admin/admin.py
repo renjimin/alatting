@@ -2,7 +2,7 @@
 from django.contrib import admin
 from account.models import UserCategory, Person
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat, ServiceComment
+    ServiceBargain, Chat, ServiceComment, CommonQA
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -213,7 +213,7 @@ class ChoiceInline(admin.StackedInline):
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline, ]
     list_display = (
-        'id', 'text', 'short_text', 'type', 'questionset', 'sortid', 'required')
+        'id', 'text', 'short_text', 'type', 'questionset', 'sortid', 'required', 'audit_status')
 
 
 class QuestionInline(admin.StackedInline):
@@ -268,4 +268,9 @@ class ChatAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(ServiceComment)
 class ServiceCommentAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(CommonQA)
+class CommonQAAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
