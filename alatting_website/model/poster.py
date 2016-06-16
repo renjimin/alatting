@@ -180,6 +180,26 @@ class Poster(models.Model):
         else:
             return reverse('posters:show', kwargs={'pk': self.id})
 
+    def get_mobile_url(self):
+        if self.slug:
+            return reverse('poster_slug_show', kwargs={
+                'slug': self.slug
+            })
+        else:
+            return reverse("posters:show", kwargs={
+                'pk': self.id
+            })
+
+    def get_pc_url(self):
+        if self.slug:
+            return reverse('poster_slug_show', kwargs={
+                'slug': self.slug
+            })
+        else:
+            return reverse("posters_pc:show", kwargs={
+                'pk': self.id
+            })
+
     def get_first_poster_page_id(self):
         pages = self.poster_pages.all().order_by('index')
         if pages.exists():

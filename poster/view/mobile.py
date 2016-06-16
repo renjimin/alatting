@@ -11,6 +11,7 @@ import pytz
 from alatting_website.model.resource import Image
 from alatting_website.model.statistics import PosterStatistics
 from poster.forms import PosterCreateForm
+from poster.models import VisitHistory
 from utils.constants import DAY_CN_NAME
 from utils.file import read_template_file_content, handle_uploaded_file, \
     get_image_path, rotate_image
@@ -187,6 +188,13 @@ class PosterView(DetailView):
             fields['scans_count'] = 1
         DBUtils.increase_counts(queryset, fields)
 
+    def create_visit_history(self, poster):
+        if self.request.user and self.request.user.is_authenticated():
+            VisitHistory.objects.create(
+                user=self.request.user,
+                poster=poster
+            )
+
     def get_object(self, queryset=None):
         obj = super(PosterView, self).get_object(queryset)
         self.set_life_time(obj)
@@ -232,6 +240,7 @@ class PosterView(DetailView):
                 obj.my_rating = my_rating[0]
 
         self.update_statistics(obj)
+        self.create_visit_history(obj)
         return obj
 
 
