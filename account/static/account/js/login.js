@@ -1,6 +1,7 @@
 /**
  *自动在PC端和移动端切换touchstart和click
  */
+$(document).ready(function() {
 ;
 (function() {
 	var isTouch = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click',
@@ -27,7 +28,6 @@
 		}
 	};
 })();
-$(document).ready(function() {
 	var openCellphone = false;
 
 	var tmpUsername = localStorage.getItem("username"),
