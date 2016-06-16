@@ -114,18 +114,24 @@
             <div class="qs-add-choice hidden" id="qs-add-choice">
                 <div class="qs-add-choice-inner">
                     <div class="qs-add-choice-content">
+                        <div class="add-qs-title">+ 添加问题</div>
                         <form id="qs-add-choice-formset">{% csrf_token %}
-                            <input type="text" name="qs-add-choice_q_id" id="qs-add-choice_q_id">
-                            <table border="0" cellpadding="0" cellspacing="0">
-                                <tbody>
-                                    {% for form in formset %}
-                                        <tr>
-                                            <td>输入选项文本:{{ form.c_text }}</td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                            {{ formset.management_form }}
+                            <div class="form-inner">
+                                <input type="text" name="qs-add-choice_q_id" id="qs-add-choice_q_id" class="hidden">
+                                <div class="add-qs-subtitle-1">
+                                    <div class="text-center">单选问题选项</div>
+                                </div>
+                                <table border="0" cellpadding="0" cellspacing="0" class="add-qs-choice-list">
+                                    <tbody>
+                                        {% for form in formset %}
+                                            <tr>
+                                                <td>{{ form.c_text }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {{ formset.management_form }}
+                            </div>
                             <div class="form-footer">
                                 <a class="btn btn-default" id="add-qs-2-back-btn">上一步</a>
                                 <input type="submit" class="btn btn-default" id="add-qs-2-next-btn" value="确认">

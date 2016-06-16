@@ -102,11 +102,17 @@ $('#add-qs-1-next-btn').on('click',function(e){
 
 // 添加预约问卷选项
 $(function() {
-        $('#qs-add-choice-formset tbody tr').formset({
-        addText: '新增选项',
-        deleteText: '删除'
+    $('#qs-add-choice-formset tbody tr').formset({
+        addText: '+新增选项',
+        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>'
     });
+    $('.dynamic-form input[type=text]').attr("placeholder", "请输入");
 })
+
+$('#add-qs-2-back-btn').on('click',function(e){
+	$('#qs-add-choice').addClass("hidden");
+	$('#qs-add').removeClass("hidden");
+});
 $('#add-qs-2-next-btn').on('click',function(e){
 	e.preventDefault();
     e.stopPropagation();

@@ -1,6 +1,18 @@
 .error{
 	color:red;	
 }
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+   padding-left: 5px;
+}
+:-moz-placeholder { /* Firefox 18- */
+   padding-left: 5px;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   padding-left: 5px; 
+}
+:-ms-input-placeholder {  /* IE 10+ */
+   padding-left: 5px;
+}
 .disable-reminder {
     font-weight: 700;
     padding-top: 20px;
@@ -122,7 +134,7 @@
     margin-top: 0;
 }
 .qs-list .form-control{
-    padding:0 6px;
+    padding: 0;
     display: inline-block;
 }
 .qs-list .sm-input-label {
@@ -209,10 +221,9 @@
     padding: 10px 0;
 }
 .short-text-wrapper input[type=text] {
-    min-width: 300px;
+    width: 300px;
     border-radius: 5px;
     line-height: 25px;
-    text-align: left;
 }
 .add-qs-1-typelist {
     padding: 12px 0;
@@ -256,6 +267,30 @@
 }
 .qs-add-choice-content form {
     background-color: #bdbdbd; 
+}
+.add-qs-choice-list {
+    margin: 0 auto;
+}
+.add-qs-choice-list td{
+    padding: 5px 0;
+}
+.add-qs-choice-list input[type=text] {
+    width: 300px;
+    border-radius: 5px;
+    line-height: 25px;
+}
+.dynamic-form-add a {
+    display: block;
+    background: #dedede;
+    width: 300px;
+    border-radius: 5px;
+    line-height: 31px;
+    text-align: left;
+    padding-left: 5px;
+    color: #555;
+}
+.dynamic-form .glyphicon {
+    padding-left: 10px;
 }
 @media (min-width:600px) {
     .qs-footer {
