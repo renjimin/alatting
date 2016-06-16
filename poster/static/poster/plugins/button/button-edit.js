@@ -7,7 +7,6 @@ setTimeout(function() {
 	addDefaultButtons(); /**/ }, 100);
 
 var addButton = function(ele, options) {
-	var templateScale = $('body').width() / $('.yunye-template').width();
 
 	var defaults = {
 		'container': $("#button-model"),
@@ -15,7 +14,7 @@ var addButton = function(ele, options) {
 		'href': 'javascript:void(0)',
 		'text': '请输入文字',
 		'color': '000',
-		'fontSize': 14,
+		'fontSize': 0.5,
 		'fontFamily': 'Microsoft YaHei',
 		'background': 'ffffff',
 		'backgroundOpacity': '1',
@@ -68,7 +67,7 @@ var addButton = function(ele, options) {
 		var back = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + opts.backgroundOpacity + ')';
 		o.css({
 			'color': '#' + opts.color,
-			'font-size': opts.fontSize + 'px',
+			'font-size': opts.fontSize + 'rem',
 			'font-family': opts.fontFamily,
 			'background': back,
 			'opacity': opts.opacity,
@@ -92,13 +91,12 @@ var addButton = function(ele, options) {
 			if ($2 == null || $2 == '') {
 				$2 = 0;
 			}
-
 			eleopts = {
 				'buttonAction': $(b).attr('data-action'),
 				'href': $(b).attr('href'),
 				'text': $(b).text(),
 				'color': $(b).css('color') == null ? '000000' : $(b).css('color'),
-				'fontSize': parseInt(parseInt($(b).css('font-size')) * templateScale),
+				'fontSize': parseFloat($(b).css('font-size'))*remScale,
 				'fontFamily': $(b).css('font-family').replace(/'/g, "").split(',')[0],
 				'background': $(b).attr('data-background'),
 				'backgroundOpacity': $(b).attr('data-backgroundOpacity'),
@@ -127,9 +125,7 @@ var addButton = function(ele, options) {
 		$('.button-href').val(href);
 		$('.button-text').val(opts.text);
 		$('.button-color').css('background', opts.color);
-		for (i = 12; i < 30; i++) {
-			$('.button-fontSize').append('<option value="' + i + '">' + i + 'px</option>')
-		}
+		
 		$('.button-fontSize').val(opts.fontSize);
 		$('.button-fontFamily').val(opts.fontFamily);
 		$('.button-background').css('background', '#' + opts.background).attr('data-backgorund', opts.background);
@@ -162,7 +158,7 @@ var addButton = function(ele, options) {
 		});
 		$('.button-fontSize').off('change').on('change', function() {
 			opts.fontSize = $(this).val();
-			elebtn.css('font-size', opts.fontSize + 'px');
+			elebtn.css('font-size', opts.fontSize + 'rem');
 		});
 		$('.button-fontFamily').off('change').on('change', function() {
 			opts.fontFamily = $(this).val();

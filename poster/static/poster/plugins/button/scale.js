@@ -223,9 +223,6 @@ var scale = function(box, options) {
 			var toy = s.opt.height * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变*/
 
 			s.o.find('.element').css({ 'width': tox + 'rem', 'height': toy + 'rem' });
-		},
-		'touchend': function(e) {
-
 		}
 	});
 	/*
