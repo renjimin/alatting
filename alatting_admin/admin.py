@@ -2,7 +2,8 @@
 from django.contrib import admin
 from account.models import UserCategory, Person
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat, ServiceComment
+    ServiceBargain, Chat, ServiceComment, CommonQA, CustomerService, \
+    VisitHistory
 from alatting_website.model.poster import PosterKeyword
 from alatting_website.model.statistics import PosterSubscribe
 from alatting_website.models import (
@@ -268,4 +269,19 @@ class ChatAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
 
 @admin.register(ServiceComment)
 class ServiceCommentAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(CommonQA)
+class CommonQAAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(CustomerService)
+class CustomerServiceAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
+@admin.register(VisitHistory)
+class VisitHistoryAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass

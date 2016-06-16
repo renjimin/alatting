@@ -53,7 +53,7 @@
         </div>
     </div>
     <div class="ed-footer navbar-fixed-bottom">
-        <span class="btn btn-default" id="goback" data-back-url="{% url 'website:index' %}">返&nbsp;回</span>
+        <span class="btn btn-default" id="goback" data-back-url="{% url 'website:mobile_poster_index' %}">返&nbsp;回</span>
         <span class="btn btn-default" id="submit" data-next-url="{% url 'poster:create_form' %}?main_category_id={{ request.GET.main_category_id}}&sub_category_id={{ request.GET.sub_category_id}}&cate={{ request.GET.cate }}&subcate={{ request.GET.subcate }}">确&nbsp;认</span>
     </div>
 </div>
