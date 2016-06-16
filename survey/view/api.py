@@ -59,12 +59,21 @@ class ItemSerializer(serializers.Serializer):
 class ChoiceCreateAPIView(APIView):
 	def post(self, request, *args, **kwargs):
 		q_id = self.kwargs['q_id']
+		if not q_id:
+			data = {'error':'参数错误'}
+			return Response(data, status=status.HTTP_404_NOT_FOUND)
 		q = Question.objects.filter(pk=q_id).first()
 		item_serializer = ItemSerializer(data=request.data)
 		item_serializer.is_valid(raise_exception=True)
 		c_texts = item_serializer.data['c_texts']
+		if len(c_texts) != len(set(c_texts)):
+			data = {'error':'选项不能相同'}
+			return Response(data, status=status.HTTP_404_NOT_FOUND)
 
 		for c_text in c_texts:
+			if not c_text:
+				data = {'error':'请填写选项'}
+				return Response(data, status=status.HTTP_404_NOT_FOUND)
 			c = Choice()
 			c.question = q
 			c.sortid = q.choices_count() + 1

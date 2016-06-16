@@ -111,12 +111,31 @@ $('#add-qs-2-next-btn').on('click',function(e){
 	e.preventDefault();
     e.stopPropagation();
     q_id = $.trim($('#qs-add-choice_q_id').val());
+    if(q_id == ""){
+        yyAlert('参数错误');
+        return false;
+    }
     var c_texts = [];
     var dynamic_form_count = $('.dynamic-form').length;
     for(var i=0;i<dynamic_form_count;i++){
     	var dynamic_form_id = "id_form-"+i+"-c_text";
     	var c_text = $.trim($('#'+dynamic_form_id).val());
+    	if(c_text == ""){
+	        yyAlert('请填写选项');
+	        return false;
+	    }
     	c_texts.push(c_text);
+    }
+    var c_texts_sort = c_texts.sort(); 
+	var c_texts_sort_dup = [];
+	for (var i = 0; i < c_texts_sort.length - 1; i++) {
+	    if (c_texts_sort[i + 1] == c_texts_sort[i]) {
+	        c_texts_sort_dup.push(c_texts_sort[i]);
+	    }
+	}
+	if(c_texts_sort_dup.length >0){
+        yyAlert('选项不能重复');
+        return false;
     }
     
     var url = '/api/v1/survey/create_choice/'+q_id+'/';
@@ -129,10 +148,11 @@ $('#add-qs-2-next-btn').on('click',function(e){
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		success:function(data){
-			console.log("success");
+			yyAlert("成功添加选项");
+			$('#qs-add-choice').addClass("hidden");
       	},
       	error: function(data) {
-      		console.log("error");
+      		yyAlert(data.responseJSON.error);
       	}
     });
 });
