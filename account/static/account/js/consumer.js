@@ -180,6 +180,10 @@ $(function(){
                     $('#price-quote').find('.value-num').html(price);
                     $('.trade-price-li').hide();
                     $('#price-quote').show();
+                    if($('#cancel-price').css('display')== 'none'){
+                        $('#cancel-price').show().siblings('.trade-first-bid').remove();
+                    }
+                    modifyPlist(price);
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -187,6 +191,37 @@ $(function(){
             });
         }
     });
+    function modifyPlist(price){
+        var h= '<li class="plist-active">';
+            h+= '<span class="plist-name">我的报价</span>';
+            h+= '<span class="plist-value">'+price+'</span>';
+            h+= '<span class="plist-time">'+nowTime()+'</span>';
+            h+= '</li>';
+
+        if($('#main-plist').children().length == 0){
+            h = '<div class="trade-plist-ul"><ul>'+h+'</ul></div>';
+            $('#main-plist').append(h);
+        }else{
+            $('#main-plist ul').append(h);
+        }
+    }
+    function nowTime(){
+        var d = new Date();
+        var addZero = function(num){
+            if(num<10){
+                num = '0'+num;
+            }
+            return num;
+        }
+        var year = d.getFullYear();
+        var month = addZero(d.getMonth()+1);
+        var day = addZero(d.getDate());
+        var hours = addZero(d.getHours());
+        var minute = addZero(d.getMinutes());
+        var seconds = addZero(d.getSeconds());
+        return year+'-'+month+'-'+day+' '+hours+':'+minute+':'+seconds;
+    }
+
     /* 取消出价，回到报价面板 */
     $('#cancel-price').on('click',function(){
         $('#price-bid').hide();
@@ -357,6 +392,7 @@ $(function(){
                     lastPrice=data[num-1];
                     showPriceli(lastPrice);
                 }else{
+                    showPriceli();
                     $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
                 }
             },
@@ -367,8 +403,15 @@ $(function(){
     }
     /* 展示当前讨价还价的状态 */
     function showPriceli(lastPriceData){
-        $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
         $('.trade-price-li').hide();
+        if(lastPriceData == undefined){
+            $('#set-price').before('<span class="trade-first-bid">您还没有出价,请出价</span>');
+            $('#cancel-price').hide();
+            $('#price-bid').show();
+            return;
+        }
+
+        $('#price-quote,#price-accept,#price-refuse').find('.value-num').html(lastPriceData["price"]);
         if(lastPriceData["accepted"]){
             if(lastPriceData["consumer"]['id'] != lastPriceData["creator"]['id']){
                 $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
@@ -404,10 +447,11 @@ $(function(){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
                         var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
+                        var username = getUserName(data[i]["sender"]);
                         h+= '<li class="mn-mess-li">';
                         h+= '   <div class="mn-mess-image"><img src="'+img+'" alt="headicon"></div>';
                         h+= '   <div class="mn-mess-info">';
-                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+data[i]["sender"]["username"]+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
+                        h+= '       <div class="mess-info-title"><span class="info-title-name">'+username+'</span><span class="info-title-time">'+data[i]["created_at"]+'</span></div>';
                         h+= '       <div class="mess-info-cont">'+data[i]["content"]+'</div>';
                         h+= '   </div>';
                         h+= '</li>';
@@ -440,6 +484,8 @@ $(function(){
                     }
                     h += '</ul>';
                     $('#tips-info').append(h);
+                }else{
+                    $('#tips-info').append('<span class="error-msg">当前没有任何信息</span>');
                 }
             },
             error:function(xhr, status, statusText){
@@ -462,11 +508,12 @@ $(function(){
                         var hdicon = data[i]['creator']['person']['avatar'];
                         hdicon = (hdicon)?hdicon:head_default;
                         var rating = 2*data[i]['rating'];
+                        var username = getUserName(data[i]['creator']);
                         h+= '<li>';
                         h+= '   <div class="com-headicon"><img src="'+hdicon+'" alt="img"></div>';
                         h+= '   <div class="com-main">';
                         h+= '       <div class="com-main-top">';
-                        h+= '           <span class="com-username">username</span>';
+                        h+= '           <span class="com-username">'+username+'</span>';
                         h+= '           <span class="com-pstar p-star p-star-'+rating+'"></span>';
                         h+= '       </div>';
                         h+= '       <div class="com-main-cont">'+data[i]['content']+'</div>';
@@ -498,5 +545,9 @@ $(function(){
             $obj.children('.data-loading').remove();
             $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
         }
+    }
+
+    function getUserName(d){
+        return (d.person.phonenumber)?d.person.phonenumber:d.email;
     }
 });
