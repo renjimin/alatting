@@ -86,8 +86,17 @@ body,html {
 	border-bottom: 1px solid #ccc;
 	background: #fff;
 }
-
-
+.home-header .btn-select {
+	width: 50%;
+	text-decoration: none;
+	display: block;
+	float: left;
+	color: #696969;
+	font-size: 16px;
+	height: 25px;
+	line-height: 25px;
+	text-align: center;
+}
 .home-containar {
 }
 /**/
@@ -294,7 +303,6 @@ body,html {
 .type-model-containar .list .subitem.open .subitem-link i {
 	display: block;
 }
-
 
 /* search */
 .search-container{
