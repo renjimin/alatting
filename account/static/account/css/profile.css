@@ -466,6 +466,7 @@ header {
               box-shadow: inset 0px 7px 20px 0 rgb(153,153,153);
     padding: 10px 0;
     border-bottom: 1px solid rgb(108,108,108);
+    height: 7%;
 }
 .deal-header .glyphicon-file{
     font-size: 14px;
@@ -477,7 +478,7 @@ header {
     color: rgb(73,73,73);
 }
 .deal-contain{
-    height: 67%;
+    height: 63%;
     background: rgb(194,194,194);
 }
 .deal-contain img {
