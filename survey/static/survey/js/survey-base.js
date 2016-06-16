@@ -90,8 +90,11 @@ $('#add-qs-1-next-btn').on('click',function(e){
 				$('#qs-add').addClass("hidden");
 			} else if($.inArray(qs_type,['choice', 'checkbox'])>-1) {
 				$("#qs-add-choice_q_id").val(data.q_id);
+				$("#ad-qs-new-q").html(data.q_text);
 				$('#qs-add').addClass("hidden");
 				$('#qs-add-choice').removeClass("hidden");
+				console.log("data.q_text");
+				console.log(data.q_text);
 			}
       	},
       	error: function(data) {
@@ -104,7 +107,7 @@ $('#add-qs-1-next-btn').on('click',function(e){
 $(function() {
     $('#qs-add-choice-formset tbody tr').formset({
         addText: '+新增选项',
-        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>'
+        deleteText: 'delete'
     });
     $('.dynamic-form input[type=text]').attr("placeholder", "请输入");
 })

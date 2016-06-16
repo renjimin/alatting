@@ -49,7 +49,7 @@ class QuestionCreateAPIView(APIView):
 		q.audit_status = 0
 		q.poster = poster
 		q.save()
-		data = {'q_id': q.pk}
+		data = {'q_id': q.pk, 'q_text':q.text}
 		return Response(data, status=status.HTTP_200_OK)
 
 class ItemSerializer(serializers.Serializer):
