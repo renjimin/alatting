@@ -603,6 +603,9 @@
 .shopping-statement  .statement-right{
     float: left;
 }
+.body-deal{
+    display: none;
+}
 /*body-share*/
 .body-share{
     width: 100%;
