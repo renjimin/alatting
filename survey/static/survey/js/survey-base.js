@@ -44,10 +44,16 @@ function openPopup(form, text) {
 
 // 添加预约问卷问题  
 $('#qs-footer-add-q').on('click',function(e){
-	$('#qs-add').removeClass("hidden");
+	if($('#qs-add').hasClass('closed')) {
+		$('#qs-add').removeClass("closed");
+		$('#qs-add').addClass("open");
+	}
 });
 $('#add-qs-1-back-btn').on('click',function(e){
-	$('#qs-add').addClass("hidden");
+	if($('#qs-add').hasClass('open')) {
+		$('#qs-add').removeClass("open");
+		$('#qs-add').addClass("closed");
+	}
 });
 $('#add-qs-1-next-btn').on('click',function(e){
 	e.preventDefault();
@@ -87,12 +93,21 @@ $('#add-qs-1-next-btn').on('click',function(e){
 		success:function(data){
 			if($.inArray(qs_type,['text', 'textarea'])>-1) {
 				yyAlert("成功添加问题");
-				$('#qs-add').addClass("hidden");
+				if($('#qs-add').hasClass('open')) {
+					$('#qs-add').removeClass("open");
+					$('#qs-add').addClass("closed");
+				}
 			} else if($.inArray(qs_type,['choice', 'checkbox'])>-1) {
 				$("#qs-add-choice_q_id").val(data.q_id);
 				$("#ad-qs-new-q").html(data.q_text);
-				$('#qs-add').addClass("hidden");
-				$('#qs-add-choice').removeClass("hidden");
+				if($('#qs-add').hasClass('open')) {
+					$('#qs-add').removeClass("open");
+					$('#qs-add').addClass("closed");
+				}
+				if($('#qs-add-choice').hasClass('closed')) {
+					$('#qs-add-choice').removeClass("closed");
+					$('#qs-add-choice').addClass("open");
+				}
 				console.log("data.q_text");
 				console.log(data.q_text);
 			}
@@ -107,14 +122,20 @@ $('#add-qs-1-next-btn').on('click',function(e){
 $(function() {
     $('#qs-add-choice-formset tbody tr').formset({
         addText: '+新增选项',
-        deleteText: 'delete'
+        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>'
     });
     $('.dynamic-form input[type=text]').attr("placeholder", "请输入");
 })
 
 $('#add-qs-2-back-btn').on('click',function(e){
-	$('#qs-add-choice').addClass("hidden");
-	$('#qs-add').removeClass("hidden");
+	if($('#qs-add-choice').hasClass('open')) {
+		$('#qs-add-choice').removeClass("open");
+		$('#qs-add-choice').addClass("closed");
+	}
+	if($('#qs-add').hasClass('closed')) {
+		$('#qs-add').removeClass("closed");
+		$('#qs-add').addClass("open");
+	}
 });
 $('#add-qs-2-next-btn').on('click',function(e){
 	e.preventDefault();
@@ -158,7 +179,10 @@ $('#add-qs-2-next-btn').on('click',function(e){
 		contentType: "application/json; charset=utf-8",
 		success:function(data){
 			yyAlert("成功添加选项");
-			$('#qs-add-choice').addClass("hidden");
+			if($('#qs-add-choice').hasClass('open')) {
+				$('#qs-add-choice').removeClass("open");
+				$('#qs-add-choice').addClass("closed");
+			}
       	},
       	error: function(data) {
       		yyAlert(data.responseJSON.error);

@@ -188,8 +188,15 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 999;
     top: 0;
+}
+.qs-add.closed {
+    opacity: 0;
+    z-index: -999;
+}
+.qs-add.open {
+    opacity: 1;
+    z-index: 999;
 }
 .qs-add-inner {
     background: rgba(0,0,0,0.6);
@@ -250,8 +257,15 @@
     position: fixed;
     width: 100%;
     height: 100%;
-    z-index: 999;
     top: 0;
+}
+.qs-add-choice.closed {
+    opacity: 0;
+    z-index: -999;
+}
+.qs-add-choice.open {
+    opacity: 1;
+    z-index: 999;
 }
 .qs-add-choice-inner {
     background: rgba(0,0,0,0.6);
