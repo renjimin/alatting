@@ -428,7 +428,9 @@ body,html {
 	height: 100%;
 	padding-top: 37px;
 	z-index: 20;
+	/*
 	display: none;
+	*/
 }
 #QAContent{
 	width: 100%;
@@ -442,6 +444,7 @@ body,html {
 	width: 100%;
 	padding-left: 0;
 	margin:0;
+	border-bottom: 1px solid  #938F8F;
 }
 #QAContent  li{
 	padding: 10px;
@@ -455,7 +458,8 @@ li.Qes {
 li.Ans {
 	list-style-type:square;
 	list-style-position:inside;
-	background-color:#D3D3D3
+	background-color:#D3D3D3;
+	display:none;
 }
 #QAContent li span.QAText{
 	display: block;
