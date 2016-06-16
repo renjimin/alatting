@@ -92,4 +92,7 @@ urlpatterns = [
 
     url(r'^qa$',
         QAListView.as_view(), name='qa_list'),
+
+    url(r'^customerservice$',
+        QAListView.as_view(), name='qa_list'),
 ]

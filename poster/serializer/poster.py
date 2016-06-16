@@ -218,3 +218,10 @@ class CommonQASerializer(serializers.ModelSerializer):
     class Meta:
         model = CommonQA
         read_only_fields = ['created_at', 'update_at']
+
+
+class CustomerServiceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CommonQA
+        read_only_fields = ['created_at', 'update_at', 'replied_at']

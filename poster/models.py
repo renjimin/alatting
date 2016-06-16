@@ -197,3 +197,26 @@ class CommonQA(AlattingBaseModel):
 
     class Meta:
         verbose_name_plural = verbose_name = '常见问题'
+
+
+class CustomerService(AlattingBaseModel):
+    user = models.ForeignKey(
+        User,
+        verbose_name='用户'
+    )
+    content = models.CharField(
+        verbose_name='内容',
+        max_length=1000
+    )
+    reply = models.CharField(
+        verbose_name='回复',
+        max_length=1000
+    )
+    replied_at = models.DateTimeField(
+        verbose_name='回复时间',
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '客户服务'
