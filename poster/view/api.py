@@ -30,7 +30,8 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat, ServiceComment, CommonQA, CustomerService
+    ServiceBargain, Chat, ServiceComment, CommonQA, CustomerService, \
+    VisitHistory
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -43,7 +44,7 @@ from poster.serializer.poster import (
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
     ChatSerializer, StatisticsDataSerializer, ServiceCommentSerializer,
-    CommonQASerializer, CustomerServiceSerializer)
+    CommonQASerializer, CustomerServiceSerializer, VisitHistorySerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -827,3 +828,15 @@ class CustomerServiceListView(ListCreateAPIView):
         serializer.save(
             user_id=self.request.user.id
         )
+
+
+class VisitHistoryListView(ListAPIView):
+    model = VisitHistory
+    queryset = VisitHistory.objects.filter(
+        data_status=CommonQA.DATA_STATUS_USABLE
+    )
+    serializer_class = VisitHistorySerializer
+
+    def get_queryset(self):
+        qs = super(VisitHistoryListView, self).get_queryset()
+        return qs.filter(user=self.request.user).order_by('-created_at')[0:5]

@@ -215,3 +215,22 @@ class CustomerService(AlattingBaseModel):
 
     class Meta:
         verbose_name_plural = verbose_name = '客户服务'
+
+
+class VisitHistory(AlattingBaseModel):
+    user = models.ForeignKey(
+        User,
+        verbose_name='用户',
+        related_name='+'
+    )
+    poster = models.ForeignKey(
+        Poster,
+        verbose_name='海报',
+        related_name='+'
+    )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '浏览历史'
+
+    def __str__(self):
+        return self.poster.unique_name

@@ -8,7 +8,7 @@ from alatting_website.serializer.edit_serializer import ImageSerializer
 from alatting_website.serializer.statistics_serializer import \
     PosterStatisticsSerializer, HistoryStatisticsSerializer
 from poster.models import SystemImage, SystemMusic, ServiceBargain, Chat, \
-    ServiceComment, CommonQA, CustomerService
+    ServiceComment, CommonQA, CustomerService, VisitHistory
 from poster.serializer.resource import CategorySerializer, \
     CategoryKeywordSerializer, TemplateSerializer, AddressSerializer
 
@@ -232,3 +232,23 @@ class CustomerServiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerService
         read_only_fields = ['created_at', 'updated_at', 'reply']
+
+
+class VisitHistorySerializer(serializers.ModelSerializer):
+    mobile_url = serializers.SerializerMethodField()
+    pc_url = serializers.SerializerMethodField()
+    title = serializers.SerializerMethodField()
+
+    def get_title(self, obj):
+        return obj.poster.unique_name
+
+    def get_pc_url(self, obj):
+        return obj.poster.get_pc_url()
+
+    def get_mobile_url(self, obj):
+        return obj.poster.get_mobile_url()
+
+    class Meta:
+        model = VisitHistory
+        read_only_fields = ['created_at', 'updated_at']
+

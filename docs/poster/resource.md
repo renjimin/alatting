@@ -289,7 +289,7 @@ GET请求带以下参数可以进行数据过滤,
 
 ## 客户服务列表
 
-    GET /api/v1/poster/customerservice　　
+    GET /api/v1/poster/customer_service　　
 
 根据登录用户进行过滤，如果用户是超管，则获取全部数据
 
@@ -322,6 +322,37 @@ GET请求带以下参数可以进行数据过滤,
         "updated_at": "2016-06-16 14:59:02", //如果回复的内容为空，则此值为null， 说明还未回复过 
         "content": "fdsfadfasdf",
         "reply": "回复的内容"
+    },
+    ...
+]
+```
+
+
+## 浏览历史列表
+
+    GET /api/v1/poster/visit_history　
+
+根据登录用户进行过滤，查询出最新的5个
+
+
+**Response**
+
+返回状态码400时，说明失败
+
+返回状态码200时，说明成功，并返回如下格式的数据：
+
+```json
+[
+    {
+        "id": 1,
+        "user": 5,              //用户ID
+        "poster": 6，             //海报ID
+        "mobile_url": "/3551",      //移动端地址
+        "pc_url": "/3551",          //pc端地址
+        "title": "3551",            //显示标题
+        "data_status": 1,
+        "created_at": "2016-06-16 15:56:25",
+        "updated_at": "2016-06-16 15:56:25"
     },
     ...
 ]
