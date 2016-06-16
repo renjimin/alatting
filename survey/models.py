@@ -40,6 +40,11 @@ class Questionnaire(models.Model):
             questionnaire=self).order_by('sortid')
         return qs_set
 
+    def questionsets_count(self):
+        res = QuestionSet.objects.filter(
+            questionnaire=self).count()
+        return res
+
     def questions(self):
         questions = []
         for questionset in self.questionsets():
@@ -56,6 +61,21 @@ class QuestionSet(models.Model):
 
     def questions(self):
         res = Question.objects.filter(questionset=self.id).order_by('sortid')
+        return res
+
+    def questions_in_poster(self, poster_id):
+        questions = Question.objects.filter(questionset=self.id).order_by('sortid')
+        res=[]
+        for question in questions:
+            is_visible = False
+            if question.audit_status in [0, 1]:
+                if question.poster:
+                    if question.poster.pk == poster_id:
+                        is_visible = True
+            if question.audit_status==2:
+                is_visible = True
+            if is_visible:
+                res.append(question)
         return res
 
     def questions_count(self):
@@ -116,10 +136,24 @@ class Question(models.Model):
     regex = models.CharField(max_length=256, blank=True, null=True)
     errmsg = models.CharField(max_length=256, blank=True, null=True)
     placeholder = models.CharField(max_length=256, blank=True, null=True,
-        default="请输入")
+                                   default="请输入")
     type = models.CharField(max_length=32,
                             choices=QuestionChoices,
                             help_text=u"问题类型，例如单选、多选、单选选项中包含输入框、单行文本框、多行文本框")
+    AUDIT_STATUS_UN_PASS = 0
+    AUDIT_STATUS_AUDITING = 1
+    AUDIT_STATUS_PASS = 2
+    AUDIT_STATUS_CHOICES = (
+        (AUDIT_STATUS_UN_PASS, u'不通过'),
+        (AUDIT_STATUS_AUDITING, u'审核中'),
+        (AUDIT_STATUS_PASS, u'通过')
+    )
+    audit_status = models.PositiveSmallIntegerField(
+        verbose_name=u'审核状态',
+        default=AUDIT_STATUS_PASS,
+        choices=AUDIT_STATUS_CHOICES
+    )
+    poster = BigForeignKey(Poster, blank=True, null=True)
 
     def questionnaire(self):
         return self.questionset.questionnaire
