@@ -39,10 +39,10 @@
             <a href="{{ request.path_info }}?sort=hot&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}"  class="button button-clear btn-select">最新</a>
             <a href="{{ request.path_info }}?sort=new&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">热门</a>
             <a href="{{ request.path_info }}?sort=apas&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">特价</a>
-            <a href="{{ request.path_info }}?sort=com&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">推荐</a>
-            <a href="{{ request.path_info }}?sort=near&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">附近</a>
+            <a href="{{ request.path_info }}?sort=recmd&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">推荐</a>
             {% if request.user.is_authenticated %}
-                <a href="{{ request.path_info }}?sort=fav&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">收藏</a>
+                <!-- <a href="{{ request.path_info }}?sort=near&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">附近</a>
+                <a href="{{ request.path_info }}?sort=fav&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}" class="button button-clear btn-select">收藏</a> -->
             {% endif %}
         </div>
     </header>
@@ -77,19 +77,6 @@
                 </div>
             </li>
              {% endfor %}
-            <!--<li>
-                <div class="wraper">
-                    <div class="img">
-                        <a href="#" title="{{poster.id}}" data-create="{{poster.created_at}}" data-count="{{poster.views_count}}"><img src="{% static 'website/images/card/bg.png' %}" /></a>
-                    </div>
-                    <div class="det">
-                        <a href="#">
-                            <span class="title">3551光谷人才计划 </span>
-                            <span class="view-num"><i class="glyphicon glyphicon-eye-open"></i><span>556</span></span>
-                        </a>
-                    </div>
-                </div>
-            </li>-->
         </ul>
     </div>
     
