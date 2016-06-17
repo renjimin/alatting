@@ -2,6 +2,7 @@
  *自动在PC端和移动端切换touchstart和click
  */
 
+
 $(document).ready(function() {
 ;(function() {
 	var isTouch = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click',
@@ -436,6 +437,7 @@ $(document).ready(function() {
 					$('.li-provider').removeClass('open');
 					$('.li-provider').children('dl').hide();
 				}
+
 				if (ths.hasClass('open')) {
 					ths.removeClass('open');
 					ths.children('dl').hide();
