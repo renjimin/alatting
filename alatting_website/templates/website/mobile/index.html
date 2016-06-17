@@ -29,15 +29,15 @@
 				<a href="javascript:void(0);">
 					{#                    <i class="glyphicon glyphicon-bell"></i>#}
 				</a>
-				<a href="javascript:void(0);">
-					{#                    <i class="glyphicon glyphicon-comment"></i>#}
-				</a>
 				<a href="javascript:void(0);" id="btn-create"
 				   data-login="{% if not request.user.is_authenticated %}{% url 'account:login' %}{% endif %}">
 					<i class="glyphicon glyphicon-plus"></i>
 				</a>
 				<a href="javascript:void(0);" id="btn-question">
 					<i class="glyphicon glyphicon-question-sign"></i>
+				</a>
+				<a href="javascript:void(0);" id="btn-help">
+					<i class="glyphicon glyphicon-comment"></i>
 				</a>
 			</div>
 		</div>
@@ -156,6 +156,15 @@
 			</ul>
 		</div>
 		<div id="SortHide"></div>
+	</div>
+
+	<div id="Help">
+		<span class="arrowUp"></span>
+		<div id="HelpContent">
+			<div>请问有什么可以帮您？</div>
+			<textarea name="" id="" cols="30" rows="8" placeholder="请输入您的问题"></textarea>
+			<button>提交</button>
+		</div>
 	</div>
 
 	{% block footer_category %}

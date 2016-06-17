@@ -85,7 +85,6 @@ $(function(){
 		}else{
 			$(document).trigger("closeMenu");
 			$('#type-model').addClass('open');
-			console.log(111);
 		}
 	});
 	$('#hide-cate').click(function(){
@@ -104,9 +103,29 @@ $(function(){
 		$("#Sort").hide();
 	});
 
+	$("#btn-help").click(function(){
+		if($("#Help").is(":visible")){
+			$("#Help").hide();
+		}else{
+			$(document).trigger("closeMenu");
+			$("#Help").show();
+		}
+	});
+	$("#Help button").click(function(){
+		$.ajax({
+			type:'POST',
+			url:'/api/v1/poster/customerservice',
+			data:{content:$("#Help textarea").val()},
+			success:function(msg){
+				console.log(msg);
+			}
+		});
+	});
+
 	$(document).on("closeMenu",function(){
 		$('#type-model').removeClass('open');
 		$("#Sort").hide();
 		$('#QA').hide();
+		$('#Help').hide();
 	});
 });
