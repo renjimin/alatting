@@ -197,3 +197,40 @@ class CommonQA(AlattingBaseModel):
 
     class Meta:
         verbose_name_plural = verbose_name = '常见问题'
+
+
+class CustomerService(AlattingBaseModel):
+    user = models.ForeignKey(
+        User,
+        verbose_name='用户'
+    )
+    content = models.CharField(
+        verbose_name='内容',
+        max_length=1000
+    )
+    reply = models.CharField(
+        verbose_name='回复',
+        max_length=1000
+    )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '客户服务'
+
+
+class VisitHistory(AlattingBaseModel):
+    user = models.ForeignKey(
+        User,
+        verbose_name='用户',
+        related_name='+'
+    )
+    poster = BigForeignKey(
+        Poster,
+        verbose_name='海报',
+        related_name='+'
+    )
+
+    class Meta:
+        verbose_name_plural = verbose_name = '浏览历史'
+
+    def __str__(self):
+        return self.poster.unique_name

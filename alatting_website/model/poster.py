@@ -8,6 +8,7 @@ from django.db import models
 from django.db import transaction
 from django.contrib.auth.models import User
 from django.db.models import SET_NULL
+from utils.constants import TRUE_FALSE
 from utils.db.fields import OverWriteFileField, \
     BigAutoField, BigForeignKey, BigOneToOneField
 from model_utils.managers import InheritanceManager
@@ -126,6 +127,16 @@ class Poster(models.Model):
         max_length=100,
         null=True
     )
+    is_apas = models.BooleanField(
+        verbose_name='特价?',
+        default=False,
+        choices=TRUE_FALSE
+    )
+    is_recmd = models.BooleanField(
+        verbose_name='推荐?',
+        default=False,
+        choices=TRUE_FALSE
+    )
 
     objects = InheritanceManager()
 
@@ -179,6 +190,26 @@ class Poster(models.Model):
             return reverse('website:poster', kwargs={'pk': self.id})
         else:
             return reverse('posters:show', kwargs={'pk': self.id})
+
+    def get_mobile_url(self):
+        if self.slug:
+            return reverse('poster_slug_show', kwargs={
+                'slug': self.slug
+            })
+        else:
+            return reverse("posters:show", kwargs={
+                'pk': self.id
+            })
+
+    def get_pc_url(self):
+        if self.slug:
+            return reverse('poster_slug_show', kwargs={
+                'slug': self.slug
+            })
+        else:
+            return reverse("posters_pc:show", kwargs={
+                'pk': self.id
+            })
 
     def get_first_poster_page_id(self):
         pages = self.poster_pages.all().order_by('index')

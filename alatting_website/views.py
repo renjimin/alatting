@@ -57,6 +57,15 @@ class MobileIndexView(TemplateView):
                 logger.exception(e)
         return qs
 
+    def get_sort_filter(self, qs):
+        req_sort = self.request.GET.get('sort', '')
+        if req_sort in ['apas', 'recmd']:
+            if req_sort == 'apas':
+                qs = qs.filter(is_apas=True)
+            elif req_sort == 'recmd':
+                qs = qs.filter(is_recmd=True)
+        return qs
+
     def get_poster_list(self):
         qs = Poster.objects.filter(
             status=Poster.STATUS_PUBLISHED
@@ -67,6 +76,7 @@ class MobileIndexView(TemplateView):
         else:
             qs = qs.order_by('-created_at')
         qs = self.get_q_filter(qs)
+        qs = self.get_sort_filter(qs)
         return qs
 
     def get_context_data(self, **kwargs):

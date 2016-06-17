@@ -1,3 +1,4 @@
+// 提交预约问卷答案提示   
 $("#qs_islast_consumer_repeat").on("click", function(event) {
     event.preventDefault();
     var form = $("#qs-form");
@@ -40,11 +41,19 @@ function openPopup(form, text) {
 		form.submit();
 	}
 };
+
+// 添加预约问卷问题  
 $('#qs-footer-add-q').on('click',function(e){
-	$('#qs-add').removeClass("hidden");
+	if($('#qs-add').hasClass('closed')) {
+		$('#qs-add').removeClass("closed");
+		$('#qs-add').addClass("open");
+	}
 });
 $('#add-qs-1-back-btn').on('click',function(e){
-	$('#qs-add').addClass("hidden");
+	if($('#qs-add').hasClass('open')) {
+		$('#qs-add').removeClass("open");
+		$('#qs-add').addClass("closed");
+	}
 });
 $('#add-qs-1-next-btn').on('click',function(e){
 	e.preventDefault();
@@ -81,9 +90,99 @@ $('#add-qs-1-next-btn').on('click',function(e){
 		url:url,
 		data:posted_data,
 		type: "POST",
-		success:function(){
-			yyAlert("成功添加问题");
-			$('#qs-add').addClass("hidden");
+		success:function(data){
+			if($.inArray(qs_type,['text', 'textarea'])>-1) {
+				yyAlert("成功添加问题");
+				if($('#qs-add').hasClass('open')) {
+					$('#qs-add').removeClass("open");
+					$('#qs-add').addClass("closed");
+				}
+			} else if($.inArray(qs_type,['choice', 'checkbox'])>-1) {
+				$("#qs-add-choice_q_id").val(data.q_id);
+				$("#ad-qs-new-q").html(data.q_text);
+				if($('#qs-add').hasClass('open')) {
+					$('#qs-add').removeClass("open");
+					$('#qs-add').addClass("closed");
+				}
+				if($('#qs-add-choice').hasClass('closed')) {
+					$('#qs-add-choice').removeClass("closed");
+					$('#qs-add-choice').addClass("open");
+				}
+				console.log("data.q_text");
+				console.log(data.q_text);
+			}
+      	},
+      	error: function(data) {
+      		yyAlert(data.responseJSON.error);
+      	}
+    });
+});
+
+// 添加预约问卷选项
+$(function() {
+    $('#qs-add-choice-formset tbody tr').formset({
+        addText: '+新增选项',
+        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>'
+    });
+    $('.dynamic-form input[type=text]').attr("placeholder", "请输入");
+})
+
+$('#add-qs-2-back-btn').on('click',function(e){
+	if($('#qs-add-choice').hasClass('open')) {
+		$('#qs-add-choice').removeClass("open");
+		$('#qs-add-choice').addClass("closed");
+	}
+	if($('#qs-add').hasClass('closed')) {
+		$('#qs-add').removeClass("closed");
+		$('#qs-add').addClass("open");
+	}
+});
+$('#add-qs-2-next-btn').on('click',function(e){
+	e.preventDefault();
+    e.stopPropagation();
+    q_id = $.trim($('#qs-add-choice_q_id').val());
+    if(q_id == ""){
+        yyAlert('参数错误');
+        return false;
+    }
+    var c_texts = [];
+    var dynamic_form_count = $('.dynamic-form').length;
+    for(var i=0;i<dynamic_form_count;i++){
+    	var dynamic_form_id = "id_form-"+i+"-c_text";
+    	var c_text = $.trim($('#'+dynamic_form_id).val());
+    	if(c_text == ""){
+	        yyAlert('请填写选项');
+	        return false;
+	    }
+    	c_texts.push(c_text);
+    }
+    var c_texts_sort = c_texts.sort(); 
+	var c_texts_sort_dup = [];
+	for (var i = 0; i < c_texts_sort.length - 1; i++) {
+	    if (c_texts_sort[i + 1] == c_texts_sort[i]) {
+	        c_texts_sort_dup.push(c_texts_sort[i]);
+	    }
+	}
+	if(c_texts_sort_dup.length >0){
+        yyAlert('选项不能重复');
+        return false;
+    }
+    
+    var url = '/api/v1/survey/create_choice/'+q_id+'/';
+    var posted_data = {
+    	c_texts:c_texts
+    };
+    $.ajax({
+		url:url,
+		data:JSON.stringify(posted_data),
+		type: "POST",
+		contentType: "application/json; charset=utf-8",
+		success:function(data){
+			yyAlert("成功添加选项");
+			if($('#qs-add-choice').hasClass('open')) {
+				$('#qs-add-choice').removeClass("open");
+				$('#qs-add-choice').addClass("closed");
+			}
       	},
       	error: function(data) {
       		yyAlert(data.responseJSON.error);

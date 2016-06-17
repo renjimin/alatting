@@ -30,8 +30,8 @@ $(function(){
 		if($(target).css('display') == 'none') {
 			$(target_container).find('div.contact-info').hide();
 			$(target).show();
-			console.log($(target))
 			if(target_element == "div.location"){
+				if( !window.addressCorrect)return;
 				togleMap();
 			}else{
 				hideMap();
@@ -39,10 +39,6 @@ $(function(){
 		}
 		return false;
 	});
-	/*$(".contact-info.location").click(function(){
-		togleMap();
-		return false;
-	});*/
 	$(".contact-info.hour").click(function(){
 		togleTopInform();
 		return false;
@@ -97,7 +93,7 @@ $(function(){
 	//music
 	$('#music').click(function() {
 		var bg_music = document.getElementById("background_music"); 
-		if (bg_music.paused == false) {
+		if (bg_music.paused === false) {
 			bg_music.pause();
 			$(".header-music").removeClass('rotate');
 		} else {
@@ -107,6 +103,7 @@ $(function(){
 	});
 });
 function togleMap(){
+	window.addressCorrect = true;
 	var mapDiv = $("#allmap").parents("div").eq(0).parents("div").eq(0),
 		mapState = (mapDiv.css("visibility") == "visible")?true:false;
 	if(mapState){

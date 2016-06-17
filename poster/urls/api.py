@@ -10,7 +10,8 @@ from poster.view.api import (
     CategoryListView, SurveyConsumerAnswersView,
     SurveyConsumerAnsView, PosterListView, ServiceBargainListView,
     ServiceBargainDetailView, ChatListView, StatisticsDataView,
-    ServiceCommentListView, UploadBase64ImageFileView, QAListView)
+    ServiceCommentListView, UploadBase64ImageFileView, QAListView,
+    CustomerServiceListView, VisitHistoryListView)
 
 
 urlpatterns = [
@@ -91,5 +92,11 @@ urlpatterns = [
         ServiceCommentListView.as_view(), name='poster_service_comments'),
 
     url(r'^qa$',
-        QAListView.as_view(), name='qa_list'),
+        QAListView.as_view(), name='qas'),
+
+    url(r'^customer_service$',
+        CustomerServiceListView.as_view(), name='customer_services'),
+
+    url(r'^visit_history$',
+        VisitHistoryListView.as_view(), name='visit_history'),
 ]

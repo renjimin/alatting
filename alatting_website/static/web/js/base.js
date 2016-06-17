@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     /* 配合css实现页面加载动画 */
     setTimeout(function(){

@@ -1,9 +1,10 @@
 /**
  *自动在PC端和移动端切换touchstart和click
  */
+
+
 $(document).ready(function() {
-;
-(function() {
+;(function() {
 	var isTouch = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click',
 		_on = $.fn.on;
 	$.fn.on = function() {
@@ -23,7 +24,7 @@ $(document).ready(function() {
 				} catch (e) {}
 			}
 		} else {
-			arguments[0] = 'click';
+			//arguments[0] = 'click';
 			return _on.apply(this, arguments);
 		}
 	};
@@ -431,13 +432,12 @@ $(document).ready(function() {
 						ssbox += '</dl>';
 						ths.append(ssbox);
 					});
-				} else {
-
-				}
+				} 
 				if($('.li-provider').hasClass('open')){
 					$('.li-provider').removeClass('open');
 					$('.li-provider').children('dl').hide();
 				}
+
 				if (ths.hasClass('open')) {
 					ths.removeClass('open');
 					ths.children('dl').hide();

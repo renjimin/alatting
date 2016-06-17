@@ -1,0 +1,45 @@
+.content {
+    width: 100%;
+    height: 400px;
+    position: relative;
+}
+
+.content > div{
+    overflow: hidden;
+}
+
+.content-top-left {
+    -webkit-clip-path: polygon(0 15%, 85% 0,100% 85%,15% 100%);
+    clip-path: url(#content-top-left);
+    position: absolute;
+    left: 4%;
+    top: 2%;
+    width: 33%;
+    height: 28%;
+    background: rgba(24,17,0,0.3);
+    z-index: 9;
+
+}
+
+.content-top-middle {
+    -webkit-clip-path: polygon(24% 0, 76% 0,76% 37%, 100% 42%,100% 100%,0 100%,0% 42%,24% 37%);
+    clip-path: url(#content-top-middle);
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 92%;
+    background: rgba(24,17,0,0.4);
+    z-index: 10;
+}
+
+.content-top-right {
+    -webkit-clip-path: polygon(15% 0, 100% 15%,85% 100%,0 85%);
+    clip-path: url(#content-top-right);
+    position: absolute;
+    right: 4%;
+    top: 2%;
+    width: 33%;
+    height: 28%;
+    background: rgba(24,17,0,0.3);
+    z-index: 9;
+}

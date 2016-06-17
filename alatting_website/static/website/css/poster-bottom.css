@@ -17,8 +17,8 @@ bottom-menu
 
 }
 .bottom-container .bottom-menu .btn{
-    height:44px;
-    line-height: 44px;
+    height:1.7rem;
+    line-height: 1.7rem;
     padding: 0;
     border:0;
 }
@@ -1152,7 +1152,7 @@ textarea.ng-invalid {
     }
     .navbar-absolute-bottom .btn-navbar img {
         max-height: 1.625em;
-        width: 1em;
+        width: 1rem;
     }
     .bottom-container .bottom-menu {
         height: 2em;
