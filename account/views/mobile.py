@@ -85,26 +85,32 @@ class RegisterView(FormView):
         if msg.message != message:  # 校验验证码是否正确
             return self.response_error_msg(form, u'验证码不正确')
 
-        username_temp = '{}_{}'.format(
-            username, str(uuid.uuid1()).split('-')[0]
-        )
+        # username_temp = '{}_{}'.format(
+        #     username, str(uuid.uuid1()).split('-')[0]
+        # )
         if input_type == 'email':
             user = User.objects.all().filter(email=username)
             if user.exists():
                 return self.response_error_msg(form, u'用户名已存在')
-            user = User.objects.create_user(username_temp, username, password)
+            user = User.objects.create_user(username, username, password)
+            user.save()
+            person = Person.objects.create(
+                user=user, user_type=user_type
+            )
+            person.save()
         else:
             user = Person.objects.all().filter(phonenumber=username)
-            if user.exists():
+            user2 = User.objects.all().filter(username=username)
+            if user.exists() or user2.exists():
                 return self.response_error_msg(form, u'用户名已存在')
-            user = User.objects.create_user(username_temp, password=password)
-        user.save()
+            user = User.objects.create_user(username, password=password)
+            user.save()
+            person = Person.objects.create(
+                phonenumber=username, user=user,
+                user_type=user_type
+            )
+            person.save()
 
-        person = Person.objects.create(
-            phonenumber=username, user=user,
-            user_type=user_type
-        )
-        person.save()
         person.create_user_categorys(
             main_category_id, sub_category_ids,
             input_category
