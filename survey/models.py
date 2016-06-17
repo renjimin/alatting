@@ -74,6 +74,9 @@ class QuestionSet(models.Model):
                         is_visible = True
             if question.audit_status==2:
                 is_visible = True
+            if question.type in ['choice', 'choice-input', 'checkbox', 'checkbox-input']:
+                if question.choices_count()==0:
+                    is_visible = False
             if is_visible:
                 res.append(question)
         return res
