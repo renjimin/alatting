@@ -17,7 +17,10 @@ html {
 	margin: 0;
 	padding: 0;
 }
-
+body{
+	max-width: 600px;
+	margin: 0 auto;
+}
 
 /*icons*/
 
@@ -87,71 +90,71 @@ html {
 	height: 1em;
 	content: "";
 	background: url(/static/website/images/icons/sprits_tools.png) left top no-repeat;
-	background-size: auto 99%;
+	background-size: auto 100%;
 }
 
 .ico-phone:before {
-	background-position: 0 0;
+	background-image: url(/static/website/images/icons/sprits_tools_01.png);
 }
 
 .ico-email:before {
-	background-position: -1em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_02.png);
 }
 
 .ico-address:before {
-	background-position: -2em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_03.png);
 }
 
 .ico-clock:before {
-	background-position: -3em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_04.png);
 }
 
 .ico-fun:before {
-	background-position: -4em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_05.png);
 }
 
 .ico-like:before {
-	background-position: -5em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_06.png);
 }
 
 .ico-subscribe:before {
-	background-position: -6em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_07.png);
 }
 
 .ico-bookmark:before {
-	background-position: -7em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_08.png);
 }
 
 .ico-alogo:before {
-	background-position: -8em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_09.png);
 }
 
 .ico-mobile:before {
-	background-position: -9em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_10.png);
 }
 
 .ico-menu:before {
-	background-position: -9em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_10.png);
 }
 
 .ico-mobile:before {
-	background-position: -10em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_11.png);
 }
 
 .clicked .ico-like:before {
-	background-position: -12em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_13.png);
 }
 
 .clicked .ico-bookmark:before {
-	background-position: -14em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_15.png);
 }
 
 .clicked .ico-subscribe:before {
-	background-position: -13em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_14.png);
 }
 
 .clicked .ico-fun:before {
-	background-position: -11em 0;
+	background-image: url(/static/website/images/icons/sprits_tools_12.png);
 }
 
 .ico-share-email,
@@ -485,25 +488,25 @@ html {
 .abutton-group li:first-child {
 	-webkit-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-	left: 49%;
+	left: 48%;
 }
 
 .abutton-group li:nth-child(2) {
 	-webkit-transform: rotate(45deg);
 	transform: rotate(45deg);
-	top: 49%;
+	top: 48%;
 }
 
 .abutton-group li:nth-child(3) {
 	-webkit-transform: rotate(135deg);
 	transform: rotate(135deg);
-	left: 51%;
+	left: 52%;
 }
 
 .abutton-group li:nth-child(4) {
 	-webkit-transform: rotate(225deg);
 	transform: rotate(225deg);
-	top: 51%;
+	top: 52%;
 }
 
 .abutton-group li:first-child a {
