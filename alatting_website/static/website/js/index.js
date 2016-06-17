@@ -114,7 +114,7 @@ $(function(){
 	$("#Help button").click(function(){
 		$.ajax({
 			type:'POST',
-			url:'/api/v1/poster/customerservice',
+			url:'/api/v1/poster/customer_service',
 			data:{content:$("#Help textarea").val()},
 			success:function(msg){
 				console.log(msg);

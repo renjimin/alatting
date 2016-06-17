@@ -577,22 +577,30 @@ li.Ans {
 	text-align: center;
 	font-size: 18px;
 }
-#HelpContent div{
-	height:100px;
-	line-height:100px;
+#HelpForm {
+	height: 50%;
+	overflow: hidden;
+}
+#HelpHistory{
+	max-height: 50%;
+	overflow: scroll;
+}
+#HelpForm div{
+	height:20%;
 	color:#fff;
 	letter-spacing: 5px;
 }
-#HelpContent textarea{
+#HelpForm textarea{
 	resize: none;
 	width: 90%;
+	height: 50%;
 	border-radius: 8px;
 	padding: 10px;
 }
-#HelpContent button{
-	margin-top: 20px;
-	height: 40px;
-	width: 150px;
+#HelpForm button{
+	margin: 5% 0;
+	height: 10%;
+	width: 15%;
 	border: none;
 	background: #fff;
 	border-radius: 5px;
