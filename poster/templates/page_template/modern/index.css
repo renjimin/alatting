@@ -6,7 +6,7 @@
 .content > .content-top {
     -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 82%);
     clip-path: url(#content-top);
-    margin-bottom: -52px;
+    margin-bottom: -9%;
     margin-top: 2%;
     width: 96%;
     margin-left:2%;
