@@ -55,7 +55,7 @@
                     /*适应yunye-template缩放*/
                     var sx  =  modifyRate(bx-_bx,rate,0)+eleft;
                     var sy  =  modifyRate(by-_by,rate,0)+etop;
-                    $element.css({'left': sx + 'px', top: sy + 'px'});
+                    $element.css({'left': sx*remScale + 'rem', top: sy*remScale + 'rem'});
                     moveCtrlBtn($element.children('.el-rotate'),$element.parent(),$ctrl);
                     moveCtrlBtn($element.children('.el-editor'),$element.parent(),$etrl);
                 }
@@ -136,7 +136,7 @@
             /*适应yunye-template缩放*/
             sx  =  modifyRate(sx,rate,0);
             sy  =  modifyRate(sy,rate,0);
-            $ctrol.css({left:sx+'px',top:sy+'px'});
+            $ctrol.css({left:sx*remScale+'rem',top:sy*remScale+'rem'});
         }
 
         function getTwoLineDeg(lone,ltwo,lthr){

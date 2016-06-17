@@ -84,7 +84,6 @@
 
 					var ox = s.opt.left + ex;
 					var oy = s.opt.top + ey;
-					console.log(ox)
 					if (e.touches.length <= 1) { /*单手指*/
 						//$(e.currentTarget).css({'transform': 'translate('+ox+'px,'+oy+'px)'});
 						$(e.currentTarget).css({

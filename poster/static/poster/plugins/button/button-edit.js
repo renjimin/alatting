@@ -567,7 +567,7 @@ var copySystemimg = function() {
 }
 var deleteSystemimg = function() {
 	var imgactive = $('.systemimg-element.active');
-	imgactive.animate({ 'width': '0', 'height': '0', 'top': (parseInt(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseInt(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
+	imgactive.animate({ 'width': '0', 'height': '0', 'top': (parseFloat(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseFloat(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 		imgactive.remove();
 	});
 
@@ -594,7 +594,7 @@ function deleteElement() {
 	var imgactive = $('.cnd-element.active');
 	if(imgactive.hasClass('sys-button')) return;
 
-	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
+	imgactive.animate({ 'width': '0', 'height': '0', 'top':(parseFloat(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseFloat(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 		imgactive.remove();
 		if(imgactive.hasClass('text-element-act')){
 			$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
@@ -658,7 +658,7 @@ $(function() {
 function textEditor(type) {
 	var s = this;
 	if (type == undefined || type == null) {
-		alert('功能未定义');
+		yyAlert('功能未定义');
 		return;
 	}
 	initFun();
@@ -671,7 +671,7 @@ function textEditor(type) {
 		cnd.find('.element-box-contents').append(eleobj);
 		cnd.css('opacity', '0');
 		fullcontainer.append(cnd);
-		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).css('opacity', '1');
+		cnd.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() / 2 - eleobj.height() / 2)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - eleobj.width() / 2)*remScale + 'rem' }).css('opacity', '1');
 		scale(cnd);	
 		editor('open',eleobj);
 		$('#ted-edit').click();
@@ -684,7 +684,7 @@ function textEditor(type) {
 		var imgclone = $('.text-element.active').clone();
 		$('.text-element').removeClass('active');
 		imgclone.trigger('click')
-		imgclone.stop(true, false).animate({ 'top': parseInt(imgclone.css('top')) + 30 + 'px', 'left': parseInt(imgclone.css('left')) + 30 + 'px' }, 200);
+		imgclone.stop(true, false).animate({ 'top': (parseFloat(imgclone.css('top')) + 1) + 'rem', 'left': (parseFloat(imgclone.css('left')) + 1) + 'rem' }, 200);
 		fullcontainer.append(imgclone);
 		scale(imgclone);
 	}
@@ -695,7 +695,7 @@ function textEditor(type) {
 		}
 		var imgactive = $('.text-element.active');
 
-		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
+		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': (parseFloat(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseFloat(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 			imgactive.remove();
 			$('.ele-rotate-ctrl').remove();
 		});

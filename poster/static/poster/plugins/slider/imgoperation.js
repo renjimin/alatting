@@ -30,11 +30,11 @@
 				imgW = ow * imgH / oh;
 			}
 
-			i.attr("width", imgW);
-			i.attr("height", imgH);
+			i.css("width", imgW*remScale+'rem');
+			i.css("height", imgH*remScale+'rem');
 
-			v.attr("width", imgW);
-			v.attr("height", imgH);
+			v.attr("width", imgW*remScale+'rem');
+			v.attr("height", imgH*remScale+'rem');
 
 			var touchEvents = {
 				'startX': 0,
@@ -70,8 +70,8 @@
 					});
 					var imgl = i.css('left') == undefined ? 0 : i.css('left');
 					var imgt = i.css('top') == undefined ? 0 : i.css('top');
-					moveX = parseInt(imgl);
-					moveY = parseInt(imgt);
+					moveX = parseFloat(imgl);
+					moveY = parseFloat(imgt);
 					var touch = e.touches[0];
 					touchEvents.startX = touch.pageX;
 					touchEvents.startY = touch.pageY;
@@ -103,8 +103,8 @@
 
 					var ox = moveX + ex;
 					var oy = moveY + ey;
-					i.css('top', oy + 'px');
-					i.css('left', ox + 'px');
+					i.css('top', oy*remScale + 'rem');
+					i.css('left', ox*remScale + 'rem');
 
 					if (e.touches.length > 1) {
 
@@ -112,12 +112,12 @@
 						endDiagonal.x = Math.abs(touch.pageX - touch1.pageX);
 						endDiagonal.y = Math.abs(touch.pageY - touch1.pageY);
 
-						var ew = s.opt.width + parseInt(endDiagonal.x) - parseInt(startDiagonal.x),
+						var ew = s.opt.width + parseFloat(endDiagonal.x) - parseFloat(startDiagonal.x),
 							eh = ew * s.opt.height / s.opt.width;
 
 						i.css({
-							'width': ew,
-							'height': eh
+							'width': ew*remScale + "rem",
+							'height': eh*remScale + 'rem'
 						});
 
 					}
@@ -143,11 +143,11 @@
 						endH = imgH;
 					}
 
-					if (parseInt(moveEndX) > 0) {
+					if (parseFloat(moveEndX) > 0) {
 						endX = 0;
 					}
 
-					if (endW + parseInt(moveEndX) < $(e.currentTarget).parent().width()) {
+					if (endW + parseFloat(moveEndX) < $(e.currentTarget).parent().width()) {
 						endX = -endW + $(e.currentTarget).parent().width();
 
 					}
@@ -156,15 +156,15 @@
 						endY = 0;
 					}
 
-					if (endH + parseInt(moveEndY) < $(e.currentTarget).parent().height()) {
+					if (endH + parseFloat(moveEndY) < $(e.currentTarget).parent().height()) {
 						endY = -endH + $(e.currentTarget).parent().height();
 					}
 
-					i.css('top', endY + 'px');
-					i.css('left', endX + 'px');
+					i.css('top', endY*remScale + 'rem');
+					i.css('left', endX*remScale + 'rem');
 
-					i.css('width', endW + 'px');
-					i.css('height', endH + 'px');
+					i.css('width', endW*remScale + 'rem');
+					i.css('height', endH*remScale + 'rem');
 
 					i.css({
 						'transition': 'all .2s ease-in'

@@ -1,6 +1,9 @@
 var scaleIndex = 20;
 var templateScale = $('body').width() / $('.yunye-template').width();
 var remScale = 16/$('.yunye-template').innerWidth();
+$(window).resize(function(){
+	remScale = 16/$('.yunye-template').innerWidth();
+});
 var scale = function(box, options) {
 	var defaults = {
 		'box': '.cnd-element',
