@@ -56,6 +56,12 @@
                             </div>
                         {% endwith %}
                         {% endfor %}
+                        {% if q_added_by_creator%}
+                            {% for q in q_added_by_creator%}
+                                {{q.id}}
+                                {{q.text}}
+                            {% endfor %}
+                        {% endif%}
                     </div>
                     <div class="required-reminder-text"><span class="required-reminder">&#x2a;</span>必填</div>
                     

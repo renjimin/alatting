@@ -15,6 +15,8 @@ from alatting_website.models import Category
 from survey import *
 from account.models import Person
 from survey.form.forms import *
+import logging
+logger = logging.getLogger(__name__)
 
 
 '''
@@ -97,6 +99,28 @@ class QuestionnaireView(View):
             return ans[0].answer
         else:
             return None
+
+    def get_q_added_by_creator(self, runinfo):
+        q_text_added_by_creator = []
+        poster = runinfo.poster
+        qu = Questionnaire.objects.filter(main_category=poster.main_category,
+                                          sub_category=poster.sub_category,
+                                          role='consumer').first()
+        if not qu:
+            qu = Questionnaire.objects.filter(main_category=poster.main_category,
+                                              sub_category__isnull=True,
+                                              role='consumer').first()
+        if qu:
+            q_added_by_creator = Question.objects.filter(questionset__questionnaire=qu,
+                                              audit_status__in=[0, 1],
+                                              poster=poster).order_by('sortid')
+            for q in q_added_by_creator:
+                if q.type in ['choice', 'choice-input', 'checkbox', 'checkbox-input']:
+                    if q.choices_count()==0:
+                        continue
+                q_text_added_by_creator.append({"id":q.pk, "text":q.text})
+
+        return q_text_added_by_creator
 
     def process_value(self, ans, question, qssortid, value):
         # choice: name="question_{{ question.sortid }}"
@@ -194,6 +218,13 @@ class QuestionnaireView(View):
         islast_creator = False
         if questionset.is_last() and questionnaire.role == "creator":
             islast_creator = True
+        logger.debug('islast_creator')
+        logger.debug(islast_creator)
+        q_added_by_creator = []
+        if islast_creator:
+            q_added_by_creator = self.get_q_added_by_creator(runinfo)
+            logger.debug('q_added_by_creator')
+            logger.debug(q_added_by_creator)
 
         poster_id = runinfo.poster.pk
         choice_formset = formset_factory(ChoiceForm)
@@ -212,7 +243,8 @@ class QuestionnaireView(View):
                        'islast_creator': islast_creator,
                        'poster_id': poster_id,
                        'formset': ChoiceFormSet,
-                       'input_formset':ChoiceInputFormSet}
+                       'input_formset':ChoiceInputFormSet,
+                       'q_added_by_creator':q_added_by_creator}
         return render_to_response('survey/mobile/questionset.html',
                                   contextdict)
 
