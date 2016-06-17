@@ -172,7 +172,6 @@ $(function(){
                 if(imgid<=myimg.length-1){
                     if(imgid == myimg.length-1){
                          rightid = 0;
-                         console.log(rightid)
                     }else{
                         rightid = parseInt(imgid)+1;
                     }
