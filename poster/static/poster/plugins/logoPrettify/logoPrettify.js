@@ -118,11 +118,21 @@ $(function(){
 				height = image.naturalHeight;
 			var 	scale = width/height;
 			if(scale>1){
-				$("#editCanvas").width(    ($(".body-container").width()) * 0.8    ) ;
-				$("#editCanvas").height(    $("#editCanvas").width() / scale    ) ;
+				if(width > ($(".body-container").width()) * 0.8){
+					$("#editCanvas").width(    ($(".body-container").width()) * 0.8    ) ;
+					$("#editCanvas").height(    $("#editCanvas").width() / scale    ) ;
+				}else{
+					$("#editCanvas").width(   width   ) ;
+					$("#editCanvas").height(   height   ) ;
+				}
 			}else{
-				$("#editCanvas").height(    ($(".body-container").height() - 220) * 0.8    ) ;
-				$("#editCanvas").width(    $("#editCanvas").height() * scale    ) ;
+				if(height >  ($(".body-container").height() - 220) * 0.8){
+					$("#editCanvas").height(    ($(".body-container").height() - 220) * 0.8    ) ;
+					$("#editCanvas").height(    $("#editCanvas").height() * scale    ) ;
+				}else{
+					$("#editCanvas").width(   width   ) ;
+					$("#editCanvas").height(   height   ) ;
+				}
 			}
 			api.scaleSelectCanvas();
 			canvas.originCanvas.width = selectCanvas.width = canvas.width = $("#editCanvas").width();
