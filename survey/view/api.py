@@ -1,4 +1,4 @@
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, DestroyAPIView
 from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -114,4 +114,14 @@ class ChoiceInputCreateAPIView(APIView):
 				inp = Input()
 				inp.choice = c
 				inp.save()
+		return Response(status=status.HTTP_200_OK)
+
+class QuestionDeleteAPIView(DestroyAPIView):
+	def delete(self, request, *args, **kwargs):
+		q_id = self.kwargs['q_id']
+		if not q_id:
+			data = {'error':'参数错误'}
+			return Response(data, status=status.HTTP_404_NOT_FOUND)
+		q = Question.objects.filter(pk=q_id).first()
+		q.delete()
 		return Response(status=status.HTTP_200_OK)
