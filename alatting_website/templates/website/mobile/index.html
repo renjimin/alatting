@@ -39,9 +39,9 @@
         </div>
 
         <div class="home-header-sort hrow flexbox">
-            <a href="{{ request.path_info }}?sort=hot&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}"
-               class="button button-clear btn-select">最新</a>
             <a href="{{ request.path_info }}?sort=new&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}"
+               class="button button-clear btn-select">最新</a>
+            <a href="{{ request.path_info }}?sort=hot&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}"
                class="button button-clear btn-select">热门</a>
             <a href="{{ request.path_info }}?sort=apas&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}"
                class="button button-clear btn-select">特价</a>

@@ -2,11 +2,13 @@
     <a href="{% url 'website:mobile_poster_index' %}" class="btn-back">
         <i class="icon-back"></i>
     </a>
-    <button class="button button-clear btn-page">
-        <i class="ico-pages"></i>
-    </button>
+    {% if pages|length != 1 %}
+        <button class="button button-clear btn-page">
+            <i class="ico-pages"></i>
+        </button>
+    {% endif %}
     <div class="title header-bar-title">
-        <p>{{ poster.unique_name }}</p>
+        <p>{{ poster.unique_name }} {{ pages|length }}</p>
     </div>
     <button class="button button-clear btn-music header-music" id="music">
         <i class="ico-music "></i>

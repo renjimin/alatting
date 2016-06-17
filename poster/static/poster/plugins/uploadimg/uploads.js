@@ -193,7 +193,7 @@
 		this.init = function(){
 
 			$('body').append('<div id="uploadsaudio"></div>');
-			var option = $.extend(optvideo,{pick: {'id':'#uploadsaudio','multiple':false},url: '/api/v1/poster/upload/logo'});
+			var option = $.extend(optaudio,{pick: {'id':'#uploadsaudio','multiple':false},url: '/api/v1/poster/upload/logo'});
 			if( option.url ) {
 				option.server = option.url;
 				delete option.url;
