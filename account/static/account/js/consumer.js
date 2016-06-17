@@ -2,7 +2,6 @@
  * Created by chulin on 16-5-26.
  */
 
-
 $(function(){
     var id = $('#posterid').val();
     var consumer_id= $('#consumerid').val();
@@ -29,8 +28,8 @@ $(function(){
             $('#body-main-title').children('.title-name').html('获取数据错误');
         }
     });
-    getBargainsList();
-    getChatsList();
+    getBargainsList($('#main-plist'),id,consumer_id);
+    getChatsList($('#message-list'),id,consumer_id);
     getAnsList();
 
     /* 收藏当前海报 */
@@ -129,6 +128,7 @@ $(function(){
                     $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
                     $('.trade-price-li').hide();
                     $('#price-accept').show();
+                    $('#main-plist').find('li').last().addClass('plist-over');
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -136,7 +136,7 @@ $(function(){
             });
         });
     });
-    $('#make-comt').on('click',function(){
+    $('#trade-make-comt').on('click',function(){
         $('.body-li').hide();
         $('#body-makecomt').show();
     });
@@ -166,6 +166,8 @@ $(function(){
     });
     /* 服务需求者出价 */
     $('#set-price').on('click',function(){
+        var ths = $(this);
+        ths.prop('disabled','disabled');
         var price = $.trim($('#bPrice').val());
         if(!$.isNumeric(price) || price <= 0){
             yyAlert('请输入大于0的数字!');
@@ -177,13 +179,17 @@ $(function(){
                 url: '/api/v1/poster/'+id+'/bargains',
                 success:function(){
                     $('#price-quote').children('.trade-price-icon').children().html('你的报价');
+                    $('#accept-price').hide();
+                    $('#refuse-price').hide();
                     $('#price-quote').find('.value-num').html(price);
                     $('.trade-price-li').hide();
                     $('#price-quote').show();
+
                     if($('#cancel-price').css('display')== 'none'){
                         $('#cancel-price').show().siblings('.trade-first-bid').remove();
                     }
                     modifyPlist(price);
+                    ths.removeProp('disabled');
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -204,22 +210,6 @@ $(function(){
         }else{
             $('#main-plist ul').append(h);
         }
-    }
-    function nowTime(){
-        var d = new Date();
-        var addZero = function(num){
-            if(num<10){
-                num = '0'+num;
-            }
-            return num;
-        }
-        var year = d.getFullYear();
-        var month = addZero(d.getMonth()+1);
-        var day = addZero(d.getDate());
-        var hours = addZero(d.getHours());
-        var minute = addZero(d.getMinutes());
-        var seconds = addZero(d.getSeconds());
-        return year+'-'+month+'-'+day+' '+hours+':'+minute+':'+seconds;
     }
 
     /* 取消出价，回到报价面板 */
@@ -256,13 +246,28 @@ $(function(){
             yyAlert('请填写您要告知给对方的信息!');
             return;
         }
-        console.log('cont:'+cont);
         $.ajax({
             type: 'POST',
             data:{content:cont},
             url: '/api/v1/poster/'+id+'/chats',
             success:function(){
-                ths.removeProp('disabled');
+                yyAlert('消息发送成功!',function(){
+                    $('#mess').val('');
+                    ths.removeProp('disabled');
+                });
+                var h= '<li class="mn-mess-li">';
+                    h+= '   <div class="mn-mess-image"><img src="'+userInfo.hdicon+'" alt="headicon"></div>';
+                    h+= '   <div class="mn-mess-info">';
+                    h+= '       <div class="mess-info-title"><span class="info-title-name">'+userInfo.name+'</span><span class="info-title-time">'+nowTime()+'</span></div>';
+                    h+= '       <div class="mess-info-cont">'+cont+'</div>';
+                    h+= '   </div>';
+                    h+= '</li>';
+                if($('#message-list').children().length==0){
+                    h = '<ul>'+h+'</ul>';
+                    $('#message-list').append(h);
+                }else{
+                    $('#message-list ul').append(h);
+                }
             },
             error: function(xhr, status, statusText){
                 yyAlert('网络错误,请稍候再试!');
@@ -281,6 +286,7 @@ $(function(){
     });
     /* 发送评论 */
     $('#submit-comt').on('click',function(){
+        var ths = $(this);
         var star = $('#star-comt').val();
         if(star == ''){
             yyAlert('请您给本次服务评分!');
@@ -293,12 +299,20 @@ $(function(){
             yyAlert('请填写您的评价内容!');
             return;
         }
+        ths.hide();
         $.ajax({
             type: 'POST',
             data:{content:cont,rating:star},
             url: '/api/v1/poster/'+id+'/servicecomments',
             success:function(){
-                yyAlert('感谢您的评价，欢迎再次预约服务!');
+                yyAlert('感谢您的评价，欢迎再次预约服务!',function(){
+                    ths.show();
+                    $('#star-comt').val('');
+                    $('#serve-comt').val('');
+                    $('#body-makecomt li').css('color','#d3d3d3');
+                    $('#body-comments').empty();
+                    $('#body-main-title').trigger('click');
+                });
             },
             error: function(xhr, status, statusText){
                 yyAlert('网络错误,请稍候再试!');
@@ -318,11 +332,12 @@ $(function(){
 
     /* 点击头部海报名称显示当前海报的所有用户评价信息 */
     $('#body-main-title').on('click',function(){
-        if($('#body-comments').css('display') == 'none'){
+        var $bdcomt = $('#body-comments');
+        if($bdcomt.css('display') == 'none'){
             $('.body-li').hide();
-            $('#body-comments').show();
-            if($('#body-comments').children().length == 0){
-                getCommentsList();
+            $bdcomt.show();
+            if($bdcomt.children().length == 0){
+                getCommentsList($bdcomt,id);
             }
         }else{
             $('.body-li').hide();
@@ -357,13 +372,13 @@ $(function(){
     }
 
     /* 获取双发讨价还价的历史记录 */
-    function getBargainsList(){
-        showLoadTips($('#main-plist'),'show');
+    function getBargainsList($obj,id,consumerid){
+        showLoadTips($obj,'show');
         $.ajax({
             type: 'GET',
-            url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumer_id,
+            url: '/api/v1/poster/'+id+'/bargains?consumer_id='+consumerid,
             success:function(data){
-                showLoadTips($('#main-plist'),'success');
+                showLoadTips($obj,'success');
                 if(!$.isEmptyObject(data)){
                     var num = data.length;
                     var h = '<div class="trade-plist-ul"><ul>';
@@ -387,17 +402,17 @@ $(function(){
                         h+= '</li>';
                     }
                     h += '</ul></div>';
-                    $('#main-plist').append(h);
+                    $obj.append(h);
 
                     lastPrice=data[num-1];
                     showPriceli(lastPrice);
                 }else{
                     showPriceli();
-                    $('#main-plist').append('<span class="error-msg">当前没有任何报价信息</span>');
+                    $obj.append('<span class="error-msg">当前没有任何报价信息</span>');
                 }
             },
             error: function(xhr, status, statusText){
-                showLoadTips($('#main-plist'),'error');
+                showLoadTips($obj,'error');
             }
         });
     }
@@ -436,17 +451,17 @@ $(function(){
         }
     }
     /* 获取双方交流的信息列表 */
-    function getChatsList(){
-        showLoadTips($('#message-list'),'show');
+    function getChatsList($obj,id,consumerid){
+        showLoadTips($obj,'show');
         $.ajax({
             type: 'GET',
-            url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumer_id,
+            url: '/api/v1/poster/'+id+'/chats?receiver_id='+consumerid,
             success:function(data){
-                showLoadTips($('#message-list'),'success');
+                showLoadTips($obj,'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
-                        var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
+                        var img = (data[i]["sender"]["person"])?data[i]["sender"]["person"]["avatar"]:userInfo.defHdIcon;
                         var username = getUserName(data[i]["sender"]);
                         h+= '<li class="mn-mess-li">';
                         h+= '   <div class="mn-mess-image"><img src="'+img+'" alt="headicon"></div>';
@@ -457,13 +472,13 @@ $(function(){
                         h+= '</li>';
                     }
                     h += '</ul>';
-                    $('#message-list').append(h);
+                    $obj.append(h);
                 }else{
-                    $('#message-list').append('<span class="error-msg">当前没有任何信息</span>');
+                    $obj.append('<span class="error-msg">当前没有任何信息</span>');
                 }
             },
             error: function(xhr, status, statusText){
-                showLoadTips($('#message-list'),'error');
+                showLoadTips($obj,'error');
             }
         });
     }
@@ -495,13 +510,13 @@ $(function(){
     }
 
     /* 获取用户评论信息 */
-    function getCommentsList(){
-        showLoadTips($('#body-comments'),'show');
+    function getCommentsList($obj,id){
+        showLoadTips($obj,'show');
         $.ajax({
             type: 'GET',
             url: '/api/v1/poster/'+id+'/servicecomments',
             success:function(data){
-                showLoadTips($('#body-comments'),'success');
+                showLoadTips($obj,'success');
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
@@ -522,13 +537,13 @@ $(function(){
                         h+= '</li>';
                     }
                     h += '</ul>';
-                    $('#body-comments').append(h);
+                    $obj.append(h);
                 }else{
-                    $('#body-comments').append('<span class="error-msg">当前没有任何信息</span>');
+                    $obj.append('<span class="error-msg">当前没有任何信息</span>');
                 }
             },
             error: function(xhr, status, statusText){
-                showLoadTips($('#body-comments'),'error');
+                showLoadTips($obj,'error');
             }
         });
     }

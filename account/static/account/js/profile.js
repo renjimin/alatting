@@ -6,13 +6,12 @@ $(function(){
     var wh = $(window).height();
     var bh = $('.body-header').height();
     $('#body-vip').css({'height':(wh-bh)+'px','top':bh+'px'});
-
+    $('#body-deal').css({'height':(wh-bh)+'px','top':bh+'px'});
     var serverProvideTmpl = $('#serverProvideTmpl').html();
     $.template('serverProvideTmpl',serverProvideTmpl);
     var serverNeedTmpl = $('#serverNeedTmpl').html();
     $.template('serverNeedTmpl',serverNeedTmpl);
     var defImg = '/static/account/img/poster_default.jpg';
-    var userinfo;
     showLoadTips($('.main-list'),'show');
 
     /* 头部两类海报列表切换 */
@@ -46,7 +45,6 @@ $(function(){
             var username = getUserName(data);
             $('#uName').html(username);
             $('#userid').val(data.id);
-            userinfo = data;
         },
         error: function(xhr,status,statusText){
             yyAlert("获取个人信息失败,请稍候再试!");
@@ -59,14 +57,18 @@ $(function(){
         url: '/api/v1/account/posters/server',
         success:function(data){
             showLoadTips($('#main-provide'),'success');
-            for(var i=0;i<data.length;i++){
-                var pd = {
-                    posterid:data[i].id,
-                    snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
-                    postername:data[i]['unique_name'],
-                    mobileEditUrl:data[i]["mobile_edit_url"]
-                };
-                $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
+            if(!$.isEmptyObject(data)){
+                for(var i=0;i<data.length;i++){
+                    var pd = {
+                        posterid:data[i].id,
+                        snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
+                        postername:data[i]['unique_name'],
+                        mobileEditUrl:data[i]["mobile_edit_url"]
+                    };
+                    $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
+                }
+            }else{
+                $('#main-provide').append('<span class="error-msg">当前没有任何信息</span>');
             }
         },
         error: function(xhr, status, statusText){
@@ -80,14 +82,18 @@ $(function(){
         url: '/api/v1/account/posters/consumer',
         success:function(data){
             showLoadTips($('#main-need'),'success');
-            for(var i=0;i<data.length;i++){
-                var pd = {
-                    posterid:data[i].id,
-                    creatorid:data[i].creator,
-                    snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
-                    postername:data[i]['unique_name']
-                };
-                $.tmpl('serverNeedTmpl',pd).appendTo('#main-need');
+            if(!$.isEmptyObject(data)){
+                for(var i=0;i<data.length;i++){
+                    var pd = {
+                        posterid:data[i].id,
+                        creatorid:data[i].creator,
+                        snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
+                        postername:data[i]['unique_name']
+                    };
+                    $.tmpl('serverNeedTmpl',pd).appendTo('#main-need');
+                }
+            }else{
+               $('#main-need').append('<span class="error-msg">当前没有任何信息</span>');
             }
         },
         error: function(xhr, status, statusText){
@@ -135,6 +141,49 @@ $(function(){
         }
     });
 
+    /**交易记录*/
+    $('#myTradeRecord').on('click',function(event){
+        event.stopPropagation();
+        var deal = $('#body-deal');
+        var view = deal.css('display');
+        if(view == 'block'){
+            $('.body-container').attr('style','');
+            deal.css('display','none');
+        }else{
+            $('.body-container').css({'overflow':'hidden','height':wh+'px'});
+            deal.css('display','block');
+        }
+    })
+    $('.deal-contain .fa-angle-right').click(function(){
+        $('.deal-contain img').attr('src','');
+    });
+    $('.deal-contain .fa-angle-left').click(function(){
+        $('.deal-contain img').attr('src','');
+    })
+    /**购物车*/
+    $('#user-shopcart').on('click',function(event){
+        event.stopPropagation();
+        var shopping = $('.body-shopping');
+        var view = shopping.css('display');
+        if(view == 'block'){
+            $('.body-container').attr('style','');
+            shopping.css('display','none');
+        }else{
+            $('.body-container').css({'overflow':'hidden','height':wh+'px'});
+            shopping.css('display','block');
+        }
+    })
+    $('.body-shopping .fa-close').click(function(){
+        $('.body-shopping').css('display','none');
+    })
+    $('.statement-footer a').click(function(event){
+        event.stopPropagation();
+        if($('.shopping-cont').children().length>0){
+            yyConfirm('确认购物车');
+        }else{
+            yyAlert('购物车为空');
+        }
+    })
     /* 显示当前海报的操作控件 */
     $('.body-main').on('click','.p-cont',function(event){
         event.stopPropagation();
@@ -380,22 +429,6 @@ $(function(){
             context.fill();
         });
     }
-    /* 加载动画的显示与隐藏 */
-    function showLoadTips($obj,type){
-        if(type == 'show'){
-            $obj.append('<div class="data-loading"><i class="fa fa-spinner fa-pulse fa-5x"></i><br>数据加载中,请稍等...</div>');
-        }
-        if(type == 'success'){
-            $obj.children('.data-loading').remove();
-        }
-        if(type == 'error'){
-            $obj.children('.data-loading').remove();
-            $obj.append('<span class="error-msg">网络错误,请稍候再试!</span>');
-        }
-    }
 
-    function getUserName(d){
-        return (d.person.phonenumber)?d.person.phonenumber:d.email;
-    }
 })
 

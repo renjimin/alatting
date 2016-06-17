@@ -2,18 +2,19 @@ var currentElebox = null,
 	isEdit = false,
 	fullcontainer = $('.yunye-template').eq(0);
 var curentOpts = {};
-setTimeout(function() { fullcontainer = $('.yunye-template').eq(0);
+setTimeout(function() { 
+	fullcontainer = $('.yunye-template').eq(0);
 	addDefaultButtons(); /**/ }, 100);
 
 var addButton = function(ele, options) {
-	var templateScale = $('body').width() / $('.yunye-template').width();
+
 	var defaults = {
 		'container': $("#button-model"),
 		'buttonAction': '0',
 		'href': 'javascript:void(0)',
 		'text': '请输入文字',
 		'color': '000',
-		'fontSize': 14,
+		'fontSize': 0.5,
 		'fontFamily': 'Microsoft YaHei',
 		'background': 'ffffff',
 		'backgroundOpacity': '1',
@@ -66,7 +67,7 @@ var addButton = function(ele, options) {
 		var back = 'rgba(' + rgb.r + ',' + rgb.g + ',' + rgb.b + ',' + opts.backgroundOpacity + ')';
 		o.css({
 			'color': '#' + opts.color,
-			'font-size': opts.fontSize + 'px',
+			'font-size': opts.fontSize + 'rem',
 			'font-family': opts.fontFamily,
 			'background': back,
 			'opacity': opts.opacity,
@@ -90,13 +91,12 @@ var addButton = function(ele, options) {
 			if ($2 == null || $2 == '') {
 				$2 = 0;
 			}
-
 			eleopts = {
 				'buttonAction': $(b).attr('data-action'),
 				'href': $(b).attr('href'),
 				'text': $(b).text(),
 				'color': $(b).css('color') == null ? '000000' : $(b).css('color'),
-				'fontSize': parseInt(parseInt($(b).css('font-size')) * templateScale),
+				'fontSize': parseFloat($(b).css('font-size'))*remScale,
 				'fontFamily': $(b).css('font-family').replace(/'/g, "").split(',')[0],
 				'background': $(b).attr('data-background'),
 				'backgroundOpacity': $(b).attr('data-backgroundOpacity'),
@@ -125,9 +125,7 @@ var addButton = function(ele, options) {
 		$('.button-href').val(href);
 		$('.button-text').val(opts.text);
 		$('.button-color').css('background', opts.color);
-		for (i = 12; i < 30; i++) {
-			$('.button-fontSize').append('<option value="' + i + '">' + i + 'px</option>')
-		}
+		
 		$('.button-fontSize').val(opts.fontSize);
 		$('.button-fontFamily').val(opts.fontFamily);
 		$('.button-background').css('background', '#' + opts.background).attr('data-backgorund', opts.background);
@@ -145,7 +143,7 @@ var addButton = function(ele, options) {
 	}
 	s.addControlListen = function() {
 		var elebtn = $("#button-model").find('.element').eq(0);
-
+console.log(elebtn.html())
 		$('.button-href').off('input propertychange').on('input propertychange', function() {
 			opts.href = $(this).val();
 			elebtn.attr({ 'href': opts.href })
@@ -160,7 +158,7 @@ var addButton = function(ele, options) {
 		});
 		$('.button-fontSize').off('change').on('change', function() {
 			opts.fontSize = $(this).val();
-			elebtn.css('font-size', opts.fontSize + 'px');
+			elebtn.css('font-size', opts.fontSize + 'rem');
 		});
 		$('.button-fontFamily').off('change').on('change', function() {
 			opts.fontFamily = $(this).val();
@@ -206,7 +204,7 @@ var addButton = function(ele, options) {
 			currentY: 0,
 			diff: 0
 		};
-		$('.button-opacity').on({
+		$('.button-opacity').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -226,7 +224,7 @@ var addButton = function(ele, options) {
 				opts.opacity = $(this).val();
 			}
 		});
-		$('.button-background-opacity').on({
+		$('.button-background-opacity').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -250,7 +248,7 @@ var addButton = function(ele, options) {
 				elebtn.attr('data-backgroundOpacity', $(this).val() / 100);
 			}
 		});
-		$('.button-boxShadow').on({
+		$('.button-boxShadow').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -271,7 +269,7 @@ var addButton = function(ele, options) {
 				opts.boxShadow = $(this).val();
 			}
 		});
-		$('.button-borderRadius').on({
+		$('.button-borderRadius').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -292,7 +290,7 @@ var addButton = function(ele, options) {
 				opts.borderRadius = $(this).val();
 			}
 		});
-		$('.button-rotate').on({
+		$('.button-rotate').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -351,8 +349,8 @@ function addDefaultButtons() {
 	}
 
 	var g = yunyeEditorGlobal;
-	var detailBtn = $('<a class="element btn btn-default" href="' + g.globalButton.detail + '" data-action="1" onclick="return posterDetail()" style="font-size:22px;">详情</a>'),
-		orderBtn = $('<a class="element btn btn-default" href="' + g.globalButton.order + '" data-action="2" onclick="return posterOrder()" style="font-size:22px;">预约</a>');
+	var detailBtn = $('<a class="element btn btn-default" href="' + g.globalButton.detail + '" data-action="1" onclick="return posterDetail()">详情</a>'),
+		orderBtn = $('<a class="element btn btn-default" href="' + g.globalButton.order + '" data-action="2" onclick="return posterOrder()">预约</a>');
 	var cnd = '<div class="cnd-element button-element sys-button">' + '<div class="element-box">' + '    <div class="element-box-contents">' + '        ' + '    </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>';
 	var detailBox = $(cnd),
 		orderBox = $(cnd).clone();
@@ -363,9 +361,9 @@ function addDefaultButtons() {
 
 	fullcontainer.append(detailBox);
 	fullcontainer.append(orderBox);
-	detailBox.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() - detailBox.innerHeight() - 10 + 'px', 'left': fullcontainer.innerWidth() / 2 - detailBox.innerWidth() - 10 + 'px' }).show();
+	detailBox.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() - detailBox.innerHeight()-10)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - detailBox.innerWidth() - 10 )*remScale + 'rem' }).show();
 	scale(detailBox);
-	orderBox.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() - orderBox.innerHeight() - 10 + 'px', 'left': fullcontainer.innerWidth() / 2 + 10 + 'px' }).show();
+	orderBox.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() - orderBox.innerHeight() - 10)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 + 10 )*remScale + 'rem' }).show();
 	scale(orderBox);
 
 	detailBtn.unbind();
@@ -393,14 +391,14 @@ function buttonConfirm(ele) {
 			cnd.css('transform', 'rotate(' + ele.data('rotate') + 'deg)').attr('data-rotate', ele.data('rotate'));
 		}
 		fullcontainer.append(cnd);
-		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - cnd.innerHeight() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - cnd.innerWidth() / 2 + 'px' }).show();
+		cnd.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() / 2 - cnd.innerHeight() / 2)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - cnd.innerWidth() / 2)*remScale + 'rem' }).show();
 		scale(cnd);
 	} else {
 		if (ele.data('rotate') != null) {
 			ele.css('transform', 'rotate(0)');
 			currentElebox.parent().parent().css('transform', 'rotate(' + ele.data('rotate') + 'deg)').attr('data-rotate', ele.data('rotate'));
 		}
-		ele.css({ 'font-size': parseInt(parseInt(ele.css('font-size')) / templateScale) + 'px' });
+		
 		currentElebox.empty().append(ele);
 	}
 	$('#button-model').removeClass('open');
@@ -417,7 +415,7 @@ var editButtonBasic = function() {
 	$("#button-basic").show();
 	$("#button-border").hide();
 	if (!$('#button-model').hasClass('open')) {
-		$('#button-model').css('max-height', $(window).height() - 87 + 'px').addClass('open');
+		$('#button-model').css('max-height', $(window).height()*remScale - 3.32 + 'rem').addClass('open');
 		addButton();
 	}
 	ele.addClass('open').siblings().removeClass('open');
@@ -438,7 +436,7 @@ var editButtonBorder = function() {
 	$("#button-basic").hide();
 	$("#button-border").show();
 	if (!$('#button-model').hasClass('open')) {
-		$('#button-model').css('max-height', $(window).height() - 87 + 'px').addClass('open');
+		$('#button-model').css('max-height', $(window).height()*remScale - 3.32 + 'rem').addClass('open');
 		addButton();
 	}
 	ele.addClass('open').siblings().removeClass('open');
@@ -452,7 +450,7 @@ var copyButton = function() {
 	}
 	var imgclone = $('.button-element.active').clone();
 	$('.button-element').removeClass('active');
-	imgclone.animate({ 'top': parseInt(imgclone.css('top')) + 30 + 'px', 'left': parseInt(imgclone.css('left')) + 30 + 'px' }, 200);
+	imgclone.animate({ 'top': (parseFloat(imgclone.css('top')) + 1) + 'rem', 'left': (parseFloat(imgclone.css('left'))+ 1)  + 'rem' }, 200);
 	fullcontainer.append(imgclone);
 	scale(imgclone);
 }
@@ -462,7 +460,7 @@ var deleteButton = function() {
 	}
 	var imgactive = $('.button-element.active');
 
-	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
+	imgactive.animate({ 'width': '0', 'height': '0', 'top': (parseInt(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseInt(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 		imgactive.remove();
 	});
 
@@ -509,7 +507,7 @@ $(function() {
 var selectSysImg = function(obj) {
 	$('#systemimg-model').removeClass('open');
 	var eleobj = $('<div class="element systemimg"></div>');
-	eleobj.css({ 'width': $(obj).find('svg').width(), 'height': $(obj).find('svg').height() });
+	eleobj.css({ 'width': $(obj).find('svg').width()*remScale+'rem', 'height': $(obj).find('svg').height()*remScale+'rem' });
 	eleobj.append($(obj).find('svg').clone());
 	addSystemimg(eleobj);
 }
@@ -543,7 +541,7 @@ var openSystemimg = function() {
 				},
 			});
 		}
-		$('#systemimg-model').css('max-height', $(window).height() - 87 + 'px').addClass('open');
+		$('#systemimg-model').css('max-height', $(window).height()*remScale - 3.32 + 'rem').addClass('open');
 		ele.addClass('open');
 		$('.bar-footer').addClass('footer-hide');
 	}
@@ -556,20 +554,20 @@ var addSystemimg = function(eleobj) {
 	cnd.find('.element-box-contents').append(eleobj);
 	cnd.css('opacity','0');
 	fullcontainer.append(cnd);
-	cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - $(window).height()*.6 / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - $(window).width() *.6/ 2 + 'px' }).css('opacity','1');
+	cnd.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() / 2 - eleobj.height() / 2)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - eleobj.width() / 2)*remScale + 'rem' }).css('opacity','1');
 	scale(cnd);
 }
 
 var copySystemimg = function() {
 	var imgclone = $('.systemimg-element.active').clone(false);
 	$('.systemimg-element').removeClass('active');
-	imgclone.animate({ 'top': parseInt(imgclone.css('top')) + 30 + 'px', 'left': parseInt(imgclone.css('left')) + 30 + 'px' }, 200);
+	imgclone.animate({ 'top': (parseInt(imgclone.css('top')) + 1) + 'rem', 'left': (parseInt(imgclone.css('left')) + 1) + 'rem' }, 200);
 	fullcontainer.append(imgclone);
 	scale(imgclone);
 }
 var deleteSystemimg = function() {
 	var imgactive = $('.systemimg-element.active');
-	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
+	imgactive.animate({ 'width': '0', 'height': '0', 'top': (parseFloat(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseFloat(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 		imgactive.remove();
 	});
 
@@ -577,11 +575,13 @@ var deleteSystemimg = function() {
 
 var uploadSystemimg = function(eleobj) {
 	$.fn.uploads.showDialog(function(data) {
-		var img = $('<div class="element"><img src="' + data.file + '" /></div>');
-		if (data.width > $(window).width()) {
-			img.width($(window).width() * .6);
-			img.height($(window).width() * .6 * data.height / data.width);
+		var imgW = data.width,imgH = data.height;
+		if (imgW > $(window).width()) {
+			imgW = $(window).width() * .6;
+			imgH = $(window).width() * .6 * data.height / data.width;
 		}
+		var img = $('<div class="element"><img src="' + data.file + '" style="width:'+data.width*remScale+'rem;height:'+data.height*remScale+'rem" /></div>');
+
 		addSystemimg(img);
 	}, function(data) {
 		yyAlert('上传失败，请稍后重试！');
@@ -594,7 +594,7 @@ function deleteElement() {
 	var imgactive = $('.cnd-element.active');
 	if(imgactive.hasClass('sys-button')) return;
 
-	imgactive.animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
+	imgactive.animate({ 'width': '0', 'height': '0', 'top':(parseFloat(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseFloat(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 		imgactive.remove();
 		if(imgactive.hasClass('text-element-act')){
 			$('.ele-rotate-ctrl').css({left:'-200px',top:'-200px'});
@@ -658,20 +658,20 @@ $(function() {
 function textEditor(type) {
 	var s = this;
 	if (type == undefined || type == null) {
-		alert('功能未定义');
+		yyAlert('功能未定义');
 		return;
 	}
 	initFun();
 
 
 	function addText() {
-		var eleobj = $('<div  type="text" class="element text-editor-content" value="" style="font-size:20px">请输入文字</div>')
+		var eleobj = $('<div  type="text" class="element text-editor-content" value="">请输入文字</div>')
 		var cnd = $('<div class="cnd-element text-element active" data-type="text">' + '<div class="element-box">' + '  <div class="element-box-contents">' + '      ' + '  </div>' + '</div>' + '<div class="nbar nbar-rotate nbar-radius"></div>' + '<div class="nbar nbar-line"></div>' + '<div class="nbar nbar-n"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-s"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-e"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-w"><div class="nbar-radius"></div></div>' + '<div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i></div>' + '<div class="nbar nbar-se nbar-radius"></div>' + '<div class="nbar nbar-sw nbar-radius"></div>' + '<div class="nbar nbar-ne nbar-radius"></div>' + '</div>');
 
 		cnd.find('.element-box-contents').append(eleobj);
 		cnd.css('opacity', '0');
 		fullcontainer.append(cnd);
-		cnd.css({ 'z-index': scaleIndex++, 'top': fullcontainer.innerHeight() / 2 - eleobj.height() / 2 + 'px', 'left': fullcontainer.innerWidth() / 2 - eleobj.width() / 2 + 'px' }).css('opacity', '1');
+		cnd.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() / 2 - eleobj.height() / 2)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - eleobj.width() / 2)*remScale + 'rem' }).css('opacity', '1');
 		scale(cnd);	
 		editor('open',eleobj);
 		$('#ted-edit').click();
@@ -684,7 +684,7 @@ function textEditor(type) {
 		var imgclone = $('.text-element.active').clone();
 		$('.text-element').removeClass('active');
 		imgclone.trigger('click')
-		imgclone.stop(true, false).animate({ 'top': parseInt(imgclone.css('top')) + 30 + 'px', 'left': parseInt(imgclone.css('left')) + 30 + 'px' }, 200);
+		imgclone.stop(true, false).animate({ 'top': (parseFloat(imgclone.css('top')) + 1) + 'rem', 'left': (parseFloat(imgclone.css('left')) + 1) + 'rem' }, 200);
 		fullcontainer.append(imgclone);
 		scale(imgclone);
 	}
@@ -695,7 +695,7 @@ function textEditor(type) {
 		}
 		var imgactive = $('.text-element.active');
 
-		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': parseInt(imgactive.css('top')) + imgactive.height() / 2 + 'px', 'left': parseInt(imgactive.css('left')) + imgactive.width() / 2 + 'px' }, 200, function() {
+		imgactive.stop(true, false).animate({ 'width': '0', 'height': '0', 'top': (parseFloat(imgactive.css('top')) + imgactive.height() / 2)*remScale + 'rem', 'left': (parseFloat(imgactive.css('left')) + imgactive.width() / 2)*remScale + 'rem' }, 200, function() {
 			imgactive.remove();
 			$('.ele-rotate-ctrl').remove();
 		});
