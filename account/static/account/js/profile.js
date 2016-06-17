@@ -168,8 +168,14 @@ $(function(){
     //var imgid = $('#body-deal').attr('data-id');
     $('.deal-contain .deal-btn-right').click(function(){
             var imgid = $('#body-deal').attr('data-id');
-                if(imgid<myimg.length-1){
-                    var rightid = parseInt(imgid)+1;
+            var rightid  = "";
+                if(imgid<=myimg.length-1){
+                    if(imgid == myimg.length-1){
+                         rightid = 0;
+                         console.log(rightid)
+                    }else{
+                        rightid = parseInt(imgid)+1;
+                    }
                     $('.deal-contain img').attr('src',myimg[rightid][3]);
                     $('.deal-header span').text(myimg[rightid][0]);
                     $('.deal-right li:first-child').text(myimg[rightid][1]);
@@ -180,8 +186,13 @@ $(function(){
     });
     $('.deal-contain .deal-btn-left').click(function(){
             var imgid = $('#body-deal').attr('data-id');
-                if(imgid>0){
-                    var leftid = parseInt(imgid)-1;
+             var leftid = "";
+                if(imgid>=0){
+                    if(imgid ==0){
+                        leftid = myimg.length-1;
+                    }else{
+                        leftid = parseInt(imgid)-1;
+                    }
                     $('#body-deal').attr('data-id',leftid);
                     $('.deal-contain img').attr('src',myimg[leftid][3]);
                     $('.deal-header span').text(myimg[leftid][0]);
