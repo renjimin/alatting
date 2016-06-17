@@ -9,7 +9,7 @@
 	{{ block.super }}
 	<script src="{% static 'website/js/index.js' %}"></script>
 	<script>
-	var global = {
+	window.global = {
 		sort:"{{ request.GET.sort }}"
 	};
 	</script>
@@ -18,8 +18,7 @@
 {% block base_body %}
 	<header class="home-header">
 		<div class="hrow">
-			<a href="javascript:void(0)" ng-click="openModal()"
-			   class="button button-clear btn-menu left-menu">
+			<a href="javascript:void(0)"  class="button button-clear btn-menu left-menu">
 				<i class="glyphicon glyphicon-menu-hamburger"></i>
 			</a>
 
@@ -133,13 +132,28 @@
 	</div>
 
 	<div id="QA">
-		<div id="QAHide"></div>
+		<span class="arrowUp"></span>
 		<div id="QAContent">
 			<span id="arrow"></span>
 			<div class="title"><img
 					src="/static/website/images/questionmark.png" alt=""
 					style="margin:0 10px 0 -10px;">常见问题
 			</div>
+		</div>
+	</div>
+
+	<div id="Sort">
+		<div id="SortHide"></div>
+		<span class="arrowUp"></span>
+		<div id="SortContent">
+			<div class="title">排序方式</div>
+			<ul>
+				<li><span>更新时间</span></li>
+				<li><span>浏览数</span></li>
+				<li><span>交易数</span></li>
+				<li><span>离我较近的</span></li>
+				<li><span>距离范围设置</span><span>公里</span></li>
+			</ul>
 		</div>
 	</div>
 

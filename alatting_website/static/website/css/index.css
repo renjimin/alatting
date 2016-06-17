@@ -30,7 +30,7 @@ body,html {
 	position: fixed;
 	right: 0;
 	left: 0;
-	z-index: 1000;
+	z-index: 800;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -201,13 +201,14 @@ body,html {
 	position: absolute;
 	width: 100%;
 	height: 100%;
-	z-index: 999;
+	z-index: 888;
 	top: 0;
 	left: 0;
 	visibility: hidden;
 	opacity: 0;
 	-webkit-transition: all 0.15s;
 	transition: all 0.15s;
+	pointer-events: none;
 }
 .type-model.open {
 	visibility: visible;
@@ -218,6 +219,7 @@ body,html {
 	height: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
+	pointer-events: auto;
 }
 .type-model-containar {
 	position: relative;
@@ -267,12 +269,10 @@ body,html {
 	display: none;
 }
 .type-model-click {
-	position: absolute;
-	top: 0;
-	height: 100%;
-	left: 0;
 	width: 100%;
-	z-index: 10;
+	height: 100%;
+	position: absolute;
+	margin-top: 36px;
 }
 .type-model-containar .list .item-link:active,
 .type-model-containar .list .open .item-link:active {
@@ -445,7 +445,7 @@ body,html {
 	width: 100%;
 	height: 100%;
 	padding: 37px 0 60px 0;
-	z-index: 20;
+	z-index: 1002;
 	overflow: hidden;
 	display: none;
 	pointer-events: none;
@@ -511,7 +511,64 @@ li.Ans {
 	top: 0;
 	pointer-events: auto;
 }
-
+#Sort{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: 37px 0 60px 0;
+	z-index: 888;
+	overflow: hidden;
+	display: none;
+	pointer-events: none;
+}
+#SortContent{
+	pointer-events: auto;
+}
+#SortContent ul{
+	padding: 0;
+}
+#SortHide{
+	width: 100%;
+	height: 100%;
+	pointer-events: auto;
+	position: absolute;
+	margin-top: 36px;
+}
+#SortContent .title{
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	background: #b5b5b5;
+	font-size: 16px;
+}
+#SortContent li {
+	font-size: 16px;
+	padding-left: 20px;
+	height: 60px;
+	line-height: 60px;
+	display: block;
+	background: #DEDEDE;
+	border-bottom: 1px solid  #CACACA;
+}
+#SortContent li:last-child {
+	border-bottom: none;
+}
+.arrowUp{
+	position:absolute;
+	margin:-5px 0 0 -10px;
+	transform:rotate(45deg);
+	z-index:100;
+	border: 10px solid;
+	border-color:  #b5b5b5 transparent transparent #b5b5b5 ;
+}
+#QA .arrowUp{
+	left: 95%;
+	border-color:  #ccc transparent transparent #ccc ;
+}
+#Sort .arrowUp{
+	left: 16.5px;
+}
 /*适配*/
 @media (min-width: 600px) {
 	.home-header,.footer {

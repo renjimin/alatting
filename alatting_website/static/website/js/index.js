@@ -1,5 +1,5 @@
 $(function(){
-	if(global){
+	if(window.global){
 		switch(global.sort){
 			case "new":
 				$("#sortNew").addClass("active");
@@ -38,8 +38,8 @@ $(function(){
 				if($('#QA').is(":visible")){
 					$('#QA').hide();
 				}else{
+					$(document).trigger("closeMenu");
 					$('#QA').show();
-					$('#type-model').removeClass('open');
 				}
 			});
 			$("#QAHide").click(function(){
@@ -70,7 +70,6 @@ $(function(){
 		}
 
 	});
-	
 
 	$('#btn-create').click(function(){
 		var login_url = $(this).data('login');
@@ -84,12 +83,27 @@ $(function(){
 			$('#type-model').removeClass('open');
 			$('#type-model').off('touchstart');
 		}else{
-			$('#QA').hide();
+			$(document).trigger("closeMenu");
 			$('#type-model').addClass('open');
+			console.log(111);
 		}
 	});
 	$('#hide-cate').click(function(){
 		$('#type-model').removeClass('open');
 	});
 
+	$(".btn-menu").click(function(){
+		if($("#Sort").is(":visible")){
+			$("#Sort").hide();
+		}else{
+			$(document).trigger("closeMenu");
+			$("#Sort").show();
+		}
+	});
+
+	$(document).on("closeMenu",function(){
+		$('#type-model').removeClass('open');
+		$("#Sort").hide();
+		$('#QA').hide();
+	});
 });
