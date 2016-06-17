@@ -166,6 +166,7 @@ $(function(){
 			module.destory = function(){
 				$("#editPannel_1 .magicWand").off("click");
 				$("#editPannel_1 .deleteSelection").off("click");
+				$("#editPannel_1 .magicWand").removeClass("active");
 				$.fn.magicWand.deactive();
 			};
 			return module;
