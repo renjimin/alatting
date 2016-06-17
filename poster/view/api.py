@@ -30,7 +30,8 @@ from alatting_website.serializer.edit_serializer import ImageSerializer, \
     MusicSerializer
 from alatting_website.serializer.edit_serializer import VideoSerializer
 from poster.models import SystemImage, SystemBackground, SystemMusic, \
-    ServiceBargain, Chat, ServiceComment
+    ServiceBargain, Chat, ServiceComment, CommonQA, CustomerService, \
+    VisitHistory
 from poster.serializer.permissions import IsOwnerOrReadOnly
 from utils.file import (
     save_file, read_template_file_content,
@@ -42,7 +43,8 @@ from poster.serializer.poster import (
     PosterPageSerializer, PosterPublishSerializer, SystemImageListSerializer,
     SystemBackgroundListSerializer,
     PosterSaveSerializer, SystemMusicListSerializer, ServiceBargainSerializer,
-    ChatSerializer, StatisticsDataSerializer, ServiceCommentSerializer)
+    ChatSerializer, StatisticsDataSerializer, ServiceCommentSerializer,
+    CommonQASerializer, CustomerServiceSerializer, VisitHistorySerializer)
 from poster.serializer.resource import (
     CategorySerializer, CategoryKeywordSerializer, TemplateSerializer,
     AddressSerializer
@@ -799,3 +801,42 @@ class ServiceCommentListView(ListCreateAPIView):
             poster=poster,
             creator=self.request.user
         )
+
+
+class QAListView(ListAPIView):
+    model = CommonQA
+    queryset = CommonQA.objects.filter(
+        data_status=CommonQA.DATA_STATUS_USABLE
+    )
+    serializer_class = CommonQASerializer
+
+
+class CustomerServiceListView(ListCreateAPIView):
+    model = CustomerService
+    queryset = CustomerService.objects.filter(
+        data_status=CommonQA.DATA_STATUS_USABLE
+    )
+    serializer_class = CustomerServiceSerializer
+
+    def get_queryset(self):
+        qs = super(CustomerServiceListView, self).get_queryset()
+        if not self.request.user.is_superuser:
+            qs = qs.filter(user=self.request.user)
+        return qs.order_by('-created_at')
+
+    def perform_create(self, serializer):
+        serializer.save(
+            user_id=self.request.user.id
+        )
+
+
+class VisitHistoryListView(ListAPIView):
+    model = VisitHistory
+    queryset = VisitHistory.objects.filter(
+        data_status=CommonQA.DATA_STATUS_USABLE
+    )
+    serializer_class = VisitHistorySerializer
+
+    def get_queryset(self):
+        qs = super(VisitHistoryListView, self).get_queryset()
+        return qs.filter(user=self.request.user).order_by('-created_at')[0:5]

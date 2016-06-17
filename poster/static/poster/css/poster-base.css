@@ -1701,6 +1701,7 @@ html {
 	-o-transform-origin: top left;
 	-ms-transform-origin: top left;
 	transform: scale(1)!important;
+	background-size: 100% 100%!important;
 }
 
 .yunye-template > .content {

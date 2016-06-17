@@ -2,7 +2,7 @@
 {% load static %}
 {% block base_header_css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'account/css/profile-base.css' %}"/>
+    <link rel="stylesheet" href="{% static 'account/css/uc-base.css' %}"/>
     <link rel="stylesheet" href="{% static 'account/css/consumer.css' %}"/>
 {% endblock %}
 
@@ -41,7 +41,12 @@
                     <img src="/static/account/img/poster_default.jpg" alt="img">
                 {% endif %}
             </div>
+            <div class="quote-consult" id="quote-consult">
+                <span class="ctrl-icon"><i class="fa fa-file-text-o"></i></span>
+                <span class="ctrl-name">我的资讯</span>
+            </div>
         </div>
+
     </div>
     <div class="body-main-title" id="body-main-title">
         <div class="title-star p-star p-star-4"></div>
@@ -49,28 +54,26 @@
         <input type="hidden" id="posterid" value="{{ poster.id }}">
     </div>
     <div class="body-li body-main" id="body-main">
-        <div class="main-menu">
-            <div class="main-menu-li main-menu-act" data-item="price">
-                <span class="main-menu-cont">报价</span>
+        <div class="two-menu">
+            <div class="two-menu-li two-menu-act" data-item="price">
+                <span class="glyphicon glyphicon-record"></span>
+                <span class="two-menu-cont">报价</span>
             </div>
-            <div class="main-menu-li" data-item="plist">
-                <span class="main-menu-cont">记录</span>
+            <div class="two-menu-li" data-item="plist">
+                <span class="glyphicon glyphicon-record"></span>
+                <span class="two-menu-cont">记录</span>
             </div>
         </div>
         <div class="mainli main-plist" id="main-plist"></div>
-        <div class="mainli main-price" id="main-price">
-            <div class="price-li price-quote" id="price-quote">
-                <div class="price-icon"><span>对方报价</span></div>
-                <div class="quote-value">
+        <div class="mainli trade-price" id="main-price">
+            <div class="trade-price-li trade-price-quote" id="price-quote">
+                <div class="trade-price-icon"><span>对方报价</span></div>
+                <div class="trade-price-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num">160</span>
                     <span class="value-unit">/小时</span>
                 </div>
-                <div class="quote-consult" id="quote-consult">
-                    <span class="ctrl-icon"><i class="fa fa-file-text-o"></i></span>
-                    <span class="ctrl-name">我的资讯</span>
-                </div>
-                <div class="price-btn">
+                <div class="trade-price-btn">
                     <div class="price-btn-li" id="accept-price">
                         <i class="fa fa-check"></i>
                         <span class="pbtn-name">接受</span>
@@ -85,14 +88,14 @@
                     </div>
                 </div>
             </div>
-            <div class="price-li price-refuse" id="price-refuse">
-                <div class="price-icon"><span>拒绝报价</span></div>
-                <div class="quote-value">
+            <div class="trade-price-li trade-price-refuse" id="price-refuse">
+                <div class="trade-price-icon"><span>拒绝报价</span></div>
+                <div class="trade-price-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num">0</span>
                     <span class="value-unit">/小时</span>
                 </div>
-                <div class="price-btn">
+                <div class="trade-price-btn">
                     <div class="bid-tips"></div>
                     <div class="price-btn-li bid-price">
                         <i class="fa fa-yen"></i>
@@ -100,31 +103,29 @@
                     </div>
                 </div>
             </div>
-            <div class="price-li price-accept" id="price-accept">
-                <div class="price-icon"><span>接受报价</span></div>
-                <div class="quote-value">
+            <div class="trade-price-li trade-price-accept" id="price-accept">
+                <div class="trade-price-icon"><span>接受报价</span></div>
+                <div class="trade-price-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num">160</span>
                     <span class="value-unit">/小时</span>
                 </div>
-                <div class="accept-consult">
-                    <span class="q-c-name">您已接受报价</span>
-                </div>
-                <div class="make-comt" id="make-comt">评价</div>
-                <div class="accept-tips">
+                <div class="trade-price-mess">您已接受报价</div>
+                <div class="trade-make-comt" id="trade-make-comt">评价</div>
+                <div class="trade-price-btn">
                     <i class="fa fa-clock-o"></i>
                     <span>周一晚上8点-下周开始</span>
                 </div>
             </div>
-            <div class="price-li price-bid" id="price-bid">
-                <div class="price-icon"><span>我的出价</span></div>
-                <div class="quote-value">
+            <div class="trade-price-li trade-price-bid" id="price-bid">
+                <div class="trade-price-icon"><span>我的出价</span></div>
+                <div class="trade-price-value">
                     <span class="value-icon"><i class="fa fa-cny"></i></span>
                     <span class="value-num"><input type="text" name="bPrice" id="bPrice"></span>
                     <span class="value-unit">/小时</span>
                 </div>
-                <div class="bid-consult">您还剩3次出价机会</div>
-                <div class="price-btn">
+                <div class="trade-price-mess">您还剩3次出价机会</div>
+                <div class="trade-price-btn">
                     <div class="price-btn-li" id="set-price">
                         <i class="fa fa-check"></i>
                         <span class="pbtn-name">送出</span>
@@ -135,18 +136,16 @@
                     </div>
                 </div>
             </div>
-
         </div>
-        <div class="main-message">
-            <div class="message-list" id="message-list">
-            </div>
-            <div class="mess-textarea">
+        <div class="mn-message">
+            <div class="mn-mess-list" id="message-list"></div>
+            <div class="mn-mess-textarea">
                 <textarea id="mess" cols="30" rows="5" placeholder="输入讯息"></textarea>
                 <input type="button" id="plyMess" value="发送">
             </div>
         </div>
     </div>
-    <div class="body-li body-comments" id="body-comments"></div>
+    <div class="body-li body-comments user-comments" id="body-comments"></div>
     <div class="body-li body-makecomt" id="body-makecomt">
         <div class="mcom-tips">请问您对此次服务满意吗？</div>
         <div class="mcom-star">
@@ -194,7 +193,7 @@
                 <i class="fa fa-file-text-o"></i>
                 <span>我的资讯</span>
             </div>
-            <div class="tips-info" id="tips-info">
+            <div class="tips-info survey-ans" id="tips-info">
             </div>
         </div>
     </div>
