@@ -8,6 +8,10 @@
 body,html {
 	height: 100%;
 }
+body{
+	max-width:600px;
+	margin:0 auto;
+}
 .i-containar,
 .type-model {
 	padding-top: 72px;
@@ -503,5 +507,5 @@ li.Ans {
 
 }
 @media (min-width: 600px)  and (max-width:769px){	
-	.home-header,.footer{max-width:768px;width:100%;left:0;margin-left:0;}
+	.home-header,.footer,body{max-width:768px;width:100%;left:0;margin-left:0;}
 }

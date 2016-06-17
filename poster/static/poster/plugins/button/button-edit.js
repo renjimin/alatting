@@ -143,7 +143,7 @@ var addButton = function(ele, options) {
 	}
 	s.addControlListen = function() {
 		var elebtn = $("#button-model").find('.element').eq(0);
-
+console.log(elebtn.html())
 		$('.button-href').off('input propertychange').on('input propertychange', function() {
 			opts.href = $(this).val();
 			elebtn.attr({ 'href': opts.href })
@@ -204,7 +204,7 @@ var addButton = function(ele, options) {
 			currentY: 0,
 			diff: 0
 		};
-		$('.button-opacity').on({
+		$('.button-opacity').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -224,7 +224,7 @@ var addButton = function(ele, options) {
 				opts.opacity = $(this).val();
 			}
 		});
-		$('.button-background-opacity').on({
+		$('.button-background-opacity').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -248,7 +248,7 @@ var addButton = function(ele, options) {
 				elebtn.attr('data-backgroundOpacity', $(this).val() / 100);
 			}
 		});
-		$('.button-boxShadow').on({
+		$('.button-boxShadow').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -269,7 +269,7 @@ var addButton = function(ele, options) {
 				opts.boxShadow = $(this).val();
 			}
 		});
-		$('.button-borderRadius').on({
+		$('.button-borderRadius').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
@@ -290,7 +290,7 @@ var addButton = function(ele, options) {
 				opts.borderRadius = $(this).val();
 			}
 		});
-		$('.button-rotate').on({
+		$('.button-rotate').off('touchstart touchmove touchend').on({
 			'touchstart': function(e) {
 				if (e.originalEvent) e = e.originalEvent;
 				var startX = s.touches.startX = e.type === 'touchstart' ? e.targetTouches[0].pageX : e.pageX;
