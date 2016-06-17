@@ -135,14 +135,14 @@ var scale = function(box, options) {
 			if (e.originalEvent) e = e.originalEvent;
 			$(e.currentTarget).removeClass('drag-active').css('transition', 'all .2s');
 			if (s.opt.tx < -s.opt.width/2) {
-				s.o.css({ 'left': '-6px' });
+				s.o.css({ 'left': -s.opt.width/2*remScale+'rem' });
 			} else if (s.opt.tx + s.opt.width/2 > $('.yunye-template').width() ) {
-				s.o.css({ 'left': $('.yunye-template').width() - s.opt.width/2  + '%' });
+				s.o.css({ 'left': ($('.yunye-template').width() - s.opt.width/2)*remScale  + 'rem' });
 			}
 			if (s.opt.ty < -s.opt.height/2) {
 				//s.o.css({ 'top': '-6px' });
 			} else if (s.opt.ty + s.opt.height/2 > $('.yunye-template').height()) {
-				s.o.css({ 'top': $('.yunye-template').height() - s.opt.height /2 + '%' });
+				s.o.css({ 'top': ($('.yunye-template').height() - s.opt.height /2)*remScale + 'rem' });
 			}
 			/* 展开操作面板 */
 			//$(document).trigger('clsdp');
@@ -184,7 +184,7 @@ var scale = function(box, options) {
 			var sy = touchEvents.startY - offsetY - s.opt.cy;
 			var angle = Math.atan2(oy, ox) / (2 * Math.PI) * 360 - Math.atan2(sy, sx) / (2 * Math.PI) * 360; /*鼠标相对于起始点的角度*/
 
-			var offsetAngle = angle + parseInt(s.opt.currentAngle);
+			var offsetAngle = angle + parseFloat(s.opt.currentAngle);
 			offsetAngle > 360 ? offsetAngle = offsetAngle - 360 : false;
 			offsetAngle < 0 ? offsetAngle = offsetAngle + 360 : false;
 			s.o.css({ 'transform': 'rotate(' + offsetAngle + 'deg)', '-webkit-transform': 'rotate(' + offsetAngle + 'deg)', '-moz-transform': 'rotate(' + offsetAngle + 'deg)', '-o-transform': 'rotate(' + offsetAngle + 'deg)', '-ms-transform': 'rotate(' + offsetAngle + 'deg)' });
@@ -223,7 +223,7 @@ var scale = function(box, options) {
 				sx = sy; /*以小单位为准*/
 			}
 			var tox = s.opt.width + sx; /* 计算宽度 */
-			var toy = s.opt.height * tox / parseInt(s.opt.width); /*计算高度，保持宽高比例不变*/
+			var toy = s.opt.height * tox / parseFloat(s.opt.width); /*计算高度，保持宽高比例不变*/
 
 			s.o.find('.element').css({ 'width': tox + 'rem', 'height': toy + 'rem' });
 		}

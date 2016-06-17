@@ -34,6 +34,7 @@ body{
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: 100% 100%;
+	vertical-align: top;
 }
 
 .ico-pages {
@@ -1725,7 +1726,9 @@ body{
 	-o-transform-origin: top left;
 	-ms-transform-origin: top left;
 	transform: scale(1)!important;
+	-webkit-transform: scale(1)!important;
 	background-size: 100% 100%!important;
+	overflow-x: hidden;
 }
 
 .yunye-template > .content {

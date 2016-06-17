@@ -61,13 +61,28 @@ $(function(){
 							poster_id: yunyeEditorGlobal.posterId,
 							image_data:canvas.toDataURL("image/png").split(',')[1]
 						};
-				console.log(data);
+				
 				$.ajax({
 					type: 'POST',
 					url: '/api/v1/poster/upload/b64image',
 					data: data,
 					dataType: 'json',
 					success: function (msg) {
+						var image = $('.header-logo img')[0];
+						image.style.width = canvas.width*remScale + 'rem';
+						image.style.height = canvas.height*remScale + 'rem';
+						if(canvas.width / canvas.height > $('.header-logo').width()/$('.header-logo').height() && canvas.width > $('.header-logo').width()){
+							image.style.width = $('.header-logo').width()*remScale + 'rem';
+							image.style.height = 'auto';
+							image.style.top = ($('.header-logo').height()/2 - ($('.header-logo').width()*canvas.height/canvas.width)/2)*remScale + 'rem';
+						}else if(canvas.width / canvas.height < $('.header-logo').width()/$('.header-logo').height() && canvas.height > $('.header-logo').height()){
+							image.style.height = $('.header-logo').height()*remScale + 'rem';
+							image.style.width = 'auto';
+							image.style.top = "0";
+						}else{
+							image.style.top = ($('.header-logo').height()/2 - canvas.height/2)*remScale + 'rem';
+						}
+
 						$('.header-logo h2').hide();
 						$('.header-logo img').attr("src",msg.file).show();
 						api.destory();
