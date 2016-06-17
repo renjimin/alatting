@@ -1772,6 +1772,10 @@ body{
 	vertical-align: middle;
 	text-align: center;
 	padding: 10px;
+
+}
+.contact-info.location{
+	height: 14rem;
 }
 
 .contact-info .icon {

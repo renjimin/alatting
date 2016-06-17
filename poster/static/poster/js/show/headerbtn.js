@@ -103,7 +103,6 @@ $(function(){
 	});
 });
 function togleMap(){
-	window.addressCorrect = true;
 	var mapDiv = $("#allmap").parents("div").eq(0).parents("div").eq(0),
 		mapState = (mapDiv.css("visibility") == "visible")?true:false;
 	if(mapState){
