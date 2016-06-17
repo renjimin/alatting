@@ -1,4 +1,21 @@
 $(function(){
+	if(window.global){
+		switch(global.sort){
+			case "new":
+				$("#sortNew").addClass("active");
+				break;
+			case "hot":
+				$("#sortHot").addClass("active");
+				break;
+			case "apas":
+				$("#sortApas").addClass("active");
+				break;
+			case "recmd":
+				$("#sortRecmd").addClass("active");
+				break;
+		}
+	}
+	
 	$.ajax({
 		type:'GET',
 		url:'/api/v1/poster/qa',
@@ -21,8 +38,12 @@ $(function(){
 				if($('#QA').is(":visible")){
 					$('#QA').hide();
 				}else{
+					$(document).trigger("closeMenu");
 					$('#QA').show();
 				}
+			});
+			$("#QAHide").click(function(){
+				$('#QA').hide();
 			});
 			$(".Qes").click(function(e){
 				var ans = $(e.currentTarget).siblings(".Ans");
@@ -50,34 +71,61 @@ $(function(){
 
 	});
 
+	$('#btn-create').click(function(){
+		var login_url = $(this).data('login');
+		if(login_url !== ""){
+			yyAlert("您需要登录才能创建海报", function () {
+				window.location.href = login_url;
+			});
+			return false;
+		}
+		if($('#type-model').hasClass('open')){
+			$('#type-model').removeClass('open');
+			$('#type-model').off('touchstart');
+		}else{
+			$(document).trigger("closeMenu");
+			$('#type-model').addClass('open');
+		}
+	});
 	$('#hide-cate').click(function(){
 		$('#type-model').removeClass('open');
 	});
 
-    $('#btn-create').click(function(){
-        var login_url = $(this).data('login');
-        if(login_url !== ""){
-            yyAlert("您需要登录才能创建海报", function () {
-                window.location.href = login_url;
-            });
-            return false;
-        }
-        if($('#type-model').hasClass('open')){
-            $('#type-model').removeClass('open');
-            $('#type-model').off('touchstart');
-        }else{
-            //$('#type-model').css('top',$('body').scrollTop()+'px');
-            $('#type-model').addClass('open');
-            var top,startY;
-        }
-    });
+	$(".btn-menu").click(function(){
+		if($("#Sort").is(":visible")){
+			$("#Sort").hide();
+		}else{
+			$(document).trigger("closeMenu");
+			$("#Sort").show();
+		}
+	});
+	$("#SortHide").click(function(){
+		$("#Sort").hide();
+	});
 
-    $('#hide-cate').click(function(){
-        $('#type-model').removeClass('open');
-    });
+	$("#btn-help").click(function(){
+		if($("#Help").is(":visible")){
+			$("#Help").hide();
+		}else{
+			$(document).trigger("closeMenu");
+			$("#Help").show();
+		}
+	});
+	$("#Help button").click(function(){
+		$.ajax({
+			type:'POST',
+			url:'/api/v1/poster/customer_service',
+			data:{content:$("#Help textarea").val()},
+			success:function(msg){
+				console.log(msg);
+			}
+		});
+	});
+
+	$(document).on("closeMenu",function(){
+		$('#type-model').removeClass('open');
+		$("#Sort").hide();
+		$('#QA').hide();
+		$('#Help').hide();
+	});
 });
-/*
-var cate = document.querySelector('#catelist').childNodes;
-cate.onclick = function(event){
-    alert(event.currentTarget.children.length);
-}*/
