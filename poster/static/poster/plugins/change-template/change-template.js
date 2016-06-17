@@ -367,8 +367,13 @@
             $.getJSON(url, function (json) {
                 $.fn.yyTools.mask();
                 if(json.length == 0){
-                    yyAlert("没有可以切换的页面，您可以新建或复制页面!");
+                    yyAlert("没有可以切换的页面!");
                     return
+                }
+                self.cancel();
+                self.confirmSelectPublishPage();
+                if(self.settings.initAfter && $.isFunction(self.settings.initAfter)){
+                    self.settings.initAfter();
                 }
 
                 self.resetTitle('选择页面');
@@ -391,11 +396,6 @@
             self.$container = $container;
             self.$container.append($(self.layoutTmplId).tmpl());
             self.getPublishPageList($container);
-            self.cancel();
-            self.confirmSelectPublishPage();
-            if(self.settings.initAfter && $.isFunction(self.settings.initAfter)){
-                self.settings.initAfter();
-            }
         }
     });
 
