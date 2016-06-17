@@ -17,6 +17,7 @@
     width: 33%;
     height: 28%;
     background: rgba(24,17,0,0.3);
+    z-index: 9;
 
 }
 
@@ -39,4 +40,5 @@
     width: 33%;
     height: 28%;
     background: rgba(24,17,0,0.3);
+    z-index: 9;
 }
