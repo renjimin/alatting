@@ -118,6 +118,7 @@ input[type="range"]::-webkit-slider-thumb {
 .button-edit-container .btn {
 	white-space: normal;
 	word-break: break-all;
+	padding:.15rem .3rem;
 }
 
 .button-tools-container {

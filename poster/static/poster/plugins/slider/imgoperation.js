@@ -76,7 +76,7 @@
 					touchEvents.startX = touch.pageX;
 					touchEvents.startY = touch.pageY;
 					$(e.currentTarget).addClass('drag-active');
-					console.log(imgl);
+
 
 					s.opt.width = $(e.currentTarget).width();
 					s.opt.height = $(e.currentTarget).height();

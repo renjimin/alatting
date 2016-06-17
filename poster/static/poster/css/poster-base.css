@@ -1599,6 +1599,7 @@ body{
 	min-height: 20px;
 	margin: auto;
 	word-break: break-all;
+	width:100%!important;
 }
 
 .header-bar-title {
@@ -1754,6 +1755,7 @@ body{
 .cnd-element .btn {
 	white-space: normal;
 	word-break: break-all;
+	padding: .15rem .3rem;
 }
 
 .contact-info {
