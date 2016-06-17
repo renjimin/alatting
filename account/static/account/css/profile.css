@@ -542,13 +542,12 @@
 }
 .shopping-div{
     border-top: 1px solid  rgb(205,205,205);
-    height: 50px
+    height: 45px
 }
 .shopping-contain .shopping-server,.shopping-serverdiv{
     float: left;
     width: 40%;
-    padding: 0 20px;
-    line-height: 50px;
+    padding: 10px 20px;
 }
 .shopping-contain .shopping-time,.shopping-timediv{
     float: left;
@@ -561,6 +560,9 @@
     width: 30%;
     text-align: center;
     padding: 10px 0;
+}
+.shopping-title .shopping-server,.shopping-time,.shopping-price{
+    line-height: 50px;
 }
 .body-shopping .shopping-footer{
     position:absolute;

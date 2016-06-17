@@ -154,16 +154,27 @@ $(function(){
     })
     /**购物车*/
     $('#user-shopcart').on('click',function(event){
+        event.stopPropagation();
         var shopping = $('.body-shopping');
         var view = shopping.css('display');
         if(view == 'block'){
+            $('.body-container').attr('style','');
             shopping.css('display','none');
         }else{
+            $('.body-container').css({'overflow':'hidden','height':wh+'px'});
             shopping.css('display','block');
         }
     })
     $('.body-shopping .fa-close').click(function(){
         $('.body-shopping').css('display','none');
+    })
+    $('.statement-footer a').click(function(event){
+        event.stopPropagation();
+        if($('.shopping-cont').children().length>0){
+            yyConfirm('确认购物车');
+        }else{
+            yyAlert('购物车为空');
+        }
     })
     /* 显示当前海报的操作控件 */
     $('.body-main').on('click','.p-cont',function(event){
