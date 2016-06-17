@@ -240,10 +240,6 @@ class LoginView(FormView):
         return self.success_url
 
 
-class PosterIndexView(AccountPosterBaseView):
-    template_name = 'account/mobile/poster.html'
-
-
 class PosterServerIndexView(AccountPosterBaseView):
     template_name = 'account/mobile/server.html'
 

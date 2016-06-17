@@ -15,9 +15,11 @@ from account.serializers import AccountProfileSerializer, \
     AccountFriendsListSerializer
 from alatting_website.model.poster import Poster
 from alatting_website.model.resource import Image, Video, Music
+from alatting_website.model.statistics import PosterFavorites
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
     VideoSerializer, MusicSerializer
-from poster.serializer.poster import PosterSerializer
+from poster.serializer.poster import PosterSerializer, \
+    PosterFavoritesSerializer
 from survey.models import RunInfoHistory
 from utils.message import get_message
 from utils.userinput import what
@@ -244,3 +246,16 @@ class AudioDetailView(RetrieveUpdateDestroyAPIView):
             creator=self.request.user,
             id=self.kwargs.get('pk')
         )
+
+
+class PosterFavoriteListView(ListAPIView):
+    model = PosterFavorites
+    queryset = PosterFavorites.objects.all()
+    serializer_class = PosterFavoritesSerializer
+
+    def get_queryset(self):
+        qs = super(PosterFavoriteListView, self).get_queryset()
+        qs = qs.filter(
+            creator=self.request.user
+        ).order_by('-poster__created_at')
+        return qs

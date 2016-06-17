@@ -4,7 +4,7 @@ from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from account.views.mobile import (
     LoginView, RegisterView, ResetPasswordView, ProfileView,
-    PosterServerIndexView, PosterConsumerIndexView, PosterIndexView,
+    PosterServerIndexView, PosterConsumerIndexView,
     PosterStatisticsIndexView, mobile_logout)
 
 
@@ -26,10 +26,6 @@ urlpatterns = [
 
 # 海报服务
 urlpatterns += [
-    url(r'^posters/(?P<poster_pk>[\d]+).html$',
-        login_required(PosterIndexView.as_view()),
-        name='posters_index'),
-
     url(r'^posters/(?P<poster_pk>[\d]+)/server.html$',
         login_required(PosterServerIndexView.as_view()),
         name='posters_server'),

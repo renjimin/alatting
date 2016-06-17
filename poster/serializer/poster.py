@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 from rest_framework import serializers
 from account.serializers import AccountProfileSimpleSerializer
 from alatting_website.model.poster import Poster, PosterPage
+from alatting_website.model.statistics import PosterFavorites
 from alatting_website.serializer.edit_serializer import ImageSerializer
 from alatting_website.serializer.statistics_serializer import \
     PosterStatisticsSerializer, HistoryStatisticsSerializer
@@ -251,4 +252,11 @@ class VisitHistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = VisitHistory
         read_only_fields = ['created_at', 'updated_at']
+
+
+class PosterFavoritesSerializer(serializers.ModelSerializer):
+    poster = PosterSerializer()
+
+    class Meta:
+        model = PosterFavorites
 
