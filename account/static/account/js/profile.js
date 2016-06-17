@@ -57,14 +57,18 @@ $(function(){
         url: '/api/v1/account/posters/server',
         success:function(data){
             showLoadTips($('#main-provide'),'success');
-            for(var i=0;i<data.length;i++){
-                var pd = {
-                    posterid:data[i].id,
-                    snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
-                    postername:data[i]['unique_name'],
-                    mobileEditUrl:data[i]["mobile_edit_url"]
-                };
-                $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
+            if(!$.isEmptyObject(data)){
+                for(var i=0;i<data.length;i++){
+                    var pd = {
+                        posterid:data[i].id,
+                        snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
+                        postername:data[i]['unique_name'],
+                        mobileEditUrl:data[i]["mobile_edit_url"]
+                    };
+                    $.tmpl('serverProvideTmpl',pd).appendTo('#main-provide');
+                }
+            }else{
+                $('#main-provide').append('<span class="error-msg">当前没有任何信息</span>');
             }
         },
         error: function(xhr, status, statusText){
@@ -78,14 +82,18 @@ $(function(){
         url: '/api/v1/account/posters/consumer',
         success:function(data){
             showLoadTips($('#main-need'),'success');
-            for(var i=0;i<data.length;i++){
-                var pd = {
-                    posterid:data[i].id,
-                    creatorid:data[i].creator,
-                    snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
-                    postername:data[i]['unique_name']
-                };
-                $.tmpl('serverNeedTmpl',pd).appendTo('#main-need');
+            if(!$.isEmptyObject(data)){
+                for(var i=0;i<data.length;i++){
+                    var pd = {
+                        posterid:data[i].id,
+                        creatorid:data[i].creator,
+                        snapshot:(data[i].snapshot)?data[i].snapshot:defImg,
+                        postername:data[i]['unique_name']
+                    };
+                    $.tmpl('serverNeedTmpl',pd).appendTo('#main-need');
+                }
+            }else{
+               $('#main-need').append('<span class="error-msg">当前没有任何信息</span>');
             }
         },
         error: function(xhr, status, statusText){

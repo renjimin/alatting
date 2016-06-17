@@ -128,6 +128,7 @@ $(function(){
                     $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
                     $('.trade-price-li').hide();
                     $('#price-accept').show();
+                    $('#main-plist').find('li').last().addClass('plist-over');
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -135,7 +136,7 @@ $(function(){
             });
         });
     });
-    $('#make-comt').on('click',function(){
+    $('#trade-make-comt').on('click',function(){
         $('.body-li').hide();
         $('#body-makecomt').show();
     });
@@ -210,22 +211,6 @@ $(function(){
             $('#main-plist ul').append(h);
         }
     }
-    function nowTime(){
-        var d = new Date();
-        var addZero = function(num){
-            if(num<10){
-                num = '0'+num;
-            }
-            return num;
-        }
-        var year = d.getFullYear();
-        var month = addZero(d.getMonth()+1);
-        var day = addZero(d.getDate());
-        var hours = addZero(d.getHours());
-        var minute = addZero(d.getMinutes());
-        var seconds = addZero(d.getSeconds());
-        return year+'-'+month+'-'+day+' '+hours+':'+minute+':'+seconds;
-    }
 
     /* 取消出价，回到报价面板 */
     $('#cancel-price').on('click',function(){
@@ -261,13 +246,28 @@ $(function(){
             yyAlert('请填写您要告知给对方的信息!');
             return;
         }
-        console.log('cont:'+cont);
         $.ajax({
             type: 'POST',
             data:{content:cont},
             url: '/api/v1/poster/'+id+'/chats',
             success:function(){
-                ths.removeProp('disabled');
+                yyAlert('消息发送成功!',function(){
+                    $('#mess').val('');
+                    ths.removeProp('disabled');
+                });
+                var h= '<li class="mn-mess-li">';
+                    h+= '   <div class="mn-mess-image"><img src="'+userInfo.hdicon+'" alt="headicon"></div>';
+                    h+= '   <div class="mn-mess-info">';
+                    h+= '       <div class="mess-info-title"><span class="info-title-name">'+userInfo.name+'</span><span class="info-title-time">'+nowTime()+'</span></div>';
+                    h+= '       <div class="mess-info-cont">'+cont+'</div>';
+                    h+= '   </div>';
+                    h+= '</li>';
+                if($('#message-list').children().length==0){
+                    h = '<ul>'+h+'</ul>';
+                    $('#message-list').append(h);
+                }else{
+                    $('#message-list ul').append(h);
+                }
             },
             error: function(xhr, status, statusText){
                 yyAlert('网络错误,请稍候再试!');
@@ -286,6 +286,7 @@ $(function(){
     });
     /* 发送评论 */
     $('#submit-comt').on('click',function(){
+        var ths = $(this);
         var star = $('#star-comt').val();
         if(star == ''){
             yyAlert('请您给本次服务评分!');
@@ -298,12 +299,20 @@ $(function(){
             yyAlert('请填写您的评价内容!');
             return;
         }
+        ths.hide();
         $.ajax({
             type: 'POST',
             data:{content:cont,rating:star},
             url: '/api/v1/poster/'+id+'/servicecomments',
             success:function(){
-                yyAlert('感谢您的评价，欢迎再次预约服务!');
+                yyAlert('感谢您的评价，欢迎再次预约服务!',function(){
+                    ths.show();
+                    $('#star-comt').val('');
+                    $('#serve-comt').val('');
+                    $('#body-makecomt li').css('color','#d3d3d3');
+                    $('#body-comments').empty();
+                    $('#body-main-title').trigger('click');
+                });
             },
             error: function(xhr, status, statusText){
                 yyAlert('网络错误,请稍候再试!');
@@ -452,7 +461,7 @@ $(function(){
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
-                        var img = (data[i]["sender"]["person"])?head_default:data[i]["sender"]["person"]["avatar"];
+                        var img = (data[i]["sender"]["person"])?data[i]["sender"]["person"]["avatar"]:userInfo.defHdIcon;
                         var username = getUserName(data[i]["sender"]);
                         h+= '<li class="mn-mess-li">';
                         h+= '   <div class="mn-mess-image"><img src="'+img+'" alt="headicon"></div>';

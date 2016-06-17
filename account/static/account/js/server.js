@@ -143,6 +143,7 @@ $(function(){
                     $('#price-accept').find('.trade-price-mess').html('您接受对方的报价');
                     $('.trade-price-li').hide();
                     $('#price-accept').show();
+                    $('#main-plist').find('li').last().addClass('plist-over');
                 },
                 error: function(xhr, status, statusText){
                     yyAlert('网络错误,请稍候再试!');
@@ -238,13 +239,28 @@ $(function(){
             yyAlert('请填写您要告知给对方的信息!');
             return;
         }
-        console.log('cont:'+cont);
         $.ajax({
             type: 'POST',
             data:{content:cont,"receiver_id":consumer_id,},
             url: '/api/v1/poster/'+id+'/chats',
             success:function(){
-                ths.removeProp('disabled');
+                yyAlert('消息发送成功!',function(){
+                    $('#mess').val('');
+                    ths.removeProp('disabled');
+                });
+                var h= '<li class="mn-mess-li">';
+                    h+= '   <div class="mn-mess-image"><img src="'+userInfo.hdicon+'" alt="headicon"></div>';
+                    h+= '   <div class="mn-mess-info">';
+                    h+= '       <div class="mess-info-title"><span class="info-title-name">'+userInfo.name+'</span><span class="info-title-time">'+nowTime()+'</span></div>';
+                    h+= '       <div class="mess-info-cont">'+cont+'</div>';
+                    h+= '   </div>';
+                    h+= '</li>';
+                if($('#message-list').children().length==0){
+                    h = '<ul>'+h+'</ul>';
+                    $('#message-list').append(h);
+                }else{
+                    $('#message-list ul').append(h);
+                }
             },
             error: function(xhr, status, statusText){
                 yyAlert('网络错误,请稍候再试!');
@@ -343,7 +359,7 @@ $(function(){
                 if(!$.isEmptyObject(data)){
                     var h = '<ul>';
                     for(var i=0;i<data.length;i++){
-                        var img = (data[i]["sender"]["person"])?userInfo.defHdIcon:data[i]["sender"]["person"]["avatar"];
+                        var img = (data[i]["sender"]["person"])?data[i]["sender"]["person"]["avatar"]:userInfo.defHdIcon;
                         var username = getUserName(data[i]["sender"]);
                         h+= '<li class="mn-mess-li">';
                         h+= '   <div class="mn-mess-image"><img src="'+img+'" alt="headicon"></div>';

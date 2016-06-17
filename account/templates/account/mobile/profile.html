@@ -9,6 +9,7 @@
 {% block base_header_js %}
     {{ block.super }}
     <script src="{% static 'libs/common/jquery.tmpl.min.js' %}"></script>
+    <script src="{% static 'account/js/uc-base.js' %}"></script>
     <script src="{% static 'account/js/profile.js' %}"></script>
 {% endblock %}
 
@@ -133,7 +134,7 @@
                             </div>
                             <div class="info-cont-name">
                                 <span class="cont-name">${postername}</span>
-                                <span class="cont-star p-star p-star-10"></span>
+                                <span class="cont-star p-star p-star-2"></span>
                             </div>
                         </div>
                     </div>
@@ -176,7 +177,7 @@
                             </div>
                             <div class="info-cont-name">
                                 <span class="cont-name p-name">${postername}</span>
-                                <span class="cont-star p-star p-star-8"></span>
+                                <span class="cont-star p-star p-star-2"></span>
                             </div>
                         </div>
                     </div>
