@@ -1,196 +1,154 @@
 <div class="type-model button-model" id="button-model">
-    <div class="model-header">
-        <a href="javascript:void(0);" class="btn-back" onclick="colseButtonPannel()"><i class="glyphicon glyphicon-menu-left"></i></a>
-        <a href="javascript:void(0);" class="btn-right pull-right"
-           id="buttonConfirm">确定</a>
-    </div>
-    <div class="type-model-inner">
-        <div class="button-edit-container">
-            <div class="btn-container">
-                <a class="btn btn-default">test</a>
-            </div>
-        </div>
-        <div class="type-model-containar button-tools-container">
-            <div class="button-edit">
-
-                <div class="button-edit-tools">
-                    <div class="form-horizontal" id="button-basic">
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">功能</label>
-
-                            <div class="col-xs-10">
-                                <select class="form-control button-action" disabled="disabled">
-                                    <option value="0">普通按钮</option>
-                                    <option value="1">了解详情</option>
-                                    <option value="2">立即预约</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">链接</label>
-
-                            <div class="col-xs-10">
-                                <input type="text"
-                                       class="form-control button-href"
-                                       placeholder="请输入链接">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">文字</label>
-
-                            <div class="col-xs-10">
-                                <input type="text"
-                                       class="form-control button-text"
-                                       placeholder="请输入文字内容">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">颜色</label>
-
-                            <div class="col-xs-5">
-                                <input class="form-color button-color jscolor"
-                                       readonly="readonly"/>
-                            </div>
-                            <label class="col-xs-2 control-label">大小</label>
-
-                            <div class="col-xs-3">
-                                <select class="form-control button-fontSize"></select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">背景</label>
-
-                            <div class="col-xs-4">
-                                <input class="form-background button-background jscolor"
-                                       readonly="readonly"/>
-                            </div>
-                            <label class="col-xs-2 control-label">字体</label>
-
-                            <div class="col-xs-4">
-                                <select class="form-control button-fontFamily">
-                                    <option value="Microsoft YaHei">微软雅黑
-                                    </option>
-                                    <option value="宋体">宋体</option>
-                                    <option value="Arial">Arial</option>
-                                    <option value="Arial Black">Arial Black</option>
-                                    <option value="Arial Narrow">Arial Narrow</option>
-                                    <option value="Verdana">Verdana</option>
-                                    <option value="Georgia">Georgia</option>
-                                    <option value="Times New Roman">Times New Roman</option>
-                                    <option value="Impact">Impact</option>
-                                    <option value="Comic Sans MS">Comic Sans MS</option>
-                                    <option value="Tahoma">Tahoma</option>
-                                    <option value="Garamond">Garamond</option>
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-horizontal" id="button-border"
-                         style="display: none;">
-
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">透明度</label>
-
-                            <div class="col-xs-7">
-                                <input type="range"
-                                       class="range button-opacity"
-                                       name="opacity" min="0" max="100"
-                                       value="100">
-                            </div>
-                            <div class="col-xs-3">
-                                <input type="text"
-                                       class="form-control button-opacity"
-                                       data-val="100" value="100"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">背景</label>
-
-                            <div class="col-xs-7">
-                                <input type="range"
-                                       class="range button-background-opacity"
-                                       name="opacity" min="0" max="100"
-                                       value="100">
-                            </div>
-                            <div class="col-xs-3">
-                                <input type="text"
-                                       class="form-control button-background-opacity"
-                                       data-val="100" value="100"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">阴影</label>
-
-                            <div class="col-xs-7">
-                                <input type="range"
-                                       class="range button-boxShadow"
-                                       name="volume" min="0" max="100"
-                                       value="16">
-                            </div>
-                            <div class="col-xs-3">
-                                <input type="text"
-                                       class="form-control button-boxShadow"
-                                       data-val="16" value="16px"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">弧度</label>
-
-                            <div class="col-xs-7">
-                                <input type="range"
-                                       class="range button-borderRadius"
-                                       name="volume" min="0" max="100"
-                                       value="3">
-                            </div>
-                            <div class="col-xs-3">
-                                <input type="text"
-                                       class="form-control button-borderRadius"
-                                       data-val="30" value="30px"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">旋转</label>
-
-                            <div class="col-xs-7">
-                                <input type="range" class="range button-rotate"
-                                       name="volume" min="0" max="360"
-                                       value="0">
-                            </div>
-                            <div class="col-xs-3">
-                                <input type="text"
-                                       class="form-control button-rotate"
-                                       data-val="0" value="0"/>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-xs-2 control-label">边框</label>
-
-                            <div class="col-xs-4">
-                                <input class="form-color button-borderColor  jscolor" readonly="readonly" />
-                            </div>
-                            <div class="col-xs-3">
-                                <select class="form-control button-borderStyle">
-                                    <option value="none">无边框</option>
-                                    <option value="solid">solid</option>
-                                    <option value="dotted">dotted</option>
-                                    <option value="dashed">dashed</option>
-                                    <option value="double">double</option>
-                                    <option value="groove">groove</option>
-                                    <option value="ridge">ridge</option>
-                                    <option value="inset">inset</option>
-                                    <option value="outset">outset</option>
-                                </select>
-                            </div>
-                            <div class="col-xs-3">
-                                <select class="form-control button-borderWidth"></select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="type-model-click"
-         onclick="$(this).parent().removeClass('open')"></div>
+	<div class="model-header">
+		<a href="javascript:void(0);" class="btn-back" onclick="colseButtonPannel()"><i class="glyphicon glyphicon-menu-left"></i></a>
+		<a href="javascript:void(0);" class="btn-right pull-right" id="buttonConfirm">确定</a>
+	</div>
+	<div class="type-model-inner">
+		<div class="button-edit-container">
+			<div class="btn-container">
+				<a class="btn btn-default">test</a>
+			</div>
+		</div>
+		<div class="type-model-containar button-tools-container">
+			<div class="button-edit">
+				<div class="button-edit-tools">
+					<div class="form-horizontal" id="button-basic">
+						<div class="form-group">
+							<label class="col-xs-2 control-label">功能</label>
+							<div class="col-xs-10">
+								<select class="form-control button-action" disabled="disabled">
+									<option value="0">普通按钮</option>
+									<option value="1">了解详情</option>
+									<option value="2">立即预约</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">链接</label>
+							<div class="col-xs-10">
+								<input type="text" class="form-control button-href" placeholder="请输入链接">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">文字</label>
+							<div class="col-xs-10">
+								<input type="text" class="form-control button-text" placeholder="请输入文字内容">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">颜色</label>
+							<div class="col-xs-5">
+								<input class="form-color button-color jscolor" readonly="readonly" />
+							</div>
+							<label class="col-xs-2 control-label">大小</label>
+							<div class="col-xs-3">
+								<select class="form-control button-fontSize">
+									<option value="0.4">超小</option>
+									<option value="0.5">特小</option>
+									<option value="0.6">小号</option>
+									<option value="0.7">普通</option>
+									<option value="0.8">大号</option>
+									<option value="0.9">特大</option>
+									<option value="1">超大</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">背景</label>
+							<div class="col-xs-4">
+								<input class="form-background button-background jscolor" readonly="readonly" />
+							</div>
+							<label class="col-xs-2 control-label">字体</label>
+							<div class="col-xs-4">
+								<select class="form-control button-fontFamily">
+									<option value="Microsoft YaHei">微软雅黑
+									</option>
+									<option value="宋体">宋体</option>
+									<option value="Arial">Arial</option>
+									<option value="Arial Black">Arial Black</option>
+									<option value="Arial Narrow">Arial Narrow</option>
+									<option value="Verdana">Verdana</option>
+									<option value="Georgia">Georgia</option>
+									<option value="Times New Roman">Times New Roman</option>
+									<option value="Impact">Impact</option>
+									<option value="Comic Sans MS">Comic Sans MS</option>
+									<option value="Tahoma">Tahoma</option>
+									<option value="Garamond">Garamond</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="form-horizontal" id="button-border" style="display: none;">
+						<div class="form-group">
+							<label class="col-xs-2 control-label">透明度</label>
+							<div class="col-xs-7">
+								<input type="range" class="range button-opacity" name="opacity" min="0" max="100" value="100">
+							</div>
+							<div class="col-xs-3">
+								<input type="text" class="form-control button-opacity" data-val="100" value="100" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">背景</label>
+							<div class="col-xs-7">
+								<input type="range" class="range button-background-opacity" name="opacity" min="0" max="100" value="100">
+							</div>
+							<div class="col-xs-3">
+								<input type="text" class="form-control button-background-opacity" data-val="100" value="100" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">阴影</label>
+							<div class="col-xs-7">
+								<input type="range" class="range button-boxShadow" name="volume" min="0" max="100" value="16">
+							</div>
+							<div class="col-xs-3">
+								<input type="text" class="form-control button-boxShadow" data-val="16" value="16px" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">弧度</label>
+							<div class="col-xs-7">
+								<input type="range" class="range button-borderRadius" name="volume" min="0" max="100" value="3">
+							</div>
+							<div class="col-xs-3">
+								<input type="text" class="form-control button-borderRadius" data-val="30" value="30px" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">旋转</label>
+							<div class="col-xs-7">
+								<input type="range" class="range button-rotate" name="volume" min="0" max="360" value="0">
+							</div>
+							<div class="col-xs-3">
+								<input type="text" class="form-control button-rotate" data-val="0" value="0" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-xs-2 control-label">边框</label>
+							<div class="col-xs-4">
+								<input class="form-color button-borderColor  jscolor" readonly="readonly" />
+							</div>
+							<div class="col-xs-3">
+								<select class="form-control button-borderStyle">
+									<option value="none">无边框</option>
+									<option value="solid">实线</option>
+									<option value="dashed">虚线</option>
+									<option value="double">双线</option>
+									<option value="groove">3D 凹槽</option>
+									<option value="ridge">3D 垄状</option>
+									<option value="inset">3D inset</option>
+									<option value="outset">3D outset</option>
+								</select>
+							</div>
+							<div class="col-xs-3">
+								<select class="form-control button-borderWidth"></select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="type-model-click" onclick="$(this).parent().removeClass('open')"></div>
 </div>

@@ -6,8 +6,8 @@
 				ph = s.parent().height(),
 				sw = s.width(),
 				sh = s.height(),
-				sl = parseInt(s.css('left')),
-				st = parseInt(s.css('top')),
+				sl = parseFloat(s.css('left')),
+				st = parseFloat(s.css('top')),
 				imgW,
 				imgH;
 
@@ -18,10 +18,13 @@
 				imgW = sw * ph / sh;
 				imgH = ph;
 			}
-//console.log(pw+'    '+ph+'    '+sw+'    '+sh+'    '+sl)
+			//console.log(parseFloat(s.css('left')))
+			//console.log(pw+'    '+ph+'    '+sw+'    '+sh+'    '+sl)
 			s.css({
-				'left': sl,
-				'top': st
+				'width':imgW*remScale+'rem',
+				'height':imgH*remScale+'rem',
+				//'left': sl*remScale+'rem',
+				//'top': st*remScale+'rem'
 			});
 			var touchEvents = {
 				'startX': 0,
@@ -52,10 +55,10 @@
 						moveAble = true;
 					});
 
-					s.opt.left = parseInt($(e.currentTarget).css('left'));
-					s.opt.top = parseInt($(e.currentTarget).css('top'));
-					s.opt.width = $(e.currentTarget).width();
-					s.opt.height = $(e.currentTarget).height();
+					s.opt.left = parseFloat($(e.currentTarget).css('left'))*remScale;
+					s.opt.top = parseFloat($(e.currentTarget).css('top'))*remScale;
+					s.opt.width = $(e.currentTarget).width()*remScale;
+					s.opt.height = $(e.currentTarget).height()*remScale;
 
 					var touch = e.touches[0];
 					touchEvents.startX = touch.pageX;
@@ -77,30 +80,29 @@
 					touchEvents.currentX = touch.pageX;
 					touchEvents.currentY = touch.pageY;
 
-					var ex = touchEvents.currentX - touchEvents.startX;
-					var ey = touchEvents.currentY - touchEvents.startY;
+					var ex = (touchEvents.currentX - touchEvents.startX)*remScale;
+					var ey = (touchEvents.currentY - touchEvents.startY)*remScale;
 
 					var ox = s.opt.left + ex;
 					var oy = s.opt.top + ey;
-
 					if (e.touches.length <= 1) { /*单手指*/
 						//$(e.currentTarget).css({'transform': 'translate('+ox+'px,'+oy+'px)'});
 						$(e.currentTarget).css({
-							'left': ox + 'px',
-							'top': oy + 'px'
+							'left': ox + 'rem',
+							'top': oy + 'rem'
 						});
-					} else {
+					} else {return;
 						var touch1 = e.touches[1];
 						endDiagonal.x = Math.abs(touch.pageX - touch1.pageX);
 						endDiagonal.y = Math.abs(touch.pageY - touch1.pageY);
 
-						var ew = s.opt.width + parseInt(endDiagonal.x) - parseInt(startDiagonal.x),
+						var ew = s.opt.width + parseFloat(endDiagonal.x) - parseFloat(startDiagonal.x),
 							eh = ew * s.opt.height / s.opt.width,
 							el = s.opt.left - ew / 2,
 							et = s.opt.top - eh / 2;
-						$(e.currentTarget).attr({
-							'width': ew,
-							'height': eh
+						$(e.currentTarget).css({
+							'width': ew+'rem',
+							'height': eh+'rem'
 						});
 
 					}
@@ -110,8 +112,8 @@
 					if (e.originalEvent) e = e.originalEvent;
 					$(e.currentTarget).stop(true,false).fadeTo(100,1);
 					if(!moveAble) return;moveAble = false;
-					var moveEndX = parseInt($(e.currentTarget).css('left'));
-					var moveEndY = parseInt($(e.currentTarget).css('top'));
+					var moveEndX = parseFloat($(e.currentTarget).css('left'));
+					var moveEndY = parseFloat($(e.currentTarget).css('top'));
 					var endX = moveEndX,
 						endY = moveEndY,
 						endW = $(e.currentTarget).width(),
@@ -125,25 +127,24 @@
 					if (parseInt(moveEndX) > 0) { /*top为正 img顶部位于父元素下面*/
 						endX = 0;
 					}
-					if (endW + parseInt(moveEndX) < $(e.currentTarget).parent().width()) {
+					if (endW + parseFloat(moveEndX) < $(e.currentTarget).parent().width()) {
 						endX = -endW + $(e.currentTarget).parent().width();
 					}
-					if (parseInt(moveEndY) > 0) {
+					if (parseFloat(moveEndY) > 0) {
 						endY = 0;
 					}
-					if ($(e.currentTarget).height() + parseInt(moveEndY) < $(e.currentTarget).parent().height()) {
+					if ($(e.currentTarget).height() + parseFloat(moveEndY) < $(e.currentTarget).parent().height()) {
 						endY = -endH + $(e.currentTarget).parent().height();
 					}
 
 					$(e.currentTarget).css({
 						'transition': 'all .2s ease-in'
 					});
-					$(e.currentTarget).css({
-						'left': endX + 'px',
-						'top': endY + 'px'
-					}).attr({
-						'width': endW,
-						'height': endH
+					s.css({
+						'left': endX*remScale + 'rem',
+						'top': endY*remScale + 'rem',
+						'width': endW*remScale+'rem',
+						'height': endH*remScale+'rem'
 					});
 
 
@@ -191,6 +192,7 @@
 					imgH = s.height();
 				}
 				s.wraper.append('<div class="swiper-slide swiper-no-swiping" id="slideImg' + _option.data.imgid + '"><img src="' + _option.data.file + '" width="' + imgW + '" height="' + imgH + '" data-id="' + _option.data.imgid + '" ></div>');
+				
 				s.swiper = new Swiper('.swiper-container', {
 					noSwiping : true,
 					nextButton: '.swiper-button-next',

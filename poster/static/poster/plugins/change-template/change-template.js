@@ -354,13 +354,12 @@
             }
         },
 
-        getPublishPageList: function($container){
+        showPublishPageList:function($container){
             getLayout().click(function (event) {
                 event.stopPropagation();
             });
 
-            var self = this,
-                url = posterpageListAPI;
+            var self = this, url = posterpageListAPI;
             url += "?poster_id={0}&exclude={1}".format(
                 self.posterId, self.posterPageId
             );
@@ -370,13 +369,15 @@
                     yyAlert("没有可以切换的页面!");
                     return
                 }
+                self.$container = $container;
+                self.$container.append($(self.layoutTmplId).tmpl());
+                self.resetTitle('选择页面');
                 self.cancel();
                 self.confirmSelectPublishPage();
                 if(self.settings.initAfter && $.isFunction(self.settings.initAfter)){
                     self.settings.initAfter();
                 }
 
-                self.resetTitle('选择页面');
                 self.pageDataList = json;
                 $(self.ulListId).empty();
                 $(self.listTmplId).tmpl(json).appendTo(self.ulListId);
@@ -389,13 +390,6 @@
                     event.stopPropagation();
                 });
             });
-        },
-
-        showPublishPageList:function($container){
-            var self = this;
-            self.$container = $container;
-            self.$container.append($(self.layoutTmplId).tmpl());
-            self.getPublishPageList($container);
         }
     });
 

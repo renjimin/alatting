@@ -17,7 +17,7 @@
 .text-element{
     position: absolute;
     z-index: 100;
-    font-size: 30px;
+    font-size: 1.6rem;
     text-align: center;
     border: 1px dashed transparent;
     -ms-word-break:keep-all;
@@ -25,7 +25,7 @@
     font-family: "微软雅黑", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 .el-content{
-    padding: 15px;
+    padding: 0.5rem;
     white-space:pre;
 }
 .el-rotate{
@@ -64,14 +64,14 @@
     font-size: 20px;
 }
 .ele-rotate-ctrl{
-    width: 40px;
-    height: 40px;
-    margin-left: -20px;
-    margin-top: -20px;
+    width: 1rem;
+    height: 1rem;
+    margin-left: -.5rem;
+    margin-top: -.5rem;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    font-size: 24px;
+    font-size: 0.2rem;
     color: #ffffff;
     background: #373737;
     text-align: center;

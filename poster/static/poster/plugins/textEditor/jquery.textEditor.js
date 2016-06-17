@@ -259,10 +259,10 @@
 
         /*增大文字字号*/
         $('#ted-fontsizebig').off('click').on('click',function(){
-            var size = parseInt($element.css('font-size'));
-            if(size<72){
-                size +=1;
-                $element.css('font-size',size+'px');
+            var size = parseInt($element.css('font-size'))*remScale;
+            if(size<4){
+                size += 0.1;
+                $element.css('font-size',size+'rem');
             }
             if(option.pluginType == 'main'){
                 moveCtrlPos($element);
@@ -270,10 +270,10 @@
         });
         /*增大文字字号*/
         $('#ted-fontsizesml').off('click').on('click',function(){
-            var size = parseInt($element.css('font-size'));
-            if(size>12){
-                size -=1;
-                $element.css('font-size',size+'px');
+            var size = parseInt($element.css('font-size'))*remScale;
+            if(size>0.1){
+                size -=0.1;
+                $element.css('font-size',size+'rem');
             }
             if(option.pluginType == 'main'){
                 moveCtrlPos($element);
@@ -334,9 +334,9 @@
                     if(item == 'wordspace'){
                         var size = Math.floor(20*rate/100);
                         if(option.pluginType == 'other'){
-                            $element.css("letter-spacing", size+'px');
+                            $element.css("letter-spacing", size*remScale+'rem');
                         }else{
-                            $element.children('.el-content').css("letter-spacing", size+'px');
+                            $element.children('.el-content').css("letter-spacing", size*remScale+'rem');
                         }
                         if(option.pluginType == 'main'){
                             moveCtrlPos($element);
@@ -487,7 +487,7 @@
             /*适应yunye-template缩放*/
             sx  =  modifyRate(sx,rate,0);
             sy  =  modifyRate(sy,rate,0);
-            $ctrol.css({left:sx+'px',top:sy+'px'});
+            $ctrol.css({left:sx*remScale+'rem',top:sy*remScale+'rem'});
         }
         /*适应yunye-template缩放*/
         function modifyRate(num,rate,type){
