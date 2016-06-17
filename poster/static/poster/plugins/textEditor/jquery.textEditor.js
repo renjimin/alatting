@@ -270,9 +270,9 @@
         });
         /*增大文字字号*/
         $('#ted-fontsizesml').off('click').on('click',function(){
-            var size = parseInt($element.css('font-size'))*remScale;
+            var size = parseInt($element.css('font-size'))*remScale;console.log(size)
             if(size>0.1){
-                size -=0.1;
+                size -= 0.1;console.log(size)
                 $element.css('font-size',size+'rem');
             }
             if(option.pluginType == 'main'){
