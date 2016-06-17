@@ -11,6 +11,77 @@
 {% endblock %}
 
 {% block base_body %}
+    {% block base_body_header %}
+    {% endblock %}
+    {% block base_body_container %}
+        <!-- container start -->
+        <div class="container viewport">
+            {% block base_body_container_inner %}
+            {% endblock %}
+        </div>
+        <!-- container end -->
+    {% endblock %}
 
+    <div class="body-header">
+        <div class="head-top">
+            <div class="head-top-right">
+                <div class="top-rt-item" id="myFavorite">
+                    <i class="fa fa-star"></i><br>
+                    <span class="rt-item-cont">我的收藏</span>
+                </div>
+                <div class="top-rt-item" id="myShare">
+                    <i class="fa fa-share-square-o"></i><br>
+                    <span class="rt-item-cont">已分享</span>
+                </div>
+                <div class="top-rt-item" id="myTradeRecord">
+                    <i class="fa fa-list-alt"></i><br>
+                    <span class="rt-item-cont">交易记录</span>
+                </div>
+            </div>
+            <div class="head-top-left">
+                <div class="user-friends"><i class="fa fa-user"></i></div>
+                <div class="user-setting" id="user-setting"><i class="fa fa-power-off"></i></div>
+                <div class="user-level level-diamond"></div>
+                <div class="user-shopcart" id="user-shopcart"><i class="fa fa-shopping-cart"></i></div>
+                <div class="user-info">
+                    <span class="user-info-li user-icon" id="uIcon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="head"></span>
+                    <span class="user-info-li user-name" id="uName">user</span>
+                    <input type="hidden" id="userid" value="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="body-share" id="body-share">
+        <div class="share-li share-share">
+            <i class="fa fa-share-square-o"></i>
+            <span class="share-name">分享</span>
+        </div>
+        <div class="share-li share-weixin"><i class="fa fa-weixin"></i></div>
+        <div class="share-li share-comment"><i class="fa fa-comment"></i></div>
+        <div class="share-li share-envelope"><i class="fa fa-envelope"></i></div>
+        <div class="share-li share-weibo"><i class="fa fa-weibo"></i></div>
+        <div class="share-li share-qq"><i class="fa fa-qq"></i></div>
+    </div>
+    <div class="body-vip" id="body-vip">
+        <h3 class="vip-h3">VIP系统</h3>
+        <div class="vip-canvas">
+            <div class="vip-sign level-diamond"></div>
+            <canvas class="process" id="vip-process" width='300' height='300'></canvas>
+        </div>
+        <div class="vip-lv">
+            <span class="lv-icon icon-diamond"></span>
+            <span class="lv-name name-diamond">黄金等级</span>
+        </div>
+        <div class="vip-footer">
+            <ul>
+                <li>目前积分</li>
+                <li>升级需求</li>
+            </ul>
+            <ul>
+                <li class="vip-score">6128</li>
+                <li class="vip-lvScore">10000</li>
+            </ul>
+        </div>
+    </div>
 
 {% endblock %}
