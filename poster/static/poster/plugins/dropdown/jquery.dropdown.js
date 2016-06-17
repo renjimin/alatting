@@ -20,7 +20,6 @@
 			_this.on('click',function(event){
 				$(document).trigger("clsdp",event.currentTarget);
 				if(!options){
-			  		//$('#dp').hide();
 					if(a.hasClass('open')){
 						_this.removeClass('open');
 						a.removeClass('open');
@@ -114,15 +113,15 @@
 						originX = event.pageX,originY = event.pageY,diffY = 10,diffX = 0;
 						left = originX - dpw.width()/2;
 					}else{
-						originX = _this.offset().left,
-						originY = _this.offset().top,
-						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY) ,
+						originX = _this.offset().left;
+						originY = _this.offset().top;
+						diffY = _option.offsetYPercent * _this.height() / 100 + parseInt(_option.offsetY);
 						diffX =  (_this.width() * _option.offsetXPercent )/100 + _option.offsetX;
 						left = originX + diffX - dpw.width()/2;
 					}
 					right = left + dpw.width();
 					offsetY =  diffY;
-					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
+					dpw.css('top',originY + offsetY - $('.container-fluid').offset().top + $('.container-fluid').scrollTop());
 					if( right > $(document.body).offset().left + $(document.body).width() ){
 						left = $(document.body).offset().left + $(document.body).width() - dpw.width() -5;
 						dpw.css('left',left);
@@ -139,14 +138,14 @@
 					if( $("#dp").height() + $("#dp").offset().top > $(document.body).height() - 43){
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down');
 						offsetY = ((_option.followMouse) ? 0 : _this.height()) - diffY - dpw.height();
-						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top);
+						dpw.css('top',originY + offsetY - $('.container-fluid').offset().top + $('.container-fluid').scrollTop());
 						$('#dp .arrow').css('top', dpw.height() - 2 ).attr('class', 'arrow down');
-						var str="",len = _option.list.length;
-						for(var i in _option.list){
+						var str="",len = _option.list.length,i;
+						for( i in _option.list){
 							str += '<li id="'+ (_option.id+'_'+(len - i -1)) +'"><i class="'+_option.list[len - i -1].icon+'"></i><span>'+_option.list[len - i -1].text+'</span>';
 						}
 						$("#dp #"+_option.id).empty().append(str);
-						for(var i in _option.list){
+						for( i in _option.list){
 							$("#dp #" + _option.id+'_'+i ).click(function(event){
 								var l = event.currentTarget.id.split('_');
 								var cb = _option.list[l[l.length-1]].callback;
@@ -168,11 +167,11 @@
 
 (function($){
 	$.fn.setCursorPosition = function(position) {
-		if (this.length == 0) return this;
+		if (this.length === 0) return this;
 		return $(this).setSelection(position, position);
 	};
 	$.fn.setSelection = function(selectionStart, selectionEnd) {
-		if (this.length == 0) return this;
+		if (this.length === 0) return this;
 		var input = this[0];
 		if (input.createTextRange) {
 			var range = input.createTextRange();
