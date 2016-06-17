@@ -9,6 +9,7 @@
 {% block base_header_js %}
     {{ block.super }}
     <script src="{% static 'libs/common/jquery.tmpl.min.js' %}"></script>
+    <script src="{% static 'account/js/uc-base.js' %}"></script>
     <script src="{% static 'account/js/profile.js' %}"></script>
 {% endblock %}
 
@@ -24,7 +25,7 @@
                     <i class="fa fa-share-square-o"></i><br>
                     <span class="rt-item-cont">已分享</span>
                 </div>
-                <div class="top-rt-item" id="myTradeRecord">
+                <div class="top-rt-item" id="myTradeRecord" style="display: none;">
                     <i class="fa fa-list-alt"></i><br>
                     <span class="rt-item-cont">交易记录</span>
                 </div>
@@ -33,7 +34,7 @@
                 <div class="user-friends"><i class="fa fa-user"></i></div>
                 <div class="user-setting" id="user-setting"><i class="fa fa-power-off"></i></div>
                 <div class="user-level level-diamond"></div>
-                <div class="user-shopcart" id="user-shopcart"><i class="fa fa-shopping-cart"></i></div>
+                <div class="user-shopcart" id="user-shopcart" style="display: none;"><i class="fa fa-shopping-cart"></i></div>
                 <div class="user-info">
                     <span class="user-info-li user-icon" id="uIcon"><img src="{% static 'account/img/headicon-default.jpg' %}" alt="head"></span>
                     <span class="user-info-li user-name" id="uName">user</span>
@@ -95,7 +96,78 @@
             </ul>
         </div>
     </div>
+    <div class="body-deal" id="body-deal">
+        <div class="deal-header">
+            <i class="glyphicon glyphicon-file"></i>
+            <span >黄裕翔钢琴教学</span>
+        </div>
+        <div class="deal-contain">
+            <span class="fa fa-angle-left"></span>
+            <img src="{% static 'account/img/poster_default.jpg' %} "alt="">
+            <span class="fa fa-angle-right"></span>
+        </div>
+        <div class="deal-footer">
+            <ul class="deal-left">
+                <li><i class="fa fa-clock-o"></i>时间</li>
+                <li ><i class="fa fa-dollar"></i>价格</li>
+                <li><i class="fa fa-star"></i>评价</li>
+            </ul>
+            <ul class="deal-right">
+                <li>2016-6-16</li>
+                <li>$60</li>
+                <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+            </ul>
+        </div>
+    </div>
 
+    <div class="body-shopping">
+        <div class="shopping-header">
+            <i class="fa fa-shopping-cart"></i>
+            <span>我的购物车</span>
+        </div>
+        <i class="fa fa-close"></i>
+        <div class="shopping-contain">
+            <div class="shopping-title">
+                 <div class="shopping-server">
+                    <i class="glyphicon glyphicon-file"></i>服务
+                 </div>
+                <div class="shopping-time">
+                    <i class="glyphicon glyphicon-time"></i>&nbsp;时间
+                </div>
+                <div class="shopping-price">
+                    <i class="glyphicon glyphicon-usd"></i>&nbsp;价格
+                </div>
+            </div>
+            <div class="shopping-cont">
+                <div class="shopping-div">
+                    <div class="shopping-serverdiv"><i class="glyphicon glyphicon-file"></i>黄宇翔教学</div>
+                    <div class="shopping-timediv">2016-6-16</div>
+                    <div class="shopping-pricediv">$80/小时</div>
+                </div>
+                <div class="shopping-div">
+                    <div class="shopping-serverdiv"><i class="glyphicon glyphicon-file"></i>黄宇翔教学</div>
+                    <div class="shopping-timediv">2016-6-16</div>
+                    <div class="shopping-pricediv">$80/小时</div>
+                </div>
+                
+            </div>
+
+
+        </div>
+        <div class="shopping-footer">
+            <div class="shopping-statement">
+              <!--   <div class="statement-left"> -->
+                    <span>服务数量:</span><span>555</span><span class="shopping-totaln">5555555</span><span class="shopping-total">总价:</span>
+<!--                 </div>
+                <div class="statement-right">
+                    <span>总价:</span><span></span>
+                </div> -->
+            </div>
+            <div class="statement-footer">
+                <a><i class="fa fa-shopping-cart"></i>结账</a>
+            </div>
+        </div>
+    </div>
     <script id="serverProvideTmpl" type="text/x-jquery-tmpl">
         <div class="main-li">
             <div class="mli-cont">
@@ -110,7 +182,7 @@
                             </div>
                             <div class="info-cont-name">
                                 <span class="cont-name">${postername}</span>
-                                <span class="cont-star p-star p-star-10"></span>
+                                <span class="cont-star p-star p-star-2"></span>
                             </div>
                         </div>
                     </div>
@@ -153,7 +225,7 @@
                             </div>
                             <div class="info-cont-name">
                                 <span class="cont-name p-name">${postername}</span>
-                                <span class="cont-star p-star p-star-8"></span>
+                                <span class="cont-star p-star p-star-2"></span>
                             </div>
                         </div>
                     </div>

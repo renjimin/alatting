@@ -8,6 +8,7 @@
 
 {% block base_header_js %}
     {{ block.super }}
+    <script src="{% static 'account/js/uc-base.js' %}"></script>
     <script src="{% static 'account/js/consumer.js' %}"></script>
 {% endblock %}
 
@@ -158,10 +159,10 @@
             </ul>
             <input type="hidden" id="star-comt">
         </div>
-        <div class="mcom-textarea mess-textarea">
+        <div class="mcom-textarea mn-mess-textarea">
             <textarea name="serve-comt" id="serve-comt" cols="30" rows="5" placeholder="您的评论"></textarea>
         </div>
-        <div class="mcom-btn price-btn">
+        <div class="mcom-btn trade-price-btn">
             <div class="price-btn-li" id="submit-comt">
                 <i class="fa fa-check"></i>
                 <span class="pbtn-name">送出</span>
