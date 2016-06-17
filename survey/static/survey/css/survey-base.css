@@ -306,6 +306,31 @@
 .dynamic-form .glyphicon {
     padding-left: 10px;
 }
+
+.dynamic-form-input input[type=submit] {
+    margin-left: -110px;
+    width: 100px;
+    margin-right: 10px;
+    background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    color: #646464;
+}
+.dynamic-form-input a {
+    padding-left: 10px;
+}
+.dynamic-form-input input[type=text]:disabled {
+    margin-left: -110px;
+    width: 100px;
+    margin-right: 10px;
+    border: none;
+    line-height: 20px;
+    border-radius: 0;
+    background: white;
+}
+.dynamic-form-input input[type=text] {
+    background: #dedede;
+}
 #ad-qs-new-q {
     background: #dedede;
     width: 300px;

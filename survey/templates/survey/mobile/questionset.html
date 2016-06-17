@@ -144,6 +144,40 @@
                     </div>
                 </div>
             </div>
+            <div class="qs-add" id="qs-add-choice-input">
+                <div class="qs-add-inner">
+                    <div class="qs-add-content">
+                        <div class="add-qs-title">+ 添加问题</div>
+                        <form id="qs-add-choice-input-formset">{% csrf_token %}
+                            <div class="form-inner">
+                                <input type="text" name="qs-add-choice-input_q_id" id="qs-add-choice-input_q_id" class="hidden">
+                                <div class="add-qs-subtitle-1">
+                                    <div class="add-qs-subtitle-1">新添加的问题：</div>
+                                    <div id="ad-qs-new-q"></div>
+                                </div>
+                                <div class="add-qs-subtitle-1">
+                                    <div class="text-center">添加问题选项</div>
+                                </div>
+                                <table border="0" cellpadding="0" cellspacing="0" class="add-qs-choice-list">
+                                    <tbody>
+                                        {% for form in input_formset %}
+                                            <tr>
+                                                <td>{{ form.c_input_text }}
+                                                    {{ form.c_input }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                {{ formset.management_form }}
+                            </div>
+                            <div class="form-footer">
+                                <a class="btn btn-default" id="add-qs-3-back-btn">上一步</a>
+                                <input type="submit" class="btn btn-default" id="add-qs-3-next-btn" value="确认">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

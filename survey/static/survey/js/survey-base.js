@@ -108,8 +108,6 @@ $('#add-qs-1-next-btn').on('click',function(e){
 					$('#qs-add-choice').removeClass("closed");
 					$('#qs-add-choice').addClass("open");
 				}
-				console.log("data.q_text");
-				console.log(data.q_text);
 			}
       	},
       	error: function(data) {
@@ -122,7 +120,8 @@ $('#add-qs-1-next-btn').on('click',function(e){
 $(function() {
     $('#qs-add-choice-formset tbody tr').formset({
         addText: '+新增选项',
-        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>'
+        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>',
+        keepFieldValues : 'input:submit',
     });
     $('.dynamic-form input[type=text]').attr("placeholder", "请输入");
 })
@@ -188,4 +187,49 @@ $('#add-qs-2-next-btn').on('click',function(e){
       		yyAlert(data.responseJSON.error);
       	}
     });
+});
+
+// 添加预约问卷选项
+$(function() {
+    $('#qs-add-choice-input-formset tbody tr').formset({
+        addText: '+新增选项',
+        deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>',
+        keepFieldValues : 'input:submit',  
+        addCssClass: 'add-row-input',          // CSS class applied to the add link
+        deleteCssClass: 'delete-row-input',    // CSS class applied to the delete link
+        formCssClass: 'dynamic-form-input',    // CSS class applied to each form in a formset
+    });
+})
+$("input[name$='c_input']").on('click',function(e){
+	this_name = $(this).attr('name');
+    var c_input_disabled_name = this_name+"_disabled";
+    var c_input_disabled_id = "id_" + this_name + "_disabled";
+    var c_input_disabled = "<input type='text' name='"+c_input_disabled_name+"' id='"+ c_input_disabled_id+"' disabled>";
+    var c_input_hidden_name = this_name+"_hidden";
+    var c_input_hidden_id = "id_" + this_name + "_hidden";
+    var c_input_hidden = "<input type='text' name='"+c_input_hidden_name+"' id='"+ c_input_hidden_id+"' value='has_input' class='hidden'>";
+    var c_input_rep = c_input_disabled + c_input_hidden;
+    $(this).replaceWith(c_input_rep);
+});
+
+$('#add-qs-3-next-btn').on('click',function(e){
+	e.preventDefault();
+    e.stopPropagation();
+    q_id = $.trim($('#qs-add-choice-input_q_id').val());
+    console.log(q_id);
+    var c_texts = {};
+    var dynamic_form_count = $('.dynamic-form-input').length;
+    for(var i=0;i<dynamic_form_count;i++){
+    	var dynamic_form_id = "id_form-"+i+"-c_input_text";
+    	console.log(dynamic_form_id);
+    	var c_text = $.trim($('#'+dynamic_form_id).val());
+    	console.log(c_text);
+    	var input_hidden_id = "id_form-"+i+"-c_input_hidden";
+		console.log(input_hidden_id);
+    	var c_input = $.trim($('#'+input_hidden_id).val());
+    	console.log(c_input);
+    	c_texts[i] = {'c_text': c_text,
+    				  'c_input': c_input};
+    }
+    console.log(c_texts);
 });
