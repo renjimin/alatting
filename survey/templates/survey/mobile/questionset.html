@@ -57,9 +57,16 @@
                         {% endwith %}
                         {% endfor %}
                         {% if q_added_by_creator%}
+                            <div class="add-qs-subtitle-1">已添加问题</div>
                             {% for q in q_added_by_creator%}
-                                {{q.id}}
-                                {{q.text}}
+                                <div class="q_added">
+                                    <span class="q_added_remove" id="q_added_remove_{{q.id}}">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </span>
+                                    <span class="q_added_text">
+                                        {{q.text}}
+                                    </span>
+                                </div>
                             {% endfor %}
                         {% endif%}
                     </div>

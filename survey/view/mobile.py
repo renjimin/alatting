@@ -15,8 +15,6 @@ from alatting_website.models import Category
 from survey import *
 from account.models import Person
 from survey.form.forms import *
-import logging
-logger = logging.getLogger(__name__)
 
 
 '''
@@ -218,13 +216,9 @@ class QuestionnaireView(View):
         islast_creator = False
         if questionset.is_last() and questionnaire.role == "creator":
             islast_creator = True
-        logger.debug('islast_creator')
-        logger.debug(islast_creator)
         q_added_by_creator = []
         if islast_creator:
             q_added_by_creator = self.get_q_added_by_creator(runinfo)
-            logger.debug('q_added_by_creator')
-            logger.debug(q_added_by_creator)
 
         poster_id = runinfo.poster.pk
         choice_formset = formset_factory(ChoiceForm)

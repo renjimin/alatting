@@ -92,7 +92,9 @@ $('#add-qs-1-next-btn').on('click',function(e){
 		type: "POST",
 		success:function(data){
 			if($.inArray(qs_type,['text', 'textarea'])>-1) {
-				yyAlert("成功添加问题");
+                yyAlert('成功添加问题',function(){
+                    window.location.reload(true);
+                });
 				if($('#qs-add').hasClass('open')) {
 					$('#qs-add').removeClass("open");
 					$('#qs-add').addClass("closed");
@@ -190,7 +192,9 @@ $('#add-qs-2-next-btn').on('click',function(e){
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		success:function(data){
-			yyAlert("成功添加选项");
+			yyAlert("成功添加选项",function(){
+                    window.location.reload(true);
+            });
 			if($('#qs-add-choice').hasClass('open')) {
 				$('#qs-add-choice').removeClass("open");
 				$('#qs-add-choice').addClass("closed");
@@ -285,7 +289,9 @@ $('#add-qs-3-next-btn').on('click',function(e){
 		type: "POST",
 		contentType: "application/json; charset=utf-8",
 		success:function(data){
-			yyAlert("成功添加选项");
+			yyAlert("成功添加选项",function(){
+                window.location.reload(true);
+            });
             if($('#qs-add-choice-input').hasClass('open')) {
                 $('#qs-add-choice-input').removeClass("open");
                 $('#qs-add-choice-input').addClass("closed");
@@ -295,4 +301,23 @@ $('#add-qs-3-next-btn').on('click',function(e){
       		yyAlert(data.responseJSON.error);
       	}
     });
+});
+
+// 删除问题
+$('[id^=q_added_remove]').on('click',function(e){
+    var q_id = $(this).attr("id").split("_").pop();
+    yyConfirm('您确定要删除此问题吗',function(){
+        var url = '/api/v1/survey/delete/'+q_id+'/';
+        $.ajax({
+            url:url,
+            data:{q_id:q_id},
+            type: "DELETE",
+            success:function(data){
+                window.location.reload(true);
+            },
+            error: function(data) {
+                yyAlert(data.responseJSON.error);
+            }
+        });
+    },{'okText':'确定 ','cancelText':'取消'});
 });

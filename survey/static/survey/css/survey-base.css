@@ -341,6 +341,12 @@
     text-align: left;
     line-height: 20px;
 }
+.q_added {
+    padding: 10px;
+}
+.q_added_text {
+    padding: 0 10px;
+}
 @media (min-width:600px) {
     .qs-footer {
         width:600px;
