@@ -248,7 +248,7 @@ $(function () {
 				icon: "glyphicon glyphicon-font",
 				text: "输入文字",
 				callback: function () {
-					$('.header-logo h2').css("display","inline-block");
+					$('.header-logo h2').css("display","table-cell");
 					$('.header-logo img').hide();
 					$('#text-model').animate({'bottom':'0px'},200);
 					$('.text-element').removeClass('text-element-act');

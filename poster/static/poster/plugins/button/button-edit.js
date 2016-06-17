@@ -361,7 +361,7 @@ function addDefaultButtons() {
 
 	fullcontainer.append(detailBox);
 	fullcontainer.append(orderBox);
-	detailBox.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() - detailBox.innerHeight()-10)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - detailBox.innerWidth() - 10 )*remScale + 'px' }).show();
+	detailBox.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() - detailBox.innerHeight()-10)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 - detailBox.innerWidth() - 10 )*remScale + 'rem' }).show();
 	scale(detailBox);
 	orderBox.css({ 'z-index': scaleIndex++, 'top': (fullcontainer.innerHeight() - orderBox.innerHeight() - 10)*remScale + 'rem', 'left': (fullcontainer.innerWidth() / 2 + 10 )*remScale + 'rem' }).show();
 	scale(orderBox);
