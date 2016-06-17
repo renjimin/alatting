@@ -192,6 +192,11 @@ class SystemBackgroundAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
     pass
 
 
+@admin.register(Input)
+class InputAdmin(AlattingAdminModelMixin, admin.ModelAdmin):
+    pass
+
+
 class InputInline(admin.StackedInline):
     model = Input
 

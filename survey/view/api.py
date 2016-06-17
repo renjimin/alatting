@@ -5,8 +5,6 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from survey.models import *
-import logging
-logger = logging.getLogger(__name__)
 
 
 class QuestionCreateAPIView(APIView):
@@ -94,12 +92,26 @@ class ChoiceInputCreateAPIView(APIView):
 		q = Question.objects.filter(pk=q_id).first()
 
 		c_texts = request.data["c_texts"]
-		logger.debug('c_texts')
-		logger.debug(c_texts)
+
+		c_text_dup = []
 		for c_text in c_texts:
-			logger.debug('c_text')
-			logger.debug(c_text)
-			logger.debug('c_text_text')
-			logger.debug(c_text['c_text'])
-			logger.debug(c_text['c_input'])
+			if not c_text['c_text']:
+				data = {'error':'请填写选项'}
+				return Response(data, status=status.HTTP_404_NOT_FOUND)
+			c_text_dup.append(c_text['c_text'])
+		if len(c_text_dup) != len(set(c_text_dup)):
+			data = {'error':'选项不能相同'}
+			return Response(data, status=status.HTTP_404_NOT_FOUND)
+
+		for c_text in c_texts:
+			c = Choice()
+			c.question = q
+			c.sortid = q.choices_count() + 1
+			c.text = c_text['c_text']
+			c.value = c_text['c_text']
+			c.save()
+			if c_text['c_input']:
+				inp = Input()
+				inp.choice = c
+				inp.save()
 		return Response(status=status.HTTP_200_OK)

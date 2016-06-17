@@ -240,7 +240,7 @@
     background: white;
     padding: 5px 10px;
     border-radius: 5px;
-    margin: 0 10px;
+    margin: 5px 10px;
 }
 .form-inner {
     border-bottom: 1px solid #939393;
@@ -331,7 +331,7 @@
 .dynamic-form-input input[type=text] {
     background: #dedede;
 }
-#ad-qs-new-q {
+#ad-qs-new-q, #ad-qs-new-q-input{
     background: #dedede;
     width: 300px;
     border-radius: 5px;

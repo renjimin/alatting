@@ -108,7 +108,18 @@ $('#add-qs-1-next-btn').on('click',function(e){
 					$('#qs-add-choice').removeClass("closed");
 					$('#qs-add-choice').addClass("open");
 				}
-			}
+			} else if($.inArray(qs_type,['choice-input', 'checkbox-input'])>-1) {
+                $("#qs-add-choice-input_q_id").val(data.q_id);
+                $("#ad-qs-new-q-input").html(data.q_text);
+                if($('#qs-add').hasClass('open')) {
+                    $('#qs-add').removeClass("open");
+                    $('#qs-add').addClass("closed");
+                }
+                if($('#qs-add-choice-input').hasClass('closed')) {
+                    $('#qs-add-choice-input').removeClass("closed");
+                    $('#qs-add-choice-input').addClass("open");
+                }
+            }
       	},
       	error: function(data) {
       		yyAlert(data.responseJSON.error);
@@ -211,35 +222,59 @@ $("input[name$='c_input']").on('click',function(e){
     var c_input_rep = c_input_disabled + c_input_hidden;
     $(this).replaceWith(c_input_rep);
 });
-
+$('#add-qs-3-back-btn').on('click',function(e){
+    if($('#qs-add-choice-input').hasClass('open')) {
+        $('#qs-add-choice-input').removeClass("open");
+        $('#qs-add-choice-input').addClass("closed");
+    }
+    if($('#qs-add').hasClass('closed')) {
+        $('#qs-add').removeClass("closed");
+        $('#qs-add').addClass("open");
+    }
+});
 $('#add-qs-3-next-btn').on('click',function(e){
 	e.preventDefault();
     e.stopPropagation();
     q_id = $.trim($('#qs-add-choice-input_q_id').val());
-    console.log(q_id);
+    if(q_id == ""){
+        yyAlert('参数错误');
+        return false;
+    }
     var c_texts = [];
     var dynamic_form_count = $('.dynamic-form-input').length;
     for(var i=0;i<dynamic_form_count;i++){
     	var dynamic_form_id = "id_form-"+i+"-c_input_text";
-    	console.log(dynamic_form_id);
     	var c_text = $.trim($('#'+dynamic_form_id).val());
-    	console.log(c_text);
+        if(c_text == ""){
+            yyAlert('请填写选项');
+            return false;
+        }
     	var input_hidden_id = "id_form-"+i+"-c_input_hidden";
-		console.log(input_hidden_id);
     	var c_input = $.trim($('#'+input_hidden_id).val());
-    	console.log(c_input);
-    	c_text={'c_text': c_text,
-    				  'c_input': c_input};
+    	c_text={'c_text': c_text,'c_input': c_input};
     	c_texts.push(c_text);
     }
-    console.log(c_texts);
 
-    q_id = 294;
+    var c_texts_dup = [];
+    for (var i=0; i<c_texts.length; i++) {
+        c_texts_dup.push(c_texts[i].c_text);
+    }
+    var c_texts_sort = c_texts_dup.sort(); 
+    var c_texts_sort_dup = [];
+    for (var i = 0; i < c_texts_sort.length - 1; i++) {
+        if (c_texts_sort[i + 1] == c_texts_sort[i]) {
+            c_texts_sort_dup.push(c_texts_sort[i]);
+        }
+    }
+    if(c_texts_sort_dup.length >0){
+        yyAlert('选项不能重复');
+        return false;
+    }
+
     var url = '/api/v1/survey/create_choice_input/'+q_id+'/';
     var posted_data = {
     	c_texts:c_texts
     };
-    console.log(posted_data);
     $.ajax({
 		url:url,
 		data:JSON.stringify(posted_data),
@@ -247,7 +282,10 @@ $('#add-qs-3-next-btn').on('click',function(e){
 		contentType: "application/json; charset=utf-8",
 		success:function(data){
 			yyAlert("成功添加选项");
-			
+            if($('#qs-add-choice-input').hasClass('open')) {
+                $('#qs-add-choice-input').removeClass("open");
+                $('#qs-add-choice-input').addClass("closed");
+            }
       	},
       	error: function(data) {
       		yyAlert(data.responseJSON.error);
