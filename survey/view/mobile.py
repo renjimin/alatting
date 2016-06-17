@@ -196,8 +196,10 @@ class QuestionnaireView(View):
             islast_creator = True
 
         poster_id = runinfo.poster.pk
-        ChoiceFormSet = formset_factory(ChoiceForm)
-        ChoiceInputFormSet = formset_factory(ChoiceInputForm)
+        choice_formset = formset_factory(ChoiceForm)
+        ChoiceFormSet = choice_formset(prefix='form')
+        choice_input_formset = formset_factory(ChoiceInputForm)
+        ChoiceInputFormSet = choice_input_formset(prefix='form-input')            
 
         contextdict = {'qs_title': qs_title,
                        'questionset': questionset,

@@ -128,8 +128,10 @@ $('#add-qs-1-next-btn').on('click',function(e){
 });
 
 // 添加预约问卷选项
+var choice_prefix = "form";
 $(function() {
     $('#qs-add-choice-formset tbody tr').formset({
+        prefix:choice_prefix,
         addText: '+新增选项',
         deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>',
         keepFieldValues : 'input:submit',
@@ -158,7 +160,7 @@ $('#add-qs-2-next-btn').on('click',function(e){
     var c_texts = [];
     var dynamic_form_count = $('.dynamic-form').length;
     for(var i=0;i<dynamic_form_count;i++){
-    	var dynamic_form_id = "id_form-"+i+"-c_text";
+    	var dynamic_form_id = "id_"+choice_prefix+"-"+i+"-c_text";
     	var c_text = $.trim($('#'+dynamic_form_id).val());
     	if(c_text == ""){
 	        yyAlert('请填写选项');
@@ -201,8 +203,10 @@ $('#add-qs-2-next-btn').on('click',function(e){
 });
 
 // 添加预约问卷选项
+var choice_input_prefix = "form-input";
 $(function() {
     $('#qs-add-choice-input-formset tbody tr').formset({
+        prefix: choice_input_prefix,
         addText: '+新增选项',
         deleteText: '<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>',
         keepFieldValues : 'input:submit',  
@@ -241,15 +245,15 @@ $('#add-qs-3-next-btn').on('click',function(e){
         return false;
     }
     var c_texts = [];
-    var dynamic_form_count = $('.dynamic-form-input').length;
+    var dynamic_form_count = $('.dynamic-'+choice_input_prefix).length;
     for(var i=0;i<dynamic_form_count;i++){
-    	var dynamic_form_id = "id_form-"+i+"-c_input_text";
+    	var dynamic_form_id = "id_"+choice_input_prefix+"-"+i+"-c_input_text";
     	var c_text = $.trim($('#'+dynamic_form_id).val());
         if(c_text == ""){
             yyAlert('请填写选项');
             return false;
         }
-    	var input_hidden_id = "id_form-"+i+"-c_input_hidden";
+    	var input_hidden_id = "id_"+choice_input_prefix+"-"+i+"-c_input_hidden";
     	var c_input = $.trim($('#'+input_hidden_id).val());
     	c_text={'c_text': c_text,'c_input': c_input};
     	c_texts.push(c_text);
