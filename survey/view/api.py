@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
 from survey.models import *
+import logging
+logger = logging.getLogger(__name__)
 
 
 class QuestionCreateAPIView(APIView):
@@ -80,4 +82,24 @@ class ChoiceCreateAPIView(APIView):
 			c.text = c_text
 			c.value = c_text
 			c.save()
+		return Response(status=status.HTTP_200_OK)
+
+
+class ChoiceInputCreateAPIView(APIView):
+	def post(self, request, *args, **kwargs):
+		q_id = self.kwargs['q_id']
+		if not q_id:
+			data = {'error':'参数错误'}
+			return Response(data, status=status.HTTP_404_NOT_FOUND)
+		q = Question.objects.filter(pk=q_id).first()
+
+		c_texts = request.data["c_texts"]
+		logger.debug('c_texts')
+		logger.debug(c_texts)
+		for c_text in c_texts:
+			logger.debug('c_text')
+			logger.debug(c_text)
+			logger.debug('c_text_text')
+			logger.debug(c_text['c_text'])
+			logger.debug(c_text['c_input'])
 		return Response(status=status.HTTP_200_OK)

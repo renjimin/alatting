@@ -217,7 +217,7 @@ $('#add-qs-3-next-btn').on('click',function(e){
     e.stopPropagation();
     q_id = $.trim($('#qs-add-choice-input_q_id').val());
     console.log(q_id);
-    var c_texts = {};
+    var c_texts = [];
     var dynamic_form_count = $('.dynamic-form-input').length;
     for(var i=0;i<dynamic_form_count;i++){
     	var dynamic_form_id = "id_form-"+i+"-c_input_text";
@@ -228,8 +228,29 @@ $('#add-qs-3-next-btn').on('click',function(e){
 		console.log(input_hidden_id);
     	var c_input = $.trim($('#'+input_hidden_id).val());
     	console.log(c_input);
-    	c_texts[i] = {'c_text': c_text,
+    	c_text={'c_text': c_text,
     				  'c_input': c_input};
+    	c_texts.push(c_text);
     }
     console.log(c_texts);
+
+    q_id = 294;
+    var url = '/api/v1/survey/create_choice_input/'+q_id+'/';
+    var posted_data = {
+    	c_texts:c_texts
+    };
+    console.log(posted_data);
+    $.ajax({
+		url:url,
+		data:JSON.stringify(posted_data),
+		type: "POST",
+		contentType: "application/json; charset=utf-8",
+		success:function(data){
+			yyAlert("成功添加选项");
+			
+      	},
+      	error: function(data) {
+      		yyAlert(data.responseJSON.error);
+      	}
+    });
 });
