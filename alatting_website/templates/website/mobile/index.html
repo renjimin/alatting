@@ -127,8 +127,8 @@
 					{% endfor %}
 				</ul>
 			</div>
-			<div class="type-model-click" id="hide-cate"></div>
 		</div>
+		<div class="type-model-click" id="hide-cate"></div>
 	</div>
 
 	<div id="QA">
@@ -143,18 +143,19 @@
 	</div>
 
 	<div id="Sort">
-		<div id="SortHide"></div>
 		<span class="arrowUp"></span>
+
 		<div id="SortContent">
-			<div class="title">排序方式</div>
+			<div class="title"><i class="glyphicon glyphicon-menu-hamburger" style="margin-right:10px;"></i>排序方式</div>
 			<ul>
-				<li><span>更新时间</span></li>
+				<li><a href="{{ request.path_info }}?sort=new&q={{ request.GET.q }}&sub_ids={{ request.GET.sub_ids }}">更新时间</a></li>
 				<li><span>浏览数</span></li>
 				<li><span>交易数</span></li>
 				<li><span>离我较近的</span></li>
-				<li><span>距离范围设置</span><span>公里</span></li>
+				<li><span>距离范围设置</span><div style="float:right;margin-right:20px;"><input type="text"><span>公里</span></div></li>
 			</ul>
 		</div>
+		<div id="SortHide"></div>
 	</div>
 
 	{% block footer_category %}

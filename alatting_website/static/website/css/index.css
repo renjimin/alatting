@@ -7,6 +7,7 @@
 /*公共*/
 body,html {
 	height: 100%;
+	overflow: hidden;
 }
 .i-containar,
 .type-model {
@@ -271,8 +272,9 @@ body,html {
 .type-model-click {
 	width: 100%;
 	height: 100%;
+	pointer-events: auto;
 	position: absolute;
-	margin-top: 36px;
+	top: 36px;
 }
 .type-model-containar .list .item-link:active,
 .type-model-containar .list .open .item-link:active {
@@ -527,13 +529,13 @@ li.Ans {
 }
 #SortContent ul{
 	padding: 0;
+	margin:0;
 }
 #SortHide{
 	width: 100%;
 	height: 100%;
 	pointer-events: auto;
-	position: absolute;
-	margin-top: 36px;
+	background:rgba(0,0,0,0.4);
 }
 #SortContent .title{
 	height: 40px;
@@ -550,6 +552,9 @@ li.Ans {
 	display: block;
 	background: #DEDEDE;
 	border-bottom: 1px solid  #CACACA;
+}
+#SortContent li ,#SortContent li a{
+	color: #000;
 }
 #SortContent li:last-child {
 	border-bottom: none;
@@ -568,6 +573,13 @@ li.Ans {
 }
 #Sort .arrowUp{
 	left: 16.5px;
+}
+#Sort input{
+	border: none;
+	border-radius: 5px;
+	height: 35px;
+	width: 80px;
+	margin-right: 5px;
 }
 /*适配*/
 @media (min-width: 600px) {

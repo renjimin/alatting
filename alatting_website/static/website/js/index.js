@@ -100,6 +100,9 @@ $(function(){
 			$("#Sort").show();
 		}
 	});
+	$("#SortHide").click(function(){
+		$("#Sort").hide();
+	});
 
 	$(document).on("closeMenu",function(){
 		$('#type-model').removeClass('open');
