@@ -1,4 +1,19 @@
 $(function(){
+	switch(global.sort){
+		case "new":
+			$("#sortNew").addClass("active");
+			break;
+		case "hot":
+			$("#sortHot").addClass("active");
+			break;
+		case "apas":
+			$("#sortApas").addClass("active");
+			break;
+		case "recmd":
+			$("#sortRecmd").addClass("active");
+			break;
+	}
+	
 	$.ajax({
 		type:'GET',
 		url:'/api/v1/poster/qa',
