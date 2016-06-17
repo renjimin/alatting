@@ -52,11 +52,11 @@
 }
 .swiper-container-android .swiper-slide,
 .swiper-wrapper {
-  -webkit-transform: translate(0px, 0);
-  -moz-transform: translate(0px, 0, 0);
-  -o-transform: translate(0px, 0px);
-  -ms-transform: translate(0px, 0);
-  transform: translate(0px, 0);
+  -webkit-transform: none;
+  -moz-transform: none;
+  -o-transform: none;
+  -ms-transform: none;
+  transform: none;
 }
 .swiper-container-multirow > .swiper-wrapper {
   -webkit-box-lines: multiple;
