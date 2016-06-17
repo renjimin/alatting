@@ -469,7 +469,9 @@ body{
 	color: #fff;
 	border-radius: 50%;
 	font-size:1rem;
-	background: #8d8d8d;
+}
+.abutton-group a{
+	background: #8d8d8d;	
 }
 
 .abutton-group li a span {
