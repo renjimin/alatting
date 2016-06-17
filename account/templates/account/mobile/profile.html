@@ -96,15 +96,19 @@
             </ul>
         </div>
     </div>
-    <div class="body-deal" id="body-deal">
+    <div class="body-deal" id="body-deal" data-id ="0">
         <div class="deal-header">
             <i class="glyphicon glyphicon-file"></i>
             <span >黄裕翔钢琴教学</span>
         </div>
         <div class="deal-contain">
-            <span class="fa fa-angle-left"></span>
-            <img src="{% static 'account/img/poster_default.jpg' %} "alt="">
-            <span class="fa fa-angle-right"></span>
+            <div class="deal-btn deal-btn-left">
+                <i class="fa fa-angle-left"></i>
+            </div>
+            <img src="http://www.yunye123.com/static/company/images/poster8.jpg"alt="">
+            <div class="deal-btn  deal-btn-right">
+                <i class="fa fa-angle-right"></i>
+            </div>
         </div>
         <div class="deal-footer">
             <ul class="deal-left">
@@ -115,7 +119,7 @@
             <ul class="deal-right">
                 <li>2016-6-16</li>
                 <li>$60</li>
-                <li><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></li>
+                <li><span class="cont-star p-star p-star-2"></span></li>
             </ul>
         </div>
     </div>

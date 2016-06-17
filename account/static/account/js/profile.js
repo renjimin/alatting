@@ -154,11 +154,41 @@ $(function(){
             deal.css('display','block');
         }
     })
-    $('.deal-contain .fa-angle-right').click(function(){
-        $('.deal-contain img').attr('src','');
+    /**暂时使用静态数据*/
+    var myimg = [
+                    ['许静牙医博士','2016-6-17','$100','http://www.yunye123.com/static/company/images/poster5.jpg','6'],
+                    ['李德毅','2016-6-18','$600','http://www.yunye123.com/static/company/images/poster12.jpg','10'],
+                    ['黄裕翔钢琴教学','2016-6-16','$60','http://www.yunye123.com/static/company/images/poster8.jpg','10']
+    ]
+    $('.deal-contain img').attr('src',myimg[0][3]);
+    $('.deal-header span').text(myimg[0][0]);
+    $('.deal-right li:first-child').text(myimg[0][1]);
+    $('.deal-right li:nth-child(2)').text(myimg[0][2]);
+    $('.deal-right li:nth-child(3) span').removeClass('p-star-'+myimg[0][4]+'').addClass('p-star-'+myimg[0][4]+'');
+    //var imgid = $('#body-deal').attr('data-id');
+    $('.deal-contain .deal-btn-right').click(function(){
+            var imgid = $('#body-deal').attr('data-id');
+                if(imgid<myimg.length-1){
+                    var rightid = parseInt(imgid)+1;
+                    $('.deal-contain img').attr('src',myimg[rightid][3]);
+                    $('.deal-header span').text(myimg[rightid][0]);
+                    $('.deal-right li:first-child').text(myimg[rightid][1]);
+                    $('.deal-right li:nth-child(2)').text(myimg[rightid][2]);
+                    $('.deal-right li:nth-child(3) span').removeClass('p-star-'+myimg[imgid][4]+'').addClass('p-star-'+myimg[rightid][4]+'');
+                    $('#body-deal').attr('data-id',rightid);
+            }
     });
-    $('.deal-contain .fa-angle-left').click(function(){
-        $('.deal-contain img').attr('src','');
+    $('.deal-contain .deal-btn-left').click(function(){
+            var imgid = $('#body-deal').attr('data-id');
+                if(imgid>0){
+                    var leftid = parseInt(imgid)-1;
+                    $('#body-deal').attr('data-id',leftid);
+                    $('.deal-contain img').attr('src',myimg[leftid][3]);
+                    $('.deal-header span').text(myimg[leftid][0]);
+                    $('.deal-right li:first-child').text(myimg[leftid][1]);
+                    $('.deal-right li:nth-child(2)').text(myimg[leftid][2]);
+                    $('.deal-right li:nth-child(3) span').removeClass('p-star-'+myimg[imgid][4]+'').addClass('p-star-'+myimg[leftid][4]+'');
+                }
     })
     /**购物车*/
     $('#user-shopcart').on('click',function(event){
