@@ -20,7 +20,9 @@ html {
 body{
 	max-width: 600px;
 	margin: 0 auto;
+	-webkit-text-size-adjust:none;  
 }
+
 
 /*icons*/
 
@@ -447,8 +449,7 @@ body{
 	-webkit-transform-origin: 100% 100%;
 	transform-origin: 100% 100%;
 	pointer-events: none;
-	border: 0px solid transparent;
-	background: #8d8d8d;
+	border: 1px solid transparent;
 }
 
 .abutton-group li a {
@@ -468,7 +469,7 @@ body{
 	color: #fff;
 	border-radius: 50%;
 	font-size:1rem;
-	/*background: #8d8d8d;*/
+	background: #8d8d8d;
 }
 
 .abutton-group li a span {
@@ -489,25 +490,25 @@ body{
 .abutton-group li:first-child {
 	-webkit-transform: rotate(-45deg);
 	transform: rotate(-45deg);
-	left: 48%;
+	left: 50%;
 }
 
 .abutton-group li:nth-child(2) {
 	-webkit-transform: rotate(45deg);
 	transform: rotate(45deg);
-	top: 48%;
+	top: 50%;
 }
 
 .abutton-group li:nth-child(3) {
 	-webkit-transform: rotate(135deg);
 	transform: rotate(135deg);
-	left: 52%;
+	left: 50%;
 }
 
 .abutton-group li:nth-child(4) {
 	-webkit-transform: rotate(225deg);
 	transform: rotate(225deg);
-	top: 52%;
+	top: 50%;
 }
 
 .abutton-group li:first-child a {
@@ -1608,7 +1609,9 @@ body{
 	right: 36px;
 }
 
-
+.element-box-contents {
+	padding: 0.2rem;
+}
 /* footer button */
 
 .ico-text,
