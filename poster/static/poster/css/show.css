@@ -41,6 +41,7 @@
 .text-editor-content{
     white-space: normal;
     word-break: break-all;
+    font-size:1rem;
 }
 /*--文字预置样式---start-*/
 .text-element{

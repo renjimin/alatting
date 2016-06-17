@@ -2,12 +2,12 @@
 	$.fn.imgscale = function() {
 		return this.each(function() {
 			var s = $(this);
-			var pw = s.parent().width()*remScale,
-				ph = s.parent().height()*remScale,
-				sw = s.width()*remScale,
-				sh = s.height()*remScale,
-				sl = parseInt(s.css('left'))*remScale,
-				st = parseInt(s.css('top'))*remScale,
+			var pw = s.parent().width(),
+				ph = s.parent().height(),
+				sw = s.width(),
+				sh = s.height(),
+				sl = parseFloat(s.css('left')),
+				st = parseFloat(s.css('top')),
 				imgW,
 				imgH;
 
@@ -18,12 +18,13 @@
 				imgW = sw * ph / sh;
 				imgH = ph;
 			}
+			//console.log(parseFloat(s.css('left')))
 			//console.log(pw+'    '+ph+'    '+sw+'    '+sh+'    '+sl)
 			s.css({
-				'width':imgW+'rem',
-				'height':imgH+'rem',
-				'left': sl+'rem',
-				'top': st+'rem'
+				'width':imgW*remScale+'rem',
+				'height':imgH*remScale+'rem',
+				//'left': sl*remScale+'rem',
+				//'top': st*remScale+'rem'
 			});
 			var touchEvents = {
 				'startX': 0,
@@ -54,8 +55,8 @@
 						moveAble = true;
 					});
 
-					s.opt.left = parseInt($(e.currentTarget).css('left'))*remScale;
-					s.opt.top = parseInt($(e.currentTarget).css('top'))*remScale;
+					s.opt.left = parseFloat($(e.currentTarget).css('left'))*remScale;
+					s.opt.top = parseFloat($(e.currentTarget).css('top'))*remScale;
 					s.opt.width = $(e.currentTarget).width()*remScale;
 					s.opt.height = $(e.currentTarget).height()*remScale;
 
@@ -95,7 +96,7 @@
 						endDiagonal.x = Math.abs(touch.pageX - touch1.pageX);
 						endDiagonal.y = Math.abs(touch.pageY - touch1.pageY);
 
-						var ew = s.opt.width + parseInt(endDiagonal.x) - parseInt(startDiagonal.x),
+						var ew = s.opt.width + parseFloat(endDiagonal.x) - parseFloat(startDiagonal.x),
 							eh = ew * s.opt.height / s.opt.width,
 							el = s.opt.left - ew / 2,
 							et = s.opt.top - eh / 2;
@@ -111,8 +112,8 @@
 					if (e.originalEvent) e = e.originalEvent;
 					$(e.currentTarget).stop(true,false).fadeTo(100,1);
 					if(!moveAble) return;moveAble = false;
-					var moveEndX = parseInt($(e.currentTarget).css('left'));
-					var moveEndY = parseInt($(e.currentTarget).css('top'));
+					var moveEndX = parseFloat($(e.currentTarget).css('left'));
+					var moveEndY = parseFloat($(e.currentTarget).css('top'));
 					var endX = moveEndX,
 						endY = moveEndY,
 						endW = $(e.currentTarget).width(),
@@ -126,13 +127,13 @@
 					if (parseInt(moveEndX) > 0) { /*top为正 img顶部位于父元素下面*/
 						endX = 0;
 					}
-					if (endW + parseInt(moveEndX) < $(e.currentTarget).parent().width()) {
+					if (endW + parseFloat(moveEndX) < $(e.currentTarget).parent().width()) {
 						endX = -endW + $(e.currentTarget).parent().width();
 					}
-					if (parseInt(moveEndY) > 0) {
+					if (parseFloat(moveEndY) > 0) {
 						endY = 0;
 					}
-					if ($(e.currentTarget).height() + parseInt(moveEndY) < $(e.currentTarget).parent().height()) {
+					if ($(e.currentTarget).height() + parseFloat(moveEndY) < $(e.currentTarget).parent().height()) {
 						endY = -endH + $(e.currentTarget).parent().height();
 					}
 
