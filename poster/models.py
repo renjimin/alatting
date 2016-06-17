@@ -223,7 +223,7 @@ class VisitHistory(AlattingBaseModel):
         verbose_name='用户',
         related_name='+'
     )
-    poster = models.ForeignKey(
+    poster = BigForeignKey(
         Poster,
         verbose_name='海报',
         related_name='+'
