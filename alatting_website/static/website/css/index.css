@@ -15,6 +15,7 @@ body,html {
 	height: 100%;
 }
 .i-containar{
+	padding-top: 72px;
 	overflow-y: auto;
 }
 .body-container{
@@ -29,7 +30,7 @@ body,html {
 	position: fixed;
 	right: 0;
 	left: 0;
-	z-index: 9;
+	z-index: 1000;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -37,10 +38,16 @@ body,html {
 	background: #fff;
 	border-bottom: 1px solid #ccc;
 }
-.home-header .home-header-sort {
-	border-top: solid 1px #ccc;
+.home-header-sort {
+	position: fixed;
+	background: #fff;
+	top: 36px;
+	right: 0;
+	left: 0;
+	z-index: 9;
+	border-bottom: 1px solid #ccc;
 }
-.home-header .btn-select {
+.btn-select {
 	width: 50%;
 	height: 100%;
 	text-decoration: none;
@@ -50,7 +57,7 @@ body,html {
 	font-size: 16px;
 	text-align: center;
 }
-.home-header .hrow{
+.hrow{
 	height: 36px;
 	line-height: 36px;
 }
@@ -97,7 +104,7 @@ body,html {
 	line-height:35px;
 	text-align: center;
 }
-.home-header .btn-select.active{
+.btn-select.active{
 	background: #E5E5E5;
 }
 .home-containar {
@@ -448,6 +455,7 @@ body,html {
 	height: 100%;
 	background: #ccc;
 	pointer-events: auto;
+	position: relative;
 }
 #QAContent .title{
 	width: 100%;
@@ -484,6 +492,7 @@ li.Ans {
 }
 #QAContent li span.QAFake{
 	display: inline-block;
+	z-index: 21;
 }
 #QAContent #arrow{
 	display:none;
@@ -494,6 +503,13 @@ li.Ans {
 	z-index:100;
 	border: 10px solid;
 	border-color: transparent #b5b5b5 #b5b5b5 transparent;
+}
+#QAHide{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	pointer-events: auto;
 }
 
 /*适配*/
