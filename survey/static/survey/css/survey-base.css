@@ -39,7 +39,6 @@
 	min-height: 250px;
 	margin-top: 10px;
     width: 90%;
-    margin: 10px auto;
 }
 .qs .row {
     margin: 0;
@@ -215,7 +214,7 @@
     line-height: 40px;
 }
 .add-qs-subtitle-1 {
-    padding: 10px 0;
+    padding: 15px 0 10px 0;
 }
 .qs-add-content form {
     background-color: #bdbdbd; 
@@ -224,16 +223,10 @@
     border-radius: 7px;
     min-height: 150px;
 }
-.short-text-wrapper {
-    padding: 10px 0;
-}
 .short-text-wrapper input[type=text] {
     width: 300px;
     border-radius: 5px;
     line-height: 25px;
-}
-.add-qs-1-typelist {
-    padding: 12px 0;
 }
 .radio-label-wrapper {
     display: inline-block;
@@ -244,6 +237,7 @@
 }
 .form-inner {
     border-bottom: 1px solid #939393;
+    padding-bottom: 12px;
 }
 .form-footer {
     padding: 10px 0;
