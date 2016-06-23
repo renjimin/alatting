@@ -1,5 +1,136 @@
 <ion-view view-title="海报编辑" >
-	<ion-content>
-		海报编辑
-	</ion-content>
+    <div class="bar-header bar edit-bar-header">
+        <a href="javascript:void(0)"  class="btn-back back-to-home" data-url="{% url 'website:mobile_poster_index' %}">
+            <i class="icon-back"></i>
+        </a>
+        <button class="button button-clear btn-page">
+            <i class="ico-pages"></i>
+        </button>
+        <div class="title header-bar-title">
+            <p id="logo_title"></p>
+        </div>
+        <div class="top-btn">
+            <button class="btn btn-bg">换肤</button>
+            <button class="btn btn-save">保存</button>
+            <button class="btn btn-post">发布</button>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+    <header class="header">
+        <div class="mask" style="height: 100%;width: 100%;position: absolute;z-index: 10;"></div>
+        <div class="header-bar">
+            <div class="header-qrcode">
+                <div class="qrcode-inner">
+                    <div class="qrcode">
+                        <a href="javascript:void(0);" class="btn">
+                            <img src="{% url 'website:code_poster' poster.id %}"/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="header-logo">
+               
+            </div>
+            <div class="header-abutton">
+                <div class="abutton-inner" id="abutton">
+                    <div class="btn-circle" style="display:none;"></div>
+                    <div class="abutton-internal" style="position: absolute;z-index: 30;">
+                        <a class="abtn" href="javascript:void(0);"><i class="icon fa fa-bars"></i></a>
+                    </div>
+                    <ul class="abutton-group abutton-contact">
+                        <li><a href="#"><i class="icon ico-phone"></i></a></li>
+                        <li><a href="#"><i class="icon ico-email"></i></a></li>
+                        <li><a href="#"><i class="icon ico-address"></i></a></li>
+                        <li><a href="#"><i class="icon ico-clock"></i></a></li>
+                    </ul>
+                    <ul class="abutton-group abutton-express">
+                        <li><a href="#"><i class="icon ico-like"></i></a></li>
+                        <li><a href="#"><i class="icon ico-bookmark"></i></a></li>
+                        <li><a href="#"><i class="icon ico-subscribe"></i></a></li>
+                        <li><a href="#"><i class="icon ico-fun"></i></a></li>
+                    </ul>
+                    <div style="display:none;width: 100%;height: 100%;position: absolute;z-index: 20;">
+                        <div style="width: 100%;height: 2px;background: #fff;transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg); -o-transform:rotate(45deg); transform-origin:left;-ms-transform-origin:left; -webkit-transform-origin:left;-moz-transform-origin:left;-o-transform-origin:left;left: 14%;top: 14%;position: absolute;"></div>
+                        <div style="width: 100%;height: 2px;background: #fff;transform:rotate(135deg);-ms-transform:rotate(135deg);-moz-transform:rotate(135deg);-webkit-transform:rotate(135deg); -o-transform:rotate(135deg);transform-origin:left;-ms-transform-origin:left; -webkit-transform-origin:left;-moz-transform-origin:left;-o-transform-origin:left;;left: 85%;top: 14%;position: absolute;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-info">
+            <div class="desc">
+                <span id="short_description" style="position: relative;z-index: 20;"></span>
+            </div>
+        </div>
+    </header>
+    <div id = "test" style="display: none"></div>
+    <div class = "audiolink"></div>
+    </div>
+
+
+
+
+
+    <div class="bar-footer bar">
+        <a class="tab-item dropdown-toggle" id="share-toggle"
+           href="javascript:void(0);" data-dropdown="share-panel">
+            <i class="icon ico-edit-text"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="rate-toggle"
+           href="javascript:void(0);" data-dropdown="rate-panel">
+            <i class="icon ico-edit-pic"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="feedback-toggle"
+           href="javascript:void(0);" data-dropdown="feedback-panel">
+            <i class="icon ico-edit-button"></i>
+        </a>
+        <a class="tab-item dropdown-toggle" id="export-toggle"
+           href="javascript:void(0);" data-dropdown="export-panel">
+            <i class="icon glyphicon glyphicon-music"></i>
+        </a>
+
+        <section class="dropdown-panel" id="share-panel">
+            <div class="share-group">
+                <a href="javascript:void(0);" class="tab-item share-text"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item share-edit"><i
+                        class="icon ico-text-space"></i></a>
+                <a href="javascript:void(0);" class="tab-item share-copy"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" class="tab-item share-delete"><i class="icon ico-recycle"></i></a>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="rate-panel">
+            <div class="share-group">
+                <a href="javascript:void(0);" onclick="openSystemimg()"
+                   class="tab-item"><i class="icon ico-systemimg"></i></a>
+                <a href="javascript:void(0);" onclick="uploadSystemimg()"
+                   class="tab-item"><i class="icon ico-systemimgs"></i></a>
+                <a href="javascript:void(0);" onclick="copySystemimg()"
+                   class="tab-item"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" onclick="deleteSystemimg()"
+                   class="tab-item"><i class="icon ico-recycle"></i></a>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="feedback-panel">
+            <div class="share-group">
+                <a href="javascript:void(0);" class="tab-item"
+                   onclick="editButtonBasic()"><i class="icon ico-text"></i></a>
+                <a href="javascript:void(0);" class="tab-item"
+                   onclick="editButtonBorder()"><i class="icon ico-input"></i></a>
+                <a href="javascript:void(0);" class="tab-item"
+                   onclick="copyButton()"><i class="icon ico-copy"></i></a>
+                <a href="javascript:void(0);" class="tab-item"
+                   onclick="deleteButton()"><i class="icon ico-recycle"></i></a>
+            </div>
+        </section>
+        <section class="dropdown-panel" id="export-panel">
+            <div class="share-group">
+                <a href="javascript:void(0);" class="tab-item" onclick="musiclinkButton()"><i
+                        class="icon ico-music-link"></i><span>音乐链接</span></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="musicbankButton()"><i
+                        class="icon ico-music-upload"></i><span>音乐库</span></a>
+                <a href="javascript:void(0);" class="tab-item" onclick="musicuploadButton()"><i
+                        class="icon ico-music-upload"></i><span>上传音乐</span></a>
+            </div>
+        </section>
+    </div>
 </ion-view>

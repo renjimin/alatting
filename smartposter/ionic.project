@@ -1,5 +1,10 @@
 {
   "name": "smartposter",
   "app_id": "",
-  "documentRoot": "src"
+  "documentRoot": "src",
+  "gulpStartupTasks": ["sass", "watch"],
+  "watchPatterns": [
+    "src/**/*",
+    "!src/lib/**/*"
+  ]
 }

@@ -7,6 +7,33 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: "/home",
     templateUrl: "apps/common/home.html"
   })
+  .state('home.homepage', {
+    url: "/homepage",
+    views:{
+      'home-page':{
+        templateUrl: "apps/common/homepage.html"
+      }
+    }
+    
+  })
+  .state('home.create', {
+    url: "/category",
+    views:{
+      'create-page':{
+        templateUrl: "apps/poster/category/category.html"
+      }
+    }
+    
+  })
+  .state('home.account', {
+    url: "/account",
+    views:{
+      'account-page':{
+        templateUrl: "apps/account/usercenter.html"
+      }
+    }
+    
+  })
   .state('list', {
     url: "/list",
     templateUrl: "apps/common/list.html"
@@ -14,12 +41,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 /* poster */
 app.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider  
-  .state('category', {
-    url: "/poster/category",
-    templateUrl: "apps/poster/category/category.html"
-    
-  })
+  $stateProvider
   .state('keywords', {
     url: "/poster/keywords",
     templateUrl: "apps/poster/keywords/keywords.html"
@@ -42,10 +64,6 @@ app.config(function($stateProvider, $urlRouterProvider) {
 /* account */
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
-  .state('usercenter', {
-    url: "/account/usercenter",
-    templateUrl: "apps/account/usercenter.html"    
-  })
   .state('login', {
     url: "/login",
     templateUrl: "apps/account/login.html"
