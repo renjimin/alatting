@@ -17,7 +17,7 @@
     gulp.task('default', ['sass']);
 
     gulp.task('sass', function (done) {
-        return gulp.src('./src/app.scss')
+        return gulp.src('./src/main.scss')
             .pipe(sass().on('error', sass.logError))
             .pipe(gulp.dest('./src'));
             //.pipe(minifyCss({
