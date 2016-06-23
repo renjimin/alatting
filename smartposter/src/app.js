@@ -7,6 +7,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: "/home",
     templateUrl: "apps/common/home.html"
   })
+  .state('list', {
+    url: "/list",
+    templateUrl: "apps/common/list.html"
+  })
 });
 /* poster */
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -27,6 +31,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
   .state('posteredit', {
     url: "/poster/edit",
     templateUrl: "apps/poster/edit/edit.html"
+  })
+  .state('postershow', {
+    url: "/poster/show",
+    templateUrl: "apps/poster/show/show.html"
   })
 
 
