@@ -1,6 +1,6 @@
-angular.module('smartPosterApp', ['ionic'])
+var app = angular.module('smartPosterApp', ['ionic']);
 
-.run(function($ionicPlatform) {
+app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -11,25 +11,24 @@ angular.module('smartPosterApp', ['ionic'])
       StatusBar.styleDefault();
     }
   });
-})
+});
 
-.config(function($stateProvider, $urlRouterProvider) {
-  $stateProvider
-    .state('tab', {
-    url: '/tab',
-    abstract: true,
-    templateUrl: 'templates/tabs.html'
-  })
+app.config(function($stateProvider, $urlRouterProvider) {
+  //$stateProvider
+  //  .state('poster', {
+  //  url: '/poster',
+  //  abstract: true,
+  //  templateUrl: 'apps/poster/index.html'
+  //});
 
-  .state('tab.dash', {
-    url: '/dash',
-    views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
-      }
-    }
-  });
+  //.state('poster.keyword', {
+  //  url: '/keyword',
+  //  views: {
+  //    'poster-keyword': {
+  //      templateUrl: 'apps/poster/keyword/keyword.html'
+  //    }
+  //  }
+  //});
 
   //$urlRouterProvider.otherwise('/tab/dash');
 
