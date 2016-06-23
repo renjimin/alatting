@@ -1,5 +1,65 @@
 var app = angular.module('smartPosterApp', ['ionic']);
 
+/* common */
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('home', {
+    url: "/home",
+    templateUrl: "apps/common/home.html"
+  })
+});
+/* poster */
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider  
+  .state('category', {
+    url: "/poster/category",
+    templateUrl: "apps/poster/category/category.html"
+    
+  })
+  .state('keywords', {
+    url: "/poster/keywords",
+    templateUrl: "apps/poster/keywords/keywords.html"
+  })
+  .state('basicinfo', {
+    url: "/poster/basicinfo",
+    templateUrl: "apps/poster/basicinfo/basicinfo.html"
+  })
+  .state('posteredit', {
+    url: "/poster/edit",
+    templateUrl: "apps/poster/edit/edit.html"
+  })
+
+
+});
+/* account */
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('usercenter', {
+    url: "/account/usercenter",
+    templateUrl: "apps/account/usercenter.html"    
+  })
+  .state('login', {
+    url: "/login",
+    templateUrl: "apps/account/login.html"
+  })
+  .state('regist', {
+    url: "/regist",
+    templateUrl: "apps/account/regist.html"
+  })
+
+});
+
+
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+  .state('api', {
+    url: "/api",
+    templateUrl: "apps/api.html"
+  })
+  $urlRouterProvider.otherwise("/api");
+
+});
+
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -13,23 +73,4 @@ app.run(function($ionicPlatform) {
   });
 });
 
-app.config(function($stateProvider, $urlRouterProvider) {
-  //$stateProvider
-  //  .state('poster', {
-  //  url: '/poster',
-  //  abstract: true,
-  //  templateUrl: 'apps/poster/index.html'
-  //});
 
-  //.state('poster.keyword', {
-  //  url: '/keyword',
-  //  views: {
-  //    'poster-keyword': {
-  //      templateUrl: 'apps/poster/keyword/keyword.html'
-  //    }
-  //  }
-  //});
-
-  //$urlRouterProvider.otherwise('/tab/dash');
-
-});
