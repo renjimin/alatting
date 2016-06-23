@@ -1,18 +1,22 @@
 # coding=utf-8
 from datetime import datetime, timedelta
 from django.conf import settings
+from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
 from rest_framework import status
+from rest_framework.authtoken.views import ObtainAuthToken
 
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, \
     ListAPIView, get_object_or_404, \
     RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_jwt.serializers import jwt_payload_handler, \
+    jwt_encode_handler
 from account.email import send_verify_email
 from account.models import Person, UserFriends, LoginMessage
 from account.serializers import AccountProfileSerializer, \
-    AccountFriendsListSerializer
+    AccountFriendsListSerializer, LoginSerializer
 from alatting_website.model.poster import Poster
 from alatting_website.model.resource import Image, Video, Music
 from alatting_website.serializer.edit_serializer import ImageSerializer, \
@@ -21,6 +25,25 @@ from poster.serializer.poster import PosterSerializer
 from survey.models import RunInfoHistory
 from utils.message import get_message
 from utils.userinput import what
+
+
+class LoginView(ObtainAuthToken):
+    serializer_class = LoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        return Response({'detail': 'login successful.', 'token': token})
+
+    def delete(self, request):
+        logout(request)
+        return Response({'detail': 'logout successful.'})
+
+auth_jwt_token = LoginView.as_view()
 
 
 class MessageView(APIView):

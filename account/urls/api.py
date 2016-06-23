@@ -5,10 +5,12 @@ from account.views.api import ProfileView, FriendsView, \
     MessageView, CheckMessageView, PostersServerListView, \
     PostersConsumerListView, ImageDetailView, \
     AudioDetailView, VideoDetailView, ImageListView, VideoListView, \
-    AudioListView
+    AudioListView, LoginView
 
 
 urlpatterns = [
+    url(r'^login$', LoginView.as_view(), name='login'),
+
     url(r'^send_message$', MessageView.as_view(), name='send_message'),
     url(r'^auth_message$', CheckMessageView.as_view(), name='auth_message'),
 
