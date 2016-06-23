@@ -1,4 +1,5 @@
 {
   "name": "smartposter",
-  "app_id": ""
+  "app_id": "",
+  "documentRoot": "src"
 }
