@@ -17,10 +17,10 @@ gulp.task('sass', function(done) {
   gulp.src('./src/app.scss')
     .pipe(sass())
     .on('error', sass.logError)
-    .pipe(gulp.dest('./src'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
+    .pipe(gulp.dest('./src/'))
+    // .pipe(minifyCss({
+    //   keepSpecialComments: 0
+    // }))
     //.pipe(rename({ extname: '.min.css' }))
     //.pipe(gulp.dest('./src/css'))
     .on('end', done);

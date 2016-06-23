@@ -9818,8 +9818,11 @@ a.button {
 body {
   font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
-img {
-  border: 0; }
+html {
+  display: none; }
 
 body {
   font-size: 18px; }
+
+html {
+  margin: 0; }
