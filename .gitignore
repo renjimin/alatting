@@ -14,7 +14,7 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
+# lib/
 lib64/
 parts/
 sdist/
@@ -75,4 +75,16 @@ target/
 frontend/build/
 frontend/bower_components/
 frontend/node_modules/
+frontend/helpers/
+frontend/hooks/
+frontend/platforms/
 api-config.js
+
+# smartposter frontend project
+smartposter/build/
+smartposter/bower_components/
+smartposter/node_modules/
+smartposter/helpers/
+smartposter/hooks/
+smartposter/platforms/
+smartposter/plugins/
