@@ -9814,3 +9814,12 @@ a.button {
   opacity: 0;
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
+
+body {
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+img {
+  border: 0; }
+
+body {
+  font-size: 18px; }
