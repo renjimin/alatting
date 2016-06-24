@@ -1,8 +1,8 @@
 @charset "utf-8";
 
 
-$server: 'http://192.168.253.128:8000';
-
+$server: 'http://www.yunye123.com:8000';
+@import "dateinfo.scss";
 
 
 /* CSS Document */
@@ -28,7 +28,7 @@ body{
 	-webkit-text-size-adjust:none;  
 }
 
-
+.poster-edit{
 /*icons*/
 
 .ico-pages,
@@ -1408,6 +1408,7 @@ body{
 #dp span input[type="text"] {
 	width: 100%;
 	padding: 10px;
+	display:inline;
 	border: 0;
 	background: none;
 	font-size: 16px;
@@ -1827,23 +1828,7 @@ body{
 	display: inline-block;
 }
 
-@media (min-width: 600px) and (max-width:769px) {
-	.bar-header,
-	.tabs,
-	.scroll-content,
-	.bar-footer,
-	.container-fluid,
-	body {
-		max-width: 768px;
-	}
-	.type-model,
-	#dp {
-		max-width: 768px;
-		width: 100%;
-		left: 0;
-		margin-left: 0;
-	}
-}
+
 
 #dpw_address {
 	padding: 3px;
@@ -1872,4 +1857,22 @@ body{
 	position: absolute;
 	z-index: 0;
 	background: #8d8d8d;
+}
+@media (min-width: 600px) and (max-width:769px) {
+	.bar-header,
+	.tabs,
+	.scroll-content,
+	.bar-footer,
+	.container-fluid,
+	body {
+		max-width: 768px;
+	}
+	.type-model,
+	#dp {
+		max-width: 768px;
+		width: 100%;
+		left: 0;
+		margin-left: 0;
+	}
+}
 }
