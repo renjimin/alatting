@@ -66,11 +66,11 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('login', {
     url: "/login",
-    templateUrl: "apps/account/login.html"
+    templateUrl: "apps/account/login/login.html"
   })
   .state('regist', {
     url: "/regist",
-    templateUrl: "apps/account/regist.html"
+    templateUrl: "apps/account/login/regist.html"
   })
 
 });
