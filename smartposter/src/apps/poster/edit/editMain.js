@@ -17,7 +17,7 @@ app.controller("editController",function($scope,$http){
 		url:"http://192.168.253.128:8000/api/v1/poster/posters/35",
 	}).success(function(res){
 		$scope.posterData = res;
-		console.log(res.phone);
+		console.log(res);
 	});
 
 	$scope.dropDown = function($event,offsetY){
