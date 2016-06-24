@@ -1,14 +1,8 @@
-<ion-view view-title="海报编辑" >
+<ion-view view-title="海报编辑" ng-controller="editController">
     <div class="bar-header bar edit-bar-header">
-        <a href="javascript:void(0)"  class="btn-back back-to-home" data-url="{% url 'website:mobile_poster_index' %}">
-            <i class="icon-back"></i>
-        </a>
-        <button class="button button-clear btn-page">
-            <i class="ico-pages"></i>
-        </button>
-        <div class="title header-bar-title">
-            <p id="logo_title"></p>
-        </div>
+        <a href="javascript:void(0)"  class="btn-back back-to-home" data-url="{% url 'website:mobile_poster_index' %}"><i class="icon-back"></i></a>
+        <button class="button button-clear btn-page"><i class="ico-pages"></i></button>
+        <div class="title header-bar-title"><p id="logo_title"></p></div>
         <div class="top-btn">
             <button class="btn btn-bg">换肤</button>
             <button class="btn btn-save">保存</button>
@@ -24,7 +18,7 @@
                 <div class="qrcode-inner">
                     <div class="qrcode">
                         <a href="javascript:void(0);" class="btn">
-                            <img src="{% url 'website:code_poster' poster.id %}"/>
+                            <img />
                         </a>
                     </div>
                 </div>
@@ -39,16 +33,10 @@
                         <a class="abtn" href="javascript:void(0);"><i class="icon fa fa-bars"></i></a>
                     </div>
                     <ul class="abutton-group abutton-contact">
-                        <li><a href="#"><i class="icon ico-phone"></i></a></li>
-                        <li><a href="#"><i class="icon ico-email"></i></a></li>
-                        <li><a href="#"><i class="icon ico-address"></i></a></li>
-                        <li><a href="#"><i class="icon ico-clock"></i></a></li>
-                    </ul>
-                    <ul class="abutton-group abutton-express">
-                        <li><a href="#"><i class="icon ico-like"></i></a></li>
-                        <li><a href="#"><i class="icon ico-bookmark"></i></a></li>
-                        <li><a href="#"><i class="icon ico-subscribe"></i></a></li>
-                        <li><a href="#"><i class="icon ico-fun"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon ico-phone" ng-click="dropDown($event,-8)" data-dropdown="dpw_phone"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon ico-email" ng-click="dropDown($event,15)" data-dropdown="dpw_email"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon ico-address" ng-click="dropDown($event,-8)" data-dropdown="dpw_address"></i></a></li>
+                        <li><a href="javascript:void(0);"><i class="icon ico-clock" ng-click="dropDown($event,15)" data-dropdown="dpw_clock"></i></a></li>
                     </ul>
                     <div style="display:none;width: 100%;height: 100%;position: absolute;z-index: 20;">
                         <div style="width: 100%;height: 2px;background: #fff;transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg); -o-transform:rotate(45deg); transform-origin:left;-ms-transform-origin:left; -webkit-transform-origin:left;-moz-transform-origin:left;-o-transform-origin:left;left: 14%;top: 14%;position: absolute;"></div>
@@ -133,4 +121,58 @@
             </div>
         </section>
     </div>
+
+
+
+
+    <section id="dp">
+        <ul id="dpw_phone">
+            <li><i class="fa fa-phone" aria-hidden="true"></i><span><input type="text" ng-model="posterData.phone"/> </span></li>
+            <li><i class="icon ico-mobile"></i><span><input type="text" ng-model="posterData.mobile"/></span></li>
+        </ul>
+        <ul id="dpw_email">
+            <li><i class="fa fa-envelope" aria-hidden="true"></i><span><input type="text" ng-model="posterData.email"/></span></li>
+        </ul>
+        <ul id="dpw_address">
+            <li><i class="icon ico-address"></i><span><input id="suggestId" type="text"/></span></li>
+            <div id="allmap" style="width: 100%;height: 40vh;"></div>
+        </ul>
+        <ul id="dpw_clock">
+            <div style="width: 100%;background: #ff0000;">
+                <div class='calender'><div class='calenderContent'><div class='calenderTable'>
+                <div class='getyear'>
+                    <a class='preMonth' id='preMonth'>上一月</a>
+                    <select id='year'></select>
+                    <select id='month'></select>
+                    <a class='nextMonth' id='nextMonth' style="float: right;">下一月</a>
+                    <i class="glyphicon glyphicon-transfer" style="font-size: 14px;border:none;float: right;background:transparent;margin:10px;width: auto;height: auto;"></i>
+                </div>
+                <div class='tablebg'>
+                    <table id='calender' class='calendertb' cellpadding='0' cellspacing='1'><tr bgcolor='#D6D6D6'><th class='weekend'>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th class='weekend noborder'>六</th></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2 noborder'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr><tr><td class='weekend2'></td><td></td><td></td><td></td><td></td><td></td><td class='weekend2'></td></tr></table>
+                </div>
+                <div class='dayinfo'>
+                    <input type="time">至<input type="time" >
+                    <div id="dateState" style="position: relative;width: 45px;display: inline-block;height: 35px;vertical-align: bottom;">
+                        <div class="toggle-line"></div><div class="toggle-btn"></div>
+                    </div>
+                </div>
+                </div></div></div>
+                <div class="weekly">
+                    <div style="width: 100%;height: 30px;background-color: #EBEBEB;">
+                        <i class="glyphicon glyphicon-transfer" style="font-size: 14px;border:none;float: right;background:transparent;margin:10px;width: auto;height: auto;"></i>
+                    </div>
+                    <table>
+                        <tr><td>周一</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                        <tr><td>周二</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                        <tr><td>周三</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                        <tr><td>周四</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                        <tr><td>周五</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                        <tr><td>周六</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                        <tr><td>周日</td><td><input type="time"></td><td>至</td><td><input type="time"></td><td style="width:45px;"><div class="toggle-line"></div><div class="toggle-btn"></div></td><td style="width:10px;"></td></tr>
+                    </table>
+                </div>
+            </div>
+        </ul>
+        <span class="arrow"></span>
+    </section>
 </ion-view>
