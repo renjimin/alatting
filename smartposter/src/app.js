@@ -44,21 +44,57 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('usercenter', {
     url: "/account/usercenter",
-    templateUrl: "apps/account/usercenter.html"    
+    templateUrl: "apps/account/ucenter/ucenter.html"
   })
-  .state('login', {
+  .state('userInfo', {
+    url: "/account/usercenter/userInfo",
+    templateUrl: "apps/account/ucenter/userInfo.html"
+  })
+  .state('server', {
+    url: "/account/usercenter/server",
+    templateUrl: "apps/account/ucenter/server.html"
+  })
+  .state('consumer', {
+    url: "/account/usercenter/consumer",
+    templateUrl: "apps/account/ucenter/consumer.html"
+  })
+  .state('myFavorite',{
+    url: "/account/usercenter/myFavorite",
+    templateUrl: "apps/account/ucenter/myFavorite.html"
+  })
+  .state('feedback',{
+    url: "/account/usercenter/feedback",
+    templateUrl: "apps/account/ucenter/feedback.html"
+  })
+  .state('editName',{
+    url: "/account/usercenter/editName",
+    templateUrl: "apps/account/ucenter/editName.html"
+  })
+  .state('userSet',{
+    url: "/account/usercenter/userSet",
+    templateUrl: "apps/account/ucenter/userSet.html"
+  })
+  .state('helpCenter',{
+    url: "/account/usercenter/helpCenter",
+    templateUrl: "apps/account/ucenter/helpCenter.html"
+  })
+  .state('aboutUs',{
+    url: "/account/usercenter/aboutUs",
+    templateUrl: "apps/account/ucenter/aboutUs.html"
+  })
+  .state('login',{
     url: "/login",
     templateUrl: "apps/account/login.html"
   })
-  .state('regist', {
+  .state('regist',{
     url: "/regist",
     templateUrl: "apps/account/regist.html"
-  })
-
+  });
+  $urlRouterProvider.otherwise("/api");
 });
 
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app.config(function($stateProvider,$urlRouterProvider) {
   $stateProvider
   .state('api', {
     url: "/api",

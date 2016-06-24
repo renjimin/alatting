@@ -1,0 +1,23 @@
+<ion-view view-title="编辑昵称">
+    <ion-header-bar align-title="center" class="bar-dark item-icon-left item-icon-right">
+        <i class="icon ion-ios-arrow-back" ng-click="$ionicGoBack()"></i>
+        <h1 class="title">编辑昵称</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="content-main" ng-controller="EditNameController">
+            <div class="list">
+                <div class="item item-icon-right">
+                    <label class="item-input">
+                        <input type="text" name="username" ng-model="username" placeholder="new name">
+                    </label>
+                    <i class="icon ion-ios-close-empty" ng-click="$clearName()"></i>
+                </div>
+            </div>
+            <div class="list">
+                <div class="item">
+                    <a clasas="button button-stable" href="javascript:;" ng-click="submitName()">确认</a>
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
