@@ -20,23 +20,9 @@ $ionicons-font-path: "lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "lib/ionic/scss/ionic.scss";
-
 @import "base.scss";
 
 @import "apps/common/home.scss";
-
-<<<<<<< HEAD
 @import "apps/poster/basicinfo/basicinfo.scss";
-=======
-
-
 @import "apps/poster/edit/poster-bass.scss";
-
 @import "apps/account/login/login.scss";
-
-
-@import "apps/common/poster-show.scss";
-
-
-
->>>>>>> 5b393b4f29ba0cec507b6ba3267b489649b4cd9d
