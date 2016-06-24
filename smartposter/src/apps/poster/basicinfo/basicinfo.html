@@ -1,5 +1,6 @@
 <ion-view view-title="基本信息">
   <ionic-content ng-controller="basicinfoCtl">
+  <form>
   	<div class="bar bar-header bar-dark">
         <h1 class="title">请输入基本信息</h1>
       </div>
@@ -7,35 +8,36 @@
   	<div class="content has-header">
         <div class="list">
           <label class="item item-input">
-            <span class="input-label">海报名称</span>
-            <input type="text" placeholder="请输入海报名称">
+            <span class="input-label"><i class="ion-document icontxt"></i>海报名称</span>
+            <input type="text" placeholder="请输入海报名称" ng-model="postname">
           </label>
 
           <label class="item item-input">
-            <span class="input-label">链接名称</span>
-            <input type="text" placeholder="请输入英文或数字">
+            <span class="input-label"><i class="ion-link icontxt"></i>链接名称</span>
+            <input type="text" placeholder="请输入英文或数字" ng-model="postslug">
           </label>
 
   		<label class="item item-input">
-            <span class="input-label">海报简述</span>
-            <textarea placeholder="请输入海报简述"></textarea>
+            <span class="input-label"><i class="ion-clipboard icontxt"></i>海报简述</span>
+            <textarea placeholder="请输入海报简述" class="txtdesc" ng-model="postdesc"></textarea>
           </label>
 
 
           <label class="item item-input">
-            <span class="input-label">固定电话</span>
-            <input type="text" placeholder="请输入固定电话">
+            <span class="input-label"><i class="ion-ios-telephone-outline icontxt"></i>固定电话</span>
+            <input type="text" placeholder="请输入固定电话" ng-model="posttel">
           </label>
 
           <label class="item item-input">
-            <span class="input-label">手机</span>
-            <input type="text" placeholder="请输入手机号码">
+            <span class="input-label"><i class="ion-android-phone-portrait icontxt"></i>手机</span>
+            <input type="text" placeholder="请输入手机号码" ng-model="postphone">
           </label>
 
         </div>
         <div class="padding">
-          <button class="button button-block button-positive">登录</button>
+          <button class="button button-block button-positive" ng-click="submitform()">确认</button>
         </div>
       </div>
+      </form>
   </ionic-content>
 </ion-view>
