@@ -1,0 +1,97 @@
+*{padding:0; margin:0}
+.calender{ width:100%; top:0; left:0; border:4px #D6D6D6 solid; background:#EBEBEB; z-index:999;}
+.calendertb{width:100%;}
+.calendertb td{width:35px;height: 4vh;max-height: 35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
+.calendertb td.weekendhover{background:#D6D6D6;}
+.calendertb th{width:35px; height:30px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; color:#979797; }
+.tdtoday{ background:#0080FF;color:#fff;width:35px; height:35px;border:1px #CCCCCC solid; text-align:center; vertical-align:middle; cursor:pointer; font-size:14px; font-weight:bold;}
+.getyear{ height:35px; line-height:35px; width:100%; text-align:center;}
+.preMonth{ font-size:14px; font-weight:bold; cursor:pointer; margin-right:18px;color:#0080FF;float: left;}
+.nextMonth{ font-size:14px; font-weight:bold; cursor:pointer; margin-left:18px;color:#0080FF;float: right;}
+.mh_date{width:249px; height:20px; line-height:20px; padding:5px; border:2px #AA9FFF solid; cursor:pointer; background:url(dateIco.png) no-repeat right center;}
+.zhezhao{width:100%; height:100%; position:fixed; z-index:998;	background:#fff;filter:alpha(opacity=10);opacity:0.1; display:none; }
+.calender select{border:none;background: transparent;}
+.dayinfo{line-height: 35px;background: transparent;}
+.dayinfo input{height: 35px;line-height: 35px;background: transparent;display:inline;}
+.dayinfo input{border:none;padding-left: 15px;}
+.calendertb td.special{background: #0080FF}
+.calendertb td.off{background: #cccccc}
+.calendertb td.hover{border:2px solid #ff0000;}
+
+.weekly{
+	display: none;
+	border: 4px #D6D6D6 solid;
+	width: 100%;
+	background: #EBEBEB;
+}
+.weekly table{
+	width: 100%;
+}
+.weekly table tr{
+	height: 30px;
+	width: 100%;
+	border:1px #CCCCCC solid;
+}
+.weekly table td{
+	text-align: center;
+	position: relative;
+	height: 4vh;
+	max-height: 35px;
+}
+.weekly table tr td:nth-child(1){
+	border:1px #CCCCCC solid;
+	width: 40px;
+}
+.weekly table tr td:nth-child(3){
+	padding-right: 20px;
+}
+
+#contact_pannel .toggle-line , #dpw_clock .toggle-line{
+	width: 45px;
+	height: 18px;
+	background-color: #fff;
+	border-radius:20px;
+	margin: auto;
+	transition: background-color .2s;
+	box-shadow: 1px 1px 1px #999 inset;
+}
+#contact_pannel td.off .toggle-line,#dateState.off .toggle-line{
+	background-image: -webkit-linear-gradient(top,#fff 0,#e0e0e0 100%);
+}
+#contact_pannel td.off .toggle-line:after, #dateState.off .toggle-line:after ,#dpw_clock td.off .toggle-line:after {
+	content: "off";
+	left: 20px;
+	position: absolute;
+	line-height: 18px;
+}
+#contact_pannel .toggle-line:after , #dateState .toggle-line:after, #dpw_clock .toggle-line:after  {
+	content: "on";
+	position: absolute;
+	left: 4px;
+	line-height: 18px;
+}
+#contact_pannel .toggle-btn , #dpw_clock .toggle-btn{
+	width: 20px;
+	height: 20px;
+	background-color: #fff;
+	border-radius:100%;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left:100%;
+	margin:auto;
+	margin-left: -20px;
+	transition: margin-left .2s ,left .2s;
+	box-shadow: 1px 1px 1px #999;
+}
+#contact_pannel td.off .toggle-btn,#dateState.off .toggle-btn ,#dpw_clock td.off .toggle-btn{
+	left: -1px;
+	margin-left: 0px;
+}
+.weekly table td input{
+	background: transparent;
+	border:none;
+}
+#dateState .toggle-line{
+	margin-top: 8.5px;
+}
