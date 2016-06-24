@@ -23,3 +23,24 @@
 	display:block;
 	color:#666;
 }
+
+.home-posters{
+	overflow:hidden;
+}
+.home-posters .poster-item{
+	width:50%;
+	padding-bottom:50%;
+	float:left;
+	position:relative;
+}
+.home-posters .wraper{
+	position: absolute;
+	width:90%;
+	height:90%;
+	top:5%;
+	left:5%;
+	overflow:hidden;
+}
+.home-posters .poster-item img{
+	width:100%;
+}

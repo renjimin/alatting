@@ -1,5 +1,35 @@
 <ion-view view-title="登录">
 	<ion-content>
-		登录
+	    <div  class="login" id="btnLogin" autocomplete="off">
+	        <div class="centerdiv">
+	            <img src="{% static 'account/img/yunye.png' %}">
+	        </div>
+	        <ul class="list-login">
+	            <li class="item-input" style="position:relative;">
+	                <i class="ion-person""></i>
+	                <input type="text" name="username" id="id_username"
+	                       placeholder="邮箱号">
+	            </li>
+	            <li class="item-input">
+	                <i class="ion-locked"></i>
+	                <input type="password" name="password" id="id_password"
+	                       placeholder="密码" required>
+	            </li>
+
+	        </ul>
+	        <button type="button" class="button button-cal"
+	                id="btnok">登 入
+	        </button>
+	        <a href="{% url 'account:register' %}"
+	           class="button button-balanced">
+	            注 册
+	        </a>
+	        <div class="item-checkbox">
+	            <label for="btnchk">
+	                <input type="checkbox" checked="checked" class="logincheckbox" id="btnchk"> 记住密码
+	            </label>
+	            <a href="" class="fotgetpwd">忘记密码?</a>
+	        </div>
+	    </div>
 	</ion-content>
 </ion-view>

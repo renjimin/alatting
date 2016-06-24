@@ -2,4 +2,727 @@
 	<ion-content>
 		海报展示
 	</ion-content>
-</ion-view>
+</ion-view><div class="body-container">
+    
+    <div class="bar-header bar edit-bar-header">
+    <a href="/mobile/" class="btn-back">
+        <i class="icon-back"></i>
+    </a>
+    
+    <div class="title header-bar-title">
+        <p>沸点  Boiling Point</p>
+    </div>
+    <button class="button button-clear btn-music header-music" id="music">
+        <i class="ico-music "></i>
+        <audio id="background_music" hidden loop="true">
+          <source src="" type="audio/mpeg">
+          您的浏览器不支持音频资源
+        </audio>
+    </button>
+</div>
+
+    
+        <div class="container-fluid">
+            
+    
+<header class="header">
+    <div class="header-bar">
+        <div class="header-qrcode">
+            <div class="qrcode-inner">
+                <div class="circle"></div>
+                <div class="qrcode">
+                    <a href="javascript:void(0);" class="btn">
+                        <img src="/api/poster/273/qr_code/"/>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="header-logo">
+            <h2 style="display: none;" id="header-logo-text"></h2>
+            <img style="display: inline-block;margin: auto;" src="/media/images/2016/06/17/dbb3910905d045b69683ba9afde42128.png">
+        </div>
+        <div class="header-abutton">
+            <div class="abutton-inner" id="abutton">
+                <div class="btn-circle" style="display:none;"></div>
+                <div class="abutton-internal" style="position: absolute;z-index: 30;">
+                    <a class="abtn abutton-trigger" href="javascript:void(0); "  expressed="false"><i class="icon fa fa-bars"></i></a>
+                </div>
+                <ul class="abutton-group abutton-contact">
+                    <li><a href="#" class="abutton-contact" extended="false" for="phone"><i class="icon ico-phone"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="email"><i class="icon ico-email"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="location"><i class="icon ico-address"></i></a></li>
+                    <li><a href="#" class="abutton-contact" extended="false" for="hour"><i class="icon ico-clock"></i></a></li>
+                </ul>
+                <ul class="abutton-group abutton-express" >
+                    <li>
+                        <a href="#" class="abutton-like">
+                            
+                                <i class="icon ico-like"></i>
+                            
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="abutton-bookmark">
+                            
+                                <i class="icon ico-bookmark"></i>
+                            
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="abutton-subscribe">
+                            
+                                <i class="icon ico-subscribe"></i>
+                            
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="abutton-fun">
+                            
+                                <i class="icon ico-fun"></i>
+                            
+                        </a>
+                    </li>
+                </ul>
+                <div style="display:none;width: 100%;height: 100%;position: absolute;z-index: 20;">
+                    <div style="width: 100%;height: 2px;background: #fff;transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-webkit-transform:rotate(45deg); -o-transform:rotate(45deg); transform-origin:left;-ms-transform-origin:left; -webkit-transform-origin:left;-moz-transform-origin:left;-o-transform-origin:left;left: 14%;top: 14%;position: absolute;"></div>
+                    <div style="width: 100%;height: 2px;background: #fff;transform:rotate(135deg);-ms-transform:rotate(135deg);-moz-transform:rotate(135deg);-webkit-transform:rotate(135deg); -o-transform:rotate(135deg);transform-origin:left;-ms-transform-origin:left; -webkit-transform-origin:left;-moz-transform-origin:left;-o-transform-origin:left;;left: 85%;top: 14%;position: absolute;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-info">
+        <div class="desc header-description">
+            <span id="short_description" style="position: relative;z-index: 20;">让您口齿留香的精緻美味，就是沸点坚持的道地台湾味！</span>
+        </div>
+    </div>
+</header>
+<div class="info-toggle">
+    <div class="contact-info phone">
+        <a class="abutton-contact-info" href="tel://13800138000#mp.weixin.qq.com">
+            13800138000<i class="icon ico-phone"></i>
+        </a>
+    </div>
+    <div class="contact-info email">
+        <a class="abutton-contact-info" href="mailto:123456@qq.com?subject=To: &body=%0Aquote%3A%0A%22%E8%AE%A9%E6%82%A8%E5%8F%A3%E9%BD%BF%E7%95%99%E9%A6%99%E7%9A%84%E7%B2%BE%E7%B7%BB%E7%BE%8E%E5%91%B3%EF%BC%8C%E5%B0%B1%E6%98%AF%E6%B2%B8%E7%82%B9%E5%9D%9A%E6%8C%81%E7%9A%84%E9%81%93%E5%9C%B0%E5%8F%B0%E6%B9%BE%E5%91%B3%EF%BC%81%0Ahttp%3A%2F%2Fwww.yunye123.com%2Fmobile%2Fposters%2F273%2F%0A%22">
+            123456@qq.com<i class="icon ico-email"></i>
+        </a>
+    </div>
+    <div class="contact-info hour">
+        <a href="#" class="more-info">
+            <!-- <span class="poster-lifetime-status"> 休息 </span> -->
+            营业时间：09:00 - 17:00 <img src="/static/website/images/icons/more_icon.png" style="width: 30px;height: 30px;">
+        </a>
+    <div class="poster-top-inform-more" style="display: none;">
+        <table class="hours-more-details">
+            
+            <tr>
+                <th>周一</th>
+                <td>09:00 - 17:00</td>
+            </tr>
+            
+            <tr>
+                <th>周二</th>
+                <td>09:00 - 17:00</td>
+            </tr>
+            
+            <tr>
+                <th>周三</th>
+                <td>09:00 - 17:00</td>
+            </tr>
+            
+            <tr>
+                <th>周四</th>
+                <td>09:00 - 17:00</td>
+            </tr>
+            
+            <tr>
+                <th>周五</th>
+                <td>09:00 - 17:00</td>
+            </tr>
+            
+            <tr>
+                <th>周六</th>
+                <td>休息</td>
+            </tr>
+            
+            <tr>
+                <th>周日</th>
+                <td>休息</td>
+            </tr>
+            
+        </table>
+    </div>
+    </div>
+    <div class="contact-info location">
+        武汉光谷国际广场<i class="icon ico-address"></i>
+    </div>
+</div>
+<div style="position:absolute;width: 100%;z-index: 40;">
+    <div style="padding: 50px 5px 5px 5px;width: 100%;height:100%;z-index: 40;">
+        <div id="allmap" style="width: 100%;height: 100%;"></div>
+    </div>
+</div>
+<div class = "audiolink"></div>
+
+    
+        <div class="yunye-template" style="-webkit-transform:scale(1,1);-moz-transform:scale(1,1);-o-transform:scale(1,1);-ms-transform:scale(1,1);transform:scale(1,1);" data-page-id="301">
+<div class="content">
+
+ <div class="content-top-left slider-content"><div class="swiper-container swiper-container-horizontal"><div class="swiper-wrapper"><div class="swiper-slide swiper-no-swiping swiper-slide-active" id="slideImgWU_FILE_1466139699503_5" style="width: 137px;"><img src="/media/images/2016/06/17/77b0f9e21aa54865a978eead172b3900.png" width="205.62124711316397" height="209" data-id="WU_FILE_1466139699503_5" style="left: 0px; top: 0px; position: relative; width: 5.29469rem; height: 5.37179rem;"></div></div><div class="swiper-button-next swiper-button-disabled"></div><div class="swiper-button-prev swiper-button-disabled"></div></div></div>
+ <div class="content-top-middle slider-content"><div class="swiper-container swiper-container-horizontal"><div class="swiper-wrapper"><div class="swiper-slide swiper-no-swiping swiper-slide-active" id="slideImgWU_FILE_1466143875419_1" style="width: 414px;"><img src="/media/images/2016/06/17/5f8648894a3641e69b21c14055dab985.png" width="414" height="492" data-id="WU_FILE_1466143875419_1" style="left: 0rem; top: 0rem; position: relative; width: 16rem; height: 19.0145rem; transition: none; opacity: 1;"></div></div><div class="swiper-button-next swiper-button-disabled"></div><div class="swiper-button-prev swiper-button-disabled"></div></div></div>
+ <div class="content-top-right slider-content"><div class="swiper-container swiper-container-horizontal"><div class="swiper-wrapper"><div class="swiper-slide swiper-no-swiping swiper-slide-active" id="slideImgWU_FILE_1466139699503_6" style="width: 137px;"><img src="/media/images/2016/06/17/4e1bfc34d35841a0a32e7ecf626e4629.png" width="198" height="221.2941176470588" data-id="WU_FILE_1466139699503_6" style="left: 0px; top: 0px; position: relative; width: 5.29469rem; height: 5.90973rem;"></div></div><div class="swiper-button-next swiper-button-disabled"></div><div class="swiper-button-prev swiper-button-disabled"></div></div></div>
+
+ <!-- svg -->
+<svg class="clip-svg" preserveAspectRatio="none" width="0" height="0" viewBox="0 0 1 1">
+    <defs>
+    <clipPath id="content-top-left" clipPathUnits="objectBoundingBox">
+        <polygon points="0 0.15, 0.85 0, 1 0.85, 0.15 1"></polygon>
+    </clipPath>
+    <clipPath id="content-top-middle" clipPathUnits="objectBoundingBox">
+        <polygon points="0.24 0, 0.76 0, 0.76 0.37, 1 0.42,1 1,0 1,0 0.42,0.24 0.37"></polygon>
+    </clipPath>
+
+    <clipPath id="content-top-right" clipPathUnits="objectBoundingBox">
+        <polygon points="0.15 0, 1 0.15, 0.85 1, 0 0.85"></polygon>
+    </clipPath>
+    </defs>
+</svg>
+
+</div>
+<div class="cnd-element button-element sys-button" style="z-index: 52; top: 17.958rem; left: 7.144rem;"><div class="element-box" style="transition: all 0.2s;">    <div class="element-box-contents"><a class="element btn btn-default" href="/mobile/survey/answer/273/?role=creator" data-action="1" onclick="return posterDetail()" style="font-size: 0.7rem; font-family: 'Microsoft YaHei'; opacity: 1; box-shadow: rgb(0, 0, 0) 0px 0px 0px; border-radius: 4px; transform: rotate(0deg); border-style: solid; height: 1.29009rem; color: rgb(176, 167, 52); border-color: rgb(176, 183, 74); width: 2.70752rem; background: rgba(255, 255, 255, 0);" data-backgroundopacity="0">餐点</a></div></div><div class="nbar nbar-rotate nbar-radius"></div><div class="nbar nbar-line"></div><div class="nbar nbar-n"><div class="nbar-radius"></div></div><div class="nbar nbar-s"><div class="nbar-radius"></div></div><div class="nbar nbar-e"><div class="nbar-radius"></div></div><div class="nbar nbar-w"><div class="nbar-radius"></div></div><div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div><div class="nbar nbar-se nbar-radius"></div><div class="nbar nbar-sw nbar-radius"></div><div class="nbar nbar-ne nbar-radius"></div></div><div class="cnd-element button-element sys-button" style="z-index: 54; top: 17.8701rem; left: 10.6686rem;"><div class="element-box" style="transition: all 0.2s;">    <div class="element-box-contents"><a class="element btn btn-default" href="/mobile/survey/start/273/?role=consumer" data-action="2" onclick="return posterOrder()" style="font-size: 0.7rem; font-family: 'Microsoft YaHei'; opacity: 1; box-shadow: rgb(0, 0, 0) 0px 0px 0px; border-radius: 4px; transform: rotate(0deg); border-style: solid; height: 1.40827rem; color: rgb(176, 167, 52); border-color: rgb(153, 159, 64); width: 2.49623rem; background: rgba(255, 255, 255, 0);" data-backgroundopacity="0">特色</a></div></div><div class="nbar nbar-rotate nbar-radius"></div><div class="nbar nbar-line"></div><div class="nbar nbar-n"><div class="nbar-radius"></div></div><div class="nbar nbar-s"><div class="nbar-radius"></div></div><div class="nbar nbar-e"><div class="nbar-radius"></div></div><div class="nbar nbar-w"><div class="nbar-radius"></div></div><div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div><div class="nbar nbar-se nbar-radius"></div><div class="nbar nbar-sw nbar-radius"></div><div class="nbar nbar-ne nbar-radius"></div></div><div class="cnd-element systemimg-element" style="opacity: 1; z-index: 50; top: 17.7426rem; left: 2.79788rem;"><div class="element-box" style="transition: all 0.2s;">	<div class="element-box-contents">			<div class="element" style="width: 11.6276rem; height: 1.52309rem;"><img src="/media/images/2016/06/17/a980a31953ca4ee3ab93ba532ffe2274.png"></div></div></div><div class="nbar nbar-rotate nbar-radius"></div><div class="nbar nbar-line"></div><div class="nbar nbar-n"><div class="nbar-radius"></div></div><div class="nbar nbar-s"><div class="nbar-radius"></div></div><div class="nbar nbar-e"><div class="nbar-radius"></div></div><div class="nbar nbar-w"><div class="nbar-radius"></div></div><div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div><div class="nbar nbar-se nbar-radius"></div><div class="nbar nbar-sw nbar-radius"></div><div class="nbar nbar-ne nbar-radius"></div></div><div class="cnd-element button-element" style="z-index: 51; top: 17.9382rem; left: 3.72321rem;"><div class="element-box" style="transition: all 0.2s;">    <div class="element-box-contents"><a class="element btn btn-default" href="#" data-action="0" style="color: rgb(176, 167, 52); font-size: 0.7rem; font-family: 'Microsoft YaHei'; opacity: 1; box-shadow: rgb(0, 0, 0) 0px 0px 0px; border-radius: 3px; transform: rotate(0deg); border: 1px solid rgb(159, 166, 67); width: 2.81098rem; height: 1.26837rem; background: rgba(255, 255, 255, 0);" data-backgroundopacity="0">定位</a></div></div><div class="nbar nbar-rotate nbar-radius"></div><div class="nbar nbar-line"></div><div class="nbar nbar-n"><div class="nbar-radius"></div></div><div class="nbar nbar-s"><div class="nbar-radius"></div></div><div class="nbar nbar-e"><div class="nbar-radius"></div></div><div class="nbar nbar-w"><div class="nbar-radius"></div></div><div class="nbar nbar-nw nbar-radius nbar-edit"><i class="glyphicon glyphicon-pencil"></i> </div><div class="nbar nbar-se nbar-radius"></div><div class="nbar nbar-sw nbar-radius"></div><div class="nbar nbar-ne nbar-radius"></div></div></div>
+    
+
+        </div>
+    
+    
+    
+<div class="bottom-nav navbar-app navbar-absolute-bottom bar-footer">
+    <div class="bottom-ratio-frame center-block">
+        <div class="bottom-ratio-wrapper">
+            <div class="bottom-container">
+<!--                 <div class="text-center">
+                    <a class="btn btn-primary" href="/mobile/survey/answer/273/?role=creator" role="button">更多详情</a>
+                    
+                        <a class="btn btn-primary" href="/mobile/survey/start/273/?role=consumer" role="button">我要预约</a>
+                    
+                </div> -->
+                <div class="bottom-menu btn-group equal-justified">
+                    <div class="bottom-btn btn btn-navbar btn-icon-only"
+                         data-content='<div class="btn-group justified">
+                            <a href="mailto:?" onclick=&#39;shared("email")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/mail.jpg"></a>
+                            <a href="#" onclick=&#39;shared("wechat", "沸点  Boiling Point", "让您口齿留香的精緻美味，就是沸点坚持的道地台湾味！")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/wechat.jpg"></a>
+                            <a href="#" onclick=&#39;shared("qq", "沸点  Boiling Point", "让您口齿留香的精緻美味，就是沸点坚持的道地台湾味！")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/qq.jpg"></a>
+                            <a href="#" onclick=&#39;shared("qzone", "沸点  Boiling Point", "让您口齿留香的精緻美味，就是沸点坚持的道地台湾味！")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/qzone.jpg"></a>
+                            <a href="#" onclick=&#39;shared("weibo", "沸点  Boiling Point", "让您口齿留香的精緻美味，就是沸点坚持的道地台湾味！")&#39
+                            class="share-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/weibo.jpg"></a>
+                        </div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="/static/website/images/icons/share.png">
+                    </div>
+                    <!-- rating -->
+                    <div href="#"
+                         class="bottom-btn btn btn-navbar btn-icon-only"
+                         data-template='<div class="popover rate-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                         data-title='<div class="equal-justified rate-info">
+                             <div class="rate-totals">
+                                 <div class="rate-rating">0.0</div>
+                                 <input class="rating rating-average" type="number" readonly value="0" data-glyphicon="false" data-show-caption="false"
+                                 min=0 max=5 step=0.1>
+                                 <div class="rate-total"><img src="/static/website/images/icons/person_count.png"> &nbsp;
+                                 <span class="rating-count">0</span></div>
+                             </div>
+                             <div class="rate-levels">
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 5</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-five" style="width:30%;">
+                                        0
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 4</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-four" style="width:30%;">
+                                        0
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 3</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-three" style="width:30%;">
+                                        0
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 2</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-two" style="width:30%;">
+                                        0
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <div class="rate-level justified">
+                                    <div class="rate-level-label"><span class="rate-star">★</span> 1</div>
+                                    <div class="rate-progress">
+                                        <div class="rate-progress-bar rate-one" style="width:30%;">
+                                        0
+                                        </div>
+                                    </div>
+                                 </div>
+                             </div>
+                         </div>'
+                         data-content='<div class="rate-action">
+                            <input class="rating rate-rate" value="" type="number" data-glyphicon="false" data-show-caption="false"
+                             min=0 max=5 step=1>
+                        </div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="/static/website/images/icons/rate.png">
+                    </div>
+                    <!-- comments -->
+                    <div class="comments-btn bottom-btn btn btn-navbar btn-icon-only"
+                         data-template='<div class="popover" role="tooltip"><div style="display:none" class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                         data-content='<div></div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="/static/website/images/icons/feedback.png">
+                    </div>
+                    <!-- print -->
+                    <div class="bottom-btn btn btn-navbar btn-icon-only"
+                         data-content='<div class="btn-group justified">
+                            <a onclick=&#39;createScreenShotPDF()&#39
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/pdf.png"></a>
+                            <a onclick=&#39;createScreenShot()&#39
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/camera_roll.png"></a>
+                            <a onclick=&#39;printScreenShot()&#39 
+                            class="export-sub-btn icon-btn btn btn-navbar btn-icon-only">
+                                <img src="/static/website/images/icons/print_sub.png"></a>
+                        </div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="/static/website/images/icons/export.png">
+                    </div>
+                    <!-- stats -->
+                    <div class="stats-btn bottom-btn btn btn-navbar btn-icon-only"
+                         data-template='<div class="popover stats-submenu" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+                         data-title='<div class="stats-title">
+                             <img src="/static/website/images/icons/stats_small.png">
+                             <span class="stats-title-0"> 数据分析</span>
+                             <span class="stats-title-1" style="display:none"> 分数</span>
+                        </div>'
+                         data-content='
+
+<div>
+    <div class="stats-page-0">
+        <div class="stats-graph">
+            <div class="right-btn btn btn-icon-only"
+                 onclick="statsSwitchPage(arguments[0] || window.event, 1)">
+                <img alt="stats_arrow"
+                     src="/static/website/images/icons/stats_arrow.png">
+            </div>
+            <img class="left-dots"
+                 src="/static/website/images/icons/3_dots.png">
+            <img class="right-dots"
+                 src="/static/website/images/icons/3_dots.png">
+
+            <div class="stats-fun">
+                <div class="stats-graph-label">趣评</div>
+                <div class="doughnut" id="fun_change_percent"
+                     data-percent="100"
+                     data-inner-cutout="65" data-color="#65cefe"
+                     data-total1="3"
+                     data-background-color="#4d5154">
+                    <canvas class="doughnut-canvas"></canvas>
+                    <div class="doughnut-title">
+                        <p id="fun_score">
+                            0.0
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pop-credit">
+            <img class="dots"
+                 src="/static/website/images/icons/3_dots.png">
+
+            <div class="equal-justified">
+                <div class="stats-pop">
+                    <div class="doughnut" id="popular_change_percent"
+                         data-percent="100"
+                         data-inner-cutout="65" data-color="#ffe377"
+                         data-total1="20" data-background-color="#4d5154">
+                        <canvas class="doughnut-canvas"></canvas>
+                        <div class="doughnut-title">
+                            <p id="popular_score">
+                                6
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stats-graph-label">人气</div>
+                </div>
+                <div class="stats-credit">
+                    <div class="doughnut" id="credit_change_percent"
+                         data-percent="100"
+                         data-inner-cutout="65" data-color="#6ffee7"
+                         data-total1="3" data-background-color="#4d5154">
+                        <canvas class="doughnut-canvas"></canvas>
+                        <div class="doughnut-title">
+                            <p id="credit_score">
+                                0.0
+                            </p>
+                        </div>
+                    </div>
+                    <div class="stats-graph-label">信用</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-types">
+            <div class="equal-justified">
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="/static/website/images/icons/favorite.png">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="favorites_count">1</div>
+                                <div class="stats-type-increase">
+                                    <img src="/static/website/images/icons/up_arrow.png">
+                                    <span id="favortes_count_change">1</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="/static/website/images/icons/eye.png">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="views_count">34</div>
+                                <div class="stats-type-increase">
+                                    <img src="/static/website/images/icons/up_arrow.png">
+                                    <span id="views_count_change">34</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-hr"></div>
+
+            <div class="equal-justified">
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon">
+                            <img src="/static/website/images/icons/like.png">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="likes_count">0</div>
+                                <div class="stats-type-increase">
+                                    <img src="/static/website/images/icons/up_arrow.png">
+                                    <span id="likes_count_change">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="/static/website/images/icons/stats_share.png">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="shares_count">0</div>
+                                <div class="stats-type-increase">
+                                    <img src="/static/website/images/icons/up_arrow.png">
+                                    <span id="shares_count_change">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="stats-hr"></div>
+
+            <div class="equal-justified">
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon"><img
+                                src="/static/website/images/icons/fun.png">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="fun_count">0</div>
+                                <div class="stats-type-increase">
+                                    <img src="/static/website/images/icons/up_arrow.png">
+                                    <span id="fun_count_change">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="justified">
+                        <div class="stats-type-icon">
+                            <img src="/static/website/images/icons/rate_selected.png">
+                        </div>
+                        <div class="stats-type-sep"></div>
+                        <div class="stats-type-numbers">
+                            <div class="equal-justified">
+                                <div id="ratings_average">0.0</div>
+                                <div class="stats-type-increase">
+                                    <img src="/static/website/images/icons/up_arrow.png">
+                                    <span id="ratings_average_change">0.0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="stats-type-sep"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats-page-1 stats-overall">
+        <div class="left-btn btn btn-icon-only"
+             onclick="statsSwitchPage(arguments[0] || window.event, 0)">
+            <img alt="stats_arrow" class="stats_arrow_left"
+                 src="/static/website/images/icons/stats_arrow.png">
+        </div>
+        <div class="stats-score">
+            <div class="doughnut" id="score_change_percent"
+                 data-percent="100"
+                 data-inner-cutout="65" data-color="#ffe377" data-total1="3"
+                 data-background-color="#4d5154">
+                <canvas class="doughnut-canvas"></canvas>
+                <div class="doughnut-title">
+                    <p>
+                        
+                            <img class="medal"
+                                 src="/static/website/images/icons/medal_bronze.png">
+                        
+                    </p>
+                </div>
+            </div>
+            <div class="stats-graph-label">
+                
+                    <img class="cup"
+                         src="/static/website/images/icons/cup_bronze.png">
+                    <span>铜牌</span>
+                
+            </div>
+        </div>
+
+        <div class="equal-justified">
+            <div class="stats-score-name">
+                当前分数
+            </div>
+            <div class="stats-score-sep"></div>
+            <div class="stats-score-numbers">
+                <div class="equal-justified">
+                    <div id="overall_score">2</div>
+                    <div class="stats-score-increase">
+                        <img src="/static/website/images/icons/up_arrow.png">
+                        <span id="score_total_change">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stats-hr"></div>
+        <div class="equal-justified">
+            <div class="stats-score-name">
+                下个等级
+            </div>
+            <div class="stats-score-sep"></div>
+            <div class="stats-score-numbers" id="medal_next_score">
+                1000
+            </div>
+        </div>
+    </div>
+</div>'
+                         data-viewport='{"selector": ".bottom-container", "padding": 0}'
+                         data-toggle="sub-menu" data-placement="top"
+                         data-html="true"
+                         data-container=".bottom-container">
+                        <img alt="icon"
+                             src="/static/website/images/icons/stats.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function statsSwitchPage(event, index){
+            $('.stats-title-' + index).show();
+            $('.stats-page-' + index).css('visibility', 'visible');
+            $('.stats-title-' + (1 - index)).hide();
+            $('.stats-page-' + (1 - index)).css('visibility', 'hidden');
+            event.stopPropagation();
+        }
+    </script>
+    <!-- preload images -->
+    <div style="display: none;">
+        <img src="/static/website/images/icons/favorite.png">
+        <img src="/static/website/images/icons/fun.png">
+        <img src="/static/website/images/icons/like.png">
+        <img src="/static/website/images/icons/pdf.png">
+        <img src="/static/website/images/icons/email.png">
+        <img class="medal" src="/static/website/images/icons/medal_bronze.png">
+        <img class="medal" src="/static/website/images/icons/medal_silver.png">
+        <img class="medal" src="/static/website/images/icons/medal_gold.png">
+        <img class="medal" src="/static/website/images/icons/medal_diamond.png">
+    </div>
+</div>
+
+</div>
+
+
+
+    
+        
+
+<div id="comments-submenu" hidden class="scrollable comments-submenu" 
+     ng-init="init('/api/v1/posters/273/comments/')">
+    <div class="scrollable-content" ui-scroll-bottom="loadMore()">
+        <div class="poster-frame center-block">
+            <div>
+                <form novalidate class="justified comment has-error" name="form"
+                     onclick="var event = arguments[0] || window.event; event.stopPropagation();">
+                    <div class="comment-person">
+                        
+                            <img src="/static/website/images/icons/user.png" class="img-circle">
+                        
+                    </div>
+
+                    <div class="comment-text">
+                        <div class="bubble">
+                            <div class="bubble-wrapper">
+                                <div class="justified bubble-header">
+                                    <div class="bubble-title editing">
+                                        <input ng-model="comment.title" ng-maxlength="127" class="title-edit" name="title" required
+                                               placeholder="请输入标题">
+                                    </div>
+                                    <div class="bubble-time" style="display: none;">now</div>
+                                </div>
+
+                                <div class="bubble-content editing">
+                                    <textarea name="content" ng-model="comment.content" ng-maxlength="511" required
+                                              class="content-edit" placeholder="请输入评论内容"></textarea>
+
+                                    <div ng-click="create(form)"
+                                         class="icon-btn"
+                                         ng-disabled="form._creating">
+                                        <img src="/static/website/images/icons/save.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- dynamic comments -->
+                
+                <form novalidate class="justified comment" ng-repeat="comment in comments" name="form"
+                     ng-click="comment._edit == 'editing' && $event.stopPropagation()" ng-init="comment._form = $scope.$element">
+                    <div class="comment-person">
+                        <img ng-src="{{ comment.creator.person.avatar || '/static/website/images/icons/user.png' }}" class="img-circle">
+                    </div>
+
+                    <div class="comment-text">
+                        <div class="bubble">
+                            <div class="bubble-wrapper">
+                                <div class="justified bubble-header">
+                                    <div class="bubble-title" ng-class="{editing: comment._edit == 'editing'}"><span ng-if="comment._edit != 'editing'">{{ comment.title }}</span>
+                                        <input ng-if="comment._edit == 'editing'" ng-maxlength="127" ng-class=""
+                                               ng-model="comment.title" class="title-edit" name="title" required
+                                           placeholder="Please input the title">
+                                        </div>
+                                    <div ng-if="comment._edit != 'editing'" class="bubble-time">{{ comment.created_at }}</div>
+                                </div>
+
+                                <div class="bubble-content" ng-class="{editing: comment._edit == 'editing'}">
+                                    <div style="clear: right" ng-if="comment._edit != 'editing'"
+                                                                  class="content-display">{{ comment.content }}</div>
+                                    <textarea ng-if="comment._edit == 'editing'"  ng-maxlength="511"
+                                              ng-model="comment.content" name="content" required class="content-edit"
+                                              placeholder="please input the content"></textarea>
+
+                                    <div ng-if="comment._edit == 'editable'"
+                                         ng-click="startEdit(comment)"
+                                         ng-disabled="comment._deleting"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/edit.png">
+                                    </div>
+                                    <div ng-if="comment._edit == 'editable'" ng-click="delete(comment)"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._deleting"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/delete.png">
+                                    </div>
+                                    <div ng-if="comment._edit == 'editing'" ng-click="cancelEdit(comment)"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._updating"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/cancel.png">
+                                    </div>
+                                    <div ng-if="comment._edit == 'editing'" ng-click="update(this)"
+                                         onclick="var event = arguments[0] || window.event; event.stopPropagation();"
+                                         ng-disabled="comment._updating"
+                                         class="icon-btn btn btn-navbar btn-icon-only">
+                                        <img src="/static/website/images/icons/save.png">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                
+
+            </div>
+        </div>
+    </div>
+</div>

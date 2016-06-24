@@ -63,15 +63,16 @@ app.config(function($stateProvider, $urlRouterProvider) {
 });
 /* account */
 app.config(function($stateProvider, $urlRouterProvider) {
-    $stateProvider
-    .state('login', {
-        url: "/login",
-        templateUrl: "apps/account/login.html"
-    })
-    .state('regist', {
-        url: "/regist",
-        templateUrl: "apps/account/regist.html"
-    })
+  $stateProvider
+  .state('login', {
+    url: "/login",
+    templateUrl: "apps/account/login/login.html"
+  })
+  .state('regist', {
+    url: "/regist",
+    templateUrl: "apps/account/login/regist.html"
+  })
+
 
 });
 
