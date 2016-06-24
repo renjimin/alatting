@@ -73,38 +73,27 @@ app.controller('basicinfoCtl',function($scope, $ionicPopup,$stateParams,$http,$s
 	        return false;
 	}
 
-	
-	if (!postphone) {
+
+	var reg=/^1[3|4|5|8][0-9]\d{4,8}$/;	
+	if(!reg.test(postphone)){
 		$ionicPopup.alert({
 		title: '提示',
-		template: '手机号不能为空!!',
-			buttons: [{
-			text: '确定',
-			type: 'button-positive'
-			}]
+		template: '手机号格式不正确!',
+		buttons: [{
+		text: '确定',
+		type: 'button-positive'
+		}]
+		
 		});
-		 return false;
-	}else{
-		var reg=/^1[3|4|5|8][0-9]\d{4,8}$/;	
-		if(!reg.test(postphone)){
-			$ionicPopup.alert({
-			title: '提示',
-			template: '手机号格式不正确!',
-			buttons: [{
-			text: '确定',
-			type: 'button-positive'
-			}]
-			
-			});
-			
-			return false;
-		}
+		
+		return false;
 	}
 
 
 
-
 	}
+
+
 
 
 })

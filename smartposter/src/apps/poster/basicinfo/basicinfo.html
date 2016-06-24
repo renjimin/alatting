@@ -1,7 +1,8 @@
 <ion-view view-title="基本信息">
   <ionic-content ng-controller="basicinfoCtl">
-  <form>
+  <form action="" method="post">
   	<div class="bar bar-header bar-dark">
+        <button ng-click="$ionicGoBack()" class="button back-button buttons button-clear header-item"><i class="icon ion-ios-arrow-back"></i></button>
         <h1 class="title">请输入基本信息</h1>
       </div>
 
@@ -34,8 +35,8 @@
           </label>
 
            <label class="item item-input">
-            <span class="input-label"><i class="ion-android-phone-portrait icontxt"></i>地址</span>
-            <input type="text" placeholder="请输入地址" ng-model="postphone">
+            <span class="input-label"><i class="ion-android-pin icontxt"></i>地址</span>
+            <input type="text" placeholder="请输入地址">
           </label>
 
         </div>
