@@ -1,3 +1,46 @@
-body{
-	font-size:18px;
+.home-sliders{
+
+}
+.home-sliders img{
+	max-width:100%;
+}
+
+.home-sliders .slider-pager .slider-pager-page{
+	color:$basecolor;
+}
+
+.home-nav .col{
+	text-align:center;
+}
+.home-nav .i-item{
+	width:50px;
+	height:50px;
+	border-radius:50%;
+	display:inline-block;
+	background:#f4f4f4;
+}
+.home-nav .text{
+	display:block;
+	color:#666;
+}
+
+.home-posters{
+	overflow:hidden;
+}
+.home-posters .poster-item{
+	width:50%;
+	padding-bottom:50%;
+	float:left;
+	position:relative;
+}
+.home-posters .wraper{
+	position: absolute;
+	width:90%;
+	height:90%;
+	top:5%;
+	left:5%;
+	overflow:hidden;
+}
+.home-posters .poster-item img{
+	width:100%;
 }
